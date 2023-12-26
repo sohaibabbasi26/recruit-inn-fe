@@ -1,0 +1,37 @@
+.assessmentContainer {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary {
+    padding: 1.5rem;
+    background-color: #F8F7FA;
+    border-radius: 20px;
+    height: 50%;
+}
+
+.summary p::-webkit-scrollbar {
+    width: 6px;
+}
+
+.summary p::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.summary p {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    overflow-y: scroll;
+}
+
+.summary h4 {
+    margin: 0;
+}

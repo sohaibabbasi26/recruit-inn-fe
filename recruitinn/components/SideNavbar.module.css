@@ -1,0 +1,135 @@
+.masterContainer {
+    background-color: #fff;
+    width: 19%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 0.75rem;
+    overflow: hidden;
+}
+
+.mainContainer h3 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 1000;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.mainContainer h3 img {
+    margin-right: 0.5rem;
+}
+
+.logoContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mainContainer {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    /* margin-top: 1rem; */
+}
+
+.mainContainer h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ACA7BA;
+    margin: 0;
+    margin-top: 1.5rem;
+}
+
+.mainContainer ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #4A525D;
+    margin: 0;
+}
+
+.mainContainer ul li {
+    /* margin: 0.5rem; */
+    margin-top: 0.3rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 0;
+    padding: 0.5rem 1rem;
+}
+
+.listContainer {
+    width: 80%;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.profileTab {
+    display: flex;
+    width: 70%;
+    background-color: #F8F7FC;
+    padding: 1rem;
+    border-radius: 40px;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 1rem;
+    gap: 0.5rem;
+}
+
+.profileTab h4 span {
+    color: #170D23;
+}
+
+.profileTab h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.dashboardButton {
+    margin-top: 1rem;
+    background-color: #F0EDFC;
+    color: #6137DB;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    border-radius: 40px;
+}
+
+
+.dash {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.clicked {
+    transform: scale(0.95); 
+    background-color: #E8E6F3; 
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}

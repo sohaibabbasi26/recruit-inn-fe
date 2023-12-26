@@ -1,5 +1,12 @@
 import '@/styles/globals.css'
+import { ActiveItemProvider } from '../contexts/ActiveItemContext';
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  return (
+    <ActiveItemProvider>
+      <Component {...pageProps} />
+    </ActiveItemProvider>
+  );
 }
+
+export default MyApp;

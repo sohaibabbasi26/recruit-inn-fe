@@ -1,0 +1,82 @@
+.searchBar {
+    background-color: #F8F7FC;
+    width: 100%;
+    margin: 1rem 0 ;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.masterContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container{
+    height: 100%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container input{
+    content: attr(value);
+    border: none;
+    background-color: transparent;
+    color: #170D23;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.btnsDiv{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1rem;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.addJobBtn{
+    border: none;
+    background-color: #6137DB;
+    height: 100%;
+    padding: 0 2rem; 
+    border-radius: 40px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.notificationsBtn{
+    border: none;
+    background-color: #F8F7FC;
+    height: 100%;
+    padding: 0 2rem; 
+    border-radius: 40px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.searchInput{
+    display: flex;
+}
+
+.selectCategory select{
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    color: #170D23;
+    padding: 1rem;
+}
+
+.selectCategory select input{
+    color: #170D23;
+}

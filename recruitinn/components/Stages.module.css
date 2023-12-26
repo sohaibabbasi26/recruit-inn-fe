@@ -1,0 +1,46 @@
+.stagesContainer{
+    width: 60%;
+    margin-bottom: 1.5rem;
+}
+
+.stagesContainer ul{
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.stagesContainer ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    color: #ACA7BA;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ACA7BA;
+    border-radius: 30px;
+    min-width: 16%;
+    height: 10%;
+    text-transform: initial;
+}
+
+.stageLine {
+    height: 2px; 
+    background-color: #F4F1FC; 
+    width: 20%;
+}
+
+.active {
+    color: #6137DB;
+    padding: 1rem 2rem; 
+    border: 2px solid #6137DB;
+    border-radius: 30px;
+    height: 8%;
+}
+
+.active img{
+    color: #6137DB;
+}
+
