@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
 
 
-const SideNavbar = ({ navbarIte }) => {
+const AdminSideNavbar = ({ }) => {
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
 
@@ -44,30 +44,37 @@ const SideNavbar = ({ navbarIte }) => {
 
                     <div className={styles.listContainer}>
                         <div className={styles.list}>
-                            <h4>Jobs <Image src='/dropdown.svg' width={15} height={15} onClick={handleDropDownJobsToggle} /></h4>
+                            <h4>Clients <Image src='/dropdown.svg' width={15} height={15} onClick={handleDropDownJobsToggle} /></h4>
                             {isDropDownJobsToggle && (
                                 <ul>
                                     <li
                                         className={
-                                            activeItem === 'AllJobs' ?
+                                            activeItem === 'AllClients' ?
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('AllJobs')}>All <Image src='/Apps.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('AllClients')}>All <Image src='/Apps.svg' width={listItemSize} height={listItemSize} /></li>
+                                    <li
+                                        className={
+                                            activeItem === 'Request' ?
+                                                `${styles.dashboardButton} ${styles.active}`
+                                                : ''
+                                        }
+                                        onClick={() => handleItemClick('Request')}>Request<Image src='/CheckAlt.svg' width={listItemSize} height={listItemSize} /></li>
                                     <li
                                         className={
                                             activeItem === 'Active' ?
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('Active')}>Active<Image src='/CheckAlt.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('Active')}>Active<Image src='/Restrict.svg' width={listItemSize} height={listItemSize} /></li>
                                     <li
                                         className={
-                                            activeItem === 'Closed' ?
+                                            activeItem === 'In-Active' ?
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('Closed')}>Closed<Image src='/Restrict.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('In-Active')}>In-Active<Image src='/Restrict.svg' width={listItemSize} height={listItemSize} /></li>
                                 </ul>
                             )}
                         </div>
@@ -126,4 +133,4 @@ const SideNavbar = ({ navbarIte }) => {
     )
 }
 
-export default SideNavbar;
+export default AdminSideNavbar;

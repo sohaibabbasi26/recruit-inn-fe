@@ -4,7 +4,7 @@ import CandidateReports from './CandidateReports';
 import ClientList from './ClientsList';
 import Jobs from './Jobs';
 
-const Body = () => {
+const AdminBody = () => {
 
     const dummyData = [
 
@@ -56,16 +56,16 @@ const Body = () => {
             location: 'Karachi, Pakistan',
             status: 'Active'
         },
-    ]   
+    ]
 
     return (
         <>
             <div className={styles.body}>
-                <Jobs data={dummyData} />
-                <CandidateReports />
+                <ClientList />
+                <AdminCandRep />
             </div>
         </>
     )
 }
 
-export default Body;
+export default AdminBody;

@@ -27,7 +27,8 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 6,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Self'
     },
     {
         name: 'Jacob Jones',
@@ -57,8 +58,9 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
-        
+        filter : 'Recommended',
+        appliedThrough : 'Self'
+
     },
     {
         name: 'Jacob Jones',
@@ -88,7 +90,8 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 2,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     },
     {
         name: 'Jacob Jones',
@@ -118,7 +121,9 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -148,7 +153,9 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -178,7 +185,9 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 3,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -208,7 +217,9 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -238,7 +249,8 @@ const allCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 5,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Self'
     }
 ]
 
@@ -271,7 +283,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 5,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Self'
     },
     {
         name: 'Jacob Jones',
@@ -301,8 +314,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 6,
-        filter : 'Recommended'
-        
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     },
     {
         name: 'Jacob Jones',
@@ -332,7 +345,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 6,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Codaira'
     },
     {
         name: 'Jacob Jones',
@@ -362,7 +376,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 6,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     },
     {
         name: 'Jacob Jones',
@@ -392,7 +407,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 5,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Self'
     },
     {
         name: 'Jacob Jones',
@@ -422,7 +438,9 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 5,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Self'
+
     },
     {
         name: 'Jacob Jones',
@@ -452,7 +470,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 5,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Codaira'
     },
     {
         name: 'Jacob Jones',
@@ -482,7 +501,8 @@ const qualifiedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 6,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     }
 ]
 
@@ -515,7 +535,8 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     },
     {
         name: 'Jacob Jones',
@@ -545,8 +566,8 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 8,
-        filter : 'Recommended'
-        
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     },
     {
         name: 'Jacob Jones',
@@ -576,7 +597,8 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 7,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
     },
     {
         name: 'Jacob Jones',
@@ -606,7 +628,9 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 10,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -636,7 +660,9 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 7,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -696,7 +722,9 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -726,7 +754,9 @@ const recommendedCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 9,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     }
 ]
 
@@ -759,7 +789,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 3,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -789,7 +821,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 4,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
         
     },
     {
@@ -820,7 +854,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 1,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -850,7 +886,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 3,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -880,7 +918,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 0,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -910,7 +950,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 4,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -940,7 +982,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 3,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     },
     {
         name: 'Jacob Jones',
@@ -970,7 +1014,9 @@ const notEligibleCandidates = [
         overAllExperience : 'Senior',
         jobType : 'Remote',
         score: 2,
-        filter : 'Recommended'
+        filter : 'Recommended',
+        appliedThrough : 'Co-Ventech'
+
     }
 ]
 

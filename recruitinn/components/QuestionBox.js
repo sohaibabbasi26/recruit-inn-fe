@@ -1,16 +1,23 @@
 import styles from './QuestionBox.module.css';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { dummyQuestions } from '@/data/dummyQuestions';
+import { useRouter } from 'next/router';
 
 const QuestionBox = () => {
 
+    const router = useRouter();
     const questions = ['1', '2', '3', '4', '5'];
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [completedQuestions, setCompletedQuestions] = useState([]);
 
+    const [timeLeft, setTimeLeft] = useState(59);
 
-    // 
+    const isLastQuestion = currentQuestion === questions[questions.length - 1];
+
+    const submitTestHandler = () => {
+        router.push('/test-submit-completion')
+    }
 
     const toggleComponent = () => {
         setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
@@ -19,6 +26,22 @@ const QuestionBox = () => {
         const nextIndex = currentIndex + 1 < questions.length ? currentIndex + 1 : 0;
         setCurrentQuestion(questions[nextIndex]);
     }
+
+    useEffect(() => {
+        setTimeLeft(59)
+    },[currentQuestion])
+
+    useEffect(() => {
+        if (!timeLeft) {
+            toggleComponent(); 
+        }
+
+        const intervalId = setInterval(() => {
+            setTimeLeft(timeLeft - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [timeLeft]);
 
 
     return (
@@ -46,7 +69,7 @@ const QuestionBox = () => {
                         </ul>
                     </div>
 
-                    <span> <Image src='/timer.svg' width={20} height={20} /> 0:59</span>
+                    <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
                 </div>
 
                 {/* question container */}
@@ -78,13 +101,13 @@ const QuestionBox = () => {
 
                 {/*Record button */}
 
-                <button className={styles.recordBtn}><Image src='/mic.svg' width={30} height={30} />Click To Record Answer</button>
+                <button className={styles.recordBtn}><Image src='/mic.svg' width={20} height={20} />Click To Record Answer</button>
 
 
                 {/*lower container */}
                 <div className={styles.lowerContainer}>
-                    <button onClick={toggleComponent}>
-                        Next Question
+                    <button onClick={isLastQuestion ? submitTestHandler : toggleComponent}>
+                        {isLastQuestion ? 'Submit Test' : 'Next Question'}
                         <Image src='/forward.svg' width={20} height={20} />
                     </button>
                 </div>

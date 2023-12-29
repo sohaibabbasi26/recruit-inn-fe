@@ -16,7 +16,7 @@
 }
 
 .instructionsBox{
-    height: 50%;
+    height: 70%;
     width: 40%;
     background-color: #fff;
     border-radius: 20px;
@@ -27,12 +27,13 @@
 }
 
 .container{
-    width: 95%;
+    width: 90%;
     height: 95%;
 }
 
 .instructionsContainer{
-    height: 47%;
+    /* height: 50%; */
+    height: auto;
     width: 100%;
     background-color: #F8F7FA;
     border-radius: 20px;
@@ -45,15 +46,19 @@
 .instructionsContainer ul{
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     width: 100%;
 }
 
 .instructionsContainer ul li{
-    width: 100%;
+    width: 80%;
     display:  flex;
     align-items: center;
     border-bottom: 2px solid #EBEBEB;
+    padding: 1rem 0;
+    color: #4A525D;
+    font-size: 1.1rem;
 }
 
 .custom-bullets {
@@ -73,7 +78,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 40%;
+    height: 23%;
 }
 
 .lowerContainer button{
@@ -82,10 +87,10 @@
     background-color: #6137DB;
     color: #fff;
     border-radius: 30px;
-    height: 30%;
     width: 30%;
     font-size: 1rem;
     display: flex;
     justify-content: space-around;
-    ju
+    align-items: center;
+    padding: 1rem 0;
 }

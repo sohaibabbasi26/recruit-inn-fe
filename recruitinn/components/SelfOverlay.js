@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import styles from './Overlay.module.css';
+import styles from './InvitationOverlay.module.css';
 import Image from 'next/image';
 import Stages from './Stages';
-import AddSkillForm from './AddSkillForm';
-import RightBottomBtns from './RightBottomBtns';
-import JobType from './JobType';
-import JobTypeBtns from './JobTypeBtns';
-import AIassessment from './AIassesment';
-import AssessmentBtns from './AssessmentBtns';
-import ShareLink from './ShareLink';
 import { useRouter } from 'next/router';
-import ShareLinkBtns from './ShareLinkBtns';
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import PersonalInfo from './PersonalInfo';
+import PersonalInfoBtns from './PersonalInfoBtns';
+import CandidateVerify from './CandidateVerify';
+import CandidateVerifyBtns from './CandVerifyBtns';
+import CandSelfSkill from './CandSelfSkill';
+import CandSelfSkillBtns from './CandSelfSkillBtn';
+import CandSelfAssessment from './CandSelfAssessment';
+import CandSelfAssessmentBtns from './CandSelfAssessmentBtns';
 
-const Overlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
+const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const overlayRef = useRef(null);
 
@@ -48,7 +48,7 @@ const Overlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const router = useRouter();
     const infoSymbolSize = 20;
-    const [currentStage, setCurrentStage] = useState(stages.ADD_SKILL);
+    const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
     const [completedStages, setCompletedStages] = useState([]);
 
     const toggleComponent = () => {
@@ -62,17 +62,17 @@ const Overlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             router.push('/');
         } else {
             switch (currentStage) {
-                case stages.ADD_SKILL:
-                    setCurrentStage(stages.JOB_TYPE);
+                case stages.PERSONAL_INFO:
+                    setCurrentStage(stages.VERIFICATION);
                     break;
-                case stages.JOB_TYPE:
-                    setCurrentStage(stages.AI_ASSESSMENT);
+                case stages.VERIFICATION:
+                    setCurrentStage(stages.SKILLS);
                     break;
-                case stages.AI_ASSESSMENT:
-                    setCurrentStage(stages.SHARE_LINK);
+                case stages.SKILLS:
+                    setCurrentStage(stages.ASSESSMENT);
                     break;
                 default:
-                    setCurrentStage(stages.ADD_SKILL);
+                    setCurrentStage(stages.JOB_DETAIL);
             }
         }
     }
@@ -82,17 +82,14 @@ const Overlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         const stageToBePopped = completedStages.slice(0, -1);
         setCompletedStages(stageToBePopped);
         switch (currentStage) {
-            case stages.JOB_TYPE:
-                setCurrentStage(stages.ADD_SKILL);
+            case stages.VERIFICATION:
+                setCurrentStage(stages.PERSONAL_INFO);
                 break;
-            case stages.AI_ASSESSMENT:
-                setCurrentStage(stages.JOB_TYPE);
-                break;
-            case stages.SHARE_LINK:
-                setCurrentStage(stages.AI_ASSESSMENT);
+            case stages.SKILLS:
+                setCurrentStage(stages.VERIFICATION);
                 break;
             default:
-                setCurrentStage(stages.ADD_SKILL);
+                setCurrentStage(stages.JOB_DETAIL)
         }
     }
 
@@ -118,39 +115,41 @@ const Overlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
-                        {currentStage === stages.ADD_SKILL && (
+
+                        {currentStage === stages.PERSONAL_INFO && (
                             <>
-                                <AddSkillForm />
+                                <PersonalInfo />
                                 <div className={styles.wrapper}>
-                                    <RightBottomBtns onContinue={toggleComponent} onBack={backToggleComponent} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                    <PersonalInfoBtns onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
 
-                        {currentStage === stages.JOB_TYPE && (
+                        {currentStage === stages.VERIFICATION && (
                             <>
-                                <JobType />
+                                <CandidateVerify /> 
+                                {/* <RequiredSkills /> */}
                                 <div className={styles.wrapper}>
-                                    <JobTypeBtns onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
 
-                        {currentStage === stages.AI_ASSESSMENT && (
+                        {currentStage === stages.SKILLS && (
                             <>
-                                <AIassessment />
+                            <CandSelfSkill />
                                 <div className={styles.wrapper}>
-                                    <AssessmentBtns onContinue={toggleComponent} onBack={backToggleComponent} />
-                                </div>
+                                    <CandSelfSkillBtns onContinue={toggleComponent} onBack={backToggleComponent} />
+                                </div> 
                             </>
                         )}
 
-                        {currentStage === stages.SHARE_LINK && (
+                        {currentStage === stages.ASSESSMENT && (
                             <>
-                                <ShareLink />
+                                <CandSelfAssessment />  
                                 <div className={styles.wrapper}>
-                                    <ShareLinkBtns onContinue={toggleComponent} onBack={backToggleComponent} onClose={onClose} />
-                                </div>
+                                    <CandSelfAssessmentBtns onContinue={toggleComponent} onBack={backToggleComponent} />
+                                </div> 
                             </>
                         )}
 
@@ -162,4 +161,4 @@ const Overlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     )
 }
 
-export default Overlay;
+export default SelfOverlay;

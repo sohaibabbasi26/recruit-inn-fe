@@ -87,7 +87,7 @@ const stageHeadings = {
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       <div className={styles.clientPortal}>
-        <SideNavbar />
+        <SideNavbar  />
         {getActiveComponent()}
       </div>
     </>

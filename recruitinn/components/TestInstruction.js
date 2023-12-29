@@ -1,6 +1,7 @@
 import styles from './TestInstruction.module.css';
+import Image from 'next/image';
 
-const TestInstruction = () => {
+const TestInstruction = ({onClose}) => {
 
     return (
         <>
@@ -17,20 +18,18 @@ const TestInstruction = () => {
                                     Make sure your connection is stable.
                                 </li>
                                 <li>
-                                    Make sure your connection is stable.
-                                </li>
+                                Your score will reflect on your profile.                                </li>
                                 <li>
-                                    Make sure your connection is stable.
-                                </li>
+                                Your score will reflect on your profile.                                </li>
                                 <li>
-                                    Make sure your connection is stable.
-                                </li>
+                                Make sure there’s no background noise while answering the questions.                                </li>
                             </ul>
                         </div>
 
-                    <div className={styles.lowerContainer}>
-                         <button>Let's Start</button>
-                    </div>
+                        {/* closing button */}
+                        <div className={styles.lowerContainer}>
+                            <button onClick={onClose}>Let's Start <Image src='/forward.svg' width={15} height={15} /> </button>
+                        </div>
 
                     </div>
                 </div>

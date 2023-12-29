@@ -439,4 +439,151 @@ const allData = [
     }
 ]
 
-module.exports = {allData,activeData,closedData}
+const individualData = [
+    {
+        designation: 'Software Engineer',
+        noOfAppliedCand: 25,
+        techStack: [
+            {
+                skill: 'Django',
+                img: '/django.svg'
+            },
+            {
+                skill: 'C++',
+                img: '/c++.svg'
+            },
+            {
+                skill: 'Python',
+                img: '/Python.svg'
+            },
+            {
+                skill: 'AWS',
+                img: '/aws.svg'
+            },
+        ],
+        location: 'Karachi, Pakistan',
+        status: 'Closed'
+    },
+    {
+        designation: 'Software Engineer',
+        noOfAppliedCand: 25,
+        techStack: [
+            {
+                skill: 'Django',
+                img: '/django.svg'
+            },
+            {
+                skill: 'C++',
+                img: '/c++.svg'
+            },
+            {
+                skill: 'Python',
+                img: '/Python.svg'
+            },
+            {
+                skill: 'AWS',
+                img: '/aws.svg'
+            },
+        ],
+        location: 'Karachi, Pakistan',
+        status: 'Closed'
+    },
+    {
+        designation: 'Software Engineer',
+        noOfAppliedCand: 25,
+        techStack: [
+            {
+                skill: 'Django',
+                img: '/django.svg'
+            },
+            {
+                skill: 'C++',
+                img: '/c++.svg'
+            },
+            {
+                skill: 'Python',
+                img: '/Python.svg'
+            },
+            {
+                skill: 'AWS',
+                img: '/aws.svg'
+            },
+        ],
+        location: 'Karachi, Pakistan',
+        status: 'Closed'
+    },
+    {
+        designation: 'Software Engineer',
+        noOfAppliedCand: 25,
+        techStack: [
+            {
+                skill: 'Django',
+                img: '/django.svg'
+            },
+            {
+                skill: 'C++',
+                img: '/c++.svg'
+            },
+            {
+                skill: 'Python',
+                img: '/Python.svg'
+            },
+            {
+                skill: 'AWS',
+                img: '/aws.svg'
+            },
+        ],
+        location: 'Karachi, Pakistan',
+        status: 'Closed'
+    },
+    {
+        designation: 'Software Engineer',
+        noOfAppliedCand: 25,
+        techStack: [
+            {
+                skill: 'Django',
+                img: '/django.svg'
+            },
+            {
+                skill: 'C++',
+                img: '/c++.svg'
+            },
+            {
+                skill: 'Python',
+                img: '/Python.svg'
+            },
+            {
+                skill: 'AWS',
+                img: '/aws.svg'
+            },
+        ],
+        location: 'Karachi, Pakistan',
+        status: 'Closed'
+    },
+    {
+        designation: 'Software Engineer',
+        noOfAppliedCand: 25,
+        techStack: [
+            {
+                skill: 'Django',
+                img: '/django.svg'
+            },
+            {
+                skill: 'C++',
+                img: '/c++.svg'
+            },
+            {
+                skill: 'Python',
+                img: '/Python.svg'
+            },
+            {
+                skill: 'AWS',
+                img: '/aws.svg'
+            },
+        ],
+        location: 'Karachi, Pakistan',
+        status: 'Closed'
+    }
+]
+
+module.exports = {allData,activeData,closedData,individualData}
