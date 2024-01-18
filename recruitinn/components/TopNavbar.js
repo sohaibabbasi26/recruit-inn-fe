@@ -17,9 +17,7 @@ const TopNavbar = () => {
                             <input type='text' value="Search..." />
                         </div>
 
-
                         <div className={styles.selectCategory}>
-                            <input type ="text" />
                             <select>
                                 <option>Candidates</option>
                                 <option>Jobs</option>
@@ -27,8 +25,6 @@ const TopNavbar = () => {
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </>
     )

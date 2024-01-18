@@ -7,8 +7,11 @@ import CandidatesHub from './CandidatesHub';
 import ClientReqHub from './ClientReqHub';
 import CandRepHub from './CandRepHub';
 import ClientJobs from './ClientsJobs';
+import AdminTopNavbar from './AdminTopNavbar';
+import { useState } from 'react';
 
 const AdminSuper = ({
+    allClients,
     inActiveClientsData,
     activeClientsData,
     allClientsData,
@@ -28,12 +31,19 @@ const AdminSuper = ({
     toggleOverlay,
     setSelectedJob,
     onOpen,
-    individualData
+    individualData,
+    setShowOverlay,
+    setData,
+    data
 }) => {
 
-    const activeItem = useActiveItem();
+
     const iconSize = 15;
     const bellIconSize = 20;
+
+    const openAddClientHandler = () => {
+        setShowOverlay(true)
+    }
 
     return (
         <>
@@ -41,39 +51,39 @@ const AdminSuper = ({
 
                 <div className={styles.topContainer}>
                     <div className={styles.searchContainer}>
-                        <TopNavbar />
+                        <AdminTopNavbar />
                     </div>
                     <div className={styles.btnsDiv}>
-                        <button className={styles.addJobBtn} onClick={toggleOverlay}><Image src='/Add.svg' width={iconSize} height={iconSize} />  Create A Job</button>
+                        <button className={styles.addJobBtn} onClick={openAddClientHandler}><Image src='/Add.svg' width={iconSize} height={iconSize} />  Create A Client</button>
                         <button className={styles.notificationsBtn}><Image src="/BellIcon.svg" width={bellIconSize} height={bellIconSize} /></button>
                     </div>
                 </div>
 
                 {allData ? (
-                    <JobsHub data={allData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                    <JobsHub  data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : activeData ? (
-                    <JobsHub data={activeData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                    <JobsHub data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : closedData ? (
-                    <JobsHub data={closedData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                    <JobsHub data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : allCandidates ? (
-                    <CandRepHub data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : recommendedCandidates ? (
-                    <CandRepHub data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub heading='Recommended Candidates' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : qualifiedCandidates ? (
-                    <CandRepHub data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub heading='Qualified Candidates' data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : notEligibleCandidates ? (
-                    <CandRepHub data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub heading='Not Eligible Candidates' data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : reqData ? (
-                    <ClientReqHub data={reqData} onOpen={onOpen} />
-                ) : allClientsData ? (
-                    <ClientReqHub data={allClientsData} />
+                    <ClientReqHub heading='Client Requests' dataToBeSet={data} setData={setData} data={reqData} onOpen={onOpen} />
+                ) : allClients ? (
+                    <ClientReqHub heading='All Clients' dataToBeSet={data} setData={setData} data={allClients} />
                 ) : activeClientsData ? (
-                    <ClientReqHub data={activeClientsData} />
+                    <ClientReqHub heading='Active Clients' setData={setData} dataToBeSet={data} data={activeClientsData} />
                 ) : inActiveClientsData ? (
-                    <ClientReqHub data={inActiveClientsData} />
-                ) : individualData ? (
-                    <ClientJobs data={individualData} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
-                ): ''
+                    <ClientReqHub heading='In-Active Clients' setData={setData} dataToBeSet={data} data={inActiveClientsData} />
+                ) : data ? (
+                    <ClientJobs heading='In-Active Clients' setData={setData} data={data} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
+                ) : ''
                 }
 
             </div>

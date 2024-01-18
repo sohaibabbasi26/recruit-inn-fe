@@ -25,7 +25,7 @@ const AdminSideNavbar = ({ }) => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
 
-    const listItemSize = 25;
+    const listItemSize = 18;
     const logoSize = 30
 
     return (
@@ -53,28 +53,28 @@ const AdminSideNavbar = ({ }) => {
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('AllClients')}>All <Image src='/Apps.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('AllClients')}>All <Image src='/All.svg' width={listItemSize} height={listItemSize} /></li>
                                     <li
                                         className={
                                             activeItem === 'Request' ?
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('Request')}>Request<Image src='/CheckAlt.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('Request')}>Request<Image src='/Request.svg' width={listItemSize} height={listItemSize} /></li>
                                     <li
                                         className={
                                             activeItem === 'Active' ?
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('Active')}>Active<Image src='/Restrict.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('Active')}>Active<Image src='/Active.svg' width={listItemSize} height={listItemSize} /></li>
                                     <li
                                         className={
                                             activeItem === 'In-Active' ?
                                                 `${styles.dashboardButton} ${styles.active}`
                                                 : ''
                                         }
-                                        onClick={() => handleItemClick('In-Active')}>In-Active<Image src='/Restrict.svg' width={listItemSize} height={listItemSize} /></li>
+                                        onClick={() => handleItemClick('In-Active')}>In-Active<Image src='/In-Active.svg' width={listItemSize} height={listItemSize} /></li>
                                 </ul>
                             )}
                         </div>
@@ -90,7 +90,7 @@ const AdminSideNavbar = ({ }) => {
                                     }
                                     onClick={() => handleItemClick('All')}
 
-                                >All<Image src='/Globe.svg' width={listItemSize} height={listItemSize} /></li>
+                                >All<Image src='/All.svg' width={listItemSize} height={listItemSize} /></li>
                                 <li
                                     className={
                                         activeItem === 'Recommended' ?
@@ -98,7 +98,7 @@ const AdminSideNavbar = ({ }) => {
                                             : ''
                                     }
                                     onClick={() => handleItemClick('Recommended')}
-                                >Recommended<Image src='/Bolt.svg' width={listItemSize} height={listItemSize} /></li>
+                                >Recommended<Image src='/recommended.svg' width={listItemSize} height={listItemSize} /></li>
                                 <li
                                     className={
                                         activeItem === 'Qualified' ?
@@ -106,7 +106,7 @@ const AdminSideNavbar = ({ }) => {
                                             : ''
                                     }
                                     onClick={() => handleItemClick('Qualified')}
-                                >Qualified<Image src='/Star.svg' width={listItemSize} height={listItemSize} /></li>
+                                >Qualified<Image src='/Like.svg' width={listItemSize} height={listItemSize} /></li>
                                 <li
                                     className={
                                         activeItem === 'NotEligible' ?
@@ -114,7 +114,7 @@ const AdminSideNavbar = ({ }) => {
                                             : ''
                                     }
                                     onClick={() => handleItemClick('NotEligible')}
-                                >Not Eligible<Image src='/Warning.svg' width={listItemSize} height={listItemSize} /></li>
+                                >Not Eligible<Image src='/Close.svg' width={listItemSize} height={listItemSize} /></li>
                             </ul>
                         )}
                     </div>

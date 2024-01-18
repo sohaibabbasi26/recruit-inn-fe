@@ -36,7 +36,7 @@ const Graph = () => {
         labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri'],
         datasets: [
             {
-                data: [20, 50, 30, 60, 40],
+                data: [2, 1, 1, 1, 1],
                 backgroundColor: [
                     '#6E62E5',
                     '#D3CFFC'

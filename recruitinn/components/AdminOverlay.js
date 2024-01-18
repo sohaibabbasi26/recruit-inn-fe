@@ -54,60 +54,76 @@ const AdminOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.CLIENT_INFO);
     const [completedStages, setCompletedStages] = useState([]);
+    const [clientname, setClientname] = useState(null);
+    const [companyname, setCompanyname] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [phoneNo, setPhoneNo] = useState(null);
+    const [actManager, setActManager] = useState(null);
+    const [companySize, setCompanySize] = useState(null);
+    const [city, setCity] = useState(null);
+    const [country, setCountry] = useState(null);
+    const [id, setId] = useState(null);
 
+
+    let link;
     useEffect(() => {
         setCurrentStage(stages.CLIENT_INFO);
     }, []);
 
+    useEffect(() => {
+        link = `http://localhost:3000/set-password/${id}`
+        console.log(link);
+    }, [id])
 
-    // const toggleComponent = () => {
-    //     console.log("Current Stage: ", currentStage);
-    //     console.log("Is Share Link Stage? ", currentStage === stages.SHARE_LINK);
+    const handleFormSubmit = async () => {
+        const requestBody = {
+            company_name: companyname,
+            company_location: city,
+            email: email,
+            account_user_name: actManager,
+            contact_no: phoneNo
+        }
 
-    //     const newCompletedStages = [...completedStages, currentStage];
-    //     setCompletedStages(newCompletedStages);
+        try {
+            const response = await fetch('http://localhost:3002/v1/client-sign-up-admin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTA0NTAwNiwiZXhwIjoxNzA1NjQ5ODA2fQ.RXK4x6YEGygJ1KpsuwfwiibZv6Q4-Od-W88h5S1n6uU',
+                },
+                body: JSON.stringify(requestBody),
+            });
+            const data = await response.json();
+            console.log("login response:", data?.data?.data?.company_id);
+            setId(data?.data?.data?.company_id);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
 
-    //     if (currentStage === stages.SHARE_LINK) {
-    //         router.push('/');
-    //     } else {
-    //         switch (currentStage) {
-    //             case stages.ADD_SKILL:
-    //                 setCurrentStage(stages.JOB_TYPE);
-    //                 break;
-    //             case stages.JOB_TYPE:
-    //                 setCurrentStage(stages.AI_ASSESSMENT);
-    //                 break;
-    //             case stages.AI_ASSESSMENT:
-    //                 setCurrentStage(stages.SHARE_LINK);
-    //                 break;
-    //             default:
-    //                 setCurrentStage(stages.ADD_SKILL);
-    //         }
-    //     }
-    // }
+        const reqBody = {
+            to: email,
+            subject: 'RECRUITINN: Set Your Password & Login!',
+            text: `
+                Click on this link to set up your password and login:
+                
+                ${link}
+            `
+        }
 
-    // const backToggleComponent = () => {
-
-    //     const stageToBePopped = completedStages.slice(0, -1);
-    //     setCompletedStages(stageToBePopped);
-    //     switch (currentStage) {
-    //         case stages.JOB_TYPE:
-    //             setCurrentStage(stages.ADD_SKILL);
-    //             break;
-    //         case stages.AI_ASSESSMENT:
-    //             setCurrentStage(stages.JOB_TYPE);
-    //             break;
-    //         case stages.SHARE_LINK:
-    //             setCurrentStage(stages.AI_ASSESSMENT);
-    //             break;
-    //         default:
-    //             setCurrentStage(stages.ADD_SKILL);
-    //     }
-    // }
-
-    console.log('currentStage:', currentStage);
-    console.log('stageHeadings:', stageHeadings);
-    console.log('Selected heading:', stageHeadings[currentStage]);
+        try {
+            const response = await fetch('http://localhost:3002/v1/sendMail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reqBody),
+            });
+            const data = await response.text();
+            console.log('response:', data);
+        } catch (error) {
+            console.error('Error mailing the client:', error);
+        }
+    };
 
     return (
         <>
@@ -115,33 +131,29 @@ const AdminOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             <div ref={overlayRef} className={styles.parent}>
 
                 <div className={styles.btn}>
-                    <button onClick={onClose}></button>
+                    <button onClick={onClose}>
+                        <Image src='/shut.svg' width={15} height={15} />
+                    </button>
                 </div>
-
 
                 <div className={styles.superContainer}>
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage] ? stageHeadings[currentStage] : 'Default Heading'}</h2>
-                            <span>
-                                <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
-                                <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span>
                         </div>
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
                         {currentStage === stages.CLIENT_INFO && (
                             <>
-                                <ClientInfo />
+                                <ClientInfo setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
                                 <div className={styles.wrapper}>
-                                    <AdminOverlayBtns onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                    <AdminOverlayBtns handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                 </div>
                             </>
                         )}
                     </div>
                 </div>
-
             </div>
         </>
     )

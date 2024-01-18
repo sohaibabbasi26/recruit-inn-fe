@@ -1,18 +1,15 @@
 import AdminBody from './AdminBody';
-import Body from './Body';
-import RightComponent from './RightComponent';
+import AdminTopNavbar from './AdminTopNavbar';
 import styles from './SuperComponent.module.css';
-import TopNavbar from './TopNavbar';
 
-const AdminSuperComponent = () => {
+const AdminSuperComponent = ({setSelectedCandidate,selectedCandidate,setReportOverlay ,allCandidates}) => {
 
     return (
         <>
             <div className={styles.superContainer} >
-                <TopNavbar />
-                <AdminBody />
+                <AdminTopNavbar />
+                <AdminBody allCandidates={allCandidates} setSelectedCandidate={setSelectedCandidate} selectedCandidate={selectedCandidate} setReportOverlay={setReportOverlay} />
             </div>
-
         </>
     )
 }

@@ -1,13 +1,13 @@
 import styles from './Assessment.module.css';
 
-const Assessment = ({heading,para}) => {
+const Assessment = ({heading,para,score}) => {
 
     return (
         <>
             <div className={styles.assessmentContainer}>
                 <div className={styles.header}>
                     <h2>{heading} Assessment</h2>
-                    <span>9/10</span>
+                    <span>{score}/10</span>
                 </div>
 
                 <div className={styles.summary}>

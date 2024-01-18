@@ -22,17 +22,24 @@
 .btn{
     position: relative;
     bottom: 90%;
+    left: 50%;
     display: flex;
-    width: 100%;
     justify-content: center;
-    height: 1%;
+    align-items: center;
+    height: 2rem;
+    width: 1px;
 }
 
 .btn button {
+    height: 100%;
+    width: 90%;
     border: none;
-    padding: 0 2rem;
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 50%;    
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn button:focus{

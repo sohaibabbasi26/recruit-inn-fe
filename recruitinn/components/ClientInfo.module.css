@@ -11,7 +11,8 @@
     display: flex;
     align-items: center;
     width: 94%;
-    background-color: #F8F7FA;
+    background-color: #fff;
+    border: 1px solid #989a9c;
     gap: 0.5rem;
     border-radius: 30px;
 }

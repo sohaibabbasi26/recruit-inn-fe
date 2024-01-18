@@ -561,7 +561,7 @@ const recommendedCandidates = [
                 skill: 'Django',
                 img: '/django.svg',
                 experience: 3
-            }
+            }   
         ],
         overAllExperience : 'Senior',
         jobType : 'Remote',

@@ -4,65 +4,24 @@ import CandidateReports from './CandidateReports';
 import ClientList from './ClientsList';
 import Jobs from './Jobs';
 
-const Body = () => {
-
-    const dummyData = [
-
-        {
-            designation: 'Software Engineer',
-            noOfAppliedCand: 25,
-            techStack: [
-                {
-                    skill: 'Django',
-                    img: '/django.svg'
-                },
-                {
-                    skill: 'C++',
-                    img: '/c++.svg'
-                },
-                {
-                    skill: 'Python',
-                    img: '/Python.svg'
-                },
-                {
-                    skill: 'AWS',
-                    img: '/aws.svg'
-                },
-            ],
-            location: 'Karachi, Pakistan',
-            status: 'Active'
-        },
-        {
-            designation: 'Software Engineer',
-            noOfAppliedCand: 25,
-            techStack: [
-                {
-                    skill: 'Django',
-                    img: '/django.svg'
-                },
-                {
-                    skill: 'C++',
-                    img: '/c++.svg'
-                },
-                {
-                    skill: 'Python',
-                    img: '/Python.svg'
-                },
-                {
-                    skill: 'AWS',
-                    img: '/aws.svg'
-                },
-            ],
-            location: 'Karachi, Pakistan',
-            status: 'Active'
-        },
-    ]   
+const Body = ({
+    setIsLoading,
+    isLoading,
+    data,
+    candidateReps, 
+    jobOverlay,
+    setJobOverlay,
+    reportOverlay,
+    setReportOverlay,
+    setSelectedJob,
+    setSelectedCandidate
+}) => {
 
     return (
         <>
             <div className={styles.body}>
-                <Jobs data={dummyData} />
-                <CandidateReports />
+                <Jobs isLoading={isLoading} setIsLoading={setIsLoading} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} data={data} setSelectedJob={setSelectedJob} />
+                <CandidateReports isLoading={isLoading} setIsLoading={setIsLoading} candidateReps={candidateReps} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} reportOverlay={reportOverlay} />
             </div>
         </>
     )

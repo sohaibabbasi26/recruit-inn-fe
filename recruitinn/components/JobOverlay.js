@@ -36,9 +36,9 @@ const JobOverlay = ({ onClose, jobOverlay, selectedJob }) => {
             );
         });
     }, [jobOverlay, onClose])
-    
+
     const getBackgroundColor = (status) => {
-        if(status === 'Active'){
+        if (status === 'Active') {
             return '#E7FFE0';
         } else {
             return '#FFE6E6';
@@ -46,71 +46,61 @@ const JobOverlay = ({ onClose, jobOverlay, selectedJob }) => {
     }
 
     const getStatusSymbol = (status) => {
-        if(status === 'Active'){
+        if (status === 'Active') {
             return '/activeStatus.svg';
         } else {
             return '/noteligible.svg';
         }
     }
 
-
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
 
                 <div className={styles.btn}>
-                    <button onClick={onClose}></button>
+                    <button onClick={onClose}>
+                        <Image src='/shut.svg' width=   {15} height={15} />
+                    </button>
                 </div>
 
-
                 <div className={styles.superContainer}>
-
                     <Image id={styles.topImage} src='/flower1.png' width={800} height={500} />
                     <div className={styles.coverContainer}>
 
                         {/*top conatiner */}
                         <div className={styles.topContainer}>
                             <div className={styles.content}>
-                                <h1>{selectedJob?.designation}</h1>
+                                <h1>{selectedJob?.position}</h1>
                                 <div className={styles.subInfo}>
-                                    <p><Image src='/JOB_TYPE-active.svg' width={iconSize} height={iconSize} />Remote</p>
-                                    <span style={{backgroundColor: getBackgroundColor(selectedJob?.status)}}>{selectedJob?.status}<Image src={getStatusSymbol(selectedJob?.status)} width={infoSymbolSize} height={infoSymbolSize} /></span>
+                                    <p><Image src='/JOB_TYPE-active.svg' width={iconSize} height={iconSize} />{selectedJob?.job_type}</p>
+                                    <span style={{ backgroundColor: getBackgroundColor(selectedJob?.status) }}>{selectedJob?.status}<Image src={getStatusSymbol(selectedJob?.status)} width={infoSymbolSize} height={infoSymbolSize} /></span>
                                 </div>
                             </div>
                         </div>
 
                         {/* body */}
-
-                        <div className={styles.description}>
-                            <h4>About Us:</h4>
-                            <span>
-                                Write about your company...
-                            </span>
-
-                            <h4>Description:</h4>
-                            <span>
-                                Welcome to HyperTech Solutions Unlimited, where we transcend the boundaries of reality to pioneer groundbreaking solutions in quantum software engineering. As a Quantum Code Wizard, you'll be part of a dynamic team of multidimensional thinkers who harness the power of quarks, warp drives, and a touch of magic to push the boundaries of technology.
-                            </span>
+                        <div className={styles.copyDiv}>
+                            <span>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></span>
                         </div>
 
+                        <div className={styles.description}>
+                            {selectedJob?.description}
+                        </div>
                         {/* skils section */}
-
-
 
                         <div className={styles.techContainer}>
                             <h2>Skills</h2>
                             <div className={styles.TechStack}>
                                 <ul>
-                                    {selectedJob?.techStack.map((item)=>{
-                                        return(
-                                            <li><Image id={styles.unique} src={item?.img} width={iconSize} height={iconSize} />{item?.skill}</li>
+                                    {selectedJob?.expertise.map((item) => {
+                                        return (
+                                            <li ><Image id={styles.unique} src={item?.img} width={iconSize} height={iconSize} />{item?.skill}</li>
                                         )
                                     })}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 <Image id={styles.lowerImage} src='/flower2.png' width={700} height={300} />
             </div>

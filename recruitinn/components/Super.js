@@ -6,9 +6,11 @@ import { useActiveItem } from '../src/contexts/ActiveItemContext';
 import CandidatesHub from './CandidatesHub';
 
 const Super = ({
-    allData,
-    activeData,
-    closedData,
+    // allData,
+    // activeData,
+    activeJobsData,
+    closedJobsData,
+    finalData,
     allCandidates,
     recommendedCandidates,
     qualifiedCandidates,
@@ -16,15 +18,30 @@ const Super = ({
     reportOverlay,
     setReportOverlay,
     jobOverlay,
-    setJobOverlay,
+    setJobOverlay,  
     setSelectedCandidate,
     toggleOverlay,
     setSelectedJob
 }) => {
 
+    // console.log('all data ',allData)
     const activeItem = useActiveItem();
     const iconSize = 15;
     const bellIconSize = 20;
+
+    let dataToRender;
+    switch (activeItem) {
+        case 'AllJobs':
+            dataToRender = finalData;
+            break;
+        case 'Active':
+            dataToRender = activeJobsData;
+            console.log('Rendering Active Jobs Data:', activeJobsData);
+            break;
+        case 'Closed':
+            dataToRender = closedJobsData;
+            break;
+    }
 
     return (
         <>
@@ -40,23 +57,22 @@ const Super = ({
                     </div>
                 </div>
 
-                {allData ? (
-                    <JobsHub data={allData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
-                ) : activeData ? (
-                    <JobsHub data={activeData}  jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob}/>
-                ) : closedData ? (
-                    <JobsHub data={closedData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                {finalData ? (  
+                    <JobsHub heading='All Jobs' data={finalData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                ) : activeJobsData ? (
+                    <JobsHub heading='Active Jobs' data={activeJobsData}  jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob}/>
+                ) : closedJobsData ? (
+                    <JobsHub heading='Closed Jobs' data={closedJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : allCandidates ? (
-                    <CandidatesHub data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandidatesHub heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : recommendedCandidates ? (
-                    <CandidatesHub data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandidatesHub heading='Recommended Candidates' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : qualifiedCandidates ? (
-                    <CandidatesHub data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandidatesHub heading='Qualified Candidates' data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : notEligibleCandidates ? (
-                    <CandidatesHub data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandidatesHub heading='Not-Eligible Candidates' data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : ''
                 }
-
             </div>
         </>
     )

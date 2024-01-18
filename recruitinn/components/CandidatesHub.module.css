@@ -123,6 +123,21 @@
     gap: 1rem;
 }
 
+.tempContainer {
+    min-height: 40rem;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tempContainer img {
+    padding-top: 1rem;
+}
+
 .TechStack {
     width: 100%;
     display: flex;

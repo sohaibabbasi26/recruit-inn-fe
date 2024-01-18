@@ -21,18 +21,25 @@
 
 .btn{
     position: relative;
-    bottom: 90%;
+    bottom: 93%;
+    left: 50%;
     display: flex;
-    width: 100%;
     justify-content: center;
-    height: 1%;
+    align-items: center;
+    height: 2rem;
+    width: 1px;
 }
 
 .btn button {
+    height: 100%;
+    width: 90%;
     border: none;
-    padding: 0 2rem;
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 50%;    
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn button:focus{
@@ -40,7 +47,7 @@
 }
 
 .superContainer {
-    height: 88%;
+    height: 92%;
     width: 100%;
     background-color: #fff;
     backdrop-filter: none;
@@ -144,7 +151,7 @@
     margin: 0;
     align-items: center;
     justify-content: space-around;
-    padding: 0.25rem 0;
+    padding: 0.25rem 0.5rem;
     background-color: #E7FFE0;
     border-radius: 20px;
     margin-top: 0.5rem;
@@ -185,3 +192,21 @@
 .bold{
     font-weight: 700;   
 }
+
+.rightContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 20%;
+}
+
+.rightContainer button{
+    background-color: #F0EDFC;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Poppins',sans-serif;
+    color: #6137DB;
+} 

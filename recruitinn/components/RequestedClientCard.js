@@ -4,7 +4,7 @@ import Image from 'next/image';
 const RequestedClientCard = ({item}) => {
     return (
         <>
-            <div className={styles.clientReq}>
+            <div>
 
                 <div className={styles.topContainer}>
                     <div className={styles.leftDiv}>

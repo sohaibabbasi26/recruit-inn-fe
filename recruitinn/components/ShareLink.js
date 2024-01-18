@@ -1,14 +1,55 @@
 import styles from './ShareLink.module.css';
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react';
 
-const ShareLink = () => {
+const ShareLink = ({
+    emailReceiver,
+    setEmailReceiver,
+    subject,
+    setSubject,
+    text,
+    setText,
+    position
+}) => {
 
     const imageSize = 80;
     const plusSize = 20;
     const iconSize = 20;
     const clipSize = 30;
+    const [randomKey, setRandomKey] = useState(uuidv4());
+    const [copySuccess, setCopySuccess] = useState('');
+    const demolink = `http://localhost:3000/invited-candidate/${randomKey}`;
 
-    const demolink = 'https://unsplash.com/photos/9JsQx2coxvI9JsQx2yokvII9JsQxoxvI9';
+    function copyToClipboard(text) {
+        if ('clipboard' in navigator) {
+            return navigator.clipboard.writeText(text);
+        } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            const result = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            return result;
+        }
+    }
+
+    const handleCopyClick = () => {
+        copyToClipboard(demolink)
+          .then(() => setCopySuccess('Copied!'))
+          .catch(err => console.error('Could not copy text: ', err));
+      }
+
+    useEffect(()=>{
+        setSubject(`RECRUITINN: Test link for ${position} position.`);
+        setText(`Click on the following link to start a test:
+        ${demolink}
+        `)
+    })
 
     return (
         <>
@@ -39,16 +80,16 @@ const ShareLink = () => {
 
                     <div className={styles.field}>
                         <Image src='/Bag.svg' width={iconSize} height={iconSize} />
-                        <input type='text' placeholder="Enter location" />
+                        <input type='text' onChange={(e) => setEmailReceiver(e.target.value)} placeholder="Enter email" />
                     </div>
                 </div>
-            
+
                 <div className={styles.linkContainer}>
                     <div className={styles.wrapper}>
                         <Image src='/Chain.svg' height={clipSize} width={clipSize} />
-                        <p>{demolink}</p>
+                        <input value={demolink} readOnly />
                     </div>
-                    <button>Copy Assessment Link  <Image src='/Copy.svg' width={iconSize} height={iconSize} /></button>
+                    <button onClick={handleCopyClick}>Copy Assessment Link<Image src='/Copy.svg' width={iconSize} height={iconSize} /></button>
                 </div>
             </div>
         </>

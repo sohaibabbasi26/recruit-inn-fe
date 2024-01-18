@@ -1,71 +1,30 @@
 import styles from './AdminCandRep.module.css';
 import Image from 'next/image';
 
-const AdminCandRep = () => {
+const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates }) => {
     const iconSize = 25;
     const goToAllIconSize = 15;
     const statusSize = 10;
 
-    const data = [
-        {
-            name: 'Jacob Jones',
-            position: 'Front-End Developer',
-            score: 9,
-            techstack: [
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                },
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                },
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                },
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                }
-            ],
-            appliedThrough: 'Self',
-            overAllExperience: 'Senior'
-        },
-        {
-            name: 'Jacob Jones',
-            position: 'Front-End Developer',
-            score: 9,
-            techstack: [
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                },
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                },
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                },
-                {
-                    skill: 'Django',
-                    src: '/django.svg',
-                    experience: 3
-                }
-            ],
-            appliedThrough: 'Self',
-            overAllExperience: 'Senior'
+    console.log("admin cand rep :", allCandidates);
+
+    const cardClickHandler = (candidate) => {
+        setSelectedCandidate(candidate);
+        setReportOverlay(true);
+    }
+
+    const getBackgroundColor = (score) => {
+        if (score >= 7 && score <= 10) {
+            return '#E7FFE0';
+        } else if (score >= 5 && score <= 6) {
+            return '#F0F3FF';
+        } else {
+            return '#FFE6E6';
         }
-    ]
+    }
+
+    const newArray = allCandidates?.slice(0, 2);
+
 
     return (
         <>
@@ -81,21 +40,21 @@ const AdminCandRep = () => {
 
                 <div className={styles.reportsCardContainer}>
                     {
-                        data.map((item) => {
+                        newArray?.map((item) => {
                             return (
                                 <>
-                                    <div className={styles.reportsCard} >
+                                    <div onClick={() => { cardClickHandler(item) }} className={styles.reportsCard} >
                                         {/*top container */}
                                         <div className={styles.topContainer}>
                                             <div className={styles.leftTop}>
                                                 <Image src='/Emoji.svg' width={iconSize} height={iconSize} />
                                                 <div className={styles.basicInfo}>
-                                                    <h4>{item.name}</h4>
-                                                    <span>{item.position}</span>
+                                                    <h4>{item?.name}</h4>
+                                                    <span>{item?.position}</span>
                                                 </div>
                                             </div>
                                             <div className={styles.rightTop}>
-                                                <span>{item.score}/10</span>
+                                                <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.score)) }} >{Math.ceil(item?.score)}/10</span>
                                                 <Image />
                                             </div>
                                         </div>
@@ -104,27 +63,34 @@ const AdminCandRep = () => {
                                         <div className={styles.techStack}>
                                             <ul>
                                                 {
-                                                    item.techstack.map((tech) => {
+                                                    item?.expertise?.map((tech) => {
                                                         return (
                                                             <>
                                                                 <li>
                                                                     <div className={styles.basic}>
                                                                         <Image className={styles.django} src={tech.src} width={iconSize} height={iconSize} />
-                                                                        <span>{tech.skill}</span>
+                                                                        <span>{tech?.skill}</span>
                                                                     </div>
-                                                                    <p>{tech.experience}+ Years</p>
+                                                                    <p>{tech?.experience}+ Years</p>
                                                                 </li>
                                                             </>
-                                                        )})
+                                                        )
+                                                    })
                                                 }
                                             </ul>
                                         </div>
 
                                         <div className={styles.lowerContainer}>
-                                            <p><span>Applied:</span>{item.appliedThrough}</p>
-                                            <p><span>Experience:</span>{item.overAllExperience}</p>
-                                        </div>
+                                            <div className={styles.temp}>
+                                                <span>Applied:</span>
+                                                <p>{item?.appliedThrough}</p>
+                                            </div>
 
+                                            <div className={styles.temp}>
+                                                <span>Experience:</span>
+                                                <p>{item?.overAllExperience}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </>
                             )

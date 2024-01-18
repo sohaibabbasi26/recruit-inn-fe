@@ -1,7 +1,7 @@
 import styles from './CandRepHub.module.css';
 import Image from 'next/image';
 
-const CandRepHub = ({ data ,setSelectedCandidate ,setReportOverlay}) => {
+const CandRepHub = ({heading, data, setSelectedCandidate, setReportOverlay }) => {
 
     const cardClickHandler = (candidate) => {
         setSelectedCandidate(candidate);
@@ -13,9 +13,9 @@ const CandRepHub = ({ data ,setSelectedCandidate ,setReportOverlay}) => {
     const statusSize = 10;
 
     const getBackgroundColor = (score) => {
-        if(score >= 7 && score <= 10){
+        if (score >= 7 && score <= 10) {
             return '#E7FFE0';
-        } else if (score >= 5 && score <= 6){
+        } else if (score >= 5 && score <= 6) {
             return '#F0F3FF';
         } else {
             return '#FFE6E6';
@@ -23,18 +23,18 @@ const CandRepHub = ({ data ,setSelectedCandidate ,setReportOverlay}) => {
     }
 
     const getFilter = (score) => {
-        if(score >= 7 && score <= 10){
+        if (score >= 7 && score <= 10) {
             return 'Recommended';
-        } else if (score >= 5 && score <= 6){
+        } else if (score >= 5 && score <= 6) {
             return 'Qualified';
         } else {
             return 'Not Eligible';
         }
     }
     const getStatusSymbol = (score) => {
-        if(score >= 7 && score <= 10){
+        if (score >= 7 && score <= 10) {
             return '/activeStatus.svg';
-        } else if (score >= 5 && score <= 6){
+        } else if (score >= 5 && score <= 6) {
             return '/qualified.svg';
         } else {
             return '/noteligible.svg';
@@ -47,8 +47,8 @@ const CandRepHub = ({ data ,setSelectedCandidate ,setReportOverlay}) => {
                 <div className={styles.superContainer}>
                     <div className={styles.headingContainer}>
                         <div className={styles.heading}>
-                            <h3>All Candidates</h3>
-                            <span>1000</span>
+                            <h3>{heading}</h3>
+                            <span>{data.length}</span>
                         </div>
 
                         <select>
@@ -62,7 +62,7 @@ const CandRepHub = ({ data ,setSelectedCandidate ,setReportOverlay}) => {
                         {data.map((item) => {
                             return (
                                 <>
-                                    <div onClick={() => {cardClickHandler(item)}} className={styles.reportsCard} >
+                                    <div onClick={() => { cardClickHandler(item) }} className={styles.reportsCard} >
                                         {/*top container */}
                                         <div className={styles.topContainer}>
                                             <div className={styles.leftTop}>
@@ -73,15 +73,15 @@ const CandRepHub = ({ data ,setSelectedCandidate ,setReportOverlay}) => {
                                                 </div>
                                             </div>
                                             <div className={styles.rightTop}>
-                                                <span style={{backgroundColor : getBackgroundColor(item.score)}}>{item.score}/10</span>
-                                                <span style={{backgroundColor: getBackgroundColor(item.score)}}>{getFilter(item.score)}<Image src={getStatusSymbol(item.score)} width={statusSize} height={statusSize} /> </span>
-                                                <Image src="/rightArrow.svg" height={iconSize} width={iconSize} />                                            </div>
+                                                <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{Math.ceil(item.score)}/10</span>
+                                                <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{getFilter(Math.ceil(item.score))}<Image src={getStatusSymbol(Math.ceil(item.score))} width={statusSize} height={statusSize} /> </span>
+                                                <Image src="/rightArrow.svg" height={iconSize} width={iconSize} /></div>
                                         </div>
 
                                         {/* techstack Conatiner */}
                                         <div className={styles.techStack}>
                                             <ul>
-                                                {item?.techStack?.map((tech) => {
+                                                {item?.expertise?.map((tech) => {
                                                     return (
                                                         <>
                                                             <li>

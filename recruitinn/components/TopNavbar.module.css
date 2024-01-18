@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
+
 .searchBar {
     background-color: #F8F7FC;
     width: 100%;
@@ -5,12 +7,27 @@
     border-radius: 40px;
     display: flex;
     justify-content: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 .masterContainer{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    gap: 1rem;
+}
+
+.masterContainer button {
+    background-color: #F8F7FC;
+    color: #6137DB;
+    border: none;
+    height: 63%;
+    border-radius: 30px;
+    width: 20%;
+    font-family: "Poppins",sans-serif;
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
 }
 
 .container{
@@ -67,6 +84,18 @@
 
 .searchInput{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Poppins',sans-serif;
+}
+
+.searchInput input{
+    font-family: 'Poppins',sans-serif;
+}
+
+.searchInput input:focus{
+    outline: none;
 }
 
 .selectCategory select{
@@ -75,8 +104,13 @@
     font-size: 1rem;
     color: #170D23;
     padding: 1rem;
+    font-family: 'Poppins',sans-serif;
 }
 
 .selectCategory select input{
     color: #170D23;
+}
+
+.selectCategory select:focus{
+    outline: none;
 }

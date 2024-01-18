@@ -24,8 +24,6 @@ const CandidateSelf = () => {
         <>
             <SelfOverlay showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
 
-            {/* <div className={styles.candidatePortal}>
-            </div> */}
         </>
     );
 }

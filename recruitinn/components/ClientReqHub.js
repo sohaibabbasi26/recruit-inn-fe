@@ -5,10 +5,14 @@ import ActiveClientCard from './ActiveClientCard';
 import InActiveClientCard from './InActiveClientCard';
 import RequestedClientCard from './RequestedClientCard';
 
-const ClientReqHub = ({ data , onOpen }) => {
+const ClientReqHub = ({data , onOpen, dataToBeSet, setData, heading}) => {
+
+    console.log('data: ',data)
+    
+    // console.log("set data method:",setData)
 
     const [isRequest,setIsRequest] = useState(false);
-    const [isActive,setIsActive] = useState(true);
+    const [isActive,setIsActive] = useState(true);  
 
     return (
         <>
@@ -16,31 +20,25 @@ const ClientReqHub = ({ data , onOpen }) => {
                 <div className={styles.superContainer}>
                     <div className={styles.headingContainer}>
                         <div className={styles.heading}>
-                            <h3>All Client Requests</h3>
-                            <span>1000</span>
+                            <h3>{heading}</h3>
+                            <span>{data?.length}</span>
                         </div>
 
-                        <select>
-                            <option value='hybrid'>Hybrid</option>
-                            <option value='onsite'>On-site</option>
-                            <option value='remote'>Remote</option>
-                        </select>
                     </div>
 
                     <div className={styles.subContainer}>
-                        {data.map((item,index) => {
+                        {data?.map((item,index) => {
                                 switch(item.status){
-                                    case 'active':
-                                        return <ActiveClientCard key={index} item={item} onOpen={onOpen} />
+                                    case 'Active':  
+                                        return <ActiveClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} onOpen={onOpen} />
                                     case 'in-active':
-                                        return <InActiveClientCard key={index} item={item} />
+                                        return <InActiveClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
                                     case 'request':
-                                        return <RequestedClientCard key={index} item={item} />
+                                        return <RequestedClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
                                     default:
                                         return null;
                                 }
                         })}
-
                     </div>
                 </div>
             </div>

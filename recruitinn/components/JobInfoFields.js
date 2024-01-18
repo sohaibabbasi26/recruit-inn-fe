@@ -2,7 +2,7 @@ import styles from './JobInfoFields.module.css';
 import Image from 'next/image';
 
 
-const JobInfoFields = () => {
+const JobInfoFields = ({setPosition,setLocation,setJobtype}) => {
 
     const iconSize = 20;
 
@@ -11,18 +11,18 @@ const JobInfoFields = () => {
             <div className={styles.fieldsContainer}>
                 <div className={styles.conatiner} >
                     <Image src='/suitcase.svg' width={iconSize} height={iconSize} />
-                    <input type='text' placeholder='Add Job Title' />
+                    <input type='text' placeholder='Add Job Title' onChange={(e) => setPosition(e.target.value)} />
                 </div>
-
+        
                 <div className={styles.conatiner} >
                 <Image src='/location.svg' width={iconSize} height={iconSize} />
-                <input type='text' placeholder='Anywhere' />
+                <input type='text' placeholder='Anywhere' onChange={(e) => setLocation(e.target.value)} />
                 </div>
             </div>
 
             <div className={styles.wrapper}>
                     <Image src='/suitcase.svg' width={iconSize} height={iconSize} />
-                    <select >
+                    <select onChange={(e) => setJobtype(e.target.value)} >
                         <option value="On-site">On-site</option>
                         <option value="Remote">Remote</option>
                     </select>

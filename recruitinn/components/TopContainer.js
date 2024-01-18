@@ -3,7 +3,7 @@ import styles from './TopContainer.module.css';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState, useRef } from 'react';
 
-const TopContainer = () => {
+const TopContainer = ({setDescription}) => {
     const [QuillNoSSRWrapper, setQuillNoSSRWrapper] = useState(null);
     const [value, setValue] = useState('');
     const quillRef = useRef(null);
@@ -26,6 +26,10 @@ const TopContainer = () => {
             if (container) container.style.border = 'none';
         }
     }, [quillRef.current]);
+
+    useEffect(()=> {
+        setDescription(value);
+    },[value]);
 
     const modules = {
         toolbar: [

@@ -2,9 +2,11 @@ import styles from './JobsHub.module.css';
 import Image from 'next/image';
 
 
-const ClientJobs = ({ data,jobOverlay, setJobOverlay,setSelectedJob }) => {
+const ClientJobs = ({ data,jobOverlay, setJobOverlay,setSelectedJob , dataToBeSet}) => {
 
-    
+    // console.log('data to be set in clients job:',data)
+
+    // console.log('data in clientsjob component:',data);
 
     const iconSize = 25;
     const goToAllIconSize = 15;
@@ -49,20 +51,20 @@ const ClientJobs = ({ data,jobOverlay, setJobOverlay,setSelectedJob }) => {
                     </div>
 
                     <div className={styles.subContainer}>
-                        {data.map((item) => {
+                        {data?.data?.map((item) => {
                             return (
                                 <div onClick={() => {cardClickHandler(item)}} className={styles.jobsCard} >
                                     <div className={styles.topContainer}>
-                                        <h3>{item.designation}</h3>
+                                        <h3>{item?.position}</h3>
 
                                         <div className={styles.rightTopBtns}>
-                                            <span>{item.noOfAppliedCand}+ Applied</span>
+                                            <span>{item?.applied_cand_no}+ Applied</span>
                                             <Image src="/rightArrow.svg" height={iconSize} width={iconSize} />
                                         </div>
                                     </div>
                                     <div className={styles.TechStack}>
                                         <ul  >
-                                            {item.techStack.map((skill) => {
+                                            {item?.expertise?.map((skill) => {
                                                 return (
                                                     <li><Image id={styles.unique} src={skill.img} width={iconSize} height={iconSize} />{skill.skill}</li>
                                                 )
@@ -70,8 +72,8 @@ const ClientJobs = ({ data,jobOverlay, setJobOverlay,setSelectedJob }) => {
                                         </ul>
                                     </div>
                                     <div className={styles.lowerContainer}>
-                                        <h4 className={styles.location}>{item.location}</h4>
-                                        <h4 className={styles.status} style={{backgroundColor : getBackgroundColor(item.status)}} >{item.status}<Image src={getStatusSymbol(item.status)} width={statusSize} height={statusSize} /></h4>
+                                        <h4 className={styles?.location}>{item.location}</h4>
+                                        <h4 className={styles?.status} style={{backgroundColor : getBackgroundColor(item.status)}} >{item.status}<Image src={getStatusSymbol(item.status)} width={statusSize} height={statusSize} /></h4>
                                     </div>
                                 </div>
                             )
