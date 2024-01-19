@@ -201,7 +201,7 @@ export const getServerSideProps = async () => {
             {
                 method: 'GET',
                 headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTA0NTAwNiwiZXhwIjoxNzA1NjQ5ODA2fQ.RXK4x6YEGygJ1KpsuwfwiibZv6Q4-Od-W88h5S1n6uU'
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4'
                 }
             });
         console.log('response: ', response);
@@ -217,7 +217,7 @@ export const getServerSideProps = async () => {
             {
                 method: 'GET',
                 headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTA0NTAwNiwiZXhwIjoxNzA1NjQ5ODA2fQ.RXK4x6YEGygJ1KpsuwfwiibZv6Q4-Od-W88h5S1n6uU'
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4'
                 }
             });
         console.log('response: ', response);
