@@ -14,7 +14,6 @@ const AdminSuper = ({
     allClients,
     inActiveClientsData,
     activeClientsData,
-    allClientsData,
     reqData,
     allData,
     activeData,
@@ -28,10 +27,8 @@ const AdminSuper = ({
     jobOverlay,
     setJobOverlay,
     setSelectedCandidate,
-    toggleOverlay,
     setSelectedJob,
     onOpen,
-    individualData,
     setShowOverlay,
     setData,
     data

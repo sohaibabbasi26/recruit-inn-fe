@@ -5,14 +5,10 @@ import ActiveClientCard from './ActiveClientCard';
 import InActiveClientCard from './InActiveClientCard';
 import RequestedClientCard from './RequestedClientCard';
 
-const ClientReqHub = ({data , onOpen, dataToBeSet, setData, heading}) => {
+const ClientReqHub = ({ data, onOpen, dataToBeSet, setData, heading }) => {
 
-    console.log('data: ',data)
-    
-    // console.log("set data method:",setData)
-
-    const [isRequest,setIsRequest] = useState(false);
-    const [isActive,setIsActive] = useState(true);  
+    console.log('data: ', data)
+    const hasData = data && data.length > 0;
 
     return (
         <>
@@ -23,22 +19,28 @@ const ClientReqHub = ({data , onOpen, dataToBeSet, setData, heading}) => {
                             <h3>{heading}</h3>
                             <span>{data?.length}</span>
                         </div>
-
                     </div>
 
                     <div className={styles.subContainer}>
-                        {data?.map((item,index) => {
-                                switch(item.status){
-                                    case 'Active':  
+                        {hasData ? (
+                            data?.map((item, index) => {
+                                switch (item.status) {
+                                    case 'Active':
                                         return <ActiveClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} onOpen={onOpen} />
-                                    case 'in-active':
-                                        return <InActiveClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
+                                    case 'In-Active':
+                                        return <InActiveClientCard onOpen={onOpen} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
                                     case 'request':
-                                        return <RequestedClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
+                                        return <RequestedClientCard onOpen={onOpen} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
                                     default:
                                         return null;
                                 }
-                        })}
+                            })
+                        ) : (
+                            <div className={styles.tempContainer}>
+                                <Image src='/SearchEmpty.gif' width={300} height={300} />
+                                <h3>You don't have {heading} yet...</h3>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
-const AdminTopNavbar = () => {
+const AdminTopNavbar = ({ showSuccess }) => {
     const searchLogoSize = 20;
     const iconSize = 15;
 
@@ -24,19 +24,20 @@ const AdminTopNavbar = () => {
             textarea.select();
             const result = document.execCommand('copy');
             document.body.removeChild(textarea);
+            showSuccess();
             return result;
         }
     }
 
     function handleButtonClick() {
-        setRandomKey(uuidv4()); // Update the randomKey state
+        setRandomKey(uuidv4()); 
         copyToClipboard(demolink);
     }
 
     return (
         <>
             <div className={styles.masterContainer}>
-                <div className={styles.searchBar}>  
+                <div className={styles.searchBar}>
                     <div className={styles.container}>
                         <div className={styles.searchInput}>
                             <Image src='/Search.svg' height={searchLogoSize} width={searchLogoSize} />

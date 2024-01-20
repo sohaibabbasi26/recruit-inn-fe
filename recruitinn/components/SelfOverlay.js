@@ -130,7 +130,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
             console.log("request body: ", reqBody);
 
-            const response = await fetch('http://localhost:3002/v1/candidate-info', {
+            const response = await fetch('http://localhost:3002/v1/candidate-info-self', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

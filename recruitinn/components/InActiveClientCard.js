@@ -2,7 +2,9 @@ import styles from './ActiveClientCard.module.css';
 import Image from 'next/image';
 import { useActiveItem } from '@/contexts/ActiveItemContext';
 
-const InActiveClientCard = ({ item, setData }) => {
+const InActiveClientCard = ({onOpen, item, setData }) => {
+
+    console.log("one item data:", item)
 
     const { setActiveItem } = useActiveItem();
 
@@ -14,7 +16,7 @@ const InActiveClientCard = ({ item, setData }) => {
         switch (status) {
             case 'active':
                 return '#E7FFE0'
-            case 'in-active':
+            case 'In-Active':
                 return '#EBEBEB';
             default:
                 return null
@@ -25,7 +27,7 @@ const InActiveClientCard = ({ item, setData }) => {
         switch (status) {
             case 'active':
                 return '/activeStatus.svg'
-            case 'in-active':
+            case 'In-Active':
                 return '/inActive.svg';
             default:
                 return null
@@ -37,7 +39,7 @@ const InActiveClientCard = ({ item, setData }) => {
         const id = item?.company_id
         const requestBody = {
             company_id: id
-        }
+        }   
         const response = await fetch('http://127.0.0.1:3002/v1/get-all-positions',
             {
                 method: 'POST',
@@ -69,30 +71,25 @@ const InActiveClientCard = ({ item, setData }) => {
                         <Image src='/company.svg' width={30} height={30} />
                         <div className={styles.companyName}>
                             <h2>{item?.company_name}</h2>
-                            <span>{item?.account_user}</span>
+                            <span>{item?.account_user_name}</span>
                         </div>
                     </div>
 
-                    <div className={styles.btnsDiv}>
-                        <span onClick={
-                            async () => {
-                                await handleFetchCompanyJobListing();
-                                handleItemClick('viewJobListing')
-                            }
-                        } >View Job Listing</span>
+                    <div onClick={onOpen} className={styles.btnsDiv}>
+                        <span >View Job Listing</span>
                         <Image src='/rightArrow.svg' width={20} height={20} />
-                    </div>
+                    </div>  
                 </div>
 
                 <div className={styles.lowerContainer}>
                     <div className={styles.left}>
-                        <span>{item?.location}</span>
-                        <span className={styles.dot}>{item?.phone_no}</span>
+                        <span>{item?.company_location}</span>
+                        <span className={styles.dot}>{item?.contact_no}</span>
                         <span className={styles.dot}>{item?.email}</span>
                     </div>
 
                     <div className={styles.right}>
-                        <span style={{ backgroundColor: getBgColor(item?.status) }} >{item.status}<Image src={getStatusThumb(item?.status)} height={10} width={10} /></span>
+                        <span style={{ backgroundColor: getBgColor(item?.status) }} >{item?.status}<Image src={getStatusThumb(item?.status)} height={10} width={10} /></span>
                     </div>
                 </div>
             </div>

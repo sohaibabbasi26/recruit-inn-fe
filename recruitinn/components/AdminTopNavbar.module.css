@@ -28,6 +28,7 @@
     font-size: 0.9rem;
     padding: 1rem 0.35rem;
     width: 30%;
+    cursor: pointer;
 }
 
 .container{
@@ -111,4 +112,10 @@
 
 .selectCategory select input{
     color: #170D23;
+}
+
+
+.selectCategory select option{
+    padding: 1rem;
+    padding-top: 1rem;
 }

@@ -22,6 +22,16 @@ const Admin = ({ allClients, allResults }) => {
     const [recommendedCand, setRecommendedCand] = useState([]);
     const [qualifiedCand, setQualifiedCand] = useState([]);
     const [notEligibleCand, setNotEligibleCand] = useState([]);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+    
+    const showSuccess = () => {
+        setShowSuccessMessage(true);
+
+        setTimeout(() => {
+            setShowSuccessMessage(false);
+        }, 3000); 
+    };
 
     useEffect(() => {
         if (Array.isArray(allClients?.data)) {
@@ -46,31 +56,45 @@ const Admin = ({ allClients, allResults }) => {
                 technicalAssessment: "",
                 createdAt: null
             };
-
+    
             if (candidate.results && candidate.results.length > 0) {
                 const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 latestResult = sortedResults[0].result || latestResult;
                 latestResult.createdAt = sortedResults[0].createdAt;
             }
-
+    
             const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
             const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-
+    
+            let expertiseTechStack = [];
+            let jobType = 'N/A';
+            let position = 'N/A';
+            if (Array.isArray(candidate.expertise)) {
+                expertiseTechStack = candidate.expertise.map(e => ({
+                    skill : e.skill,
+                    level : e.level
+                }));
+            } else if (candidate.expertise && typeof candidate.expertise === 'object') {
+                expertiseTechStack = candidate.expertise.techStack || [];
+                jobType = candidate.expertise.jobtype || 'N/A';
+                position = candidate.expertise.position || 'N/A';
+            }
+    
             return {
                 name: candidate.name,
                 email: candidate.email,
-                position: candidate.position,
+                position: position,
                 score: score.toFixed(1),
                 contactNo: candidate.contact_no,
                 date: formattedDate,
-                expertise: candidate.expertise ? candidate.expertise.techStack : [],
-                jobType: candidate.expertise ? candidate.expertise.jobtype : 'N/A',
-                position: candidate.expertise ? candidate.expertise.position : 'N/A',
+                expertise: expertiseTechStack,
+                jobType: jobType,
+                position: position,
                 overAllExperience: candidate.over_all_exp || 'N/A',
                 results: latestResult,
                 company: candidate.company || null,
-                appliedThrough : candidate?.company?.company_name || 'Self',
-                companyId : candidate?.company?.company_id
+                appliedThrough: candidate?.company?.company_name || 'Self',
+                companyId: candidate?.company?.company_id
             };
         });
     };
@@ -142,7 +166,7 @@ const Admin = ({ allClients, allResults }) => {
         switch (activeItem) {
             case 'Dashboard':
                 return <>
-                    <AdminSuperComponent allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
+                    <AdminSuperComponent showSuccess={showSuccess} allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
                     <AdminRightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
                 </>;
             case 'AllClients':
@@ -152,7 +176,7 @@ const Admin = ({ allClients, allResults }) => {
             case 'Active':
                 return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} activeClientsData={activeClientsData} />
             case 'In-Active':
-                return <AdminSuper  setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
+                return <AdminSuper data={data} setData={setData}  setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
             case 'All':
                 return <AdminSuper setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} allCandidates={preprocessedCandidates} />
             case 'Recommended':
@@ -182,7 +206,7 @@ const Admin = ({ allClients, allResults }) => {
 
     return (
         <>
-            {showOverlay && <AdminOverlay showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
+            {showOverlay && <AdminOverlay  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
             <div className={styles.adminPortal}>

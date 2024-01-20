@@ -127,7 +127,6 @@ const AdminOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     return (
         <>
-
             <div ref={overlayRef} className={styles.parent}>
 
                 <div className={styles.btn}>

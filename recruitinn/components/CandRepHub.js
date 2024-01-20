@@ -8,6 +8,8 @@ const CandRepHub = ({heading, data, setSelectedCandidate, setReportOverlay }) =>
         setReportOverlay(true);
     }
 
+    const hasData = data && data.length > 0;
+
     const iconSize = 25;
     const goToAllIconSize = 18;
     const statusSize = 10;
@@ -59,52 +61,59 @@ const CandRepHub = ({heading, data, setSelectedCandidate, setReportOverlay }) =>
                     </div>
 
                     <div className={styles.subContainer}>
-                        {data.map((item) => {
-                            return (
-                                <>
-                                    <div onClick={() => { cardClickHandler(item) }} className={styles.reportsCard} >
-                                        {/*top container */}
-                                        <div className={styles.topContainer}>
-                                            <div className={styles.leftTop}>
-                                                <Image src='/Emoji.svg' width={iconSize} height={iconSize} />
-                                                <div className={styles.basicInfo}>
-                                                    <h4>{item.name}</h4>
-                                                    <span>{item.position}</span>
+                        {hasData ? (
+                            data.map((item) => {
+                                return (
+                                    <>
+                                        <div onClick={() => { cardClickHandler(item) }} className={styles.reportsCard} >
+                                            {/*top container */}
+                                            <div className={styles.topContainer}>
+                                                <div className={styles.leftTop}>
+                                                    <Image src='/Emoji.svg' width={iconSize} height={iconSize} />
+                                                    <div className={styles.basicInfo}>
+                                                        <h4>{item.name}</h4>
+                                                        <span>{item.position}</span>
+                                                    </div>
                                                 </div>
+                                                <div className={styles.rightTop}>
+                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{Math.ceil(item.score)}/10</span>
+                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{getFilter(Math.ceil(item.score))}<Image src={getStatusSymbol(Math.ceil(item.score))} width={statusSize} height={statusSize} /> </span>
+                                                    <Image src="/rightArrow.svg" height={iconSize} width={iconSize} /></div>
                                             </div>
-                                            <div className={styles.rightTop}>
-                                                <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{Math.ceil(item.score)}/10</span>
-                                                <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{getFilter(Math.ceil(item.score))}<Image src={getStatusSymbol(Math.ceil(item.score))} width={statusSize} height={statusSize} /> </span>
-                                                <Image src="/rightArrow.svg" height={iconSize} width={iconSize} /></div>
+    
+                                            {/* techstack Conatiner */}
+                                            <div className={styles.techStack}>
+                                                <ul>
+                                                    {item?.expertise?.map((tech) => {
+                                                        return (
+                                                            <>
+                                                                <li>
+                                                                    <div className={styles.basic}>
+                                                                        <Image className={styles.django} src={tech.img} width={iconSize} height={iconSize} />
+                                                                        <span>{tech.skill}</span>
+                                                                    </div>
+                                                                    {/* <p>{tech.experience}+ Years</p> */}
+                                                                </li>
+                                                            </>
+                                                        )
+                                                    })}
+                                                </ul>
+                                            </div>
+    
+                                            <div className={styles.lowerContainer}>
+                                                <p><span>Applied:</span>{item.appliedThrough}</p>
+                                                <p><span>Experience:</span>{item.overAllExperience}</p>
+                                            </div>
                                         </div>
-
-                                        {/* techstack Conatiner */}
-                                        <div className={styles.techStack}>
-                                            <ul>
-                                                {item?.expertise?.map((tech) => {
-                                                    return (
-                                                        <>
-                                                            <li>
-                                                                <div className={styles.basic}>
-                                                                    <Image className={styles.django} src={tech.img} width={iconSize} height={iconSize} />
-                                                                    <span>{tech.skill}</span>
-                                                                </div>
-                                                                {/* <p>{tech.experience}+ Years</p> */}
-                                                            </li>
-                                                        </>
-                                                    )
-                                                })}
-                                            </ul>
-                                        </div>
-
-                                        <div className={styles.lowerContainer}>
-                                            <p><span>Applied:</span>{item.appliedThrough}</p>
-                                            <p><span>Experience:</span>{item.overAllExperience}</p>
-                                        </div>
-                                    </div>
-                                </>
-                            )
-                        })}
+                                    </>
+                                )
+                            })
+                        ): (
+                            <div className={styles.tempContainer}>
+                                <Image src='/SearchEmpty.gif' width={300} height={300} />
+                                <h3>You don't have {heading} yet...</h3>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
