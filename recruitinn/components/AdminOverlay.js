@@ -16,7 +16,7 @@ import gsap from 'gsap';
 import ClientInfo from './ClientInfo';
 import AdminOverlayBtns from './AdminOverlayBtns';
 
-const AdminOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
+const AdminOverlay = ({showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
     console.log('stage headings:'.stageHeadings);
 
@@ -147,7 +147,7 @@ const AdminOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                             <>
                                 <ClientInfo setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
                                 <div className={styles.wrapper}>
-                                    <AdminOverlayBtns handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                    <AdminOverlayBtns showSuccess={showSuccess} setMessage={setMessage} handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                 </div>
                             </>
                         )}

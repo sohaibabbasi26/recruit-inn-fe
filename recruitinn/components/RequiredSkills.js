@@ -9,7 +9,7 @@ const RequiredSkills = ({ expertise }) => {
         <>
             <div className={styles.superContainer}>
 
-                {expertise?.techStack?.map((item) => {
+                {expertise?.map((item) => {
                     return (
                         <>
                             <div className={styles.listItem}>
@@ -23,36 +23,6 @@ const RequiredSkills = ({ expertise }) => {
                         </>
                     )
                 })}
-
-
-
-                {/* <div className={styles.listItem}>
-                    <div className={styles.techContainer}>
-                        <Image src='/nextjs.svg' width={20} height={20} />
-                        <span>NextJS</span>
-                    </div>
-
-                    <span>Intermediate</span>
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.techContainer}>
-                        <Image src='/nextjs.svg' width={20} height={20} />
-                        <span>NextJS</span>
-                    </div>
-
-                    <span>Intermediate</span>
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.techContainer}>
-                        <Image src='/nextjs.svg' width={20} height={20} />
-                        <span>NextJS</span>
-                    </div>
-
-                    <span>Intermediate</span>
-                </div> */}
-
             </div>
         </>
     )

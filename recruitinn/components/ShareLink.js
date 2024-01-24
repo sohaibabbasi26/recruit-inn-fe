@@ -1,25 +1,29 @@
 import styles from './ShareLink.module.css';
 import Image from 'next/image';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 
 const ShareLink = ({
+    companyId,
     emailReceiver,
     setEmailReceiver,
     subject,
     setSubject,
     text,
     setText,
-    position
+    position,
+    showSuccess,
+    setMessage,
+    positionId
 }) => {
 
     const imageSize = 80;
     const plusSize = 20;
     const iconSize = 20;
     const clipSize = 30;
-    const [randomKey, setRandomKey] = useState(uuidv4());
+    // const [randomKey, setRandomKey] = useState(uuidv4());
     const [copySuccess, setCopySuccess] = useState('');
-    const demolink = `http://localhost:3000/invited-candidate/${randomKey}`;
+    const demolink = `http://localhost:3000/invited-candidate?position_id=${positionId}&client_id=${companyId}`;
 
     function copyToClipboard(text) {
         if ('clipboard' in navigator) {
@@ -42,6 +46,8 @@ const ShareLink = ({
         copyToClipboard(demolink)
           .then(() => setCopySuccess('Copied!'))
           .catch(err => console.error('Could not copy text: ', err));
+          setMessage("Your link has been copied");
+          showSuccess();
       }
 
     useEffect(()=>{
@@ -49,7 +55,9 @@ const ShareLink = ({
         setText(`Click on the following link to start a test:
         ${demolink}
         `)
-    })
+    });
+
+    
 
     return (
         <>

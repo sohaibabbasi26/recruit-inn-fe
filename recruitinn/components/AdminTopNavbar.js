@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
-const AdminTopNavbar = ({ showSuccess }) => {
+const AdminTopNavbar = ({setMessage, showSuccess }) => {
     const searchLogoSize = 20;
     const iconSize = 15;
 
@@ -24,7 +24,6 @@ const AdminTopNavbar = ({ showSuccess }) => {
             textarea.select();
             const result = document.execCommand('copy');
             document.body.removeChild(textarea);
-            showSuccess();
             return result;
         }
     }
@@ -32,6 +31,8 @@ const AdminTopNavbar = ({ showSuccess }) => {
     function handleButtonClick() {
         setRandomKey(uuidv4()); 
         copyToClipboard(demolink);
+        setMessage("Your link has been copied")
+        showSuccess();
     }
 
     return (

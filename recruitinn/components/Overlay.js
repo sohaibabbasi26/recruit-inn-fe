@@ -15,8 +15,10 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useTest } from '@/contexts/QuestionsContent';
 import { useExpertiseContext } from '@/contexts/ExpertiseContext';
+import SuccessIndicator from './SuccessIndicator';
+import React from 'react';
 
-const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
+const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message , setMessage , showSuccess }) => {
 
     const overlayRef = useRef(null);
     const { test, setTest } = useTest();
@@ -25,8 +27,6 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
 
 
     useEffect(() => {
-
-
         document.body.style.overflow = 'hidden';
 
         if (showOverlay) {
@@ -52,7 +52,7 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
                 { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
             );
         });
-    }, [showOverlay, onClose])
+    }, [showOverlay])
 
     const router = useRouter();
     console.log("router object:", router)
@@ -70,9 +70,10 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
     const [emailReceiver, setEmailReceiver] = useState(null);
     const [subject, setSubject] = useState(null);
     const [text, setText] = useState(null);
+    const [positionId, setPositionId] = useState(null);
+    
 
     const toggleComponent = async () => {
-
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
@@ -98,7 +99,6 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
     }
 
     const backToggleComponent = () => {
-
         const stageToBePopped = completedStages.slice(0, -1);
         setCompletedStages(stageToBePopped);
         switch (currentStage) {
@@ -115,8 +115,6 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
                 setCurrentStage(stages.ADD_SKILL);
         }
     }
-
-    
 
     const handleFormSubmit = async () => {
 
@@ -148,6 +146,8 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
+            console.log('data of created position:', data?.data?.data?.position_id);
+            setPositionId(data?.data?.data?.position_id)
             setIsLoading(false);
             console.log(data);
         } catch (error) {
@@ -212,6 +212,7 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
+                {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.btn}>
                     <button onClick={onClose}>
                         <Image src='/shut.svg' width={15} height={15} />
@@ -223,74 +224,78 @@ const Overlay = ({ token, showOverlay, onClose, stages, stageHeadings }) => {
                         <div className={styles.loader}></div>
                     ) : (
                         <div className={styles.coverContainer}>
-                        <div className={styles.topContainer}>
-                            <h2>{stageHeadings[currentStage]}</h2>
-                            <span>
-                                <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
-                                <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span>
+                            <div className={styles.topContainer}>
+                                <h2>{stageHeadings[currentStage]}</h2>
+                                <span>
+                                    <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
+                                    <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
+                                </span>
+                            </div>
+
+                            <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
+
+                            {currentStage === stages.ADD_SKILL && (
+                                <>
+                                    <AddSkillForm
+                                        setTechStack={setTechStack}
+                                    />
+                                    <div className={styles.wrapper}>
+                                        <RightBottomBtns onContinue={toggleComponent} onBack={backToggleComponent} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                    </div>
+                                </>
+                            )}
+
+                            {currentStage === stages.JOB_TYPE && (
+                                <>
+                                    <JobType
+                                        setPosition={setPosition}
+                                        setJobtype={setJobtype}
+                                        setDescription={setDescription}
+                                        setLocation={setLocation}
+                                    />
+                                    <div className={styles.wrapper} >
+                                        <JobTypeBtns showSuccess={showSuccess} setMessage={setMessage} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    </div>
+                                </>
+                            )}
+
+                            {currentStage === stages.AI_ASSESSMENT && (
+                                <>
+                                    <AIassessment />
+                                    <div className={styles.wrapper}>
+                                        <AssessmentBtns showSuccess={showSuccess} setMessage={setMessage} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    </div>
+                                </>
+                            )}
+
+                            {currentStage === stages.SHARE_LINK && (
+                                <>
+                                    <ShareLink
+                                        positionId = {positionId}
+                                        companyId = {id}
+                                        emailReceiver={emailReceiver}
+                                        setEmailReceiver={setEmailReceiver}
+                                        setText={setText}
+                                        text={text}
+                                        setSubject={setSubject}
+                                        subject={subject}
+                                        position={position}
+                                        showSuccess={showSuccess}
+                                        setMessage={setMessage}
+                                    />
+                                    <div className={styles.wrapper}>
+                                        <ShareLinkBtns showSuccess={showSuccess} setMessage={setMessage} handleEmailInvite={handleEmailInvite} onContinue={toggleComponent} onBack={backToggleComponent} onClose={onClose} />
+                                    </div>
+                                </>
+                            )}
+
                         </div>
-
-                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
-
-                        {currentStage === stages.ADD_SKILL && (
-                            <>
-                                <AddSkillForm
-                                    setTechStack={setTechStack}
-                                />
-                                <div className={styles.wrapper}>
-                                    <RightBottomBtns onContinue={toggleComponent} onBack={backToggleComponent} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
-                                </div>
-                            </>
-                        )}
-
-                        {currentStage === stages.JOB_TYPE && (
-                            <>
-                                <JobType
-                                    setPosition={setPosition}
-                                    setJobtype={setJobtype}
-                                    setDescription={setDescription}
-                                    setLocation={setLocation}
-                                />
-                                <div className={styles.wrapper} >
-                                    <JobTypeBtns onContinue={toggleComponent} onBack={backToggleComponent} />
-                                </div>
-                            </>
-                        )}
-
-                        {currentStage === stages.AI_ASSESSMENT && (
-                            <>
-                                <AIassessment />
-                                <div className={styles.wrapper}>
-                                    <AssessmentBtns onContinue={toggleComponent} onBack={backToggleComponent} />
-                                </div   >
-                            </>
-                        )}
-
-                        {currentStage === stages.SHARE_LINK && (
-                            <>
-                                <ShareLink
-                                    emailReceiver={emailReceiver}
-                                    setEmailReceiver={setEmailReceiver}
-                                    setText={setText}
-                                    text={text}
-                                    setSubject={setSubject}
-                                    subject={subject}
-                                    position={position}
-                                />
-                                <div className={styles.wrapper}>
-                                    <ShareLinkBtns handleEmailInvite={handleEmailInvite} onContinue={toggleComponent} onBack={backToggleComponent} onClose={onClose} />
-                                </div>
-                            </>
-                        )}
-
-                    </div>
                     )}
                 </div>
 
             </div>
         </>
     )
-}
+})
 
 export default Overlay; 
