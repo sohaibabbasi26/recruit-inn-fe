@@ -33,7 +33,7 @@ const AdminSideNavbar = ({ }) => {
             <div className={styles.masterContainer}>
                 <div className={styles.mainContainer}>
                     <div className={styles.logoContainer}>
-                        <h3><Image src="/logo.svg" width={logoSize} height={logoSize} />recruitinn.ai</h3>
+                        <h3><Image src="/logo.svg" width={logoSize} height={logoSize} /> recruitinn.ai</h3>
                     </div>
 
                     <div className={activeItem === 'Dashboard' ? `${styles.dashboardButton} ${styles.active}` : `${styles.dash}`}
@@ -121,7 +121,7 @@ const AdminSideNavbar = ({ }) => {
                 </div>
 
                 <div className={styles.profileTab}>
-                    <Image src='/dp.svg' height={50} width={50} />
+                    <Image src='/dp.svg' height={38} width={38} className={styles.profileImage}/>
                     <div className={styles.textContent}>
                         <span>Hello</span>
                         <h4>Bruce Wayne</h4>

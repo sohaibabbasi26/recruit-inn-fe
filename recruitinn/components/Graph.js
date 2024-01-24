@@ -58,7 +58,6 @@ const Graph = () => {
                         <h3 id={styles.unique}>
                             Applied Candidates
                         </h3>
-
                         <span>Last 5 days</span>
                     </div>
 

@@ -48,6 +48,11 @@ const Admin = ({ allClients, allResults }) => {
     }, [allClients]);
 
     const preprocessCandidatesData = (candidates) => {
+        if (!candidates) {
+            console.error("Candidates is undefined or null:", candidates);
+            // handle the error or return a default value
+            return [];
+        }
         return candidates.map(candidate => {
             let latestResult = {
                 softskillRating: 0,
