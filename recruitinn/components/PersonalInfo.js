@@ -8,30 +8,48 @@ const PersonalInfo = ({
     setContact,
     setEmail,
     setExpertise,
-    setName
+    setName,
+    nameRef,
+    contactRef,
+    emailRef,
+    expertiseRef,
+    countryRef,
+    cityRef,
+    validationErrors
 }) => {
 
-    
+    console.log("validation errors:", validationErrors);
 
     return (
         <>
             <div className={styles.superContainer}>
+
+                {/* <div className={styles.errorsHub}>
+                    {validationErrors?.error && (Object.keys(validationErrors)?.map((errorKey, index) => (
+                        <div className={styles.errorsContainer}>
+                            <div key={index} className="error-message">
+                                {validationErrors.error}
+                            </div>
+                        </div>
+                    )))}
+                </div> */}
+
                 <div className={styles.masterContainer}>
                     <div className={styles.infoField}>
                         <Image />
-                        <input placeholder='Enter your name' onChange={(e) => setName(e.target.value)} />
+                        <input placeholder='Enter your name' ref={nameRef} />
                     </div>
                     <div className={styles.infoField}>
                         <Image />
-                        <input placeholder='Enter your email' onChange={(e) => setEmail(e.target.value)} />
+                        <input placeholder='Enter your email' ref={emailRef} />
                     </div>
                     <div className={styles.infoField}>
                         <Image />
-                        <input placeholder='Enter your number' onChange={(e) => setContact(e.target.value)} />
+                        <input placeholder='Enter your number' ref={contactRef} />
                     </div>
                     <div className={styles.infoField}>
                         <Image />
-                        <select onChange={(e) => setExpertise(e.target.value)}>
+                        <select ref={expertiseRef} >
                             <option value='Expert' >Expert</option>
                             <option value='Intermediate' >Intermediate</option>
                             <option value='Beginner' >Beginner</option>
@@ -39,16 +57,16 @@ const PersonalInfo = ({
                     </div>
                     <div className={styles.infoField}>
                         <Image />
-                        <select onChange={(e) => setCountry(e.target.value)}>
-                            <option>Select your city</option>
+                        <select ref={countryRef} >
+                            <option>Select your country</option>
                             <option value='Pakistan'>Pakistan</option>
                         </select>
                     </div>
                     <div className={styles.infoField}>
                         <Image />
-                        <select onChange={(e) => setCity(e.target.value)}>
-                        <option>Select your city</option>
-                        <option value='Karachi'>Karachi</option>
+                        <select ref={cityRef} >
+                            <option>Select your city</option>
+                            <option value='Karachi'>Karachi</option>
                         </select>
                     </div>
                 </div>

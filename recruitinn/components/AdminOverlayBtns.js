@@ -1,11 +1,13 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const AdminOverlayBtns = ({ onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+const AdminOverlayBtns = ({showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
 
     const onAddClientHandler = async () => {
         await handleFormSubmit();
         onClose();
+        setMessage("Client has been created")
+        showSuccess();
     }
 
     const navigationIconSize = 30;

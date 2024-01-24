@@ -1,13 +1,15 @@
 import AdminBody from './AdminBody';
 import AdminTopNavbar from './AdminTopNavbar';
 import styles from './SuperComponent.module.css';
+import SuccessIndicator from './SuccessIndicator';
 
-const AdminSuperComponent = ({setSelectedCandidate,selectedCandidate,setReportOverlay ,allCandidates,showSuccess}) => {
+const AdminSuperComponent = ({ setMessage,setSelectedCandidate,showSuccessMessage, selectedCandidate, setReportOverlay, allCandidates, showSuccess }) => {
 
     return (
         <>
             <div className={styles.superContainer} >
-                <AdminTopNavbar showSuccess={showSuccess} />
+                {/* {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} />} */}
+                <AdminTopNavbar setMessage={setMessage} showSuccess={showSuccess} />
                 <AdminBody allCandidates={allCandidates} setSelectedCandidate={setSelectedCandidate} selectedCandidate={selectedCandidate} setReportOverlay={setReportOverlay} />
             </div>
         </>

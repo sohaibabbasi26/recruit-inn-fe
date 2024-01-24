@@ -15,6 +15,8 @@ import CandData from '../../data/candDummyData';
 import ReportOverlay from '../../../components/ReportOverlay';
 import JobOverlay from '../../../components/JobOverlay';
 import { useRouter } from 'next/router';
+// import ShareLink from '../../../components/ShareLink';
+import SuccessIndicator from '../../../components/SuccessIndicator';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -207,18 +209,27 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     }
   }, [allCandidatesReports]);
 
-  const { allData, activeData, closedData } = jobData;
-  const { allCandidates, recommendedCandidates, qualifiedCandidates, notEligibleCandidates } = CandData;
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
   const [reportOverlay, setReportOverlay] = useState(false);
   const [jobOverlay, setJobOverlay] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  const showSuccess = () => {
+      setShowSuccessMessage(true);
+
+      setTimeout(() => {
+          setShowSuccessMessage(false);
+      }, 3000);
+  };
 
   const stages = {
     ADD_SKILL: 'ADD_SKILL',
     JOB_TYPE: 'JOB_TYPE',
+
     AI_ASSESSMENT: 'AI_ASSESSMENT',
     SHARE_LINK: 'SHARE_LINK'
   }
@@ -281,7 +292,8 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   return (
     <>
-      {showOverlay && <Overlay token={token} onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
+    {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
+      {showOverlay && <Overlay showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       <div className={styles.clientPortal}>

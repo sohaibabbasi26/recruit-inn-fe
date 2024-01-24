@@ -89,10 +89,18 @@
     width: 80%;
 }
 
+.listContainer h4 img{
+    cursor: pointer;
+}
+
 .list {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.list h4 img{
+    cursor: pointer;
 }
 
 .profileTab {

@@ -12,6 +12,7 @@ import { individualData } from '@/data/jobsDummyData';
 import JobOverlay from '../../components/JobOverlay';
 import AdminOverlay from '../../components/AdminOverlay';
 import AdminRightComponent from '../../components/AdminRightComponent';
+import SuccessIndicator from '../../components/SuccessIndicator';
 
 const Admin = ({ allClients, allResults }) => {
 
@@ -24,13 +25,12 @@ const Admin = ({ allClients, allResults }) => {
     const [notEligibleCand, setNotEligibleCand] = useState([]);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-    
     const showSuccess = () => {
         setShowSuccessMessage(true);
 
         setTimeout(() => {
             setShowSuccessMessage(false);
-        }, 3000); 
+        }, 3000);
     };
 
     useEffect(() => {
@@ -61,30 +61,30 @@ const Admin = ({ allClients, allResults }) => {
                 technicalAssessment: "",
                 createdAt: null
             };
-    
+
             if (candidate.results && candidate.results.length > 0) {
                 const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 latestResult = sortedResults[0].result || latestResult;
                 latestResult.createdAt = sortedResults[0].createdAt;
             }
-    
+
             const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
             const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-    
+
             let expertiseTechStack = [];
             let jobType = 'N/A';
             let position = 'N/A';
             if (Array.isArray(candidate.expertise)) {
                 expertiseTechStack = candidate.expertise.map(e => ({
-                    skill : e.skill,
-                    level : e.level
+                    skill: e.skill,
+                    level: e.level
                 }));
             } else if (candidate.expertise && typeof candidate.expertise === 'object') {
                 expertiseTechStack = candidate.expertise.techStack || [];
                 jobType = candidate.expertise.jobtype || 'N/A';
                 position = candidate.expertise.position || 'N/A';
             }
-    
+
             return {
                 name: candidate.name,
                 email: candidate.email,
@@ -127,16 +127,12 @@ const Admin = ({ allClients, allResults }) => {
         console.log('Recommended Candidate:', recommendedCand);
         console.log('Qualified Candidate:', qualifiedCand);
         console.log('Not Eligible Candidate:', notEligibleCand);
-    },[recommendedCand,qualifiedCand,notEligibleCand]);
+    }, [recommendedCand, qualifiedCand, notEligibleCand]);
 
 
     useEffect(() => {
         console.log('pre processed data:', preprocessedCandidates);
     }, [preprocessedCandidates]);
-
-    useEffect(() => {
-
-    }, [])
 
     console.log('all clients :', allClients);
     console.log('all results :', allResults);
@@ -149,7 +145,7 @@ const Admin = ({ allClients, allResults }) => {
     const { activeItem } = useActiveItem();
     const [jobOverlay, setJobOverlay] = useState(false);
     const [data, setData] = useState(null);
-
+    const [message , setMessage] = useState(null);
 
     const stages = {
         CLIENT_INFO: 'CLIENT_INFO',
@@ -167,11 +163,15 @@ const Admin = ({ allClients, allResults }) => {
         setJobOverlay(!jobOverlay);
     }
 
+    useEffect(() => {
+        console.log("show success msg state:", showSuccessMessage)
+    }, [showSuccessMessage])
+
     const getActiveComponent = () => {
         switch (activeItem) {
             case 'Dashboard':
                 return <>
-                    <AdminSuperComponent showSuccess={showSuccess} allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
+                    <AdminSuperComponent setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess} allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
                     <AdminRightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
                 </>;
             case 'AllClients':
@@ -181,7 +181,7 @@ const Admin = ({ allClients, allResults }) => {
             case 'Active':
                 return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} activeClientsData={activeClientsData} />
             case 'In-Active':
-                return <AdminSuper data={data} setData={setData}  setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
+                return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
             case 'All':
                 return <AdminSuper setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} allCandidates={preprocessedCandidates} />
             case 'Recommended':
@@ -206,12 +206,13 @@ const Admin = ({ allClients, allResults }) => {
     }
 
     console.log('active clients data:', activeClientsData);
-    console.log('in active clients data:', inActiveClientsData);
+    console.log('in active clients data:', inActiveClientsData);    
     console.log('requetsed Clients data', requestedClientsData)
 
     return (
         <>
-            {showOverlay && <AdminOverlay  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
+            {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
+            {showOverlay && <AdminOverlay setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
             <div className={styles.adminPortal}>

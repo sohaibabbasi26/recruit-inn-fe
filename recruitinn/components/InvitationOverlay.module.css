@@ -136,3 +136,23 @@
     justify-content: center;
 }
 
+.errorsContainer{
+    width: 60%;
+    height: 5%;
+    border: 1px solid red;
+    border-radius: 20px;
+    background-color: rgb(246, 211, 211);
+    display: flex;
+    
+    gap: 1rem;
+}
+@media only screen and (max-width: 1300px) {
+    .headingjob{
+        font-size: larger;
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .headingjob{
+        font-size: medium;
+    }
+}
