@@ -23,7 +23,7 @@ const PasswordConfirm = ({setPassword,password}) => {
                 <div className={styles.banner}>
                     <div className={styles.leftContainer}>
                         <Image src='/successIndicator.svg' width={90} height={90} />
-                        <p>
+                        <p className='passwordhead'>
                             Welcome Abroad, Client Name
                         </p>
                     </div>

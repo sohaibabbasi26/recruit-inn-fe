@@ -335,7 +335,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
                                 <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
                             </span>
                         </div>
-
+                        
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
                         {currentStage === stages.JOB_DETAIL && (

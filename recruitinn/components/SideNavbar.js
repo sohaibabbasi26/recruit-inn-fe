@@ -114,7 +114,7 @@ const SideNavbar = ({ navbarIte }) => {
                 </div>
 
                 <div className={styles.profileTab}>
-                    <Image src='/dp.svg' height={50} width={50} />
+                    <Image src='/dp.svg' height={50} width={50} className='profileImage' />
                     <div className={styles.textContent}>
                         <span>Hello</span>
                         <h4>Bruce Wayne</h4>
