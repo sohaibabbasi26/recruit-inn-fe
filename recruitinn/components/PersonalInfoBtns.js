@@ -2,7 +2,7 @@ import styles from './RightBottomBtns.module.css';
 
 import Image from 'next/image';
 
-const PersonalInfoBtns = ({showSuccess, onContinue , onBack , setCompletedStages, completedStages, onClose }) => {
+const PersonalInfoBtns = ({ showSuccess, validateEmailReceiver, fillValidity, showError, showErrorMessage ,setMessage, onContinue , onBack , setCompletedStages, completedStages, onClose }) => {
 
     const navigationIconSize = 30;
 

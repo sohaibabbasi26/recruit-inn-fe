@@ -17,6 +17,7 @@ import JobOverlay from '../../../components/JobOverlay';
 import { useRouter } from 'next/router';
 // import ShareLink from '../../../components/ShareLink';
 import SuccessIndicator from '../../../components/SuccessIndicator';
+import ErrorIndicator from '../../../components/ErrorIndicator';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -217,13 +218,22 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [selectedJob, setSelectedJob] = useState(null);
   const [message, setMessage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+  const showError = () => {
+    setShowErrorMessage(true);
+
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 3000);
+  };
 
   const showSuccess = () => {
-      setShowSuccessMessage(true);
+    setShowSuccessMessage(true);
 
-      setTimeout(() => {
-          setShowSuccessMessage(false);
-      }, 3000);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
   };
 
   const stages = {
@@ -292,8 +302,9 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   return (
     <>
-    {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-      {showOverlay && <Overlay showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
+      {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
+      {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
+      {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       <div className={styles.clientPortal}>

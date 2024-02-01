@@ -24,6 +24,16 @@ const Admin = ({ allClients, allResults }) => {
     const [qualifiedCand, setQualifiedCand] = useState([]);
     const [notEligibleCand, setNotEligibleCand] = useState([]);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showErrorMessage, setshowErrorMessage] = useState(false);
+    const [adminToken, setAdminToken] = useState('');
+
+    const showError = () => {
+        setshowErrorMessage(true);
+
+        setTimeout(() => {
+            setshowErrorMessage(false);
+        }, 3000);
+    };
 
     const showSuccess = () => {
         setShowSuccessMessage(true);
@@ -32,6 +42,11 @@ const Admin = ({ allClients, allResults }) => {
             setShowSuccessMessage(false);
         }, 3000);
     };
+
+    useEffect(() => {
+        const adminToken = localStorage.getItem('admin-token');
+        setAdminToken(adminToken);
+    })
 
     useEffect(() => {
         if (Array.isArray(allClients?.data)) {
@@ -200,6 +215,21 @@ const Admin = ({ allClients, allResults }) => {
         setShowOverlay(!showOverlay);
     }
 
+    useEffect(()=>{
+        async function dataFetch(){
+            const response = await fetch('http://127.0.0.1:3002/v1/get-companies',
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${adminToken}` 
+                }
+            });
+
+            const data = await response.json();
+            console.log("")
+        }
+    },[])
+
     console.log('active clients data:', activeClientsData);
     console.log('in active clients data:', inActiveClientsData);    
     console.log('requetsed Clients data', requestedClientsData)
@@ -207,7 +237,7 @@ const Admin = ({ allClients, allResults }) => {
     return (
         <>
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-            {showOverlay && <AdminOverlay setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
+            {showOverlay && <AdminOverlay showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
             <div className={styles.adminPortal}>
@@ -221,12 +251,19 @@ const Admin = ({ allClients, allResults }) => {
 export default Admin;
 
 export const getServerSideProps = async () => {
+
+
     try {
+
+        const adminToken = localStorage.getItem('admin-token');
+        console.log("************** ADMIND TOKEN *****************");
+        console.log(adminToken);
+        
         const response = await fetch('http://127.0.0.1:3002/v1/get-companies',
             {
                 method: 'GET',
                 headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4'
+                    'Authorization': `Bearer ${adminToken}` 
                 }
             });
         console.log('response: ', response);
@@ -242,7 +279,7 @@ export const getServerSideProps = async () => {
             {
                 method: 'GET',
                 headers: {
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4'
+                    'Authorization': `Bearer ${adminToken}` 
                 }
             });
         console.log('response: ', response);
@@ -266,7 +303,4 @@ export const getServerSideProps = async () => {
             },
         };
     }
-
-
-
 };  

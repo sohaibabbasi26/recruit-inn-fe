@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import styles from './PersonalInfo.module.css';
 import Image from 'next/image';
 
 
-const PersonalInfo = ({
+const PersonalInfo = forwardRef(({
     setCity,
     setCountry,
     setContact,
@@ -18,21 +19,12 @@ const PersonalInfo = ({
     validationErrors
 }) => {
 
+    
     console.log("validation errors:", validationErrors);
 
     return (
         <>
             <div className={styles.superContainer}>
-
-                {/* <div className={styles.errorsHub}>
-                    {validationErrors?.error && (Object.keys(validationErrors)?.map((errorKey, index) => (
-                        <div className={styles.errorsContainer}>
-                            <div key={index} className="error-message">
-                                {validationErrors.error}
-                            </div>
-                        </div>
-                    )))}
-                </div> */}
 
                 <div className={styles.masterContainer}>
                     <div className={styles.infoField}>
@@ -73,6 +65,6 @@ const PersonalInfo = ({
             </div>
         </>
     )
-}
+})
 
 export default PersonalInfo;

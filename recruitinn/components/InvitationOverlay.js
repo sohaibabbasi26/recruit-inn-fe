@@ -99,6 +99,8 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
     const expertiseRef = useRef(null);
     const contactRef = useRef(null);
 
+    const [reqBody,setReqBody] = useState(null);
+
     const handleContinue = () => {
         const errors = {};
         let isFormIncomplete = false;
@@ -110,6 +112,17 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             "city:", cityRef.current.value, "Country",countryRef.current.value, "expertise: ", expertiseRef.current.value,
             "contact:", contactRef.current.value
         );
+
+        setReqBody({
+            name: nameRef.current.value,
+            email: emailRef.current.value,
+            over_all_exp : expertiseRef.current.value,
+            contact_no : contactRef.current.value,
+            applied_through : clientData?.client_name,
+            company_id: newId,
+            expertise: newExpert,
+        })
+
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
         if (!nameRef.current.value.trim()) {
@@ -275,16 +288,16 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
 
 
     const createCandidate = async () => {
-        const requestBody = {
-            name: nameRef.current.value,
-            email: emailRef.current.value,
-            over_all_exp: expertiseRef.current.value,
-            applied_through: 'Co-ventech',
-            company_id: newId.current.value,
-            expertise: newExpert.current.value,
-            contact_no: contactRef.current.value        ,
-        }
-        console.log('request body: ', requestBody);
+        // const requestBody = {
+        //     name: nameRef?.current ? nameRef?.current?.value : '',
+        //     email: emailRef?.current ? emailRef?.current?.value : '',
+        //     over_all_exp: expertiseRef.current ? expertiseRef.current.value : '',
+        //     applied_through: 'Co-ventech',
+        //     company_id: newId,
+        //     expertise: newExpert,
+        //     contact_no: contactRef.current ? contactRef.current.value : '',
+        // }
+        console.log('request body: ', reqBody);
         console.log("new token:", newToken, 'and new id:', newId)
 
         try {
@@ -294,7 +307,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${newToken}`
                 },
-                body: JSON.stringify(requestBody),
+                body: JSON.stringify(reqBody),
             });
             const data = await response.json();
             console.log("candidate data :", data?.data?.data?.candidate_id)
@@ -304,6 +317,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         }
     };
 
+    // console.log('Form Data:', { name: nameRef.current.value, email: emailRef.current.value, ... });
 
     const redirectToTestPage = async () => {
         const candidateId = await createCandidate();
@@ -335,10 +349,10 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
-                            <span>
+                            {/* <span>
                                 <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
                                 <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span>
+                            </span> */}
                         </div>
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />

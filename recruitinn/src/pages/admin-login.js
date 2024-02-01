@@ -34,7 +34,7 @@ const AdminLogin = () => {
         const data = await response.json();
         console.log('login info:', data?.data);
         if (data?.data?.token) {
-            localStorage.setItem('client-token', data?.data?.token);
+            localStorage.setItem('admin-token', data?.data?.token);
             router.push(`/admin-dashboard`)
         } else {
             alert('Login failed. Please check your credentials.');

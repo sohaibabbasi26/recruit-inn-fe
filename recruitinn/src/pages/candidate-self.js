@@ -23,7 +23,6 @@ const CandidateSelf = () => {
     return (
         <>
             <SelfOverlay showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
-
         </>
     );
 }

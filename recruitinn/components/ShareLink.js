@@ -21,7 +21,6 @@ const ShareLink = ({
     const plusSize = 20;
     const iconSize = 20;
     const clipSize = 30;
-    // const [randomKey, setRandomKey] = useState(uuidv4());
     const [copySuccess, setCopySuccess] = useState('');
     const demolink = `http://localhost:3000/invited-candidate?position_id=${positionId}&client_id=${companyId}`;
 

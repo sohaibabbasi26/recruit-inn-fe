@@ -17,9 +17,10 @@ import { useTest } from '@/contexts/QuestionsContent';
 import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
+import ErrorIndicator from './ErrorIndicator';
 
-const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message , setMessage , showSuccess }) => {
-
+const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message , setMessage , showSuccess }) => {
+    showErrorMessage
     const overlayRef = useRef(null);
     const { test, setTest } = useTest();
     const { expertiseItem, setExpertiseItem } = useExpertiseContext();
@@ -71,9 +72,65 @@ const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings
     const [subject, setSubject] = useState(null);
     const [text, setText] = useState(null);
     const [positionId, setPositionId] = useState(null);
+
+    const expertiseRef = useRef({});
+    const positionRef = useRef();
+    const locationRef = useRef();
+    const jobTypeRef = useRef();
+    const descriptionRef = useRef();
+
+    const JobPositionRef = useRef();
+    const recipientRef = useRef();
+
+    useEffect(()=>{
+        setPosition(positionRef?.current?.value);
+        setLocation(locationRef?.current?.value);
+        setJobtype(jobTypeRef?.current?.value);
+        setDescription(descriptionRef?.current?.value);
+    },[positionRef?.current?.value,expertiseRef?.current?.value,locationRef?.current?.value,jobTypeRef?.current?.value,description?.current?.value])
+
+    const validateAddSkill = () => {
+        return techStack.some(skillObj => skillObj.skill && skillObj.skill.trim() !== '');
+    };
+
+    const isValidEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return regex.test(email);
+    };
+
+    const validateEmailReceiver = () => {
+        if (!emailReceiver || !isValidEmail(emailReceiver)) {
+            setMessage("Please enter a valid email address.");
+            showError();
+            return false;
+        }
+        return true;
+    };
     
 
+    const validateJobType = () => {
+        return positionRef.current.value && locationRef.current.value && jobTypeRef.current.value ;
+    };
+
     const toggleComponent = async () => {
+
+        if (currentStage === stages.ADD_SKILL && !validateAddSkill()) {
+            setMessage("Please fill in at least one skill.")
+            showError();
+            return;
+        }
+
+        if (currentStage === stages.JOB_TYPE && !validateJobType()) {
+            return;
+        }
+
+
+        if(currentStage === stages.SHARE_LINK && !validateEmailReceiver()){
+            setMessage("Re-write email its either invalid or empty!")
+            showError();
+            return;
+        }
+
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
@@ -119,12 +176,12 @@ const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings
     const handleFormSubmit = async () => {
 
         const requestBody = {
-            position: position,
+            position: positionRef.current.value,
             company_id: id,
             expertise: techStack,
-            job_type: jobtype,
+            job_type: jobTypeRef.current.value,
             description: description,
-            location: location
+            location: locationRef.current.value
         }
 
         localStorage.setItem('expertiseData', JSON.stringify({
@@ -212,6 +269,7 @@ const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
+                {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
                 {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.btn}>
                     <button onClick={onClose}>
@@ -237,6 +295,7 @@ const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings
                             {currentStage === stages.ADD_SKILL && (
                                 <>
                                     <AddSkillForm
+                                        expertiseRef={expertiseRef}
                                         setTechStack={setTechStack}
                                     />
                                     <div className={styles.wrapper}>
@@ -247,14 +306,19 @@ const Overlay = React.memo(({ token, showOverlay, onClose, stages, stageHeadings
 
                             {currentStage === stages.JOB_TYPE && (
                                 <>
-                                    <JobType
+                                    <JobType 
+                                        positionRef={positionRef}
+                                        jobTypeRef={jobTypeRef}
+                                        descriptionRef={descriptionRef}
+                                        locationRef={locationRef}
+
                                         setPosition={setPosition}
                                         setJobtype={setJobtype}
                                         setDescription={setDescription}
                                         setLocation={setLocation}
                                     />
                                     <div className={styles.wrapper} >
-                                        <JobTypeBtns showSuccess={showSuccess} setMessage={setMessage} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                        <JobTypeBtns showError={showError} showErrorMessage={showErrorMessage} showSuccess={showSuccess} setMessage={setMessage} onContinue={toggleComponent} onBack={backToggleComponent} />
                                     </div>
                                 </>
                             )}

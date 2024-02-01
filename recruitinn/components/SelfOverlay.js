@@ -13,10 +13,19 @@ import CandSelfSkill from './CandSelfSkill';
 import CandSelfSkillBtns from './CandSelfSkillBtn';
 import CandSelfAssessment from './CandSelfAssessment';
 import CandSelfAssessmentBtns from './CandSelfAssessmentBtns';
+import ErrorIndicator from './ErrorIndicator';
+import SuccessIndicator from './SuccessIndicator';
 
 const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const overlayRef = useRef(null);
+
+    const nameRef = useRef();
+    const contactRef = useRef();
+    const emailRef = useRef();
+    const expertiseRef = useRef();
+    const countryRef = useRef();
+    const cityRef = useRef();
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -55,21 +64,45 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         console.log("Current Stage: ", currentStage);
         console.log("Is Share Link Stage? ", currentStage === stages.SHARE_LINK);
 
+        if((currentStage === stages.PERSONAL_INFO) && !fillValidity()){
+            setMessage("Please fill all the fields")
+            showError();
+            return;
+        }
+
+        if((currentStage === stages.PERSONAL_INFO) && !validateEmailReceiver()){
+            setMessage("Entered email is not valid")
+            showError();
+            return;
+        }
+
+        if((currentStage === stages.SKILLS) && !validateAddSkill()){
+            setMessage("At least enter one skill!");
+            showError();
+            return;
+        }
+    
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
-
+    
         if (currentStage === stages.SHARE_LINK) {
             router.push('/');
         } else {
             switch (currentStage) {
                 case stages.PERSONAL_INFO:
+                    
+                    console.log("Moving to VERIFICATION stage");
                     handlePersonalInfo();
                     setCurrentStage(stages.VERIFICATION);
                     break;
                 case stages.VERIFICATION:
+                    console.log("Moving to SKILLS stage");
+                    setMessage("Success!")
+                    showSuccess();
                     verifyCode();
                     break;
                 case stages.SKILLS:
+                    console.log("Moving to ASSESSMENT stage");
                     handleSetExpertise();
                     console.log("techstack:", techStack)
                     handleTestPreparation();
@@ -82,7 +115,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     }
 
     const backToggleComponent = () => {
-
         const stageToBePopped = completedStages.slice(0, -1);
         setCompletedStages(stageToBePopped);
         switch (currentStage) {
@@ -102,6 +134,10 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         return randomCode;
     }
 
+    const validateAddSkill = () => {
+        return techStack.some(skillObj => skillObj.skill && skillObj.skill.trim() !== '');
+    };
+
     const [generatedCode, setGeneratedCode] = useState(() => generateRandomCode());
     const [name, setName] = useState(null);
     const [country, setCountry] = useState(null);
@@ -113,20 +149,80 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [isCodeInvalid, setIsCodeInvalid] = useState(false);
     const [techStack, setTechStack] = useState(null);
     const [candidateId, setCandidateId] = useState(null);
+    const [showErrorMessage, setshowErrorMessage] = useState(false);
+    const [message,setMessage] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [reqBody , setReqBody] = useState(null);
+
+    useEffect(() => {
+        setName(nameRef?.current?.value);
+        setCity(cityRef?.current?.value);
+        setContact(contactRef?.current?.value);
+        setEmail(emailRef?.current?.value);
+        setExpertise(expertiseRef?.current?.value);
+        setCountry(countryRef?.current?.value);
+
+        const reqBody = {
+            name: name,
+            city: city,
+            contact_no: contact,
+            email : email,
+            over_all_exp : expertise,
+            country : country,
+            applied_through: 'Self'
+        }
+
+        setReqBody(reqBody)
+    },[name,city,contact,email,expertise,country])
+
+    const showError = () => {
+        setshowErrorMessage(true);
+
+        setTimeout(() => {
+            setshowErrorMessage(false);
+        }, 3000);
+    };
+
+    const showSuccess = () => {
+        setShowSuccessMessage(true);
+
+        setTimeout(() => {
+            setShowSuccessMessage(false);
+        }, 3000);
+    };
+
+    const fillValidity = () => {
+        console.log("fillValidity", nameRef?.current?.value || emailRef?.current?.value || contactRef?.current?.value || expertiseRef?.current?.value || countryRef?.current?.value || cityRef?.current?.value)
+        return nameRef?.current?.value || emailRef?.current?.value || contactRef?.current?.value || expertiseRef?.current?.value || countryRef?.current?.value || cityRef?.current?.value ;
+    };
+
+    const validateEmailReceiver = () => {
+        if (!emailRef.current.value || !isValidEmail(emailRef.current.value)) {
+            setMessage("Please enter a valid email address.");
+            showError();
+            return false;
+        }
+        return true;
+    };
+
+    const isValidEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return regex.test(email);
+    };
 
     const handlePersonalInfo = async () => {
         const newToken = localStorage.getItem('client-token');
 
         try {
-            const reqBody = {
-                name: name,
-                country: country,
-                city: city,
-                over_all_exp: expertise,
-                email: email,
-                contact_no: contact,
+            const requestBody = {
+                name: nameRef.current.value,
+                city: cityRef.current.value,
+                contact_no: contactRef.current.value,
+                email: emailRef.current.value,
+                over_all_exp: expertiseRef.current.value,
+                country: countryRef.current.value,
                 applied_through: 'Self'
-            }
+            };
 
             console.log("request body: ", reqBody);
 
@@ -136,8 +232,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${newToken}`
                 },
-                body: JSON.stringify(reqBody),
-            })
+                body: JSON.stringify(requestBody),
+            });
 
             const data = await response.json();
             setCandidateId(data?.data?.data?.candidate_id);
@@ -148,7 +244,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
         try {
             const requestBody = {
-                to: email,
+                to: emailRef?.current?.value,
                 subject: 'RECRUITINN: Verify your account!',
                 text: `
                     Your verification code is : ${generatedCode}
@@ -180,7 +276,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         if (generatedCode === otpCode) {
             console.log("OTP Verified");
             setCurrentStage(stages.SKILLS);
+            setMessage("Success!")
+            showSuccess();
         } else {
+            setMessage("Invalid code entered, please try again")
+            showError();
             setIsCodeInvalid(true);
             console.error('its invalid')
         };
@@ -192,6 +292,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             token: candidateId,
             expertise: techStack
         }
+
         console.log("req body for setting expertise:", requestBody);
         try {
             const response = await fetch('http://localhost:3002/v1/set-expertise-by-cand', {
@@ -209,10 +310,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     }
 
     const handleTestPreparation = async () => {
-        const reqBody = {
-            expertise: techStack
-        }
-
         console.log("request.boy in handle test prep method:",reqBody)
         try {
             const response = await fetch('http://localhost:3002/v1/prepare-test', {
@@ -233,27 +330,25 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
-                <div className={styles.btn}>
-                    <button onClick={onClose}></button>
-                </div>
-
+                <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />
+                <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
                 <div className={styles.superContainer}>
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
-                            <span>
+                            {/* <span>
                                 <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
                                 <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span>
+                            </span> */}
                         </div>
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
                         {currentStage === stages.PERSONAL_INFO && (
                             <>
-                                <PersonalInfo setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
+                                <PersonalInfo expertiseRef={expertiseRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef}  setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
                                 <div className={styles.wrapper}>
-                                    <PersonalInfoBtns onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} fillValidity={fillValidity}  showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}

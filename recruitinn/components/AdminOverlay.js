@@ -1,161 +1,179 @@
-import { useState } from 'react';
-import styles from './Overlay.module.css';
-import Image from 'next/image';
-import Stages from './Stages';
-import AddSkillForm from './AddSkillForm';
-import RightBottomBtns from './RightBottomBtns';
-import JobType from './JobType';
-import JobTypeBtns from './JobTypeBtns';
-import AIassessment from './AIassesment';
-import AssessmentBtns from './AssessmentBtns';
-import ShareLink from './ShareLink';
-import { useRouter } from 'next/router';
-import ShareLinkBtns from './ShareLinkBtns';
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import ClientInfo from './ClientInfo';
-import AdminOverlayBtns from './AdminOverlayBtns';
+    import { useState } from 'react';
+    import styles from './Overlay.module.css';
+    import Image from 'next/image';
+    import Stages from './Stages';
+    import AddSkillForm from './AddSkillForm';
+    import RightBottomBtns from './RightBottomBtns';
+    import JobType from './JobType';
+    import JobTypeBtns from './JobTypeBtns';
+    import AIassessment from './AIassesment';
+    import AssessmentBtns from './AssessmentBtns';
+    import ShareLink from './ShareLink';
+    import { useRouter } from 'next/router';
+    import ShareLinkBtns from './ShareLinkBtns';
+    import { useRef, useEffect } from 'react';
+    import gsap from 'gsap';
+    import ClientInfo from './ClientInfo';
+    import AdminOverlayBtns from './AdminOverlayBtns';
+    import ErrorIndicator from './ErrorIndicator';
 
-const AdminOverlay = ({showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
+    const AdminOverlay = ({message, showError, showErrorMessage, showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
-    console.log('stage headings:'.stageHeadings);
+        console.log('stage headings:'.stageHeadings);
 
-    const overlayRef = useRef(null);
+        const overlayRef = useRef(null);
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
+        useEffect(() => {
+            document.body.style.overflow = 'hidden';
 
-        if (showOverlay) {
-            gsap.to(overlayRef.current, {
-                y: '0%',
-                opacity: 1,
-                duration: 0.3,
-                ease: 'power2.out'
+            if (showOverlay) {
+                gsap.to(overlayRef.current, {
+                    y: '0%',
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+            else {
+                gsap.to(overlayRef.current, {
+                    y: '100%',
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: 'power2.in',
+                    onComplete: onClose
+                });
+            }
+
+            return (() => {
+                gsap.to(overlayRef.current,
+                    { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
+                );
             });
-        }
-        else {
-            gsap.to(overlayRef.current, {
-                y: '100%',
-                opacity: 0,
-                duration: 0.3,
-                ease: 'power2.in',
-                onComplete: onClose
-            });
-        }
+        }, [showOverlay])
 
-        return (() => {
-            gsap.to(overlayRef.current,
-                { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
-            );
-        });
-    }, [showOverlay, onClose])
+        const router = useRouter();
+        const infoSymbolSize = 20;
+        const [currentStage, setCurrentStage] = useState(stages.CLIENT_INFO);
+        const [completedStages, setCompletedStages] = useState([]);
+        const [clientname, setClientname] = useState(null);
+        const [companyname, setCompanyname] = useState(null);
+        const [email, setEmail] = useState(null);
+        const [phoneNo, setPhoneNo] = useState(null);
+        const [actManager, setActManager] = useState(null);
+        const [companySize, setCompanySize] = useState(null);
+        const [city, setCity] = useState(null);
+        const [country, setCountry] = useState(null);
+        const [id, setId] = useState(null);
 
-    const router = useRouter();
-    const infoSymbolSize = 20;
-    const [currentStage, setCurrentStage] = useState(stages.CLIENT_INFO);
-    const [completedStages, setCompletedStages] = useState([]);
-    const [clientname, setClientname] = useState(null);
-    const [companyname, setCompanyname] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [phoneNo, setPhoneNo] = useState(null);
-    const [actManager, setActManager] = useState(null);
-    const [companySize, setCompanySize] = useState(null);
-    const [city, setCity] = useState(null);
-    const [country, setCountry] = useState(null);
-    const [id, setId] = useState(null);
+        const validateEmailReceiver = () => {
+            if (!email || !isValidEmail(email)) {
+                setMessage("Please enter a valid email address.");
+                showError();
+                return false;
+            }
+            return true;
+        };
 
+        const isValidEmail = (email) => {
+            const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return regex.test(email);
+        };
 
-    let link;
-    useEffect(() => {
-        setCurrentStage(stages.CLIENT_INFO);
-    }, []);
+        const fillValidity = () => {
+            return companyname && companySize && phoneNo && actManager && country && city && clientname && email ;
+        };
 
-    useEffect(() => {
-        link = `http://localhost:3000/set-password/${id}`
-        console.log(link);
-    }, [id])
+        let link;
+        useEffect(() => {
+            setCurrentStage(stages.CLIENT_INFO);
+        }, []);
 
-    const handleFormSubmit = async () => {
-        const requestBody = {
-            company_name: companyname,
-            company_location: city,
-            email: email,
-            account_user_name: actManager,
-            contact_no: phoneNo
-        }
+        useEffect(() => {
+            link = `http://localhost:3000/set-password/${id}`
+            console.log(link);
+        }, [id])
 
-        try {
-            const response = await fetch('http://localhost:3002/v1/client-sign-up-admin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4',
-                },
-                body: JSON.stringify(requestBody),
-            });
-            const data = await response.json();
-            console.log("login response:", data?.data?.data?.company_id);
-            setId(data?.data?.data?.company_id);
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }
+        const handleFormSubmit = async () => {
+            const requestBody = {
+                company_name: companyname,
+                company_location: city,
+                email: email,
+                account_user_name: actManager,
+                contact_no: phoneNo
+            }
 
-        const reqBody = {
-            to: email,
-            subject: 'RECRUITINN: Set Your Password & Login!',
-            text: `
-                Click on this link to set up your password and login:
-                
-                ${link}
-            `
-        }
+            try {
+                const response = await fetch('http://localhost:3002/v1/client-sign-up-admin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4',
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+                const data = await response.json();
+                console.log("login response:", data?.data?.data?.company_id);
+                setId(data?.data?.data?.company_id);
+            } catch (error) {
+                console.error('Error submitting form:', error);
+            }
 
-        try {
-            const response = await fetch('http://localhost:3002/v1/sendMail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(reqBody),
-            });
-            const data = await response.text();
-            console.log('response:', data);
-        } catch (error) {
-            console.error('Error mailing the client:', error);
-        }
-    };
+            const reqBody = {
+                to: email,
+                subject: 'RECRUITINN: Set Your Password & Login!',
+                text: `
+                    Click on this link to set up your password and login:
+                    
+                    ${link}
+                `
+            }
 
-    return (
-        <>
-            <div ref={overlayRef} className={styles.parent}>
+            try {
+                const response = await fetch('http://localhost:3002/v1/sendMail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reqBody),
+                });
+                const data = await response.text();
+                console.log('response:', data);
+            } catch (error) {
+                console.error('Error mailing the client:', error);
+            }
+        };
 
-                <div className={styles.btn}>
-                    <button onClick={onClose}>
-                        <Image src='/shut.svg' width={15} height={15} />
-                    </button>
-                </div>
+        return (
+            <>
+                <div ref={overlayRef} className={styles.parent}>
+                    <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
+                    <div className={styles.btn}>
+                        <button onClick={onClose}>
+                            <Image src='/shut.svg' width={15} height={15} />
+                        </button>
+                    </div>
 
-                <div className={styles.superContainer}>
-                    <div className={styles.coverContainer}>
-                        <div className={styles.topContainer}>
-                            <h2>{stageHeadings[currentStage] ? stageHeadings[currentStage] : 'Default Heading'}</h2>
+                    <div className={styles.superContainer}>
+                        <div className={styles.coverContainer}>
+                            <div className={styles.topContainer}>
+                                <h2>{stageHeadings[currentStage] ? stageHeadings[currentStage] : 'Default Heading'}</h2>
+                            </div>
+
+                            <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
+
+                            {currentStage === stages.CLIENT_INFO && (
+                                <>
+                                    <ClientInfo setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
+                                    <div className={styles.wrapper}>
+                                        <AdminOverlayBtns showError={showError} setMessage={setMessage} fillValidity={fillValidity} validateEmailReceiver={validateEmailReceiver} showSuccess={showSuccess} handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                    </div>
+                                </>
+                            )}
                         </div>
-
-                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
-
-                        {currentStage === stages.CLIENT_INFO && (
-                            <>
-                                <ClientInfo setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
-                                <div className={styles.wrapper}>
-                                    <AdminOverlayBtns showSuccess={showSuccess} setMessage={setMessage} handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
-                                </div>
-                            </>
-                        )}
                     </div>
                 </div>
-            </div>
-        </>
-    )
-}
+            </>
+        )
+    }
 
-export default AdminOverlay;
+    export default AdminOverlay;

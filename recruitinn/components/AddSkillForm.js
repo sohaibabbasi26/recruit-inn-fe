@@ -1,8 +1,8 @@
 import styles from './AddSkillForm.module.css';
 import Image from 'next/image';
-import { useState,useEffect } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 
-const AddSkillForm = ({setTechStack}) => {
+const AddSkillForm = forwardRef(({ setTechStack }) => {
 
     const iconSize = 25;
 
@@ -16,29 +16,46 @@ const AddSkillForm = ({setTechStack}) => {
     const [level3, setLevel3] = useState('beginner');
     const [level4, setLevel4] = useState('beginner');
 
+
     useEffect(() => {
         const FormSubmissionHandler = (e) => {
-    
+
             const skills = [
                 { skill: skill1, level: level1 },
                 { skill: skill2, level: level2 },
                 { skill: skill3, level: level3 },
                 { skill: skill4, level: level4 },
             ];
-    
+
             const filledSkills = skills.filter(skillObj => skillObj.skill);
             setTechStack(filledSkills);
         }
 
         FormSubmissionHandler();
     },[skill1,skill2,skill3,skill4,level1,level2,level3,level4])
-    
+
+    // useEffect(() => {
+
+    //     setExpertise(
+    //         {
+    //             skill1: { skill: skill1, level: level1 },
+    //             skill2: { skill: skill2, level: level2 },
+    //             skill3: { skill: skill3, level: level3 },
+    //             skill4: { skill: skill4, level: level4 }
+    //         }
+    //     )
+
+    //     // console.log("expertise:",expertise)
+
+    // }, [skill1, skill2, skill3, skill4, level1, level2, level3, level4]);
+
+
     return (
         <>
             <form className={styles.addSkillFormContainer}>
                 <div className={styles.inputField}>
 
-                    <div className={styles.wrapper}>        
+                    <div className={styles.wrapper}>
                         <Image className={styles.img} src='/award.svg' width={iconSize} height={iconSize} />
                         <input type='text' placeholder='Add Required Skill' onChange={(e) => setSkill1(e.target.value)} />
                     </div>
@@ -91,6 +108,6 @@ const AddSkillForm = ({setTechStack}) => {
             </form>
         </>
     )
-}
+});
 
 export default AddSkillForm;

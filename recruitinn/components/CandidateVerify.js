@@ -40,7 +40,7 @@ const CandidateVerify = ({otp,setOtp ,isCodeInvalid}) => {
                                 />
                             ))}
                         </div>
-                        {isCodeInvalid && <p style={{ color: 'red' }}>Invalid code entered. Please try again.</p>}
+                        {/* {isCodeInvalid && <p style={{ color: 'red' }}>Invalid code entered. Please try again.</p>} */}
 
                         <p id={styles.margin}>Didn't receive the code? <span> Resend code </span></p>
                     </div>

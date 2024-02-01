@@ -3,7 +3,7 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { useEffect, useState } from 'react';
 
-const ErrorIndicator = ({showSuccessMessage,msgText}) => {
+const ErrorIndicator = ({showErrorMessage, showSuccessMessage ,msgText}) => {
 
     console.log("SuccessIndicator rendering: ", showSuccessMessage);
 
@@ -11,7 +11,7 @@ const ErrorIndicator = ({showSuccessMessage,msgText}) => {
 
     return (
         <>
-            <div className={showSuccessMessage ? styles.show : styles.hide}>
+            <div className={showErrorMessage ? styles.show : styles.hide}>
                 <div className={styles.successMsgContainer}>
                     <Image src='/ToastNotification.gif' height={80} width={80} />
                     <p className={styles.successMessage}>
