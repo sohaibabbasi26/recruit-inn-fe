@@ -51,7 +51,7 @@ const AdminSuper = ({
                         <AdminTopNavbar />
                     </div>
                     <div className={styles.btnsDiv}>
-                        <button className={styles.addJobBtn} onClick={openAddClientHandler}><Image src='/Add.svg' width={iconSize} height={iconSize} />  Create A Client</button>
+                        <button className={styles.addJobBtn} onClick={openAddClientHandler}><Image src='/Add.svg' width={iconSize} height={iconSize} />Create A Client</button>
                         <button className={styles.notificationsBtn}><Image src="/BellIcon.svg" width={bellIconSize} height={bellIconSize} /></button>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ const AdminSuper = ({
                     <JobsHub  data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : activeData ? (
                     <JobsHub data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
-                ) : closedData ? (
+                ) : closedData ?6 (
                     <JobsHub data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : allCandidates ? (
                     <CandRepHub heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />

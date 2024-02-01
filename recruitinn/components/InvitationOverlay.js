@@ -336,25 +336,22 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
 
     return (
         <>
-
             <div ref={overlayRef} className={styles.parent}>
                 {showSuccessMessage && <ErrorIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-                <div className={styles.btn}>
-                    <button onClick={onClose}>
-                        <Image src='/shut.svg' width={15} height={15} />
-                    </button>
-                </div>
+                
 
                 <div className={styles.superContainer}>
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
                             {/* <span>
+                            <h2 className={styles.headingjob}>{stageHeadings[currentStage]}</h2>
+                            <span>
                                 <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
                                 <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
                             </span> */}
                         </div>
-
+                        
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
                         {currentStage === stages.JOB_DETAIL && (

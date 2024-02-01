@@ -1,7 +1,7 @@
 .fieldsContainer{
     display: flex;
     justify-content: space-between;
-    height:16%;
+    height:13%;
 }
 
 .conatiner input {
@@ -16,7 +16,6 @@
 
 .wrapper {
     margin-top: 1rem;
-    border: none;
     font-size: 1rem;
     width: 30%;
     background-color: #F8F7FC;
@@ -26,8 +25,11 @@
     align-items: center;
     gap: 1rem;
     padding: 0 1rem;
-    height: 15%;
+    height: 13%;
     width: 97%;
+}
+.wrapper select:focus {
+    outline: none;
 }
 
 .wrapper select{

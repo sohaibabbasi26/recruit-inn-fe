@@ -12,7 +12,7 @@ const LoginComp = ({setPassword,setEmail}) => {
                         <Image src='/element.png' width={80} height={80} />
                     </div>
                 </div>
-
+                
                 <div className={styles.inputFieldsContainer}>
                     <div className={styles.inputField}><Image src='/msg.svg' width={20} height={20} /> <input onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Enter your email' /></div>
                     <div className={styles.inputField}><Image src='/lock.svg' width={20} height={20} /> <input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Enter your password' /></div>

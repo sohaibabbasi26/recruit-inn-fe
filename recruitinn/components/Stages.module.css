@@ -25,13 +25,23 @@
     height: 10%;
     text-transform: initial;
 }
+@media only screen and (max-width: 1300px) {
+    .stagesContainer ul li{
+        font-size: small;
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .stagesContainer ul li{
+        font-size: xx-small
+    }
+}
 
 .stageLine {
     height: 2px; 
     background-color: #F4F1FC; 
     width: 20%;
 }
-
+s
 .active {
     color: #6137DB;
     padding: 1rem 2rem; 
@@ -43,4 +53,3 @@
 .active img{
     color: #6137DB;
 }
-

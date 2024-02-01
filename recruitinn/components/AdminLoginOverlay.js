@@ -53,11 +53,7 @@ const AdminLoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
-                <div className={styles.btn}>
-                    <button onClick={onClose}>
-                        <Image src='/shut.svg' width={15} height={15} />
-                    </button>
-                </div>
+                
 
                 <div className={styles.superContainer}>
                     {isLoading ? (

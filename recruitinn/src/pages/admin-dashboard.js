@@ -63,55 +63,67 @@ const Admin = ({ allClients, allResults }) => {
     }, [allClients]);
 
     const preprocessCandidatesData = (candidates) => {
-        return candidates.map(candidate => {
-            let latestResult = {
-                softskillRating: 0,
-                technicalRating: 0,
-                softskillAssessment: "",
-                technicalAssessment: "",
-                createdAt: null
-            };
-
-            if (candidate.results && candidate.results.length > 0) {
-                const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                latestResult = sortedResults[0].result || latestResult;
-                latestResult.createdAt = sortedResults[0].createdAt;
+        try{
+            if (!candidates) {
+                console.error("Candidates is undefined or null:", candidates);
+                // handle the error or return a default value
+                return [];
             }
-
-            const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
-            const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-
-            let expertiseTechStack = [];
-            let jobType = 'N/A';
-            let position = 'N/A';
-            if (Array.isArray(candidate.expertise)) {
-                expertiseTechStack = candidate.expertise.map(e => ({
-                    skill: e.skill,
-                    level: e.level
-                }));
-            } else if (candidate.expertise && typeof candidate.expertise === 'object') {
-                expertiseTechStack = candidate.expertise.techStack || [];
-                jobType = candidate.expertise.jobtype || 'N/A';
-                position = candidate.expertise.position || 'N/A';
-            }
-
-            return {
-                name: candidate.name,
-                email: candidate.email,
-                position: position,
-                score: score.toFixed(1),
-                contactNo: candidate.contact_no,
-                date: formattedDate,
-                expertise: expertiseTechStack,
-                jobType: jobType,
-                position: position,
-                overAllExperience: candidate.over_all_exp || 'N/A',
-                results: latestResult,
-                company: candidate.company || null,
-                appliedThrough: candidate?.company?.company_name || 'Self',
-                companyId: candidate?.company?.company_id
-            };
-        });
+    
+            console.log("in pre processing method:",candidates)
+            return candidates?.map(candidate => {
+                let latestResult = {
+                    softskillRating: 0,
+                    technicalRating: 0,
+                    softskillAssessment: "",
+                    technicalAssessment: "",
+                    createdAt: null
+                };
+    
+                if (candidate.results && candidate.results.length > 0) {
+                    const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    latestResult = sortedResults[0].result || latestResult;
+                    latestResult.createdAt = sortedResults[0].createdAt;
+                }
+    
+                const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
+                const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
+    
+                let expertiseTechStack = [];
+                let jobType = 'N/A';
+                let position = 'N/A';
+                if (Array.isArray(candidate.expertise)) {
+                    expertiseTechStack = candidate.expertise.map(e => ({
+                        skill: e.skill,
+                        level: e.level
+                    }));
+                } else if (candidate.expertise && typeof candidate.expertise === 'object') {
+                    expertiseTechStack = candidate.expertise.techStack || [];
+                    jobType = candidate.expertise.jobtype || 'N/A';
+                    position = candidate.expertise.position || 'N/A';
+                }
+    
+                return {
+                    name: candidate.name,
+                    email: candidate.email,
+                    position: position,
+                    score: score.toFixed(1),
+                    contactNo: candidate.contact_no,
+                    date: formattedDate,
+                    expertise: expertiseTechStack,
+                    jobType: jobType,
+                    position: position,
+                    overAllExperience: candidate.over_all_exp || 'N/A',
+                    results: latestResult,
+                    company: candidate.company || null,
+                    appliedThrough: candidate?.company?.company_name || 'Self',
+                    companyId: candidate?.company?.company_id
+                };
+            })
+        }
+        catch(err){
+            console.log("ERROR:",err)
+        }
     };
 
 
@@ -127,9 +139,9 @@ const Admin = ({ allClients, allResults }) => {
             const filterQualified = (candidate) => Math.ceil(candidate?.results?.technicalRating) >= 5 && Math.ceil(candidate?.results?.technicalRating) < 7;
             const filterNotEligible = (candidate) => Math.ceil(candidate?.results?.technicalRating) < 5;
 
-            setRecommendedCand(processedData.filter(filterRecommended));
-            setQualifiedCand(processedData.filter(filterQualified));
-            setNotEligibleCand(processedData.filter(filterNotEligible));
+            setRecommendedCand(processedData?.filter(filterRecommended));
+            setQualifiedCand(processedData?.filter(filterQualified));
+            setNotEligibleCand(processedData?.filter(filterNotEligible));
         }
     }, [allResults]);
 
