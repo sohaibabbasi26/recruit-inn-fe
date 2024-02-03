@@ -1,15 +1,25 @@
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 
-WORKDIR /app
+WORKDIR /app    
 COPY package.json .
+COPY package-lock.json* .
 RUN npm install
-COPY frontend/ ./
+COPY . ./
+# COPY . .
+
 RUN npm run build
 
-FROM nginx:alpine
+# Stage 2: Running the app
+FROM node:18-alpine
 
-COPY --from=builder /app/out /usr/share/nginx/html
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

@@ -229,7 +229,7 @@ const Admin = ({ allClients, allResults }) => {
 
     useEffect(()=>{
         async function dataFetch(){
-            const response = await fetch('http://127.0.0.1:3002/v1/get-companies',
+            const response = await fetch('http://backend-1:3002/v1/get-companies',
             {
                 method: 'GET',
                 headers: {
@@ -271,7 +271,7 @@ export const getServerSideProps = async () => {
         console.log("************** ADMIND TOKEN *****************");
         console.log(adminToken);
         
-        const response = await fetch('http://127.0.0.1:3002/v1/get-companies',
+        const response = await fetch('http://localhost:3002/v1/get-companies',
             {
                 method: 'GET',
                 headers: {
@@ -287,7 +287,7 @@ export const getServerSideProps = async () => {
         console.log('jsonified response: ', data);
 
 
-        const responseTwo = await fetch('http://127.0.0.1:3002/v1/get-all-results',
+        const responseTwo = await fetch('http://localhost:3002/v1/get-all-results',
             {
                 method: 'GET',
                 headers: {

@@ -5,7 +5,7 @@ import { dummyQuestions } from '@/data/dummyQuestions';
 import { useRouter } from 'next/router';
 import { useTest } from '@/contexts/QuestionsContent';
 // import Loader from 'react-loader-spinner';
-import { TailSpin } from 'react-loader-spinner';
+// import { TailSpin } from 'react-loader-spinner';
 
 const QuestionBox = () => {
     const { test } = useTest();
