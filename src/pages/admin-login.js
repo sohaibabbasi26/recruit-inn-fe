@@ -20,7 +20,7 @@ const AdminLogin = () => {
     };
 
     const loginApiCall = async () => {
-        const response = await fetch('http://localhost:3002/v1/admin-log-in', {
+        const response = await fetch('http://18.118.200.124:3002/v1/admin-log-in', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

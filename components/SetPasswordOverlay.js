@@ -58,7 +58,7 @@ const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => 
         }
 
         try{
-            const response = await fetch('http://localhost:3002/v1/set-client-password/123', {
+            const response = await fetch('http://18.118.200.124:3002/v1/set-client-password/123', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +77,6 @@ const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => 
         <>
 
             <div ref={overlayRef} className={styles.parent}>
-
                 <div className={styles.btn}>
                     <button onClick={onClose}></button>
                 </div>

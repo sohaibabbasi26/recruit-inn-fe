@@ -46,7 +46,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     async function fetchAllPositions() {
       const requestBody = { company_id: id };
       setIsLoading(true)
-      const response = await fetch('http://127.0.0.1:3002/v1/get-all-positions',
+      const response = await fetch('http://18.118.200.124:3002/v1/get-all-positions',
         {
           method: 'POST',
           headers: {
@@ -88,7 +88,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const requestBody = { company_id: id };
       setIsLoading(true)
 
-      const response = await fetch('http://127.0.0.1:3002/v1/get-results-by-company',
+      const response = await fetch('http://18.118.200.124:3002/v1/get-results-by-company',
         {
           method: 'POST',
           headers: {
@@ -168,7 +168,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       }
       console.log("req body:", reqBody)
       try {
-        const response = await fetch(`http://localhost:3002/v1/get-one-company`,
+        const response = await fetch(`http://18.118.200.124:3002/v1/get-one-company`,
           {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },

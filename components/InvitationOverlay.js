@@ -243,7 +243,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             const reqBody = {
                 id: newId
             }
-            const response = await fetch("http://localhost:3002/v1/get-one-company",
+            const response = await fetch("http://18.118.200.124:3002/v1/get-one-company",
                 {
                     method: 'POST',
                     body: JSON.stringify(reqBody),
@@ -269,7 +269,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             const reqBody = {
                 position_id: positionId
             }
-            const response = await fetch("http://localhost:3002/v1/get-one-positions",
+            const response = await fetch("http://18.118.200.124:3002/v1/get-one-positions",
                 {
                     method: 'POST',
                     body: JSON.stringify(reqBody),
@@ -301,7 +301,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         console.log("new token:", newToken, 'and new id:', newId)
 
         try {
-            const response = await fetch('http://localhost:3002/v1/candidate-info', {
+            const response = await fetch('http://18.118.200.124:3002/v1/candidate-info', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
