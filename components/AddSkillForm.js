@@ -56,7 +56,7 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
                 <div className={styles.inputField}>
 
                     <div className={styles.wrapper}>
-                        <Image className={styles.img} src='/award.svg' width={iconSize} height={iconSize} />
+                        <Image className={styles.img} src='/Award.svg' width={iconSize} height={iconSize} />
                         <input type='text' placeholder='Add Required Skill' onChange={(e) => setSkill1(e.target.value)} />
                     </div>
 
@@ -69,7 +69,7 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
 
                 <div className={styles.inputField}>
                     <div className={styles.wrapper}>
-                        <Image className={styles.img} src='/award.svg' width={iconSize} height={iconSize} />
+                        <Image className={styles.img} src='/Award.svg' width={iconSize} height={iconSize} />
                         <input type='text' placeholder='Add Required Skill' onChange={(e) => setSkill2(e.target.value)} />
                     </div>
 
@@ -82,7 +82,7 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
 
                 <div className={styles.inputField}>
                     <div className={styles.wrapper}>
-                        <Image className={styles.img} src='/award.svg' width={iconSize} height={iconSize} />
+                        <Image className={styles.img} src='/Award.svg' width={iconSize} height={iconSize} />
                         <input type='text' placeholder='Add Required Skill' onChange={(e) => setSkill3(e.target.value)} />
                     </div>
 
@@ -95,7 +95,7 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
 
                 <div className={styles.inputField}>
                     <div className={styles.wrapper}>
-                        <Image className={styles.img} src='/award.svg' width={iconSize} height={iconSize} />
+                        <Image className={styles.img} src='/Award.svg' width={iconSize} height={iconSize} />
                         <input type='text' placeholder='Add Required Skill' onChange={(e) => setSkill4(e.target.value)} />
                     </div>
 

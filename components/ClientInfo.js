@@ -26,7 +26,7 @@ const ClientInfo = ({setActManager,setCity,setClientname,setEmail,setPhoneNo,set
                     <input placeholder='Client’s phone number' onChange={(e) => setPhoneNo(e.target.value)} />
                 </div>
                 <div className={styles.inputField} >
-                    <Image src='/case.svg' width={iconSize} height={iconSize} />
+                    <Image src='/Case.svg' width={iconSize} height={iconSize} />
                     <input placeholder='Account manager' onChange={(e) => setActManager(e.target.value)} />
                 </div>
                 <div className={styles.inputField} >
