@@ -17,7 +17,7 @@
     import AdminOverlayBtns from './AdminOverlayBtns';
     import ErrorIndicator from './ErrorIndicator';
 
-    const AdminOverlay = ({message, showError, showErrorMessage, showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
+    const AdminOverlay = ({adminToken, message, showError, showErrorMessage, showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
         console.log('stage headings:'.stageHeadings);
 
@@ -107,7 +107,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTY2MzU1NCwiZXhwIjoxNzA2MjY4MzU0fQ.XTsmc1gdWHOpc_9RosWV4CyfXT-7FbkQr--CPy3ego4',
+                        'Authorization': `Bearer ${adminToken}`,
                     },
                     body: JSON.stringify(requestBody),
                 });

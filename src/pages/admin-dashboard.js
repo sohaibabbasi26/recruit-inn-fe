@@ -14,7 +14,7 @@ import AdminOverlay from '../../components/AdminOverlay';
 import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
 
-const Admin = ({ allClients, allResults }) => {
+const Admin = ({ }) => {
 
     const [activeClientsData, setActiveClientsData] = useState(null);
     const [inActiveClientsData, setInActiveClientsData] = useState(null);
@@ -25,7 +25,9 @@ const Admin = ({ allClients, allResults }) => {
     const [notEligibleCand, setNotEligibleCand] = useState([]);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setshowErrorMessage] = useState(false);
-    const [adminToken, setAdminToken] = useState('');
+    const [adminnToken, setAdminToken] = useState('');
+    const [allClients, setAllClients] = useState();
+    const [allResults, setAllResults] = useState();
 
     const showError = () => {
         setshowErrorMessage(true);
@@ -227,9 +229,14 @@ const Admin = ({ allClients, allResults }) => {
         setShowOverlay(!showOverlay);
     }
 
+    
+
     useEffect(()=>{
-        async function dataFetch(){
-            const response = await fetch('http://backend-1:3002/v1/get-companies',
+        async function clientDataFetch(){
+
+            const adminToken = localStorage.getItem('admin-token');
+            setAdminToken(adminToken);
+            const response = await fetch('http://localhost:3002/v1/get-companies',
             {
                 method: 'GET',
                 headers: {
@@ -238,8 +245,32 @@ const Admin = ({ allClients, allResults }) => {
             });
 
             const data = await response.json();
-            console.log("")
+            console.log("companies fetched:",data);
+            setAllClients(data);
         }
+
+        clientDataFetch();
+    },[])
+
+    useEffect(()=>{
+        async function reportDataFetch(){
+
+            const adminToken = localStorage.getItem('admin-token');
+            setAdminToken(adminToken);
+            const response = await fetch('http://localhost:3002/v1/get-all-results',
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${adminToken}` 
+                }
+            });
+
+            const data = await response.json();
+            console.log("companies fetched:",data);
+            setAllResults(data);
+        }
+
+        reportDataFetch();
     },[])
 
     console.log('active clients data:', activeClientsData);
@@ -249,7 +280,7 @@ const Admin = ({ allClients, allResults }) => {
     return (
         <>
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-            {showOverlay && <AdminOverlay showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
+            {showOverlay && <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
             <div className={styles.adminPortal}>
@@ -286,7 +317,6 @@ export const getServerSideProps = async () => {
         const data = await response.json();
         console.log('jsonified response: ', data);
 
-
         const responseTwo = await fetch('http://localhost:3002/v1/get-all-results',
             {
                 method: 'GET',
@@ -298,7 +328,6 @@ export const getServerSideProps = async () => {
         if (!responseTwo.ok) {
             throw new Error(`Error: ${response.status}`);
         }
-
         const dataTwo = await responseTwo.json();
         console.log('jsonified response: ', dataTwo);
         return {
