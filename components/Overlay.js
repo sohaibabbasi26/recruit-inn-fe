@@ -284,10 +284,10 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                         <div className={styles.coverContainer}>
                             <div className={styles.topContainer}>
                                 <h2>{stageHeadings[currentStage]}</h2>
-                                <span>
+                                {/* <span>
                                     <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
                                     <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                                </span>
+                                </span> */}
                             </div>
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />

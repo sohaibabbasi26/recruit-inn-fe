@@ -17,11 +17,7 @@
     justify-content: space-between;
     align-items: center;
 }
-@media only screen and (max-width: 1100px) {
-    .banner h1{
-        font-size: x-large;
-    }
-}
+
 .checkBox{
     display: flex;
     justify-content: center;
@@ -91,3 +87,32 @@
 .midContainer p{
     color: #ACA7BA;
 }
+
+@media only screen and (max-width: 1100px) {
+    .banner h1{
+        font-size: x-large;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .superContainer{
+        width: 80%;
+    }
+    .banner h1{
+        font-size: 1rem;
+    }
+    .inputField{
+        width: 90%;
+    }
+    .checkBox label{
+        font-size: 0.7rem;
+    }
+    .midContainer{
+        margin-top: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    .midContainer p {
+        font-size: 0.7rem;
+    }
+}  

@@ -25,6 +25,8 @@
     height: 10%;
     text-transform: initial;
 }
+
+
 @media only screen and (max-width: 1300px) {
     .stagesContainer ul li{
         font-size: small;
@@ -35,6 +37,21 @@
         font-size: xx-small
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .stagesContainer{
+        width: 80%;
+        margin-bottom: 0.5rem;
+    }
+    .stagesContainer ul li span{
+        display: none;
+    }
+
+    .stagesContainer ul li{
+        justify-content: space-around;
+        min-width: 6%;
+    }
+  }
 
 .stageLine {
     height: 2px; 

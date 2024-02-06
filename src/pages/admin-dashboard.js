@@ -236,7 +236,7 @@ const Admin = ({ }) => {
 
             const adminToken = localStorage.getItem('admin-token');
             setAdminToken(adminToken);
-            const response = await fetch('http://localhost:3002/v1/get-companies',
+            const response = await fetch('http://18.118.200.124:3002/v1/get-companies',
             {
                 method: 'GET',
                 headers: {

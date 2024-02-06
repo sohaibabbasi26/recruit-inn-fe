@@ -150,3 +150,25 @@
     justify-content: center;
 }
 
+
+/* Small screens (phones) */
+@media only screen and (max-width: 600px) {
+    .topContainer{
+        width: 80%;
+    }
+  }
+  
+  /* Medium screens (tablets) */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /* Styles for medium screens go here */
+  }
+  
+  /* Large screens (desktops and laptops) */
+  @media only screen and (min-width: 1025px) and (max-width: 1440px) {
+    /* Styles for large screens go here */
+  }
+  
+  /* Extra-large screens */
+  @media only screen and (min-width: 1441px) {
+    /* Styles for extra-large screens go here */
+  }

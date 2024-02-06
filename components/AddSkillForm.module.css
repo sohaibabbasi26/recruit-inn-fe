@@ -58,6 +58,21 @@
     }
 }
 
+@media only screen and (max-width: 600px) {
+    .inputField {
+        width: 91%;
+    }
+
+    .addSkillFormContainer{
+        width: 80%;
+    }
+
+    .inputField select{
+        padding: 0.8rem;
+        font-size: 0.75rem;
+    }
+}
+
 .inputField input:focus{
     outline: none;
   }

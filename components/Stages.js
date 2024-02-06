@@ -38,7 +38,7 @@ const Stages = ({ currentStage, stages, completedStages }) => {
                                                     { borderColor: inactiveBorder, color: inactiveColorCode, backgroundColor: '#fff' }
                                         }
                                     >
-                                        {toTitleCase(stage.replace('_', ' '))}
+                                        <span>{toTitleCase(stage.replace('_', ' '))}</span>
                                         <Image
                                             src={
                                                 currentStage === stages[stage] ?
