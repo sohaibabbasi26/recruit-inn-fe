@@ -89,7 +89,7 @@
         }, []);
 
         useEffect(() => {
-            link = `http://localhost:3000/set-password/${id}`
+            link = `http://18.118.200.124:3000/set-password/${id}`
             console.log(link);
         }, [id])
 
@@ -103,7 +103,7 @@
             }
 
             try {
-                const response = await fetch('http://localhost:3002/v1/client-sign-up-admin', {
+                const response = await fetch('http://18.118.200.124:3002/v1/client-sign-up-admin', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -129,7 +129,7 @@
             }
 
             try {
-                const response = await fetch('http://localhost:3002/v1/sendMail', {
+                const response = await fetch('http://18.118.200.124:3002/v1/sendMail', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
