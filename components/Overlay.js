@@ -194,7 +194,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         console.log("Token in Overlay method:", token)
         try {
             setIsLoading(true);
-            const response = await fetch('http://localhost:3002/v1/create-position', {
+            const response = await fetch('http://18.118.200.124:3002/v1/create-position', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         console.log("req body : ", requestBody);
         try {
             setIsLoading(true);
-            const response = await fetch('http://localhost:3002/v1/prepare-test', {
+            const response = await fetch('http://18.118.200.124:3002/v1/prepare-test', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
 
         try {
             setIsLoading(true);
-            const response = await fetch('http://localhost:3002/v1/sendMail', {
+            const response = await fetch('http://18.118.200.124:3002/v1/sendMail', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -311,13 +311,12 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                                         jobTypeRef={jobTypeRef}
                                         descriptionRef={descriptionRef}
                                         locationRef={locationRef}
-
                                         setPosition={setPosition}
                                         setJobtype={setJobtype}
                                         setDescription={setDescription}
                                         setLocation={setLocation}
                                     />
-                                    <div className={styles.wrapper} >
+                                    <div className={styles.wrapper}>
                                         <JobTypeBtns showError={showError} showErrorMessage={showErrorMessage} showSuccess={showSuccess} setMessage={setMessage} onContinue={toggleComponent} onBack={backToggleComponent} />
                                     </div>
                                 </>
@@ -340,7 +339,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                                         emailReceiver={emailReceiver}
                                         setEmailReceiver={setEmailReceiver}
                                         setText={setText}
-                                        text={text}
+                                 q       text={text}
                                         setSubject={setSubject}
                                         subject={subject}
                                         position={position}

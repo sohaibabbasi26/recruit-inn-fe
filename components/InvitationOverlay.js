@@ -383,7 +383,6 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
 
                     </div>
                 </div>
-
             </div>
         </>
     )

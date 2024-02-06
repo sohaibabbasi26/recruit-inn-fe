@@ -85,7 +85,7 @@ const QuestionBox = () => {
         }
 
         setIsLoading(true)
-        const response = await fetch('http://localhost:3002/v1/take-test', {
+        const response = await fetch('http://http://18.118.200.124:3002/v1/take-test', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ const QuestionBox = () => {
         try {
 
             console.log("send audio to server:", base64Data)
-            const response = await fetch('http://localhost:3002/v1/speech-to-text', {
+            const response = await fetch('http://http://18.118.200.124:3002/v1/speech-to-text', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
