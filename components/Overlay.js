@@ -194,7 +194,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         console.log("Token in Overlay method:", token)
         try {
             setIsLoading(true);
-            const response = await fetch('http://18.118.200.124:3002/v1/create-position', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         console.log("req body : ", requestBody);
         try {
             setIsLoading(true);
-            const response = await fetch('http://18.118.200.124:3002/v1/prepare-test', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
 
         try {
             setIsLoading(true);
-            const response = await fetch('http://18.118.200.124:3002/v1/sendMail', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -236,7 +236,7 @@ const Admin = ({ }) => {
 
             const adminToken = localStorage.getItem('admin-token');
             setAdminToken(adminToken);
-            const response = await fetch('http://18.118.200.124:3002/v1/get-companies',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-companies`,
             {
                 method: 'GET',
                 headers: {
@@ -257,7 +257,7 @@ const Admin = ({ }) => {
 
             const adminToken = localStorage.getItem('admin-token');
             setAdminToken(adminToken);
-            const response = await fetch('http://18.118.200.124:3002/v1/get-all-results',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-resuls`,
             {
                 method: 'GET',
                 headers: {

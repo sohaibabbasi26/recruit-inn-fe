@@ -226,7 +226,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
             console.log("request body: ", reqBody);
 
-            const response = await fetch('http://18.118.200.124:3002/v1/candidate-info-self', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info-self`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -253,7 +253,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
             console.log("request body: ", requestBody);
 
-            const response = await fetch('http://18.118.200.124:3002/v1/sendMail', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -295,7 +295,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
         console.log("req body for setting expertise:", requestBody);
         try {
-            const response = await fetch('http://18.118.200.124:3002/v1/set-expertise-by-cand', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-expertise-by-cand`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -312,7 +312,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const handleTestPreparation = async () => {
         console.log("request.boy in handle test prep method:",reqBody)
         try {
-            const response = await fetch('http://18.118.200.124:3002/v1/prepare-test', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

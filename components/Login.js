@@ -9,7 +9,7 @@ const LoginComp = ({setPassword,setEmail}) => {
                     <Image src='/bigHand.png' width={100} height={100} />
                     <h1>Welcome Back, Fill below fields</h1>
                     <div className={styles.imageDiv}>
-                        <Image src='/element.png' width={80} height={80} />
+                        <Image src='/Element.png' width={80} height={80} />
                     </div>
                 </div>
                 

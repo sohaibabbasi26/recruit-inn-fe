@@ -20,7 +20,8 @@ const AdminLogin = () => {
     };
 
     const loginApiCall = async () => {
-        const response = await fetch('http://18.118.200.124:3002/v1/admin-log-in', {
+        console.log("URL:", `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in` )
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

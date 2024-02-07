@@ -24,7 +24,7 @@ const OnlineCompiler = () => {
                 language: language,
             }
 
-            const response = await fetch("http://18.118.200.124:3002/v1/execute-code",
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/execute-code`,
                 {
                     method: "POST",
                     body: JSON.stringify(reeBody),

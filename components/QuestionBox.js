@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { dummyQuestions } from '@/data/dummyQuestions';
 import { useRouter } from 'next/router';
 import { useTest } from '@/contexts/QuestionsContent';
-// import Loader from 'react-loader-spinner';
-// import { TailSpin } from 'react-loader-spinner';
+
 
 const QuestionBox = () => {
     const { test } = useTest();
@@ -85,7 +84,7 @@ const QuestionBox = () => {
         }
 
         setIsLoading(true)
-        const response = await fetch('http://http://18.118.200.124:3002/v1/take-test', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/take-test`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -171,7 +170,7 @@ const QuestionBox = () => {
         try {
 
             console.log("send audio to server:", base64Data)
-            const response = await fetch('http://http://18.118.200.124:3002/v1/speech-to-text', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -251,7 +250,7 @@ const QuestionBox = () => {
                         <div className={styles.lowerContainer}>
                             <button onClick={isLastQuestion ? submitTestHandler : toggleComponent} disabled={!recordingDone}>
                                 {isLastQuestion ? 'Submit Test' : 'Next Question'}
-                                <Image src='/forward.svg' width={20} height={20} />
+                                <Image src='/Forward.svg' width={20} height={20} />
                             </button>
                         </div>
                     </>

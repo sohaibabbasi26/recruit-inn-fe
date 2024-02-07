@@ -58,7 +58,7 @@ const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => 
         }
 
         try{
-            const response = await fetch('http://18.118.200.124:3002/v1/set-client-password/123', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-client-password/123`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
