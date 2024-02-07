@@ -257,7 +257,7 @@ const Admin = ({ }) => {
 
             const adminToken = localStorage.getItem('admin-token');
             setAdminToken(adminToken);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-resuls`,
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-results`,
             {
                 method: 'GET',
                 headers: {
