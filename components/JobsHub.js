@@ -83,12 +83,12 @@ const JobsHub = ({ heading, data, jobOverlay, setJobOverlay, setSelectedJob }) =
                                         </div>
                                     )
                                 })
-                        ) : (
-                        <div className={styles.tempContainer}>
-                            <Image src='/SearchEmpty.gif' width={300} height={300} />
-                            <h3>You haven’t posted any jobs yet...</h3>
-                        </div>
-                        )
+                            ) : (
+                                <div className={styles.tempContainer}>
+                                    <Image src='/SearchEmpty.gif' width={300} height={300} />
+                                    <h3>You haven’t posted any jobs yet...</h3>
+                                </div>
+                            )
                         }
                     </div>
                 </div>

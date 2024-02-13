@@ -30,7 +30,6 @@ const QuestionBox = () => {
             setNewQuestions(testData)
         }
     }, []);
-
     useEffect(() => {
         console.log('answers:', answers);
     }, [answers]);
