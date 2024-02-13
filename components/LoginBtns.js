@@ -13,7 +13,6 @@ const LoginBtns = ({ loginApiCall, onContinue , onBack , setCompletedStages, com
     return (
         <>
             <div className={styles.btnsContainer}>
-                {/* <button id={styles.backBtn}  onClick={handleSubmit}><Image src='/backward.svg' width={navigationIconSize} height={navigationIconSize} />Back</button> */}
                 <button id={styles.forwardBtn} onClick={handleSubmit} >Continue <Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize}  /></button>
             </div>
         </> 
