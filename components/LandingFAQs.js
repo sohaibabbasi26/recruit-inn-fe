@@ -35,10 +35,6 @@ const LandingFAQs = () => {
         setSixthDropDownState(!sixthDropDownState)
     }
 
-    const toggleSeventhDropDown = () => {
-        setSevethDropDownState(!seventhDropDownState)
-    }
-
     return (
         <>
             <div className="h-auto w-[100%] flex justify-center text-white items-center flex-col">
