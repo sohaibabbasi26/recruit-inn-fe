@@ -13,11 +13,12 @@ const LandingPage = () => {
         <>
             <div className="bg-black h-[100%] w-full">
                 <LandingNavbar />
+                <LandingThird />
+                <LandingFourth />
                 {/* <HeroSection />
                 <LandingVideo />
                 <LandingThird />
-                <LandingFourth />
-                <RecruitinnsWay />
+                    <LandingFourth />
                 <HowItWorks />
                 <PaymentMethods />
                 <LandingFAQs /> */}
