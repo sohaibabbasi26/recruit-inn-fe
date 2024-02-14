@@ -29,7 +29,7 @@ const LandingPage = () => {
                 <HowItWorks /> */}
                 <PaymentMethods />
                 <LandingFAQs />
-    <Footer /> 
+                <Footer />
             </div>
         </>
     )
