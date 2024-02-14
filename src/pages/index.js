@@ -1,5 +1,6 @@
 import Footer from "../../components/Footer";
 import HeroSection from "../../components/HeroSection";
+import HowItWorks from "../../components/HowItWorks";
 import LandingFAQs from "../../components/LandingFAQs";
 import LandingFourth from "../../components/LandingFourth";
 import LandingNavbar from "../../components/LandingNavbar";
@@ -17,7 +18,8 @@ const LandingPage = () => {
                 <LandingVideo />
                 <LandingThird />
                 <LandingFourth />
-                <RecruitinnsWay />
+                {/* <RecruitinnsWay />
+                <HowItWorks /> */}
                 <PaymentMethods />
                 <LandingFAQs />
                 <Footer />

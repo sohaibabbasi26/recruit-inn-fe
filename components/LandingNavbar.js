@@ -7,7 +7,7 @@ const LandingNavbar = () => {
             <div className='h-[10vh]  w-full flex justify-center' >
                 <div className="w-90p h-full flex justify-between items-center text-white">
                     <div className="flex w-50p gap-20 items-center">
-                        <h2 className="text-xl font-bold font-poppins flex gap-3">
+                        <h2 className="max-sm:text-sm  text-xl font-bold font-poppins flex gap-3">
                             <Image src="/logoo.svg" height={30} width={30} />
                             recruitinn.ai
                         </h2>

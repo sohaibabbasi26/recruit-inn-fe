@@ -66,17 +66,18 @@ module.exports = {
         '100': '25rem', 
         '120': '30rem',
       },
-      // backDropFilter: {
-      //   'none':'none',
-      //   'blur':'blur(5px)'
-      // },
-      // backdropBlur: {
-      //   'sm' : 'blur(5px)'
-      // }
+ 
+    },
+    screens: {
+      'max-xsm': {'max': '400px'},
+      'max-sm': {'max': '639px'},
+      'max-md': {'max': '767px'},
+      'max-lg': {'max': '1023px'},
+      'max-xl': {'max': '1279px'},
+      'min-md-max-lg': {'min': '768px', 'max': '1023px'},
     },
   },
   plugins: [
-    // require('@tailwindcss/forms'),
   ],
 }
 
