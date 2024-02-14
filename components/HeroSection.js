@@ -7,16 +7,15 @@ const HeroSection = () => {
         <>
             <div className="w-full h-[80vh] flex flex-col items-center">
                 <div className="w-90p h-full flex justify-center">
-
-                    <div className="w-50p h-full flex flex-col justify-center gap-8 max-md:w-[100%] max-md:text-center max-md:items-center">
+                    <div className="w-50p h-full flex flex-col justify-center gap-8 max-lg:w-[100%] max-lg:text-center max-lg:items-center">
                         <h1 className="text-white text-5xl font-bold w-[80%]">
                             Recruit the best In-Field talent now for your projects
                         </h1>
                         <button className="max-md:mx-auto px-10 py-3.5 text-sm btn-gradient rounded-3xl font-semibold w-[15rem] text-white">Recruit Now</button>
                     </div>
 
-                    <div className=" w-50p h-full max-md:hidden">
-                        <div className=" w-50p h-full ">
+                    <div className=" w-50p h-full max-lg:hidden">
+                        <div className="w-50p h-full ">
                             <div className=" absolute h-[80%] w-[50%] flex" >
 
                                 <div className="bg-themePurple h-[5rem] w-[5rem] relative left-[4rem] top-[15rem] rounded-full ">

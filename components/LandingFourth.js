@@ -12,15 +12,15 @@ const LandingFourth = () => {
                             <p className="text-[0.75rem] text-smallText">Revolutionize your recruitment process with Reccruitinn's AI Assessment saving you valuable
                                 hours while ensuring top-notch candidate evaluations.
                             </p>
-                            <div className="flex gap-3 w-[100%]">
-                                <div className="px-7 py-2 rounded-3xl bg-spanBg max-lg:px-4 max-lg:py-1">
-                                    <span className="gradient-text text-2xl font-bold max-lg:text-xl">24h</span>
+                            <div className="flex gap-3 w-[100%] max-xsm:gap-1">
+                                <div className="px-7 py-2 rounded-3xl bg-spanBg max-lg:px-3 max-lg:py-1">
+                                    <span className="gradient-text text-2xl font-bold max-lg:text-base max-xsm:text-sm">24h</span>
                                 </div>
                                 <div className="px-7 py-2 rounded-3xl bg-spanBg max-lg:px-4 max-lg:py-1">
-                                    <span className="gradient-text text-2xl font-bold max-lg:text-xl">48h</span>
+                                    <span className="gradient-text text-2xl font-bold max-lg:text-base max-xsm:text-sm">48h</span>
                                 </div>
                                 <div className="px-7 py-2 rounded-3xl bg-spanBg max-lg:px-4 max-lg:py-1">
-                                    <span className="gradient-text text-2xl font-bold max-lg:text-xl">72h</span>
+                                    <span className="gradient-text text-2xl font-bold max-lg:text-base max-xsm:text-sm">72h</span>
                                 </div>
                             </div>
 

@@ -7,9 +7,9 @@ export default function PaymentMethods() {
     return (
         <div className="w-[100%] h-[100%] flex flex-col items-center max-md:text-center">
             <div className="w-9/10 h-1/2">
-                <h1 className="text-4xl font-bold">Packages</h1>
-                <p className="text-base">Our flexible pricing options are tailored to your needs</p>
-                <div className="text-center">
+                <h1 className="text-4xl font-bold text-center text-white mb-4">Packages</h1>
+                <p className="text-base text-gray-500 mb-8">Our flexible pricing options are tailored to your needs</p>
+                <div className="text-center ">
                     <div className="inline-block relative bg-[#F8F7FA] border border-black rounded-full p-1">
                         <input type="radio" name="duration-1" value="monthly" id="monthly-1" className="sr-only" defaultChecked />
                         <label htmlFor="monthly-1" className="inline-block w-20 h-10 leading-10 cursor-pointer text-base">Monthly</label>
