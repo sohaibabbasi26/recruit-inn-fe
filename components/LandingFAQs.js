@@ -37,7 +37,7 @@ const LandingFAQs = () => {
 
     return (
         <>
-            <div className="h-auto w-[100%] flex justify-center text-white items-center flex-col">
+            <div className="h-auto w-[100%]  max-md:items-center flex justify-center text-white items-center flex-col">
                 <div className="h-100p w-100p mb-[2rem] flex justify-center text-white items-center flex-col ">
                     <div className="h-[20%] w-[90%] flex flex-col items-center justify-center">
                         <h2 className="text-4xl font-sans font-semibold">FAQs</h2>
@@ -45,10 +45,10 @@ const LandingFAQs = () => {
 
 
                     </div>
-                    <div className="w-[50%] h-[70%] mt-[1rem] max-md:w-[90%]">
+                    <div className="w-[50%] h-[70%] mt-[1rem] max-md:w-[77%]">
                         <ul className="w-[100%] ">
                             <li className="py-4  w-[100%] flex flex-col border-b-[1px] border-darkPurple">
-                                <div className=" w-[100%] flex justify-between">
+                                <div className=" w-[100%] flex justify-between gap-2">
                                     <span className="text-lg tracking-wide font-semibold font-sans">What's recruitinn?</span>
                                     <Image onClick={toggleDropDown} src='/dropdown-white.svg' width={15} height={15} />
                                 </div>

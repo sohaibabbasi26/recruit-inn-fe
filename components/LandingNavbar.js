@@ -24,9 +24,8 @@ const LandingNavbar = () => {
                             <li className="text-md font-semibold max-xl:text-sm ">About Us</li>
                         </ul>
                     </div>
-
                     <div className="w-60p items-center flex justify-end gap-8 max-xl:gap-2">
-                            <span className="text-md max-xl:text-sm font-semibold">Apply As An Engineer</span>
+                            <span className="text-md max-xl:text-sm font-semibold">Apply As A Candidate</span>
 
                             <div className="flex gap-8 max-xl:gap-2">
                                 <button className="px-10 py-3.5 text-md max-xl:text-sm bg-darkPurple rounded-3xl font-semibold">Login</button>

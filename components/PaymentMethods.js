@@ -21,7 +21,7 @@ export default function PaymentMethods() {
                     </div>
                 </div>
             </div>
-            <div className="flex h-[100%] w-[100%] mb-[3rem] max-md:hidden">
+            <div className="flex h-[100%] w-[90%] mb-[3rem] max-md:hidden">
                 <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
                 <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
                 <PaymentCard bgColor={'payment-pro-gradient'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={'bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
@@ -29,16 +29,16 @@ export default function PaymentMethods() {
             </div>
             {/* mobile screnn */}
             <div className="hidden max-md:block">
-            <div className="flex h-[100%] w-[100%] mb-[3rem] max-md:text-center">
+            <div className="flex h-[100%] w-[100%] flex-col items-center mb-[3rem] max-md:text-center">
                 <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} /> 
             </div>
-            <div className="flex h-[100%] w-[100%] mb-[3rem] max-md:text-center">
+            <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
                 <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
             </div>
-            <div className="flex h-[100%] w-[100%] mb-[3rem] max-md:text-center">
+            <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
                 <PaymentCard bgColor={'payment-pro-gradient'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={'bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
             </div>
-            <div className="flex h-[100%] w-[100%] mb-[3rem] max-md:text-center">
+            <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
                 <PaymentCard bgColor={'payment-enterprise-gradient'} headingColor={'text-goldenTextColor'} smallTextColor={'text-goldenLightText'} borderColor={'border-goldenTextColor'} bg={'btn-golden'} img={'/Gold-Include.png'} priceColor={'golden-gradient-text'} />
             </div>
             </div>
