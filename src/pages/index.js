@@ -10,10 +10,17 @@ import PaymentMethods from "../../components/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 
 const LandingPage = () => {
-    return(
+    return (
         <>
             <div className="bg-black h-[100%] w-full">
                 <LandingNavbar />
+                <LandingThird />
+                <LandingFourth />
+                {/* <HeroSection />
+                <LandingVideo />
+                <LandingThird />
+                    <LandingFourth />
+                <HowItWorks />
                 <HeroSection />
                 <LandingVideo />
                 <LandingThird />
@@ -22,7 +29,7 @@ const LandingPage = () => {
                 <HowItWorks /> */}
                 <PaymentMethods />
                 <LandingFAQs />
-                <Footer />
+    <Footer /> 
             </div>
         </>
     )
