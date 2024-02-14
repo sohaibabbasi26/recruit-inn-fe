@@ -182,3 +182,26 @@
     background-color: #E8E6F3; 
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
+.btndiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn {
+    top: 12px;
+    left: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #F0EDFC;
+    color: #6137DB;
+    border: none;
+    margin-left: 25%;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

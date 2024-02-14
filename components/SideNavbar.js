@@ -4,12 +4,21 @@ import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
 
 
-const SideNavbar = ({ navbarIte }) => {
+const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
+    const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
 
     const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
     const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] = useState(false);
+
+    const upgradeHandler = () =>{
+        setshowupgrade(!showupgrade)
+    }
+    const openAddJobHandler = () => {
+        setShowOverlay1(true);
+        console.log("clicking button");
+    }
 
     const handleItemClick = (itemName) => {
         setActiveItem(itemName);
@@ -111,9 +120,16 @@ const SideNavbar = ({ navbarIte }) => {
                             </ul>
                         )}
                     </div>
-                </div>
+                </div>,
 
-                <div className={styles.profileTab}>
+                {showupgrade && 
+                <div className={styles.btndiv}>
+                    <button className={styles.btn} onClick={openAddJobHandler}>
+                    Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
+                    </button>
+                </div>}
+
+                <div className={styles.profileTab} onClick={upgradeHandler}>
                     <Image src='/dp.svg' height={50} width={50} className='profileImage' />
                     <div className={styles.textContent}>
                         <span>Hello</span>

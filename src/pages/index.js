@@ -1,5 +1,5 @@
+import Footer from "../../components/Footer";
 import HeroSection from "../../components/HeroSection";
-import HowItWorks from "../../components/HowItWorks";
 import LandingFAQs from "../../components/LandingFAQs";
 import LandingFourth from "../../components/LandingFourth";
 import LandingNavbar from "../../components/LandingNavbar";
@@ -9,7 +9,7 @@ import PaymentMethods from "../../components/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 
 const LandingPage = () => {
-    return(
+    return (
         <>
             <div className="bg-black h-[100%] w-full">
                 <LandingNavbar />
@@ -20,8 +20,14 @@ const LandingPage = () => {
                 <LandingThird />
                     <LandingFourth />
                 <HowItWorks />
+                <HeroSection />
+                <LandingVideo />
+                <LandingThird />
+                <LandingFourth />
+                <RecruitinnsWay />
                 <PaymentMethods />
-                <LandingFAQs /> */}
+                <LandingFAQs />
+    <Footer /> */}
             </div>
         </>
     )

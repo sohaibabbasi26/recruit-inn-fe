@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 // import ShareLink from '../../../components/ShareLink';
 import SuccessIndicator from '../../../components/SuccessIndicator';
 import ErrorIndicator from '../../../components/ErrorIndicator';
+import PaymentOverlay from '../../../components/PaymentOverlay';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -60,11 +61,12 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       setFinalData(allData.data)
       setIsLoading(false)
       console.log('jsonified response: ', allData.data);
-
     }
+
     if (token) {
       fetchAllPositions()
     }
+
   }, [id])
 
   useEffect(() => {
@@ -89,6 +91,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       setIsLoading(true)
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}get-results-by-company`,
+      
         {
           method: 'POST',
           headers: {
@@ -212,6 +215,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
+  const [showOverlay1, setShowOverlay1] = useState(true);
   const [reportOverlay, setReportOverlay] = useState(false);
   const [jobOverlay, setJobOverlay] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -239,7 +243,6 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const stages = {
     ADD_SKILL: 'ADD_SKILL',
     JOB_TYPE: 'JOB_TYPE',
-
     AI_ASSESSMENT: 'AI_ASSESSMENT',
     SHARE_LINK: 'SHARE_LINK'
   }
@@ -253,6 +256,9 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   const toggleOverlay = () => {
     setShowOverlay(!showOverlay);
+  }
+  const toggleOverlay1 = () => {
+    setShowOverlay1(!showOverlay1);
   }
 
   const toggleReportOverlay = () => {
@@ -307,11 +313,11 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
+      {PaymentOverlay && <PaymentOverlay onClose = {toggleOverlay1} showOverlay1 = {showOverlay1} />}
       <div className={styles.clientPortal}>
-        <SideNavbar />
+        <SideNavbar showOverlay1={showOverlay1} setShowOverlay1={setShowOverlay1} />
         {getActiveComponent()}
       </div>
     </>
   )
 }
-
