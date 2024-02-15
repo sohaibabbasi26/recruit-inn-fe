@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const LandingNavbar = () => {
+const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef}) => {
     const [menu, setMenu] = useState(false);
 
     return (
@@ -13,19 +13,19 @@ const LandingNavbar = () => {
             <div className='h-[10vh] w-full flex bg-black justify-center max-lg:hidden z-50 fixed' >
                 <div className="w-90p h-full flex justify-between items-center text-white">
                     <div className="flex w-50p gap-20 items-center">
-                        <h2 className="max-lg:text-sm max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3">
+                        <h2 className="max-lg:text-sm max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer">
 
                             <Image src="/logoo.svg" height={30} width={30} />
                             recruitinn.ai
                         </h2>
 
                         <ul className="flex gap-10 max-xl:gap-3 max-xl:w-[70%]">
-                            <li className="text-md font-semibold max-xl:text-sm ">How It Works</li>
-                            <li className="text-md font-semibold max-xl:text-sm ">About Us</li>
+                            <li onClick={() => scrollToRef(howItWorksRef)} className="text-md font-semibold max-xl:text-sm cursor-pointer ">How It Works</li>
+                            <li onClick={() => scrollToRef(LandingThirdRef)} className="text-md font-semibold max-xl:text-sm cursor-pointer ">About Us</li>
                         </ul>
                     </div>
                     <div className="w-60p items-center flex justify-end gap-8 max-xl:gap-2">
-                            <span className="text-md max-xl:text-sm font-semibold">Apply As A Candidate</span>
+                            <span className="text-md max-xl:text-sm font-semibold cursor-pointer">Apply As A Candidate</span>
 
                             <div className="flex gap-8 max-xl:gap-2">
                                 <button className="px-10 py-3.5 text-md max-xl:text-sm bg-darkPurple rounded-3xl font-semibold">Login</button>
@@ -64,7 +64,7 @@ const LandingNavbar = () => {
                             <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">Login</button>
                             <button className="px-10 py-3.5 max-lg:py-2 text-sm bg-transparent max-lg:border-b max-lg:border-darkPurple font-semibold max-lg:block hidden">Recruit A Talent</button>
                             <ul className="flex flex-col items-center gap-4">
-                                <li className="text-sm font-semibold    p-2 max-lg:border-b max-lg:border-darkPurple">How It Works</li>
+                                <li onClick={() => scrollToRef(howItWorksRef)} className="text-sm font-semibold    p-2 max-lg:border-b max-lg:border-darkPurple">How It Works</li>
                                 <li className="text-sm font-semibold p-2 max-lg:border-b max-lg:border-darkPurple">About Us</li>
                             </ul>
                         </div>  

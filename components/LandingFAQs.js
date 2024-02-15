@@ -45,7 +45,7 @@ const LandingFAQs = () => {
 
 
                     </div>
-                    <div className="w-[50%] h-[70%] mt-[1rem] max-md:w-[77%]">
+                    <div className="w-[50%] h-[70%] mt-[1rem] max-md:w-[90%]">
                         <ul className="w-[100%] ">
                             <li className="py-4  w-[100%] flex flex-col border-b-[1px] border-darkPurple">
                                 <div className=" w-[100%] flex justify-between gap-2">
@@ -89,7 +89,7 @@ const LandingFAQs = () => {
                             <li className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple">
                                 <div className=" w-[100%] flex justify-between">
                                     <span className="text-lg tracking-wide font-semibold font-sans">How does billing work?</span>
-                                    <Image onClick={toggleFourthDropDown} src='/dropdown-white.svg' width={15} height={15} />
+                                    <Image o    nClick={toggleFourthDropDown} src='/dropdown-white.svg' width={15} height={15} />
                                 </div>
                                 {
                                     fourthDropDownState && <p className="text-sm  text-smallText mt-3">
