@@ -7,7 +7,7 @@ const LandingThird = () => {
 
     return (
         <>
-            <div className="h-[100vh] max-lg:h-100p w-full flex justify-center">
+            <div className="h-[100vh] max-lg:h-100p w-full flex justify-center mb-[2rem]">
                 <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] flex justify-between items-center gap-5 ">
                     <div className="w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p  right-dv-gradient rounded-3xl flex flex-col items-center">
                         <div className="w-80p h-50p max-xl:h-[70vh] flex justify-center items-center relative">

@@ -123,6 +123,15 @@ body{  margin: 0;
   background: linear-gradient(to right, theme('colors.darkGolden'), theme('colors.goldenShade'));
 }
 
+@media (max-width: 768px) {
+  .fade-right-border {
+      border: none;
+      border-right: none; /* Remove the border */
+      background-image: none; /* Remove the gradient */
+      /* Reset any other styling as needed */
+  }
+}
+
 .glowing-border-element {
   position: relative;
   overflow: hidden;

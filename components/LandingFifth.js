@@ -15,7 +15,6 @@ const LandingFifth = () => {
         <li className={`${styles.card}`} id={styles.card_1}>
         <figure className=''>
             <Image src='/Image.png' width={1200} height={600} />
-    
         </figure>
         </li>
         <li className={styles.card} id={styles.card_2} >

@@ -25,15 +25,21 @@
   .logos:hover .logos-slide {
     animation-play-state: paused;
   }
-  .logos-slide {
+  /* .logos-slide {
     display: flex;
     animation: 25s slide infinite linear;
+  } */
+  /* TechstackTwo.module.css */
+@keyframes slideRight {
+  from {
+      transform: translateX(-100%);
   }
-  @keyframes slide {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translatex(100%);
-    }
+  to {
+      transform: translateX(0);
   }
+}
+
+.logos-slide {
+  display: flex;
+  animation: 25s slideRight infinite linear;
+}
