@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { checkout } from "@/util/Checkout";
 
 const PaymentCard = ({bgColor, headingColor, smallTextColor, borderColor, bg, img, priceColor}) => {
 
@@ -22,7 +23,6 @@ const PaymentCard = ({bgColor, headingColor, smallTextColor, borderColor, bg, im
                         <span className={`${headingColor}`}>
                             What’s included
                         </span>
-
                         <ul>
                             <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}><Image src={`${img}`} width={20} height={20} />4 Reports of candidate</li>
                             <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}><Image src={`${img}`} width={20} height={20} />Add up to 4 skills</li>
@@ -36,11 +36,17 @@ const PaymentCard = ({bgColor, headingColor, smallTextColor, borderColor, bg, im
                         </ul>
                         </div>
 
-                        <button className={`${bg} mt-[4rem] w-[100%] py-2 rounded-3xl text-sm font-semibold font-sans`}>Get Started</button>
+                        <button className={`${bg} mt-[4rem] w-[100%] py-2 rounded-3xl text-sm font-semibold font-sans`}
+                        onClick={(()=>{
+                            checkout(
+                            {
+                                lineItems:[{price: "price_1OhvfyCtLGKA7fQG61J3932Q",quantity:1}]
+                            }
+                            )
+                            })}
+                        >Get Started</button>
                     </div>
-
                 </div>
-
             </div>
         </>
     )

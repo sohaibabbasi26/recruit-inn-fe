@@ -8,6 +8,7 @@ import LandingThird from "../../components/LandingThird";
 import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
+import LandingFifth from "../../components/LandingFifth";
 
 const LandingPage = () => {
     return (
@@ -26,7 +27,7 @@ const LandingPage = () => {
                 <LandingVideo />
                 <LandingThird />
                 <LandingFourth />
-
+                <LandingFifth />
                 {/* <RecruitinnsWay />
                 <HowItWorks /> */}
                 <PaymentMethods />
