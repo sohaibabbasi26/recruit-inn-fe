@@ -11,7 +11,7 @@ const HeroSection = () => {
                         <h1 className="text-white text-5xl font-bold w-[80%]">
                             Recruit the best In-Field talent now for your projects
                         </h1>
-                        <button className="max-md:mx-auto px-10 py-3.5 text-sm btn-gradient rounded-3xl font-semibold w-[15rem] text-white">Recruit Now</button>
+                        <a href="https://www.recruitinn.ai/client-login"><button className="max-md:mx-auto px-10 py-3.5 text-sm btn-gradient rounded-3xl font-semibold w-[15rem] text-white">Recruit Now</button></a>
                     </div>
 
                     <div className=" w-50p h-full max-lg:hidden">
@@ -31,7 +31,7 @@ const HeroSection = () => {
 
                                     <div className="flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 background-gradient border-themePurple absolute left-[4rem] top-[39%] rounded-md">
                                         <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md" >
-                                            <Image src='/bitmoji.svg' width={20} height={20} />
+                                            <Image src='/Bitmoji.svg' width={20} height={20} />
                                         </div>
 
                                         <span className="text-sm" >Dwayne Johnson</span>
@@ -39,7 +39,7 @@ const HeroSection = () => {
 
                                     <div className="flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 background-gradient border-themePurple absolute left-[15rem] top-[17%] rounded-md">
                                         <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md" >
-                                            <Image src='/bitmoji.svg' width={20} height={20} />
+                                            <Image src='/Bitmoji.svg' width={20} height={20} />
                                         </div>
 
                                         <span className="text-sm">Dwayne Johnson</span>
@@ -47,7 +47,7 @@ const HeroSection = () => {
 
                                     <div className="flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 background-gradient border-themePurple left-[10rem] top-[61%] absolute rounded-md">
                                         <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md" >
-                                            <Image src='/bitmoji.svg' width={20} height={20} />
+                                            <Image src='/Bitmoji.svg' width={20} height={20} />
                                         </div>
 
                                         <span className="text-sm" >Dwayne Johnson</span>

@@ -13,7 +13,7 @@ const CardDiv = ({ className }) => {
                 zIndex: isHovered ? 30 : 10, 
             }}
         >
-            <Image className='max-sm:h-[3rem] max-xl:h-[4rem]' src='/bitmoji.svg' width={80} height={80} />
+            <Image className='max-sm:h-[3rem] max-xl:h-[4rem]' src='/Bitmoji.svg' width={80} height={80} />
             <h3 className="max-md:text-[1rem] max-xl:text-[1rem] max-md:font-semibold max-md:font-semibold  text-3xl max-md:text-md">
                 Dwayne Johnson
             </h3>

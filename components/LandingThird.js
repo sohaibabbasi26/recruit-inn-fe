@@ -19,7 +19,7 @@ const LandingThird = () => {
                             <span className="text-lightPurpleText font-semibold text-lg">
                                 TALENTS
                             </span>
-                            <h3 className="text-white text-4xl font-semibold md-[2rem] gradient-text">
+                            <h3 className="text-white text-4xl font-semibold mb-[2rem] gradient-text">
                                 GET INTO TOUCH WITH WORLD’S BEST ENGINEERS
                             </h3>
                             <p className="text-white max-md:mb-[1rem]">
@@ -40,7 +40,7 @@ const LandingThird = () => {
                                 SKILLS
                             </span>
                             <h3 className="text-white text-4xl font-semibold mb-[2rem] gradient-text">
-                                IN DEMAND SKILLS ESSENTAL FOR MODERN TECHNOLOGIES
+                                IN DEMAND SKILLS FOR MODERN TECHNOLOGIES
                             </h3>
                             <p className="text-white max-sm:mb-[1rem]">
                                 Forge connections with leading engineers for cutting-edge innovation and expertise.

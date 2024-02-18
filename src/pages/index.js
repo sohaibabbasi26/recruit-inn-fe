@@ -9,27 +9,28 @@ import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 
-import LandingFifth from "../../components/LandingFifth";
 import { useRef } from "react";
 
 const LandingPage = () => {
     const LandingThirdRef = useRef(null);
     const howItWorksRef = useRef(null);
+    const PaymentMethodsRef = useRef(null);
+    const FAQRef = useRef(null);
+    const HeroRef = useRef(null);
     const scrollToRef = (ref) => ref.current?.scrollIntoView({ behavior: 'smooth' });
 
     return (
         <>
             <div className="bg-black h-[100%] w-full">
-                <LandingNavbar scrollToRef={scrollToRef} LandingThirdRef={LandingThirdRef} howItWorksRef={howItWorksRef} />
-                <HeroSection />
+                <LandingNavbar scrollToRef={scrollToRef} HeroRef={HeroRef} LandingThirdRef={LandingThirdRef} howItWorksRef={howItWorksRef} />
+                <div ref={HeroRef}><HeroSection /></div>
                 <LandingVideo />
                 <div ref={LandingThirdRef}><LandingThird /></div>
                 <LandingFourth />
-                <LandingFifth />
                 <div ref={howItWorksRef}><HowItWorks /></div>
-                <PaymentMethods />
-                <LandingFAQs />
-                <Footer />
+                <div ref={PaymentMethodsRef}><PaymentMethods/></div>
+                <div ref={FAQRef}><LandingFAQs /></div>
+                <Footer scrollToRef={scrollToRef} HeroRef={HeroRef} FAQRef= {FAQRef} howItWorksRef={howItWorksRef} PaymentMethodsRef = {PaymentMethodsRef}/>
             </div>
         </>
     )
