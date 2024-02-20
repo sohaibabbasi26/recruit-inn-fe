@@ -2,8 +2,9 @@ import Image from "next/image";
 // import './landingGlobal.css';
 
 import { useState } from "react";
+import styles from "./LandingNavbar.module.css";
 
-const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef}) => {
+const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) => {
     const [menu, setMenu] = useState(false);
 
     return (
@@ -15,9 +16,9 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef}) => {
             <div className='h-[10vh] w-full flex bg-black justify-center max-lg:hidden z-50 fixed' >
                 <div className="w-90p h-full flex justify-between items-center text-white">
                     <div className="flex w-50p gap-20 items-center">
-                        <h2 className="max-lg:text-sm max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer">
+                        <h2 onClick={() => scrollToRef(HeroRef)} className="max-lg:text-sm max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer">
 
-                            <Image src="/logoo.svg" height={30} width={30} />
+                            <Image src="/logo (3).png" height={30} width={30} />
                             recruitinn.ai
                         </h2>
 
@@ -26,12 +27,16 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef}) => {
                             <li onClick={() => scrollToRef(LandingThirdRef)} className="text-md font-semibold max-xl:text-sm cursor-pointer ">About Us</li>
                         </ul>
                     </div>
-                    <div className="w-60p items-center flex justify-end gap-8 max-xl:gap-2">
-                            <span className="text-md max-xl:text-sm font-semibold cursor-pointer">Apply As A Candidate</span>
-
+                    <div className="w-60p items-center flex justify-end gap-4 max-xl:gap-2">
+                            <span className="text-md max-xl:text-sm font-semibold cursor-pointer"><a href="https://www.recruitinn.ai/candidate-self"> Apply As A Candidate</a></span>
                             <div className="flex gap-8 max-xl:gap-2">
-                                <button className="px-10 py-3.5 text-md max-xl:text-sm bg-darkPurple rounded-3xl font-semibold">Login</button>
-                                <button className="px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold">Recruit A Talent</button>
+                            <div className={`${styles.dropdown} px-10 py-3.5 text-mnmd max-xl:text-sm bg-darkPurple rounded-3xl fnt-semibold`}>Login
+                            <ul className={styles.dropdown_menu}>
+                                <li><a href="https://www.recruitinn.ai/candidate-self">Login As Candidate</a></li>
+                                <li><a href="https://www.recruitinn.ai/client-login">Login As Client</a></li>
+                            </ul>
+                            </div>
+                            <a href="https://www.recruitinn.ai/client-login"><button className="px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold">Recruit A Talent</button></a>
                             </div>
                     </div>
                 </div>

@@ -4,14 +4,13 @@ import React from 'react';
 import Image from 'next/image';
 // import './landingGlobal.css';
 
-const Footer = () => {
+const Footer = ({scrollToRef, PaymentMethodsRef , howItWorksRef , FAQRef , HeroRef}) => {
   return (
     <footer className=" text-white p-4 ">
       <div className="px-20 mx-auto max-lg:flex-col flex justify-between items-center ">
-        <div className="w-1/5 max-lg:flex max-lg:flex-col max-lg:items-center">
+        <div  onClick={() => scrollToRef(HeroRef)} className="cursor-pointer w-1/5 max-lg:flex max-lg:flex-col max-lg:items-center">
           {/* Left Section */}
-          <p className='font-montserrat text-2xl font-bold leading-7'>recruitinn.ai</p>
-          <Image className='' src='/logo 1.svg' width={160} height={160} />
+          <Image className='' src='/footerlogo.png' width={80} height={80} />
         </div>
 
         <div className="  w-[100%] mr-[15%] max-lg:mr-0 max-lg:w-[100%] flex max-lg:flex-col max-lg:items-center justify-center max-lg:space-x-0 space-x-4">
@@ -19,10 +18,10 @@ const Footer = () => {
           <div className='px-4 max-lg:mt-[1rem] max-lg:w-[100%] max-lg:flex max-lg:flex-col items-center'>
             <p className='font-poppins max-lg:text-xl  font-sans text-base font-semibold leading-8'>Product</p>
             <div className=' max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center text-gray-500 text-sm font-light leading-5 py-4'>
-              <p className='py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>Packages</p>
-              <p className='py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>Team</p>
-              <p className='py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>How it works</p>
-              <p className='py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>FAQ</p>
+              <p onClick={() => scrollToRef(PaymentMethodsRef)} className='cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>Packages</p>
+              <p onClick={() => scrollToRef(howItWorksRef)} className='cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>Team</p>
+              <p onClick={() => scrollToRef(howItWorksRef)} className='cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>How it works</p>
+              <p onClick={() => scrollToRef(FAQRef)} className='cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo'>FAQ</p>
             </div>
           </div>
           <div className='px-4 max-lg:mt-[1rem] max-lg:w-[100%] max-lg:flex max-lg:flex-col items-center'>

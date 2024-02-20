@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 
 const TechstackOne = () => {
-    const images = ['/cplusplus.png', '/python.png'];
+    const images = ['/cplusplus.png', '/python.png' , '/tech1.svg', '/tech2.svg', '/tech3.svg', '/tech4.svg', '/tech5.svg', '/tech6.svg'];
     const [currentImages, setCurrentImages] = useState(images);
     return (
         <div className={`container h-[50%] w-[100%] bg-primary rounded-lg mb-[0.5rem] flex justify-center`}>
