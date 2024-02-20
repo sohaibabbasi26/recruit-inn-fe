@@ -28,7 +28,7 @@ const ClientList = () => {
 
                 <div className={styles.headingContainer}>
                     <div className={styles.heading} >
-                        <h3>Candidate Requests</h3>
+                        <h3>Client Requests</h3>
                         <span>1000</span>
                     </div>
 

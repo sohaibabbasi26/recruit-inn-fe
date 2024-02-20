@@ -1,5 +1,6 @@
-import TrustedCandidates from "./TrustedCandidates";
+import TrustedCandidates from "../components/TrustedCandidates";
 import Image from "next/image";
+// import './landingGlobal.css';
 
 const HeroSection = () => {
 
@@ -11,7 +12,7 @@ const HeroSection = () => {
                         <h1 className="text-white text-5xl font-bold w-[80%]">
                             Recruit the best In-Field talent now for your projects
                         </h1>
-                        <button className="max-md:mx-auto px-10 py-3.5 text-sm btn-gradient rounded-3xl font-semibold w-[15rem] text-white">Recruit Now</button>
+                        <button className="max-md:mx-auto px-10 py-3.5 text-sm components-landing-btn-gradient rounded-3xl font-semibold w-[15rem] text-white">Recruit Now</button>
                     </div>
 
                     <div className=" w-50p h-full max-lg:hidden">

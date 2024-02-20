@@ -1,4 +1,6 @@
 import Image from "next/image";
+// import './landingGlobal.css';
+
 import { useState } from "react";
 
 const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef}) => {

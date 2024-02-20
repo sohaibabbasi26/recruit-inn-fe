@@ -169,6 +169,16 @@
     align-items: center;
 }
 
+.info h3{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.info h4 {  
+    display: flex;
+    gap: 1rem;
+}   
+
 .infoDiv{
     width: 90%;
     margin-top: 1rem;

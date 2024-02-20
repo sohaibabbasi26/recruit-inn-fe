@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+// import './landingGlobal.css';
 
 const LandingFAQs = () => {
 

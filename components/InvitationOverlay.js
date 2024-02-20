@@ -22,6 +22,8 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
     const { client_id } = router.query;
     const { position_id } = router.query;
 
+    console.log("client_id:",client_id)
+
     useEffect(() => {
         try {
             const newExpertise = localStorage.getItem('expertiseData');

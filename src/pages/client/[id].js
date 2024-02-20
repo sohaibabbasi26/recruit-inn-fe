@@ -83,6 +83,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   useEffect(() => {
     let isMounted = true;
+    console.log('client_id:',id)
     localStorage.setItem('clientId', id);
     const token = localStorage.getItem('client-token');
     setToken(token)
@@ -90,7 +91,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const requestBody = { company_id: id };
       setIsLoading(true)
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}get-results-by-company`,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-results-by-company`,
       
         {
           method: 'POST',
@@ -102,20 +103,67 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
         });
       console.log('response: ', response);
       if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+        console.log(`Error: ${response.status}`);
       }
       const allData = await response.json();
       if (isMounted) {
         setAllCandidateReports(allData);
         setIsLoading(false);
       }
-      console.log('jsonified candidates response: ', allCandidatesReports);
+      console.log('jsonified candidates response: ', allData);
     }
     fetchAllCandidateReports()
     return () => {
       isMounted = false;
     };
-  }, [])
+  }, [id])
+
+  // const preprocessCandidatesData = (candidates, company) => {
+  //   return candidates.map(candidate => {
+  //     let latestResult = {
+  //       softskillRating: 0,
+  //       technicalRating: 0,
+  //       softskillAssessment: "",
+  //       technicalAssessment: "",
+  //       createdAt: null
+  //     };
+
+  //     if (candidate.results && candidate.results.length > 0) {
+  //       const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  //       latestResult = sortedResults[0].result || latestResult;
+  //       latestResult.createdAt = sortedResults[0].createdAt;
+  //     }
+
+  //     const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
+  //     const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
+
+  //     return {
+  //       name: candidate.name,
+  //       email: candidate.email,
+  //       position: candidate.position,
+  //       score: score.toFixed(1),
+  //       contactNo: candidate.contact_no,
+  //       date: formattedDate,
+  //       expertise: candidate.expertise ? candidate.expertise.techStack : [],
+  //       jobType: candidate.expertise ? candidate.expertise.jobtype : 'N/A',
+  //       position: candidate.expertise ? candidate.expertise.position : 'N/A',
+  //       overAllExperience: candidate.over_all_exp || 'N/A',
+  //       results: {
+  //         softskillRating: latestResult.softskillRating,
+  //         technicalRating: latestResult.technicalRating,
+  //         softskillAssessment: latestResult.softskillAssessment,
+  //         technicalAssessment: latestResult.technicalAssessment
+  //       },
+  //       company: {
+  //         name: company.company_name,
+  //         location: company.company_location,
+  //         email: company.email,
+  //         contactNo: company.contact_no,
+  //         status: company.status
+  //       }
+  //     };
+  //   });
+  // };
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates.map(candidate => {
@@ -126,26 +174,32 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
         technicalAssessment: "",
         createdAt: null
       };
-
+  
       if (candidate.results && candidate.results.length > 0) {
         const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
       }
-
+  
       const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
       const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-
+  
+      // Aggregate skills into a single list and infer position from the first expertise listed
+      const expertiseList = candidate.expertise.map(exp => ({
+        skill: exp.skill,
+        level: exp.level // Mapping 'level' to 'difficulty'
+      }));
+  
+      const inferredPosition = candidate.expertise.length > 0 ? candidate.expertise[0].skill : 'N/A'; // Inferred position from the first skill
+  
       return {
         name: candidate.name,
         email: candidate.email,
-        position: candidate.position,
         score: score.toFixed(1),
         contactNo: candidate.contact_no,
         date: formattedDate,
-        expertise: candidate.expertise ? candidate.expertise.techStack : [],
-        jobType: candidate.expertise ? candidate.expertise.jobtype : 'N/A',
-        position: candidate.expertise ? candidate.expertise.position : 'N/A',
+        expertise: expertiseList,
+        position: inferredPosition, // Using the first expertise as a proxy for position
         overAllExperience: candidate.over_all_exp || 'N/A',
         results: {
           softskillRating: latestResult.softskillRating,
@@ -163,6 +217,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       };
     });
   };
+  
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -313,7 +368,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
-      {PaymentOverlay && <PaymentOverlay onClose = {toggleOverlay1} showOverlay1 = {showOverlay1} />}
+      {/* {PaymentOverlay && <PaymentOverlay onClose = {toggleOverlay1} showOverlay1 = {showOverlay1} />} */}
       <div className={styles.clientPortal}>
         <SideNavbar showOverlay1={showOverlay1} setShowOverlay1={setShowOverlay1} />
         {getActiveComponent()}

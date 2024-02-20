@@ -70,7 +70,7 @@ const CandidateReports = ({ candidateReps, reportOverlay, setReportOverlay, setS
 
                                             <div className={styles.techStack}>
                                                 <ul>
-                                                    {item?.expertise.map((skill) => {
+                                                    {item?.expertise?.map((skill) => {
                                                         return (
                                                             <>
                                                                 <li>
@@ -85,7 +85,6 @@ const CandidateReports = ({ candidateReps, reportOverlay, setReportOverlay, setS
                                                     })}
                                                 </ul>
                                             </div>
-
                                         </div>
                                     </>
                                 )

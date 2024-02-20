@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+// import './landingGlobal.css';
 
 const Footer = () => {
   return (

@@ -1,6 +1,8 @@
-import CardDiv from "./CardDiv";
-import TechstackOne from "./TechstackOne";
-import TechstackTwo from "./TechstackTwo";
+import CardDiv from "../components/CardDiv";
+import TechstackOne from "../components/TechstackOne";
+import TechstackTwo from "../components/TechstackTwo";
+// import './landingGlobal.css';
+
 
 const LandingThird = () => {
 

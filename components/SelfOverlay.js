@@ -153,6 +153,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [message,setMessage] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [reqBody , setReqBody] = useState(null);
+    const [req, setReq] = useState(null);
 
     useEffect(() => {
         setName(nameRef?.current?.value);
@@ -172,8 +173,14 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             applied_through: 'Self'
         }
 
+        const reqtwo = {
+            expertise: techStack
+        }
+
+        setReq(reqtwo);
+
         setReqBody(reqBody)
-    },[name,city,contact,email,expertise,country])
+    },[name,city,contact,email,expertise,country,techStack])
 
     const showError = () => {
         setshowErrorMessage(true);
@@ -310,14 +317,16 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     }
 
     const handleTestPreparation = async () => {
-        console.log("request.boy in handle test prep method:",reqBody)
+        console.log("request.boy in handle test prep method:",req)
+
+        setReq()
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(reqBody),
+                body: JSON.stringify(req),
             });
             const data = await response.json(); 
             localStorage.setItem('testData', JSON.stringify(data));

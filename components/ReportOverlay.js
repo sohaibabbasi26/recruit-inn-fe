@@ -158,7 +158,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                         <div className={styles.topContainer}>
                             <div className={styles.leftContainer}>
                                 <div className={styles.imageDiv}>
-                                    <Image id={styles.emoji} src='/bigEmoji.svg' width={70} height={70} />
+                                    <Image id={styles.emoji} src='/bigEmoji.svg' width={110} height={110} />
                                 </div>
                                 <div className={styles.info}>
                                     <h3>{selectedCandidate?.name}</h3>

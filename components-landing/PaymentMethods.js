@@ -1,8 +1,10 @@
 "use client";
-import PaymentCard from "./PaymentCard";
+import PaymentCard from "../components/PaymentCard";
 import styles from "./PaymentMethods.module.css";
 import Image from "next/image";
 import { useState } from "react";
+// import './landingGlobal.css';
+
 // import { checkout } from "@/Checkout";
 export default function PaymentMethods() {
 

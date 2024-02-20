@@ -172,7 +172,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 setCurrentStage(stages.ADD_SKILL);
         }
     }
-
+    
     const handleFormSubmit = async () => {
 
         const requestBody = {
@@ -261,7 +261,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
             localStorage.setItem('testData', JSON.stringify(data));
             console.log('test', test)
             console.log(data);
-        } catch (error) {
+        } catch (error) {   
             console.error('Error submitting form:', error);
         }
     }
