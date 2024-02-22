@@ -19,7 +19,7 @@
     "jspdf": "^2.5.1",
     "next": "14.0.3",
     "postcss": "^8.4.35",
-    "puppeteer": "^21.10.0",
+    "puppeteer": "^21.11.0",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
