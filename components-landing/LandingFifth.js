@@ -3,6 +3,9 @@ import React from 'react';
 import styles from "./LandingFifth.module.css";
 import Image from 'next/image';
 // import './landingGlobal.css';
+// import './styles.css';
+import style from "./styles.module.css";
+
 
 const LandingFifth = () => {
   useEffect(() => {

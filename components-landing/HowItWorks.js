@@ -1,6 +1,9 @@
 import { useState ,useEffect } from "react";
 import Image from "next/image";
 // import './landingGlobal.css';
+// import './styles.css';
+import style from "./styles.module.css";
+
 
 const images = [
     "/side-screen.png",
@@ -55,10 +58,10 @@ const HowItWorks = () => {
                     </div>
                 </div>
 
-                <div className="w-[100%] h-80p flex flex-col    items-center gap-4 text-white">
+                <div className="w-[100%] h-80p flex flex-col items-center gap-4 text-white">
 
                 <div className=" w-[100%] h-[100%] max-md:h-[100%] max-md:items-center flex max-lg:flex-col justify-center mt-7">
-                    <div className="rounded-l-3xl max-md:rounded-3xl w-[90%] fourth-sec-gradient">
+                    <div className={`${style['fourth-sec-gradient']} rounded-l-3xl max-md:rounded-3xl w-[90%] `}>
                         <div className="w-100p h-70p max-md:h-[100%]  flex max-lg:items-center justify-between">
                             <div className="w-[35%] max-lg:w-[100%] h-100p flex justify-center items-center">
                             <ul className="w-[90%]">

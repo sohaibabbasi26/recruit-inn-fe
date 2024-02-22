@@ -1,13 +1,15 @@
     import Image from "next/image";
     // import './landingGlobal.css';
+    // import './styles.css';
+    import style from "./styles.module.css";
 
 
     const LandingFourth = () => {
 
         return (
             <>
-                <div className="h-[100%] w-full flex items-center justify-center mb-12">
-                    <div className="w-90p h-80p rounded-2xl fourth-sec-gradient flex items-center p-12">
+                <div className="h-[100%] w-[100%] flex items-center justify-center mb-12">
+                    <div className={`w-[90%] h-80p rounded-2xl ${style['fourth-sec-gradient']} py-4 flex items-center p-12`}>
                         <div className="w-50p h-80p fade-right-border flex items-center justify-center max-md:w-[100%]  max-md:text-center">
                             <div className="w-80p flex flex-col gap-5 text-white">
                                 <h3 className="text-2xl tracking-wide">Discover more with Recruitinn's streamlined process</h3>

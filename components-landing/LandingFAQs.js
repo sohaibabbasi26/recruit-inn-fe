@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
 // import './landingGlobal.css';
+// import './styles.css';
+import style from "./styles.module.css";
+
 
 const LandingFAQs = () => {
 

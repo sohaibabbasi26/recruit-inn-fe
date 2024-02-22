@@ -2,7 +2,9 @@ import CardDiv from "../components/CardDiv";
 import TechstackOne from "../components/TechstackOne";
 import TechstackTwo from "../components/TechstackTwo";
 // import './landingGlobal.css';
-
+// import './styles.css';
+import style from "./styles.module.css";
+import 'tailwindcss/tailwind.css';
 
 const LandingThird = () => {
 
@@ -11,10 +13,10 @@ const LandingThird = () => {
         <>
             <div className="h-[100vh] max-lg:h-100p w-full flex justify-center mb-[2rem]">
                 <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] flex justify-between items-center gap-5 ">
-                    <div className="w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p  right-dv-gradient rounded-3xl flex flex-col items-center">
+                    <div className={`w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p  ${style['right-dv-gradient']} rounded-3xl flex flex-col items-center`}>
                         <div className="w-80p h-50p max-xl:h-[70vh] flex justify-center items-center relative">
-                            <CardDiv className='top-[8rem] max-xl:left-0  max-md:right-[7rem] max-md:top-[16rem]  right-[14rem]' hoverEffect={false} />
-                            <CardDiv className='top-[3rem] max-xl:right-0  right-[5%]' hoverEffect={true} />
+                            <CardDiv className='top-[10rem]  max-xl:left-0 bg-elementGradOne border-[1px] border-themePurple max-md:left-[0rem] max-md:right-[10rem] max-md:top-[8rem] right-[8rem]' hoverEffect={false} />
+                            <CardDiv className='top-[3rem]  max-xl:right-0 bg-elementGradOne border-[1px] max-md:top-[10rem] max-md:left-[10rem] border-themePurple left-[16rem]' hoverEffect={true} />
                         </div>
 
                         <div className="w-80p h-50p flex flex-col justify-center">

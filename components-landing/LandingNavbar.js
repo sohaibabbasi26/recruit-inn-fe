@@ -1,8 +1,11 @@
 import Image from "next/image";
 // import './landingGlobal.css';
+// import './styles.css';
 
 import { useState } from "react";
 import styles from "./LandingNavbar.module.css";
+import style from "./styles.module.css";
+
 
 const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) => {
     const [menu, setMenu] = useState(false);

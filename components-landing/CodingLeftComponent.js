@@ -1,4 +1,6 @@
-// import './landingGlobal.css';
+// import './styles.css';
+import style from "./styles.module.css";
+
 
 const CodingLeftComponent = () => {
 

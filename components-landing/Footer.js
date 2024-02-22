@@ -2,6 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
+// import './styles.css';
+import style from "./styles.module.css";
+
 // import './landingGlobal.css';
 
 const Footer = ({scrollToRef, PaymentMethodsRef , howItWorksRef , FAQRef , HeroRef}) => {

@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 // import './landingGlobal.css';
+// import './styles.css';
+import style from "./styles.module.css";
+
 
 
 const ContentEditor = () => {

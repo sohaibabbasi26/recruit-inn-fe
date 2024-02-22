@@ -1,8 +1,10 @@
 "use client";
+import 'tailwindcss/tailwind.css';
 import PaymentCard from "../components/PaymentCard";
 import styles from "./PaymentMethods.module.css";
 import Image from "next/image";
 import { useState } from "react";
+import style from "./styles.module.css";
 // import './landingGlobal.css';
 
 // import { checkout } from "@/Checkout";
@@ -83,24 +85,24 @@ export default function PaymentMethods() {
                 </div>
             </div>
             <div className="flex h-[100%] w-[90%] mb-[3rem] max-md:hidden ">
-                <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
-                <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
-                <PaymentCard bgColor={'payment-pro-gradient'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={'bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
-                <PaymentCard bgColor={'payment-enterprise-gradient'} headingColor={'text-goldenTextColor'} smallTextColor={'text-goldenLightText'} borderColor={'border-goldenTextColor'} bg={'btn-golden'} img={'/Gold-Include.png'} priceColor={'golden-gradient-text'} />
+                <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={style['gradient-text']} />
+                <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={style['gradient-text']} />
+                <PaymentCard bgColor={'payment-pro-gradient'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={'bg-darkPaymentPurple'} img={'/included.png'} priceColor={style['gradient-text']} />
+                <PaymentCard bgColor={`${style['payment-enterprise-gradient']}`} headingColor={'text-goldenTextColor'} smallTextColor={'text-goldenLightText'} borderColor={'border-goldenTextColor'} bg={'btn-golden'} img={'/Gold-Include.png'} priceColor={ style['golden-gradient-text']} />
             </div>
             {/* mobile screnn */}
             <div className="hidden max-md:block">
                 <div className="flex h-[100%] w-[100%] flex-col items-center mb-[3rem] max-md:text-center">
-                    <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
+                    <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={style['gradient-text']} />
                 </div>
                 <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
-                    <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
+                    <PaymentCard bgColor={'bg-black'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={' bg-darkPaymentPurple'} img={'/included.png'} priceColor={style['gradient-text']} />
                 </div>
                 <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
-                    <PaymentCard bgColor={'payment-pro-gradient'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={'bg-darkPaymentPurple'} img={'/included.png'} priceColor={'gradient-text'} />
+                    <PaymentCard bgColor={'payment-pro-gradient'} headingColor={'text-lightPurpleText'} smallTextColor={'text-lightText'} borderColor={'border-somePurple'} bg={'bg-darkPaymentPurple'} img={'/included.png'} priceColor={style['gradient-text']} />
                 </div>
                 <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
-                    <PaymentCard bgColor={'payment-enterprise-gradient'} headingColor={'text-goldenTextColor'} smallTextColor={'text-goldenLightText'} borderColor={'border-goldenTextColor'} bg={'btn-golden'} img={'/Gold-Include.png'} priceColor={'golden-gradient-text'} />
+                    <PaymentCard bgColor={'payment-enterprise-gradient'} headingColor={'text-goldenTextColor'} smallTextColor={'text-goldenLightText'} borderColor={'border-goldenTextColor'} bg={'btn-golden'} img={'/Gold-Include.png'} priceColor={ style['golden-gradient-text']} />
                 </div>
             </div>
         </div>

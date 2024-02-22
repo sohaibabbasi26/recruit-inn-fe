@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { checkout } from "@/util/Checkout";
+import 'tailwindcss/tailwind.css';
 
 const PaymentCard = ({bgColor, headingColor, smallTextColor, borderColor, bg, img, priceColor}) => {
 
     return (
         <>
             <div className="w-[90%] max-md:w-[100%] h-[100%] flex justify-center items-center mb-5">
-                <div className={`w-[90%] max-md:w-[100%] h-[100%] text-white border-[1px]  ${borderColor} p-6 rounded-3xl ${bgColor}`}>
+                <div className={`w-[90%] py-4 px-4 max-md:w-[100%] h-[100%] text-white border-[1px]  ${borderColor} rounded-3xl ${bgColor}`}>
                     <div className={`border-b-[1px] py-3 ${borderColor}`}>
                         <span className={`${smallTextColor} text-lg font-semibold ${headingColor}`}>Free</span>
                         <p className="text-smallText text-sm">
