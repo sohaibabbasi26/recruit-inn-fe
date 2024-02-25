@@ -200,8 +200,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
 
                         {/*assessment components */}
                         <div className={styles.cont}>
+                        <div className={styles.auto}>
                         <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
                         <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
+                        </div>
                         </div>
                     </div>
                 </div>

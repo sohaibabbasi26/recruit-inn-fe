@@ -226,8 +226,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
+    height:100vh;
     overflow-y: scroll;
+}
+
+.auto{
+    height: auto;
 }
 
 .cont::-webkit-scrollbar {
