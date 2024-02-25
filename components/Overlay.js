@@ -274,7 +274,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 <div className={styles.btn}>
                     <button onClick={onClose}>
                         <Image src='/shut.svg' width={15} height={15} />
-                    </button>
+                    </button>   
                 </div>
 
                 <div className={styles.superContainer}>

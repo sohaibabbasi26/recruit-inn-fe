@@ -39,7 +39,7 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
                                 <li><a href="https://app.recruitinn.ai/client-login">Login As Client</a></li>
                             </ul>
                             </div>
-                            <a href="https://www.recruitinn.ai/client-login"><button className="px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold">Recruit A Talent</button></a>
+                            <a href="https://app.recruitinn.ai/client-login"><button className="px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold">Recruit A Talent</button></a>
                             </div>
                     </div>
                 </div>

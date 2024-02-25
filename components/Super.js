@@ -6,8 +6,7 @@ import { useActiveItem } from '../src/contexts/ActiveItemContext';
 import CandidatesHub from './CandidatesHub';
 
 const Super = ({
-    // allData,
-    // activeData,
+    companyId,
     activeJobsData,
     closedJobsData,
     finalData,
@@ -24,7 +23,16 @@ const Super = ({
     setSelectedJob
 }) => {
 
-    // console.log('all data ',allData)
+    const showJobOverlay = (job) => {
+        setSelectedJob(job);
+        setJobOverlay(true)
+    };
+
+    const showCandidateOverlay = (cand) => {
+        setSelectedCandidate(cand);
+        setReportOverlay(true);
+    }
+
     const activeItem = useActiveItem();
     const iconSize = 15;
     const bellIconSize = 20;
@@ -49,7 +57,7 @@ const Super = ({
 
                 <div className={styles.topContainer}>
                     <div className={styles.searchContainer}>
-                        <TopNavbar />
+                        <TopNavbar companyId={companyId} onJobSelect={showJobOverlay} onCandidateSelect={showCandidateOverlay} />
                     </div>
                     <div className={styles.btnsDiv}>
                         <button className={styles.addJobBtn} onClick={toggleOverlay}><Image src='/Add.svg' width={iconSize} height={iconSize} />  Create A Job</button>

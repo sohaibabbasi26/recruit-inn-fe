@@ -158,7 +158,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                         <div className={styles.topContainer}>
                             <div className={styles.leftContainer}>
                                 <div className={styles.imageDiv}>
-                                    <Image id={styles.emoji} src='/bigEmoji.svg' width={110} height={110} />
+                                    <Image id={styles.emoji} src='/bigEmoji.svg' width={80} height={80} />
                                 </div>
                                 <div className={styles.info}>
                                     <h3>{selectedCandidate?.name}</h3>
@@ -199,8 +199,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                         </div>
 
                         {/*assessment components */}
+                        <div className={styles.cont}>
                         <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
                         <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
+                        </div>
                     </div>
                 </div>
 
