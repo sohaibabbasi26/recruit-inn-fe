@@ -6,12 +6,16 @@ import Stages from './Stages';
 import { useRouter } from 'next/router';
 import LoginComp from './Login';
 import LoginBtns from './LoginBtns';
+import ForgotPassword from './ForgotPassword';
+import { Foldit } from 'next/font/google';
+import ForgotPasswordBtns from './ForgotPassBtns';
 // import Login from '@/pages/client-login';
 
-const AdminLoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
+const AdminLoginOverlay = ({ email, setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
 
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [emailReceiver,setEmailReceiver] = useState();
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -49,11 +53,12 @@ const AdminLoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.LOG_IN);
     const [completedStages, setCompletedStages] = useState([]);
+    const [viewMode, setViewMode] = useState('login')
 
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
-                
+
 
                 <div className={styles.superContainer}>
                     {isLoading ? (
@@ -66,12 +71,22 @@ const AdminLoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
-                            {currentStage === stages.LOG_IN && (
+                            {viewMode === 'login' ? (
                                 <>
-                                    <LoginComp setPassword={setPassword} setEmail={setEmail} />
+                                    <LoginComp onViewChange={() => setViewMode('forgotPassword')} email={email} setPassword={setPassword} setEmail={setEmail} />
                                     <div className={styles.wrapper}>
-                                        <LoginBtns loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                        <LoginBtns email={email} loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>
+                                </>
+                            ) : viewMode === 'forgotPassword' ? (
+                                <>
+                                    <ForgotPassword setEmailReceiver={setEmailReceiver} />
+                                    <div className={styles.wrapper}>
+                                        <ForgotPasswordBtns email={emailReceiver} />
+                                    </div>
+                                </>
+                            ) : (
+                                <>
                                 </>
                             )}
                         </div>

@@ -1,7 +1,7 @@
 import styles from './Login.module.css';
 import Image from 'next/image';
 
-const LoginComp = ({setPassword,setEmail}) => {
+const LoginComp = ({setPassword,setEmail, onViewChange}) => {
     return (
         <>
             <div className={styles.superContainer}>
@@ -24,7 +24,7 @@ const LoginComp = ({setPassword,setEmail}) => {
                         <label>Remember Password for 7 Days</label>
                     </div>
 
-                    <p>Forgot Password?</p>
+                    <p onClick={onViewChange}>Forgot Password?</p>
                 </div>
             </div>
         </>

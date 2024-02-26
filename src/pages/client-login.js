@@ -59,7 +59,7 @@ const Login = () => {
                 </form>
             </div> */}
 
-            <LoginOverlay setEmail={setEmail} setPassword={setPassword} loginApiCall={loginApiCall} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
+            <LoginOverlay email={email} setEmail={setEmail} setPassword={setPassword} loginApiCall={loginApiCall} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
         </>
     )
 }

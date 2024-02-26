@@ -7,11 +7,16 @@ import { useRouter } from 'next/router';
 import LoginComp from './Login';
 import LoginBtns from './LoginBtns';
 // import Login from '@/pages/client-login';
+import ForgotPassword from './ForgotPassword';
+import ForgotPasswordBtns from './ForgotPassBtns';
 
-const LoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
+
+const LoginOverlay = ({ email, setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
 
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [emailReceiver, setEmailReceiver] = useState();
+    const [companyId, setCompanyId] = useState('');
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -49,11 +54,82 @@ const LoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages, sta
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.LOG_IN);
     const [completedStages, setCompletedStages] = useState([]);
+    const [viewMode, setViewMode] = useState('login');
+    const [subject, setSubject] = useState('');
+    const [text, setText] = useState('');
+
+
+
+    useEffect(() => {
+        const demolink = `http://localhost:3000/set-password/${companyId}`;
+        setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
+        setText(`
+        follow the link to set up your new password: \n
+            ${demolink}
+        `)
+    }, [companyId, emailReceiver]);
+
+
+    const checkIfEmailIsInDbHandler = async () => {
+        const reqBody = {
+            email: email
+        };
+
+        const requestBody = {
+            to: emailReceiver,
+            subject: subject,
+            text: text
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`, {
+            method: 'POST',
+            body: JSON.stringify(reqBody),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await response.json();
+        console.log("response about client checking:", data);
+        setCompanyId(data?.data?.message?.company_id);
+
+        if (data?.data?.message?.company_id) {
+            setCompanyId(data?.data?.message?.company_id); 
+
+            const demolink = `http://localhost:3000/set-password/${data?.data?.message?.company_id}`;
+            const subject = 'RECRUITINN: SET UP YOUR NEW PASSWORD';
+            const text = `Follow the link to set up your new password: \n ${demolink}`;
+
+            console.log('link:', demolink)
+            const requestBody = {
+                to: email,
+                subject: subject,
+                text: text,
+            };
+
+            await sendResetPasswordEmail(requestBody);
+        } else {
+            console.log('company id not available')
+        }
+    }
+
+    const sendResetPasswordEmail = async (emailDetails) => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+                method: 'POST',
+                body: JSON.stringify(emailDetails),
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            const responseData = await response.text();
+            console.log('Email sent successfully:', responseData);
+        } catch (error) {
+            console.error('Failed to send email:', error);
+        }
+    };
+
 
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
-                
+
 
                 <div className={styles.superContainer}>
                     {isLoading ? (
@@ -66,12 +142,22 @@ const LoginOverlay = ({setPassword, setEmail, loginApiCall, onClose, stages, sta
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
-                            {currentStage === stages.LOG_IN && (
+                            {viewMode === 'login' ? (
                                 <>
-                                    <LoginComp setPassword={setPassword} setEmail={setEmail} />
+                                    <LoginComp onViewChange={() => setViewMode('forgotPassword')} setPassword={setPassword} setEmail={setEmail} />
                                     <div className={styles.wrapper}>
                                         <LoginBtns loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>
+                                </>
+                            ) : viewMode === 'forgotPassword' ? (
+                                <>
+                                    <ForgotPassword email={email} setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
+                                    <div className={styles.wrapper}>
+                                        <ForgotPasswordBtns checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler} email={emailReceiver} />
+                                    </div>
+                                </>
+                            ) : (
+                                <>
                                 </>
                             )}
                         </div>

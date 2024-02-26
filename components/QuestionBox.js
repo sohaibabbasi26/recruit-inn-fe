@@ -21,6 +21,9 @@ const QuestionBox = () => {
     const { id } = router?.query;
     const [recordingDone, setRecordingDone] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [disableRecordingButton, setDisableRecordingButton] = useState(false);
+
+
 
     useEffect(() => {
         const storedTestData = localStorage.getItem('testData');
@@ -241,8 +244,16 @@ const QuestionBox = () => {
                         </div>
                         {/*Record button */}
 
-                        <button className={styles.recordBtn} onClick={isRecording ? stopRecording : startRecording}>
-                            <Image src='/mic.svg' width={20} height={20} />
+                        <button
+                            style={{
+                                borderColor: recordingDone ? '#808080' : '',
+                                color: recordingDone ? '#808080' : ''
+                            }}
+                            className={styles.recordBtn}
+                            onClick={isRecording ? stopRecording : startRecording}
+                            disabled={isRecording} 
+                        >
+                            <Image src={recordingDone ? '/mic-disabled.svg' : '/mic.svg'} width={20} height={20} />
                             {isRecording ? 'Stop Recording' : 'Click To Record Answer'}
                         </button>
                         {/*lower container */}

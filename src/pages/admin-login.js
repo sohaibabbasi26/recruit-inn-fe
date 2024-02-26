@@ -46,7 +46,7 @@ const AdminLogin = () => {
 
     return (
         <>
-            <AdminLoginOverlay setEmail={setEmail} setPassword={setPassword} loginApiCall={loginApiCall} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
+            <AdminLoginOverlay email={email} setEmail={setEmail} setPassword={setPassword} loginApiCall={loginApiCall} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
         </>
     )
 }

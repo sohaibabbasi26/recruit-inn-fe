@@ -1,7 +1,7 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const AdminOverlayBtns = ({ fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+const AdminOverlayBtns = ({email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
 
     const onAddClientHandler = async () => {
         if (!fillValidity()) {

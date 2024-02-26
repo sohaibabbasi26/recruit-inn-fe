@@ -2,7 +2,7 @@ import styles from './ClientInfo.module.css';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const ClientInfo = ({setActManager,setCity,setClientname,setEmail,setPhoneNo,setCompanySize,setCountry,setCompanyname}) => {
+const ClientInfo = ({email, setActManager,setCity,setClientname,setEmail,setPhoneNo,setCompanySize,setCountry,setCompanyname}) => {
 
     const iconSize = 25;
 

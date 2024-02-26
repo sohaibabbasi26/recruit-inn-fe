@@ -22,7 +22,7 @@ const ShareLink = ({
     const iconSize = 20;
     const clipSize = 30;
     const [copySuccess, setCopySuccess] = useState('');
-    const demolink = `http://18.118.200.124:3000/invited-candidate?position_id=${positionId}&client_id=${companyId}`;
+    const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}`;
 
     function copyToClipboard(text) {
         if ('clipboard' in navigator) {
