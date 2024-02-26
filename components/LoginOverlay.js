@@ -93,7 +93,7 @@ const LoginOverlay = ({ email, setPassword, setEmail, loginApiCall, onClose, sta
         if (data?.data?.message?.company_id) {
             setCompanyId(data?.data?.message?.company_id); 
 
-            const demolink = `http://localhost:3000/set-password/${data?.data?.message?.company_id}`;
+            const demolink = `https://app.recruitinn.ai/set-password/${data?.data?.message?.company_id}`;
             const subject = 'RECRUITINN: SET UP YOUR NEW PASSWORD';
             const text = `Follow the link to set up your new password: \n ${demolink}`;
 
