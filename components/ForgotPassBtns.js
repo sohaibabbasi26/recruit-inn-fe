@@ -45,7 +45,7 @@ const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, onCl
     return (
         <>
             <div className={styles.btnsContainer} >
-                <button id={styles.backBtn} onClick={sl} >Back</button>
+                <button id={styles.backBtn} onClick={handler} >Back</button>
                 <button id={styles.forwardBtn} onClick={() => {
                     console.log("Handle forgot password for:", email);
                     checkIfEmailIsInDbHandler();
