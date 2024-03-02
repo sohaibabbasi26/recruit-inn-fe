@@ -270,7 +270,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
-  const [showOverlay1, setShowOverlay1] = useState(true);
+  const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
   const [reportOverlay, setReportOverlay] = useState(false);
   const [jobOverlay, setJobOverlay] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -312,8 +312,8 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const toggleOverlay = () => {
     setShowOverlay(!showOverlay);
   }
-  const toggleOverlay1 = () => {
-    setShowOverlay1(!showOverlay1);
+  const togglePaymentOverlay = () => {
+    setShowPaymentOverlay(!showPaymentOverlay);
   }
 
   const toggleReportOverlay = () => {
@@ -372,9 +372,9 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
-      {/* {PaymentOverlay && <PaymentOverlay onClose = {toggleOverlay1} showOverlay1 = {showOverlay1} />} */}
+      {showPaymentOverlay && <PaymentOverlay onClose = {togglePaymentOverlay} showPaymentOverlay = {showPaymentOverlay} />}
       <div className={styles.clientPortal}>
-        <SideNavbar showOverlay1={showOverlay1} setShowOverlay1={setShowOverlay1} />
+        <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}
       </div>
     </>

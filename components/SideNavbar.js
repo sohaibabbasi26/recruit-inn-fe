@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
 
 
-const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
+const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOverlay ,setShowPaymentOverlay}) => {
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
@@ -16,7 +16,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         setshowupgrade(!showupgrade)
     }
     const openAddJobHandler = () => {
-        setShowOverlay1(true);
+        setShowOverlay(true);
         console.log("clicking button");
     }
 
@@ -120,12 +120,10 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                             </ul>
                         )}
                     </div>
-                </div>,
-
+                </div>
                 {showupgrade && 
                 <div className={styles.btndiv}>
-                    <button className={styles.btn} onClick={openAddJobHandler}>
-                    Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
+                    <button className={styles.btn} onClick={openAddJobHandler}>Upgrade<Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
                     </button>
                 </div>}
 

@@ -9,7 +9,7 @@ import ErrorIndicator from './ErrorIndicator';
 import { checkout } from '@/util/Checkout';
 
 
-const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1, onClose , showSuccessMessage, message , setMessage , showSuccess }) => {
+const PaymentOverlay = React.memo(({ showError, showErrorMessage , showPaymentOverlay, onClose , showSuccessMessage, message , setMessage , showSuccess }) => {
     showErrorMessage
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
     useEffect(() => {
         document.body.style.overflow = 'hidden';
 
-        if (showOverlay1) {
+        if (showPaymentOverlay) {
             gsap.to(overlayRef.current, {
                 y: '0%',
                 opacity: 1,
@@ -40,8 +40,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
                 { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
             );
         });
-    }, [showOverlay1])
-
+    }, [showPaymentOverlay])
 
     return (
         <>
@@ -49,7 +48,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
                 {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
                 {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.btn}>
-                    <button onClick={onClose}>
+                    <button onClick={onClose}  style={{border: "1px solid black"}}>
                         <Image src='/shut.svg' width={15} height={15} />
                     </button>
                 </div>
@@ -59,7 +58,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
                         <div className={styles.loader}></div>
                     ) : (
                         <div>
-        <div className={styles.center}>
+        <div className={styles.center} style={{border: "1px solid black" }}>
             <h1>Packages</h1>
             <p>Our flexible pricing options are tailored to your needs</p>
             <div class={styles.pricing_container} style={{margin: '0px' }}>
@@ -174,4 +173,4 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
     )
 })
 
-export default PaymentOverlay; 
+export default PaymentOverlay;

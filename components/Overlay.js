@@ -25,7 +25,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
     const { test, setTest } = useTest();
     const { expertiseItem, setExpertiseItem } = useExpertiseContext();
     const [isLoading, setIsLoading] = useState(false);
-
+    const router = useRouter();
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -53,9 +53,8 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
             );
         });
-    }, [showOverlay])
+    }, [showOverlay]);
 
-    const router = useRouter();
     console.log("router object:", router)
     const { id } = router?.query;
 
@@ -109,7 +108,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
     
 
     const validateJobType = () => {
-        return positionRef.current.value && locationRef.current.value && jobTypeRef.current.value ;
+        return positionRef.current.value && locationRef.current.value && jobTypeRef.current.value;
     };
 
     const toggleComponent = async () => {

@@ -81,7 +81,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             showError();
             return;
         }
-    
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
     

@@ -13,5 +13,4 @@ const JobType = ({positionRef,jobTypeRef, descriptionRef, locationRef, setPositi
         </>
     );
 }
-
 export default JobType;
