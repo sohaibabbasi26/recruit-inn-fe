@@ -97,38 +97,24 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         return regex.test(email);
     };
 
-    const validateEmailReceiver = () => {
-        if (!emailReceiver || !isValidEmail(emailReceiver)) {
-            setMessage("Please enter a valid email address.");
-            showError();
-            return false;
-        }
-        return true;
-    };
+    // const validateEmailReceiver = () => {
+    //     if (!emailReceiver || !isValidEmail(emailReceiver)) {
+    //         setMessage("Please enter a valid email address.");
+    //         showError();
+    //         return false;
+    //     }
+    //     return true;
+    // };
+
+    useEffect(()=> {
+        console.log('description:',description);
+    },[description])
 
     const validateJobType = () => {
-        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() !== '';
+        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() && description?.trim();
     };
 
     const toggleComponent = async () => {
-        // if (currentStage === stages.ADD_SKILL && !validateAddSkill()) {
-        //     setMessage("Please fill in at least one skill.")
-        //     showError();
-        //     return;
-        // }
-
-        // if (currentStage === stages.JOB_TYPE && !validateJobType()) {
-        //     setMessage('Please fill all the fields');
-        //     showError();
-        //     return;
-        // }
-
-        // if (currentStage === stages.SHARE_LINK && !validateEmailReceiver()) {
-        //     setMessage("Re-write email its either invalid or empty!")
-        //     showError();
-        //     return;
-        // }
-
         let isValid = false;
 
         let newCompletedStages = [...completedStages, currentStage];
