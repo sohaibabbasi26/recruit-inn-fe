@@ -4,21 +4,16 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css';
 import SideNavbar from '../../../components/SideNavbar';
 import SuperComponent from '../../../components/SuperComponent';
-import TopNavbar from '../../../components/TopNavbar';
 import RightComponent from '../../../components/RightComponent';
 import { useState, useEffect } from 'react';
 import Overlay from '../../../components/Overlay';
 import { useActiveItem } from '../../contexts/ActiveItemContext';
 import Super from '../../../components/Super';
-import jobData from '../../data/jobsDummyData';
-import CandData from '../../data/candDummyData';
 import ReportOverlay from '../../../components/ReportOverlay';
 import JobOverlay from '../../../components/JobOverlay';
 import { useRouter } from 'next/router';
-// import ShareLink from '../../../components/ShareLink';
 import SuccessIndicator from '../../../components/SuccessIndicator';
 import ErrorIndicator from '../../../components/ErrorIndicator';
-import PaymentOverlay from '../../../components/PaymentOverlay';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -184,22 +179,23 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
       const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
   
-      // Aggregate skills into a single list and infer position from the first expertise listed
       const expertiseList = candidate.expertise.map(exp => ({
         skill: exp.skill,
-        level: exp.level // Mapping 'level' to 'difficulty'
+        level: exp.level 
       }));
   
       const inferredPosition = candidate.expertise.length > 0 ? candidate.expertise[0].skill : 'N/A'; // Inferred position from the first skill
   
       return {
+        position : candidate.position,
+        jobType : candidate.job_type,
         name: candidate.name,
         email: candidate.email,
         score: score.toFixed(1),
         contactNo: candidate.contact_no,
         date: formattedDate,
         expertise: expertiseList,
-        position: inferredPosition, // Using the first expertise as a proxy for position
+        position: inferredPosition, 
         overAllExperience: candidate.over_all_exp || 'N/A',
         results: {
           softskillRating: latestResult.softskillRating,

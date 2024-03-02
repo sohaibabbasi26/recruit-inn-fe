@@ -8,8 +8,7 @@ const AssessmentBtns = ({showSuccess, setMessage, onContinue , onBack }) => {
 
     const createAssesmentHandler = () => {
         onContinue();
-        setMessage("Your job has been created successfully ");
-        showSuccess();
+        
     }
 
     return (

@@ -153,7 +153,7 @@ const LoginOverlay = ({ email, setPassword, setEmail, loginApiCall, onClose, sta
                                 <>
                                     <ForgotPassword email={email} setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
                                     <div className={styles.wrapper}>
-                                        <ForgotPasswordBtns checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler} email={emailReceiver} />
+                                        <ForgotPasswordBtns setViewMode={setViewMode} checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler} email={emailReceiver} />
                                     </div>
                                 </>
                             ) : (

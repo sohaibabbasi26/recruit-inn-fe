@@ -112,8 +112,6 @@
                setSubject(emailSubject);
                setText(emailText);
 
-               
-
             }
         }, [companyId, email,subject,text])
 
@@ -150,6 +148,7 @@
                 contact_no: phoneNo
             }
 
+
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
                     method: 'POST',
@@ -162,38 +161,39 @@
                 const data = await response.json();
                 console.log("login response:", data?.data?.data?.company_id);
                 setCompanyId(data?.data?.data?.company_id);
-            } catch (error) {
-                console.error('Error submitting form:', error);
-            }try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${adminToken}`,
-                    },
-                    body: JSON.stringify(requestBody),
-                });
-            
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-            
-                const data = await response.json();
-                console.log("log-in id:",data?.data?.data?.company_id)
-                setCompanyId(data?.data?.data?.company_id);
-
-                if(data?.data?.data?.companyId){
-                    await sendMail(companyId)
-                }
+                sendMail(data?.data?.data?.company_id)
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
-        
-            // await sendMail();
+            // }try {
+            //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'Authorization': `Bearer ${adminToken}`,
+            //         },
+            //         body: JSON.stringify(requestBody),
+            //     });
+            
+            //     if (!response.ok) {
+            //         throw new Error('Network response was not ok');
+            //     }
+            
+            //     const data = await response.json();
+            //     console.log("log-in id:",data?.data?.data?.company_id)
+            //     setCompanyId(data?.data?.data?.company_id);
+            //     sendMail(data?.data?.data?.company_id);
+
+            //     // if(data?.data?.data?.companyId){
+            //     //     await sendMail(data?.data?.data?.companyId)
+            //     // }
+            // } catch (error) {
+            //     console.error('Error submitting form:', error);
+            // }
+            // sendMail(data?.data?.data?.company_id);
         };
 
         const sendMail = async (companyId) => {
-            // Use the companyId to construct the email details, ensuring it's used in your email content
             const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;
             const emailSubject = 'RECRUITINN: SET UP YOUR PASSWORD';
             const emailText = `Follow the link to set up your new password: \n ${demolink}`;
@@ -204,7 +204,7 @@
                 text: emailText,
             };
 
-            console.log("body data to be sent:".reqBody)
+            console.log("body data to be sent:",reqBody)
         
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {

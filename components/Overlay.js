@@ -19,7 +19,7 @@ import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
 import ErrorIndicator from './ErrorIndicator';
 
-const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message , setMessage , showSuccess }) => {
+const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {
     showErrorMessage
     const overlayRef = useRef(null);
     const { test, setTest } = useTest();
@@ -82,12 +82,12 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
     const JobPositionRef = useRef();
     const recipientRef = useRef();
 
-    useEffect(()=>{
+    useEffect(() => {
         setPosition(positionRef?.current?.value);
         setLocation(locationRef?.current?.value);
         setJobtype(jobTypeRef?.current?.value);
         setDescription(descriptionRef?.current?.value);
-    },[positionRef?.current?.value,expertiseRef?.current?.value,locationRef?.current?.value,jobTypeRef?.current?.value,description?.current?.value])
+    }, [positionRef?.current?.value, expertiseRef?.current?.value, locationRef?.current?.value, jobTypeRef?.current?.value, description?.current?.value])
 
     const validateAddSkill = () => {
         return techStack.some(skillObj => skillObj.skill && skillObj.skill.trim() !== '');
@@ -106,52 +106,69 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         }
         return true;
     };
-    
 
     const validateJobType = () => {
-        return positionRef.current.value && locationRef.current.value && jobTypeRef.current.value ;
+        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() !== '';
     };
 
     const toggleComponent = async () => {
+        // if (currentStage === stages.ADD_SKILL && !validateAddSkill()) {
+        //     setMessage("Please fill in at least one skill.")
+        //     showError();
+        //     return;
+        // }
 
-        if (currentStage === stages.ADD_SKILL && !validateAddSkill()) {
-            setMessage("Please fill in at least one skill.")
-            showError();
-            return;
-        }
+        // if (currentStage === stages.JOB_TYPE && !validateJobType()) {
+        //     setMessage('Please fill all the fields');
+        //     showError();
+        //     return;
+        // }
 
-        if (currentStage === stages.JOB_TYPE && !validateJobType()) {
-            return;
-        }
+        // if (currentStage === stages.SHARE_LINK && !validateEmailReceiver()) {
+        //     setMessage("Re-write email its either invalid or empty!")
+        //     showError();
+        //     return;
+        // }
 
+        let isValid = false;
 
-        if(currentStage === stages.SHARE_LINK && !validateEmailReceiver()){
-            setMessage("Re-write email its either invalid or empty!")
-            showError();
-            return;
-        }
-
-        const newCompletedStages = [...completedStages, currentStage];
+        let newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
-        if (currentStage === stages.SHARE_LINK) {
-            router.push('/');
-        } else {
-            switch (currentStage) {
-                case stages.ADD_SKILL:
-                    setCurrentStage(stages.JOB_TYPE);
-                    break;
-                case stages.JOB_TYPE:
-                    setCurrentStage(stages.AI_ASSESSMENT);
-                    await handleFormSubmit();
-                    break;
-                case stages.AI_ASSESSMENT:
-                    setCurrentStage(stages.SHARE_LINK);
-                    await handleFormSubmitForTest();
-                    break;
-                default:
-                    setCurrentStage(stages.ADD_SKILL);
-            }
+        switch (currentStage) {
+            case stages.ADD_SKILL:
+                isValid = validateAddSkill();
+                if (!isValid) {
+                    setMessage("Please fill in at least one skill.");
+                    showError();
+                    return;
+                }
+                setCurrentStage(stages.JOB_TYPE);
+                break;
+            case stages.JOB_TYPE:
+                isValid = validateJobType();
+                if (!isValid) {
+                    setMessage("Please fill all the fields.");
+                    showError();
+                    return;
+                }
+                setCurrentStage(stages.AI_ASSESSMENT);
+                setMessage('Job has been created successfully!')
+                showSuccess();
+                await handleFormSubmit();
+                break;
+            case stages.AI_ASSESSMENT:
+                setCurrentStage(stages.SHARE_LINK);
+                await handleFormSubmitForTest();
+                break;
+            default:
+                setCurrentStage(stages.ADD_SKILL);
+        }
+
+        if (isValid) {
+            const newCompletedStages = [...completedStages, currentStage];
+            setCompletedStages(newCompletedStages);
+
         }
     }
 
@@ -172,7 +189,9 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 setCurrentStage(stages.ADD_SKILL);
         }
     }
-    
+
+
+
     const handleFormSubmit = async () => {
 
         const requestBody = {
@@ -190,6 +209,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
             jobtype: jobtype,
             position: position
         }));
+
         console.log("Expertise:", expertiseItem);
         console.log("Token in Overlay method:", token)
         try {
@@ -230,6 +250,8 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
             const data = await response.json();
             setTest(data);
             setIsLoading(false);
+            setMessage("Successfully created a test for your job!");
+            showSuccess();
             localStorage.setItem('testData', JSON.stringify(data));
             console.log('test', test)
             console.log(data);
@@ -261,7 +283,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
             localStorage.setItem('testData', JSON.stringify(data));
             console.log('test', test)
             console.log(data);
-        } catch (error) {   
+        } catch (error) {
             console.error('Error submitting form:', error);
         }
     }
@@ -274,7 +296,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 <div className={styles.btn}>
                     <button onClick={onClose}>
                         <Image src='/shut.svg' width={15} height={15} />
-                    </button>   
+                    </button>
                 </div>
 
                 <div className={styles.superContainer}>
@@ -284,7 +306,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                         <div className={styles.coverContainer}>
                             <div className={styles.topContainer}>
                                 <h2>{stageHeadings[currentStage]}</h2>
-                                
+
                             </div>
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
@@ -303,7 +325,11 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
 
                             {currentStage === stages.JOB_TYPE && (
                                 <>
-                                    <JobType 
+                                    <JobType
+                                        position={position}
+                                        jobtype={jobtype}
+                                        description={description}
+                                        location={location}
                                         positionRef={positionRef}
                                         jobTypeRef={jobTypeRef}
                                         descriptionRef={descriptionRef}
@@ -331,12 +357,12 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
-                                        positionId = {positionId}
-                                        companyId = {id}
+                                        positionId={positionId}
+                                        companyId={id}
                                         emailReceiver={emailReceiver}
                                         setEmailReceiver={setEmailReceiver}
                                         setText={setText}
-                                 q       text={text}
+                                        text={text}
                                         setSubject={setSubject}
                                         subject={subject}
                                         position={position}

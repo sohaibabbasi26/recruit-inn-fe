@@ -189,7 +189,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Applied For</span>
-                                    <span>{(selectedCandidate?.company) ? selectedCandidate?.company?.company_name : 'Self'}</span>
+                                    <span>{selectedCandidate?.company ? selectedCandidate?.company?.name : 'Self'}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Email</span>

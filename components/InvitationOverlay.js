@@ -100,6 +100,8 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
     const countryRef = useRef(null);
     const expertiseRef = useRef(null);
     const contactRef = useRef(null);
+    const [jobType, setJobType] = useState();
+        const [position, setPosition] = useState();
 
     const [reqBody,setReqBody] = useState(null);
 
@@ -107,6 +109,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         const errors = {};
         let isFormIncomplete = false;
         let specificMsg = false;
+        
 
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
@@ -116,6 +119,9 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         );
 
         setReqBody({
+            job_type: jobType,
+            position: position,
+            position_id : positionId,
             name: nameRef.current.value,
             email: emailRef.current.value,
             over_all_exp : expertiseRef.current.value,
@@ -130,14 +136,12 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         if (!nameRef.current.value.trim()) {
             errors.name = 'Please enter Name.';
             isFormIncomplete = true;
-            
         }
 
         if (!emailRef.current.value.trim()) {
             errors.email = 'Please enter Email.';
             isFormIncomplete = true;
         } else if (!emailRegex.test(emailRef.current.value)) {
-            // errors.email = 'Invalid email format.';  
             setMessage("Entered email is not valid");
             specificMsg = true;
             isFormIncomplete = true; 
@@ -147,7 +151,6 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             errors.contact = 'Please enter Contact.';
             isFormIncomplete = true;
         } else if (isNaN(contactRef.current.value)) {
-            // errors.contact = 'Contact number must be numeric.';
             setMessage("Entered contact is not a number");
             specificMsg = true;
             isFormIncomplete = true; 
@@ -205,7 +208,6 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         }
     }
 
-
     useEffect(() => {
         console.log('newExpert:', newExpert);
     }, [newExpert]);
@@ -224,6 +226,11 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
                 setCurrentStage(stages.JOB_DETAIL)
         }
     }
+
+    // useEffect(() => {
+        
+    // },[])
+
 
     useEffect(() => {
         const { client_id } = router.query;
@@ -267,7 +274,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             if (!position_id) {
                 console.error("Client ID is undefined.");
                 return;
-            }
+            }   
             const reqBody = {
                 position_id: positionId
             }
@@ -281,6 +288,8 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             const data = await response.json();
             setNewExpert(data?.data?.expertise)
             setPositionData(data?.data)
+            setPosition(data?.data?.position);
+            setJobType(data?.data?.job_type)
             console.log('one position data:', data?.data);
         }
         if (position_id) {
@@ -290,17 +299,10 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
 
 
     const createCandidate = async () => {
-        // const requestBody = {
-        //     name: nameRef?.current ? nameRef?.current?.value : '',
-        //     email: emailRef?.current ? emailRef?.current?.value : '',
-        //     over_all_exp: expertiseRef.current ? expertiseRef.current.value : '',
-        //     applied_through: 'Co-ventech',
-        //     company_id: newId,
-        //     expertise: newExpert,
-        //     contact_no: contactRef.current ? contactRef.current.value : '',
-        // }
+        
         console.log('request body: ', reqBody);
-        console.log("new token:", newToken, 'and new id:', newId)
+        console.log("new token:", newToken, 'and new id:', newId);
+        console.log('request body: ', reqBody);
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info`, {

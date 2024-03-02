@@ -2,7 +2,7 @@ import EditingContainer from './EditingContainer';
 import JobInfoFields from './JobInfoFields';
 import styles from './JobType.module.css';
 
-const JobType = ({positionRef,jobTypeRef, descriptionRef, locationRef, setPosition,setLocation,setJobtype,setDescription}) => {
+const JobType = ({position, jobType, description, location,positionRef,jobTypeRef, descriptionRef, locationRef, setPosition,setLocation,setJobtype,setDescription}) => {
 
     return(
         <>
