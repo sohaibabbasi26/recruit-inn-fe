@@ -31,7 +31,7 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
                         </ul>
                     </div>
                     <div className="w-60p items-center flex justify-end gap-4 max-xl:gap-2">
-                            <span className="text-md max-xl:text-sm font-semibold cursor-pointer"><a href="https://www.recruitinn.ai/candidate-self"> Apply As A Candidate</a></span>
+                            <span className="text-md max-xl:text-sm font-semibold cursor-pointer"><a href="https://app.recruitinn.ai/candidate-self"> Apply As A Candidate</a></span>
                             <div className="flex gap-8 max-xl:gap-2">
                             <div className={`${styles.dropdown} px-10 py-3.5 text-mnmd max-xl:text-sm bg-darkPurple rounded-3xl fnt-semibold`}>Login
                             <ul className={styles.dropdown_menu}>

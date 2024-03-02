@@ -42,8 +42,9 @@ const PersonalInfo = forwardRef(({
                     <div className={styles.infoField}>
                         <Image />
                         <select ref={expertiseRef} >
+                            <option value='Select Your Experties' >Select Your Experties</option>
                             <option value='Expert' >Expert</option>
-                            <option value='Intermediate' >Intermediate</option>
+                            <option value='Intermediate'>Intermediate</option>
                             <option value='Beginner' >Beginner</option>
                         </select>
                     </div>
