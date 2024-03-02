@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './Socials.module.css';
 import Image from 'next/image';
 
@@ -20,6 +21,8 @@ const Socials = () => {
 
                     <div className={styles.contentContainer}>
                         <div className={styles.social}>
+                        <Link href="https://twitter.com/recruitinn" >
+
                             <div className={styles.info}>
                                 <Image id={styles.logoImage} src='/Xspace.svg' height={socialIconSize} width={socialIconSize} />
                                 <div className={styles.textContainer}>
@@ -27,17 +30,20 @@ const Socials = () => {
                                     <span>@recruitinn.ai</span>
                                 </div>
                             </div>
+                        </Link>
                             <Image src='/rightArrow.svg' height={arrowSize} width={arrowSize} />
                         </div>
 
                         <div className={styles.social}>
-                            <div className={styles.info}>
-                                <Image id={styles.logoImage} src='/linkedin.svg' height={socialIconSize} width={socialIconSize} />
-                                <div className={styles.textContainer}>
-                                    <h3>LinkedIn</h3>
-                                    <span>/recruitinn.ai</span>
+                            <Link href="https://www.linkedin.com/company/recruitinn-ai/about/?viewAsMember=true" >
+                                <div className={styles.info} >
+                                    <Image id={styles.logoImage} src='/linkedin.svg' height={socialIconSize} width={socialIconSize} />
+                                    <div className={styles.textContainer}>
+                                        <h3>LinkedIn</h3>
+                                        <span>/recruitinn.ai</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                             <Image src='/rightArrow.svg' height={arrowSize} width={arrowSize} />
                         </div>
                     </div>

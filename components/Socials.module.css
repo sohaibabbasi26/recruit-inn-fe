@@ -18,6 +18,11 @@
     justify-content: space-between;
 }
 
+.textContainer h3{
+    color: #000;
+    text-decoration: none !important;
+}
+
 .headingContainer h3{
     margin: 0;
     display: flex;
@@ -44,6 +49,7 @@
     justify-content: space-between;
     height: 65%;
     align-items: center;
+    text-decoration: none !important;
 }
 
 #logoImage{

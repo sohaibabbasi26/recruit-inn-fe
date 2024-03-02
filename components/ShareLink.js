@@ -72,12 +72,12 @@ const ShareLink = ({
                     </div>
                 </div>
 
-                <div className={styles.form}>
+                {/* <div className={styles.form}>
                     <div className={styles.topBar}>
                         <button>Add another candidate </button>
                         <Image src='/Plus.svg' width={plusSize} height={plusSize} />
                     </div>
-                </div>
+                </div> */}
 
                 <div className={styles.allFields}>
                     <div className={styles.field}>
