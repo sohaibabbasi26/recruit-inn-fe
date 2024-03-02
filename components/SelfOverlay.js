@@ -64,7 +64,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         console.log("Current Stage: ", currentStage);
         console.log("Is Share Link Stage? ", currentStage === stages.SHARE_LINK);
 
-        if((currentStage === stages.PERSONAL_INFO) && !fillValidity()){
+        if((currentStage === stages.PERSONAL_INFO) && nameRef.current.value.trim() == '' || emailRef.current.value.trim() == '' || contactRef.current.value.trim() == '' || expertiseRef?.current?.value.trim() == '' || countryRef?.current?.value.trim() == '' || cityRef?.current?.value.trim() == ''){
             setMessage("Please fill all the fields")
             showError();
             return;
@@ -198,8 +198,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     };
 
     const fillValidity = () => {
-        console.log("fillValidity", nameRef?.current?.value || emailRef?.current?.value || contactRef?.current?.value || expertiseRef?.current?.value || countryRef?.current?.value || cityRef?.current?.value)
-        return nameRef?.current?.value || emailRef?.current?.value || contactRef?.current?.value || expertiseRef?.current?.value || countryRef?.current?.value || cityRef?.current?.value ;
+        console.log("fillValidity", nameRef?.current?.value , emailRef?.current?.value , contactRef?.current?.value , expertiseRef?.current?.value , countryRef?.current?.value , cityRef?.current?.value)
+        return nameRef?.current?.value || emailRef?.current?.value || contactRef?.current?.value || expertiseRef?.current?.value || countryRef?.current?.value || cityRef?.current?.value;
     };
 
     const validateEmailReceiver = () => {
