@@ -153,7 +153,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         if (isValid) {
             const newCompletedStages = [...completedStages, currentStage];
             setCompletedStages(newCompletedStages);
-
         }
     }
 
