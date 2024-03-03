@@ -13,14 +13,26 @@ const Login = () => {
 
     const stages = {
         LOG_IN: 'LOG_IN',
-
     }
 
     const stageHeadings = {
         LOG_IN: 'Login',
     };
+    const redirectToClientPage = (clientId) => {
+        router.push(`/client/${clientId}`);
+    };
+    useEffect(() => {
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
+            const clientId = localStorage.getItem('clientId');
+            if (clientId) {
+                redirectToClientPage(clientId);
+            }
+        }
+    }, [router]);
 
-    const loginApiCall = async () => {
+      const loginApiCall = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`, {
             method: 'POST',
             headers: {
@@ -31,19 +43,18 @@ const Login = () => {
                 password: password
             })
         });
-
         const data = await response.json();
         console.log('login info:', data?.data);
         if (data?.data?.token) {
             localStorage.setItem('client-token', data?.data?.token);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('clientId', data?.data?.id); // Save client ID
             // document.cookie = `authToken=${data?.data?.token}; path=/;`;
-            router.push(`/client/${data?.data?.id}`)
+            redirectToClientPage(data?.data?.id); // Reuse the navigation function
         } else {
             alert('Login failed. Please check your credentials.');
         }
-    }
-
-    
+    };
 
     const showOverlay = true;
 
@@ -63,5 +74,4 @@ const Login = () => {
         </>
     )
 }
-
 export default Login;

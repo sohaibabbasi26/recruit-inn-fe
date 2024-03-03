@@ -307,7 +307,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                                     </div>
                                 </>
                             )}
-
+                            
                             {currentStage === stages.JOB_TYPE && (
                                 <>
                                     <JobType

@@ -65,5 +65,4 @@ const PersonalInfo = forwardRef(({
         </>
     )
 })
-
 export default PersonalInfo;

@@ -39,6 +39,16 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [companyName, setCompanyName] = useState(null);
 
   useEffect(() => {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    
+    if (!isLoggedIn) {
+      // If not logged in, redirect to login page
+      router.push('/client-login');
+    }
+  }, [router]);
+
+  useEffect(() => {
     const token = localStorage.getItem('client-token');
     async function fetchAllPositions() {
       const requestBody = { company_id: id };
