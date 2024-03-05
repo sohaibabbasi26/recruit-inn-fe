@@ -111,14 +111,13 @@
     display: flex;
     width: 80%;
     background-color: #F8F7FC;
-    padding: 1rem;
-    border-radius: 40px;
+    padding:6px;
+    border-radius: 32px;
     justify-content: space-between;
     align-items: center;
     margin-left: 1rem;
     gap: 0rem;
 }
-
 .profileTab h4 span {
     color: #170D23;
 }

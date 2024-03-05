@@ -130,7 +130,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                 </div>}
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
-                    <Image src='/dp.svg' height={50} width={50} className='profileImage' />
+                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '20px' }} />
                     <div className={styles.textContent}>
                         <span>Hello</span>
                         <h4>Bruce Wayne</h4>

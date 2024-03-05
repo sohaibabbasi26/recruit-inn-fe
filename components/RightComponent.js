@@ -14,8 +14,8 @@ const Graph = dynamic(
 
 
 const RightComponent = ({ setShowOverlay, showOverlay }) => {
-    const iconSize = 15;
-    const bellIconSize = 20;
+    const iconSize = 24;
+    const bellIconSize = 40;
 
     const openAddJobHandler = () => {
         setShowOverlay(true)
