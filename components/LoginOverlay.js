@@ -83,6 +83,42 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
     const [subject, setSubject] = useState('');
     const [text, setText] = useState('');
 
+    // const loginApiCall = async () => {
+    //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             email: email,
+    //             password: password
+    //         })
+    //     });
+
+    //     const data = await response.json();
+    //     console.log('login info:', data?.data);
+    //     if (data?.data?.token) {
+    //         localStorage.setItem('client-token', data?.data?.token);
+    //         router.push(`/client/${data?.data?.id}`)
+    //     } else {
+    //         showError('Login failed. Please check your credentials.');
+    //     }
+    // }
+
+    const redirectToClientPage = (clientId) => {
+        router.push(`/client/${clientId}`);
+    };
+    useEffect(() => {
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
+            const clientId = localStorage.getItem('clientId');
+            if (clientId) {
+                redirectToClientPage(clientId);
+            }
+        }
+    }, [router]);
+
     const loginApiCall = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`, {
             method: 'POST',
@@ -94,16 +130,18 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
                 password: password
             })
         });
-
         const data = await response.json();
         console.log('login info:', data?.data);
         if (data?.data?.token) {
             localStorage.setItem('client-token', data?.data?.token);
-            router.push(`/client/${data?.data?.id}`)
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('clientId', data?.data?.id); // Save client ID
+            // document.cookie = `authToken=${data?.data?.token}; path=/;`;
+            redirectToClientPage(data?.data?.id); // Reuse the navigation function
         } else {
-            showError('Login failed. Please check your credentials.');
+            alert('Login failed. Please check your credentials.');
         }
-    }
+    };
 
 
     useEffect(() => {

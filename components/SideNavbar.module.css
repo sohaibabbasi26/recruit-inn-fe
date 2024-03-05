@@ -205,7 +205,24 @@
     align-items: center;
     justify-content: center;
 }
-
+.btnlogout{
+    top: 12px;
+    left: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #f4f1f5;
+    color: red;
+    border: none;
+    margin-left: 25%;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+}
 
 @media only screen and (max-width: 1000px){
     .mainContainer ul li {

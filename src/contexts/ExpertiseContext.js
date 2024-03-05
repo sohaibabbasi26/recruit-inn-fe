@@ -6,7 +6,6 @@ export const useExpertiseContext = () => useContext(ExpertiseItemContext);
 
 export const ExpertiseItemProvider = ({ children }) => {
     const [expertiseItem, setExpertiseItem] = useState(null);
-
     return (
         <ExpertiseItemContext.Provider value={{ expertiseItem, setExpertiseItem }}>
             {children}

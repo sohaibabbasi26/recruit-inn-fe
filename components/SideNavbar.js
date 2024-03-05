@@ -2,13 +2,13 @@ import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
-
+import { useRouter } from 'next/router';
 
 const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOverlay ,setShowPaymentOverlay}) => {
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
-
+    const router = useRouter();
     const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
     const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] = useState(false);
 
@@ -33,6 +33,15 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
     const handleDropDownCandidatesToggle = () => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
+    const logoutHandler = () => {
+        // Clear localStorage items
+        localStorage.removeItem('client-token');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('clientId');
+    
+        // Redirect to the client login page
+        router.push('/client-login');
+    };
 
     const listItemSize = 25;
     const logoSize = 30
@@ -122,10 +131,17 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
                     </div>
                 </div>
                 {showupgrade && 
+                <div>
                 <div className={styles.btndiv}>
                     <button className={styles.btn} onClick={openAddJobHandler}>Upgrade<Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
                     </button>
-                </div>}
+                </div>
+                <div className={styles.btndiv}>
+                    <button className={styles.btnlogout} onClick={logoutHandler}>Logout<Image src="/Vector.png" alt="Upgrade" width="24" height="24"/>
+                    </button>
+                </div>
+                </div>
+                }
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
                     <Image src='/dp.svg' height={50} width={50} className='profileImage' />
