@@ -83,14 +83,16 @@
 }
 
 .searchInput{
+    width: 80%;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     gap: 1rem;
     font-family: 'Poppins',sans-serif;
 }
 
 .searchInput input{
+    width: 100%;
     font-family: 'Poppins',sans-serif;
 }
 
@@ -129,6 +131,7 @@
 
 .selectCategory select{
     border: none;
+    border-left: 1px solid #a4a4a4;
     background-color: transparent;
     font-size: 1rem;
     color: #170D23;

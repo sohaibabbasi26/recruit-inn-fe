@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import SuccessIndicator from '../../../components/SuccessIndicator';
 import ErrorIndicator from '../../../components/ErrorIndicator';
 import PaymentOverlay from '../../../components/PaymentOverlay';
+import { FormProvider } from '@/contexts/FormContext';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -89,7 +90,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
 
   useEffect(() => {
     let isMounted = true;
-    console.log('client_id:',id)
+    console.log('client_id:', id)
     localStorage.setItem('clientId', id);
     const token = localStorage.getItem('client-token');
     setToken(token)
@@ -98,7 +99,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       setIsLoading(true)
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-results-by-company`,
-      
+
         {
           method: 'POST',
           headers: {
@@ -180,33 +181,33 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
         technicalAssessment: "",
         createdAt: null
       };
-  
+
       if (candidate.results && candidate.results.length > 0) {
         const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
       }
-  
+
       const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
       const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-  
+
       const expertiseList = candidate.expertise.map(exp => ({
         skill: exp.skill,
-        level: exp.level 
+        level: exp.level
       }));
-  
+
       const inferredPosition = candidate.expertise.length > 0 ? candidate.expertise[0].skill : 'N/A'; // Inferred position from the first skill
-  
+
       return {
-        position : candidate.position,
-        jobType : candidate.job_type,
+        position: candidate.position,
+        jobType: candidate.job_type,
         name: candidate.name,
         email: candidate.email,
         score: score.toFixed(1),
         contactNo: candidate.contact_no,
         date: formattedDate,
         expertise: expertiseList,
-        position: inferredPosition, 
+        position: inferredPosition,
         overAllExperience: candidate.over_all_exp || 'N/A',
         results: {
           softskillRating: latestResult.softskillRating,
@@ -224,7 +225,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       };
     });
   };
-  
+
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -335,11 +336,11 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <SuperComponent 
+          <SuperComponent
             selectedCandidate={selectedCandidate}
             selectedJob={selectedJob}
             // setSelectedJob={setSelectedJob}
-            companyId = {id}
+            companyId={id}
             setIsLoading={setIsLoading}
             isLoading={isLoading}
             candidateReps={preprocessedCandidates}
@@ -354,19 +355,19 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           <RightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
         </>;
       case 'AllJobs':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} finalData={finalData} toggleOverlay={toggleOverlay}  />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} finalData={finalData} toggleOverlay={toggleOverlay} />
       case 'Active':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay}  />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay} />
       case 'Closed':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} closedJobsData={closedJobsData} toggleOverlay={toggleOverlay}  />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} closedJobsData={closedJobsData} toggleOverlay={toggleOverlay} />
       case 'All':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} allCandidates={preprocessedCandidates}  toggleOverlay={toggleOverlay} />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} allCandidates={preprocessedCandidates} toggleOverlay={toggleOverlay} />
       case 'Recommended':
         return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} recommendedCandidates={recommendedCand} toggleOverlay={toggleOverlay} />
       case 'Qualified':
         return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} qualifiedCandidates={qualifiedCand} toggleOverlay={toggleOverlay} />
       case 'NotEligible':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} notEligibleCandidates={notEligibleCand}  toggleOverlay={toggleOverlay} />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} notEligibleCandidates={notEligibleCand} toggleOverlay={toggleOverlay} />
       default:
         return null;
     }
@@ -376,10 +377,12 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     <>
       {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
       {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-      {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
+      <FormProvider>
+        {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
+      </FormProvider>
       {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
-      {showPaymentOverlay && <PaymentOverlay onClose = {togglePaymentOverlay} showPaymentOverlay = {showPaymentOverlay} />}
+      {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
         <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}

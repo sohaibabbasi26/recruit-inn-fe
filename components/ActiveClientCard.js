@@ -1,37 +1,106 @@
 import styles from './ActiveClientCard.module.css';
 import Image from 'next/image';
 import { useActiveItem } from '@/contexts/ActiveItemContext';
+import { useState } from 'react';
 
-const ActiveClientCard = ({ setData, dataToBeSet, item, onOpen }) => {
+const ActiveClientCard = ({ showError, showSuccess, adminToken, setData, dataToBeSet, item, onOpen }) => {
     const { setActiveItem } = useActiveItem();
 
     const handleItemClick = (itemName) => {
         setActiveItem(itemName);
     }
 
-    console.log("set data method:", setData)
+    const [error, setError] = useState(false);
+    console.log("set data method:", setData);
 
+    // const handleFetchCompanyJobListing = async () => {
+    //     const id = item?.company_id
+    //     const requestBody = { company_id: id };
+
+    //     try {
+    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${adminToken}`,
+    //             },
+    //             body: JSON.stringify(requestBody),
+    //         });
+
+    //         const data = await response.json();
+    //         console.log('the fetched data is:', data);
+
+    //         if (data && data?.length > 0) { 
+    //             setData(data);
+    //             handleItemClick('viewJobListing');
+    //         } else {
+    //             showError('There are no jobs created for the requested client!');
+    //         }
+    //     } catch (err) {
+    //         console.error(err);
+    //         showError('There was an error fetching the job listings!');
+    //     }
+    // }
 
     const handleFetchCompanyJobListing = async () => {
-
-        const id = item?.company_id
-        const requestBody = {
-            company_id: id
-        }
-        const response = await fetch('http://127.0.0.1:3002/v1/get-all-positions',
-            {
+        const id = item?.company_id;
+        const requestBody = { company_id: id };
+    
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4Yzk2MmRiLTMzM2QtNDY0My1iMWY2LTFjZTgzYzhjOGI3YiIsImVtYWlsIjoic29iaWFiYmFzaTIyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNTA0NTAwNiwiZXhwIjoxNzA1NjQ5ODA2fQ.RXK4x6YEGygJ1KpsuwfwiibZv6Q4-Od-W88h5S1n6uU`
+                    'Authorization': `Bearer ${adminToken}`,
                 },
                 body: JSON.stringify(requestBody),
             });
-
-        const data = await response.json();
-        console.log('the fetched data is:', data);
-        setData(data);
+    
+            const data = await response.json();
+            console.log('the fetched data is:', data);
+    
+            if (data) {     
+                setData(data); 
+                handleItemClick('viewJobListing'); 
+            } else {
+                setData([])
+                showError('There are no jobs created for the requested client!');
+            }
+        } catch (err) {
+            console.error(err);
+            setData([]);
+            showError('There are no jobs created for the requested client!');
+        }
     }
+    
+
+
+    // const handleFetchCompanyJobListing = async () => {
+
+    //     const id = item?.company_id
+    //     const requestBody = {
+    //         company_id: id
+    //     }
+    //     try {
+    //         // setError(false)
+    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`,
+    //             {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${adminToken}`,
+    //                 },
+    //                 body: JSON.stringify(requestBody),
+    //             });
+
+    //         const data = await response.json();
+    //         console.log('the fetched data is:', data);
+    //         setData(data);
+    //     } catch (err) {
+    //         setError(true);
+    //         showError('There are no jobs created for the requested client!');
+    //     }
+    // }
 
     const getBgColor = (status) => {
         switch (status) {
@@ -60,9 +129,15 @@ const ActiveClientCard = ({ setData, dataToBeSet, item, onOpen }) => {
             <div
                 className={styles.clientReq}
                 onClick={
-                    async () => {
-                        await handleFetchCompanyJobListing();
-                        handleItemClick('viewJobListing')
+                    () => {
+                        if (error === true) {
+                            
+                            // handleFetchCompanyJobListing();
+                            // handleItemClick('viewJobListing');
+                        } else{
+                            handleFetchCompanyJobListing();
+                            handleItemClick('viewJobListing');
+                        }
                     }
                 }>
                 <div className={styles.topContainer}>
