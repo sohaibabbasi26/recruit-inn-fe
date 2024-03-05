@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 import styles from './PersonalInfo.module.css';
 import Image from 'next/image';
-
+import NameContext from '@/contexts/NameContext';
+import { useContext } from 'react';
 
 const PersonalInfo = forwardRef(({
     setCity,
@@ -16,18 +17,26 @@ const PersonalInfo = forwardRef(({
     expertiseRef,
     countryRef,
     cityRef,
-    validationErrors
+    validationErrors,
+    showSuccessMessage,
+    msgText
 }) => {
-    
+    const { updateName } = useContext(NameContext);
+
+    const handleNameChange = (e) => {
+        updateName(e.target.value);
+    };
+
     console.log("validation errors:", validationErrors);
 
     return (
+        
         <>
             <div className={styles.superContainer}>
                 <div className={styles.masterContainer}>
                     <div className={styles.infoField}>
                         <Image />
-                        <input placeholder='Enter your name' ref={nameRef} />
+                        <input placeholder='Enter your name' ref={nameRef} onChange={handleNameChange}/>
                     </div>
                     <div className={styles.infoField}>
                         <Image />

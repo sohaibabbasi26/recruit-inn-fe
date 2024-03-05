@@ -14,7 +14,7 @@ import RequiredSkillsBtns from './RequiredSkillsBtns';
 import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import ErrorIndicator from './ErrorIndicator';
 
-const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
+const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
     const { expertiseItem, setExpertiseItem } = useExpertiseContext();
     console.log("expertise Item in invitationOverlay :", expertiseItem);
@@ -165,25 +165,22 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             errors.name = 'Please enter Name.';
             isFormIncomplete = true;
         }
-
         if (!countryRef.current.value.trim()) {
             errors.name = 'Please enter Name.';
             isFormIncomplete = true;
         }
-
-
         setValidationErrors(errors);
 
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
         if (!isFormIncomplete) {
+            setShowSuccessMessage(false);
             console.log('Form submitted successfully!');
-            toggleComponent(); 
-        
+            toggleComponent();
         } else {
-            setMessage("Please make sure to fill all the fields correctly.");
+            console.log("Please make sure to fill all the fields correctly.");
+            setMessage(message);
         }
-
     };
 
     const toggleComponent = () => {
@@ -341,9 +338,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
-                {showSuccessMessage && <ErrorIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-                
-
+                {showSuccessMessage && <ErrorIndicator showErrorMessage = {showSuccessMessage} showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.superContainer}>
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
@@ -369,7 +364,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
 
                         {currentStage === stages.PERSONAL_INFO && (
                             <>
-                                <PersonalInfo validationErrors={validationErrors} nameRef={nameRef} contactRef={contactRef} emailRef={emailRef} cityRef={cityRef} countryRef={countryRef} expertiseRef={expertiseRef} handleContinue={handleContinue} setCity={setCity} setContact={setContact} setCountry={setCountry} setEmail={setEmail} setExpertise={setExpertise} setName={setName} />
+                            <PersonalInfo showSuccessMessage={showSuccessMessage} msgText={message} validationErrors={validationErrors} nameRef={nameRef} contactRef={contactRef} emailRef={emailRef} cityRef={cityRef} countryRef={countryRef} expertiseRef={expertiseRef} handleContinue={handleContinue} setCity={setCity} setContact={setContact} setCountry={setCountry} setEmail={setEmail} setExpertise={setExpertise} setName={setName} />
                                 <div className={styles.wrapper}>
                                     <PersonalInfoBtns showSuccess={showSuccess} onContinue={handleContinue} onBack={backToggleComponent} />
                                 </div>

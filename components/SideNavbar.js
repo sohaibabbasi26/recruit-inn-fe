@@ -33,7 +33,6 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
     const handleDropDownCandidatesToggle = () => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
-    
     const logoutHandler = () => {
         // Clear localStorage items
         localStorage.removeItem('client-token');

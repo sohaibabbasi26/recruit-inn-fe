@@ -125,7 +125,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 isValid = validateAddSkill();
                 if (!isValid) {
                     setMessage("Please fill in at least one skill.");
-                    showError();
+                    showError();    
                     return;
                 }
                 setCurrentStage(stages.JOB_TYPE);
@@ -306,7 +306,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                                     </div>
                                 </>
                             )}
-                            
+
                             {currentStage === stages.JOB_TYPE && (
                                 <>
                                     <JobType
@@ -368,4 +368,4 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     )
 })
 
-export default Overlay; 
+export default Overlay;

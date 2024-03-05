@@ -1,9 +1,12 @@
 import styles from './CompletionComponent.module.css';
 import Image from 'next/image';
+
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import NameContext from '@/contexts/NameContext';
 
 const CompletionComponent = () => {
-
+    const { name } = useContext(NameContext);
     const imagsSize = 130;
     const iconSize = 20;
     const router = useRouter();
@@ -17,7 +20,7 @@ const CompletionComponent = () => {
             <div className={styles.container}>
                 <div className={styles.topContainer}>
                         <Image src='/completion.svg' width={imagsSize} height={imagsSize} />
-                        <h3>Congratulations Zubair</h3>
+                        <h3>Congratulations</h3>
                         <p>You've successfully completed your assessment</p>
                 </div>
 

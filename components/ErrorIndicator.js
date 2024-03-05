@@ -7,8 +7,6 @@ const ErrorIndicator = ({showErrorMessage, showSuccessMessage ,msgText}) => {
 
     console.log("SuccessIndicator rendering: ", showSuccessMessage);
 
-    
-
     return (
         <>
             <div className={showErrorMessage ? styles.show : styles.hide}>
