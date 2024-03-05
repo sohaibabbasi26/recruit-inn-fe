@@ -138,7 +138,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
                 </div>
                 <div className={styles.btndiv}>
                     <button className={styles.btnlogout} onClick={logoutHandler}>Logout<Image src="/Vector.png" alt="Upgrade" width="24" height="24"/>
-                    </button>
+                </button>
                 </div>
                 </div>
                 }

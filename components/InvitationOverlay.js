@@ -178,8 +178,7 @@ const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSu
             console.log('Form submitted successfully!');
             toggleComponent();
         } else {
-            console.log("Please make sure to fill all the fields correctly.");
-            setMessage(message);
+            setMessage("Please make sure to fill all the fields correctly.");
         }
     };
 
