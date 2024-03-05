@@ -31,7 +31,10 @@ const AdminSuper = ({
     onOpen,
     setShowOverlay,
     setData,
-    data
+    data,
+    adminToken,
+    showError,
+    showSuccess
 }) => {
 
 
@@ -57,29 +60,29 @@ const AdminSuper = ({
                 </div>
 
                 {allData ? (
-                    <JobsHub  data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                    <JobsHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : activeData ? (
-                    <JobsHub data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
-                ) : closedData ?6 (
-                    <JobsHub data={data} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                    <JobsHub showError={showError} showSuccess={showSuccess} data={data} adminToken={adminToken} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
+                ) : closedData ? (
+                    <JobsHub showError={showError} showSuccess={showSuccess} data={data} adminToken={adminToken} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />
                 ) : allCandidates ? (
-                    <CandRepHub heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : recommendedCandidates ? (
-                    <CandRepHub heading='Recommended Candidates' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='Recommended Candidates' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : qualifiedCandidates ? (
-                    <CandRepHub heading='Qualified Candidates' data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='Qualified Candidates' data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : notEligibleCandidates ? (
-                    <CandRepHub heading='Not Eligible Candidates' data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                    <CandRepHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='Not Eligible Candidates' data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
                 ) : reqData ? (
-                    <ClientReqHub heading='Client Requests' dataToBeSet={data} setData={setData} data={reqData} onOpen={onOpen} />
+                    <ClientReqHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='Client Requests' dataToBeSet={data} setData={setData} data={reqData} onOpen={onOpen} />
                 ) : allClients ? (
-                    <ClientReqHub heading='All Clients' dataToBeSet={data} setData={setData} data={allClients} />
+                    <ClientReqHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='All Clients' dataToBeSet={data} setData={setData} data={allClients} />
                 ) : activeClientsData ? (
-                    <ClientReqHub heading='Active Clients' setData={setData} dataToBeSet={data} data={activeClientsData} />
+                    <ClientReqHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='Active Clients' setData={setData} dataToBeSet={data} data={activeClientsData} />
                 ) : inActiveClientsData ? (
-                    <ClientReqHub heading='In-Active Clients' setData={setData} dataToBeSet={data} data={inActiveClientsData} />
+                    <ClientReqHub showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='In-Active Clients' setData={setData} dataToBeSet={data} data={inActiveClientsData} />
                 ) : data ? (
-                    <ClientJobs heading='In-Active Clients' setData={setData} data={data} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
+                    <ClientJobs showError={showError} showSuccess={showSuccess} adminToken={adminToken} heading='In-Active Clients' setData={setData} data={data} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
                 ) : ''
                 }
 

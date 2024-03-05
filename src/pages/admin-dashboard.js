@@ -13,31 +13,34 @@ import JobOverlay from '../../components/JobOverlay';
 import AdminOverlay from '../../components/AdminOverlay';
 import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
+import ErrorIndicator from '../../components/ErrorIndicator';
 
 const Admin = ({ }) => {
 
     const [activeClientsData, setActiveClientsData] = useState(null);
     const [inActiveClientsData, setInActiveClientsData] = useState(null);
     const [requestedClientsData, setRequestedClientsData] = useState(null);
-    const [preprocessedCandidates, setPreprocessedCandidates] = useState(null);
+    const [preprocessedCandidates, setPreprocessedCandidates] = useState(null); 
     const [recommendedCand, setRecommendedCand] = useState([]);
     const [qualifiedCand, setQualifiedCand] = useState([]);
     const [notEligibleCand, setNotEligibleCand] = useState([]);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [showErrorMessage, setshowErrorMessage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [adminnToken, setAdminToken] = useState('');
     const [allClients, setAllClients] = useState();
     const [allResults, setAllResults] = useState();
 
-    const showError = () => {
-        setshowErrorMessage(true);
+    const showError = (message) => {
+        setMessage(message);
+        setShowErrorMessage(true);
 
         setTimeout(() => {
-            setshowErrorMessage(false);
+            setShowErrorMessage(false);
         }, 3000);
     };
 
-    const showSuccess = () => {
+    const showSuccess = (message) => {
+        setMessage(message);
         setShowSuccessMessage(true);
 
         setTimeout(() => {
@@ -199,23 +202,23 @@ const Admin = ({ }) => {
                     <AdminRightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
                 </>;
             case 'AllClients':
-                return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} allClients={allClients?.data} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} allClients={allClients?.data} />
             case 'Request':
-                return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} reqData={requestedClientsData} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} reqData={requestedClientsData} />
             case 'Active':
-                return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} activeClientsData={activeClientsData} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} activeClientsData={activeClientsData} />
             case 'In-Active':
-                return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
             case 'All':
-                return <AdminSuper setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} allCandidates={preprocessedCandidates} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} allCandidates={preprocessedCandidates} />
             case 'Recommended':
-                return <AdminSuper setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} recommendedCandidates={recommendedCand} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} recommendedCandidates={recommendedCand} />
             case 'Qualified':
-                return <AdminSuper setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} qualifiedCandidates={qualifiedCand} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} qualifiedCandidates={qualifiedCand} />
             case 'NotEligible':
-                return <AdminSuper setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} notEligibleCandidates={notEligibleCand} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} notEligibleCandidates={notEligibleCand} />
             case 'viewJobListing':
-                return <AdminSuper data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
+                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
             default:
                 return null;
         }
@@ -279,6 +282,7 @@ const Admin = ({ }) => {
 
     return (
         <>
+            {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
             {showOverlay && <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}

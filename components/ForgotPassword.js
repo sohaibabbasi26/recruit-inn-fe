@@ -4,14 +4,10 @@ import { useEffect, useState } from 'react';
 
 const ForgotPassword = ({email, setEmail, setEmailReceiver}) => {
 
-    
-
     useEffect(() => {
         setEmailReceiver(email); 
     }, [email, setEmailReceiver]);
     
-    
-
     return(
         <>
             <div className={styles.superContainer}>

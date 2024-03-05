@@ -20,7 +20,7 @@ import React from 'react';
 import ErrorIndicator from './ErrorIndicator';
 
 const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {
-    showErrorMessage
+    
     const overlayRef = useRef(null);
     const { test, setTest } = useTest();
     const { expertiseItem, setExpertiseItem } = useExpertiseContext();
@@ -77,6 +77,20 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     const locationRef = useRef();
     const jobTypeRef = useRef();
     const descriptionRef = useRef();
+
+    // const { formState, setFormState } = useFormContext();
+    // const handlePositionChange = (e) => {
+    //     setFormState(prevState => ({ ...prevState, position: e.target.value }));
+    // };
+
+    // const handleLocationChange = (e) => {
+    //     setFormState(prevState => ({ ...prevState, location : e.target.value }));
+    // };
+
+    // const handleLocationChange = (e) => {
+    //     setFormState(prevState => ({ ...prevState, location : e.target.value }));
+    // };
+    
 
     const JobPositionRef = useRef();
     const recipientRef = useRef();
@@ -174,8 +188,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
     }
 
-
-
     const handleFormSubmit = async () => {
 
         const requestBody = {
@@ -215,6 +227,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             console.error('Error submitting form:', error);
         }
     };
+
+    
 
     const handleFormSubmitForTest = async () => {
         const requestBody = {

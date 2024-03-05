@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 
-const PasswordConfirm = ({setPassword,password}) => {
+const PasswordConfirm = ({error,setPassword,password}) => {
 
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [pass,setPass] = useState(null);
@@ -43,6 +43,14 @@ const PasswordConfirm = ({setPassword,password}) => {
                         <input placeholder='Confirm Password' type='password' onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
                 </div>
+
+                {error ? (
+                    <>
+                        <p>Please enter a new password</p>
+                    </>
+                ): (<>
+                </>)}
+
             </div>
         </>
     )

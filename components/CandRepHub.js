@@ -1,7 +1,7 @@
 import styles from './CandRepHub.module.css';
 import Image from 'next/image';
 
-const CandRepHub = ({heading, data, setSelectedCandidate, setReportOverlay }) => {
+const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidate, setReportOverlay }) => {
 
     const cardClickHandler = (candidate) => {
         setSelectedCandidate(candidate);
