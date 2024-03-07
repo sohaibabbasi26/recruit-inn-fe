@@ -29,7 +29,6 @@
     height: 3.5rem;
     margin: 0.9rem 0rem
 }
-
 .addJobBtn{
     border: none;
     background-color: #6137DB;
@@ -43,9 +42,16 @@
     justify-content: center;
     align-items: center;
     letter-spacing: 0.5px;
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
 }
+
+.addJobBtn:hover {
+    background-color: white; /* A lighter shade of the original color for hover */
+    transform: scale(1.05); /* Slightly increase the scale */
+}
+
 @media only screen and (max-width: 1100px) {
     .addJobBtn{
         letter-spacing: 0px;
@@ -55,7 +61,6 @@
 }
 
 .notificationsBtn{
-    border: none;
     background-color: #F8F7FC;
     height: 70px;
     width: 200px;
@@ -64,4 +69,25 @@
     font-weight: 700;
     letter-spacing: 0.5px;
     cursor: pointer;
+    border: none;
+}
+
+.notificationsBtn :hover{
+    background-color: #F8F7FC;
+    color: black;
+    border-radius: 40px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+.notificationsBtn :focus{
+    border: 2px #6137DB;
+    background-color: #F8F7FC;
+    color: black;
+}
+.notificationsBtn :active{
+    border: 2px #6137DB;
+    background-color: #F8F7FC;
+    color: black;
+  
 }

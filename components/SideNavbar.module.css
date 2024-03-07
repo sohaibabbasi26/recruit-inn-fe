@@ -19,6 +19,7 @@
     font-weight: 1000;
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: #170D23;
 }
 @media only screen and (max-width: 1300px) {
     .mainContainer h3{
@@ -50,6 +51,8 @@
     align-items: flex-start;
     margin-left: 1rem;
     margin-right: 1rem;
+    color: #170D23;
+
 
     /* margin-top: 1rem; */
 }
@@ -61,6 +64,8 @@
     color: #ACA7BA;
     margin: 0;
     margin-top: 1.5rem;
+    color: #170D23;
+
 }
 
 .mainContainer ul {
@@ -110,12 +115,12 @@
 .profileTab {
     display: flex;
     width: 80%;
-    background-color: #F8F7FC;
-    padding:6px;
+    background-color: white;
+    padding-bottom:10px;
     border-radius: 32px;
     justify-content: space-between;
     align-items: center;
-    margin-left: 1rem;
+    margin-left: 10px;
     gap: 0rem;
 }
 .profileTab h4 span {
@@ -156,6 +161,13 @@
     border-radius: 40px;
 }
 
+.dashboardButton:hover,
+.dashboardButton:focus {
+    background-color: #F7F5FF;
+    color: #6137DB;
+}
+
+
 @media only screen and (max-width: 1300px) {
     .dashboardButton{
         margin-left: -5px;
@@ -186,6 +198,81 @@
     align-items: center;
     justify-content: center;
 }
+
+.btnlog{
+    display: flex;
+    top: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #FFF5F5;
+    color: #FF0000;
+    border: none;
+    margin-left: 22px;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    background-color: #FFF5F5;
+    color: #FF0000;
+
+}
+
+.btnup{
+    display: flex;
+    top: 12px;
+    left: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #F0EDFC;
+    color: #6137DB;
+    border: none;
+    margin-left: 22px;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    background-color: #F0EDFC;
+    color: #6137DB;
+}
+
+.profnameback{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background-color: white;
+border-radius: 40px;
+border: 3px solid #6137DB;
+width: 240px;
+padding: 10px;
+gap: 10px;
+}
+
+.btnset{
+    display: flex;
+    top: 12px;
+    left: 12px;
+    padding: 10px 60px 10px 60px;
+    gap: 4px;
+    background-color: white;
+    color:p;
+    border: none;
+    margin-left: 22px;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    border-radius: 52px;
+    background-color: white;
+    color: #6137DB;
+
+    
+}
 .btn {
     top: 12px;
     left: 12px;
@@ -195,7 +282,7 @@
     background-color: #F0EDFC;
     color: #6137DB;
     border: none;
-    margin-left: 25%;
+    margin-left: 22px;
     margin-bottom: 5%;
     font-weight: 600;
     font-size: small;
@@ -203,4 +290,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }

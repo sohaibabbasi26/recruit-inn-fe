@@ -1,6 +1,6 @@
 .jobTypeContainer{
-    height: 50%;
-    width: 60%;
+    height: 260px;
+    width: 900px;
 }   
 
 @media only screen and (max-width: 600px) {

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Stages = ({ currentStage, stages, completedStages }) => {
 
-    const iconsize = 20;
+    const iconsize = 32;
     const activeColorCode = "#6137DB";
     const completedColorCode = "#6137DB";
     const completedTextColor = "#fff"

@@ -73,7 +73,7 @@
 }
 
 .topContainer {
-    width: 60%;
+    width: 900px;
     height: 10%;
     display: flex;
     justify-content: space-between;
@@ -90,7 +90,7 @@
     cursor: pointer;
     justify-content: flex-end;
     align-items: center;
-    width: 50%;
+    width: 900px;
 }
 
 .tooltip {

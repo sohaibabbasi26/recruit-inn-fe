@@ -1,6 +1,7 @@
 .stagesContainer{
-    width: 60%;
+    width: 900px;
     margin-bottom: 1.5rem;
+
 }
 
 .stagesContainer ul{
@@ -18,12 +19,15 @@
     align-items: center;
     gap: 1rem;
     color: #ACA7BA;
-    padding: 0.5rem 1rem;
     border: 2px solid #ACA7BA;
     border-radius: 30px;
-    min-width: 19%;
+    min-width: 20%;
     height: 10%;
     text-transform: initial;
+    padding-left: 20px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 

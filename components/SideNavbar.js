@@ -34,7 +34,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
 
-    const listItemSize = 25;
+    const listItemSize = 28;
     const logoSize = 30
 
     return (
@@ -121,22 +121,38 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                         )}
                     </div>
                 </div>,
+                <div className={`${styles.profnameback} ${styles.focus}`}>
+           {showupgrade && 
+                <div>
+                    <button className={styles.btnup} onClick={openAddJobHandler}>
+                    Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="22"/>
+                    </button>
+                </div>}
+                {showupgrade && 
+                
+                <div>
+                    <button className={styles.btnset} onClick={openAddJobHandler}>
+                    Setting <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
+                    </button>
+                </div>}
 
                 {showupgrade && 
-                <div className={styles.btndiv}>
-                    <button className={styles.btn} onClick={openAddJobHandler}>
-                    Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
+                
+                <div>
+                    <button className={styles.btnlog} onClick={openAddJobHandler}>
+                    Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"  style={{  color: '#FF0000' }}/>
                     </button>
                 </div>}
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
-                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '20px' }} />
+                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '10px', marginRight: '10px'}} />
                     <div className={styles.textContent}>
                         <span>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
+                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />
                 </div>
+            </div>
             </div>
         </>
     )
