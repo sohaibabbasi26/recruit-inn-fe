@@ -14,11 +14,15 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
     const iconSize = 20;
     const infoSymbolSize = 10;
 
+    useEffect(() => {
+        setTechStack(selectedJob?.expertise);
+    },[selectedJob?.expertise]);
+
     const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}`;
 
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
-        setTechStack(selectedJob?.expertise);
+        
 
 
 
