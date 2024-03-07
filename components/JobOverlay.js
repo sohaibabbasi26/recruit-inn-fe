@@ -2,12 +2,14 @@ import styles from './JobOverlay.module.css';
 import Image from 'next/image';
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
+import ErrorIndicator from './ErrorIndicator';
+import SuccessIndicator from './SuccessIndicator';
 
-const JobOverlay = ({token, onClose, jobOverlay, selectedJob, companyId, setMessage, showSuccess}) => {
+const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, token, onClose, jobOverlay, selectedJob, companyId, setMessage, showSuccess }) => {
 
     const [techStack, setTechStack] = useState();
-    const [test,setTest] = useState();
-    const [isLoading,setIsLoading] = useState(false);
+    const [test, setTest] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const overlayRef = useRef(null);
     const iconSize = 20;
     const infoSymbolSize = 10;
@@ -17,29 +19,45 @@ const JobOverlay = ({token, onClose, jobOverlay, selectedJob, companyId, setMess
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
         setTechStack(selectedJob?.expertise);
-        const reqBody = {
-            expertise: techStack
+
+
+
+        try {
+
+            if (techStack) {
+                console.log('techstack:', techStack);
+                const reqBody = {
+                    expertise: techStack
+                }
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(reqBody),
+                    });
+
+                const data = await response.json();
+                console.log("response data:", data);
+                setTest(data?.data);
+                setIsLoading(false);
+                console.log('test data:', test);
+                localStorage.setItem('testData', JSON.stringify(data));
+
+                // console.log('test', test);
+                console.log(data);
+                handleCopyClick();
+            }
+
+        } catch (err) {
+            console.log('error:', err);
         }
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(reqBody),
-            });
-        const data = await response.json();
-        setTest(data?.data);
-        setIsLoading(false);
-        console.log('test data:', test);
-        localStorage.setItem('testData', JSON.stringify(data));
-        // console.log('test', test)
-        console.log(data);
-        handleCopyClick();
+
     }
 
-    
+
 
     function copyToClipboard(text) {
         if ('clipboard' in navigator) {
@@ -60,11 +78,11 @@ const JobOverlay = ({token, onClose, jobOverlay, selectedJob, companyId, setMess
 
     const handleCopyClick = () => {
         copyToClipboard(demolink)
-          .then(() => setCopySuccess('Copied!'))
-          .catch(err => console.error('Could not copy text: ', err));
-          setMessage("Your link has been copied");
-          showSuccess();
-      }
+            .then(() => console.log('copied!'))
+            .catch(err => console.error('Could not copy text: ', err));
+        setMessage("Your link has been copied");
+        showSuccess();
+    }
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -113,6 +131,9 @@ const JobOverlay = ({token, onClose, jobOverlay, selectedJob, companyId, setMess
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
+                {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
+                {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
+
 
                 <div className={styles.btn}>
                     <button onClick={onClose}>
@@ -140,8 +161,10 @@ const JobOverlay = ({token, onClose, jobOverlay, selectedJob, companyId, setMess
                             {isLoading ? (
                                 <div className={styles.loader}></div>
                             ) : (
-                                <span onClick={fetchAndCopyAssessmentLink}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></span>
-                            ) }
+                                <span onClick={async () => {
+                                    await fetchAndCopyAssessmentLink();
+                                }}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></span>
+                            )}
                         </div>
 
                         <div className={styles.description}>

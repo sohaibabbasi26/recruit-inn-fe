@@ -63,7 +63,7 @@ const ClientJobs = ({showError, showSuccess, data,jobOverlay, setJobOverlay,setS
                                         </div>
                                     </div>
                                     <div className={styles.TechStack}>
-                                        <ul  >
+                                        <ul>
                                             {item?.expertise?.map((skill) => {
                                                 return (
                                                     <li><Image id={styles.unique} src={skill.img} width={iconSize} height={iconSize} />{skill.skill}</li>
