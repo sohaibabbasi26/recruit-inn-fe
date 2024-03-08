@@ -22,9 +22,6 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
 
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
-        
-
-
 
         try {
 
@@ -50,7 +47,6 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
                 console.log('test data:', test);
                 localStorage.setItem('testData', JSON.stringify(data));
 
-                // console.log('test', test);
                 console.log(data);
                 handleCopyClick();
             }

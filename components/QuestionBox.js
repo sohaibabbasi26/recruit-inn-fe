@@ -18,12 +18,42 @@ const QuestionBox = () => {
     const mediaRecorderRef = useRef(null);
     const recordedChunksRef = useRef([]);
     const [answers, setAnswers] = useState([]);
-    const { id } = router?.query;
+    const { cid, qid , pid} = router?.query;
     const [recordingDone, setRecordingDone] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [disableRecordingButton, setDisableRecordingButton] = useState(false);
+    const [questions,setQuestions] = useState();
 
-
+    useEffect(() => {
+        const fetchQuestions = async () => {
+          if (!router.isReady) return; // Wait for the router to be ready
+    
+          setIsLoading(true);
+          const reqBody = {
+            position_id: pid,
+            question_id: qid,
+          };
+    
+          try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`, {
+              method: "POST",
+              body: JSON.stringify(reqBody),
+              headers: { 'Content-type': 'application/JSON' },
+            });
+    
+            const data = await response.json();
+            if (data && data.code === 200 && data.data.length > 0) {
+              setQuestions(data.data[0].question); // Assuming the structure based on your provided data
+            }
+          } catch (err) {
+            console.error('Error fetching questions:', err);
+          } finally {
+            setIsLoading(false);
+          }
+        };
+    
+        fetchQuestions();
+      }, [router.isReady, qid, pid]); // Depend on router.isReady
 
     useEffect(() => {
         const storedTestData = localStorage.getItem('testData');
@@ -81,7 +111,7 @@ const QuestionBox = () => {
     const submitTestHandler = async () => {
 
         const requestBody = {
-            candidate_id: id,
+            candidate_id: cid,
             question_answer: answers
         }
 
@@ -159,7 +189,7 @@ const QuestionBox = () => {
 
             const base64Data = await blobToBase64(blob);
             const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
-            setAnswers(prev => [...prev, { question: fetchedData[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
         } else {
             console.error("Recorder not active or already stopped.");
         }
@@ -203,6 +233,7 @@ const QuestionBox = () => {
         });
     }
 
+
     return (
         <>
             <div className={styles.container}>
@@ -215,7 +246,7 @@ const QuestionBox = () => {
                         <div className={styles.topContainer}>
                             <div className={styles.questionNoList}>
                                 <ul>
-                                    {fetchedData?.map((question, index) => {
+                                    {questions?.map((question, index) => {
                                         return (
                                             <>
                                                 <li
@@ -238,8 +269,8 @@ const QuestionBox = () => {
                         {/* question container */}
 
                         <div className={styles.questionContainer}>
-                            {fetchedData && fetchedData.length > 0 && (
-                                <span>{fetchedData[currentQuestion - 1]?.question}</span>
+                            {questions && questions.length > 0 && (
+                                <span>{questions[currentQuestion - 1]?.question}</span>
                             )}
                         </div>
                         {/*Record button */}

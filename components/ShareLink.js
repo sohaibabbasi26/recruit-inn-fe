@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const ShareLink = ({
+    questionId,
     companyId,
     emailReceiver,
     setEmailReceiver,
@@ -22,7 +23,7 @@ const ShareLink = ({
     const iconSize = 20;
     const clipSize = 30;
     const [copySuccess, setCopySuccess] = useState('');
-    const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}`;
+    const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}`;
 
     function copyToClipboard(text) {
         if ('clipboard' in navigator) {

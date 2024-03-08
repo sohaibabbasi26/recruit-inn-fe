@@ -21,6 +21,7 @@ const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSu
     const router = useRouter();
     const { client_id } = router.query;
     const { position_id } = router.query;
+    const {q_id} = router.query;
 
     console.log("client_id:",client_id)
 
@@ -93,7 +94,7 @@ const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSu
     const [positionId, setPositionId] = useState(null);
     const [positionData, setPositionData] = useState(null);
     const [validationErrors, setValidationErrors] = useState(null);
-
+    const [questionId, setQuestionId] = useState();
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const cityRef = useRef(null);
@@ -207,6 +208,11 @@ const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSu
     useEffect(() => {
         console.log('newExpert:', newExpert);
     }, [newExpert]);
+
+    useEffect(()=> {
+        setQuestionId(q_id);
+        console.log('quesiton id:', questionId);
+    },[q_id])
 
     const backToggleComponent = () => {
         const stageToBePopped = completedStages.slice(0, -1);
@@ -324,8 +330,8 @@ const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSu
         console.log("candidate id:", candidateId)
         if (candidateId) {
             console.log("REDIRECTING TO:")
-            console.log(`/test?id=${candidateId}`)
-            router.push(`/test?id=${candidateId}`);
+            console.log(`/test?cid=${candidateId}&pid=${positionId}`)
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}`);
         }
     };
 
@@ -342,12 +348,6 @@ const InvitationOverlay = ({ setShowSuccessMessage,  message, setMessage, showSu
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
-                            {/* <span>
-                            <h2 className={styles.headingjob}>{stageHeadings[currentStage]}</h2>
-                            <span>
-                                <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
-                                <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span> */}
                         </div>
                         
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
