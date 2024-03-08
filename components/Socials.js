@@ -15,13 +15,13 @@ const Socials = () => {
                     <div className={styles.headingContainer}>
                         <h3>
                             Connect With Us
-                            <Image src='./hand.svg' width={handWave} height={handWave} />
+                            <Image src='/hand.svg' width={handWave} height={handWave} />
                         </h3>
                     </div>
 
                     <div className={styles.contentContainer}>
                         <div className={styles.social}>
-                        <Link href="https://twitter.com/recruitinn" >
+                        <Link href="https://twitter.com/recruitinn" style={{textDecoration:"none"}} >
 
                             <div className={styles.info}>
                                 <Image id={styles.logoImage} src='/Xspace.svg' height={socialIconSize} width={socialIconSize} />
@@ -34,8 +34,8 @@ const Socials = () => {
                             <Image src='/rightArrow.svg' height={arrowSize} width={arrowSize} />
                         </div>
 
-                        <div className={styles.social}>
-                            <Link href="https://www.linkedin.com/company/recruitinn-ai/about/?viewAsMember=true" >
+                       <div className={styles.social}>
+                            <Link href="https://www.linkedin.com/company/recruitinn-ai/about/?viewAsMember=true" style={{textDecoration:"none"}}>
                                 <div className={styles.info} >
                                     <Image id={styles.logoImage} src='/linkedin.svg' height={socialIconSize} width={socialIconSize} />
                                     <div className={styles.textContainer}>
@@ -52,5 +52,4 @@ const Socials = () => {
         </>
     )
 }
-
 export default Socials;
