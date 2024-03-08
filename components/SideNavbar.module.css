@@ -19,6 +19,7 @@
     font-weight: 1000;
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: #170D23;
 }
 @media only screen and (max-width: 1300px) {
     .mainContainer h3{
@@ -50,9 +51,12 @@
     align-items: flex-start;
     margin-left: 1rem;
     margin-right: 1rem;
+    color: #ACA7BA;
+
 
     /* margin-top: 1rem; */
 }
+
 
 .mainContainer h4 {
     display: flex;
@@ -62,6 +66,33 @@
     margin: 0;
     margin-top: 1.5rem;
 }
+.mainContainer:hover h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-top: 1.5rem;
+    color: #170D23;
+
+}
+.mainContainer:active h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-top: 1.5rem;
+    color: #170D23;
+
+}
+.mainContainer:focus h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-top: 1.5rem;
+    color: #170D23;
+
+}
 
 .mainContainer ul {
     list-style: none;
@@ -69,7 +100,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    color: #4A525D;
+    color: black;
     margin: 0;
 }
 
@@ -110,15 +141,14 @@
 .profileTab {
     display: flex;
     width: 80%;
-    background-color: #F8F7FC;
-    padding: 1rem;
-    border-radius: 40px;
+    background-color: white;
+    padding-bottom:10px;
+    border-radius: 32px;
     justify-content: space-between;
     align-items: center;
-    margin-left: 1rem;
+    margin-left: 10px;
     gap: 0rem;
 }
-
 .profileTab h4 span {
     color: #170D23;
 }
@@ -157,6 +187,13 @@
     border-radius: 40px;
 }
 
+.dashboardButton:hover,
+.dashboardButton:focus {
+    background-color: #F7F5FF;
+    color: #6137DB;
+}
+
+
 @media only screen and (max-width: 1300px) {
     .dashboardButton{
         margin-left: -5px;
@@ -187,6 +224,105 @@
     align-items: center;
     justify-content: center;
 }
+
+.btnlog{
+    display: flex;
+    top: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #FFF5F5;
+    color: #FF0000;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    background-color: #FFF5F5;
+    color: #FF0000;
+
+}
+
+.btnup{
+    display: flex;
+    top: 12px;
+    left: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #F0EDFC;
+    color: #6137DB;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    background-color: #F0EDFC;
+    color: #6137DB;
+}
+
+.profnameback{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background-color: white;
+border-radius: 40px;
+border: 3px solid #6137DB;
+width: 240px;
+padding-top: 10px;
+padding-bottom: 0px;
+gap: 5px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+.profnameback{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 40px;
+    border: 3px solid #6137DB;
+    width: 200px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    gap: 5px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .profnameback{
+        width: 180px;
+        }
+    }
+
+.btnset{
+    display: flex;
+    top: 12px;
+    left: 12px;
+    padding: 10px 60px 10px 60px;
+    gap: 4px;
+    background-color: white;
+    width: 100%;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    border-radius: 52px;
+    background-color: white;
+    color: #6137DB;
+
+    
+}
 .btn {
     top: 12px;
     left: 12px;
@@ -196,7 +332,7 @@
     background-color: #F0EDFC;
     color: #6137DB;
     border: none;
-    margin-left: 25%;
+    margin-left: 22px;
     margin-bottom: 5%;
     font-weight: 600;
     font-size: small;
@@ -204,34 +340,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.btnlogout{
-    top: 12px;
-    left: 12px;
-    padding: 10px 60px 10px 60px;
-    border-radius: 52px;
-    gap: 4px;
-    background-color: #f4f1f5;
-    color: red;
-    border: none;
-    margin-left: 25%;
-    margin-bottom: 5%;
-    font-weight: 600;
-    font-size: small;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;   
-}
-
-@media only screen and (max-width: 1000px){
-    .mainContainer ul li {
-        padding: 0.2rem  0.4rem;
-    }
-}
-
-@media only screen and (max-width: 100px) and (max-height: 600px) {
-    .mainContainer ul li {
-        font-size: 0.75rem;
-    }
+    
 }

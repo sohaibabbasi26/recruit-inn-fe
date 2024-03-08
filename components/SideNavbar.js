@@ -2,13 +2,13 @@ import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
-import { useRouter } from 'next/router';
 
-const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOverlay ,setShowPaymentOverlay}) => {
+
+const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
-    const router = useRouter();
+
     const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
     const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] = useState(false);
 
@@ -16,7 +16,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
         setshowupgrade(!showupgrade)
     }
     const openAddJobHandler = () => {
-        setShowOverlay(true);
+        setShowOverlay1(true);
         console.log("clicking button");
     }
 
@@ -33,17 +33,8 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
     const handleDropDownCandidatesToggle = () => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
-    const logoutHandler = () => {
-        // Clear localStorage items
-        localStorage.removeItem('client-token');
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('clientId');
-    
-        // Redirect to the client login page
-        router.push('/client-login');
-    };
 
-    const listItemSize = 25;
+    const listItemSize = 28;
     const logoSize = 30
 
     return (
@@ -129,28 +120,39 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
                             </ul>
                         )}
                     </div>
-                </div>
-                {showupgrade && 
+                </div>,
+                <div className={`${styles.profnameback} ${styles.focus}`}>
+           {showupgrade && 
                 <div>
-                <div className={styles.btndiv}>
-                    <button className={styles.btn} onClick={openAddJobHandler}>Upgrade<Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
+                    <button className={styles.btnup} onClick={openAddJobHandler}>
+                    Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="22"/>
                     </button>
-                </div>
-                <div className={styles.btndiv}>
-                    <button className={styles.btnlogout} onClick={logoutHandler}>Logout<Image src="/Vector.png" alt="Upgrade" width="24" height="24"/>
-                </button>
-                </div>
-                </div>
-                }
+                </div>}
+                {showupgrade && 
+                
+                <div>
+                    <button className={styles.btnset} onClick={openAddJobHandler}>
+                    Setting <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
+                    </button>
+                </div>}
+
+                {showupgrade && 
+                
+                <div>
+                    <button className={styles.btnlog} onClick={openAddJobHandler}>
+                    Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"  style={{  color: '#FF0000' }}/>
+                    </button>
+                </div>}
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
-                    <Image src='/dp.svg' height={50} width={50} className='profileImage' />
+                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '-10px', marginRight: '-10px'}} />
                     <div className={styles.textContent}>
-                        <span>Hello</span>
+                        <span style={{ color:'#4A525D'}}>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
+                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />
                 </div>
+            </div>
             </div>
         </>
     )
