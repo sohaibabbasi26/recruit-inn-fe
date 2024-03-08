@@ -26,16 +26,14 @@ const RightComponent = ({ setShowOverlay, showOverlay }) => {
             <div className={styles.superContainer}> 
                 <div className={styles.masterConatiner}>
                     <div className={styles.btnsDiv}>
-                        <button className={styles.addJobBtn} onClick={openAddJobHandler}><Image src='/Add.svg' width={iconSize} height={iconSize} />  Create A Job</button>
+                        <button className={styles.addJobBtn} onClick={openAddJobHandler}><Image src='/Add.svg' width={iconSize} height={iconSize}   style={{ paddingRight: '20px' }}  />  Create A Job</button>
                         <button className={styles.notificationsBtn}><Image src="/BellIcon.svg" width={bellIconSize} height={bellIconSize} /></button>
                     </div>
                     <Graph />
                     <Socials />
                 </div>
-
             </div>
         </>
     )
 }
-
 export default RightComponent;

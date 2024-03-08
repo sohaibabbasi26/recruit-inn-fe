@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
-
 .superConatainer{
     margin-top: 1rem;
     height: 36%;
@@ -10,31 +9,21 @@
     justify-content: center;
     font-family: "Poppins",sans-serif;
 }
-
 .headingContainer{
     margin: 1rem 0;
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
-
-.textContainer h3{
-    color: #000;
-    text-decoration: none !important;
-}
-
 .headingContainer h3{
     margin: 0;
     display: flex;
     gap: 0.5rem;
     align-items: center;
-
 }
-
 .headingContainer span{
     color: #6137DB;
 }
-
 .container{
     width: 94%;
     font-weight: 700;
@@ -42,20 +31,25 @@
     flex-direction: column;
     align-items: stretch;
 }
-
 .social {
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
     display: flex;
-    width: 100%; 
+    width: 100%;
     justify-content: space-between;
     height: 65%;
     align-items: center;
-    text-decoration: none !important;
 }
-
+.social:hover {
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
 #logoImage{
     background-color: #000;
-    padding: 1.25rem;
-    border-radius: 50%;
+    padding: 10px;
+    border-radius: 32px;
+    margin-left: 10px;
 }
 @media only screen and (max-width: 1300px) {
     #logoImage{
@@ -74,15 +68,12 @@
 .social h3 {
     margin: 0;
 }
-
 .info{
     display: flex;
     justify-content: center;
     gap: 1rem;
     align-items: center;
-
 }
-
 .social span{
     color :#170D23;
     font-weight: 300;
