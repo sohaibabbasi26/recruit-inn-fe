@@ -244,9 +244,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     useEffect(() => {
         console.log('positionId',positionId);
         console.log('questionId',questionId)
-    },[positionId,questionId]);
-
-
+    },[positionId,questionId, router?.isReady]);
 
     const handleFormSubmitForTest = async () => {
         const requestBody = {
@@ -255,7 +253,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
         console.log("req body : ", requestBody);
         try {
-            // if (positionId) {
                 setIsLoading(true);
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                     method: 'POST',
@@ -268,13 +265,13 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 const data = await response.json();
                 console.log('response data of a test creation:',data);
                 setQuestionId(data?.data?.message?.question_id);
+                console.log('question id:')
                 setTest(data);
                 setIsLoading(false);
                 setMessage("Successfully created a test for your job!");
                 showSuccess();
                 localStorage.setItem('testData', JSON.stringify(data));
                 console.log('test', test)
-            // }
             console.log(data);
         } catch (error) {
             console.error('Error submitting form:', error);
