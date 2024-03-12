@@ -104,9 +104,9 @@ const QuestionBox = () => {
         }
     };
 
-    const fetchedData = newQuestions?.data;
+    const fetchedData = questions?.data;
 
-    const isLastQuestion = currentQuestion === fetchedData?.length;
+    const isLastQuestion = currentQuestion === questions?.length;
 
     const submitTestHandler = async () => {
 
@@ -134,13 +134,13 @@ const QuestionBox = () => {
         setIsLoading(true);
         if (!recordingDone && recordedChunksRef.current.length === 0) {
             console.log("No recording made, adding empty string as answer.");
-            setAnswers(prev => [...prev, { question: fetchedData[currentQuestion - 1]?.question, answer: "No answer." }]);
+            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: "No answer." }]);
         } else {
             await stopAndHandleRecording();
             setIsLoading(false);
         }
         setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
-        if (currentQuestion < fetchedData.length) {
+        if (currentQuestion < questions.length) {
             setCurrentQuestion(currentQuestion + 1);
             setRecordingDone(false);
         }
