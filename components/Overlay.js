@@ -306,6 +306,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
     }
 
+    
+
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>

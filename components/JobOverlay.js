@@ -11,6 +11,8 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
     const [test, setTest] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const overlayRef = useRef(null);
+    const [link , setLink] = useState();
+    const [questionId, setQuestionId] = useState();
     const iconSize = 20;
     const infoSymbolSize = 10;
 
@@ -18,45 +20,86 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
         setTechStack(selectedJob?.expertise);
     },[selectedJob?.expertise]);
 
-    const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}`;
+    // async function fetchAndCopyAssessmentLink() {
+    //     setIsLoading(true);
+
+    //     try {
+    //         if (techStack) {
+    //             console.log('techstack:', techStack);
+    //             const reqBody = {
+    //                 expertise: techStack,
+    //                 position_id : selectedJob?.position_id
+    //             }
+    //             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+    //                 {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         'Authorization': `Bearer ${token}`,
+    //                     },
+    //                     body: JSON.stringify(reqBody),
+    //                 });
+    //             const data = await response.json();
+    //             console.log("response data:", data);
+    //             setTest(data?.data);
+    //             setQuestionId(data?.data?.message?.question_id);
+    //             setIsLoading(false);
+    //             console.log('test data:', test);
+    //             localStorage.setItem('testData', JSON.stringify(data));
+    //             console.log(data);
+    //             await handleCopyClick();
+    //         }
+    //     } catch (err) {
+    //         console.log('error:', err);
+    //     }
+    // }
 
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
-
+    
         try {
-
             if (techStack) {
-                console.log('techstack:', techStack);
                 const reqBody = {
-                    expertise: techStack
+                    expertise: techStack,
+                    position_id : selectedJob?.position_id
                 }
-                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
-                        },
-                        body: JSON.stringify(reqBody),
-                    });
-
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(reqBody),
+                });
                 const data = await response.json();
-                console.log("response data:", data);
                 setTest(data?.data);
-                setIsLoading(false);
-                console.log('test data:', test);
-                localStorage.setItem('testData', JSON.stringify(data));
-
-                console.log(data);
-                handleCopyClick();
+                const newQuestionId = data?.data?.message?.question_id;
+                setQuestionId(newQuestionId); 
+                const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}`;
+                setLink(newLink); 
+                copyToClipboard(newLink).then(() => {
+                    setMessage("Your link has been copied");
+                    showSuccess();
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
             }
-
         } catch (err) {
-            console.log('error:', err);
+            console.error('error:', err);
         }
-
+        setIsLoading(false);
     }
+    
 
+
+useEffect(() => {
+  if (questionId) {
+    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}`;
+    setLink(newLink);
+  }
+}, [questionId]); 
+
+    
 
 
     function copyToClipboard(text) {
@@ -76,8 +119,13 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
         }
     }
 
-    const handleCopyClick = () => {
-        copyToClipboard(demolink)
+    useEffect(()=>{
+        console.log("link in useEffect:", link);
+    },[link])
+
+    const handleCopyClick = async () => {
+        console.log('link:',link)
+        copyToClipboard(link)
             .then(() => console.log('copied!'))
             .catch(err => console.error('Could not copy text: ', err));
         setMessage("Your link has been copied");
