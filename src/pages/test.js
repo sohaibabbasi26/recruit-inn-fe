@@ -15,7 +15,7 @@ const test = () => {
         <>
             {instructionsPopup && <TestInstruction onClose={closePopup} />}
             <div className={styles.superContainer}>
-                <QuestionBox />
+                <QuestionBox hasStarted={!instructionsPopup} />
             </div>
         </>
     )
