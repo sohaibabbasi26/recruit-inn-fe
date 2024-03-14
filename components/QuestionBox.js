@@ -91,19 +91,19 @@
         }, [hasStarted, isLastQuestion]);
         
 
-        // useEffect(() => {
-        //     let intervalId;
-        //     if (hasStarted && timeLeft > 0) {
-        //         intervalId = setInterval(() => {
-        //             setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
-        //         }, 1000);
-        //     } else if (!hasStarted) {
-        //         // Optionally reset the timer here if needed
-        //         setTimeLeft(59); // or whatever your starting time is
-        //     }
+        useEffect(() => {
+            let intervalId;
+            if (hasStarted && timeLeft > 0) {
+                intervalId = setInterval(() => {
+                    setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+                }, 1000);
+            } else if (!hasStarted) {
+                // Optionally reset the timer here if needed
+                setTimeLeft(59); // or whatever your starting time is
+            }
 
-        //     return () => clearInterval(intervalId);
-        // }, [hasStarted, timeLeft]);
+            return () => clearInterval(intervalId);
+        }, [hasStarted, timeLeft]);
 
         // useEffect(() => {
         //     let intervalId;
@@ -355,7 +355,7 @@
                                 disabled={isRecording} 
                             >
                                 <Image src={recordingDone ? '/mic-disabled.svg' : '/mic.svg'} width={20} height={20} />
-                                {isRecording ? 'Stop Recording' : 'Click To Record Answer'}
+                                {isRecording ? 'Recording' : 'Click To Record Answer'}
                             </button>
                             {/*lower container */}
                             <div className={styles.lowerContainer}>
