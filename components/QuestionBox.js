@@ -337,7 +337,6 @@
                             </div>
 
                             {/* question container */}
-
                             <div className={styles.questionContainer}>
                                 {questions && questions.length > 0 && (
                                     <span>{questions[currentQuestion - 1]?.question}</span>

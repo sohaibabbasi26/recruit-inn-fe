@@ -7,6 +7,7 @@ import SuccessIndicator from './SuccessIndicator';
 
 const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, token, onClose, jobOverlay, selectedJob, companyId, setMessage, showSuccess }) => {
 
+    console.log('selected job data:',selectedJob)
     const [techStack, setTechStack] = useState();
     const [test, setTest] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,7 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
     const [questionId, setQuestionId] = useState();
     const iconSize = 20;
     const infoSymbolSize = 10;
+    const [jobStatus,setJobStatus] = useState();
 
     useEffect(() => {
         setTechStack(selectedJob?.expertise);
@@ -22,7 +24,6 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
 
     // async function fetchAndCopyAssessmentLink() {
     //     setIsLoading(true);
-
     //     try {
     //         if (techStack) {
     //             console.log('techstack:', techStack);
@@ -53,6 +54,34 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
     //         console.log('error:', err);
     //     }
     // }
+
+    async function toggleJobStatus() {
+
+        const newStatus = selectedJob?.status === 'Active' ? 'Closed' : 'Active';
+
+        try{
+            const reqBody = {
+                status: newStatus,
+                position_id: selectedJob?.position_id
+            };
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/toggle-job`,{
+                method: 'PUT',
+                body: JSON.stringify(reqBody),
+                headers : {
+                    "Content-type": "application/JSON"
+                }
+            });
+
+            const data = await response.json();
+            console.log('data updated in the table:', data);
+            setJobStatus(newStatus);
+
+        } catch (err) {
+            console.log('error:',err);
+        }
+    }
+
 
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
@@ -176,6 +205,11 @@ useEffect(() => {
         }
     }
 
+    
+    // const disableCreateLink = () => {
+    //     showError('The job is closed for now, make it active if you wish to copy a link!')
+    // }
+
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
@@ -206,12 +240,17 @@ useEffect(() => {
 
                         {/* body */}
                         <div className={styles.copyDiv}>
+                            <span onClick={toggleJobStatus}>
+                                {selectedJob?.status === 'Active' ? 'Close Job' : 'Open Job' }
+                            </span>
                             {isLoading ? (
                                 <div className={styles.loader}></div>
                             ) : (
-                                <span onClick={async () => {
+                                <button disabled={
+                                    selectedJob?.status === 'Closed'
+                                }  onClick={async () => {
                                     await fetchAndCopyAssessmentLink();
-                                }}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></span>
+                                }}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></button>
                             )}
                         </div>
 
