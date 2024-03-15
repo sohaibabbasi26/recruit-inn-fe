@@ -1,9 +1,11 @@
 import styles from './ShareLink.module.css';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 // import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 
 const ShareLink = ({
+    questionId,
     companyId,
     emailReceiver,
     setEmailReceiver,
@@ -21,9 +23,16 @@ const ShareLink = ({
     const plusSize = 20;
     const iconSize = 20;
     const clipSize = 30;
-    const [copySuccess, setCopySuccess] = useState('');
-    const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}`;
+    const [link, setLink] = useState();
 
+    useEffect(() => {
+        if(questionId){
+            const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}`;
+            setLink(demolink);
+        }
+    }, [questionId]);
+
+    const [copySuccess, setCopySuccess] = useState('');
     function copyToClipboard(text) {
         if ('clipboard' in navigator) {
             return navigator.clipboard.writeText(text);
@@ -42,21 +51,21 @@ const ShareLink = ({
     }
 
     const handleCopyClick = () => {
-        copyToClipboard(demolink)
-          .then(() => setCopySuccess('Copied!'))
-          .catch(err => console.error('Could not copy text: ', err));
-          setMessage("Your link has been copied");
-          showSuccess();
-      }
+        copyToClipboard(link)
+            .then(() => setCopySuccess('Copied!'))
+            .catch(err => console.error('Could not copy text: ', err));
+        setMessage("Your link has been copied");
+        showSuccess();
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
         setSubject(`RECRUITINN: Test link for ${position} position.`);
         setText(`Click on the following link to start a test:
-        ${demolink}
+        ${link}
         `)
     });
 
-    
+
 
     return (
         <>
@@ -94,7 +103,7 @@ const ShareLink = ({
                 <div className={styles.linkContainer}>
                     <div className={styles.wrapper}>
                         <Image src='/Chain.svg' height={clipSize} width={clipSize} />
-                        <input value={demolink} readOnly />
+                        <input value={link} readOnly />
                     </div>
                     <button onClick={handleCopyClick}>Copy Assessment Link<Image src='/Copy.svg' width={iconSize} height={iconSize} /></button>
                 </div>
