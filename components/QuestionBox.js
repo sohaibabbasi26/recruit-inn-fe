@@ -44,8 +44,15 @@
             const data = await response.json();
             setIsLoading(false);
             console.log("take-test api response:", data);
+            stopMediaStreamTracks();
             router.push('/test-submit-completion')
         }
+
+        useEffect(() => {
+            return () => {
+                stopMediaStreamTracks();
+            };
+        }, []);
 
         const toggleComponent = async () => {
             setIsLoading(true);
@@ -193,6 +200,12 @@
                 .catch(err => console.error('Error accessing the microphone:', err));
         }, []);
 
+        const stopMediaStreamTracks = () => {
+            if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+                mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+            }
+        };
+
         const startRecording = () => {
             if (mediaRecorderRef.current) {
                 mediaRecorderRef.current.start();
@@ -205,6 +218,7 @@
         const stopRecording = () => {
             if (mediaRecorderRef.current) {
                 mediaRecorderRef.current.stop();
+                stopMediaStreamTracks();
                 setIsRecording(false);
             }
         };
