@@ -11,28 +11,32 @@
 }
 
 .mainContainer h3 {
-    margin-top: 10px;
+    margin-top: -25px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     font-weight: 1000;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
     color: #170D23;
-}
-@media only screen and (max-width: 1300px) {
-    .mainContainer h3{
-        font-size: 1.2rem;
-        margin-top: 15px;
-    }
 }
 @media only screen and (max-width: 1100px) {
     .mainContainer h3{
         font-size: 0.9rem;
-        margin-top: 20px;
     }
 }
+@media only screen and (max-width: 1200px) {
+    .mainContainer h3 {
+        font-size: 1.8rem;
+    }
+}
+@media only screen and (max-width: 1300px) {
+    .mainContainer h3{
+        font-size: 1.2rem;
+    }
+}
+
 .mainContainer h3 img {
     margin-right: 0.5rem;
 }
@@ -44,7 +48,7 @@
 }
 
 .mainContainer {
-    height: 85%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -52,9 +56,6 @@
     margin-left: 1rem;
     margin-right: 1rem;
     color: #ACA7BA;
-
-
-    /* margin-top: 1rem; */
 }
 
 
@@ -141,7 +142,7 @@
 .profileTab {
     display: flex;
     width: 80%;
-    background-color: white;
+    background-color: #F8F7FC;
     padding-bottom:10px;
     border-radius: 32px;
     justify-content: space-between;
@@ -162,6 +163,20 @@
     .profileTab h4{
         font-size: 0.8rem;
     }
+    .profileTab {
+        width: 200px;
+    }
+    .profileTab span{
+        font-size: medium;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .profileTab h4{
+        font-size: 0.8rem;
+    }
+    .profileTab {
+        width: 180px;
+    }
     .profileTab span{
         font-size: medium;
     }
@@ -169,6 +184,9 @@
 @media only screen and (max-width: 1100px) {
     .profileTab h4{
         font-size: 0.6rem;
+    }
+    .profileTab {
+        width: 180px;
     }
     .profileTab span{
         font-size: small;
@@ -245,6 +263,28 @@
 
 }
 
+@media only screen and (max-width: 1200px) {
+.btnlog{
+    display: flex;
+    top: 12px;
+    padding: 10px 60px 10px 60px;
+    border-radius: 52px;
+    gap: 4px;
+    background-color: #FFF5F5;
+    color: #FF0000;
+    border: none;
+    width: 90%;
+    margin-bottom: 5%;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+    display: flex;
+    background-color: #FFF5F5;
+    color: #FF0000;
+   
+}
+}
+
 .btnup{
     display: flex;
     top: 12px;
@@ -264,15 +304,81 @@
     background-color: #F0EDFC;
     color: #6137DB;
 }
+@media only screen and (max-width: 1200px) {
+    .btnup{
+        margin-top: 10px;
+        display: flex;
+        top: 12px;
+        left: 12px;
+        padding: 10px 60px 10px 60px;
+        border-radius: 52px;
+        gap: 4px;
+        background-color: #F0EDFC;
+        color: #6137DB;
+        border: none;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: small;
+        cursor: pointer;
+        width: 90%;
+        display: flex;
+        background-color: #F0EDFC;
+        color: #6137DB;
+       
+    }
+}
+    .btnset{
+        display: flex;
+        top: 12px;
+        left: 12px;
+        padding: 10px 60px 10px 60px;
+        gap: 4px;
+        background-color: white;
+        width: 100%;
+        border: none;
+        margin-left: 10px;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: small;
+        cursor: pointer;
+        display: flex;
+        border-radius: 52px;
+        background-color: white;
+        color: #6137DB;
+    
+        
+    }
+    
+    @media only screen and (max-width: 1200px) {
+        .btnset{
+            display: flex;
+            top: 12px;
+            left: 12px;
+            padding: 10px 60px 10px 60px;
+            gap: 4px;
+            background-color: white;
+            width: 90%;
+            border: none;
+            margin-bottom: 5%;
+            font-weight: 600;
+            font-size: small;
+            cursor: pointer;
+            display: flex;
+            border-radius: 52px;
+            background-color: white;
+            color: #6137DB;
+           
+        }
+        }
 
 .profnameback{
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-background-color: white;
 border-radius: 40px;
-border: 3px solid #6137DB;
+background-color: #F8F7FC;
+margin-top: -200px;
 width: 240px;
 padding-top: 10px;
 padding-bottom: 0px;
@@ -282,17 +388,11 @@ gap: 5px;
 
 @media only screen and (max-width: 1200px) {
 .profnameback{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 40px;
-    border: 3px solid #6137DB;
-    width: 200px;
-    padding-top: 10px;
+    width: 220px;
+    padding-top: 5px;
     padding-bottom: 0px;
-    gap: 5px;
+    gap: 5px;   
+    margin-left: -4px;
     }
 }
 
@@ -302,27 +402,7 @@ gap: 5px;
         }
     }
 
-.btnset{
-    display: flex;
-    top: 12px;
-    left: 12px;
-    padding: 10px 60px 10px 60px;
-    gap: 4px;
-    background-color: white;
-    width: 100%;
-    border: none;
-    margin-left: 10px;
-    margin-bottom: 5%;
-    font-weight: 600;
-    font-size: small;
-    cursor: pointer;
-    display: flex;
-    border-radius: 52px;
-    background-color: white;
-    color: #6137DB;
 
-    
-}
 .btn {
     top: 12px;
     left: 12px;

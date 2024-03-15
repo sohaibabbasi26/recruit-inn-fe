@@ -1,14 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
 
 .mainContainer{
-    width: 100%;
-    height: 50%;
+    height: 500px;
+    width: 409px;
     background-color: #F8F7FC;
     border-radius: 20px;
     display: flex ;
     justify-content: center;
     overflow: hidden;
     font-family: "Poppins",sans-serif;
+}
+@media only screen and (max-width: 1200px) {
+    .mainContainer{
+        height: 330px;
+        width: 349px;
+        background-color: #F8F7FC;
+        border-radius: 20px;
+        display: flex ;
+        justify-content: center;
+        overflow: hidden;
+        font-family: "Poppins",sans-serif;
+    }
+}
+@media only screen and (max-width: 1688px) {
+    .mainContainer{
+        height: 430px;
+        width: 430px;
+        background-color: #F8F7FC;
+        border-radius: 20px;
+    
+    }
 }
 
 .headingContainer{
