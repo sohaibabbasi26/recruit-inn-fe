@@ -209,6 +209,7 @@
     background-color: #F0EDFC;
     padding: 0.5rem 1rem;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .copyDiv button{
@@ -220,6 +221,7 @@
     padding: 0.5rem 1rem;
     border: none;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .description h4{
