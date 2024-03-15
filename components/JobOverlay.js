@@ -240,7 +240,11 @@ useEffect(() => {
 
                         {/* body */}
                         <div className={styles.copyDiv}>
-                            <span onClick={toggleJobStatus}>
+                            <span onClick={() => {
+                                toggleJobStatus();
+                                setMessage('Job Status has been changed, refresh to see changes!')
+                                showSuccess();
+                            }}>
                                 {selectedJob?.status === 'Active' ? 'Close Job' : 'Open Job' }
                             </span>
                             {isLoading ? (
