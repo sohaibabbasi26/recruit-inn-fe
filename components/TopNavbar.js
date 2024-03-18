@@ -3,23 +3,23 @@ import styles from './TopNavbar.module.css';
 import Image from 'next/image';
 import debounce from 'lodash.debounce';
 
-const TopNavbar = ({ companyId , onJobSelect , onCandidateSelect}) => {
+const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
     const searchLogoSize = 20;
     const [query, setQuery] = useState('');
     const [searchType, setSearchType] = useState('Candidates');
     const [searchResults, setSearchResults] = useState(null);
-    const searchResultsRef = useRef(null); 
+    const searchResultsRef = useRef(null);
 
     const searchApiCall = debounce(async (query, type) => {
-        setSearchResults(null); 
+        setSearchResults(null);
         if (!query) return;
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=${companyId}`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json(); 
+            const data = await response.json();
             console.log('search API:', data)
-            setSearchResults(data); 
+            setSearchResults(data);
         } catch (error) {
             console.error("Failed to fetch search results:", error);
         }
@@ -48,7 +48,7 @@ const TopNavbar = ({ companyId , onJobSelect , onCandidateSelect}) => {
                     <div className={styles.container}>
                         <div className={styles.searchInput}>
                             <Image src='/Search.svg' height={searchLogoSize} width={searchLogoSize} alt="Search" />
-                            <input 
+                            <input
                                 type='text'
                                 placeholder="Search..."
                                 value={query}
@@ -66,11 +66,15 @@ const TopNavbar = ({ companyId , onJobSelect , onCandidateSelect}) => {
                 {searchResults && searchResults?.data && searchResults?.data?.data && (
                     <div className={styles.searchResults} ref={searchResultsRef}>
                         <ul>
-                            {searchResults?.data?.data.map((result) => (
+                            {searchResults?.data?.data?.map((result) => (
                                 <li key={result?.position_id} onClick={() => {
-                                    searchType === 'Jobs' ? onJobSelect(result) : onCandidateSelect(result);
+                                    searchType === 'Jobs' ? onJobSelect(result) : searchType === 'Candidates' ? onCandidateSelect(result) : '';
                                     setSearchResults(null);
-                                }}>{(result?.position) || (result?.name) }</li>
+                                }}>
+                                    {
+                                        searchType === 'Jobs' ? (result?.position) : searchType === 'Candidates' ? (result?.name) : ''
+                                    }
+                                </li>
                             ))}
                         </ul>
                     </div>
