@@ -59,12 +59,32 @@
 
 .allFields {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
     height: 15%;
     margin-top: 1.2rem;
     align-items: center;
     gap: 1rem;
+}
+
+.parent{
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.parent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.parent::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.subParent{
+    height: auto;
+    
 }
 
 .field {
@@ -72,8 +92,8 @@
     align-items: center;
     background-color: #F8F7FC;
     padding: 0.25rem 1rem;
-    height: 100%;
-    width: 45%;
+    height: 3rem;
+    width: 97%;
     border-radius: 40px;
     align-items: center;
 
@@ -97,7 +117,7 @@
 
 .linkContainer {
     margin-top: 2rem;
-    width: 100% ;
+    width: 99% ;
     background-color: #F8F7FC;
     height: 18%;
     border-radius: 40px;
@@ -112,7 +132,7 @@
     color: #fff;
     border: none;
     border-radius: 40px;
-    height: 70%;
+    height: 2.5rem;
     letter-spacing: 1px;
     padding: 0 1.5rem;
     display: flex;
@@ -126,6 +146,7 @@
     background-color: transparent;
     font-size: 1rem;
     width: 100%;
+    height: 3rem;
 }
 
 .wrapper{

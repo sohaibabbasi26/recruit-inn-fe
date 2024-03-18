@@ -88,20 +88,10 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     const locationRef = useRef();
     const jobTypeRef = useRef();
     const descriptionRef = useRef();
-    const [questionId,setQuestionId] = useState();
+    const [questionId, setQuestionId] = useState();
+    const [emailReceivers,setEmailReceivers] = useState([{ email: '' }]);
 
-    // const { formState, setFormState } = useFormContext();
-    // const handlePositionChange = (e) => {
-    //     setFormState(prevState => ({ ...prevState, position: e.target.value }));
-    // };
-
-    // const handleLocationChange = (e) => {
-    //     setFormState(prevState => ({ ...prevState, location : e.target.value }));
-    // };
-
-    // const handleLocationChange = (e) => {
-    //     setFormState(prevState => ({ ...prevState, location : e.target.value }));
-    // };
+    
 
 
     const JobPositionRef = useRef();
@@ -231,7 +221,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
-            console.log('data of just created position:',data)
+            console.log('data of just created position:', data)
             console.log('data of created position:', data?.data?.data?.position_id);
             setPositionId(data?.data?.data?.position_id)
             setIsLoading(false);
@@ -242,9 +232,9 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     };
 
     useEffect(() => {
-        console.log('positionId',positionId);
-        console.log('questionId',questionId)
-    },[positionId,questionId, router?.isReady]);
+        console.log('positionId', positionId);
+        console.log('questionId', questionId)
+    }, [positionId, questionId, router?.isReady]);
 
     const handleFormSubmitForTest = async () => {
         const requestBody = {
@@ -253,41 +243,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
         console.log("req body : ", requestBody);
         try {
-                setIsLoading(true);
-                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(requestBody),
-                });
-                const data = await response.json();
-                console.log('response data of a test creation:',data);
-                setQuestionId(data?.data?.message?.question_id);
-                console.log('question id:')
-                setTest(data);
-                setIsLoading(false);
-                setMessage("Successfully created a test for your job!");
-                showSuccess();
-                localStorage.setItem('testData', JSON.stringify(data));
-                console.log('test', test)
-            console.log(data);
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }
-    };
-
-    const handleEmailInvite = async () => {
-        const requestBody = {
-            to: emailReceiver,
-            subject: subject,
-            text: text
-        }
-
-        try {
             setIsLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -296,17 +253,92 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
+            console.log('response data of a test creation:', data);
+            setQuestionId(data?.data?.message?.question_id);
+            console.log('question id:')
             setTest(data);
             setIsLoading(false);
+            setMessage("Successfully created a test for your job!");
+            showSuccess();
             localStorage.setItem('testData', JSON.stringify(data));
             console.log('test', test)
             console.log(data);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
-    }
+    };
 
+    const addEmailReceiver = () => {
+        console.log('Adding a new email receiver');
+        setEmailReceivers(currentReceivers => {
+            const newReceivers = [...currentReceivers, { email: '' }];
+            console.log("new recievers:");
+            return newReceivers;
+        });
+    };
     
+    const handleEmailChange = (e, index) => {
+        const newEmailReceivers = [...emailReceivers];
+        newEmailReceivers[index].email = e.target.value;
+        setEmailReceivers(newEmailReceivers);
+    };
+
+    const handleEmailInvite = async () => {
+        const validEmailReceivers = emailReceivers.filter(receiver => receiver.email.trim() !== '');
+
+        const sendInvitesPromises = validEmailReceivers.map(receiver => {
+            return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    to: receiver.email,
+                    subject: subject,
+                    text: text
+                }),
+            });
+        });
+
+        try {
+            // Wait for all promises to resolve
+            await Promise.all(sendInvitesPromises);
+            setMessage('Invitations have been sent to all candidates via email');
+            showSuccess();
+            onClose(); // Close the modal or overlay if needed
+        } catch (error) {
+            console.error('Error sending invites:', error);
+        }
+    };
+
+    // const handleEmailInvite = async () => {
+    //     const requestBody = {
+    //         to: emailReceiver,
+    //         subject: subject,
+    //         text: text
+    //     }
+
+    //     try {
+    //         setIsLoading(true);
+    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${token}`,
+    //             },
+    //             body: JSON.stringify(requestBody),
+    //         });
+    //         const data = await response.json();
+    //         setTest(data);
+    //         setIsLoading(false);
+    //         localStorage.setItem('testData', JSON.stringify(data));
+    //         console.log('test', test)
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.error('Error submitting form:', error);
+    //     }
+    // }
 
     return (
         <>
@@ -377,6 +409,9 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
+                                        emailReceivers={emailReceivers}
+                                        handleEmailChange={handleEmailChange}
+                                        addEmailReceiver={addEmailReceiver}
                                         questionId={questionId}
                                         positionId={positionId}
                                         companyId={id}
