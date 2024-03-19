@@ -15,8 +15,8 @@ jobs:
     - name: Trigger Workflow and Wait
       uses: convictional/trigger-workflow-and-wait@v1.6.5
       with:
-        owner: zbr123
-        repo: revealapi
+        owner: sohaibabbadi26
+        repo: events-app-backend
         github_token: ${{ secrets.cicd_frontend }}
         workflow_file_name: /backend.yml
         ref: main
