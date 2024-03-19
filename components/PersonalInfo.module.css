@@ -16,7 +16,14 @@
     height: 70%;
 }
 
-.infoField {
+.errorMessage {
+    margin: 0.25rem;
+    font-size: 0.75rem;
+    text-align: center;
+    color: red;
+}
+
+.infoField {    
     width: 100%;
     display: flex;
     align-items: center;
@@ -25,7 +32,7 @@
     border-radius: 30px;
     padding: 1rem 0;
     border: 1px solid #EBEBEB;
-    height:50%;
+    max-height:50%;
     font-size: 2rem;
 }
 

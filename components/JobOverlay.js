@@ -103,6 +103,7 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
                 const data = await response.json();
                 setTest(data?.data);
                 const newQuestionId = data?.data?.message?.question_id;
+                console.log('test:', test);
                 setQuestionId(newQuestionId); 
                 const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}`;
                 setLink(newLink); 
