@@ -393,7 +393,7 @@ import { useRouter } from 'next/router';
 import { useTest } from '@/contexts/QuestionsContent';
 
 
-const QuestionBox = ({hasStarted}) => {
+const QuestionBox = ({ hasStarted }) => {
     const { test } = useTest();
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -492,7 +492,7 @@ const QuestionBox = ({hasStarted}) => {
         }
     };
 
-        useEffect(() => {
+    useEffect(() => {
         let intervalId;
         if (hasStarted && timeLeft > 0) {
             intervalId = setInterval(() => {
@@ -517,18 +517,18 @@ const QuestionBox = ({hasStarted}) => {
                         return prevTimeLeft - 1;
                     } else {
                         if (isLastQuestion) {
-                            submitTestHandler(); 
+                            submitTestHandler();
                         } else {
-                            toggleComponent(); 
+                            toggleComponent();
                         }
-                        return 0; 
+                        return 0;
                     }
                 });
             }, 1000);
 
             return () => clearInterval(intervalId);
         }
-    }, [hasStarted, timeLeft, isLastQuestion]); 
+    }, [hasStarted, timeLeft, isLastQuestion]);
 
     const fetchedData = questions?.data;
 
@@ -541,10 +541,10 @@ const QuestionBox = ({hasStarted}) => {
     };
 
     useEffect(() => {
-            return () => {
-                stopMediaStreamTracks();
-            };
-        }, []);
+        return () => {
+            stopMediaStreamTracks();
+        };
+    }, []);
 
 
     const submitTestHandler = async () => {
@@ -616,23 +616,24 @@ const QuestionBox = ({hasStarted}) => {
                 console.log(`Blob created: Size - ${blob.size}, Type - ${blob.type}`);
             } else {
                 blob = new Blob([""], { type: 'audio/wav' });
-                console.log("No audio recorded for this question, creating dummy Blob."); }
-
-                const newAudioURL = URL.createObjectURL(blob);
-                setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-    
-                const base64Data = await blobToBase64(blob);
-                const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
-                setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
-            } else {
-                console.error("Recorder not active or already stopped.");
+                console.log("No audio recorded for this question, creating dummy Blob.");
             }
-            recordedChunksRef.current = [];
-        };
 
-        async function sendAudioToServer(base64Data) {
-            try {
-                console.log("send audio to server:", base64Data)
+            const newAudioURL = URL.createObjectURL(blob);
+            setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+
+            const base64Data = await blobToBase64(blob);
+            const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
+            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+        } else {
+            console.error("Recorder not active or already stopped.");
+        }
+        recordedChunksRef.current = [];
+    };
+
+    async function sendAudioToServer(base64Data) {
+        try {
+            console.log("send audio to server:", base64Data)
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`, {
                 method: 'POST',
                 headers: {
@@ -693,7 +694,7 @@ const QuestionBox = ({hasStarted}) => {
                                         )
                                     })}
                                 </ul>
-                                </div>
+                            </div>
 
                             <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
                         </div>
@@ -714,7 +715,7 @@ const QuestionBox = ({hasStarted}) => {
                             }}
                             className={styles.recordBtn}
                             onClick={isRecording ? stopRecording : startRecording}
-                            disabled={isRecording} 
+                            disabled={isRecording}
                         >
                             <Image src={recordingDone ? '/mic-disabled.svg' : '/mic.svg'} width={20} height={20} />
                             {isRecording ? 'Stop Recording' : 'Click To Record Answer'}
@@ -725,7 +726,7 @@ const QuestionBox = ({hasStarted}) => {
                                 {isLastQuestion ? 'Submit Test' : 'Next Question'}
                                 <Image src='/Forward.svg' width={20} height={20} />
 
-                                </button>
+                            </button>
                         </div>
                     </>
                 )}

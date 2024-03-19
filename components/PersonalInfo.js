@@ -19,7 +19,13 @@ const PersonalInfo = forwardRef(({
     cityRef,
     validationErrors,
     showSuccessMessage,
-    msgText
+    msgText,
+    name,
+    email,
+    contact,
+    expertise,
+    country,
+    city,
 }) => {
     const { updateName } = useContext(NameContext);
 
@@ -30,45 +36,81 @@ const PersonalInfo = forwardRef(({
     console.log("validation errors:", validationErrors);
 
     return (
-        
+
         <>
             <div className={styles.superContainer}>
                 <div className={styles.masterContainer}>
-                    <div className={styles.infoField}>
-                        <Image />
-                        <input placeholder='Enter your name' ref={nameRef} onChange={handleNameChange}/>
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <input placeholder='Enter your name' value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors?.name}</div>}
                     </div>
-                    <div className={styles.infoField}>
-                        <Image />
-                        <input placeholder='Enter your email' ref={emailRef} />
+
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <input placeholder='Enter your email' value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors?.email}</div>}
                     </div>
-                    <div className={styles.infoField}>
-                        <Image />
-                        <input placeholder='Enter your number' ref={contactRef} />
+
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <input placeholder='Enter your number' value={contact}
+                                onChange={(e) => setContact(e.target.value)}
+                            />
+                        </div>
+                        {validationErrors?.contact && <div className={styles.errorMessage}>{validationErrors?.contact}</div>}
                     </div>
-                    <div className={styles.infoField}>
-                        <Image />
-                        <select ref={expertiseRef} >
-                            <option value='Select Your Expertise' selected disabled>Select Your Expertise</option>
-                            <option value='Expert'>Expert</option>
-                            <option value='Intermediate'>Intermediate</option>
-                            <option value='Beginner' >Beginner</option>
-                        </select>
+
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <select value={expertise}
+                                onChange={(e) => setExpertise(e.target.value)}
+                            >
+                                <option value='Select Your Expertise' selected disabled>Select Your Expertise</option>
+                                <option value='Expert'>Expert</option>
+                                <option value='Intermediate'>Intermediate</option>
+                                <option value='Beginner' >Beginner</option>
+                            </select>
+                        </div>
+                        {validationErrors?.expertise && <div className={styles.errorMessage}>{validationErrors?.expertise}</div>}
                     </div>
-                    <div className={styles.infoField}>
-                        <Image />
-                        <select ref={countryRef} >
-                            <option>Select your country</option>
-                            <option value='Pakistan'>Pakistan</option>
-                        </select>
+
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <select value={country}
+                                onChange={(e) => setCountry(e.target.value)}
+                            >
+                                <option>Select your country</option>
+                                <option value='Pakistan'>Pakistan</option>
+                            </select>
+                        </div>
+                        {validationErrors?.country && <div className={styles.errorMessage}>{validationErrors?.country}</div>}
                     </div>
-                    <div className={styles.infoField}>
-                        <Image />
-                        <select ref={cityRef} >
-                            <option>Select your city</option>
-                            <option value='Karachi'>Karachi</option>
-                        </select>
+
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <select value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            >
+                                <option>Select your city</option>
+                                <option value='Karachi'>Karachi</option>
+                            </select>
+                        </div>
+                        {validationErrors?.city && <div className={styles.errorMessage}>{validationErrors?.city}</div>}
                     </div>
+
                 </div>
             </div>
         </>
