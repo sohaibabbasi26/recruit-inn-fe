@@ -12,6 +12,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Trigger Workflow and Wait
+      uses: convictional/trigger-workflow-and-wait@v1.6.5
+      with:
+        owner: zbr123
+        repo: revealapi
+        github_token: ${{ secrets.cicd_frontend }}
+        workflow_file_name: /backend.yml
+        ref: main
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
