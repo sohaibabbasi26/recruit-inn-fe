@@ -1,5 +1,4 @@
 name: Frontend CI
-
 on:
   push:
     branches: [ "main" ]
@@ -12,26 +11,27 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Trigger Workflow and Wait
-      uses: convictional/trigger-workflow-and-wait@v1.6.5
-      with:
-        owner: sohaibabbadi26
-        repo: events-app-backend
-        github_token: ${{ secrets.cicd_frontend }}
-        workflow_file_name: /backend.yml
-        ref: main
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '20.x'  
         cache: 'npm'
-
+          
     - name: Install dependencies
       run: npm install
 
     - name: Build
       run: npm run build
-
+      
+    - name: Trigger Workflow and Wait
+      uses: convictional/trigger-workflow-and-wait@v1.6.5
+      with:
+          owner: sohaibabbadi26
+          repo: events-app-backend
+          github_token: ${{ secrets.cicd_frontend }}
+          workflow_file_name: /backend.yml
+          ref: main
+          
     - name: Restart Frontend Server
       run: pm2 restart recruit-inn-fe-frontend 
