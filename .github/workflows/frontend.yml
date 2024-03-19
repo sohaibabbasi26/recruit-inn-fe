@@ -24,7 +24,7 @@ jobs:
       run: npm install
 
     - name: Build
-      run: npm run build 
+      run: npm run build
 
     - name: Restart Frontend Server
       run: pm2 restart recruit-inn-fe
