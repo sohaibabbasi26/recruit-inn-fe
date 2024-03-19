@@ -1,0 +1,10 @@
+.jobTypeContainer{
+    height: 328px;
+    width: 900px;
+}   
+
+@media only screen and (max-width: 600px) {
+    .jobTypeContainer{
+        width: 80%;
+    }
+}
