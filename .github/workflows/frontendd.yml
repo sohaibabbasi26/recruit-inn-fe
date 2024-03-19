@@ -5,8 +5,7 @@ on:
 
 jobs:
   build:
-
-    runs-on: [self-hosted, self-run]
+    runs-on: [self-hosted, linux, x64] 
 
     steps:
     - name: Checkout repository
@@ -27,11 +26,11 @@ jobs:
     - name: Trigger Workflow and Wait
       uses: convictional/trigger-workflow-and-wait@v1.6.5
       with:
-          owner: sohaibabbadi26
+          owner: sohaibabbasi26
           repo: events-app-backend
-          github_token: ${{ secrets.cicd_frontend }}
-          workflow_file_name: /backend.yml
+          github_token: ${{ secrets.cicd_frontend }} 
+          workflow_file_name: backend.yml  
           ref: main
           
     - name: Restart Frontend Server
-      run: pm2 restart recruit-inn-fe-frontend 
+      run: pm2 restart recruit-inn-fe-frontend  
