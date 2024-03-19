@@ -2,12 +2,21 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './TopNavbar.module.css';
 import Image from 'next/image';
 import debounce from 'lodash.debounce';
+<<<<<<< HEAD
 const TopNavbar = ({ companyId , onJobSelect , onCandidateSelect}) => {
+=======
+
+const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
+>>>>>>> dbd5ac08bcedcf39c6a80f895aa7e7cb2c8dce41
     const searchLogoSize = 20;
     const [query, setQuery] = useState('');
     const [searchType, setSearchType] = useState('Candidates');
     const [searchResults, setSearchResults] = useState(null);
     const searchResultsRef = useRef(null);
+<<<<<<< HEAD
+=======
+
+>>>>>>> dbd5ac08bcedcf39c6a80f895aa7e7cb2c8dce41
     const searchApiCall = debounce(async (query, type) => {
         setSearchResults(null);
         if (!query) return;
@@ -59,11 +68,15 @@ const TopNavbar = ({ companyId , onJobSelect , onCandidateSelect}) => {
                 {searchResults && searchResults?.data && searchResults?.data?.data && (
                     <div className={styles.searchResults} ref={searchResultsRef}>
                         <ul>
-                            {searchResults?.data?.data.map((result) => (
+                            {searchResults?.data?.data?.map((result) => (
                                 <li key={result?.position_id} onClick={() => {
-                                    searchType === 'Jobs' ? onJobSelect(result) : onCandidateSelect(result);
+                                    searchType === 'Jobs' ? onJobSelect(result) : searchType === 'Candidates' ? onCandidateSelect(result) : '';
                                     setSearchResults(null);
-                                }}>{(result?.position) || (result?.name) }</li>
+                                }}>
+                                    {
+                                        searchType === 'Jobs' ? (result?.position) : searchType === 'Candidates' ? (result?.name) : ''
+                                    }
+                                </li>
                             ))}
                         </ul>
                     </div>
