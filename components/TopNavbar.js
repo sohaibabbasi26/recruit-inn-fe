@@ -9,6 +9,7 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
     const [searchType, setSearchType] = useState('Candidates');
     const [searchResults, setSearchResults] = useState(null);
     const searchResultsRef = useRef(null);
+    const searchInputRef = useRef(null);
 
     const searchApiCall = debounce(async (query, type) => {
         setSearchResults(null);
@@ -41,14 +42,20 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const focusSearchInput = () => {
+        console.log("Search Icon clicked!")
+        if (searchInputRef.current) searchInputRef.current.focus();
+    }
+
     return (
         <>
             <div className={styles.masterContainer}>
                 <div className={styles.searchBar}>
                     <div className={styles.container}>
                         <div className={styles.searchInput}>
-                            <Image src='/Search.svg' height={searchLogoSize} width={searchLogoSize} alt="Search" />
+                            <Image src='/Search.svg' height={searchLogoSize} width={searchLogoSize} onClick={focusSearchInput} alt="Search" style={{ cursor: 'pointer' }} />
                             <input
+                                ref={searchInputRef}
                                 type='text'
                                 placeholder="Search..."
                                 value={query}
@@ -56,7 +63,7 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
                             />
                         </div>
                         <div className={styles.selectCategory}>
-                            <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                            <select value={searchType}  onChange={(e) => setSearchType(e.target.value)}>
                                 <option value='Candidates'>Candidates</option>
                                 <option value='Jobs'>Jobs</option>
                             </select>
