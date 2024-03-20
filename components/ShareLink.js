@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 const ShareLink = ({
     emailReceivers,
+    setEmailReceivers,
     handleEmailChange,
     addEmailReceiver,
     questionId,
@@ -71,6 +72,9 @@ const ShareLink = ({
     });
 
 
+    const removeEmailReceiver = (index) => {
+        setEmailReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index));
+    };
 
     return (
         <>
@@ -134,6 +138,12 @@ const ShareLink = ({
                                             onChange={(e) => handleEmailChange(e, index)}
                                             placeholder="Enter email"
                                         />
+                                        {
+                                            // Only show the remove button if there is more than one email receiver
+                                            emailReceivers.length > 1 && (
+                                                    <Image onClick={() => removeEmailReceiver(index)} src='/trash-bin.svg' width={30} height={30} />
+                                            )
+                                        }
                                     </div>
                                 ))
                             }

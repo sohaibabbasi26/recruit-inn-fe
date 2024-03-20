@@ -400,6 +400,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
+                                        setEmailReceivers={setEmailReceivers}
                                         emailReceivers={emailReceivers}
                                         handleEmailChange={handleEmailChange}
                                         addEmailReceiver={addEmailReceiver}
