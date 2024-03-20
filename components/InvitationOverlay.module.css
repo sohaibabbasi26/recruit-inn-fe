@@ -59,7 +59,7 @@
 }
 
 .topContainer {
-    width: 60%;
+    width: 900px;
     height: 10%;
     display: flex;
     justify-content: space-between;

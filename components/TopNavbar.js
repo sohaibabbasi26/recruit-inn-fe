@@ -3,6 +3,7 @@ import styles from './TopNavbar.module.css';
 import Image from 'next/image';
 import debounce from 'lodash.debounce';
 
+
 const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
     const searchLogoSize = 20;
     const [query, setQuery] = useState('');
@@ -14,7 +15,6 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
     const searchApiCall = debounce(async (query, type) => {
         setSearchResults(null);
         if (!query) return;
-
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=${companyId}`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -25,18 +25,15 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
             console.error("Failed to fetch search results:", error);
         }
     }, 300);
-
     useEffect(() => {
         searchApiCall(query, searchType);
         return () => searchApiCall.cancel();
     }, [query, searchType]);
-
     const handleClickOutside = (event) => {
         if (searchResultsRef.current && !searchResultsRef.current.contains(event.target)) {
             setSearchResults(null);
         }
     };
-
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -90,5 +87,4 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
         </>
     );
 };
-
 export default TopNavbar;
