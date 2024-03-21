@@ -120,7 +120,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                             </ul>
                         )}
                     </div>
-                </div>,
+                </div>
                 <div className={`${styles.profnameback} ${styles.focus}`}>
            {showupgrade && 
                 <div>
