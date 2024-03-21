@@ -2,12 +2,14 @@ import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
+import { useRouter } from 'next/router';
 
 
-const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
+const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOverlay ,setShowPaymentOverlay}) => {
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
+    const router = useRouter();
 
     const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
     const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] = useState(false);
@@ -16,7 +18,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         setshowupgrade(!showupgrade)
     }
     const openAddJobHandler = () => {
-        setShowOverlay1(true);
+        setShowOverlay(true);
         console.log("clicking button");
     }
 
@@ -33,6 +35,14 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
     const handleDropDownCandidatesToggle = () => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
+
+    const logoutHandler = () => {
+        localStorage.removeItem('client-token');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('clientId');
+    
+        router.push('/client-login');
+    };
 
     const listItemSize = 28;
     const logoSize = 30
@@ -139,7 +149,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                 {showupgrade && 
                 
                 <div>
-                    <button className={styles.btnlog} onClick={openAddJobHandler}>
+                    <button className={styles.btnlog} onClick={logoutHandler}>
                     Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"  style={{  color: '#FF0000' }}/>
                     </button>
                 </div>}

@@ -139,7 +139,7 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
             // document.cookie = `authToken=${data?.data?.token}; path=/;`;
             redirectToClientPage(data?.data?.id); // Reuse the navigation function
         } else {
-            alert('Login failed. Please check your credentials.');
+            showError('Login failed. Please check your credentials.');
         }
     };
 
@@ -216,7 +216,6 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
 
     return (
         <>
-
             <div ref={overlayRef} className={styles.parent}>
                 {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
                 {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}

@@ -38,6 +38,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [closedJobsData, setClosedJobsData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
+  const [showOverlay1, setShowOverlay1] = useState();
 
   useEffect(() => {
     // Check if user is logged in
@@ -384,7 +385,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
-        <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
+        <SideNavbar  showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}
       </div>
     </>

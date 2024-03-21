@@ -103,68 +103,76 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const [jobType, setJobType] = useState();
     const [position, setPosition] = useState();
     const [validationErrors, setValidationErrors] = useState({});
-
+    const [allFieldsCheck,setAllFieldsCheck] = useState();
     const [reqBody, setReqBody] = useState(null);
+    
 
-    // useEffect(() => {
-    //     console.log("hey its me! req body", reqBody)
-    // }, [name, city, country, expertise, contact, email])
+    useEffect(() => {
+        console.log("hey its me! req body", reqBody);
+    }, [name, city, country, expertise, contact, email]);
 
-    // // useEffect(() => {
-    // //     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // //     if (email && !emailRegex.test(email)) {
-    // //         setValidationErrors(errors => ({ ...errors, email: 'Invalid email address.' }));
-    // //     } else {
-    // //         const { email, ...rest } = validationErrors;
-    // //         setValidationErrors(rest);
-    // //     }
-    // // }, [email]);
+    useEffect(() => {
+        if(!validateAllFields){
+            setMessage('Please enter all the fields')
+            showSuccess();
+        }
+    },[allFieldsCheck])
 
-    // // useEffect(() => {
-    // //     if (name?.trim() === '') {
-    // //         setValidationErrors(errors => ({ ...errors, name: 'Name is required.' }));
-    // //     } else {
-    // //         const { name, ...rest } = validationErrors;
-    // //         setValidationErrors(rest);
-    // //     }
-    // // }, [name]);
+    useEffect(() => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (email && !emailRegex.test(email)) {
+            setValidationErrors(errors => ({ ...errors, email: 'Invalid email address.' }));
+        } else {
+            const { email, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [email]);
+
+    useEffect(() => {
+        if (name?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, name: 'Name is required.' }));
+        } else {
+            const { name, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [name]);
 
 
-    // // useEffect(() => {
-    // //     if (contact?.trim() === '') {
-    // //         setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
-    // //     } else {
-    // //         const { contact, ...rest } = validationErrors;
-    // //         setValidationErrors(rest);
-    // //     }
-    // // }, [contact]);
+    useEffect(() => {
+        if (contact?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
+        } else {
+            const { contact, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [contact]);
 
-    // // useEffect(() => {
-    // //     if (country?.trim() === '') {
-    // //         setValidationErrors(errors => ({ ...errors, country: 'Country is required.' }));
-    // //     } else {
-    // //         const { country, ...rest } = validationErrors;
-    // //         setValidationErrors(rest);
-    // //     }
-    // // }, [country]);
+    useEffect(() => {
+        if (country?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, country: 'Country is required.' }));
+        } else {
+            const { country, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [country]);
 
-    // // useEffect(() => {
-    // //     if (city?.trim() === '') {
-    // //         setValidationErrors(errors => ({ ...errors, city: 'City is required.' }));
-    // //     } else {
-    // //         const { city, ...rest } = validationErrors;
-    // //         setValidationErrors(rest);
-    // //     }
-    // // }, [city]);
+    useEffect(() => {
+        if (city?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, city: 'City is required.' }));
+        } else {
+            const { city, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [city]);
 
-    // // useEffect(() => {
-    // //     if (expertise?.trim() === '') {
-    // //         setValidationErrors(errors => ({ ...errors, expertise: 'Experise is required.' }));
-    // //     } else {
-    // //         const { country, ...rest } = validationErrors;
-    // //         setValidationErrors(rest);
-    // //     }
-    // // }, [expertise]);
+    useEffect(() => {
+        if (expertise?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, expertise: 'Experise is required.' }));
+        } else {
+            const { country, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [expertise]);
 
     const validateAllFields = () => {
         return name?.trim() !== '' && email?.trim() !== '' && contact?.trim() !== '' && expertise?.trim() !== '' && country?.trim() !== '' && city?.trim() !== ''
@@ -198,50 +206,50 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         let isValid = true; // Assume the form is valid initially
 
         const allFields = validateAllFields();
+        console.log('all fields:',allFields);
+        setAllFieldsCheck(allFields);
 
-        if (allFields === true) {
+        if (!allFields) {
+
+            console.log('isnide if condition:', !allFields)
             setMessage('Please make sure to fill all the fields correctly.')
-            showSuccess("");
+            showSuccess();
             errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
             isValid = false;
         }
 
         // Simple validation checks
-        if (name?.trim()) {
+        if (!name?.trim()) {
             errors.name = 'Please enter a name.';
             isValid = false;
         }
-        if (email?.trim()) {
-            setMessage('Please enter an Email!')
-            showSuccess();
+        if (!email?.trim()) {
             errors.email = 'Please enter an email.';
             isValid = false;
         } else {
             // Simple regex for email validation
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
             if (!emailRegex.test(email)) {
-                setMessage('Please enter a correct email!')
-                showSuccess();
                 errors.email = 'Email is not valid.';
                 isValid = false;
             }
         }
-        if (contact?.trim()) {
+        if (!contact?.trim()) {
             errors.contact = 'Please enter a contact number.';
             isValid = false;
         }
 
-        if (expertise?.trim()) {
+        if (!expertise?.trim()) {
             errors.expertise = 'Please enter an expertise level!';
             isValid = false;
         }
 
-        if (city?.trim()) {
+        if (!city?.trim()) {
             errors.city = 'Please enter your city';
             isValid = false;
         }
 
-        if (country?.trim()) {
+        if (!country?.trim()) {
             errors.country = 'Please enter your country';
             isValid = false;
         }
@@ -280,17 +288,15 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                 case stages.PERSONAL_INFO:
 
                     const allFields = validateAllFields();
-
+                    console.log('all fields bool var before flip:', allFields);
                     if (!allFields) {
+                        console.log('all fields bool var after flip:', allFields);
                         setMessage('Please make sure to fill all the fields correctly.')
                         showSuccess();
-                        // errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
-                        // isValid = false;
                     } else {
-                        // setCurrentStage(stages.REQUIRED_SKILLS);
+                        setCurrentStage(stages.REQUIRED_SKILLS);
                         break;
                     }
-
 
                 default:
                     setCurrentStage(stages.JOB_DETAIL);
