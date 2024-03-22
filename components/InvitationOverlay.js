@@ -130,6 +130,11 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [name, city, country, expertise, contact, email]);
 
     useEffect(() => {
+        const allFields = validateAllFields();
+        console.log('all fields:',allFields);
+        setAllFieldsCheck(allFields);
+
+
         if(!validateAllFields){
             setMessage('Please enter all the fields')
             showSuccess();
@@ -223,13 +228,8 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
         let isValid = true; // Assume the form is valid initially
 
-        const allFields = validateAllFields();
-        console.log('all fields:',allFields);
-        setAllFieldsCheck(allFields);
-
-        if (!allFields) {
-
-            console.log('isnide if condition:', !allFields)
+        if (!allFieldsCheck) {
+            console.log('isnide if condition:', !allFieldsCheck)
             setMessage('Please make sure to fill all the fields correctly.')
             showSuccess();
             errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
@@ -288,38 +288,68 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         // }
     };
 
+    // const toggleComponent = () => {
+
+
+
+    //     const newCompletedStages = [...completedStages, currentStage];
+    //     setCompletedStages(newCompletedStages);
+
+    //     if (currentStage === stages.SHARE_LINK) {
+    //         router.push('/');
+    //     } else {
+    //         switch (currentStage) {
+    //             case stages.JOB_DETAIL:
+
+    //                 setCurrentStage(stages.PERSONAL_INFO);
+    //                 break;
+    //             case stages.PERSONAL_INFO:
+
+    //                 const allFields = validateAllFields();
+    //                 console.log('all fields bool var before flip:', allFields);
+    //                 if (!allFields) {
+    //                     console.log('all fields bool var after flip:', allFields);
+    //                     setMessage('Please make sure to fill all the fields correctly.')
+    //                     showSuccess();
+    //                 } else {
+    //                     setCurrentStage(stages.REQUIRED_SKILLS);
+    //                     break;
+    //                 }
+
+    //             default:
+    //                 setCurrentStage(stages.JOB_DETAIL);
+    //         }
+    //     }
+    // }
+
     const toggleComponent = () => {
-
-
-
-        const newCompletedStages = [...completedStages, currentStage];
-        setCompletedStages(newCompletedStages);
-
-        if (currentStage === stages.SHARE_LINK) {
-            router.push('/');
-        } else {
-            switch (currentStage) {
-                case stages.JOB_DETAIL:
-                    setCurrentStage(stages.PERSONAL_INFO);
-                    break;
-                case stages.PERSONAL_INFO:
-
-                    const allFields = validateAllFields();
-                    console.log('all fields bool var before flip:', allFields);
-                    if (!allFields) {
-                        console.log('all fields bool var after flip:', allFields);
-                        setMessage('Please make sure to fill all the fields correctly.')
-                        showSuccess();
-                    } else {
-                        setCurrentStage(stages.REQUIRED_SKILLS);
-                        break;
-                    }
-
-                default:
-                    setCurrentStage(stages.PERSONAL_INFO);
+        // First, check if we are in the PERSONAL_INFO stage and validate fields
+        if (currentStage === stages.PERSONAL_INFO) {
+            const isValid = validateAllFields(); // Ensure this function accurately checks all fields
+            if (!isValid) {
+                // If not valid, possibly show an error message to the user
+                setMessage('Please make sure to fill all the fields correctly.');
+                showSuccess(); // Assuming this function shows the message
+                return; // Do not proceed to the next stage
             }
         }
-    }
+    
+        // Proceed with setting the next stage as before
+        const newCompletedStages = [...completedStages, currentStage];
+        setCompletedStages(newCompletedStages);
+    
+        switch (currentStage) {
+            case stages.JOB_DETAIL:
+                setCurrentStage(stages.PERSONAL_INFO);
+                break;
+            case stages.PERSONAL_INFO:
+                setCurrentStage(stages.REQUIRED_SKILLS); // Now we know all fields are validated
+                break;
+            default:
+                setCurrentStage(stages.JOB_DETAIL); // Fallback to default stage
+        }
+    };
+
 
     useEffect(() => {
         console.log('newExpert:', newExpert);
