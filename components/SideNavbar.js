@@ -1,4 +1,4 @@
-Side nav bar js
+
 import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
@@ -146,15 +146,17 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                 </div>}
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
-                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '-10px', marginRight: '-10px'}} />
+                <Image src='/dp.svg' height={50} width={50} className='profileImage'  />
                     <div className={styles.textContent}>
                         <span style={{ color:'#4A525D'}}>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />
+                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
                 </div>
             </div>
             </div>
         </>
     )
 }
+
+export default SideNavbar;

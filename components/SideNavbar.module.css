@@ -12,20 +12,23 @@
 .mainContainer h3 {
     display: flex;
     align-items: center;
-    justify-content: center;
     width: 100%;
     font-weight: 1000;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     color: #170D23;
 }
 @media only screen and (max-width: 1100px) {
-    .mainContainer h3{
-        font-size: 0.9rem;
+    .mainContainer {
+
+      
     }
 }
 @media only screen and (max-width: 1200px) {
-    .mainContainer h3 {
-        font-size: 1.8rem;
+    .mainContainer {
+   
+
+   
+        
     }
 }
 @media only screen and (max-width: 1300px) {
@@ -49,7 +52,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: baseline;
     color: #ACA7BA;
 }
 
@@ -59,7 +62,6 @@
     justify-content: space-between;
     align-items: center;
     color: #ACA7BA;
-    margin: 0;
     margin-top: 1.5rem;
 }
 .mainContainer:hover h4 {
@@ -383,11 +385,9 @@ gap: 5px;
 
 @media only screen and (max-width: 1200px) {
 .profnameback{
-    width: 220px;
+    width: 200px;
     padding-top: 5px;
-    padding-bottom: 0px;
     gap: 5px;   
-    margin-left: -4px;
     }
 }
 
