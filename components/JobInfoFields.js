@@ -22,7 +22,8 @@ const JobInfoFields = ({position, jobType, description, location, positionRef,jo
 
             <div className={styles.wrapper}>
                     <Image src='/suitcase.svg' width={iconSize} height={iconSize} />
-                    <select value={jobType} ref={jobTypeRef} >
+                    <select ref={jobTypeRef} >
+                        <option value = '' selected disable> Select Job Type</option>
                         <option value="On-site">On-site</option>
                         <option value="Remote">Remote</option>
                     </select>

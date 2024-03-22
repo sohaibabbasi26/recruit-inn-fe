@@ -18,14 +18,26 @@ import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
 import ErrorIndicator from './ErrorIndicator';
+import { useDispatch } from 'react-redux';
+import { fetchQuestions } from '../store/slices/questionSlice';
 
 const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {
-    
+
     const overlayRef = useRef(null);
     const { test, setTest } = useTest();
     const { expertiseItem, setExpertiseItem } = useExpertiseContext();
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+
+    // const dispatch = useDispatch();
+    // const { items, status, error } = useSelector((state) => state.questions);
+    // // const techStack = 'exampleTechStack'; // Define how you choose the techStack
+
+    // useEffect(() => {
+    //     if (techStack) {
+    //       dispatch(fetchQuestions(techStack));
+    //     }
+    //   }, [dispatch]);
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -55,7 +67,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         });
     }, [showOverlay]);
 
-    console.log("router object:", router)
+    // console.log("router object:", router)
     const { id } = router?.query;
 
     console.log('id:', id);
@@ -71,26 +83,16 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     const [subject, setSubject] = useState(null);
     const [text, setText] = useState(null);
     const [positionId, setPositionId] = useState(null);
-
     const expertiseRef = useRef({});
     const positionRef = useRef();
     const locationRef = useRef();
     const jobTypeRef = useRef();
     const descriptionRef = useRef();
+    const [questionId, setQuestionId] = useState();
+    const [emailReceivers,setEmailReceivers] = useState([{ email: '' }]);
 
-    // const { formState, setFormState } = useFormContext();
-    // const handlePositionChange = (e) => {
-    //     setFormState(prevState => ({ ...prevState, position: e.target.value }));
-    // };
-
-    // const handleLocationChange = (e) => {
-    //     setFormState(prevState => ({ ...prevState, location : e.target.value }));
-    // };
-
-    // const handleLocationChange = (e) => {
-    //     setFormState(prevState => ({ ...prevState, location : e.target.value }));
-    // };
     
+
 
     const JobPositionRef = useRef();
     const recipientRef = useRef();
@@ -111,21 +113,12 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         return regex.test(email);
     };
 
-    // const validateEmailReceiver = () => {
-    //     if (!emailReceiver || !isValidEmail(emailReceiver)) {
-    //         setMessage("Please enter a valid email address.");
-    //         showError();
-    //         return false;
-    //     }
-    //     return true;
-    // };
-
-    useEffect(()=> {
-        console.log('description:',description);
-    },[description])
+    useEffect(() => {
+        console.log('description:', description);
+    }, [description])
 
     const validateJobType = () => {
-        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() && description?.trim();
+        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() !== '' && description?.trim();
     };
 
     const toggleComponent = async () => {
@@ -134,12 +127,12 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         let newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
-        switch (currentStage) {
+        switch (currentStage) { 
             case stages.ADD_SKILL:
                 isValid = validateAddSkill();
                 if (!isValid) {
                     setMessage("Please fill in at least one skill.");
-                    showError();    
+                    showError();
                     return;
                 }
                 setCurrentStage(stages.JOB_TYPE);
@@ -219,6 +212,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
+            console.log('data of just created position:', data)
             console.log('data of created position:', data?.data?.data?.position_id);
             setPositionId(data?.data?.data?.position_id)
             setIsLoading(false);
@@ -228,11 +222,15 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
     };
 
-    
+    useEffect(() => {
+        console.log('positionId', positionId);
+        console.log('questionId', questionId)
+    }, [positionId, questionId, router?.isReady]);
 
     const handleFormSubmitForTest = async () => {
         const requestBody = {
             expertise: techStack,
+            position_id: positionId
         }
         console.log("req body : ", requestBody);
         try {
@@ -246,6 +244,9 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
+            console.log('response data of a test creation:', data);
+            setQuestionId(data?.data?.message?.question_id);
+            console.log('question id:')
             setTest(data);
             setIsLoading(false);
             setMessage("Successfully created a test for your job!");
@@ -258,33 +259,77 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
     };
 
-    const handleEmailInvite = async () => {
-        const requestBody = {
-            to: emailReceiver,
-            subject: subject,
-            text: text
-        }
+    const addEmailReceiver = () => {
+        console.log('Adding a new email receiver');
+        setEmailReceivers(currentReceivers => {
+            const newReceivers = [...currentReceivers, { email: '' }];
+            console.log("new recievers:");
+            return newReceivers;
+        });
+    };
+    
+    const handleEmailChange = (e, index) => {
+        const newEmailReceivers = [...emailReceivers];
+        newEmailReceivers[index].email = e.target.value;
+        setEmailReceivers(newEmailReceivers);
+    };
 
-        try {
-            setIsLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+    const handleEmailInvite = async () => {
+        const validEmailReceivers = emailReceivers.filter(receiver => receiver.email.trim() !== '');
+
+        const sendInvitesPromises = validEmailReceivers.map(receiver => {
+            return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify(requestBody),
+                body: JSON.stringify({
+                    to: receiver.email,
+                    subject: subject,
+                    text: text
+                }),
             });
-            const data = await response.json();
-            setTest(data);
-            setIsLoading(false);
-            localStorage.setItem('testData', JSON.stringify(data));
-            console.log('test', test)
-            console.log(data);
+        });
+
+        try {
+            // Wait for all promises to resolve
+            await Promise.all(sendInvitesPromises);
+            setMessage('Invitations have been sent to all candidates via email');
+            showSuccess();
+            onClose(); // Close the modal or overlay if needed
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error sending invites:', error);
         }
-    }
+    };
+
+    // const handleEmailInvite = async () => {
+    //     const requestBody = {
+    //         to: emailReceiver,
+    //         subject: subject,
+    //         text: text
+    //     }
+
+    //     try {
+    //         setIsLoading(true);
+    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${token}`,
+    //             },
+    //             body: JSON.stringify(requestBody),
+    //         });
+    //         const data = await response.json();
+    //         setTest(data);
+    //         setIsLoading(false);
+    //         localStorage.setItem('testData', JSON.stringify(data));
+    //         console.log('test', test)
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.error('Error submitting form:', error);
+    //     }
+    // }
 
     return (
         <>
@@ -355,6 +400,11 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
+                                        setEmailReceivers={setEmailReceivers}
+                                        emailReceivers={emailReceivers}
+                                        handleEmailChange={handleEmailChange}
+                                        addEmailReceiver={addEmailReceiver}
+                                        questionId={questionId}
                                         positionId={positionId}
                                         companyId={id}
                                         emailReceiver={emailReceiver}

@@ -7,60 +7,129 @@ import SuccessIndicator from './SuccessIndicator';
 
 const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, token, onClose, jobOverlay, selectedJob, companyId, setMessage, showSuccess }) => {
 
+    console.log('selected job data:',selectedJob)
     const [techStack, setTechStack] = useState();
     const [test, setTest] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const overlayRef = useRef(null);
+    const [link , setLink] = useState();
+    const [questionId, setQuestionId] = useState();
     const iconSize = 20;
     const infoSymbolSize = 10;
+    const [jobStatus,setJobStatus] = useState();
 
     useEffect(() => {
         setTechStack(selectedJob?.expertise);
     },[selectedJob?.expertise]);
 
-    const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}`;
+    // async function fetchAndCopyAssessmentLink() {
+    //     setIsLoading(true);
+    //     try {
+    //         if (techStack) {
+    //             console.log('techstack:', techStack);
+    //             const reqBody = {
+    //                 expertise: techStack,
+    //                 position_id : selectedJob?.position_id
+    //             }
+    //             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+    //                 {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         'Authorization': `Bearer ${token}`,
+    //                     },
+    //                     body: JSON.stringify(reqBody),
+    //                 });
+    //             const data = await response.json();
+    //             console.log("response data:", data);
+    //             setTest(data?.data);
+    //             setQuestionId(data?.data?.message?.question_id);
+    //             setIsLoading(false);
+    //             console.log('test data:', test);
+    //             localStorage.setItem('testData', JSON.stringify(data));
+    //             console.log(data);
+    //             await handleCopyClick();
+    //         }
+    //     } catch (err) {
+    //         console.log('error:', err);
+    //     }
+    // }
+
+    async function toggleJobStatus() {
+
+        const newStatus = selectedJob?.status === 'Active' ? 'Closed' : 'Active';
+
+        try{
+            const reqBody = {
+                status: newStatus,
+                position_id: selectedJob?.position_id
+            };
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/toggle-job`,{
+                method: 'PUT',
+                body: JSON.stringify(reqBody),
+                headers : {
+                    "Content-type": "application/JSON"
+                }
+            });
+
+            const data = await response.json();
+            console.log('data updated in the table:', data);
+            setJobStatus(newStatus);
+
+        } catch (err) {
+            console.log('error:',err);
+        }
+    }
+
 
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
-        
-
-
-
+    
         try {
-
             if (techStack) {
-                console.log('techstack:', techStack);
                 const reqBody = {
-                    expertise: techStack
+                    expertise: techStack,
+                    position_id : selectedJob?.position_id
                 }
-                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
-                        },
-                        body: JSON.stringify(reqBody),
-                    });
-
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(reqBody),
+                });
                 const data = await response.json();
-                console.log("response data:", data);
                 setTest(data?.data);
-                setIsLoading(false);
-                console.log('test data:', test);
-                localStorage.setItem('testData', JSON.stringify(data));
-
-                // console.log('test', test);
-                console.log(data);
-                handleCopyClick();
+                const newQuestionId = data?.data?.message?.question_id;
+                console.log('test:', test);
+                setQuestionId(newQuestionId); 
+                const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}`;
+                setLink(newLink); 
+                copyToClipboard(newLink).then(() => {
+                    setMessage("Your link has been copied");
+                    showSuccess();
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
             }
-
         } catch (err) {
-            console.log('error:', err);
+            console.error('error:', err);
         }
-
+        setIsLoading(false);
     }
+    
 
+
+useEffect(() => {
+  if (questionId) {
+    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}`;
+    setLink(newLink);
+  }
+}, [questionId]); 
+
+    
 
 
     function copyToClipboard(text) {
@@ -80,8 +149,13 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
         }
     }
 
-    const handleCopyClick = () => {
-        copyToClipboard(demolink)
+    useEffect(()=>{
+        console.log("link in useEffect:", link);
+    },[link])
+
+    const handleCopyClick = async () => {
+        console.log('link:',link)
+        copyToClipboard(link)
             .then(() => console.log('copied!'))
             .catch(err => console.error('Could not copy text: ', err));
         setMessage("Your link has been copied");
@@ -132,6 +206,11 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
         }
     }
 
+    
+    // const disableCreateLink = () => {
+    //     showError('The job is closed for now, make it active if you wish to copy a link!')
+    // }
+
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
@@ -162,12 +241,21 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
 
                         {/* body */}
                         <div className={styles.copyDiv}>
+                            <span onClick={() => {
+                                toggleJobStatus();
+                                setMessage('Job Status has been changed, refresh to see changes!')
+                                showSuccess();
+                            }}>
+                                {selectedJob?.status === 'Active' ? 'Close Job' : 'Open Job' }
+                            </span>
                             {isLoading ? (
                                 <div className={styles.loader}></div>
                             ) : (
-                                <span onClick={async () => {
+                                <button disabled={
+                                    selectedJob?.status === 'Closed'
+                                }  onClick={async () => {
                                     await fetchAndCopyAssessmentLink();
-                                }}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></span>
+                                }}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></button>
                             )}
                         </div>
 
