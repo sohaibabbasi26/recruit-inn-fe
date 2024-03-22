@@ -16,6 +16,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
     const upgradeHandler = () =>{
         setshowupgrade(!showupgrade)
     }
+    
     const openAddJobHandler = () => {
         setShowOverlay1(true);
         console.log("clicking button");

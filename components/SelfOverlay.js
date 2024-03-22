@@ -27,6 +27,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const countryRef = useRef();
     const cityRef = useRef();
 
+
+
     useEffect(() => {
         document.body.style.overflow = 'hidden';
 
@@ -64,7 +66,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         console.log("Current Stage: ", currentStage);
         console.log("Is Share Link Stage? ", currentStage === stages.SHARE_LINK);
 
-        if((currentStage === stages.PERSONAL_INFO) && nameRef.current.value.trim() == '' || emailRef.current.value.trim() == '' || contactRef.current.value.trim() == '' || expertiseRef?.current?.value.trim() == '' || countryRef?.current?.value.trim() == '' || cityRef?.current?.value.trim() == ''){
+        if((currentStage === stages.PERSONAL_INFO) && name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === ''){
             setMessage("Please fill all the fields")
             showError();
             return;
@@ -203,7 +205,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     };
 
     const validateEmailReceiver = () => {
-        if (!emailRef.current.value || !isValidEmail(emailRef.current.value)) {
+        if (!email || !isValidEmail(email)) {
             setMessage("Please enter a valid email address.");
             showError();
             return false;
