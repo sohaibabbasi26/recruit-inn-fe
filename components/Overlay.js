@@ -113,21 +113,12 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         return regex.test(email);
     };
 
-    // const validateEmailReceiver = () => {
-    //     if (!emailReceiver || !isValidEmail(emailReceiver)) {
-    //         setMessage("Please enter a valid email address.");
-    //         showError();
-    //         return false;
-    //     }
-    //     return true;
-    // };
-
     useEffect(() => {
         console.log('description:', description);
     }, [description])
 
     const validateJobType = () => {
-        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() && description?.trim();
+        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() !== '' && description?.trim();
     };
 
     const toggleComponent = async () => {
@@ -136,7 +127,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         let newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
-        switch (currentStage) {
+        switch (currentStage) { 
             case stages.ADD_SKILL:
                 isValid = validateAddSkill();
                 if (!isValid) {
@@ -409,6 +400,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
+                                        setEmailReceivers={setEmailReceivers}
                                         emailReceivers={emailReceivers}
                                         handleEmailChange={handleEmailChange}
                                         addEmailReceiver={addEmailReceiver}

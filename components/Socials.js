@@ -25,6 +25,7 @@ const Socials = () => {
                             </div>
                             <Image src='/rightArrow.svg' height={arrowSize} width={arrowSize} />
                         </div>
+                        
                         <div className={styles.social}>
                             <div className={styles.info}>
                                 <Image id={styles.logoImage} src='/linkedin.svg' height={socialIconSize} width={socialIconSize} />
@@ -41,4 +42,3 @@ const Socials = () => {
         </>
     )
 }
-export default Socials;

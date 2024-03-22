@@ -1,3 +1,4 @@
+Side nav bar js
 import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
@@ -120,7 +121,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                             </ul>
                         )}
                     </div>
-                </div>,
+                </div>
                 <div className={`${styles.profnameback} ${styles.focus}`}>
            {showupgrade && 
                 <div>
@@ -157,5 +158,3 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         </>
     )
 }
-
-export default SideNavbar;
