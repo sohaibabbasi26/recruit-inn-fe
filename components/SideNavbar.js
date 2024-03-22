@@ -157,5 +157,3 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         </>
     )
 }
-
-export default SideNavbar;
