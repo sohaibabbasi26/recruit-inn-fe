@@ -27,9 +27,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const countryRef = useRef();
     const cityRef = useRef();
 
-
-
-    useEffect(() => {
+        useEffect(() => {
         document.body.style.overflow = 'hidden';
 
         if (showOverlay) {
@@ -63,26 +61,34 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [completedStages, setCompletedStages] = useState([]);
 
     const toggleComponent = () => {
-        console.log("Current Stage: ", currentStage);
-        console.log("Is Share Link Stage? ", currentStage === stages.SHARE_LINK);
+        let showMessage = false;
 
         if ((currentStage === stages.PERSONAL_INFO) && name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
-            setMessage("Please fill all the fields")
-            showError();
+            setMessage("Please fill all the fields");
+            showMessage = true;
+            // showError();
             return;
         }
 
-        if ((currentStage === stages.PERSONAL_INFO) && validateEmailReceiver()) {
+        if ((currentStage === stages.PERSONAL_INFO) && !validateEmailReceiver()) {
             setMessage("Entered email is not valid")
-            showError();
+            // showError();
+            showMessage = true;
             return;
         }
 
         if ((currentStage === stages.SKILLS) && !validateAddSkill()) {
             setMessage("At least enter one skill!");
+            // showError();
+            showMessage = true;
+            return;
+        }
+
+        if (showMessage === true) {
             showError();
             return;
         }
+
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
@@ -91,7 +97,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         } else {
             switch (currentStage) {
                 case stages.PERSONAL_INFO:
-
                     console.log("Moving to VERIFICATION stage");
                     handlePersonalInfo();
                     setCurrentStage(stages.VERIFICATION);
@@ -157,12 +162,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [req, setReq] = useState(null);
 
     useEffect(() => {
-        setName(nameRef?.current?.value);
-        setCity(cityRef?.current?.value);
-        setContact(contactRef?.current?.value);
-        setEmail(emailRef?.current?.value);
-        setExpertise(expertiseRef?.current?.value);
-        setCountry(countryRef?.current?.value);
+
 
         const reqBody = {
             name: name,
@@ -209,8 +209,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         if (!isValidEmail(email)) {
             return false;
         }
-        setMessage("Please enter a valid email address.");
-        showError();
+        // setMessage("Please enter a valid email address.");
+        // showError();
         return true;
     };
 
@@ -253,7 +253,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
         try {
             const requestBody = {
-                to: emailRef?.current?.value,
+                to: email,
                 subject: 'RECRUITINN: Verify your account!',
                 text: `
                     Your verification code is : ${generatedCode}
@@ -347,10 +347,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
-                            {/* <span>
-                                <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
-                                <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span> */}
                         </div>
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
@@ -359,7 +355,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                             <>
                                 <PersonalInfo expertiseRef={expertiseRef} contact={contact} expertise={expertise} name={name} email={email} country={country} city={city} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
                                 <div className={styles.wrapper}>
-                                    <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} fillValidity={fillValidity} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <PersonalInfoBtns  showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} fillValidity={fillValidity} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
