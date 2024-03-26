@@ -15,6 +15,7 @@ import CandSelfAssessment from './CandSelfAssessment';
 import CandSelfAssessmentBtns from './CandSelfAssessmentBtns';
 import ErrorIndicator from './ErrorIndicator';
 import SuccessIndicator from './SuccessIndicator';
+import PersonalInfoSelf from './PersonalInfoself';
 
 const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
@@ -357,7 +358,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
                         {currentStage === stages.PERSONAL_INFO && (
                             <>
-                                <PersonalInfo expertiseRef={expertiseRef} contact={contact} expertise={expertise} name={name} email={email} country={country} city={city} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
+                                <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} expertise={expertise} name={name} email={email} country={country} city={city} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
                                 <div className={styles.wrapper}>
                                     <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} fillValidity={fillValidity} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>

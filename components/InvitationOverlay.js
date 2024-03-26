@@ -93,12 +93,12 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         });
     }, [showOverlay, onClose])
 
-
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.JOB_DETAIL);
     const [completedStages, setCompletedStages] = useState([]);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const [contact, setContact] = useState();
     const [expertise, setExpertise] = useState();
     const [country, setCountry] = useState();
@@ -127,7 +127,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
     useEffect(() => {
         console.log("hey its me! req body", reqBody);
-    }, [name, city, country, expertise, contact, email]);
+    }, [name, city, country , password , expertise, contact, email]);
 
     useEffect(() => {
         const allFields = validateAllFields();
@@ -160,6 +160,14 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
     }, [name]);
 
+    useEffect(() => {
+        if (password?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, password: 'Pasword is required.' }));
+        } else {
+            const { password, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [password]);
 
     useEffect(() => {
         if (contact?.trim() === '') {
@@ -198,7 +206,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [expertise]);
 
     const validateAllFields = () => {
-        return name?.trim() !== '' && email?.trim() !== '' && contact?.trim() !== '' && expertise?.trim() !== '' && country?.trim() !== '' && city?.trim() !== ''
+        return name?.trim() !== '' && email?.trim() !== '' && contact?.trim() !== '' && password?.trim() !== '' && expertise?.trim() !== '' && country?.trim() !== '' && city?.trim() !== ''
     }
 
     const handleContinue = () => {
@@ -209,7 +217,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
         console.log("Debug: Name:", name, "Email:", email,
-            "city:", city, "Country", country, "expertise: ", expertise,
+            "city:", city, "Country", country, "password", password ,"expertise: ", expertise,
             "contact:", contact
         );
 
@@ -221,6 +229,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             email: email,
             over_all_exp: expertise,
             contact_no: contact,
+            Password : password,
             applied_through: clientData?.client_name,
             company_id: newId,
             expertise: newExpert,
@@ -254,6 +263,10 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
         if (!contact?.trim()) {
             errors.contact = 'Please enter a contact number.';
+            isValid = false;
+        }
+        if (!password?.trim()) {
+            errors.password = 'Please enter a Password';
             isValid = false;
         }
 
@@ -531,6 +544,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     expertise={expertise}
                                     country={country}
                                     city={city}
+                                    password = {password}
                                     showSuccessMessage={showSuccessMessage}
                                     msgText={message}
                                     // validationErrors={validationErrors}
@@ -546,6 +560,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     setEmail={setEmail}
                                     setExpertise={setExpertise}
                                     setName={setName}
+                                    setPassword = {setPassword}
                                 />
                                 <div className={styles.wrapper}>
                                     <PersonalInfoBtns showSuccess={showSuccess} onContinue={handleContinue} onBack={backToggleComponent} />
