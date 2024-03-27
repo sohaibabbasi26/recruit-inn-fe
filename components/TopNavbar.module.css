@@ -160,19 +160,7 @@
     outline: none;
 }
 
-.selectCategory1 {
-    border-radius: 32px;
-    border: none;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    padding-top: 11px;
-    padding-right: 16px;
-    padding-left: 24px;
-    padding-bottom: 11px;
-    font-family: 'Poppins',sans-serif;
-}
-
-.selectCategory2 {
+.searchOptions{
     border-radius: 32px;
     border: none;
     background-color: #FFFFFF;

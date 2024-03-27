@@ -60,9 +60,9 @@ const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
                             />
                         </div>
                         <div className={styles.selectCategory}>
-                            <select value={searchType}  onChange={(e) => setSearchType(e.target.value)}>
-                                <option value='Candidates'>Candidates</option>
-                                <option value='Jobs'>Jobs</option>
+                            <select className={styles.searchOptions} value={searchType}  onChange={(e) => setSearchType(e.target.value)}>
+                                <option className={styles.searchOptions} value='Candidates'>Candidates</option>
+                                <option className={styles.searchOptions} value='Jobs'>Jobs</option>
                             </select>
                         </div>
                     </div>
