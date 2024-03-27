@@ -2,20 +2,17 @@
 
 
 .parentContainer {
-    width: 98%;
+    width: 100%;
     background-color: #F8F7FA;
-    height: 87%;
+    height: 100%;
     border-radius: 20px;
-    margin: 1rem 0;
-    margin-top: 0;
-    margin-right: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .superContainer {
-    width: 96%;
+    width: 100%;
     height: 100%;
     overflow-y: scroll;
 }
@@ -51,7 +48,7 @@
 
 
 .superContainer {
-    width: 97%;
+    width: 100%;
     font-family: "Poppins", sans-serif;
 }
 
@@ -423,4 +420,15 @@
 .lowerContainer span{
     display: flex;
     gap: 0.5rem;
+}
+.searchOptions{
+    border-radius: 32px;
+    border: none;
+    background-color: #FFFFFF;
+    font-size: 1rem;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 24px;
+    padding-bottom: 11px;
+    font-family: 'Poppins',sans-serif;
 }

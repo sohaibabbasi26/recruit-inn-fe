@@ -1,6 +1,6 @@
+
 .body {
-  width: 699px;
-  height: 882px;
+  max-height: 80vh;
   background-color: #F8F7FC;
   border-radius: 20px;
   display: flex;
@@ -10,22 +10,8 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-  margin-bottom: 0.75rem;
 }
-@media only screen and (max-width: 1200px) {
-.body {
-  width: 590px;
-  height: 550px;
-  margin-bottom: 0.75rem;
-}
-}
-@media only screen and (max-width: 1688px) {
-  .body {
-    width: 890px;
-    height: 800px;
-    margin-bottom: 0.75rem;
-  }
-  }
+
 .body::-webkit-scrollbar {
   width: 6px;
 }
