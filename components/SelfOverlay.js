@@ -59,6 +59,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
     const [completedStages, setCompletedStages] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    
 
     const toggleComponent = () => {
         let showMessage = false;
@@ -160,6 +162,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [reqBody, setReqBody] = useState(null);
     const [req, setReq] = useState(null);
+    const [questionId, setQuestionId] = useState([]);
 
     useEffect(() => {
 
@@ -209,8 +212,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         if (!isValidEmail(email)) {
             return false;
         }
-        // setMessage("Please enter a valid email address.");
-        // showError();
         return true;
     };
 
@@ -224,12 +225,12 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
         try {
             const requestBody = {
-                name: nameRef.current.value,
-                city: cityRef.current.value,
-                contact_no: contactRef.current.value,
-                email: emailRef.current.value,
-                over_all_exp: expertiseRef.current.value,
-                country: countryRef.current.value,
+                name: name,
+                city: city,
+                contact_no: contact,
+                email: email,
+                over_all_exp: expertise,
+                country: country,
                 applied_through: 'Self'
             };
 
@@ -239,12 +240,12 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${newToken}`
                 },
                 body: JSON.stringify(requestBody),
             });
 
             const data = await response.json();
+            console.log('candidate:', data);
             setCandidateId(data?.data?.data?.candidate_id);
             console.log('data in Self overlay:', data?.data?.data?.candidate_id);
         } catch (err) {
@@ -321,8 +322,9 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const handleTestPreparation = async () => {
         console.log("request.boy in handle test prep method:", req)
 
-        setReq()
+        
         try {
+            setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                 method: 'POST',
                 headers: {
@@ -332,7 +334,10 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             });
             const data = await response.json();
             localStorage.setItem('testData', JSON.stringify(data));
+            setQuestionId(data?.data?.message?.question_id);
+            console.log('question id:', questionId);
             console.log('data in set expertise:', data);
+            setIsLoading(false);
         } catch (err) {
             console.log("error:", err)
         }
@@ -382,7 +387,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                             <>
                                 <CandSelfAssessment />
                                 <div className={styles.wrapper}>
-                                    <CandSelfAssessmentBtns candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <CandSelfAssessmentBtns questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
