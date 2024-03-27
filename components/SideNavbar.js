@@ -1,15 +1,14 @@
+
 import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
-import { useRouter } from 'next/router';
 
 
-const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOverlay ,setShowPaymentOverlay}) => {
+const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
-    const router = useRouter();
 
     const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
     const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] = useState(false);
@@ -19,7 +18,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
     }
     
     const openAddJobHandler = () => {
-        setShowOverlay(true);
+        setShowOverlay1(true);
         console.log("clicking button");
     }
 
@@ -36,14 +35,6 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
     const handleDropDownCandidatesToggle = () => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
-
-    const logoutHandler = () => {
-        localStorage.removeItem('client-token');
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('clientId');
-    
-        router.push('/client-login');
-    };
 
     const listItemSize = 28;
     const logoSize = 30
@@ -131,7 +122,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
                             </ul>
                         )}
                     </div>
-                </div>,
+                </div>
                 <div className={`${styles.profnameback} ${styles.focus}`}>
            {showupgrade && 
                 <div>
@@ -150,18 +141,18 @@ const SideNavbar = ({ navbarIte , showOverlay1 , showPaymentOverlay  , setShowOv
                 {showupgrade && 
                 
                 <div>
-                    <button className={styles.btnlog} onClick={logoutHandler}>
+                    <button className={styles.btnlog} onClick={openAddJobHandler}>
                     Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"  style={{  color: '#FF0000' }}/>
                     </button>
                 </div>}
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
-                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '-10px', marginRight: '-10px'}} />
+                <Image src='/dp.svg' height={50} width={50} className='profileImage'  />
                     <div className={styles.textContent}>
                         <span style={{ color:'#4A525D'}}>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />
+                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
                 </div>
             </div>
             </div>

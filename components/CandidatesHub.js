@@ -61,9 +61,9 @@ const CandidatesHub = ({ heading, data, reportOverlay, setReportOverlay, setSele
                         </div>
 
                         <select>
-                            <option value='hybrid'>Hybrid</option>
-                            <option value='onsite'>On-site</option>
-                            <option value='remote'>Remote</option>
+                            <option className={styles.searchOptions}  value='hybrid'>Hybrid</option>
+                            <option className={styles.searchOptions} value='onsite'>On-site</option>
+                            <option className={styles.searchOptions} value='remote'>Remote</option>
                         </select>
                     </div>
 

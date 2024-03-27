@@ -1,37 +1,17 @@
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
 
 .mainContainer{
-    height: 500px;
-    width: 409px;
+    height: 43vh;
+    width: 100%;
     background-color: #F8F7FC;
     border-radius: 20px;
     display: flex ;
     justify-content: center;
     overflow: hidden;
     font-family: "Poppins",sans-serif;
-}
-@media only screen and (max-width: 1200px) {
-    .mainContainer{
-        height: 330px;
-        width: 349px;
-        background-color: #F8F7FC;
-        border-radius: 20px;
-        display: flex ;
-        justify-content: center;
-        overflow: hidden;
-        font-family: "Poppins",sans-serif;
-    }
-}
-@media only screen and (max-width: 1688px) {
-    .mainContainer{
-        height: 430px;
-        width: 430px;
-        background-color: #F8F7FC;
-        border-radius: 20px;
-    
-    }
-}
 
+}
 .headingContainer{
     margin: 1rem 0;
     display: flex;
@@ -41,11 +21,6 @@
 
 .headingContainer h3{
     margin: 0;
-}
-@media only screen and (max-width: 1100px) {
-    .headingContainer h3{
-        font-size: small;
-    }
 }
 
 .headingContainer span{
