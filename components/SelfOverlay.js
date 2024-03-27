@@ -399,7 +399,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                                     </div>
                                 </>
                             )}
-
                         </div>
                     )
                     }
