@@ -23,14 +23,13 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const nameRef = useRef();
     const contactRef = useRef();
+    const passwordRef = useRef();
     const emailRef = useRef();
     const expertiseRef = useRef();
     const countryRef = useRef();
     const cityRef = useRef();
 
-
-
-    useEffect(() => {
+        useEffect(() => {
         document.body.style.overflow = 'hidden';
 
         if (showOverlay) {
@@ -64,26 +63,34 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [completedStages, setCompletedStages] = useState([]);
 
     const toggleComponent = () => {
-        console.log("Current Stage: ", currentStage);
-        console.log("Is Share Link Stage? ", currentStage === stages.SHARE_LINK);
+        let showMessage = false;
 
-        if ((currentStage === stages.PERSONAL_INFO) && name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
-            setMessage("Please fill all the fields")
-            showError();
+        if ((currentStage === stages.PERSONAL_INFO) && name?.trim() === '' && email?.trim() === '' && password?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
+            setMessage("Please fill all the fields");
+            showMessage = true;
+            // showError();
             return;
         }
 
-        if ((currentStage === stages.PERSONAL_INFO) && validateEmailReceiver()) {
+        if ((currentStage === stages.PERSONAL_INFO) && !validateEmailReceiver()) {
             setMessage("Entered email is not valid")
-            showError();
+            // showError();
+            showMessage = true;
             return;
         }
 
         if ((currentStage === stages.SKILLS) && !validateAddSkill()) {
             setMessage("At least enter one skill!");
+            // showError();
+            showMessage = true;
+            return;
+        }
+
+        if (showMessage === true) {
             showError();
             return;
         }
+
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
@@ -92,7 +99,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         } else {
             switch (currentStage) {
                 case stages.PERSONAL_INFO:
-
                     console.log("Moving to VERIFICATION stage");
                     handlePersonalInfo();
                     setCurrentStage(stages.VERIFICATION);
@@ -147,6 +153,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [expertise, setExpertise] = useState(null);
     const [email, setEmail] = useState(null);
     const [contact, setContact] = useState(null);
+    const [password ,setPassword] = useState(null);
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const [isCodeInvalid, setIsCodeInvalid] = useState(false);
     const [techStack, setTechStack] = useState(null);
@@ -158,17 +165,13 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [req, setReq] = useState(null);
 
     useEffect(() => {
-        setName(nameRef?.current?.value);
-        setCity(cityRef?.current?.value);
-        setContact(contactRef?.current?.value);
-        setEmail(emailRef?.current?.value);
-        setExpertise(expertiseRef?.current?.value);
-        setCountry(countryRef?.current?.value);
+
 
         const reqBody = {
             name: name,
             city: city,
             contact_no: contact,
+            Password: password, 
             email: email,
             over_all_exp: expertise,
             country: country,
@@ -182,7 +185,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         setReq(reqtwo);
 
         setReqBody(reqBody)
-    }, [name, city, contact, email, expertise, country, techStack])
+    }, [name, city, contact, password , email, expertise, country, techStack])
 
     const showError = () => {
         setshowErrorMessage(true);
@@ -201,8 +204,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     };
 
     const fillValidity = () => {
-        console.log("fillValidity", name, email, contact, expertise, country, city)
-        return name || email || contact || expertise || country || city;
+        console.log("fillValidity", name, email, contact, password, expertise, country, city)
+        return name || email || contact || password || expertise || country || city;
     };
 
     const validateEmailReceiver = () => {
@@ -210,8 +213,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         if (!isValidEmail(email)) {
             return false;
         }
-        setMessage("Please enter a valid email address.");
-        showError();
+        // setMessage("Please enter a valid email address.");
+        // showError();
         return true;
     };
 
@@ -228,6 +231,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                 name: nameRef.current.value,
                 city: cityRef.current.value,
                 contact_no: contactRef.current.value,
+                Password : passwordRef.current.value,
                 email: emailRef.current.value,
                 over_all_exp: expertiseRef.current.value,
                 country: countryRef.current.value,
@@ -254,7 +258,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
         try {
             const requestBody = {
-                to: emailRef?.current?.value,
+                to: email,
                 subject: 'RECRUITINN: Verify your account!',
                 text: `
                     Your verification code is : ${generatedCode}
@@ -348,19 +352,15 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
-                            {/* <span>
-                                <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
-                                <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span> */}
                         </div>
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
                         {currentStage === stages.PERSONAL_INFO && (
                             <>
-                                <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} expertise={expertise} name={name} email={email} country={country} city={city} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
+                                <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} password = {password} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef = {passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword = {setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
                                 <div className={styles.wrapper}>
-                                    <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} fillValidity={fillValidity} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <PersonalInfoBtns  showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} fillValidity={fillValidity} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
