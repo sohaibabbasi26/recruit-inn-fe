@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     overflow: hidden;
 }
 
@@ -16,25 +16,6 @@
     font-weight: 1000;
     font-size: 1.3rem;
     color: #170D23;
-}
-@media only screen and (max-width: 1100px) {
-    .mainContainer {
-
-      
-    }
-}
-@media only screen and (max-width: 1200px) {
-    .mainContainer {
-   
-
-   
-        
-    }
-}
-@media only screen and (max-width: 1300px) {
-    .mainContainer h3{
-        font-size: 1.2rem;
-    }
 }
 
 .mainContainer h3 img {
@@ -52,7 +33,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: center;
     color: #ACA7BA;
 }
 
@@ -64,33 +45,7 @@
     color: #ACA7BA;
     margin-top: 1.5rem;
 }
-.mainContainer:hover h4 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-    margin-top: 1.5rem;
-    color: #170D23;
 
-}
-.mainContainer:active h4 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-    margin-top: 1.5rem;
-    color: #170D23;
-
-}
-.mainContainer:focus h4 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-    margin-top: 1.5rem;
-    color: #170D23;
-
-}
 
 .mainContainer ul {
     list-style: none;
@@ -111,11 +66,6 @@
     align-items: center;
     margin-left: 0;
     padding: 0.5rem 0.8rem;
-}
-@media only screen and (max-width: 1100px) {
-    .mainContainer ul li{
-        padding: 0.2rem 0.2rem;
-    }
 }
 
 .listContainer {
@@ -156,39 +106,7 @@
     margin: 0;
     font-size: 0.85rem;
 }
-@media only screen and (max-width: 1300px) {
-    .profileTab h4{
-        font-size: 0.8rem;
-    }
-    .profileTab {
-        width: 200px;
-    }
-    .profileTab span{
-        font-size: medium;
-    }
-}
-@media only screen and (max-width: 1200px) {
-    .profileTab h4{
-        font-size: 0.8rem;
-    }
-    .profileTab {
-        width: 180px;
-    }
-    .profileTab span{
-        font-size: medium;
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .profileTab h4{
-        font-size: 0.6rem;
-    }
-    .profileTab {
-        width: 180px;
-    }
-    .profileTab span{
-        font-size: small;
-    }
-}
+
 .dashboardButton {
     margin-top: 1rem;
     background-color: #F0EDFC;
@@ -198,7 +116,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 80%;
     border-radius: 40px;
 }
 
@@ -208,25 +126,13 @@
     color: #6137DB;
 }
 
-
-@media only screen and (max-width: 1300px) {
-    .dashboardButton{
-        margin-left: -5px;
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .dashboardButton{
-        margin-left: -10px;
-    }
-}
-
 .dash {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 80%;
 }
 
 .clicked {
@@ -243,7 +149,7 @@
 .btnlog{
     display: flex;
     top: 12px;
-    padding: 10px 60px 10px 60px;
+    padding: 10px 50px 10px 50px;
     border-radius: 52px;
     gap: 4px;
     background-color: #FFF5F5;
@@ -257,36 +163,16 @@
     display: flex;
     background-color: #FFF5F5;
     color: #FF0000;
+    align-items: center;
+    justify-content: center;
 
-}
-
-@media only screen and (max-width: 1200px) {
-.btnlog{
-    display: flex;
-    top: 12px;
-    padding: 10px 60px 10px 60px;
-    border-radius: 52px;
-    gap: 4px;
-    background-color: #FFF5F5;
-    color: #FF0000;
-    border: none;
-    width: 90%;
-    margin-bottom: 5%;
-    font-weight: 600;
-    font-size: small;
-    cursor: pointer;
-    display: flex;
-    background-color: #FFF5F5;
-    color: #FF0000;
-   
-}
 }
 
 .btnup{
     display: flex;
     top: 12px;
     left: 12px;
-    padding: 10px 60px 10px 60px;
+    padding: 10px 50px 10px 50px;
     border-radius: 52px;
     gap: 4px;
     background-color: #F0EDFC;
@@ -300,38 +186,18 @@
     display: flex;
     background-color: #F0EDFC;
     color: #6137DB;
+    align-items: center;
+    justify-content: center;
+
 }
-@media only screen and (max-width: 1200px) {
-    .btnup{
-        margin-top: 10px;
-        display: flex;
-        top: 12px;
-        left: 12px;
-        padding: 10px 60px 10px 60px;
-        border-radius: 52px;
-        gap: 4px;
-        background-color: #F0EDFC;
-        color: #6137DB;
-        border: none;
-        margin-bottom: 5%;
-        font-weight: 600;
-        font-size: small;
-        cursor: pointer;
-        width: 90%;
-        display: flex;
-        background-color: #F0EDFC;
-        color: #6137DB;
-       
-    }
-}
+
     .btnset{
         display: flex;
         top: 12px;
         left: 12px;
-        padding: 10px 60px 10px 60px;
+        padding: 10px 50px 10px 50px;
         gap: 4px;
         background-color: white;
-        width: 100%;
         border: none;
         margin-left: 10px;
         margin-bottom: 5%;
@@ -342,31 +208,11 @@
         border-radius: 52px;
         background-color: white;
         color: #6137DB;
+        align-items: center;
+        justify-content: center;
     
         
-    }
-    
-    @media only screen and (max-width: 1200px) {
-        .btnset{
-            display: flex;
-            top: 12px;
-            left: 12px;
-            padding: 10px 60px 10px 60px;
-            gap: 4px;
-            background-color: white;
-            width: 90%;
-            border: none;
-            margin-bottom: 5%;
-            font-weight: 600;
-            font-size: small;
-            cursor: pointer;
-            display: flex;
-            border-radius: 52px;
-            background-color: white;
-            color: #6137DB;
-           
-        }
-        }
+   }
 
 .profnameback{
 display: flex;
@@ -375,33 +221,17 @@ align-items: center;
 justify-content: center;
 border-radius: 40px;
 background-color: #F8F7FC;
-width: 230px;
+width: 100%;
 padding-top: 10px;
 padding-bottom: 0px;
 margin-bottom: 30px;
 gap: 5px;
 }
 
-
-@media only screen and (max-width: 1200px) {
-.profnameback{
-    width: 200px;
-    padding-top: 5px;
-    gap: 5px;   
-    }
-}
-
-@media only screen and (max-width: 1100px) {
-    .profnameback{
-        width: 180px;
-        }
-    }
-
-
 .btn {
     top: 12px;
     left: 12px;
-    padding: 10px 60px 10px 60px;
+    padding: 10px 50px 10px 50px;
     border-radius: 52px;
     gap: 4px;
     background-color: #F0EDFC;
@@ -413,6 +243,8 @@ gap: 5px;
     font-size: small;
     cursor: pointer;
     display: flex;
+    align-items: center;
+    justify-content: center;    
     align-items: center;
     justify-content: center;
     

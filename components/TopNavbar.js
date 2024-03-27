@@ -3,6 +3,7 @@ import styles from './TopNavbar.module.css';
 import Image from 'next/image';
 import debounce from 'lodash.debounce';
 
+
 const TopNavbar = ({ companyId, onJobSelect, onCandidateSelect }) => {
     const searchLogoSize = 20;
     const [query, setQuery] = useState('');

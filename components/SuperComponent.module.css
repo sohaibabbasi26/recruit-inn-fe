@@ -1,27 +1,10 @@
 .superContainer{
-    width: 50%;
-    max-height: 100vh;
-    display:  flex;
-    flex-direction: column;
-}
-@media only screen and (max-width: 1100px) {
-
-.superContainer{
-    width: 58%;
+    width: 70%;
     height: 100%;
     display:  flex;
     flex-direction: column;
 }
-}
-@media only screen and (max-width: 1688px) {
 
-    .superContainer{
-        width: 58%;
-        height: 100%;
-        display:  flex;
-        flex-direction: column;
-    }
-    }
 .temp{
     display: flex;
     justify-content: space-between;
