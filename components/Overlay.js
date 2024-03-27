@@ -18,7 +18,7 @@ import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
 import ErrorIndicator from './ErrorIndicator';
-import { useDispatch } from 'react-redux';
+
 import { fetchQuestions } from '../store/slices/questionSlice';
 
 const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {

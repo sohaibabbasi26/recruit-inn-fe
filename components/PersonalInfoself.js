@@ -5,7 +5,7 @@ import NameContext from '@/contexts/NameContext';
 import { useContext } from 'react';
 import { useState } from 'react';
 
-const PersonalInfo = forwardRef(({
+const PersonalInfoSelf = forwardRef(({
     setCity,
     setCountry,
     setContact,
@@ -68,6 +68,17 @@ const PersonalInfo = forwardRef(({
                         </div>
                         {validationErrors?.contact && <div className={styles.errorMessage}>{validationErrors?.contact}</div>}
                     </div>
+
+                    <div>
+                        <div className={styles.infoField}>
+                            <Image />
+                            <input placeholder='Enter your Password' value={password} type='password'
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        {validationErrors?.password && <div className={styles.errorMessage}>{validationErrors?.password}</div>}
+                    </div>
+                    
                     <div>
                         <div className={styles.infoField}>
                             <Image />
@@ -114,4 +125,4 @@ const PersonalInfo = forwardRef(({
         </>
     )
 })
-export default PersonalInfo;
+export default PersonalInfoSelf;

@@ -15,6 +15,7 @@ import CandSelfAssessment from './CandSelfAssessment';
 import CandSelfAssessmentBtns from './CandSelfAssessmentBtns';
 import ErrorIndicator from './ErrorIndicator';
 import SuccessIndicator from './SuccessIndicator';
+import PersonalInfoSelf from './PersonalInfoself';
 
 const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
@@ -22,6 +23,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const nameRef = useRef();
     const contactRef = useRef();
+    const passwordRef = useRef();
     const emailRef = useRef();
     const expertiseRef = useRef();
     const countryRef = useRef();
@@ -64,13 +66,13 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const toggleComponent = () => {
 
-        if ((currentStage === stages.PERSONAL_INFO) && (!name?.trim() || !email?.trim() || !contact?.trim() || !expertise?.trim() || !country?.trim() || !city?.trim())) {
+        if ((currentStage === stages.PERSONAL_INFO) && (!name?.trim() || !email?.trim() || !contact?.trim() || !expertise?.trim() || !country?.trim() || !city?.trim() || !password.trim()) ) {
             setMessage("Please fill all the fields first");
             showError();
             return;
         }
 
-        else if (currentStage === stages.PERSONAL_INFO && !email?.trim() && !validateEmailReceiver()) {
+        else if (currentStage === stages.PERSONAL_INFO && !validateEmailReceiver()) {
             setMessage("Entered email is not valid");
             showError();
             return;
@@ -148,6 +150,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [expertise, setExpertise] = useState(null);
     const [email, setEmail] = useState(null);
     const [contact, setContact] = useState(null);
+    const [password ,setPassword] = useState(null);
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const [isCodeInvalid, setIsCodeInvalid] = useState(false);
     const [techStack, setTechStack] = useState(null);
@@ -166,6 +169,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             name: name,
             city: city,
             contact_no: contact,
+            Password: password, 
             email: email,
             over_all_exp: expertise,
             country: country,
@@ -179,7 +183,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         setReq(reqtwo);
 
         setReqBody(reqBody)
-    }, [name, city, contact, email, expertise, country, techStack])
+    }, [name, city, contact, password , email, expertise, country, techStack])
 
     const showError = () => {
         setshowErrorMessage(true);
@@ -362,46 +366,49 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                                 <h2>{stageHeadings[currentStage]}</h2>
                             </div>
 
-                            <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
-                            {currentStage === stages.PERSONAL_INFO && (
-                                <>
-                                    <PersonalInfo expertiseRef={expertiseRef} contact={contact} expertise={expertise} name={name} email={email} country={country} city={city} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
-                                    <div className={styles.wrapper}>
-                                        <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver}  showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
-                                    </div>
-                                </>
-                            )}
+                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
-                            {currentStage === stages.VERIFICATION && (
-                                <>
-                                    <CandidateVerify setMessage={setMessage} showSuccess={showSuccess} sendEmail={sendEmail} email={email} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
-                                    <div className={styles.wrapper}>
-                                        <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
-                                    </div>
-                                </>
-                            )}
+                        {currentStage === stages.PERSONAL_INFO && (
+                            <>
+                                <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} password = {password} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef = {passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword = {setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
+                                <div className={styles.wrapper}>
+                                    <PersonalInfoBtns  showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver}  showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                </div>
+                            </>
+                        )}
 
-                            {currentStage === stages.SKILLS && (
-                                <>
-                                    <CandSelfSkill handleTestPreparation={handleTestPreparation} setTechStack={setTechStack} />
-                                    <div className={styles.wrapper}>
-                                        <CandSelfSkillBtns handleTestPreparation={handleTestPreparation} onContinue={toggleComponent} onBack={backToggleComponent} />
-                                    </div>
-                                </>
-                            )}
+                        {currentStage === stages.VERIFICATION && (
+                            <>
+                                <CandidateVerify otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
+                                <div className={styles.wrapper}>
+                                    <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
+                                </div>
+                            </>
+                        )}
 
-                            {currentStage === stages.ASSESSMENT && (
-                                <>
-                                    <CandSelfAssessment />
-                                    <div className={styles.wrapper}>
-                                        <CandSelfAssessmentBtns questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    )
-                    }
+                        {currentStage === stages.SKILLS && (
+                            <>
+                                <CandSelfSkill handleTestPreparation={handleTestPreparation} setTechStack={setTechStack} />
+                                <div className={styles.wrapper}>
+                                    <CandSelfSkillBtns handleTestPreparation={handleTestPreparation} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                </div>
+                            </>
+                        )}
+
+                        {currentStage === stages.ASSESSMENT && (
+                            <>
+                                <CandSelfAssessment />
+                                <div className={styles.wrapper}>
+                                    <CandSelfAssessmentBtns questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                </div>
+                            </>
+                        )}
+
+                    </div>
+
+                    )}
+
                 </div>
 
             </div>
