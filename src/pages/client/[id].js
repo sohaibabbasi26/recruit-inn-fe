@@ -100,7 +100,6 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       setIsLoading(true)
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-results-by-company`,
-
         {
           method: 'POST',
           headers: {
@@ -109,6 +108,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           },
           body: JSON.stringify(requestBody),
         });
+
       console.log('response: ', response);
       if (!response.ok) {
         console.log(`Error: ${response.status}`);
@@ -126,52 +126,6 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     };
   }, [id])
 
-  // const preprocessCandidatesData = (candidates, company) => {
-  //   return candidates.map(candidate => {
-  //     let latestResult = {
-  //       softskillRating: 0,
-  //       technicalRating: 0,
-  //       softskillAssessment: "",
-  //       technicalAssessment: "",
-  //       createdAt: null
-  //     };
-
-  //     if (candidate.results && candidate.results.length > 0) {
-  //       const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  //       latestResult = sortedResults[0].result || latestResult;
-  //       latestResult.createdAt = sortedResults[0].createdAt;
-  //     }
-
-  //     const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
-  //     const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-
-  //     return {
-  //       name: candidate.name,
-  //       email: candidate.email,
-  //       position: candidate.position,
-  //       score: score.toFixed(1),
-  //       contactNo: candidate.contact_no,
-  //       date: formattedDate,
-  //       expertise: candidate.expertise ? candidate.expertise.techStack : [],
-  //       jobType: candidate.expertise ? candidate.expertise.jobtype : 'N/A',
-  //       position: candidate.expertise ? candidate.expertise.position : 'N/A',
-  //       overAllExperience: candidate.over_all_exp || 'N/A',
-  //       results: {
-  //         softskillRating: latestResult.softskillRating,
-  //         technicalRating: latestResult.technicalRating,
-  //         softskillAssessment: latestResult.softskillAssessment,
-  //         technicalAssessment: latestResult.technicalAssessment
-  //       },
-  //       company: {
-  //         name: company.company_name,
-  //         location: company.company_location,
-  //         email: company.email,
-  //         contactNo: company.contact_no,
-  //         status: company.status
-  //       }
-  //     };
-  //   });
-  // };
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates.map(candidate => {
