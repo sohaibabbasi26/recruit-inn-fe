@@ -136,7 +136,6 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
             localStorage.setItem('client-token', data?.data?.token);
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('clientId', data?.data?.id); // Save client ID
-            // document.cookie = `authToken=${data?.data?.token}; path=/;`;
             redirectToClientPage(data?.data?.id); // Reuse the navigation function
         } else {
             showError('Login failed. Please check your credentials.');

@@ -6,19 +6,19 @@ import { useActiveItem } from '../src/contexts/ActiveItemContext';
 import { useRouter } from 'next/router';
 
 
-const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
+const CandidateSideNavbar = ({ navbarIte, showOverlay1, setShowOverlay1 }) => {
     const router = useRouter();
-    const[showupgrade , setshowupgrade] = useState(false);
+    const [showupgrade, setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
 
     const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
     const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] = useState(false);
 
-    const upgradeHandler = () =>{
+    const upgradeHandler = () => {
         setshowupgrade(!showupgrade)
     }
-    
+
     const openAddJobHandler = () => {
         setShowOverlay1(true);
         console.log("clicking button");
@@ -42,8 +42,8 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         localStorage.removeItem('client-token');
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('clientId');
-    
-        router.push('/client-login');
+
+        router.push('/candidate-login');
     };
 
 
@@ -66,7 +66,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
 
                     <div className={styles.listContainer}>
                         <div className={styles.list}>
-                            <h4>Jobs <Image src='/dropdown.svg' width={15} height={15} onClick={handleDropDownJobsToggle} /></h4>
+                            {/* <h4>Jobs <Image src='/dropdown.svg' width={15} height={15} onClick={handleDropDownJobsToggle} /></h4>
                             {isDropDownJobsToggle && (
                                 <ul>
                                     <li
@@ -91,10 +91,10 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                                         }
                                         onClick={() => handleItemClick('Closed')}>Closed<Image src='/Restrict.svg' width={listItemSize} height={listItemSize} /></li>
                                 </ul>
-                            )}
+                            )} */}
                         </div>
 
-                        <h4>Candidates <Image src='/dropdown.svg' width={15} height={15} onClick={handleDropDownCandidatesToggle} /></h4>
+                        {/* <h4>Candidates <Image src='/dropdown.svg' width={15} height={15} onClick={handleDropDownCandidatesToggle} /></h4>
                         {isDropDownCandidatesToggle && (
                             <ul>
                                 <li
@@ -131,44 +131,44 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                                     onClick={() => handleItemClick('NotEligible')}
                                 >Not Eligible<Image src='/Warning.svg' width={listItemSize} height={listItemSize} /></li>
                             </ul>
-                        )}
+                        )} */}
                     </div>
                 </div>
                 <div className={`${styles.profnameback} ${styles.focus}`}>
-                {showupgrade && 
-                <div>
-                    <button className={styles.btnup} onClick={openAddJobHandler}>
-                    Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="22"/>
-                    </button>
-                </div>}
-                {showupgrade && 
-                
-                <div>
-                    <button className={styles.btnset} onClick={openAddJobHandler}>
-                    Setting <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"/>
-                    </button>
-                </div>}
+                    {showupgrade &&
+                        <div>
+                            <button className={styles.btnup} onClick={openAddJobHandler}>
+                                Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
+                            </button>
+                        </div>}
+                    {showupgrade &&
 
-                {showupgrade && 
-                
-                <div>
-                    <button className={styles.btnlog} onClick={logoutHandler}>
-                    Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"  style={{  color: '#FF0000' }}/>
-                    </button>
-                </div>}
+                        <div>
+                            <button className={styles.btnset} onClick={openAddJobHandler}>
+                                Setting <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" />
+                            </button>
+                        </div>}
 
-                <div className={styles.profileTab} onClick={upgradeHandler}>
-                <Image src='/dp.svg' height={50} width={50} className='profileImage'  />
-                    <div className={styles.textContent}>
-                        <span style={{ color:'#4A525D'}}>Hello</span>
-                        <h4>Bruce Wayne</h4>
+                    {showupgrade &&
+
+                        <div>
+                            <button className={styles.btnlog} onClick={logoutHandler}>
+                                Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" style={{ color: '#FF0000' }} />
+                            </button>
+                        </div>}
+
+                    <div className={styles.profileTab} onClick={upgradeHandler}>
+                        <Image src='/dp.svg' height={50} width={50} className='profileImage' />
+                        <div className={styles.textContent}>
+                            <span style={{ color: '#4A525D' }}>Hello</span>
+                            <h4>Bruce Wayne</h4>
+                        </div>
+                        <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
                 </div>
-            </div>
             </div>
         </>
     )
 }
 
-export default SideNavbar;
+export default CandidateSideNavbar;

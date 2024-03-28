@@ -43,6 +43,8 @@ const QuestionBox = ({ hasStarted }) => {
                 ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
                 : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
 
+            console.log('API ENDPOINT CURRENT:', apiEndpoint);
+
             try {
                 const response = await fetch(apiEndpoint, {
                     method: "POST",
@@ -51,9 +53,10 @@ const QuestionBox = ({ hasStarted }) => {
                 });
 
                 const data = await response.json();
-
-                if (data && data?.code === 200 && data?.data?.question?.length > 0) {
-                    setQuestions(data?.data?.question); 
+                console.log("questions:",data);
+                if (data && data?.code === 200 && data?.data[0]) {
+                    setQuestions(data?.data[0]?.question); 
+                    console.log("questions:",questions);
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
