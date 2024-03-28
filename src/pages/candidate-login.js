@@ -18,7 +18,6 @@ const CandidateSelfLogin = () => {
     const stageHeadings = {
         LOG_IN: 'Login',
     };
-    
 
     const showError = (message) => {
         setMessage(message);
@@ -29,12 +28,21 @@ const CandidateSelfLogin = () => {
         }, 3000);
       };
 
+      const showSuccess = (message) => {
+        setMessage(message);
+        setShowSuccessMessage(true);
+    
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000);
+      };
+
 
     const showOverlay = true;
 
     return (
         <>  
-            <CandidateSelfLoginOverlay showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} message={message} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
+            <CandidateSelfLoginOverlay showSuccess showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} message={message} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
         </>
     )
 }

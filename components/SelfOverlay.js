@@ -211,7 +211,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     };
 
     const validateNumber = () => {
-        // Check if 'contact' is a string of digits
         return /^\d+$/.test(contact);
     }
 
@@ -221,7 +220,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     };
 
     const handlePersonalInfo = async () => {
-        // const newToken = localStorage.getItem('client-token');
 
         try {
             setIsLoading(true);
@@ -232,7 +230,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                 email: email,
                 over_all_exp: expertise,
                 country: country,
-                applied_through: 'Self'
+                applied_through: 'Self',
+                password: password
             };
 
             console.log("request body: ", reqBody);
