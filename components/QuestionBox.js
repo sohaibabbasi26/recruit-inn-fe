@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { dummyQuestions } from '@/data/dummyQuestions';
 import { useRouter } from 'next/router';
 import { useTest } from '@/contexts/QuestionsContent';
-
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 const QuestionBox = ({ hasStarted }) => {
     const { test } = useTest();
@@ -23,25 +23,25 @@ const QuestionBox = ({ hasStarted }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [disableRecordingButton, setDisableRecordingButton] = useState(false);
     const [questions, setQuestions] = useState();
+    const { speak, cancel } = useSpeechSynthesis();
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const isLastQuestion = currentQuestion === questions?.length;
 
     useEffect(() => {
         const fetchQuestions = async () => {
-            if (!router.isReady) return; 
-
             setIsLoading(true);
 
             const reqBody = {
                 question_id: qid,
             };
 
-            if(pid){
+            if (pid) {
                 reqBody.position_id = pid;
             }
 
             const apiEndpoint = pid 
-            ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
-            : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`; 
+                ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
+                : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
 
             try {
                 const response = await fetch(apiEndpoint, {
@@ -51,10 +51,9 @@ const QuestionBox = ({ hasStarted }) => {
                 });
 
                 const data = await response.json();
-                console.log("questions:",data);
+
                 if (data && data?.code === 200 && data?.data?.question?.length > 0) {
                     setQuestions(data?.data?.question); 
-                    console.log("questions:",questions);
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
@@ -64,8 +63,13 @@ const QuestionBox = ({ hasStarted }) => {
         };
 
         fetchQuestions();
-    }, [router.isReady, qid, pid]);
-
+    }, [qid, pid]);
+    
+    const speakQuestion = (question) => {
+        cancel(); // Ensure that the previous speech is canceled
+        speak({ text: question });
+    };
+    
     useEffect(() => {
         const storedTestData = localStorage.getItem('testData');
         if (storedTestData) {
@@ -202,6 +206,10 @@ const QuestionBox = ({ hasStarted }) => {
             setCurrentQuestion(currentQuestion + 1);
             setRecordingDone(false);
         }
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            speakQuestion(questions[currentQuestionIndex + 1]);
+        }
     }
 
     useEffect(() => {
@@ -315,7 +323,6 @@ const QuestionBox = ({ hasStarted }) => {
                                     })}
                                 </ul>
                             </div>
-
                             <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
                         </div>
 
