@@ -241,6 +241,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [message, setMessage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -339,7 +340,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
-        <SideNavbar  showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
+        <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}
       </div>
     </>
