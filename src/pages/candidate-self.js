@@ -15,7 +15,7 @@ const CandidateSelf = () => {
         PERSONAL_INFO : 'Hello There, Tell Us About Your Self',
         VERIFICATION : 'Please Verify Your Email',
         SKILLS : 'Tell Us About Your Skills',
-        ASSESSMENT : "What Would You Like To Do?    "
+        ASSESSMENT : "What Would You Like To Do?"
     };
 
     const showOverlay = true;

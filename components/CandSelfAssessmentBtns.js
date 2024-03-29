@@ -12,10 +12,14 @@ const CandSelfAssessmentBtns = ({questionId, onContinue, onBack, setCompletedSta
         router.push(`/test?cid=${candidateId}&qid=${questionId}`)
     }
 
+    const redirectToCandidateDashB = () => {
+        router.push(`/candidate/${candidateId}`);
+    }
+
     return (
         <>
             <div className={styles.btnsContainer} >
-                <button id={styles.backBtn} onClick={onClose}>Later</button>
+                <button id={styles.backBtn} onClick={redirectToCandidateDashB}>Later</button>
                 <button id={styles.forwardBtn} onClick={startAssessmentHandler} >Start Assessment<Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize} /></button>
             </div>
         </>

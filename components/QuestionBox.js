@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { dummyQuestions } from '@/data/dummyQuestions';
 import { useRouter } from 'next/router';
 import { useTest } from '@/contexts/QuestionsContent';
-
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 const QuestionBox = ({ hasStarted }) => {
     const { test } = useTest();
@@ -23,25 +23,27 @@ const QuestionBox = ({ hasStarted }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [disableRecordingButton, setDisableRecordingButton] = useState(false);
     const [questions, setQuestions] = useState();
+    const { speak, cancel } = useSpeechSynthesis();
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const isLastQuestion = currentQuestion === questions?.length;
 
     useEffect(() => {
         const fetchQuestions = async () => {
-            if (!router.isReady) return; 
-
             setIsLoading(true);
 
             const reqBody = {
                 question_id: qid,
             };
 
-            if(pid){
+            if (pid) {
                 reqBody.position_id = pid;
             }
 
             const apiEndpoint = pid 
-            ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
-            : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`; 
+                ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
+                : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
+
+            console.log('API ENDPOINT CURRENT:', apiEndpoint);
 
             try {
                 const response = await fetch(apiEndpoint, {
@@ -52,8 +54,11 @@ const QuestionBox = ({ hasStarted }) => {
 
                 const data = await response.json();
                 console.log("questions:",data);
-                if (data && data?.code === 200 && data?.data?.question?.length > 0) {
-                    setQuestions(data?.data?.question); 
+                if (data && data?.code === 200 && data?.data[0] ) {
+                    console.log(hasStarted)
+                    setQuestions(data?.data[0]?.question);
+                    console.log("there?" ,data?.data[0]?.question[0].question); 
+                    speakQuestion(data?.data[0]?.question[0]);
                     console.log("questions:",questions);
                 }
             } catch (err) {
@@ -64,8 +69,14 @@ const QuestionBox = ({ hasStarted }) => {
         };
 
         fetchQuestions();
-    }, [router.isReady, qid, pid]);
+    }, [qid, pid , hasStarted]);
 
+    const speakQuestion = (questionobj) => {
+        const question = questionobj.question;
+        cancel();
+        speak({text : question});
+    };
+    
     useEffect(() => {
         const storedTestData = localStorage.getItem('testData');
         if (storedTestData) {
@@ -202,6 +213,11 @@ const QuestionBox = ({ hasStarted }) => {
             setCurrentQuestion(currentQuestion + 1);
             setRecordingDone(false);
         }
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            console.log(questions[currentQuestionIndex + 1]);
+            speakQuestion(questions[currentQuestionIndex + 1]);
+        }
     }
 
     useEffect(() => {
@@ -315,7 +331,6 @@ const QuestionBox = ({ hasStarted }) => {
                                     })}
                                 </ul>
                             </div>
-
                             <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
                         </div>
 

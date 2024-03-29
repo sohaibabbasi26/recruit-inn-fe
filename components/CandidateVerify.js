@@ -1,7 +1,7 @@
 import styles from './CandidateVerify.module.css';
 import Image from 'next/image';
 
-const CandidateVerify = ({otp,setOtp ,isCodeInvalid}) => {
+const CandidateVerify = ({otp,setOtp ,isCodeInvalid, sendEmail, email ,setMessage, showSuccess}) => {
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
@@ -42,7 +42,11 @@ const CandidateVerify = ({otp,setOtp ,isCodeInvalid}) => {
                         </div>
                         {/* {isCodeInvalid && <p style={{ color: 'red' }}>Invalid code entered. Please try again.</p>} */}
 
-                        <p id={styles.margin}>Didn't receive the code? <span> Resend code </span></p>
+                        <p id={styles.margin}>Didn't receive the code? <span onClick={() => {
+                            sendEmail(email);
+                            setMessage('An email has been sent again!');
+                            showSuccess();
+                            }}> Resend code </span></p>
                     </div>
 
                     <div className={styles.imageDiv}>

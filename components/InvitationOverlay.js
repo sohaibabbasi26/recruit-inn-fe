@@ -17,6 +17,24 @@ import ErrorIndicator from './ErrorIndicator';
 const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
     const { expertiseItem, setExpertiseItem } = useExpertiseContext();
+    useEffect(() => {
+        // Load form data from local storage when the component mounts
+        console.log("data saved successfully")
+        try {
+          const savedFormData = JSON.parse(localStorage.getItem('invitationFormData')) || {};
+          console.log(savedFormData.name);
+          nameRef.current.value = savedFormData.name || '';
+          emailRef.current.value = savedFormData.email || '';
+          contactRef.current.value = savedFormData.contact || '';
+          expertiseRef.current.value = savedFormData.expertise || '';
+          countryRef.current.value = savedFormData.country || '';
+          cityRef.current.value = savedFormData.city || '';
+          
+        } catch (error) {
+          console.error('Error loading form data from local storage:', error);
+        }
+      }, []);
+
     console.log("expertise Item in invitationOverlay :", expertiseItem);
     const router = useRouter();
     const { client_id } = router.query;
@@ -75,12 +93,12 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         });
     }, [showOverlay, onClose])
 
-
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.JOB_DETAIL);
     const [completedStages, setCompletedStages] = useState([]);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     const [contact, setContact] = useState();
     const [expertise, setExpertise] = useState();
     const [country, setCountry] = useState();
@@ -109,7 +127,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
     useEffect(() => {
         console.log("hey its me! req body", reqBody);
-    }, [name, city, country, expertise, contact, email]);
+    }, [name, city, country , password , expertise, contact, email]);
 
     useEffect(() => {
         const allFields = validateAllFields();
@@ -142,6 +160,14 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
     }, [name]);
 
+    useEffect(() => {
+        if (password?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, password: 'Pasword is required.' }));
+        } else {
+            const { password, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [password]);
 
     useEffect(() => {
         if (contact?.trim() === '') {
@@ -180,7 +206,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [expertise]);
 
     const validateAllFields = () => {
-        return name?.trim() !== '' && email?.trim() !== '' && contact?.trim() !== '' && expertise?.trim() !== '' && country?.trim() !== '' && city?.trim() !== ''
+        return name?.trim() !== '' && email?.trim() !== '' && contact?.trim() !== '' && password?.trim() !== '' && expertise?.trim() !== '' && country?.trim() !== '' && city?.trim() !== ''
     }
 
     const handleContinue = () => {
@@ -191,7 +217,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
         console.log("Debug: Name:", name, "Email:", email,
-            "city:", city, "Country", country, "expertise: ", expertise,
+            "city:", city, "Country", country, "password", password ,"expertise: ", expertise,
             "contact:", contact
         );
 
@@ -203,6 +229,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             email: email,
             over_all_exp: expertise,
             contact_no: contact,
+            Password : password,
             applied_through: clientData?.client_name,
             company_id: newId,
             expertise: newExpert,
@@ -236,6 +263,10 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
         if (!contact?.trim()) {
             errors.contact = 'Please enter a contact number.';
+            isValid = false;
+        }
+        if (!password?.trim()) {
+            errors.password = 'Please enter a Password';
             isValid = false;
         }
 
@@ -355,12 +386,12 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             default:
                 setCurrentStage(stages.JOB_DETAIL)
         }
+        updateFormData();
     }
 
     // useEffect(() => {
 
     // },[])
-
 
     useEffect(() => {
         const { client_id } = router.query;
@@ -427,6 +458,22 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
     }, [positionId, router.query, router.isReady])
 
+    const updateFormData = () => {
+        // Save form data to local storage whenever it changes
+        try {
+          const formData = {
+            name: nameRef.current.value,
+            email: emailRef.current.value,
+            contact: contactRef.current.value,
+            expertise: expertiseRef.current.value,
+            country: countryRef.current.value,
+            city: cityRef.current.value,
+          };
+          localStorage.setItem('invitationFormData', JSON.stringify(formData));
+        } catch (error) {
+          console.error('Error saving form data to local storage:', error);
+        }
+      };
 
     const createCandidate = async () => {
 
@@ -478,7 +525,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                         </div>
 
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
-
                         {currentStage === stages.JOB_DETAIL && (
                             <>
                                 <JobDetails clientName={clientData?.company_name} details={jobDetails} />
@@ -498,6 +544,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     expertise={expertise}
                                     country={country}
                                     city={city}
+                                    password = {password}
                                     showSuccessMessage={showSuccessMessage}
                                     msgText={message}
                                     // validationErrors={validationErrors}
@@ -513,6 +560,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     setEmail={setEmail}
                                     setExpertise={setExpertise}
                                     setName={setName}
+                                    setPassword = {setPassword}
                                 />
                                 <div className={styles.wrapper}>
                                     <PersonalInfoBtns showSuccess={showSuccess} onContinue={handleContinue} onBack={backToggleComponent} />

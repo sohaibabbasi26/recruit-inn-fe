@@ -12,14 +12,14 @@ import ForgotPasswordBtns from './ForgotPassBtns';
 import ErrorIndicator from './ErrorIndicator';
 import SuccessIndicator from './SuccessIndicator';
 
-const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, showOverlay }) => {
+const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, showOverlay }) => {
 
     const overlayRef = useRef(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [emailReceiver, setEmailReceiver] = useState();
-    const [companyId, setCompanyId] = useState('');
+    // const [candidateId, setCandidateId] = useState('');
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -40,8 +40,6 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
             setShowSuccessMessage(false);
         }, 3000);
     };
-
-
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -82,45 +80,28 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
     const [viewMode, setViewMode] = useState('login');
     const [subject, setSubject] = useState('');
     const [text, setText] = useState('');
+    const [candidateId,setCandidateId] = useState();
+    
 
-    // const loginApiCall = async () => {
-    //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             email: email,
-    //             password: password
-    //         })
-    //     });
-
-    //     const data = await response.json();
-    //     console.log('login info:', data?.data);
-    //     if (data?.data?.token) {
-    //         localStorage.setItem('client-token', data?.data?.token);
-    //         router.push(`/client/${data?.data?.id}`)
-    //     } else {
-    //         showError('Login failed. Please check your credentials.');
-    //     }
-    // }
-
-    const redirectToClientPage = (clientId) => {
-        router.push(`/client/${clientId}`);
+    const redirectToClientPage = (candidateId) => {
+        router.push(`/candidate/${candidateId}`);
     };
+
     useEffect(() => {
         // Check if user is logged in
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn) {
-            const clientId = localStorage.getItem('clientId');
-            if (clientId) {
-                redirectToClientPage(clientId);
+            const candidate_id = localStorage.getItem('candidateID');
+            if (candidate_id) {
+                redirectToClientPage(candidate_id);
             }
         }
     }, [router]);
 
     const loginApiCall = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`, {
+        
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -130,27 +111,28 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
                 password: password
             })
         });
+
         const data = await response.json();
         console.log('login info:', data?.data);
+        setCandidateId(data?.data?.id);
         if (data?.data?.token) {
-            localStorage.setItem('client-token', data?.data?.token);
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('clientId', data?.data?.id); // Save client ID
-            redirectToClientPage(data?.data?.id); // Reuse the navigation function
+            localStorage.setItem('candidate-token', data?.data?.token);
+            localStorage.setItem('isLoggedInCandidate', 'true');
+            localStorage.setItem('candidateId', data?.data?.id); 
+            redirectToClientPage(data?.data?.id);   
         } else {
             showError('Login failed. Please check your credentials.');
         }
     };
 
-
-    useEffect(() => {
-        const demolink = `http://localhost:3000/set-password/${companyId}`;
+    useEffect(() => {   
+        const demolink = `http://localhost:3000/cand-new-pass/${candidateId}`;
         setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
         setText(`
         follow the link to set up your new password: \n
             ${demolink}
         `)
-    }, [companyId, emailReceiver]);
+    }, [candidateId, emailReceiver]);
 
 
     const checkIfEmailIsInDbHandler = async () => {
@@ -165,19 +147,19 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate`, {
                 method: 'POST',
                 body: JSON.stringify(reqBody),
                 headers: { 'Content-Type': 'application/json' }
             });
             const data = await response.json();
             console.log("response about client checking:", data);
-            setCompanyId(data?.data?.message?.company_id);
+            setCandidateId(data?.data?.message?.candidate_id);
 
-            if (data?.data?.message?.company_id) {
-                setCompanyId(data?.data?.message?.company_id);
-
-                const demolink = `https://app.recruitinn.ai/new-password/${data?.data?.message?.company_id}`;
+            if (data?.data?.message?.candidate_id) {
+                setCandidateId(data?.data?.message?.candidate_id);
+                // ${candidateId}
+                const demolink = `https://app.recruitinn.ai/cand-new-pass/${data?.data?.message?.candidate_id}`;
                 const subject = 'RECRUITINN: SET UP YOUR NEW PASSWORD';
                 const text = `Follow the link to set up your new password: \n ${demolink}`;
 
@@ -241,7 +223,9 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
                                 <>
                                     <ForgotPassword email={email} setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
                                     <div className={styles.wrapper}>
-                                        <ForgotPasswordBtns setViewMode={setViewMode} checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler} email={emailReceiver} />
+                                        <ForgotPasswordBtns setViewMode={setViewMode}
+                                        checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler}
+                                         email={emailReceiver} />
                                     </div>
                                 </>
                             ) : (
@@ -251,10 +235,9 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
                         </div>
                     )}
                 </div>
-
             </div>
         </>
     )
 }
 
-export default LoginOverlay;
+export default CandidateSelfLoginOverlay;
