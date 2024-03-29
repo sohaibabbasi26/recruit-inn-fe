@@ -54,8 +54,11 @@ const QuestionBox = ({ hasStarted }) => {
 
                 const data = await response.json();
                 console.log("questions:",data);
-                if (data && data?.code === 200 && data?.data[0]) {
-                    setQuestions(data?.data[0]?.question); 
+                if (data && data?.code === 200 && data?.data[0] ) {
+                    console.log(hasStarted)
+                    setQuestions(data?.data[0]?.question);
+                    console.log("there?" ,data?.data[0]?.question[0].question); 
+                    speakQuestion(data?.data[0]?.question[0]);
                     console.log("questions:",questions);
                 }
             } catch (err) {
@@ -66,11 +69,12 @@ const QuestionBox = ({ hasStarted }) => {
         };
 
         fetchQuestions();
-    }, [qid, pid]);
-    
-    const speakQuestion = (question) => {
-        cancel(); // Ensure that the previous speech is canceled
-        speak({ text: question });
+    }, [qid, pid , hasStarted]);
+
+    const speakQuestion = (questionobj) => {
+        const question = questionobj.question;
+        cancel();
+        speak({text : question});
     };
     
     useEffect(() => {
@@ -211,6 +215,7 @@ const QuestionBox = ({ hasStarted }) => {
         }
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
+            console.log(questions[currentQuestionIndex + 1]);
             speakQuestion(questions[currentQuestionIndex + 1]);
         }
     }
