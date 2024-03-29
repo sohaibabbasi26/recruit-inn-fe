@@ -1,7 +1,7 @@
 .masterContainer {
     background-color: #fff;
     width: 19%;
-    max-height: 87vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import SearchEmpty from '../public/SearchEmpty.gif'
 
-const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, setSelectedCandidate }) => {
+const CandidatesSelfHub = ({name, expertise, results, isLoading, generateTestAndRedirect,heading, data, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
 
     console.log('data in candidates Hub:', data)
 
@@ -14,7 +14,7 @@ const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, set
     const goToAllIconSize = 18;
     const statusSize = 10;
 
-    const hasData = data && data?.length > 0;
+    const hasData = results && results?.length > 0;
 
     const getBackgroundColor = (score) => {
         if (score >= 7 && score <= 10) {
@@ -50,6 +50,10 @@ const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, set
         setReportOverlay(true);
     }
 
+    async function getRedirected(){
+        await generateTestAndRedirect();
+    }
+
     return (
         <>
             <div className={styles.parentContainer}>
@@ -57,19 +61,24 @@ const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, set
                     <div className={styles.headingContainer}>
                         <div className={styles.heading}>
                             <h3>{heading}</h3>
-                            <span>{data?.length}</span>
+                            <span>{results?.length}</span>
                         </div>
 
-                        <select>
-                            <option className={styles.searchOptions}  value='hybrid'>Hybrid</option>
-                            <option className={styles.searchOptions} value='onsite'>On-site</option>
-                            <option className={styles.searchOptions} value='remote'>Remote</option>
-                        </select>
+                        <button onClick={generateTestAndRedirect}>{isLoading ? (
+                        <>
+                            <div className={styles.loader}></div>
+                        </>
+                        ) : 
+                        (
+                        <>
+                        Evaluate Yourself <Image src='/spark.svg' height={30} width={30} />
+                        </>
+                        )} </button>
                     </div>
 
                     <div className={styles.subContainer}>
                         {hasData ? (
-                            data?.map((item) => {
+                            results?.map((item) => {
                                 return (
                                     <>
                                         <div onClick={() => { cardClickHandler(item) }} className={styles.reportsCard} >
@@ -78,13 +87,13 @@ const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, set
                                                 <div className={styles.leftTop}>
                                                     <Image src='/Emoji.svg' width={iconSize} height={iconSize} />
                                                     <div className={styles.basicInfo}>
-                                                        <h4>{item?.name}</h4>
+                                                        <h4>{name}</h4>
                                                         <span>{item?.position}</span>
                                                     </div>
                                                 </div>
                                                 <div className={styles.rightTop}>
-                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span>
-                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{getFilter(Math.ceil(item?.results?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(item?.results?.technicalRating))} width={statusSize} height={statusSize} /> </span>
+                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.result?.technicalRating)) }}>{Math.ceil(item?.result?.technicalRating)}/10</span>
+                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.result?.technicalRating)) }}>{getFilter(Math.ceil(item?.result?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(item?.result?.technicalRating))} width={statusSize} height={statusSize} /> </span>
                                                     <Image src="/rightArrow.svg" height={iconSize} width={iconSize} />
                                                 </div>
                                             </div>
@@ -92,7 +101,7 @@ const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, set
 
                                             <div className={styles.TechStack}>
                                                 <ul>
-                                                    {item?.expertise?.map((skill) => {
+                                                    {expertise?.map((skill) => {
                                                         return (
                                                             <>
                                                                 <li>
@@ -108,8 +117,8 @@ const CandidatesSelfHub = ({ heading, data, reportOverlay, setReportOverlay, set
                                             </div>
 
                                             <div className={styles.lowerContainer}>
-                                                <h4 className={styles.jobType}><Image src='/JOB_TYPE-active.svg' width={goToAllIconSize} height={goToAllIconSize} /> {item?.jobType}</h4>
-                                                <span ><h4>Experience:</h4>  {item?.overAllExperience}</span>
+                                                <h4 className={styles.jobType}><Image src='/JOB_TYPE-active.svg' width={goToAllIconSize} height={goToAllIconSize} />{appliedThrough}</h4>
+                                                <span ><h4>Experience:</h4> {experience}</span>
                                             </div>
                                         </div>
                                     </>

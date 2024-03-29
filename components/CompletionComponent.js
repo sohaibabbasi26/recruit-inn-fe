@@ -5,14 +5,24 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import NameContext from '@/contexts/NameContext';
 
-const CompletionComponent = () => {
-    const { name } = useContext(NameContext);
+const CompletionComponent = ({ getActiveComponent}) => {
+    // const { name } = useContext(NameContext);
     const imagsSize = 130;
     const iconSize = 20;
     const router = useRouter();
 
+
+    // const finishTestHandler = () =>  {
+    //     router.push(getActiveComponent());
+    // }
+
     const finishTestHandler = () =>  {
-        router.push('/landing-page');
+        const route = getActiveComponent();
+        if (route) {
+            router.push(route);
+        } else {
+            console.error("Undefined route from getActiveComponent");
+        }
     }
 
     return (

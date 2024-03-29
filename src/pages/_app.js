@@ -4,18 +4,15 @@ import { ActiveItemProvider } from '../contexts/ActiveItemContext';
 import { TestProvider } from '../contexts/QuestionsContent'
 import { ExpertiseItemProvider } from '@/contexts/ExpertiseContext';
 import NameProvider from '@/contexts/NameProvider';
+import { ActiveFlowProvider } from '@/contexts/ActiveFlowContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ExpertiseItemProvider>
-      <TestProvider>
+      <ActiveFlowProvider>
         <ActiveItemProvider>
-          <NameProvider>
             <Component {...pageProps} />
-          </NameProvider>
         </ActiveItemProvider>
-      </TestProvider>
-    </ExpertiseItemProvider>
+      </ActiveFlowProvider>
   );
 }
 
