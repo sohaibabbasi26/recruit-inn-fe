@@ -35,7 +35,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
       }, []);
 
-    console.log("expertise Item in invitationOverlay :", expertiseItem);
+    // console.log("expertise Item in invitationOverlay :", expertiseItem);
     const router = useRouter();
     const { client_id } = router.query;
     const { position_id } = router.query;
