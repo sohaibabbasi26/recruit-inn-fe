@@ -113,7 +113,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showPaymentOv
         onClick={(()=>{
             checkout(
             {
-                lineItems:[{price: "price_1OhvfyCtLGKA7fQG61J3932Q",quantity:1}]
+                lineItems:[{price: "price_1OzdjYCtLGKA7fQGmDV7WLGT",quantity:1}]
             }
             )
             })}
@@ -139,7 +139,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showPaymentOv
         onClick={(()=>{
             checkout(
             {
-                lineItems:[{price: "price_1OhvfyCtLGKA7fQG61J3932Q",quantity:1}]
+                lineItems:[{price: "price_1OzdfeCtLGKA7fQGVZXDAS4J",quantity:1}]
             }
             )
             })}
