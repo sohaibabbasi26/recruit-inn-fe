@@ -196,8 +196,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             position: position
         }));
 
-        console.log("Expertise:", expertiseItem);
-        console.log("Token in Overlay method:", token)
+        // console.log("Expertise:", expertiseItem);
+        // console.log("Token in Overlay method:", token)
         try {
             setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`, {
@@ -244,12 +244,9 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             console.log('response data of a test creation:', data);
             setQuestionId(data?.data?.message?.question_id);
             console.log('question id:')
-            // setTest(data);
             setIsLoading(false);
             setMessage("Successfully created a test for your job!");
             showSuccess();
-            // localStorage.setItem('testData', JSON.stringify(data));
-            // console.log('test', test)
             console.log(data);
         } catch (error) {
             console.error('Error submitting form:', error);
