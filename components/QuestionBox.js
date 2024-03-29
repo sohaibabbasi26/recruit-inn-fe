@@ -38,7 +38,6 @@ const QuestionBox = ({ hasStarted }) => {
             if (pid) {
                 reqBody.position_id = pid;
             }
-
             const apiEndpoint = pid 
                 ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
                 : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
