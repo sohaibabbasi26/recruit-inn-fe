@@ -7,7 +7,7 @@ import { useTest } from '@/contexts/QuestionsContent';
 import { useSpeechSynthesis } from 'react-speech-kit';
 
 const QuestionBox = ({ hasStarted }) => {
-    const { test } = useTest();
+    // const { test } = useTest();
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [completedQuestions, setCompletedQuestions] = useState([]);
@@ -38,7 +38,6 @@ const QuestionBox = ({ hasStarted }) => {
             if (pid) {
                 reqBody.position_id = pid;
             }
-
             const apiEndpoint = pid 
                 ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
                 : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
@@ -89,6 +88,10 @@ const QuestionBox = ({ hasStarted }) => {
     useEffect(() => {
         console.log('answers:', answers);
     }, [answers]);
+
+    useEffect(()=>{
+        localStorage.setItem('candidate-id',cid);
+    },[cid])
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -224,9 +227,9 @@ const QuestionBox = ({ hasStarted }) => {
         setTimeLeft(59)
     }, [currentQuestion])
 
-    useEffect(() => {
-        console.log('Current test:', test);
-    }, [test]);
+    // useEffect(() => {
+    //     console.log('Current test:', test);
+    // }, [test]);
 
     useEffect(() => {
         if (timeLeft === 0 && (!isLastQuestion)) {

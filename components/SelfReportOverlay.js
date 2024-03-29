@@ -6,7 +6,7 @@ import Assessment from './Assessment';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
+const SelfReportOverlay = ({ onClose, reportOverlay, selectedCandidate, email, jobType, date, contact , jobtype}) => {
 
     console.log('selected candidate is:',selectedCandidate)
 
@@ -165,13 +165,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                                 <div className={styles.info}>
                                     <h3>{selectedCandidate?.name}</h3>
                                     <p>{selectedCandidate?.position}</p>
-                                    <h4 style={{ backgroundColor: getBackgroundColor(Math.ceil(selectedCandidate?.results?.technicalRating)) }}>{getFilter(Math.ceil(selectedCandidate?.results?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.results?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
+                                    <h4 style={{ backgroundColor: getBackgroundColor(Math.ceil(selectedCandidate?.result?.technicalRating)) }}>{getFilter(Math.ceil(selectedCandidate?.result?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.result?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
                                 </div>
                             </div>
 
                             <div className={styles.rightContainer}>
                                 <button onClick={downloadPDF}>Download PDF</button>
-                                <span>{Math.ceil(selectedCandidate?.results?.technicalRating)}/10</span>
+                                <span>{Math.ceil(selectedCandidate?.result?.technicalRating)}/10</span>
                             </div>
                         </div>
                         {/* candidate test info div */}
@@ -179,15 +179,15 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                             <ul>
                                 <li>
                                     <span className={styles.bold}>Phone</span>
-                                    <span>{(selectedCandidate?.contactNo) ? selectedCandidate?.contactNo : '03122597173'}</span>
+                                    <span>{contact ? contact  : '03122597173'}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Date</span>
-                                    <span>{selectedCandidate?.date}</span>
+                                    <span>{date}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Job Type</span>
-                                    <span>{selectedCandidate?.jobType}</span>
+                                    <span>{jobtype}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Applied For</span>
@@ -195,7 +195,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Email</span>
-                                    <span>{selectedCandidate?.email}</span>
+                                    <span>{email}</span>
                                 </li>
                             </ul>
                         </div>
@@ -203,8 +203,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                         {/*assessment components */}
                         <div className={styles.cont}>
                         <div className={styles.auto}>
-                        <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
-                        <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
+                        <Assessment heading={headingOne} para={selectedCandidate?.result?.technicalAssessment} score={Math.ceil(selectedCandidate?.result?.technicalRating)} />
+                        <Assessment heading={headingTwo} para={selectedCandidate?.result?.softskillAssessment} score={Math.ceil(selectedCandidate?.result?.softskillRating)} />
                         </div>
                         </div>
                     </div>
@@ -215,4 +215,4 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     )
 }
 
-export default ReportOverlay;
+export default SelfReportOverlay;

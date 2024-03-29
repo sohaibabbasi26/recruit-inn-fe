@@ -6,7 +6,7 @@ import { useActiveItem } from '../src/contexts/ActiveItemContext';
 import { useRouter } from 'next/router';
 
 
-const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
+const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
     const router = useRouter();
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
@@ -20,7 +20,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
     }
     
     const openAddJobHandler = () => {
-        setShowOverlay1(true);
+        setShowOverlay(true);
         console.log("clicking button");
     }
 

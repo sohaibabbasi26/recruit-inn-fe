@@ -29,6 +29,8 @@ import PaymentOverlay from '../../../components/PaymentOverlay';
 import { FormProvider } from '@/contexts/FormContext';
 import CandidateSideNavbar from '../../../components/CandidateSideNavbar';
 import CandidateSuper from '../../../components/CandidateSuper';
+import { useActiveFlow } from '@/contexts/ActiveFlowContext';
+import SelfReportOverlay from '../../../components/SelfReportOverlay';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -40,10 +42,11 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [finalData, setFinalData] = useState(null);
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
   const [token, setToken] = useState(null);
+  const [expertise, setExpertise] = useState();
+  const [questionId, setQuestionId] = useState();
+  const [results, setResults] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
-
-
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedInCandidate');
@@ -53,198 +56,106 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     }
   }, [router]);
 
-//   useEffect(() => {
-//     // Check if user is logged in
-//     const isLoggedIn = localStorage.getItem('isLoggedIn');
+  useEffect(() => {
+    async function fetchCompanyDetails() {
+        const reqBody = {
+            candidate_id : id
+        }
+
+        try {
+            if (id) {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(reqBody),
+                });
+                const data = await response.json();
+                console.log("one candidate details: ", data);
+                // setEmail(data?.data?.email);
+                setExpertise(data?.data?.expertise);
+                setCandName(data?.data?.name);
+                setExperience(data?.data?.over_all_exp);
+                setDate(data?.data?.applied_through);
+                setEmail(data?.data?.email);
+                setJobType(data?.data?.applied_through);
+                setAppliedThrough(data?.data?.applied_through);
+                console.log('Expertise in fetch company details:',expertise);
+            }
+        } catch (err) {
+            console.log('err:', err)
+        }
+    }
+    fetchCompanyDetails();
+    }, [router?.isReady]);
+
+    useEffect(() => {
+        async function fetchResults() {
+            const reqBody = {
+                candidate_id : id
+            }
     
-//     if (!isLoggedIn) {
-//       // If not logged in, redirect to login page
-//       router.push('/client-login');
-//     }
-//   }, [router]);
-
-//   useEffect(() => {
-//     const token = localStorage.getItem('client-token');
-//     async function fetchAllPositions() {
-//       const requestBody = { company_id: id };
-//       setIsLoading(true)
-//       const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`,
-//         {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${token}`
-//           },
-//           body: JSON.stringify(requestBody),
-//         });
-//       console.log('response: ', response);
-//       const allData = await response.json();
-//       setFinalData(allData.data)
-//       setIsLoading(false)
-//       console.log('jsonified response: ', allData.data);
-//     }
-
-//     if (token) {
-//       fetchAllPositions()
-//     }
-
-//   }, [id])
-
-//   useEffect(() => {
-//     if (Array.isArray(finalData)) {
-//       const filterActive = (job) => job?.status === 'Active';
-//       const filterClosed = (job) => job?.status === 'Closed';
-
-//       setActiveJobsData(finalData.filter(filterActive));
-//       setClosedJobsData(finalData.filter(filterClosed));
-//     } else {
-//       console.log('finalData is not an array:', finalData);
-//     }
-//   }, [finalData]);
-
-//   useEffect(() => {
-//     let isMounted = true;
-//     console.log('client_id:', id)
-//     localStorage.setItem('clientId', id);
-//     const token = localStorage.getItem('client-token');
-//     setToken(token)
-//     async function fetchAllCandidateReports() {
-//       const requestBody = { company_id: id };
-//       setIsLoading(true)
-
-//       const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-results-by-company`,
-//         {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${token}`
-//           },
-//           body: JSON.stringify(requestBody),
-//         });
-
-//       console.log('response: ', response);
-//       if (!response.ok) {
-//         console.log(`Error: ${response.status}`);
-//       }
-//       const allData = await response.json();
-//       if (isMounted) {
-//         setAllCandidateReports(allData);
-//         setIsLoading(false);
-//       }
-//       console.log('jsonified candidates response: ', allData);
-//     }
-//     fetchAllCandidateReports()
-//     return () => {
-//       isMounted = false;
-//     };
-//   }, [id])
+            try {
+                if (id) {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(reqBody),
+                    });
+                    const data = await response.json();
+                    console.log("one candidate result details: ", data);
+                    setResults(data?.data);
+                    console.log('Expertise in fetch company details:',expertise);
+                }
+            } catch (err) {
+                console.log('err:', err)
+            }
+        }
+        fetchResults();
+        }, [router?.isReady]);
 
 
-//   const preprocessCandidatesData = (candidates, company) => {
-//     return candidates.map(candidate => {
-//       let latestResult = {
-//         softskillRating: 0,
-//         technicalRating: 0,
-//         softskillAssessment: "",
-//         technicalAssessment: "",
-//         createdAt: null
-//       };
+    useEffect(() => {
+        setActiveFlow('candidate-self');
+        console.log('current flow:',activeFlow);
+    },[])
 
-//       if (candidate.results && candidate.results.length > 0) {
-//         const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-//         latestResult = sortedResults[0].result || latestResult;
-//         latestResult.createdAt = sortedResults[0].createdAt;
-//       }
+    const generateTestAndRedirect = async () => {
+        const reqBody = {
+            expertise : expertise
+        }
 
-//       const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
-//       const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
+        console.log('generate test and redirect:' , reqBody);
 
-//       const expertiseList = candidate.expertise.map(exp => ({
-//         skill: exp.skill,
-//         level: exp.level
-//       }));
-
-//       const inferredPosition = candidate.expertise.length > 0 ? candidate.expertise[0].skill : 'N/A'; // Inferred position from the first skill
-
-//       return {
-//         position: candidate.position,
-//         jobType: candidate.job_type,
-//         name: candidate.name,
-//         email: candidate.email,
-//         score: score.toFixed(1),
-//         contactNo: candidate.contact_no,
-//         date: formattedDate,
-//         expertise: expertiseList,
-//         position: inferredPosition,
-//         overAllExperience: candidate.over_all_exp || 'N/A',
-//         results: {
-//           softskillRating: latestResult.softskillRating,
-//           technicalRating: latestResult.technicalRating,
-//           softskillAssessment: latestResult.softskillAssessment,
-//           technicalAssessment: latestResult.technicalAssessment
-//         },
-//         company: {
-//           name: company.company_name,
-//           location: company.company_location,
-//           email: company.email,
-//           contactNo: company.contact_no,
-//           status: company.status
-//         }
-//       };
-//     });
-//   };
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reqBody),
+            });
+            const data = await response.json();
+            localStorage.setItem('testData', JSON.stringify(data));
+            setQuestionId(data?.data?.message?.question_id);
+            console.log('question id:', questionId);
+            console.log('data in test preparation:', data);
+            setIsLoading(false);
+            router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}`);
+        } catch (err) {
+            setIsLoading(false);    
+            console.log("error:", err)
+        }
+    }
 
 
-//   useEffect(() => {
-//     async function fetchClientInfo() {
-//       const reqBody = {
-//         id
-//       }
-//       console.log("req body:", reqBody)
-//       try {
-//         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-company`,
-//           {
-//             method: 'POST',
-//             headers: { 'Content-type': 'application/json' },
-//             body: JSON.stringify(reqBody)
-//           })
-//         const data = await response.json();
-//         setCompanyName(data?.data?.company_name);
-//         localStorage.setItem('clientName', companyName);
-//         console.log("company self data:", data);
-//       } catch (err) {
-//         console.log("ERROR:", err);
-//       }
-//     }
-//     if (id) {
-//       fetchClientInfo();
-//     }
-//   }, [id])
-
-//   console.log("Company Data:", allCandidatesReports);
-//   console.log("Candidates Data:", allCandidatesReports?.data?.candidates);
-//   console.log("testing:", allCandidatesReports?.data?.candidates)
-
-//   useEffect(() => {
-//     if (allCandidatesReports?.data?.candidates && allCandidatesReports?.data) {
-//       const processedData = preprocessCandidatesData(allCandidatesReports.data.candidates, allCandidatesReports.data);
-//       setPreprocessedCandidates(processedData);
-//       console.log('pre processed data:', preprocessedCandidates)
-
-//       const filterRecommended = (candidate) => Math.ceil(candidate?.results?.technicalRating) >= 7 && Math.ceil(candidate?.results?.technicalRating) <= 10;
-//       const filterQualified = (candidate) => Math.ceil(candidate?.results?.technicalRating) >= 5 && Math.ceil(candidate?.results?.technicalRating) < 7;
-//       const filterNotEligible = (candidate) => Math.ceil(candidate?.results?.technicalRating) < 5;
-
-//       setRecommendedCand(processedData.filter(filterRecommended));
-//       setQualifiedCand(processedData.filter(filterQualified));
-//       setNotEligibleCand(processedData.filter(filterNotEligible));
-//       console.log('Recommended Candidate:', recommendedCand);
-//       console.log('Qualified Candidate:', qualifiedCand);
-//       console.log('Not Eligible Candidate:', notEligibleCand);
-//     }
-//   }, [allCandidatesReports]);
 
   const { activeItem } = useActiveItem();
+  const {setActiveFlow, activeFlow} = useActiveFlow();
   const [showOverlay, setShowOverlay] = useState(false);
   const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
   const [reportOverlay, setReportOverlay] = useState(false);
@@ -254,6 +165,14 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [message, setMessage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [candName, setCandName] = useState();
+  const [experience, setExperience] = useState();
+  const [appliedThrough, setAppliedThrough] = useState();
+  const [contact,setContact] = useState();
+  const [date, setDate] = useState();
+  const [jobtype, setJobType] = useState();
+  const [email, setEmail] = useState();
+
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -270,6 +189,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       setShowSuccessMessage(false);
     }, 3000);
   };
+
 
   const stages = {
     ADD_SKILL: 'ADD_SKILL',
@@ -304,7 +224,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <CandidateSuper />
+          <CandidateSuper setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience}  name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect}  />
         </>;
       default:
         return null;
@@ -318,11 +238,10 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       <FormProvider>
         {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       </FormProvider>
-      {reportOverlay && <ReportOverlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
+      {reportOverlay && <SelfReportOverlay email={email} jobtype={jobtype} date={date} contact={contact} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
-      <div className={styles.clientPortal}>
-        {/* <SideNavbar  showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} /> */}
+      <div className={styles.clientPortal}> 
 
         <CandidateSideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}

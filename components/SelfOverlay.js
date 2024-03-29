@@ -328,7 +328,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const handleTestPreparation = async () => {
         console.log("request.boy in handle test prep method:", req)
-
+        
         try {
             setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
@@ -342,7 +342,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             localStorage.setItem('testData', JSON.stringify(data));
             setQuestionId(data?.data?.message?.question_id);
             console.log('question id:', questionId);
-            console.log('data in set expertise:', data);
+            console.log('data in test preparation:', data);
             setIsLoading(false);
         } catch (err) {
             console.log("error:", err)
@@ -379,7 +379,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
                         {currentStage === stages.VERIFICATION && (
                             <>
-                                <CandidateVerify otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
+                                <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
                                 <div className={styles.wrapper}>
                                     <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
