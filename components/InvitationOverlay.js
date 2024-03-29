@@ -16,7 +16,7 @@ import ErrorIndicator from './ErrorIndicator';
 
 const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
-    const { expertiseItem, setExpertiseItem } = useExpertiseContext();
+    // const { expertiseItem, setExpertiseItem } = useExpertiseContext();
     useEffect(() => {
         // Load form data from local storage when the component mounts
         console.log("data saved successfully")
@@ -35,7 +35,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
       }, []);
 
-    console.log("expertise Item in invitationOverlay :", expertiseItem);
+    // console.log("expertise Item in invitationOverlay :", expertiseItem);
     const router = useRouter();
     const { client_id } = router.query;
     const { position_id } = router.query;
