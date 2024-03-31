@@ -5,6 +5,7 @@ import { dummyQuestions } from '@/data/dummyQuestions';
 import { useRouter } from 'next/router';
 import { useTest } from '@/contexts/QuestionsContent';
 import { useSpeechSynthesis } from 'react-speech-kit';
+import { useTestState } from '@/contexts/TestRequirementContext';
 
 const QuestionBox = ({ hasStarted }) => {
     // const { test } = useTest();
@@ -18,7 +19,7 @@ const QuestionBox = ({ hasStarted }) => {
     const mediaRecorderRef = useRef(null);
     const recordedChunksRef = useRef([]);
     const [answers, setAnswers] = useState([]);
-    const { cid, qid, pid } = router?.query;
+    const { cid, qid, pid , test_req, a_id} = router?.query;
     const [recordingDone, setRecordingDone] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [disableRecordingButton, setDisableRecordingButton] = useState(false);
@@ -26,6 +27,7 @@ const QuestionBox = ({ hasStarted }) => {
     const { speak, cancel } = useSpeechSynthesis();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const { isTestRequired, setIsTestRequired } = useState(false);
     const isLastQuestion = currentQuestion === questions?.length;
 
     useEffect(() => {
@@ -39,8 +41,8 @@ const QuestionBox = ({ hasStarted }) => {
             if (pid) {
                 reqBody.position_id = pid;
             }
-            const apiEndpoint = pid 
-                ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
+            const apiEndpoint = pid
+                ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
                 : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
 
             console.log('API ENDPOINT CURRENT:', apiEndpoint);
@@ -53,13 +55,13 @@ const QuestionBox = ({ hasStarted }) => {
                 });
 
                 const data = await response.json();
-                console.log("questions:",data);
-                if (data && data?.code === 200 && data?.data[0] ) {
+                console.log("questions:", data);
+                if (data && data?.code === 200 && data?.data[0]) {
                     console.log(hasStarted)
                     setQuestions(data?.data[0]?.question);
-                    console.log("there?" ,data?.data[0]?.question[0].question); 
+                    console.log("there?", data?.data[0]?.question[0].question);
                     speakQuestion(data?.data[0]?.question[0]);
-                    console.log("questions:",questions);
+                    console.log("questions:", questions);
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
@@ -69,14 +71,14 @@ const QuestionBox = ({ hasStarted }) => {
         };
 
         fetchQuestions();
-    }, [qid, pid , hasStarted]);
+    }, [qid, pid, hasStarted]);
 
     const speakQuestion = (questionobj) => {
         const question = questionobj.question;
         cancel();
-        speak({text : question});
+        speak({ text: question });
     };
-    
+
     useEffect(() => {
         const storedTestData = localStorage.getItem('testData');
         if (storedTestData) {
@@ -90,9 +92,9 @@ const QuestionBox = ({ hasStarted }) => {
         console.log('answers:', answers);
     }, [answers]);
 
-    useEffect(()=>{
-        localStorage.setItem('candidate-id',cid);
-    },[cid])
+    useEffect(() => {
+        localStorage.setItem('candidate-id', cid);
+    }, [cid])
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -138,7 +140,7 @@ const QuestionBox = ({ hasStarted }) => {
                 setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
             }, 1000);
         } else if (!hasStarted) {
-            setTimeLeft(59); 
+            setTimeLeft(59);
         }
 
         return () => clearInterval(intervalId);
@@ -184,7 +186,7 @@ const QuestionBox = ({ hasStarted }) => {
 
     const submitTestHandler = async () => {
         if (isSubmitted) return;
-        setIsSubmitted(true); 
+        setIsSubmitted(true);
 
         const requestBody = {
             candidate_id: cid,
@@ -202,178 +204,186 @@ const QuestionBox = ({ hasStarted }) => {
         const data = await response.json();
         setIsLoading(false);
         console.log("take-test api response:", data);
-        router.push('/test-submit-completion')
-    }
 
-    const toggleComponent = async () => {
-        setIsLoading(true);
-        if (!recordingDone && recordedChunksRef.current.length === 0) {
-            console.log("No recording made, adding empty string as answer.");
-            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: "No answer." }]);
-        } else {
-            await stopAndHandleRecording();
-            setIsLoading(false);
+        console.log('is test required?',isTestRequired);
+        if(test_req && a_id ){
+            router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}`);
         }
-        setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
-        if (currentQuestion < questions.length) {
-            setCurrentQuestion(currentQuestion + 1);
-            setRecordingDone(false);
-        }
-        if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            console.log(questions[currentQuestionIndex + 1]);
-            speakQuestion(questions[currentQuestionIndex + 1]);
+        else{
+            router.push('/test-submit-completion');
         }
     }
 
-    useEffect(() => {
-        setTimeLeft(59)
-    }, [currentQuestion])
 
-    // useEffect(() => {
-    //     console.log('Current test:', test);
-    // }, [test]);
-
-    useEffect(() => {
-        if (timeLeft === 0 && (!isLastQuestion)) {
-            toggleComponent();
-        }
-        const intervalId = setInterval(() => {
-            setTimeLeft(timeLeft - 1);
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    }, [timeLeft, isLastQuestion]);
-
-    const stopAndHandleRecording = async () => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
-            await new Promise((resolve) => {
-                mediaRecorderRef.current.onstop = resolve;
-                mediaRecorderRef.current.stop();
-            });
-            setIsRecording(false);
-            let blob;
-            if (recordedChunksRef.current.length > 0) {
-                blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
-                console.log(`Blob created: Size - ${blob.size}, Type - ${blob.type}`);
-            } else {
-                blob = new Blob([""], { type: 'audio/wav' });
-                console.log("No audio recorded for this question, creating dummy Blob.");
-            }
-
-            const newAudioURL = URL.createObjectURL(blob);
-            setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-
-            const base64Data = await blobToBase64(blob);
-            const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
-            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
-        } else {
-            console.error("Recorder not active or already stopped.");
-        }
-        recordedChunksRef.current = [];
-    };
-
-    async function sendAudioToServer(base64Data) {
-        try {
-            console.log("send audio to server:", base64Data)
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ audio: base64Data }),
-
-            });
-            const data = await response.json();
-            console.log(
-                'audio response:', data.data.transcriptionResult
-            )
-            return data;
-        } catch (error) {
-            console.error('Error sending audio to server:', error);
-            return 'Error in transcription';
-        }
+const toggleComponent = async () => {
+    setIsLoading(true);
+    if (!recordingDone && recordedChunksRef.current.length === 0) {
+        console.log("No recording made, adding empty string as answer.");
+        setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: "No answer." }]);
+    } else {
+        await stopAndHandleRecording();
+        setIsLoading(false);
     }
+    setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
+    if (currentQuestion < questions.length) {
+        setCurrentQuestion(currentQuestion + 1);
+        setRecordingDone(false);
+    }
+    if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        console.log(questions[currentQuestionIndex + 1]);
+        speakQuestion(questions[currentQuestionIndex + 1]);
+    }
+}
 
-    function blobToBase64(blob) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = () => {
-                const base64data = reader.result.split(',')[1];
-                console.log("Converted Base64 Length:", base64data.length);
-                resolve(base64data);
-            };
-            reader.onerror = reject;
+useEffect(() => {
+    setTimeLeft(59)
+}, [currentQuestion])
+
+// useEffect(() => {
+//     console.log('Current test:', test);
+// }, [test]);
+
+useEffect(() => {
+    if (timeLeft === 0 && (!isLastQuestion)) {
+        toggleComponent();
+    }
+    const intervalId = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+}, [timeLeft, isLastQuestion]);
+
+const stopAndHandleRecording = async () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+        await new Promise((resolve) => {
+            mediaRecorderRef.current.onstop = resolve;
+            mediaRecorderRef.current.stop();
         });
+        setIsRecording(false);
+        let blob;
+        if (recordedChunksRef.current.length > 0) {
+            blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
+            console.log(`Blob created: Size - ${blob.size}, Type - ${blob.type}`);
+        } else {
+            blob = new Blob([""], { type: 'audio/wav' });
+            console.log("No audio recorded for this question, creating dummy Blob.");
+        }
+
+        const newAudioURL = URL.createObjectURL(blob);
+        setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+
+        const base64Data = await blobToBase64(blob);
+        const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
+        setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+    } else {
+        console.error("Recorder not active or already stopped.");
     }
+    recordedChunksRef.current = [];
+};
+
+async function sendAudioToServer(base64Data) {
+    try {
+        console.log("send audio to server:", base64Data)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ audio: base64Data }),
+
+        });
+        const data = await response.json();
+        console.log(
+            'audio response:', data.data.transcriptionResult
+        )
+        return data;
+    } catch (error) {
+        console.error('Error sending audio to server:', error);
+        return 'Error in transcription';
+    }
+}
+
+function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            const base64data = reader.result.split(',')[1];
+            console.log("Converted Base64 Length:", base64data.length);
+            resolve(base64data);
+        };
+        reader.onerror = reject;
+    });
+}
 
 
-    return (
-        <>
-            <div className={styles.container}>
+return (
+    <>
+        <div className={styles.container}>
 
-                {/*top container*/}
-                {isLoading ? (
-                    <div className={styles.loader}></div>
-                ) : (
-                    <>
-                        <div className={styles.topContainer}>
-                            <div className={styles.questionNoList}>
-                                <ul>
-                                    {questions?.map((question, index) => {
-                                        return (
-                                            <>
-                                                <li
-                                                    key={question.question_id}
-                                                    style={completedQuestions.includes(question) ?
-                                                        { backgroundColor: '#F0EDFC', color: '#6137DB' } :
-                                                        currentQuestion === question ?
-                                                            { backgroundColor: '#6137DB', color: '#fff' } :
-                                                            { backgroundColor: '#F5F5F5', color: '#4A525D' }}>{question.question_id}
-                                                </li>
-                                            </>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                            <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
+            {/*top container*/}
+            {isLoading ? (
+                <div className={styles.loader}></div>
+            ) : (
+                <>
+                    <div className={styles.topContainer}>
+                        <div className={styles.questionNoList}>
+                            <ul>
+                                {questions?.map((question, index) => {
+                                    return (
+                                        <>
+                                            <li
+                                                key={question.question_id}
+                                                style={completedQuestions.includes(question) ?
+                                                    { backgroundColor: '#F0EDFC', color: '#6137DB' } :
+                                                    currentQuestion === question ?
+                                                        { backgroundColor: '#6137DB', color: '#fff' } :
+                                                        { backgroundColor: '#F5F5F5', color: '#4A525D' }}>{question.question_id}
+                                            </li>
+                                        </>
+                                    )
+                                })}
+                            </ul>
                         </div>
+                        <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
+                    </div>
 
-                        {/* question container */}
+                    {/* question container */}
 
-                        <div className={styles.questionContainer}>
-                            {questions && questions.length > 0 && (
-                                <span>{questions[currentQuestion - 1]?.question}</span>
-                            )}
-                        </div>
-                        {/*Record button */}
+                    <div className={styles.questionContainer}>
+                        {questions && questions.length > 0 && (
+                            <span>{questions[currentQuestion - 1]?.question}</span>
+                        )}
+                    </div>
+                    {/*Record button */}
 
-                        <button
-                            style={{
-                                borderColor: recordingDone ? '#808080' : '',
-                                color: recordingDone ? '#808080' : ''
-                            }}
-                            className={styles.recordBtn}
-                            onClick={isRecording ? stopRecording : startRecording}
-                            disabled={isRecording}
-                        >
-                            <Image src={recordingDone ? '/mic-disabled.svg' : '/mic.svg'} width={20} height={20} />
-                            {isRecording ? 'Stop Recording' : 'Click To Record Answer'}
+                    <button
+                        style={{
+                            borderColor: recordingDone ? '#808080' : '',
+                            color: recordingDone ? '#808080' : ''
+                        }}
+                        className={styles.recordBtn}
+                        onClick={isRecording ? stopRecording : startRecording}
+                        disabled={isRecording}
+                    >
+                        <Image src={recordingDone ? '/mic-disabled.svg' : '/mic.svg'} width={20} height={20} />
+                        {isRecording ? 'Stop Recording' : 'Click To Record Answer'}
+                    </button>
+                    {/*lower container */}
+                    <div className={styles.lowerContainer}>
+                        <button onClick={isLastQuestion ? submitTestHandler : toggleComponent} disabled={!recordingDone}>
+                            {isLastQuestion ? 'Submit Test' : 'Next Question'}
+                            <Image src='/Forward.svg' width={20} height={20} />
+
                         </button>
-                        {/*lower container */}
-                        <div className={styles.lowerContainer}>
-                            <button onClick={isLastQuestion ? submitTestHandler : toggleComponent} disabled={!recordingDone}>
-                                {isLastQuestion ? 'Submit Test' : 'Next Question'}
-                                <Image src='/Forward.svg' width={20} height={20} />
-
-                            </button>
-                        </div>
-                    </>
-                )}
-            </div>
-        </>
-    )
+                    </div>
+                </>
+            )}
+        </div>
+    </>
+)
 }
 
 export default QuestionBox;

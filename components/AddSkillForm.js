@@ -4,7 +4,12 @@ import Image from 'next/image';
 import { forwardRef, useState, useEffect } from 'react';
 // useFormContext
 
-const AddSkillForm = forwardRef(({ setTechStack }) => {
+const AddSkillForm = forwardRef(({ codingExpertise, setCodingExpertise, setTechStack, isTestRequired, setIsTestRequired }) => {
+
+    const handleTestRequirementChange = (event) => {
+        console.log("clicked",event.target.checked);
+        setIsTestRequired(event.target.checked);
+    };
 
     const iconSize = 25;
 
@@ -12,12 +17,13 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
     const [skill2, setSkill2] = useState('');
     const [skill3, setSkill3] = useState('');
     const [skill4, setSkill4] = useState('');
+    const [codingSkill, setCodingSkill] = useState('');
 
     const [level1, setLevel1] = useState('beginner');
     const [level2, setLevel2] = useState('beginner');
     const [level3, setLevel3] = useState('beginner');
     const [level4, setLevel4] = useState('beginner');
-
+    const [codingLevel, setCodingLevel] = useState('beginner');
 
     useEffect(() => {
         const FormSubmissionHandler = (e) => {
@@ -34,7 +40,19 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
         }
 
         FormSubmissionHandler();
-    },[skill1,skill2,skill3,skill4,level1,level2,level3,level4]);
+    }, [skill1, skill2, skill3, skill4, level1, level2, level3, level4]);
+
+    useEffect(() => {
+        const skills = [
+            {skill: codingSkill, level: codingLevel}
+        ]
+
+        const filledSkills = skills.filter(skillObj => skillObj.skill);
+        setCodingExpertise(filledSkills);
+
+        // console.log('')
+
+    }, [codingSkill,codingLevel])
 
 
     return (
@@ -91,6 +109,33 @@ const AddSkillForm = forwardRef(({ setTechStack }) => {
                         <option value="intermediate">Intermediate</option>
                         <option value="expert">Expert</option>
                     </select>
+                </div>
+
+                
+
+                {isTestRequired && (
+                    <>
+                    <p className={styles.codingheading}>Expertise for Coding Assessment:</p>
+                        <div className={styles.inputField}>
+                            <div className={styles.wrapper}>
+                                <Image className={styles.img} src='/Award.svg' width={iconSize} height={iconSize} />
+                                <input type='text' placeholder='Add Required Skill' value={codingSkill} onChange={(e) => setCodingSkill(e.target.value)} />
+                            </div>
+
+                            <select placeholder='Choose level of difficulty' value={codingLevel} onChange={(e) => setCodingLevel(e.target.value)}>
+                                <option value="beginner">Beginnner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </div>
+                    </>
+                )}
+
+                <div>
+                    <label>Would you like to add a coding assignment too?</label>
+                    <input type='checkbox' 
+                    checked={isTestRequired} 
+                    onChange={handleTestRequirementChange}  />
                 </div>
             </form>
         </>

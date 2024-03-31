@@ -17,7 +17,8 @@ import gsap from 'gsap';
 // import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
-import ErrorIndicator from './ErrorIndicator';
+import ErrorIndicator from './ErrorIndicator'; 
+import { useTestState } from '@/contexts/TestRequirementContext';
 
 import { fetchQuestions } from '../store/slices/questionSlice';
 
@@ -90,6 +91,12 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     const descriptionRef = useRef();
     const [questionId, setQuestionId] = useState();
     const [emailReceivers,setEmailReceivers] = useState([{ email: '' }]);
+    const [assessmentId,setAssessmentId] = useState();
+    
+    // const [isTestRequired, setIsTestRequired] = useState(false);
+    const { isTestRequired, setIsTestRequired } = useTestState();
+    const [codingExpertise, setCodingExpertise] = useState(null);
+    const [codeQues, setCodeQues] = useState(null);
 
     const JobPositionRef = useRef();
     const recipientRef = useRef();
@@ -224,6 +231,10 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         console.log('questionId', questionId)
     }, [positionId, questionId, router?.isReady]);
 
+    useEffect(()=>{
+        console.log('expertise for coding:',codingExpertise)
+    },[codingExpertise]);
+
     const handleFormSubmitForTest = async () => {
         const requestBody = {
             expertise: techStack,
@@ -251,7 +262,58 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         } catch (error) {
             console.error('Error submitting form:', error);
         }
+
+        console.log('required:',isTestRequired  )
+
+
+        if(isTestRequired===true){
+
+            
+            try{
+                const req = {    
+                    codingExpertise: codingExpertise,
+                    position_id: positionId
+                }
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(req),
+                });
+                const data = await response.json();
+                setCodeQues(data);
+                setAssessmentId(data?.data?.assessment_id);
+                console.log('assessment id:',assessmentId)
+                console.log('code question data:', data);
+
+                // try{
+                //     const body ={
+
+                //     }
+                //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-coding-assessment`, {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //             'Authorization': `Bearer ${token}`,
+                //         },
+                //         body: JSON.stringify(body),
+                //     });
+                //     const data = await response.json();
+                //     setCodeQues(data);
+                // } catch(err){
+                //     console.log('ERROR:',err);
+                // }
+            } catch (err){
+                console.error('ERROR:', err);
+            }
+        }
     };
+
+    useEffect(()=>{
+        console.log('codeQues:',codeQues);
+    },[codeQues])
 
     const addEmailReceiver = () => {
         console.log('Adding a new email receiver');
@@ -297,33 +359,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
     };
 
-    // const handleEmailInvite = async () => {
-    //     const requestBody = {
-    //         to: emailReceiver,
-    //         subject: subject,
-    //         text: text
-    //     }
-
-    //     try {
-    //         setIsLoading(true);
-    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${token}`,
-    //             },
-    //             body: JSON.stringify(requestBody),
-    //         });
-    //         const data = await response.json();
-    //         setTest(data);
-    //         setIsLoading(false);
-    //         localStorage.setItem('testData', JSON.stringify(data));
-    //         console.log('test', test)
-    //         console.log(data);
-    //     } catch (error) {
-    //         console.error('Error submitting form:', error);
-    //     }
-    // }
 
     return (
         <>
@@ -351,6 +386,10 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                             {currentStage === stages.ADD_SKILL && (
                                 <>
                                     <AddSkillForm
+                                        codingExpertise={codingExpertise}
+                                        setCodingExpertise={setCodingExpertise}
+                                        isTestRequired={isTestRequired}
+                                        setIsTestRequired={setIsTestRequired}
                                         expertiseRef={expertiseRef}
                                         setTechStack={setTechStack}
                                     />
@@ -394,6 +433,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
+                                        assessmentId={assessmentId}
+                                        isTestRequired={isTestRequired}
                                         setEmailReceivers={setEmailReceivers}
                                         emailReceivers={emailReceivers}
                                         handleEmailChange={handleEmailChange}
