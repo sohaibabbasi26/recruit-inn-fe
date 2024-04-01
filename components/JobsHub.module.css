@@ -4,7 +4,7 @@
 .parentContainer {
     width: 98.75%;
     background-color: #F8F7FA;
-    height: 87%;
+    height: 90%;
     border-radius: 20px;
     margin: 1rem 0;
     margin-top: 0;
@@ -12,6 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 2%;
 }
 
 .superContainer {

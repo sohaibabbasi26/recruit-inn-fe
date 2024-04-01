@@ -27,7 +27,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   console.log("all jobs data :", allJobsData)
   console.log("all active jobs data :", allActiveJobsData);
   console.log("all closed jobs data :", allClosedJobsData);
-  const [finalData, setFinalData] = useState(null);
+  const [finalData, setFinalData] = useState();
   const [allCandidatesReports, setAllCandidateReports] = useState();
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
   const [token, setToken] = useState(null);
@@ -66,24 +66,26 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
         });
       console.log('response: ', response);
       const allData = await response.json();
-      setFinalData(allData.data)
-      setIsLoading(false)
+      setFinalData(allData.data);
+      setIsLoading(false);
       console.log('jsonified response: ', allData.data);
-    }
 
+    }
     if (token) {
       fetchAllPositions()
     }
-
   }, [id])
 
   useEffect(() => {
     if (Array.isArray(finalData)) {
+      console.log("Final fata from active filter " , finalData);
       const filterActive = (job) => job?.status === 'Active';
       const filterClosed = (job) => job?.status === 'Closed';
 
       setActiveJobsData(finalData.filter(filterActive));
       setClosedJobsData(finalData.filter(filterClosed));
+
+      console.log("active jobs" , finalData.filter(filterActive))
     } else {
       console.log('finalData is not an array:', finalData);
     }
@@ -311,7 +313,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           <RightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
         </>;
       case 'AllJobs':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} finalData={finalData} toggleOverlay={toggleOverlay} />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay} />
       case 'Active':
         return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay} />
       case 'Closed':

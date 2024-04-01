@@ -23,6 +23,8 @@ const Super = ({
     setSelectedJob
 }) => {
 
+    console.log("final data from Super.js ", finalData);
+    console.log("active data from Super.js ", activeJobsData);
     const showJobOverlay = (job) => {
         setSelectedJob(job);
         setJobOverlay(true)
@@ -36,7 +38,6 @@ const Super = ({
     const activeItem = useActiveItem();
     const iconSize = 20;
     const bellIconSize = 32;
-
     let dataToRender;
     switch (activeItem) {
         case 'AllJobs':

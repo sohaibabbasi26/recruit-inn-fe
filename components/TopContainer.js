@@ -47,7 +47,7 @@ const TopContainer = ({setDescription}) => {
     `About us:
             Write about your company...
 
-Job Description:
+    Job Description:
             Describe your job position...
     `;
     
@@ -62,5 +62,4 @@ Job Description:
         </>
     )
 }
-
 export default TopContainer;

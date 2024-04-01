@@ -42,7 +42,7 @@ const PersonalInfo = forwardRef(({
                     <div>
                         <div className={styles.infoField}>
                             <Image />
-                            <input placeholder='Enter your name' value={name}
+                            <input placeholder='Enter your name' type='text' value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
@@ -62,7 +62,7 @@ const PersonalInfo = forwardRef(({
                     <div>
                         <div className={styles.infoField}>
                             <Image />
-                            <input placeholder='Enter your number' value={contact}
+                            <input placeholder='Enter your number' type='number' value={contact}
                                 onChange={(e) => setContact(e.target.value)}
                             />
                         </div>

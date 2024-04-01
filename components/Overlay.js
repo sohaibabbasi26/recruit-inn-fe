@@ -195,7 +195,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             jobtype: jobtype,
             position: position
         }));
-
         // console.log("Expertise:", expertiseItem);
         // console.log("Token in Overlay method:", token)
         try {
