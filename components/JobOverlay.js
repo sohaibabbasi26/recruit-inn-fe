@@ -238,7 +238,6 @@ useEffect(() => {
                                 </div>
                             </div>
                         </div>
-
                         {/* body */}
                         <div className={styles.copyDiv}>
                             <span onClick={() => {
@@ -270,7 +269,7 @@ useEffect(() => {
                                 <ul>
                                     {selectedJob?.expertise.map((item) => {
                                         return (
-                                            <li ><Image id={styles.unique} src={item?.img} width={iconSize} height={iconSize} />{item?.skill}</li>
+                                            <li><Image id={styles.unique} src={item?.img} width={iconSize} height={iconSize} />{item?.skill}</li>
                                         )
                                     })}
                                 </ul>

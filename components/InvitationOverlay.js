@@ -100,7 +100,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const [completedStages, setCompletedStages] = useState([]);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
     const [contact, setContact] = useState();
     const [expertise, setExpertise] = useState();
     const [country, setCountry] = useState();
@@ -129,14 +128,13 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
     useEffect(() => {
         console.log("hey its me! req body", reqBody);
-    }, [name, city, country , password , expertise, contact, email]);
+    }, [name, city, country , expertise, contact, email]);
 
     useEffect(() => {
         const allFields = validateAllFields();
         console.log('all fields:',allFields);
         setAllFieldsCheck(allFields);
-
-
+        
         if(!validateAllFields){
             setMessage('Please enter all the fields')
             showSuccess();
@@ -161,15 +159,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             setValidationErrors(rest);
         }
     }, [name]);
-
-    useEffect(() => {
-        if (password?.trim() === '') {
-            setValidationErrors(errors => ({ ...errors, password: 'Pasword is required.' }));
-        } else {
-            const { password, ...rest } = validationErrors;
-            setValidationErrors(rest);
-        }
-    }, [password]);
 
     useEffect(() => {
         if (contact?.trim() === '') {
@@ -202,15 +191,22 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         if (expertise?.trim() === '') {
             setValidationErrors(errors => ({ ...errors, expertise: 'Experise is required.' }));
         } else {
-            const { country, ...rest } = validationErrors;
+            const { expertise, ...rest } = validationErrors;
             setValidationErrors(rest);
         }
     }, [expertise]);
 
     const validateAllFields = () => {
-        return name?.trim() !== '' && email?.trim() !== '' && contact?.trim() !== '' && password?.trim() !== '' && expertise?.trim() !== '' && country?.trim() !== '' && city?.trim() !== ''
+        return (
+            (name && name.trim() !== '') &&
+            (email && email.trim() !== '') &&
+            (contact && contact.trim() !== '') &&
+            (expertise && expertise.trim() !== '') &&
+            (country && country.trim() !== '') &&
+            (city && city.trim() !== '')
+        );
+        
     }
-
     const handleContinue = () => {
         const errors = {};
         let isFormIncomplete = false;
@@ -219,7 +215,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
         console.log("Debug: Name:", name, "Email:", email,
-            "city:", city, "Country", country, "password", password ,"expertise: ", expertise,
+            "city:", city, "Country", country ,"expertise: ", expertise,
             "contact:", contact
         );
 
@@ -231,7 +227,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             email: email,
             over_all_exp: expertise,
             contact_no: contact,
-            Password : password,
             applied_through: clientData?.client_name,
             company_id: newId,
             expertise: newExpert,
@@ -246,6 +241,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
             isValid = false;
         }
+        console.log("All fields value :",name , email , contact  , expertise , country , city)
 
         // Simple validation checks
         if (!name?.trim()) {
@@ -265,10 +261,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
         if (!contact?.trim()) {
             errors.contact = 'Please enter a contact number.';
-            isValid = false;
-        }
-        if (!password?.trim()) {
-            errors.password = 'Please enter a Password';
             isValid = false;
         }
 
@@ -292,8 +284,9 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         const hasErrors = Object.keys(validationErrors).length > 0;
         const error = Object.keys(validationErrors);
         console.log('hasErrors:', error);
+        console.log("hasError: ", hasErrors)
 
-        if (!hasErrors) {
+        if (hasErrors) {
             setShowSuccessMessage(false);
             console.log('Form submitted successfully!');
             toggleComponent();
@@ -338,32 +331,65 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     // }
 
     const toggleComponent = () => {
-        // First, check if we are in the PERSONAL_INFO stage and validate fields
-        if (currentStage === stages.PERSONAL_INFO) {
-            const isValid = validateAllFields(); // Ensure this function accurately checks all fields
-            if (!isValid) {
-                // If not valid, possibly show an error message to the user
-                setMessage('Please make sure to fill all the fields correctly.');
-                showSuccess(); // Assuming this function shows the message
-                return; // Do not proceed to the next stage
-            }
-        }
-    
-        // Proceed with setting the next stage as before
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
+        let isValid = false;
     
         switch (currentStage) {
             case stages.JOB_DETAIL:
                 setCurrentStage(stages.PERSONAL_INFO);
                 break;
             case stages.PERSONAL_INFO:
-                setCurrentStage(stages.REQUIRED_SKILLS); // Now we know all fields are validated
+                isValid = validateAllFields();
+                console.log("validation :",validateAllFields());
+                if (!isValid) {
+                    setMessage('Please make sure to fill all the fields correctly.');
+                    showSuccess();
+                    return;
+                }
+                setCurrentStage(stages.REQUIRED_SKILLS);
                 break;
             default:
-                setCurrentStage(stages.JOB_DETAIL); // Fallback to default stage
+                setCurrentStage(stages.JOB_DETAIL);
         }
     };
+    
+
+    // const toggleComponent = () => {
+    //     // First, check if we are in the PERSONAL_INFO stage and validate fields
+    //     // if (currentStage === stages.PERSONAL_INFO) {
+    //     //     const isValid = validateAllFields(); // Ensure this function accurately checks all fields
+    //     //     if (!isValid) {
+    //     //         // If not valid, possibly show an error message to the user
+    //     //         console.log("value of invalid" , isValid)
+    //     //         setMessage('Please make sure to fill all the fields correctly.');
+    //     //         showSuccess(); // Assuming this function shows the message
+    //     //         return; // Do not proceed to the next stage
+    //     //     }
+    //     // }
+    
+    //     // Proceed with setting the next stage as before
+    //     const newCompletedStages = [...completedStages, currentStage];
+    //     setCompletedStages(newCompletedStages);
+    //     let isvalid1 = false;
+    //     switch (currentStage) {
+    //         case stages.JOB_DETAIL:
+    //             setCurrentStage(stages.PERSONAL_INFO);
+    //             break;
+    //         case stages.PERSONAL_INFO:
+    //             isvalid1 = validateAllFields();
+    //             console.log("valid 1: ",isvalid1);
+    //             if (isvalid1) {
+    //                 setMessage("Please fill in at least one skill.");
+    //                 showError();
+    //                 return;
+    //             }
+    //             setCurrentStage(stages.REQUIRED_SKILLS); // Now we know all fields are validated
+    //             break;
+    //         default:
+    //             setCurrentStage(stages.JOB_DETAIL); // Fallback to default stage
+    //     }
+    // };
 
 
     useEffect(() => {
@@ -546,7 +572,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     expertise={expertise}
                                     country={country}
                                     city={city}
-                                    password = {password}
                                     showSuccessMessage={showSuccessMessage}
                                     msgText={message}
                                     // validationErrors={validationErrors}
@@ -562,7 +587,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     setEmail={setEmail}
                                     setExpertise={setExpertise}
                                     setName={setName}
-                                    setPassword = {setPassword}
                                 />
                                 <div className={styles.wrapper}>
                                     <PersonalInfoBtns showSuccess={showSuccess} onContinue={handleContinue} onBack={backToggleComponent} />

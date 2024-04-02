@@ -34,6 +34,7 @@ const PersonalInfo = forwardRef(({
     const handleInputChange = (e, ref) => {
         ref.current.value = e.target.value;
       };
+      
     return (
 
         <>
@@ -58,7 +59,6 @@ const PersonalInfo = forwardRef(({
                         </div>
                         {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors?.email}</div>}
                     </div>
-
                     <div>
                         <div className={styles.infoField}>
                             <Image />
