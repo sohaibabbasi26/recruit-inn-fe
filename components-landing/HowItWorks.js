@@ -1,4 +1,4 @@
-import { useState ,useEffect } from "react";
+    import { useState ,useEffect } from "react";
 import Image from "next/image";
 // import './landingGlobal.css';
 // import './styles.css';

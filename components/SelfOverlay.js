@@ -265,7 +265,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     Your verification code is : ${generatedCode}
                 `
             }
-
             console.log("request body: ", requestBody);
 
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {

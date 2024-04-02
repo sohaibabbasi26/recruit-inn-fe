@@ -25,7 +25,6 @@ const QuestionBox = ({ hasStarted }) => {
     const [questions, setQuestions] = useState();
     const { speak, cancel } = useSpeechSynthesis();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const isLastQuestion = currentQuestion === questions?.length;
 
     useEffect(() => {
@@ -183,8 +182,6 @@ const QuestionBox = ({ hasStarted }) => {
 
 
     const submitTestHandler = async () => {
-        if (isSubmitted) return;
-        setIsSubmitted(true); 
 
         const requestBody = {
             candidate_id: cid,

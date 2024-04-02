@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const ShareLink = ({
+    assessmentId,
+    isTestRequired,
     emailReceivers,
     setEmailReceivers,
     handleEmailChange,
@@ -33,10 +35,10 @@ const ShareLink = ({
 
     useEffect(() => {
         if (questionId) {
-            const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}`;
+            const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`;
             setLink(demolink);
         }
-    }, [questionId]);
+    }, [questionId,isTestRequired,assessmentId]);
 
     const [copySuccess, setCopySuccess] = useState('');
     function copyToClipboard(text) {

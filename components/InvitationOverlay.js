@@ -40,6 +40,8 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const { client_id } = router.query;
     const { position_id } = router.query;
     const { q_id } = router.query;
+    const { test_req } = router.query;
+    const {a_id} = router.query;
 
     console.log("client_id:", client_id)
 
@@ -504,15 +506,15 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         console.log("candidate id:", candidateId)
         if (candidateId) {
             console.log("REDIRECTING TO:")
-            console.log(`/test?cid=${candidateId}&pid=${positionId}`)
-            router.push(`/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}`);
+            console.log(`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`)
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`);
         }
     };
 
     const jobDetails = {
         position: positionData?.position,
         description: positionData?.description
-    }
+    };
 
     return (
         <>

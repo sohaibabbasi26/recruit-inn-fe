@@ -62,7 +62,7 @@ const PersonalInfoSelf = forwardRef(({
                     <div>
                         <div className={styles.infoField}>
                             <Image />
-                            <input placeholder='Enter your number' value={contact}
+                            <input placeholder='Enter your number' type='number' value={contact}
                                 onChange={(e) => setContact(e.target.value)}
                             />
                         </div>
