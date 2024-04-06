@@ -216,8 +216,6 @@ useEffect(() => {
             <div ref={overlayRef} className={styles.parent}>
                 {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
                 {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-
-
                 <div className={styles.btn}>
                     <button onClick={onClose}>
                         <Image src='/shut.svg' width={15} height={15} />
@@ -227,7 +225,7 @@ useEffect(() => {
                 <div className={styles.superContainer}>
                     <Image id={styles.topImage} src='/flower1.png' width={800} height={500} />
                     <div className={styles.coverContainer}>
-
+                        
                         {/*top conatiner */}
                         <div className={styles.topContainer}>
                             <div className={styles.content}>

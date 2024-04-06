@@ -44,8 +44,10 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const {a_id} = router.query;
 
     console.log("client_id:", client_id)
+    console.log("position_id is :" , position_id)
 
     useEffect(() => {
+        console.log("position_id ", position_id);
         try {
             const newExpertise = localStorage.getItem('expertiseData');
 
@@ -112,6 +114,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const [clientData, setClientData] = useState(null);
     const [positionId, setPositionId] = useState(null);
     const [positionData, setPositionData] = useState(null);
+    const [positionStatus , setPositionStatus] = useState(null);
     const [questionId, setQuestionId] = useState();
     const nameRef = useRef(null);
     const emailRef = useRef(null);
@@ -207,11 +210,12 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         );
         
     }
+    
     const handleContinue = () => {
         const errors = {};
         let isFormIncomplete = false;
         let specificMsg = false;
-
+        console.log("validate all fields ", validateAllFields());
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
         console.log("Debug: Name:", name, "Email:", email,
@@ -234,13 +238,14 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
         let isValid = true; // Assume the form is valid initially
 
-        if (!allFieldsCheck) {
-            console.log('isnide if condition:', !allFieldsCheck)
-            setMessage('Please make sure to fill all the fields correctly.')
-            showSuccess();
-            errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
-            isValid = false;
-        }
+        // if (!allFieldsCheck) {
+        //     console.log('isnide if condition:', !allFieldsCheck)
+        //     setMessage('Please make sure to fill all the fields correctly.')
+        //     showSuccess();
+        //     errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
+        //     isValid = false;
+        // }
+
         console.log("All fields value :",name , email , contact  , expertise , country , city)
 
         // Simple validation checks
@@ -286,7 +291,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         console.log('hasErrors:', error);
         console.log("hasError: ", hasErrors)
 
-        if (hasErrors) {
+        if (!hasErrors) {
             setShowSuccessMessage(false);
             console.log('Form submitted successfully!');
             toggleComponent();
@@ -342,7 +347,8 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             case stages.PERSONAL_INFO:
                 isValid = validateAllFields();
                 console.log("validation :",validateAllFields());
-                if (!isValid) {
+                
+                if (!isValid || isValid == undefined) {
                     setMessage('Please make sure to fill all the fields correctly.');
                     showSuccess();
                     return;
@@ -478,8 +484,10 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             setNewExpert(data?.data?.expertise)
             setPositionData(data?.data)
             setPosition(data?.data?.position);
-            setJobType(data?.data?.job_type)
+            setPositionStatus(data?.data?.status);
+            setJobType(data?.data?.job_type);
             console.log('one position data:', data?.data);
+            console.log("position Status", data?.data?.status);
         }
         if (position_id) {
             fetchOnePosition();
@@ -540,10 +548,20 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const jobDetails = {
         position: positionData?.position,
         description: positionData?.description
+
     };
+    useEffect(()=>{
+        console.log("job details:" ,jobDetails);
+    },[])
 
     return (
         <>
+        {positionStatus === "Closed" && 
+        <div className={styles.closejobs}>
+            <p >This job is closed </p>
+        </div>
+        }
+        {positionStatus !== "Closed" &&
             <div ref={overlayRef} className={styles.parent}>
                 {showSuccessMessage && <ErrorIndicator showErrorMessage={showSuccessMessage} showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.superContainer}>
@@ -606,6 +624,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                     </div>
                 </div>
             </div>
+}
         </>
     )
 }

@@ -51,7 +51,6 @@ const Super = ({
             dataToRender = closedJobsData;
             break;
     }
-
     return (
         <div className={styles.superContainer}>
             <div className={styles.topContainer}>
