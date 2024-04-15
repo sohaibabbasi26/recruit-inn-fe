@@ -38,8 +38,8 @@ const QuestionBox = ({ hasStarted }) => {
             if (pid) {
                 reqBody.position_id = pid;
             }
-            const apiEndpoint = pid 
-                ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position` 
+            const apiEndpoint = pid
+                ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
                 : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
 
             console.log('API ENDPOINT CURRENT:', apiEndpoint);
@@ -52,13 +52,13 @@ const QuestionBox = ({ hasStarted }) => {
                 });
 
                 const data = await response.json();
-                console.log("questions:",data);
-                if (data && data?.code === 200 && data?.data[0] ) {
+                console.log("questions:", data);
+                if (data && data?.code === 200 && data?.data[0]) {
                     console.log(hasStarted)
                     setQuestions(data?.data[0]?.question);
-                    console.log("there?" ,data?.data[0]?.question[0].question); 
+                    console.log("there?", data?.data[0]?.question[0].question);
                     speakQuestion(data?.data[0]?.question[0]);
-                    console.log("questions:",questions);
+                    console.log("questions:", questions);
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
@@ -68,14 +68,14 @@ const QuestionBox = ({ hasStarted }) => {
         };
 
         fetchQuestions();
-    }, [qid, pid , hasStarted]);
+    }, [qid, pid, hasStarted]);
 
     const speakQuestion = (questionobj) => {
         const question = questionobj.question;
         cancel();
-        speak({text : question});
+        speak({ text: question });
     };
-    
+
     useEffect(() => {
         const storedTestData = localStorage.getItem('testData');
         if (storedTestData) {
@@ -89,9 +89,9 @@ const QuestionBox = ({ hasStarted }) => {
         console.log('answers:', answers);
     }, [answers]);
 
-    useEffect(()=>{
-        localStorage.setItem('candidate-id',cid);
-    },[cid])
+    useEffect(() => {
+        localStorage.setItem('candidate-id', cid);
+    }, [cid])
 
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -137,7 +137,7 @@ const QuestionBox = ({ hasStarted }) => {
                 setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
             }, 1000);
         } else if (!hasStarted) {
-            setTimeLeft(59); 
+            setTimeLeft(59);
         }
 
         return () => clearInterval(intervalId);
@@ -161,12 +161,9 @@ const QuestionBox = ({ hasStarted }) => {
                     }
                 });
             }, 1000);
-
             return () => clearInterval(intervalId);
         }
     }, [hasStarted, timeLeft, isLastQuestion]);
-
-    // const fetchedData = questions?.data;
 
     const stopMediaStreamTracks = () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
@@ -182,12 +179,11 @@ const QuestionBox = ({ hasStarted }) => {
 
 
     const submitTestHandler = async () => {
-
         const requestBody = {
             candidate_id: cid,
             question_answer: answers
         }
-        setIsLoading(true)
+        setIsLoading(true);
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/take-test`, {
             method: 'POST',
             headers: {
@@ -204,22 +200,38 @@ const QuestionBox = ({ hasStarted }) => {
 
     const toggleComponent = async () => {
         setIsLoading(true);
+
         if (!recordingDone && recordedChunksRef.current.length === 0) {
-            console.log("No recording made, adding empty string as answer.");
-            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: "No answer." }]);
+            const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+            setAnswers(prev => [...prev, {
+                question: questions[currentQuestion - 1]?.question,
+                answer: silentBase64Wav,
+            }]);
+
+            if (currentQuestion < questions.length) {
+                setCurrentQuestion(current => current + 1);
+                setRecordingDone(false);
+            }
+
+            setIsLoading(false);
+            console.log("No recording made, adding silent audio blob as answer.");
+            // });
         } else {
             await stopAndHandleRecording();
             setIsLoading(false);
         }
         setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
         if (currentQuestion < questions.length) {
-            setCurrentQuestion(currentQuestion + 1);
+            setCurrentQuestion(prevCurrent => prevCurrent + 1);
             setRecordingDone(false);
-        }
-        if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            console.log(questions[currentQuestionIndex + 1]);
-            speakQuestion(questions[currentQuestionIndex + 1]);
+            setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
+
+            if (currentQuestionIndex < questions.length - 1) {
+                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                speakQuestion(questions[currentQuestionIndex + 1]);
+            }
+        } else if (isLastQuestion) {
+            await submitTestHandler();
         }
     }
 
@@ -227,9 +239,6 @@ const QuestionBox = ({ hasStarted }) => {
         setTimeLeft(59)
     }, [currentQuestion])
 
-    // useEffect(() => {
-    //     console.log('Current test:', test);
-    // }, [test]);
 
     useEffect(() => {
         if (timeLeft === 0 && (!isLastQuestion)) {
@@ -260,7 +269,6 @@ const QuestionBox = ({ hasStarted }) => {
 
             const newAudioURL = URL.createObjectURL(blob);
             setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-
             const base64Data = await blobToBase64(blob);
             const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
             setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
