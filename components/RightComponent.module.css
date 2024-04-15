@@ -3,6 +3,7 @@
 .superContainer{
     width: 32% ;
     background-color: #fff;
+    margin-top: 7px;
     overflow: hidden;
     display: flex;
     align-items: flex-start;
@@ -21,7 +22,6 @@
     margin-bottom: 25px;
     width: 100%;
 }
-
 .addJobBtn{
     border: none;
     background-color: #6137DB;

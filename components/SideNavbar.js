@@ -38,6 +38,8 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
 
+<<<<<<< HEAD
+=======
     const logoutHandler = () => {
         localStorage.removeItem('client-token');
         localStorage.removeItem('isLoggedIn');
@@ -47,6 +49,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
     };
 
 
+>>>>>>> cb30776a52d0901a8a4041fde010c16c4b2f1e29
     const listItemSize = 28;
     const logoSize = 30
 
@@ -163,7 +166,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
                         <span style={{ color:'#4A525D'}}>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
+                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />
                 </div>
             </div>
             </div>
