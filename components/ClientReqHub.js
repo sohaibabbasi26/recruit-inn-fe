@@ -5,7 +5,7 @@ import ActiveClientCard from './ActiveClientCard';
 import InActiveClientCard from './InActiveClientCard';
 import RequestedClientCard from './RequestedClientCard';
 
-const ClientReqHub = ({ data, onOpen, dataToBeSet, setData, heading }) => {
+const ClientReqHub = ({showError, showSuccess, adminToken, data, onOpen, dataToBeSet, setData, heading }) => {
 
     console.log('data: ', data)
     const hasData = data && data.length > 0;
@@ -26,11 +26,11 @@ const ClientReqHub = ({ data, onOpen, dataToBeSet, setData, heading }) => {
                             data?.map((item, index) => {
                                 switch (item.status) {
                                     case 'Active':
-                                        return <ActiveClientCard setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} onOpen={onOpen} />
+                                        return <ActiveClientCard showError={showError} showSuccess={showSuccess} adminToken={adminToken} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} onOpen={onOpen} />
                                     case 'In-Active':
-                                        return <InActiveClientCard onOpen={onOpen} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
+                                        return <InActiveClientCard showError={showError} showSuccess={showSuccess} adminToken={adminToken} onOpen={onOpen} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
                                     case 'request':
-                                        return <RequestedClientCard onOpen={onOpen} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
+                                        return <RequestedClientCard showError={showError} showSuccess={showSuccess} adminToken={adminToken} onOpen={onOpen} setData={setData} dataToBeSet={dataToBeSet} key={index} item={item} />
                                     default:
                                         return null;
                                 }

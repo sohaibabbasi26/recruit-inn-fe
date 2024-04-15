@@ -3,16 +3,19 @@ import '@/styles/globals.css'
 import { ActiveItemProvider } from '../contexts/ActiveItemContext';
 import { TestProvider } from '../contexts/QuestionsContent'
 import { ExpertiseItemProvider } from '@/contexts/ExpertiseContext';
+import NameProvider from '@/contexts/NameProvider';
+import { ActiveFlowProvider } from '@/contexts/ActiveFlowContext';
+import { TestStateProvider } from '@/contexts/TestRequirementContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ExpertiseItemProvider>
-      <TestProvider>
+    <TestStateProvider>
+      <ActiveFlowProvider>
         <ActiveItemProvider>
           <Component {...pageProps} />
         </ActiveItemProvider>
-      </TestProvider>
-    </ExpertiseItemProvider>
+      </ActiveFlowProvider>
+    </TestStateProvider>
   );
 }
 

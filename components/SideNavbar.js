@@ -1,10 +1,13 @@
+
 import { useState } from 'react';
 import styles from '../components/SideNavbar.module.css'
 import Image from 'next/image';
 import { useActiveItem } from '../src/contexts/ActiveItemContext';
+import { useRouter } from 'next/router';
 
 
-const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
+const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
+    const router = useRouter();
     const[showupgrade , setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
     const [clickedItem, setClickedItem] = useState('');
@@ -15,8 +18,9 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
     const upgradeHandler = () =>{
         setshowupgrade(!showupgrade)
     }
+    
     const openAddJobHandler = () => {
-        setShowOverlay1(true);
+        setShowOverlay(true);
         console.log("clicking button");
     }
 
@@ -34,6 +38,18 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
 
+<<<<<<< HEAD
+=======
+    const logoutHandler = () => {
+        localStorage.removeItem('client-token');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('clientId');
+    
+        router.push('/client-login');
+    };
+
+
+>>>>>>> cb30776a52d0901a8a4041fde010c16c4b2f1e29
     const listItemSize = 28;
     const logoSize = 30
 
@@ -120,9 +136,9 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                             </ul>
                         )}
                     </div>
-                </div>,
+                </div>
                 <div className={`${styles.profnameback} ${styles.focus}`}>
-           {showupgrade && 
+                {showupgrade && 
                 <div>
                     <button className={styles.btnup} onClick={openAddJobHandler}>
                     Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="22"/>
@@ -139,15 +155,15 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay1 }) => {
                 {showupgrade && 
                 
                 <div>
-                    <button className={styles.btnlog} onClick={openAddJobHandler}>
+                    <button className={styles.btnlog} onClick={logoutHandler}>
                     Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24"  style={{  color: '#FF0000' }}/>
                     </button>
                 </div>}
 
                 <div className={styles.profileTab} onClick={upgradeHandler}>
-                <Image src='/dp.svg' height={50} width={50} className='profileImage' style={{ marginLeft: '10px', marginRight: '10px'}} />
+                <Image src='/dp.svg' height={50} width={50} className='profileImage'  />
                     <div className={styles.textContent}>
-                        <span>Hello</span>
+                        <span style={{ color:'#4A525D'}}>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
                     <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />

@@ -37,10 +37,11 @@
     font-size: 1rem;
     width: 100%;
     background-color: #F8F7FC;
+    
 }
 
 .wrapper select option{
-    color: #F8F7FC;
+    color: black;
 }
 
 .fieldsContainer input:focus {

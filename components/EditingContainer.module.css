@@ -10,7 +10,6 @@
 }
 
 .masterContainer textarea {
-    border: none;
     background-color: transparent;
     resize: vertical;
     height: 80%;
@@ -32,8 +31,10 @@
 
 .superContainer {
     width: 100%;
-    height: 75%;
+    height: 77%;
     margin-top: 1rem;
+    padding: 0px;
+
 }
 
 .textContent {

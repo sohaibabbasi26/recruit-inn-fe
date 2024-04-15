@@ -1,38 +1,23 @@
 .masterContainer {
     background-color: #fff;
     width: 19%;
-    height: 100%;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    padding-left: 0.75rem;  
+    align-items: center;
     overflow: hidden;
 }
 
 .mainContainer h3 {
-    margin-top: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
     width: 100%;
     font-weight: 1000;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
     color: #170D23;
 }
-@media only screen and (max-width: 1300px) {
-    .mainContainer h3{
-        font-size: 1.2rem;
-        margin-top: 15px;
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .mainContainer h3{
-        font-size: 0.9rem;
-        margin-top: 20px;
-    }
-}
+
 .mainContainer h3 img {
     margin-right: 0.5rem;
 }
@@ -44,29 +29,25 @@
 }
 
 .mainContainer {
-    height: 85%;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    color: #170D23;
-
-
-    /* margin-top: 1rem; */
+    align-items: center;
+    color: #ACA7BA;
 }
+
 
 .mainContainer h4 {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #ACA7BA;
-    margin: 0;
     margin-top: 1.5rem;
     color: #170D23;
 
 }
+
 
 .mainContainer ul {
     list-style: none;
@@ -74,7 +55,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    color: #4A525D;
+    color: black;
     margin: 0;
 }
 
@@ -87,11 +68,6 @@
     align-items: center;
     margin-left: 0;
     padding: 0.5rem 0.8rem;
-}
-@media only screen and (max-width: 1100px) {
-    .mainContainer ul li{
-        padding: 0.2rem 0.2rem;
-    }
 }
 
 .listContainer {
@@ -115,7 +91,7 @@
 .profileTab {
     display: flex;
     width: 80%;
-    background-color: white;
+    background-color: #F8F7FC;
     padding-bottom:10px;
     border-radius: 32px;
     justify-content: space-between;
@@ -132,22 +108,7 @@
     margin: 0;
     font-size: 0.85rem;
 }
-@media only screen and (max-width: 1300px) {
-    .profileTab h4{
-        font-size: 0.8rem;
-    }
-    .profileTab span{
-        font-size: medium;
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .profileTab h4{
-        font-size: 0.6rem;
-    }
-    .profileTab span{
-        font-size: small;
-    }
-}
+
 .dashboardButton {
     margin-top: 1rem;
     background-color: #F0EDFC;
@@ -157,7 +118,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 80%;
     border-radius: 40px;
 }
 
@@ -167,25 +128,13 @@
     color: #6137DB;
 }
 
-
-@media only screen and (max-width: 1300px) {
-    .dashboardButton{
-        margin-left: -5px;
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .dashboardButton{
-        margin-left: -10px;
-    }
-}
-
 .dash {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 80%;
 }
 
 .clicked {
@@ -202,13 +151,13 @@
 .btnlog{
     display: flex;
     top: 12px;
-    padding: 10px 60px 10px 60px;
+    padding: 10px 50px 10px 50px;
     border-radius: 52px;
     gap: 4px;
     background-color: #FFF5F5;
     color: #FF0000;
     border: none;
-    margin-left: 22px;
+    margin-left: 10px;
     margin-bottom: 5%;
     font-weight: 600;
     font-size: small;
@@ -216,6 +165,8 @@
     display: flex;
     background-color: #FFF5F5;
     color: #FF0000;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -223,13 +174,13 @@
     display: flex;
     top: 12px;
     left: 12px;
-    padding: 10px 60px 10px 60px;
+    padding: 10px 50px 10px 50px;
     border-radius: 52px;
     gap: 4px;
     background-color: #F0EDFC;
     color: #6137DB;
     border: none;
-    margin-left: 22px;
+    margin-left: 10px;
     margin-bottom: 5%;
     font-weight: 600;
     font-size: small;
@@ -237,46 +188,51 @@
     display: flex;
     background-color: #F0EDFC;
     color: #6137DB;
+    align-items: center;
+    justify-content: center;
+
 }
+
+    .btnset{
+        display: flex;
+        top: 12px;
+        left: 12px;
+        padding: 10px 50px 10px 50px;
+        gap: 4px;
+        background-color: white;
+        border: none;
+        margin-left: 10px;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: small;
+        cursor: pointer;
+        display: flex;
+        border-radius: 52px;
+        background-color: white;
+        color: #6137DB;
+        align-items: center;
+        justify-content: center;
+    
+        
+   }
 
 .profnameback{
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-background-color: white;
 border-radius: 40px;
-border: 3px solid #6137DB;
-width: 240px;
-padding: 10px;
-gap: 10px;
+background-color: #F8F7FC;
+width: 100%;
+padding-top: 10px;
+padding-bottom: 0px;
+gap: 5px;
 }
 
-.btnset{
-    display: flex;
-    top: 12px;
-    left: 12px;
-    padding: 10px 60px 10px 60px;
-    gap: 4px;
-    background-color: white;
-    color:p;
-    border: none;
-    margin-left: 22px;
-    margin-bottom: 5%;
-    font-weight: 600;
-    font-size: small;
-    cursor: pointer;
-    display: flex;
-    border-radius: 52px;
-    background-color: white;
-    color: #6137DB;
-
-    
-}
 .btn {
     top: 12px;
     left: 12px;
-    padding: 10px 60px 10px 60px;
+    padding: 10px 50px 10px 50px;
     border-radius: 52px;
     gap: 4px;
     background-color: #F0EDFC;
@@ -288,6 +244,8 @@ gap: 10px;
     font-size: small;
     cursor: pointer;
     display: flex;
+    align-items: center;
+    justify-content: center;    
     align-items: center;
     justify-content: center;
     

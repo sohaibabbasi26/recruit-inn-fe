@@ -1,60 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
-
-
 .searchBar {
-    background-color: #F0F0F0; 
-    border: 1px solid #E0E0E0; 
-    width: 100%; 
-    height: 50px;
-    margin: 1rem 0;
-    border-radius: 40px;
-    display: flex; 
-    justify-content: center; 
-    font-family: 'Poppins', sans-serif; 
-    transition: border 0.3s, box-shadow 0.3s, height 0.3s; 
-}
-
-
-.searchBar:hover {
     background-color: #F8F7FA;
-    border: 1px solid #EBEBEB;
+    border: 1px solid #E0E0E0;
     width: 100%;
     height: 70px;
-    margin: 1rem 0 ;
+    margin-bottom: 24px;
     border-radius: 40px;
     display: flex;
     justify-content: center;
     font-family: 'Poppins', sans-serif;
+    transition: border 0.3s, box-shadow 0.3s, height 0.3s;
 }
 
+.searchBar:hover {
+    background-color: #F8F7FA;
+    border: 1px solid #EBEBEB;
 
+}
 .searchBar:focus {
     background-color: white;
-    border: 2px solid #6137DB;
-    width: 100%; 
-    height: 70px;
-    margin: 1rem 0;
-    border-radius: 40px;
-    display: flex; 
-    justify-content: center; 
-    font-family: 'Poppins', sans-serif; 
-    transition: border 0.3s, box-shadow 0.3s, height 0.3s;  
+    outline: 2px solid #6137DB;
+ 
 }
-
 .searchBar:active {
     background-color: white;
-    border: 2px solid #6137DB;
-    width: 100%; 
-    height: 70px;
-    margin: 1rem 0;
-    border-radius: 40px;
-    display: flex; 
-    justify-content: center; 
-    font-family: 'Poppins', sans-serif; 
-    transition: border 0.3s, box-shadow 0.3s, height 0.3s;  
+    outline: 2px solid #6137DB;
+
 }
-
-
 .masterContainer{
     width: 100%;
     display: flex;
@@ -62,7 +34,6 @@
     font-family: 'Poppins', sans-serif;
     gap: 1rem;
 }
-
 .masterContainer button {
     background-color: #F8F7FC;
     color: #6137DB;
@@ -74,7 +45,6 @@
     font-size: 0.9rem;
     padding: 0 0.5rem;
 }
-
 .container{
     height: 100%;
     width: 90%;
@@ -82,7 +52,6 @@
     justify-content: space-between;
     align-items: center;
 }
-
 .container input{
     content: attr(value);
     border: none;
@@ -91,7 +60,6 @@
     font-size: 1rem;
     letter-spacing: 0.5px;
 }
-
 .btnsDiv{
     width: 30%;
     display: flex;
@@ -101,12 +69,11 @@
     justify-content: flex-end;
     gap: 1rem;
 }
-
 .addJobBtn{
     border: none;
     background-color: #6137DB;
     height: 100%;
-    padding: 0 2rem; 
+    padding: 0 2rem;
     border-radius: 40px;
     color: #fff;
     font-weight: 700;
@@ -116,31 +83,24 @@
     align-items: center;
     gap: 1rem;
 }
-
 .notificationsBtn{
     border: none;
     background-color: #F8F7FC;
     height: 100%;
-    padding: 0 2rem; 
+    padding: 0 2rem;
     border-radius: 40px;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
-
-
 .notificationsBtn :hover{
    color: #170D23;
 }
-
 .notificationsBtn:focus {
     background-color: darkblue;
 }
-
-
 .notificationsBtn :active{
     background-color: darkblue;
 }
-
 .searchInput{
     display: flex;
     justify-content: space-between;
@@ -148,19 +108,16 @@
     gap: 1rem;
     font-family: 'Poppins',sans-serif;
 }
-
 .searchInput input{
     font-family: 'Poppins',sans-serif;
 }
-
 .searchInput input:focus{
     outline: none;
 }
-
 .searchResults {
     width: 60%;
     position: absolute;
-    background-color: #ffffff; /* or any color that suits your design */
+    background-color: #FFFFFF; /* or any color that suits your design */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
     width: 100%; /* or the width of the search bar */
     border-radius: 4px; /* optional, for rounded corners */
@@ -169,36 +126,48 @@
     overflow-y: auto; /* allows scrolling */
     top: 10%; /* position right below the search bar */
   }
-  
   .searchResults ul {
     list-style: none; /* removes bullets from list */
     margin: 0;
     padding: 0;
   }
-  
   .searchResults li {
     padding: 10px 15px; /* decent padding around text */
     cursor: pointer; /* indicates the item is clickable */
-    border-bottom: 1px solid #f0f0f0; /* subtle separator */
+    border-bottom: 1px solid #F0F0F0; /* subtle separator */
   }
-  
   .searchResults li:hover {
-    background-color: #f7f7f7; /* highlight on hover */
+    background-color: #F7F7F7; /* highlight on hover */
   }
 
+
 .selectCategory select{
+    border-radius: 32px;
     border: none;
-    background-color: transparent;
+    background-color: #FFFFFF;
     font-size: 1rem;
-    color: #170D23;
-    padding: 1rem;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 24px;
+    padding-bottom: 11px;
     font-family: 'Poppins',sans-serif;
 }
 
 .selectCategory select input{
     color: #170D23;
 }
-
 .selectCategory select:focus{
     outline: none;
+}
+
+.searchOptions{
+    border-radius: 32px;
+    border: none;
+    background-color: #FFFFFF;
+    font-size: 1rem;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 24px;
+    padding-bottom: 11px;
+    font-family: 'Poppins',sans-serif;
 }

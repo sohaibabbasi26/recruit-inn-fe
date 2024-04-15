@@ -1,39 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@400;500&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@400;500&display=swap');
 .superContainer{
     width: 32% ;
-    height: auto;
     background-color: #fff;
     margin-top: 7px;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    /* margin: 0 01rem ; */
-    align-items: center;
-}       
-
+    align-items: flex-start;
+}
 .masterConatiner{
     display: flex;
     flex-direction: column;
-    width: 95%;
-    height: 100%;
+    width: 100%;
+    max-height: 100vh;
 }
-
 .btnsDiv{
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 0.9rem;
-    justify-content: flex-end;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 1rem;
-    height: 3.5rem;
-    margin: 0.9rem 0rem
+    margin-bottom: 25px;
+    width: 100%;
 }
 .addJobBtn{
     border: none;
     background-color: #6137DB;
     height: 70px;
-    width: 800px;
+    width: 100%;
     margin-right: 0px;
     border-radius: 60px;
     color: #fff;
@@ -48,46 +41,24 @@
 }
 
 .addJobBtn:hover {
-    background-color: white; /* A lighter shade of the original color for hover */
-    transform: scale(1.05); /* Slightly increase the scale */
+    background-color: #5A33CC;
 }
-
-@media only screen and (max-width: 1100px) {
-    .addJobBtn{
-        letter-spacing: 0px;
-        padding: 0rem 1rem;
-        border-radius: 25px;
-    }
-}
-
 .notificationsBtn{
     background-color: #F8F7FC;
     height: 70px;
-    width: 200px;
-    padding: 0 2rem; 
-    border-radius: 40px;
+    min-width: 25%;
+    border-radius: 48px;
     font-weight: 700;
     letter-spacing: 0.5px;
     cursor: pointer;
     border: none;
+    color: gray;
+    border: 1px ;
+
+}
+.notificationsBtn :hover{
+    height: 50px;
+    color: black;
+    font-family: 'Poppins', sans-serif;
 }
 
-.notificationsBtn :hover{
-    background-color: #F8F7FC;
-    color: black;
-    border-radius: 40px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-}
-.notificationsBtn :focus{
-    border: 2px #6137DB;
-    background-color: #F8F7FC;
-    color: black;
-}
-.notificationsBtn :active{
-    border: 2px #6137DB;
-    background-color: #F8F7FC;
-    color: black;
-  
-}

@@ -37,7 +37,7 @@
 
 .btn{
     position: relative;
-    bottom: 53%;
+    bottom: 50%;
     left: 50%;
     display: flex;
     justify-content: center;
@@ -45,7 +45,6 @@
     height: 2rem;
     width: 1px;
 }
-
 .btn button {
     height: 100%;
     width: 90%;
@@ -198,6 +197,7 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 2rem;
+    gap: 1rem;
 }
 
 .copyDiv span{
@@ -207,6 +207,20 @@
     gap: 1rem;
     background-color: #F0EDFC;
     padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.copyDiv button{
+    border-radius: 20px;
+    display:  flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #F0EDFC;
+    padding: 0.5rem 1rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .description h4{

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
 
 .parent {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     background-color: transparent;
     display: flex;
@@ -177,9 +177,11 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding-top: 0px;
     /* Add any other styles you need */
   }
-  
+
+
   .center h1 {
     font-family: 'Poppins', sans-serif;
     font-size: 48px;
@@ -219,7 +221,6 @@
     position: relative;
     border-radius: 50em;
     background-color: #F8F7FA;
-    border: 1px solid black;
   }
   
   .pricing_switcher input[type="radio"] {
@@ -237,7 +238,9 @@
     line-height: 40px;
     cursor: pointer;
     font-size: 16px;
-    color: black;
+    color: white;
+    font-weight: 600;
+    text-align: center;
   }
   
   .pricing_switcher .switch {
@@ -273,23 +276,34 @@
     align-items: center;
   }
   
+  
   .pricing_column  {
     flex: 1;
     margin: 20px;
     padding: 20px;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 32px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 100%;
+    margin-bottom: 100px;
+    border: 1px solid #6137DB;
+
   }
   .pricing_column1{
+
     flex: 1;
     margin: 20px;
     padding: 20px;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 32px ;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 100px;
+    border: 1px solid #6137DB;
+
   }
   
   .pricing_column h2 {
@@ -342,7 +356,7 @@
   }
   .pricing_column1 .price {
     font-family: 'DM Sans', sans-serif;
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 700;
   line-height: 62px;
   letter-spacing: 0em;
@@ -360,11 +374,12 @@
   .tick_list {
     font-family: 'DM Sans', sans-serif; /* Choose your preferred font */
     font-size: 17px;
-    font-weight: 400;
-    line-height: 22px;
+    font-weight: 300;
+    line-height: 18px;
     letter-spacing: 0;
     text-align: left;
     color: #333; /* Choose your preferred text color */
+    margin: 10px;
   }
   
   .tick_item {
@@ -484,3 +499,14 @@
     background: darkgreen;
     transition: transform 0.25s ease-in-out;
   }
+
+  @media only screen and (  max-width: 1440px) {
+
+    .tick_list{
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 200;
+      line-height: 10px;
+      margin: 10px;
+    }
+    }

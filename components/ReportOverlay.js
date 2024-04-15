@@ -8,6 +8,8 @@ import html2canvas from 'html2canvas';
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
 
+    console.log('selected candidate is:',selectedCandidate)
+
     const overlayRef = useRef(null);
     const contentRef = useRef(null);
     const infoSymbolSize = 10;
@@ -189,7 +191,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Applied For</span>
-                                    <span>{(selectedCandidate?.company) ? selectedCandidate?.company?.company_name : 'Self'}</span>
+                                    <span>{selectedCandidate?.company ? selectedCandidate?.company?.name : 'Self'}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Email</span>

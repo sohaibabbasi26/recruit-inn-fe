@@ -14,17 +14,40 @@ import RequiredSkillsBtns from './RequiredSkillsBtns';
 import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import ErrorIndicator from './ErrorIndicator';
 
-const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
+const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
-    const { expertiseItem, setExpertiseItem } = useExpertiseContext();
-    console.log("expertise Item in invitationOverlay :", expertiseItem);
+    // const { expertiseItem, setExpertiseItem } = useExpertiseContext();
+    useEffect(() => {
+        // Load form data from local storage when the component mounts
+        console.log("data saved successfully")
+        try {
+          const savedFormData = JSON.parse(localStorage.getItem('invitationFormData')) || {};
+          console.log(savedFormData.name);
+          nameRef.current.value = savedFormData.name || '';
+          emailRef.current.value = savedFormData.email || '';
+          contactRef.current.value = savedFormData.contact || '';
+          expertiseRef.current.value = savedFormData.expertise || '';
+          countryRef.current.value = savedFormData.country || '';
+          cityRef.current.value = savedFormData.city || '';
+          
+        } catch (error) {
+          console.error('Error loading form data from local storage:', error);
+        }
+      }, []);
+
+    // console.log("expertise Item in invitationOverlay :", expertiseItem);
     const router = useRouter();
     const { client_id } = router.query;
     const { position_id } = router.query;
+    const { q_id } = router.query;
+    const { test_req } = router.query;
+    const {a_id} = router.query;
 
-    console.log("client_id:",client_id)
+    console.log("client_id:", client_id)
+    console.log("position_id is :" , position_id)
 
     useEffect(() => {
+        console.log("position_id ", position_id);
         try {
             const newExpertise = localStorage.getItem('expertiseData');
 
@@ -74,7 +97,6 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         });
     }, [showOverlay, onClose])
 
-
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.JOB_DETAIL);
     const [completedStages, setCompletedStages] = useState([]);
@@ -92,123 +114,298 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
     const [clientData, setClientData] = useState(null);
     const [positionId, setPositionId] = useState(null);
     const [positionData, setPositionData] = useState(null);
-    const [validationErrors, setValidationErrors] = useState(null);
-
+    const [positionStatus , setPositionStatus] = useState(null);
+    const [questionId, setQuestionId] = useState();
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const cityRef = useRef(null);
     const countryRef = useRef(null);
     const expertiseRef = useRef(null);
     const contactRef = useRef(null);
+    const [jobType, setJobType] = useState();
+    const [position, setPosition] = useState();
+    const [validationErrors, setValidationErrors] = useState({});
+    const [allFieldsCheck,setAllFieldsCheck] = useState();
+    const [reqBody, setReqBody] = useState(null);
+    
 
-    const [reqBody,setReqBody] = useState(null);
+    useEffect(() => {
+        console.log("hey its me! req body", reqBody);
+    }, [name, city, country , expertise, contact, email]);
 
+    useEffect(() => {
+        const allFields = validateAllFields();
+        console.log('all fields:',allFields);
+        setAllFieldsCheck(allFields);
+        
+        if(!validateAllFields){
+            setMessage('Please enter all the fields')
+            showSuccess();
+        }
+    },[allFieldsCheck])
+
+    useEffect(() => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (email && !emailRegex.test(email)) {
+            setValidationErrors(errors => ({ ...errors, email: 'Invalid email address.' }));
+        } else {
+            const { email, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [email]);
+
+    useEffect(() => {
+        if (name?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, name: 'Name is required.' }));
+        } else {
+            const { name, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [name]);
+
+    useEffect(() => {
+        if (contact?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
+        } else {
+            const { contact, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [contact]);
+
+    useEffect(() => {
+        if (country?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, country: 'Country is required.' }));
+        } else {
+            const { country, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [country]);
+
+    useEffect(() => {
+        if (city?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, city: 'City is required.' }));
+        } else {
+            const { city, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [city]);
+
+    useEffect(() => {
+        if (expertise?.trim() === '') {
+            setValidationErrors(errors => ({ ...errors, expertise: 'Experise is required.' }));
+        } else {
+            const { expertise, ...rest } = validationErrors;
+            setValidationErrors(rest);
+        }
+    }, [expertise]);
+
+    const validateAllFields = () => {
+        return (
+            (name && name.trim() !== '') &&
+            (email && email.trim() !== '') &&
+            (contact && contact.trim() !== '') &&
+            (expertise && expertise.trim() !== '') &&
+            (country && country.trim() !== '') &&
+            (city && city.trim() !== '')
+        );
+        
+    }
+    
     const handleContinue = () => {
         const errors = {};
         let isFormIncomplete = false;
         let specificMsg = false;
-
+        console.log("validate all fields ", validateAllFields());
         console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
-        console.log("Debug: Name:", nameRef.current.value, "Email:", emailRef.current.value,
-            "city:", cityRef.current.value, "Country",countryRef.current.value, "expertise: ", expertiseRef.current.value,
-            "contact:", contactRef.current.value
+        console.log("Debug: Name:", name, "Email:", email,
+            "city:", city, "Country", country ,"expertise: ", expertise,
+            "contact:", contact
         );
 
         setReqBody({
-            name: nameRef.current.value,
-            email: emailRef.current.value,
-            over_all_exp : expertiseRef.current.value,
-            contact_no : contactRef.current.value,
-            applied_through : clientData?.client_name,
+            job_type: jobType,
+            position: position,
+            position_id: positionId,
+            name: name,
+            email: email,
+            over_all_exp: expertise,
+            contact_no: contact,
+            applied_through: clientData?.client_name,
             company_id: newId,
             expertise: newExpert,
         })
 
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        let isValid = true; // Assume the form is valid initially
 
-        if (!nameRef.current.value.trim()) {
-            errors.name = 'Please enter Name.';
-            isFormIncomplete = true;
-            
+        // if (!allFieldsCheck) {
+        //     console.log('isnide if condition:', !allFieldsCheck)
+        //     setMessage('Please make sure to fill all the fields correctly.')
+        //     showSuccess();
+        //     errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
+        //     isValid = false;
+        // }
+
+        console.log("All fields value :",name , email , contact  , expertise , country , city)
+
+        // Simple validation checks
+        if (!name?.trim()) {
+            errors.name = 'Please enter a name.';
+            isValid = false;
+        }
+        if (!email?.trim()) {
+            errors.email = 'Please enter an email.';
+            isValid = false;
+        } else {
+            // Simple regex for email validation
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailRegex.test(email)) {
+                errors.email = 'Email is not valid.';
+                isValid = false;
+            }
+        }
+        if (!contact?.trim()) {
+            errors.contact = 'Please enter a contact number.';
+            isValid = false;
         }
 
-        if (!emailRef.current.value.trim()) {
-            errors.email = 'Please enter Email.';
-            isFormIncomplete = true;
-        } else if (!emailRegex.test(emailRef.current.value)) {
-            // errors.email = 'Invalid email format.';  
-            setMessage("Entered email is not valid");
-            specificMsg = true;
-            isFormIncomplete = true; 
+        if (!expertise?.trim()) {
+            errors.expertise = 'Please enter an expertise level!';
+            isValid = false;
         }
 
-        if (!contactRef.current.value.trim()) {
-            errors.contact = 'Please enter Contact.';
-            isFormIncomplete = true;
-        } else if (isNaN(contactRef.current.value)) {
-            // errors.contact = 'Contact number must be numeric.';
-            setMessage("Entered contact is not a number");
-            specificMsg = true;
-            isFormIncomplete = true; 
+        if (!city?.trim()) {
+            errors.city = 'Please enter your city';
+            isValid = false;
         }
 
-        if (!expertiseRef.current.value.trim()) {
-            errors.name = 'Please enter Name.';
-            isFormIncomplete = true;
+        if (!country?.trim()) {
+            errors.country = 'Please enter your country';
+            isValid = false;
         }
-
-        if (!cityRef.current.value.trim()) {
-            errors.name = 'Please enter Name.';
-            isFormIncomplete = true;
-        }
-
-        if (!countryRef.current.value.trim()) {
-            errors.name = 'Please enter Name.';
-            isFormIncomplete = true;
-        }
-
 
         setValidationErrors(errors);
 
-        console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
+        const hasErrors = Object.keys(validationErrors).length > 0;
+        const error = Object.keys(validationErrors);
+        console.log('hasErrors:', error);
+        console.log("hasError: ", hasErrors)
 
-        if (!isFormIncomplete) {
+        if (!hasErrors) {
+            setShowSuccessMessage(false);
             console.log('Form submitted successfully!');
-            toggleComponent(); 
-        
-        } else {
-            setMessage("Please make sure to fill all the fields correctly.");
+            toggleComponent();
         }
-
+        // } else if (name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
+        //     setMessage("Please make sure to fill all the fields correctly.");
+        // }
     };
 
-    const toggleComponent = () => {
+    // const toggleComponent = () => {
 
+
+
+    //     const newCompletedStages = [...completedStages, currentStage];
+    //     setCompletedStages(newCompletedStages);
+
+    //     if (currentStage === stages.SHARE_LINK) {
+    //         router.push('/');
+    //     } else {
+    //         switch (currentStage) {
+    //             case stages.JOB_DETAIL:
+
+    //                 setCurrentStage(stages.PERSONAL_INFO);
+    //                 break;
+    //             case stages.PERSONAL_INFO:
+
+    //                 const allFields = validateAllFields();
+    //                 console.log('all fields bool var before flip:', allFields);
+    //                 if (!allFields) {
+    //                     console.log('all fields bool var after flip:', allFields);
+    //                     setMessage('Please make sure to fill all the fields correctly.')
+    //                     showSuccess();
+    //                 } else {
+    //                     setCurrentStage(stages.REQUIRED_SKILLS);
+    //                     break;
+    //                 }
+
+    //             default:
+    //                 setCurrentStage(stages.JOB_DETAIL);
+    //         }
+    //     }
+    // }
+
+    const toggleComponent = () => {
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
-
-        if (currentStage === stages.SHARE_LINK) {
-            router.push('/');
-        } else {
-            switch (currentStage) {
-                case stages.JOB_DETAIL:
-
-                    setCurrentStage(stages.PERSONAL_INFO);
-                    break;
-                case stages.PERSONAL_INFO:
-                    setCurrentStage(stages.REQUIRED_SKILLS);
-                    break;
-                default:
-                    setCurrentStage(stages.JOB_DETAIL);
-            }
+        let isValid = false;
+    
+        switch (currentStage) {
+            case stages.JOB_DETAIL:
+                setCurrentStage(stages.PERSONAL_INFO);
+                break;
+            case stages.PERSONAL_INFO:
+                isValid = validateAllFields();
+                console.log("validation :",validateAllFields());
+                
+                if (!isValid || isValid == undefined) {
+                    setMessage('Please make sure to fill all the fields correctly.');
+                    showSuccess();
+                    return;
+                }
+                setCurrentStage(stages.REQUIRED_SKILLS);
+                break;
+            default:
+                setCurrentStage(stages.JOB_DETAIL);
         }
-    }
+    };
+    
+
+    // const toggleComponent = () => {
+    //     // First, check if we are in the PERSONAL_INFO stage and validate fields
+    //     // if (currentStage === stages.PERSONAL_INFO) {
+    //     //     const isValid = validateAllFields(); // Ensure this function accurately checks all fields
+    //     //     if (!isValid) {
+    //     //         // If not valid, possibly show an error message to the user
+    //     //         console.log("value of invalid" , isValid)
+    //     //         setMessage('Please make sure to fill all the fields correctly.');
+    //     //         showSuccess(); // Assuming this function shows the message
+    //     //         return; // Do not proceed to the next stage
+    //     //     }
+    //     // }
+    
+    //     // Proceed with setting the next stage as before
+    //     const newCompletedStages = [...completedStages, currentStage];
+    //     setCompletedStages(newCompletedStages);
+    //     let isvalid1 = false;
+    //     switch (currentStage) {
+    //         case stages.JOB_DETAIL:
+    //             setCurrentStage(stages.PERSONAL_INFO);
+    //             break;
+    //         case stages.PERSONAL_INFO:
+    //             isvalid1 = validateAllFields();
+    //             console.log("valid 1: ",isvalid1);
+    //             if (isvalid1) {
+    //                 setMessage("Please fill in at least one skill.");
+    //                 showError();
+    //                 return;
+    //             }
+    //             setCurrentStage(stages.REQUIRED_SKILLS); // Now we know all fields are validated
+    //             break;
+    //         default:
+    //             setCurrentStage(stages.JOB_DETAIL); // Fallback to default stage
+    //     }
+    // };
 
 
     useEffect(() => {
         console.log('newExpert:', newExpert);
     }, [newExpert]);
+
+    useEffect(() => {
+        setQuestionId(q_id);
+        console.log('quesiton id:', questionId);
+    }, [q_id])
 
     const backToggleComponent = () => {
         const stageToBePopped = completedStages.slice(0, -1);
@@ -223,7 +420,12 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             default:
                 setCurrentStage(stages.JOB_DETAIL)
         }
+        updateFormData();
     }
+
+    // useEffect(() => {
+
+    // },[])
 
     useEffect(() => {
         const { client_id } = router.query;
@@ -281,26 +483,39 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
             const data = await response.json();
             setNewExpert(data?.data?.expertise)
             setPositionData(data?.data)
+            setPosition(data?.data?.position);
+            setPositionStatus(data?.data?.status);
+            setJobType(data?.data?.job_type);
             console.log('one position data:', data?.data);
+            console.log("position Status", data?.data?.status);
         }
         if (position_id) {
             fetchOnePosition();
         }
     }, [positionId, router.query, router.isReady])
 
+    const updateFormData = () => {
+        // Save form data to local storage whenever it changes
+        try {
+          const formData = {
+            name: nameRef.current.value,
+            email: emailRef.current.value,
+            contact: contactRef.current.value,
+            expertise: expertiseRef.current.value,
+            country: countryRef.current.value,
+            city: cityRef.current.value,
+          };
+          localStorage.setItem('invitationFormData', JSON.stringify(formData));
+        } catch (error) {
+          console.error('Error saving form data to local storage:', error);
+        }
+      };
 
     const createCandidate = async () => {
-        // const requestBody = {
-        //     name: nameRef?.current ? nameRef?.current?.value : '',
-        //     email: emailRef?.current ? emailRef?.current?.value : '',
-        //     over_all_exp: expertiseRef.current ? expertiseRef.current.value : '',
-        //     applied_through: 'Co-ventech',
-        //     company_id: newId,
-        //     expertise: newExpert,
-        //     contact_no: contactRef.current ? contactRef.current.value : '',
-        // }
+
         console.log('request body: ', reqBody);
-        console.log("new token:", newToken, 'and new id:', newId)
+        console.log("new token:", newToken, 'and new id:', newId);
+        console.log('request body: ', reqBody);
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info`, {
@@ -319,43 +534,43 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
         }
     };
 
-    // console.log('Form Data:', { name: nameRef.current.value, email: emailRef.current.value, ... });
 
     const redirectToTestPage = async () => {
         const candidateId = await createCandidate();
         console.log("candidate id:", candidateId)
         if (candidateId) {
             console.log("REDIRECTING TO:")
-            console.log(`/test?id=${candidateId}`)
-            router.push(`/test?id=${candidateId}`);
+            console.log(`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`)
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`);
         }
     };
 
     const jobDetails = {
         position: positionData?.position,
         description: positionData?.description
-    }
+
+    };
+    useEffect(()=>{
+        console.log("job details:" ,jobDetails);
+    },[])
 
     return (
         <>
+        {positionStatus === "Closed" && 
+        <div className={styles.closejobs}>
+            <p >This job is closed </p>
+        </div>
+        }
+        {positionStatus !== "Closed" &&
             <div ref={overlayRef} className={styles.parent}>
-                {showSuccessMessage && <ErrorIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-                
-
+                {showSuccessMessage && <ErrorIndicator showErrorMessage={showSuccessMessage} showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.superContainer}>
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage]}</h2>
-                            {/* <span>
-                            <h2 className={styles.headingjob}>{stageHeadings[currentStage]}</h2>
-                            <span>
-                                <p className={styles.tooltip}>You can add maximum of 4 skills and minimum of 1</p>
-                                <Image src='/info.svg' width={infoSymbolSize} height={infoSymbolSize} />
-                            </span> */}
                         </div>
-                        
-                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
+                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
                         {currentStage === stages.JOB_DETAIL && (
                             <>
                                 <JobDetails clientName={clientData?.company_name} details={jobDetails} />
@@ -367,7 +582,30 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
 
                         {currentStage === stages.PERSONAL_INFO && (
                             <>
-                                <PersonalInfo validationErrors={validationErrors} nameRef={nameRef} contactRef={contactRef} emailRef={emailRef} cityRef={cityRef} countryRef={countryRef} expertiseRef={expertiseRef} handleContinue={handleContinue} setCity={setCity} setContact={setContact} setCountry={setCountry} setEmail={setEmail} setExpertise={setExpertise} setName={setName} />
+                                <PersonalInfo
+                                    validationErrors={validationErrors}
+                                    name={name}
+                                    email={email}
+                                    contact={contact}
+                                    expertise={expertise}
+                                    country={country}
+                                    city={city}
+                                    showSuccessMessage={showSuccessMessage}
+                                    msgText={message}
+                                    // validationErrors={validationErrors}
+                                    nameRef={nameRef} contactRef={contactRef}
+                                    emailRef={emailRef}
+                                    cityRef={cityRef}
+                                    countryRef={countryRef}
+                                    expertiseRef={expertiseRef}
+                                    handleContinue={handleContinue}
+                                    setCity={setCity}
+                                    setContact={setContact}
+                                    setCountry={setCountry}
+                                    setEmail={setEmail}
+                                    setExpertise={setExpertise}
+                                    setName={setName}
+                                />
                                 <div className={styles.wrapper}>
                                     <PersonalInfoBtns showSuccess={showSuccess} onContinue={handleContinue} onBack={backToggleComponent} />
                                 </div>
@@ -386,6 +624,7 @@ const InvitationOverlay = ({ message, setMessage, showSuccess, showSuccessMessag
                     </div>
                 </div>
             </div>
+}
         </>
     )
 }

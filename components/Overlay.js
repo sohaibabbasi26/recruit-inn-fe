@@ -13,19 +13,32 @@ import { useRouter } from 'next/router';
 import ShareLinkBtns from './ShareLinkBtns';
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { useTest } from '@/contexts/QuestionsContent';
-import { useExpertiseContext } from '@/contexts/ExpertiseContext';
+// import { useTest } from '@/contexts/QuestionsContent';
+// import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
-import ErrorIndicator from './ErrorIndicator';
+import ErrorIndicator from './ErrorIndicator'; 
+import { useTestState } from '@/contexts/TestRequirementContext';
 
-const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message , setMessage , showSuccess }) => {
-    showErrorMessage
+import { fetchQuestions } from '../store/slices/questionSlice';
+
+const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {
+
     const overlayRef = useRef(null);
-    const { test, setTest } = useTest();
-    const { expertiseItem, setExpertiseItem } = useExpertiseContext();
+    // const { test, setTest } = useTest();
+    // const { expertiseItem, setExpertiseItem } = useExpertiseContext();
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
+    // const dispatch = useDispatch();
+    // const { items, status, error } = useSelector((state) => state.questions);
+    // // const techStack = 'exampleTechStack'; // Define how you choose the techStack
+
+    // useEffect(() => {
+    //     if (techStack) {
+    //       dispatch(fetchQuestions(techStack));
+    //     }
+    //   }, [dispatch]);
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -53,10 +66,9 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
             );
         });
-    }, [showOverlay])
+    }, [showOverlay]);
 
-    const router = useRouter();
-    console.log("router object:", router)
+    // console.log("router object:", router)
     const { id } = router?.query;
 
     console.log('id:', id);
@@ -72,22 +84,29 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
     const [subject, setSubject] = useState(null);
     const [text, setText] = useState(null);
     const [positionId, setPositionId] = useState(null);
-
     const expertiseRef = useRef({});
     const positionRef = useRef();
     const locationRef = useRef();
     const jobTypeRef = useRef();
     const descriptionRef = useRef();
+    const [questionId, setQuestionId] = useState();
+    const [emailReceivers,setEmailReceivers] = useState([{ email: '' }]);
+    const [assessmentId,setAssessmentId] = useState();
+    
+    // const [isTestRequired, setIsTestRequired] = useState(false);
+    const { isTestRequired, setIsTestRequired } = useTestState();
+    const [codingExpertise, setCodingExpertise] = useState(null);
+    const [codeQues, setCodeQues] = useState(null);
 
     const JobPositionRef = useRef();
     const recipientRef = useRef();
 
-    useEffect(()=>{
+    useEffect(() => {
         setPosition(positionRef?.current?.value);
         setLocation(locationRef?.current?.value);
         setJobtype(jobTypeRef?.current?.value);
         setDescription(descriptionRef?.current?.value);
-    },[positionRef?.current?.value,expertiseRef?.current?.value,locationRef?.current?.value,jobTypeRef?.current?.value,description?.current?.value])
+    }, [positionRef?.current?.value, expertiseRef?.current?.value, locationRef?.current?.value, jobTypeRef?.current?.value, description?.current?.value])
 
     const validateAddSkill = () => {
         return techStack.some(skillObj => skillObj.skill && skillObj.skill.trim() !== '');
@@ -98,60 +117,53 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         return regex.test(email);
     };
 
-    const validateEmailReceiver = () => {
-        if (!emailReceiver || !isValidEmail(emailReceiver)) {
-            setMessage("Please enter a valid email address.");
-            showError();
-            return false;
-        }
-        return true;
-    };
-    
+    useEffect(() => {
+        console.log('description:', description);
+    }, [description])
 
     const validateJobType = () => {
-        return positionRef.current.value && locationRef.current.value && jobTypeRef.current.value ;
+        return (positionRef.current.value).trim() !== '' && (locationRef.current.value).trim() !== '' && (jobTypeRef.current.value).trim() !== '' && description?.trim();
     };
 
     const toggleComponent = async () => {
+        let isValid = false;
 
-        if (currentStage === stages.ADD_SKILL && !validateAddSkill()) {
-            setMessage("Please fill in at least one skill.")
-            showError();
-            return;
-        }
-
-        if (currentStage === stages.JOB_TYPE && !validateJobType()) {
-            return;
-        }
-
-
-        if(currentStage === stages.SHARE_LINK && !validateEmailReceiver()){
-            setMessage("Re-write email its either invalid or empty!")
-            showError();
-            return;
-        }
-
-        const newCompletedStages = [...completedStages, currentStage];
+        let newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
-        if (currentStage === stages.SHARE_LINK) {
-            router.push('/');
-        } else {
-            switch (currentStage) {
-                case stages.ADD_SKILL:
-                    setCurrentStage(stages.JOB_TYPE);
-                    break;
-                case stages.JOB_TYPE:
-                    setCurrentStage(stages.AI_ASSESSMENT);
-                    await handleFormSubmit();
-                    break;
-                case stages.AI_ASSESSMENT:
-                    setCurrentStage(stages.SHARE_LINK);
-                    await handleFormSubmitForTest();
-                    break;
-                default:
-                    setCurrentStage(stages.ADD_SKILL);
-            }
+        switch (currentStage) { 
+            case stages.ADD_SKILL:
+                isValid = validateAddSkill();
+                if (!isValid) {
+                    setMessage("Please fill in at least one skill.");
+                    showError();
+                    return;
+                }
+                setCurrentStage(stages.JOB_TYPE);
+                break;
+            case stages.JOB_TYPE:
+                isValid = validateJobType();
+                if (!isValid) {
+                    setMessage("Please fill all the fields.");
+                    showError();
+                    return;
+                }
+                setCurrentStage(stages.AI_ASSESSMENT);
+                setMessage('Job has been created successfully!')
+                showSuccess();
+                await handleFormSubmit();
+                break;
+            case stages.AI_ASSESSMENT:
+                setCurrentStage(stages.SHARE_LINK);
+                await handleFormSubmitForTest();
+                break;
+            default:
+                setCurrentStage(stages.ADD_SKILL);
+        }
+
+        if (isValid) {
+            const newCompletedStages = [...completedStages, currentStage];
+            setCompletedStages(newCompletedStages);
         }
     }
 
@@ -172,7 +184,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 setCurrentStage(stages.ADD_SKILL);
         }
     }
-    
+
     const handleFormSubmit = async () => {
 
         const requestBody = {
@@ -190,10 +202,12 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
             jobtype: jobtype,
             position: position
         }));
-        console.log("Expertise:", expertiseItem);
-        console.log("Token in Overlay method:", token)
+        // console.log("Expertise:", expertiseItem);
+        // console.log("Token in Overlay method:", token)
         try {
             setIsLoading(true);
+            console.log("Payload size in bytes:", new Blob([JSON.stringify(requestBody)]).size);
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`, {
                 method: 'POST',
                 headers: {
@@ -203,6 +217,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
+            console.log('data of just created position:', data)
             console.log('data of created position:', data?.data?.data?.position_id);
             setPositionId(data?.data?.data?.position_id)
             setIsLoading(false);
@@ -212,9 +227,19 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
         }
     };
 
+    useEffect(() => {
+        console.log('positionId', positionId);
+        console.log('questionId', questionId)
+    }, [positionId, questionId, router?.isReady]);
+
+    useEffect(()=>{
+        console.log('expertise for coding:',codingExpertise)
+    },[codingExpertise]);
+
     const handleFormSubmitForTest = async () => {
         const requestBody = {
             expertise: techStack,
+            position_id: positionId
         }
         console.log("req body : ", requestBody);
         try {
@@ -228,43 +253,112 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
-            setTest(data);
+            console.log('response data of a test creation:', data);
+            setQuestionId(data?.data?.message?.question_id);
+            console.log('question id:')
             setIsLoading(false);
-            localStorage.setItem('testData', JSON.stringify(data));
-            console.log('test', test)
+            setMessage("Successfully created a test for your job!");
+            showSuccess();
             console.log(data);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
+
+        console.log('required:',isTestRequired  )
+
+
+        if(isTestRequired===true){
+
+            
+            try{
+                const req = {    
+                    codingExpertise: codingExpertise,
+                    position_id: positionId
+                }
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(req),
+                });
+                const data = await response.json();
+                setCodeQues(data);
+                setAssessmentId(data?.data?.assessment_id);
+                console.log('assessment id:',assessmentId)
+                console.log('code question data:', data);
+
+                // try{
+                //     const body ={
+
+                //     }
+                //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-coding-assessment`, {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //             'Authorization': `Bearer ${token}`,
+                //         },
+                //         body: JSON.stringify(body),
+                //     });
+                //     const data = await response.json();
+                //     setCodeQues(data);
+                // } catch(err){
+                //     console.log('ERROR:',err);
+                // }
+            } catch (err){
+                console.error('ERROR:', err);
+            }
+        }
+    };
+
+    useEffect(()=>{
+        console.log('codeQues:',codeQues);
+    },[codeQues])
+
+    const addEmailReceiver = () => {
+        console.log('Adding a new email receiver');
+        setEmailReceivers(currentReceivers => {
+            const newReceivers = [...currentReceivers, { email: '' }];
+            console.log("new recievers:");
+            return newReceivers;
+        });
+    };
+    
+    const handleEmailChange = (e, index) => {
+        const newEmailReceivers = [...emailReceivers];
+        newEmailReceivers[index].email = e.target.value;
+        setEmailReceivers(newEmailReceivers);
     };
 
     const handleEmailInvite = async () => {
-        const requestBody = {
-            to: emailReceiver,
-            subject: subject,
-            text: text
-        }
+        const validEmailReceivers = emailReceivers.filter(receiver => receiver.email.trim() !== '');
 
-        try {
-            setIsLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+        const sendInvitesPromises = validEmailReceivers.map(receiver => {
+            return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify(requestBody),
+                body: JSON.stringify({
+                    to: receiver.email,
+                    subject: subject,
+                    text: text
+                }),
             });
-            const data = await response.json();
-            setTest(data);
-            setIsLoading(false);
-            localStorage.setItem('testData', JSON.stringify(data));
-            console.log('test', test)
-            console.log(data);
-        } catch (error) {   
-            console.error('Error submitting form:', error);
+        });
+
+        try {
+            // Wait for all promises to resolve
+            await Promise.all(sendInvitesPromises);
+            setMessage('Invitations have been sent to all candidates via email');
+            showSuccess();
+            onClose(); // Close the modal or overlay if needed
+        } catch (error) {
+            console.error('Error sending invites:', error);
         }
-    }
+    };
 
     return (
         <>
@@ -274,9 +368,8 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                 <div className={styles.btn}>
                     <button onClick={onClose}>
                         <Image src='/shut.svg' width={15} height={15} />
-                    </button>   
+                    </button>
                 </div>
-
                 <div className={styles.superContainer}>
                     {isLoading ? (
                         <div className={styles.loader}></div>
@@ -284,7 +377,7 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                         <div className={styles.coverContainer}>
                             <div className={styles.topContainer}>
                                 <h2>{stageHeadings[currentStage]}</h2>
-                                
+
                             </div>
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
@@ -292,6 +385,10 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                             {currentStage === stages.ADD_SKILL && (
                                 <>
                                     <AddSkillForm
+                                        codingExpertise={codingExpertise}
+                                        setCodingExpertise={setCodingExpertise}
+                                        isTestRequired={isTestRequired}
+                                        setIsTestRequired={setIsTestRequired}
                                         expertiseRef={expertiseRef}
                                         setTechStack={setTechStack}
                                     />
@@ -303,7 +400,11 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
 
                             {currentStage === stages.JOB_TYPE && (
                                 <>
-                                    <JobType 
+                                    <JobType
+                                        position={position}
+                                        jobtype={jobtype}
+                                        description={description}
+                                        location={location}
                                         positionRef={positionRef}
                                         jobTypeRef={jobTypeRef}
                                         descriptionRef={descriptionRef}
@@ -331,12 +432,19 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
                             {currentStage === stages.SHARE_LINK && (
                                 <>
                                     <ShareLink
-                                        positionId = {positionId}
-                                        companyId = {id}
+                                        assessmentId={assessmentId}
+                                        isTestRequired={isTestRequired}
+                                        setEmailReceivers={setEmailReceivers}
+                                        emailReceivers={emailReceivers}
+                                        handleEmailChange={handleEmailChange}
+                                        addEmailReceiver={addEmailReceiver}
+                                        questionId={questionId}
+                                        positionId={positionId}
+                                        companyId={id}
                                         emailReceiver={emailReceiver}
                                         setEmailReceiver={setEmailReceiver}
                                         setText={setText}
-                                 q       text={text}
+                                        text={text}
                                         setSubject={setSubject}
                                         subject={subject}
                                         position={position}
@@ -358,4 +466,4 @@ const Overlay = React.memo(({ showError, showErrorMessage,  token, showOverlay, 
     )
 })
 
-export default Overlay; 
+export default Overlay;

@@ -63,7 +63,9 @@
         const [companySize, setCompanySize] = useState(null);
         const [city, setCity] = useState(null);
         const [country, setCountry] = useState(null);
-        const [id, setId] = useState(null);
+        const [companyId, setCompanyId] = useState(null);
+        const [text, setText] = useState(null);
+        const [subject, setSubject] = useState(null);
 
         const validateEmailReceiver = () => {
             if (!email || !isValidEmail(email)) {
@@ -89,18 +91,63 @@
         }, []);
 
         useEffect(() => {
-            link = `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-password/${id}`
-            console.log(link);
-        }, [id])
+            
+        }, [companyId, email]); 
+
+        useEffect(() => {
+            if (companyId && email) { 
+                const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;
+                const emailSubject = 'RECRUITINN: SET UP YOUR PASSWORD';
+                const emailText = `Follow the link to set up your new password: \n ${demolink}`;
+        
+                const details = {
+                    to: email,
+                    subject: emailSubject,
+                    text: emailText,
+                };
+        
+                console.log("details:", details);
+
+               setEmail(email);
+               setSubject(emailSubject);
+               setText(emailText);
+
+            }
+        }, [companyId, email,subject,text])
+
+        // const sendMail = async () => {
+        //     const reqBody = {
+        //         to: email,
+        //         subject: subject,
+        //         text: text,
+        //     };
+
+
+        //     try {
+        //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify(reqBody),
+        //         });
+        //         const data = await response.text();
+        //         console.log('response:', data);
+        //     } catch (error) {
+        //         console.error('Error mailing the client:', error);
+        //     }
+        // }
+
 
         const handleFormSubmit = async () => {
-            const requestBody = {
+            const requestBody = {   
                 company_name: companyname,
                 company_location: city,
                 email: email,
                 account_user_name: actManager,
                 contact_no: phoneNo
             }
+
 
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
@@ -113,21 +160,52 @@
                 });
                 const data = await response.json();
                 console.log("login response:", data?.data?.data?.company_id);
-                setId(data?.data?.data?.company_id);
+                setCompanyId(data?.data?.data?.company_id);
+                sendMail(data?.data?.data?.company_id)
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
+            // }try {
+            //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'Authorization': `Bearer ${adminToken}`,
+            //         },
+            //         body: JSON.stringify(requestBody),
+            //     });
+            
+            //     if (!response.ok) {
+            //         throw new Error('Network response was not ok');
+            //     }
+            
+            //     const data = await response.json();
+            //     console.log("log-in id:",data?.data?.data?.company_id)
+            //     setCompanyId(data?.data?.data?.company_id);
+            //     sendMail(data?.data?.data?.company_id);
 
+            //     // if(data?.data?.data?.companyId){
+            //     //     await sendMail(data?.data?.data?.companyId)
+            //     // }
+            // } catch (error) {
+            //     console.error('Error submitting form:', error);
+            // }
+            // sendMail(data?.data?.data?.company_id);
+        };
+
+        const sendMail = async (companyId) => {
+            const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;
+            const emailSubject = 'RECRUITINN: SET UP YOUR PASSWORD';
+            const emailText = `Follow the link to set up your new password: \n ${demolink}`;
+        
             const reqBody = {
                 to: email,
-                subject: 'RECRUITINN: Set Your Password & Login!',
-                text: `
-                    Click on this link to set up your password and login:
-                    
-                    ${link}
-                `
-            }
+                subject: emailSubject,
+                text: emailText,
+            };
 
+            console.log("body data to be sent:",reqBody)
+        
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                     method: 'POST',
@@ -136,10 +214,15 @@
                     },
                     body: JSON.stringify(reqBody),
                 });
+        
+                if (!response.ok) {
+                    throw new Error('Failed to send email');
+                }
+        
                 const data = await response.text();
-                console.log('response:', data);
+                console.log('Email sent successfully:', data);
             } catch (error) {
-                console.error('Error mailing the client:', error);
+                console.error('Error sending email:', error);
             }
         };
 

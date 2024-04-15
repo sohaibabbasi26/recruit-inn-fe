@@ -1,8 +1,10 @@
 .clientPortal{
-  height: 100vh;
-  width: 100%;
+  max-width: 1920px;
   display: flex;
   position: relative;
   overflow: hidden;
+  gap: 24px;
+  padding: 24px;
+  max-height: 95vh;
 }
 

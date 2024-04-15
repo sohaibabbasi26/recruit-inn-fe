@@ -1,3 +1,5 @@
+
+
 import { useState } from 'react';
 import styles from './PaymentOverlay.module.css';
 import Image from 'next/image';
@@ -9,7 +11,7 @@ import ErrorIndicator from './ErrorIndicator';
 import { checkout } from '@/util/Checkout';
 
 
-const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1, onClose , showSuccessMessage, message , setMessage , showSuccess }) => {
+const PaymentOverlay = React.memo(({ showError, showErrorMessage , showPaymentOverlay, onClose , showSuccessMessage, message , setMessage , showSuccess }) => {
     showErrorMessage
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +19,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
     useEffect(() => {
         document.body.style.overflow = 'hidden';
 
-        if (showOverlay1) {
+        if (showPaymentOverlay) {
             gsap.to(overlayRef.current, {
                 y: '0%',
                 opacity: 1,
@@ -40,8 +42,7 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
                 { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
             );
         });
-    }, [showOverlay1])
-
+    }, [showPaymentOverlay])
 
     return (
         <>
@@ -174,4 +175,4 @@ const PaymentOverlay = React.memo(({ showError, showErrorMessage , showOverlay1,
     )
 })
 
-export default PaymentOverlay; 
+export default PaymentOverlay;

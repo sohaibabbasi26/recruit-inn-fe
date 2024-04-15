@@ -2,11 +2,15 @@ import styles from './RightBottomBtns.module.css';
 
 import Image from 'next/image';
 
-const ForgotPasswordBtns = ({checkIfEmailIsInDbHandler, email, onClose }) => {
+const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, onClose }) => {
 
     const text = `Follow this link to set your new password: \n
     `
     const navigationIconSize = 30;
+
+    const handler = () => {
+        setViewMode('login')
+    }
 
     // const handleEmailInvite = async () => {
     //     const requestBody = {
@@ -41,6 +45,7 @@ const ForgotPasswordBtns = ({checkIfEmailIsInDbHandler, email, onClose }) => {
     return (
         <>
             <div className={styles.btnsContainer} >
+                <button id={styles.backBtn} onClick={handler} >Back</button>
                 <button id={styles.forwardBtn} onClick={() => {
                     console.log("Handle forgot password for:", email);
                     checkIfEmailIsInDbHandler();

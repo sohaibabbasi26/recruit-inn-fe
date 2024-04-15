@@ -1,6 +1,6 @@
+
 .body {
-  width: 100%;
-  height: auto;
+  height: 84.4vh;
   background-color: #F8F7FC;
   border-radius: 20px;
   display: flex;
@@ -10,7 +10,6 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-  margin-bottom: 0.75rem;
 }
 
 .body::-webkit-scrollbar {

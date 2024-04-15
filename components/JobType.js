@@ -1,8 +1,9 @@
 import EditingContainer from './EditingContainer';
 import JobInfoFields from './JobInfoFields';
 import styles from './JobType.module.css';
+import { useFormContext } from '@/contexts/FormContext';
 
-const JobType = ({positionRef,jobTypeRef, descriptionRef, locationRef, setPosition,setLocation,setJobtype,setDescription}) => {
+const JobType = ({position, jobType, description, location,positionRef,jobTypeRef, descriptionRef, locationRef, setPosition,setLocation,setJobtype,setDescription}) => {
 
     return(
         <>
@@ -13,5 +14,4 @@ const JobType = ({positionRef,jobTypeRef, descriptionRef, locationRef, setPositi
         </>
     );
 }
-
 export default JobType;

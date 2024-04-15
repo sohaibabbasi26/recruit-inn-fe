@@ -18,7 +18,9 @@ const CandSelfSkill = ({ setTechStack }) => {
             { skill: skill2, level: level2 },
         ];
 
-        setTechStack(skills);
+        const filledSkills = skills.filter(skillObj => skillObj.skill);
+
+        setTechStack(filledSkills);
     }, [skill1,skill2,level1,level2]);
 
     return (

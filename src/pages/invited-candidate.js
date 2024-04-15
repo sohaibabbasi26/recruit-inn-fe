@@ -18,10 +18,17 @@ const invitedCandidate = () => {
 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [message, setMessage] = useState(null);
+    const [showErrorMessage,setShowErrorMessage] = useState(false);
 
     const showSuccess = () => {
         setShowSuccessMessage(true);
-  
+        setTimeout(() => {
+            setShowSuccessMessage(false);
+        }, 3000);
+    };
+
+    const showError = () => {
+        setShowSuccessMessage(true);
         setTimeout(() => {
             setShowSuccessMessage(false);
         }, 3000);
@@ -30,7 +37,7 @@ const invitedCandidate = () => {
     const showOverlay = true;
     return (
         <>
-            <InvitationOverlay message={message} setMessage={setMessage} showSuccess={showSuccess} showSuccessMessage={showSuccessMessage} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
+            <InvitationOverlay setShowSuccessMessage = {setShowSuccessMessage} message={message} setMessage={setMessage} showSuccess={showSuccess} showSuccessMessage={showSuccessMessage} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
         </>
     );
 }
