@@ -1,8 +1,14 @@
 import styles from './candidate-self.module.css';
 import InvitationOverlay from '../../components/InvitationOverlay';
 import SelfOverlay from '../../components/SelfOverlay';
+import { useEffect } from 'react';
 
 const CandidateSelf = () => {
+
+    useEffect(() => {
+        // Set active flow to 'candidate' in local storage
+        localStorage.setItem('activeFlow', 'Candidate');
+    }, []);
 
     const stages = {
         PERSONAL_INFO : 'PERSONAL_INFO',
