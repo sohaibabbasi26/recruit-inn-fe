@@ -27,6 +27,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
     const handleItemClick = (itemName) => {
         setActiveItem(itemName);
         setClickedItem(itemName);
+        localStorage.setItem('currentPage', itemName);
         setTimeout(() => setClickedItem(''), 200);
     }
 

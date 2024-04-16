@@ -289,8 +289,8 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const toggleJobOverlay = () => {
     setJobOverlay(!jobOverlay);
   }
-
   const getActiveComponent = () => {
+    
     switch (activeItem) {
       case 'Dashboard':
         return <>
