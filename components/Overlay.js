@@ -264,7 +264,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             console.error('Error submitting form:', error);
         }
 
-        console.log('required:',isTestRequired  )
+        console.log('required:',isTestRequired)
 
 
         if(isTestRequired===true){

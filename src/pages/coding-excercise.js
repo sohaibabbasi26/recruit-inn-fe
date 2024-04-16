@@ -12,6 +12,8 @@ const CodingExcersice = () => {
     const [question, setQuestion] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [constraints, setConstraints] = useState();
+    const router = useRouter();
+    const {cid} = router?.query;
 
     async function executeCode() {
         const reqBody = {
@@ -41,7 +43,8 @@ const CodingExcersice = () => {
             code : Code,
             question : question,
             output : output,
-            constraints : constraints
+            constraints : constraints,
+            candidate_id : cid
         };
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-submit`, {
@@ -50,7 +53,6 @@ const CodingExcersice = () => {
             headers: { 'Content-type': 'application/json' }
         });
         const data = await response.json();
-        
         console.log('response: ', data);
         setIsLoading(false);
     }

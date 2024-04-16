@@ -198,7 +198,7 @@ const QuestionBox = ({ hasStarted }) => {
         // router.push('/test-submit-completion')
 
         if(test_req && a_id){
-            router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}`);
+            router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
         }
         else{
             router.push('/test-submit-completion');
