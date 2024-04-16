@@ -396,7 +396,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                         )}
 
                         {currentStage === stages.ASSESSMENT && (
-                            <>
+                            <>                                                                                                                                                                                                                                                                  
                                 <CandSelfAssessment />
                                 <div className={styles.wrapper}>
                                     <CandSelfAssessmentBtns questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />

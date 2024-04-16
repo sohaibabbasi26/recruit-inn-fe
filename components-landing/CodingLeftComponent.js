@@ -41,7 +41,7 @@ const CodingLeftComponent = ({ question }) => {
 
 
                         <h3 className="text-xl font-semibold font-sans">Constraints:</h3>
-                        {question?.constraints.map((constraint) => {
+                        {/* {question?.constraints?.length > 0 ? (question?.constraints?.map((constraint) => {
                             return (
                                 <>
                                     <ul>
@@ -51,7 +51,23 @@ const CodingLeftComponent = ({ question }) => {
                                     </ul>
                                 </>
                             )
-                        })}
+                        })) : (question?.constraints)} */}
+
+                        {Array.isArray(question?.constraints) ? (
+                            (question?.constraints?.map((constraint) => {
+                                return (
+                                    <>
+                                        <ul>
+                                            <li className="flex  items-center gap-3 text-[#ACA7BA]">
+                                                *<span className="py-2 text-black border-[#D3CFFC] rounded-md bg-[#F0F3FF] px-2 border-[1px] ">{constraint}</span>
+                                            </li>
+                                        </ul>
+                                    </>
+                                )
+                            }))
+                        ): (
+                            <p>{question?.constraints}</p>
+                        )}
 
                         {/* <ul>
                             <li className="flex  items-center gap-3 text-[#ACA7BA]">

@@ -19,7 +19,8 @@ const CandidateSuper = ({
     name,
     expertise,
     appliedThrough,
-    experience
+    experience,
+    isDisable
 }) => {
 
     const showJobOverlay = (job) => {
@@ -38,7 +39,7 @@ const CandidateSuper = ({
 
     return (
         <div className={styles.superContainer}>
-            <CandidatesSelfHub appliedThrough={appliedThrough} experience={experience}  name={name} expertise={expertise} results={results} isLoading={isLoading}  generateTestAndRedirect={generateTestAndRedirect} heading='Reports' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate}  />
+            <CandidatesSelfHub isDisable={isDisable} appliedThrough={appliedThrough} experience={experience}  name={name} expertise={expertise} results={results} isLoading={isLoading}  generateTestAndRedirect={generateTestAndRedirect} heading='Reports' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate}  />
         </div>
     );
 }

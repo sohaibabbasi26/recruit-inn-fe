@@ -38,8 +38,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
 
-<<<<<<< HEAD
-=======
+
     const logoutHandler = () => {
         localStorage.removeItem('client-token');
         localStorage.removeItem('isLoggedIn');
@@ -49,7 +48,6 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
     };
 
 
->>>>>>> cb30776a52d0901a8a4041fde010c16c4b2f1e29
     const listItemSize = 28;
     const logoSize = 30
 
