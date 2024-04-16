@@ -18,7 +18,7 @@ const QuestionBox = ({ hasStarted }) => {
     const mediaRecorderRef = useRef(null);
     const recordedChunksRef = useRef([]);
     const [answers, setAnswers] = useState([]);
-    const { cid, qid, pid } = router?.query;
+    const { cid, qid, pid , a_id , test_req} = router?.query;
     const [recordingDone, setRecordingDone] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [disableRecordingButton, setDisableRecordingButton] = useState(false);
@@ -188,14 +188,21 @@ const QuestionBox = ({ hasStarted }) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            },
+            },  
             body: JSON.stringify(requestBody),
         });
 
         const data = await response.json();
         setIsLoading(false);
         console.log("take-test api response:", data);
-        router.push('/test-submit-completion')
+        // router.push('/test-submit-completion')
+
+        if(test_req && a_id){
+            router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}`);
+        }
+        else{
+            router.push('/test-submit-completion');
+        }
     }
 
     const toggleComponent = async () => {
@@ -220,14 +227,14 @@ const QuestionBox = ({ hasStarted }) => {
             await stopAndHandleRecording();
             setIsLoading(false);
         }
-        setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
+        // setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
         if (currentQuestion < questions.length) {
             setCurrentQuestion(prevCurrent => prevCurrent + 1);
             setRecordingDone(false);
             setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
 
             if (currentQuestionIndex < questions.length - 1) {
-                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                // setCurrentQuestionIndex(prevIndex => prevIndex + 1);
                 speakQuestion(questions[currentQuestionIndex + 1]);
             }
         } else if (isLastQuestion) {
@@ -262,16 +269,27 @@ const QuestionBox = ({ hasStarted }) => {
             if (recordedChunksRef.current.length > 0) {
                 blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
                 console.log(`Blob created: Size - ${blob.size}, Type - ${blob.type}`);
+                const newAudioURL = URL.createObjectURL(blob);
+                setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+                const base64Data = await blobToBase64(blob);
+                const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
+                setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
             } else {
-                blob = new Blob([""], { type: 'audio/wav' });
-                console.log("No audio recorded for this question, creating dummy Blob.");
+                const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+                setAnswers(prev => [...prev, {
+                    question: questions[currentQuestion - 1]?.question,
+                    answer: silentBase64Wav,
+                }]);
+    
+                if (currentQuestion < questions.length) {
+                    setCurrentQuestion(current => current + 1);
+                    setRecordingDone(false);
+                }
+    
+                setIsLoading(false);
+                console.log("No recording made, adding silent audio blob as answer.");
             }
 
-            const newAudioURL = URL.createObjectURL(blob);
-            setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-            const base64Data = await blobToBase64(blob);
-            const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
-            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
         } else {
             console.error("Recorder not active or already stopped.");
         }

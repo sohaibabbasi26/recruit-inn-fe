@@ -5,7 +5,7 @@ const ActiveFlowContext = createContext();
 export const useActiveFlow = () => useContext(ActiveFlowContext);
 
 export const ActiveFlowProvider = ({ children }) => {
-  const [activeFlow, setActiveFlow] = useState('candidate-self');
+  const [activeFlow, setActiveFlow] = useState('client');
 
   return (
     <ActiveFlowContext.Provider value={{ activeFlow, setActiveFlow }}>

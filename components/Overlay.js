@@ -271,6 +271,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
 
             
             try{
+                setIsLoading(true);
                 const req = {    
                     codingExpertise: codingExpertise,
                     position_id: positionId
@@ -288,7 +289,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 setAssessmentId(data?.data?.assessment_id);
                 console.log('assessment id:',assessmentId)
                 console.log('code question data:', data);
-
+                setIsLoading(false);
                 // try{
                 //     const body ={
 
@@ -390,7 +391,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                         <div className={styles.coverContainer}>
                             <div className={styles.topContainer}>
                                 <h2>{stageHeadings[currentStage]}</h2>
-
                             </div>
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />

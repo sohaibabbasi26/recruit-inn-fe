@@ -16,9 +16,7 @@ import ErrorIndicator from './ErrorIndicator';
 
 const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
-    // const { expertiseItem, setExpertiseItem } = useExpertiseContext();
     useEffect(() => {
-        // Load form data from local storage when the component mounts
         console.log("data saved successfully")
         try {
           const savedFormData = JSON.parse(localStorage.getItem('invitationFormData')) || {};
@@ -541,7 +539,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         if (candidateId) {
             console.log("REDIRECTING TO:")
             console.log(`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`)
-            router.push(`/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`);
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}`);
         }
     };
 

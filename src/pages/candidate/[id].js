@@ -55,7 +55,6 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedInCandidate');
-    
     if (!isLoggedIn) {
       router.push('/candidate-login');
     }
@@ -177,6 +176,13 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [date, setDate] = useState();
   const [jobtype, setJobType] = useState();
   const [email, setEmail] = useState();
+  const [isDisable, setIsDisable] = useState(false);
+
+  useEffect(() => {
+    if(results?.length > 0) {
+      setIsDisable(true)
+    }
+  },[results])
 
 
   const showError = () => {
@@ -229,7 +235,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <CandidateSuper setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience}  name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect}  />
+          <CandidateSuper isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience}  name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect}  />
         </>;
       default:
         return null;
