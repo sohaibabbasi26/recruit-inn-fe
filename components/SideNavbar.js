@@ -46,7 +46,6 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
         router.push('/client-login');
     };
 
-
     const listItemSize = 28;
     const logoSize = 30
 
@@ -163,7 +162,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
                         <span style={{ color:'#4A525D'}}>Hello</span>
                         <h4>Bruce Wayne</h4>
                     </div>
-                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
+                    <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize}  style={{ marginLeft: '-10px', marginRight:'-20px' }} />
                 </div>
             </div>
             </div>

@@ -160,6 +160,12 @@
     
     gap: 1rem;
 }
+.closejobs{
+    text-align: center;
+    color: red;
+    font-size: xx-large;
+    font-weight: bolder;
+}
 @media only screen and (max-width: 1300px) {
     .headingjob{
         font-size: larger;

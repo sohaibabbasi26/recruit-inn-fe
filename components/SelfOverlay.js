@@ -110,7 +110,9 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     break;
                 case stages.SKILLS:
                     handleSetExpertise();
+                    setIsLoading(true);
                     handleTestPreparation();
+                    setIsLoading(false)
                     setCurrentStage(stages.ASSESSMENT);
                     break;
                 default:
@@ -327,7 +329,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const handleTestPreparation = async () => {
         console.log("request.boy in handle test prep method:", req)
-        
+        console.log("handle test prep here!")
         try {
             setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
@@ -375,7 +377,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                                 </div>
                             </>
                         )}
-
                         {currentStage === stages.VERIFICATION && (
                             <>
                                 <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />

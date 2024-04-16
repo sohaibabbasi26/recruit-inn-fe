@@ -35,6 +35,14 @@
     max-height:50%;
     font-size: 2rem;
 }
+@media (max-width: 1149px) {
+    /* CSS rules for screens less than 1150px wide */
+    /* For example, you can modify styles for smaller screens here */
+    .infoField {
+      padding: 0.5rem 0; /* Adjust font size for smaller screens */
+    }
+    /* Add more CSS rules as needed */
+  }
 
 .infoField input{
     width: 100%;

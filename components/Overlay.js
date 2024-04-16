@@ -206,6 +206,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         // console.log("Token in Overlay method:", token)
         try {
             setIsLoading(true);
+            console.log("Payload size in bytes:", new Blob([JSON.stringify(requestBody)]).size);
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`, {
                 method: 'POST',
                 headers: {
@@ -371,7 +373,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         }
     };
 
-
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
@@ -382,7 +383,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                         <Image src='/shut.svg' width={15} height={15} />
                     </button>
                 </div>
-
                 <div className={styles.superContainer}>
                     {isLoading ? (
                         <div className={styles.loader}></div>
