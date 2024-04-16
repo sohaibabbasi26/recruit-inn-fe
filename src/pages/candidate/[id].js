@@ -47,6 +47,11 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [results, setResults] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
+  
+  useEffect(() => {
+    // Set active flow to 'candidate' in local storage
+    localStorage.setItem('activeFlow', 'Candidate');
+  }, []);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedInCandidate');

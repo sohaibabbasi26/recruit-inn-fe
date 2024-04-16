@@ -27,6 +27,7 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
     const handleItemClick = (itemName) => {
         setActiveItem(itemName);
         setClickedItem(itemName);
+        localStorage.setItem('currentPage', itemName);
         setTimeout(() => setClickedItem(''), 200);
     }
 
@@ -38,7 +39,6 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
         setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle)
     }
 
-
     const logoutHandler = () => {
         localStorage.removeItem('client-token');
         localStorage.removeItem('isLoggedIn');
@@ -46,7 +46,6 @@ const SideNavbar = ({ navbarIte , showOverlay1 , setShowOverlay }) => {
     
         router.push('/client-login');
     };
-
 
     const listItemSize = 28;
     const logoSize = 30

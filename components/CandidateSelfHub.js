@@ -64,7 +64,7 @@ const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, gene
                             <span>{results?.length}</span>
                         </div>
 
-                        <button disabled={isDisable} onClick={generateTestAndRedirect}>{isLoading ? (
+                        {!isDisable && <button onClick={generateTestAndRedirect}>{isLoading ? (
                         <>
                             <div className={styles.loader}></div>
                         </>
@@ -73,7 +73,7 @@ const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, gene
                         <>
                         Evaluate Yourself <Image src='/spark.svg' height={30} width={30} />
                         </>
-                        )} </button>
+                        )} </button>}
                     </div>
 
                     <div className={styles.subContainer}>

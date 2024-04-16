@@ -7,11 +7,7 @@ const ShareLinkBtns = ({ onContinue , onBack , onClose, setCompletedStages, comp
 
     async function handleSendInvite() {
         await handleEmailInvite();
-        setMessage('An invitation has been sent to the candidate via email')
-        showSuccess();
-        onClose();
     }
-
     return (
         <>
             <div className={styles.btnsContainer} >
@@ -21,5 +17,4 @@ const ShareLinkBtns = ({ onContinue , onBack , onClose, setCompletedStages, comp
         </>
     )
 }
-
 export default ShareLinkBtns;
