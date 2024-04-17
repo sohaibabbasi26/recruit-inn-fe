@@ -19,6 +19,6 @@ const PersonalInfoBtns = ({ showSuccess, validateEmailReceiver, fillValidity, sh
             </div>
         </> 
     )
-}
+};
 
 export default PersonalInfoBtns;

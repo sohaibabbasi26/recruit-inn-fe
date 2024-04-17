@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import SearchEmpty from '../public/SearchEmpty.gif'
 
-const CandidatesSelfHub = ({name, expertise, results, isLoading, generateTestAndRedirect,heading, data, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
+const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, data, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
 
     console.log('data in candidates Hub:', data)
 
@@ -64,7 +64,7 @@ const CandidatesSelfHub = ({name, expertise, results, isLoading, generateTestAnd
                             <span>{results?.length}</span>
                         </div>
 
-                        <button onClick={generateTestAndRedirect}>{isLoading ? (
+                        {!isDisable && <button onClick={generateTestAndRedirect}>{isLoading ? (
                         <>
                             <div className={styles.loader}></div>
                         </>
@@ -73,7 +73,7 @@ const CandidatesSelfHub = ({name, expertise, results, isLoading, generateTestAnd
                         <>
                         Evaluate Yourself <Image src='/spark.svg' height={30} width={30} />
                         </>
-                        )} </button>
+                        )} </button>}
                     </div>
 
                     <div className={styles.subContainer}>

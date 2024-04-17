@@ -1,7 +1,7 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const CandSelfSkillBtns = ({ handleTestPreparation, onContinue , onBack , setCompletedStages, completedStages, onClose }) => {
+const CandSelfSkillBtns = ({setIsLoading, handleTestPreparation, onContinue , onBack , setCompletedStages, completedStages, onClose }) => {
 
     const navigationIconSize = 30;
 

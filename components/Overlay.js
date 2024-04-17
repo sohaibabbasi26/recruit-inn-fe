@@ -264,13 +264,14 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             console.error('Error submitting form:', error);
         }
 
-        console.log('required:',isTestRequired  )
+        console.log('required:',isTestRequired)
 
 
         if(isTestRequired===true){
 
             
             try{
+                setIsLoading(true);
                 const req = {    
                     codingExpertise: codingExpertise,
                     position_id: positionId
@@ -288,7 +289,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 setAssessmentId(data?.data?.assessment_id);
                 console.log('assessment id:',assessmentId)
                 console.log('code question data:', data);
-
+                setIsLoading(false);
                 // try{
                 //     const body ={
 
@@ -332,8 +333,20 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     };
 
     const handleEmailInvite = async () => {
-        const validEmailReceivers = emailReceivers.filter(receiver => receiver.email.trim() !== '');
-
+        // Filter out email receivers with empty or invalid email addresses
+        const validEmailReceivers = emailReceivers.filter(receiver => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for basic email validation
+            return receiver.email.trim() !== '' && emailRegex.test(receiver.email.trim());
+        });
+        // Check if there are any valid email receivers
+        if (validEmailReceivers.length === 0) {
+            // Throw an error message if there are no valid email receivers
+            console.error('No valid email addresses found.');
+            setMessage('Enter valid email address');
+            showError();
+            // You can also show an error message to the user if needed
+            return;
+        }
         const sendInvitesPromises = validEmailReceivers.map(receiver => {
             return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                 method: 'POST',
@@ -348,15 +361,16 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                 }),
             });
         });
-
         try {
             // Wait for all promises to resolve
             await Promise.all(sendInvitesPromises);
+            console.log("email sent")
             setMessage('Invitations have been sent to all candidates via email');
             showSuccess();
             onClose(); // Close the modal or overlay if needed
         } catch (error) {
             console.error('Error sending invites:', error);
+            // Handle the error as needed (e.g., show an error message to the user)
         }
     };
 
@@ -377,7 +391,6 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
                         <div className={styles.coverContainer}>
                             <div className={styles.topContainer}>
                                 <h2>{stageHeadings[currentStage]}</h2>
-
                             </div>
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />

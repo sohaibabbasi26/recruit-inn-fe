@@ -19,15 +19,16 @@ const testSumitCompletion = () => {
     }, [candidateId]);
 
     const getActiveComponent = () => {
+        const activeFlow = localStorage.getItem('activeFlow');
         console.log("Current active flow:", activeFlow);
         switch (activeFlow) {
-            case 'candidate-self':
+            case 'Candidate':
                 return `/candidate/${candidateId}`;
-            case 'client':
+            case 'Client':
                 return `/`;
             default:
                 return null;
-        }   
+        }
     };
 
     return(
