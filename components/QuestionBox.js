@@ -235,7 +235,7 @@ const QuestionBox = ({ hasStarted }) => {
             setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
 
             if (currentQuestionIndex < questions.length - 1) {
-                // setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
                 speakQuestion(questions[currentQuestionIndex + 1]);
             }
         } else if (isLastQuestion) {
