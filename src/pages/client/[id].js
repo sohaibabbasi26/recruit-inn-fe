@@ -69,7 +69,6 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       setFinalData(allData.data);
       setIsLoading(false);
       console.log('jsonified response: ', allData.data);
-
     }
     if (token) {
       fetchAllPositions()
@@ -101,15 +100,15 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const requestBody = { company_id: id };
       setIsLoading(true)
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-results-by-company`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(requestBody),
-        });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-results-by-company`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(requestBody),
+          });
 
       console.log('response: ', response);
       if (!response.ok) {
@@ -156,6 +155,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const inferredPosition = candidate.expertise.length > 0 ? candidate.expertise[0].skill : 'N/A'; // Inferred position from the first skill
 
       return {
+        candidate_id: candidate.candidate_id,
         position: candidate.position,
         jobType: candidate.job_type,
         name: candidate.name,

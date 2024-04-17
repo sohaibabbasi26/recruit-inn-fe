@@ -7,17 +7,32 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 
-const CodingChild = ({question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
+const CodingChild = ({formatTime, question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
 
     const router = useRouter();
 
     const { a_id, pid } = router?.query;
+    const [timeLeft, setTimeLeft] = useState(600);   
 
     useEffect(() => {
         console.log("a_id", a_id);
         console.log('router:', router?.query);
     }, [a_id])
 
+    useEffect(() => {
+        const timerId = setInterval(() => {
+            setTimeLeft(prevTimeLeft => {
+                if (prevTimeLeft <= 1) {
+                    clearInterval(timerId);
+                    console.log('Timer finished');
+                    return 0;  // Ensure timer stops at 0
+                }
+                return prevTimeLeft - 1;
+            });
+        }, 1000);
+    
+        return () => clearInterval(timerId);  // Cleanup interval on component unmount
+    }, []);
 
     useEffect(() => {
 
@@ -76,7 +91,7 @@ const CodingChild = ({question, setQuestion, codeSubmitHandler, constraints, set
                                             C
                                         </option>
                                     </select>
-                                    <span className="bg-[#6137DB] py-[0.25rem] flex items-center px-3 rounded-2xl text-sm font-semibold text-[#F0EDFC] gap-2"><Image src='/timer.svg' height={12} width={12} />09:59</span>
+                                    <span className="bg-[#6137DB] py-[0.25rem] flex items-center px-3 rounded-2xl text-sm font-semibold text-[#F0EDFC] gap-2"><Image src='/timer.svg' height={12} width={12} />{formatTime()}</span>
                                 </div>
                             </div>
 
@@ -98,8 +113,6 @@ const CodingChild = ({question, setQuestion, codeSubmitHandler, constraints, set
                                 <div className="w-[95%] h-[100%] border-b-[1px] border-[#EBEBEB] flex items-center">
                                     <span className="bg-[#F0EDFC] py-1 px-3 rounded-2xl text-sm font-semibold text-[#6137DB]">Test Result</span>
                                 </div>
-
-
                             </div>
 
                             <div className="ml-[1.2rem] w-[100%] h-[80%] ">

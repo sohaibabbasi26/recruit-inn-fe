@@ -194,15 +194,17 @@ const QuestionBox = ({ hasStarted }) => {
         });
 
         const data = await response.json();
-        setIsLoading(false);
+        
         console.log("take-test api response:", data);
         // router.push('/test-submit-completion')
 
-        if(test_req && a_id){
+        if(test_req === true && a_id){
             router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
+            setIsLoading(false);
         }
         else{
             router.push('/test-submit-completion');
+            setIsLoading(false);
         }
     }
 
