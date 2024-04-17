@@ -91,7 +91,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             return;
         }
 
-
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
 
@@ -104,15 +103,15 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     setCurrentStage(stages.VERIFICATION);
                     break;
                 case stages.VERIFICATION:
-                    setMessage("Success!")
+                    setMessage("Success!");
                     showSuccess();
                     verifyCode();
                     break;
                 case stages.SKILLS:
+                    // setIsLoading(true);
                     handleSetExpertise();
-                    setIsLoading(true);
                     handleTestPreparation();
-                    setIsLoading(false)
+                    // setIsLoading(false);
                     setCurrentStage(stages.ASSESSMENT);
                     break;
                 default:
@@ -120,11 +119,10 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             }
         }
     }
-
     const backToggleComponent = () => {
         const stageToBePopped = completedStages.slice(0, -1);
         setCompletedStages(stageToBePopped);
-        switch (currentStage) {
+        switch (currentStage){
             case stages.VERIFICATION:
                 setCurrentStage(stages.PERSONAL_INFO);
                 break;
@@ -225,6 +223,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
         try {
             setIsLoading(true);
+            console.log("is loading check",isLoading);
             const requestBody = {
                 name: name,
                 city: city,
@@ -250,6 +249,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             console.log('candidate:', data);
             setCandidateId(data?.data?.data?.candidate_id);
             setIsLoading(false);
+            console.log("is loading check" , isLoading);
             console.log('data in Self overlay:', data?.data?.data?.candidate_id);
         } catch (err) {
             console.log('ERRROR:', err);
@@ -303,15 +303,16 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     }
 
     const handleSetExpertise = async () => {
-
         const requestBody = {
             token: candidateId,
             expertise: techStack
         }
 
         console.log("req body for setting expertise:", requestBody);
-        try {
+
+        try{
             setIsLoading(true);
+            console.log("loading in personal info" , isLoading);
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-expertise-by-cand`, {
                 method: 'POST',
                 headers: {
@@ -321,17 +322,23 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             });
             const data = await response.json();
             console.log('data in set expertise:', data);
-            setIsLoading(false);
+            // setIsLoading(false);
+            console.log("loading in personal info" , isLoading);
         } catch (err) {
             console.log("error:", err)
         }
     }
 
+    useEffect(() => {
+        console.log("Loading status",isLoading);
+    }, [isLoading]);
+
     const handleTestPreparation = async () => {
         console.log("request.boy in handle test prep method:", req)
-        console.log("handle test prep here!")
+        console.log("handle test prep here!");
         try {
-            setIsLoading(true);
+            // setIsLoading(true);
+            console.log("Loading status",isLoading);
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                 method: 'POST',
                 headers: {
@@ -345,6 +352,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             console.log('question id:', questionId);
             console.log('data in test preparation:', data);
             setIsLoading(false);
+            console.log("Loading status" , isLoading);
         } catch (err) {
             console.log("error:", err)
         }
@@ -389,8 +397,9 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                         {currentStage === stages.SKILLS && (
                             <>
                                 <CandSelfSkill handleTestPreparation={handleTestPreparation} setTechStack={setTechStack} />
+
                                 <div className={styles.wrapper}>
-                                    <CandSelfSkillBtns handleTestPreparation={handleTestPreparation} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <CandSelfSkillBtns  handleTestPreparation={handleTestPreparation} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
@@ -399,15 +408,13 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                             <>                                                                                                                                                                                                                                                                  
                                 <CandSelfAssessment />
                                 <div className={styles.wrapper}>
-                                    <CandSelfAssessmentBtns questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                    <CandSelfAssessmentBtns setIsLoading={setIsLoading} questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
 
                     </div>
-
                     )}
-
                 </div>
 
             </div>
