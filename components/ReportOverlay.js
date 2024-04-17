@@ -1,6 +1,6 @@
 import styles from './ReportOverlay.module.css';
 import Image from 'next/image';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import Assessment from './Assessment';
 import jsPDF from 'jspdf';
@@ -8,7 +8,31 @@ import html2canvas from 'html2canvas';
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
 
-    console.log('selected candidate is:',selectedCandidate)
+    console.log('selected candidate is:', selectedCandidate)
+    const [codingResult, setCodingResult] = useState();
+
+    useEffect(() => {
+        async function fetchCandidatesCodingResult() {
+            const requestBody = {
+                candidate_id: selectedCandidate?.candidate_id
+            }
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+
+            const data = await response.json();
+            console.log("data response:", data);
+            setCodingResult(data);
+        }
+
+        fetchCandidatesCodingResult();
+    }, [selectedCandidate]);
 
     const overlayRef = useRef(null);
     const contentRef = useRef(null);
@@ -16,6 +40,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
 
     const headingOne = 'Technical';
     const headingTwo = 'Soft-skill';
+    const headingThree = 'Coding Exercise Analysis'
 
     const paraOne = `Welcome to HyperTech Solutions Unlimited, where we transcend the boundaries of reality to pioneer groundbreaking solutions in quantum software engineering. As a Quantum Code Wizard, you'll be part of a dynamic team of multidimensional thinkers who harness the power of quarks, warp drives, and a touch of magic to push the boundaries of technology.`;
     const paraTwo = `Welcome to HyperTech Solutions Unlimited, where we transcend the boundaries of reality to pioneer groundbreaking solutions in quantum software engineering. As a Quantum Code Wizard, you'll be part of a dynamic team of multidimensional thinkers who harness the power of quarks, warp drives, and a touch of magic to push the boundaries of technology.`;
@@ -202,10 +227,19 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
 
                         {/*assessment components */}
                         <div className={styles.cont}>
-                        <div className={styles.auto}>
-                        <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
-                        <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
-                        </div>
+                            <div className={styles.auto}>
+                                <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
+                                <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
+
+                                {codingResult ? (
+                                    <>
+                                    <Assessment heading={headingThree} para={codingResult?.data?.result?.technicalSummary} score={Math.ceil(parseInt(codingResult?.data?.result?.technicalRating))} />
+                                    </>
+                                ) : (
+                                    <>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
