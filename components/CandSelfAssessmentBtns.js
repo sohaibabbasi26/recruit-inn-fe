@@ -2,13 +2,15 @@ import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const CandSelfAssessmentBtns = ({questionId, onContinue, onBack, setCompletedStages, completedStages, onClose,candidateId }) => {
+const CandSelfAssessmentBtns = ({setIsLoading, questionId, onContinue, onBack, setCompletedStages, completedStages, onClose,candidateId }) => {
 
     const navigationIconSize = 30;
     const router = useRouter();
 
     const startAssessmentHandler = () => {
-        console.log(`/test?id=${candidateId}`)
+        
+        console.log(`/test?id=${candidateId}`);
+
         router.push(`/test?cid=${candidateId}&qid=${questionId}`)
     }
 
@@ -20,7 +22,7 @@ const CandSelfAssessmentBtns = ({questionId, onContinue, onBack, setCompletedSta
         <>
             <div className={styles.btnsContainer} >
                 <button id={styles.backBtn} onClick={redirectToCandidateDashB}>Later</button>
-                <button id={styles.forwardBtn} onClick={startAssessmentHandler} >Start Assessment<Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize} /></button>
+                <button id={styles.forwardBtn} onClick={startAssessmentHandler}>Start Assessment<Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize} /></button>
             </div>
         </>
     )

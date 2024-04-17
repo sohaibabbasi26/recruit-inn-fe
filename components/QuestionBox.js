@@ -72,6 +72,7 @@ const QuestionBox = ({ hasStarted }) => {
 
     const speakQuestion = (questionobj) => {
         const question = questionobj.question;
+        console.log(question);
         cancel();
         speak({ text: question });
     };
