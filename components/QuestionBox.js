@@ -72,6 +72,7 @@ const QuestionBox = ({ hasStarted }) => {
 
     const speakQuestion = (questionobj) => {
         const question = questionobj.question;
+        console.log(question);
         cancel();
         speak({ text: question });
     };
@@ -193,15 +194,17 @@ const QuestionBox = ({ hasStarted }) => {
         });
 
         const data = await response.json();
-        setIsLoading(false);
+        
         console.log("take-test api response:", data);
         // router.push('/test-submit-completion')
 
-        if(test_req && a_id){
+        if(test_req === true && a_id){
             router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
+            setIsLoading(false);
         }
         else{
             router.push('/test-submit-completion');
+            setIsLoading(false);
         }
     }
 
@@ -234,7 +237,7 @@ const QuestionBox = ({ hasStarted }) => {
             setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
 
             if (currentQuestionIndex < questions.length - 1) {
-                // setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
                 speakQuestion(questions[currentQuestionIndex + 1]);
             }
         } else if (isLastQuestion) {

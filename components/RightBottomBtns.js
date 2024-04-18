@@ -9,7 +9,7 @@ const RightBottomBtns = ({ onContinue, onBack, setCompletedStages, completedStag
         <>
             <div className={styles.btnsContainer} >
                 <button id={styles.backBtn} onClick={onClose}><Image src='/backward.svg' width={navigationIconSize} height={navigationIconSize} />Back</button>
-                <button id={styles.forwardBtn} onClick={onContinue} >Continue <Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize} /></button>
+                <button id={styles.forwardBtn} onClick={onContinue} >Continue <Image src='/Forward.svg' width={20} height={navigationIconSize} /></button>
                 
             </div>
         </>
