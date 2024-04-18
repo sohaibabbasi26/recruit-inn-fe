@@ -1,4 +1,4 @@
-.clientPortal{
+.clientPortal {
   max-width: 1920px;
   display: flex;
   position: relative;
@@ -8,3 +8,11 @@
   max-height: 95vh;
 }
 
+@media (max-width: 64em) {
+  .clientPortal {
+    /* for now heigh, will look at max it has no effect rn */
+    height: calc(100vh - 35px);
+    padding: 18px;
+    gap: 12px;
+  }
+}
