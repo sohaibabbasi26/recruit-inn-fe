@@ -71,13 +71,13 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
                                                 <div className={styles.leftTop}>
                                                     <Image src='/Emoji.svg' width={iconSize} height={iconSize} />
                                                     <div className={styles.basicInfo}>
-                                                        <h4>{item.name}</h4>
-                                                        <span>{item.position}</span>
+                                                        <h4>{item?.name}</h4>
+                                                        <span>{item?.position}</span>
                                                     </div>
                                                 </div>
                                                 <div className={styles.rightTop}>
-                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{Math.ceil(item.score)}/10</span>
-                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item.score)) }}>{getFilter(Math.ceil(item.score))}<Image src={getStatusSymbol(Math.ceil(item.score))} width={statusSize} height={statusSize} /> </span>
+                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.score)) }}>{Math.ceil(item?.score)}/10</span>
+                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.score)) }}>{getFilter(Math.ceil(item?.score))}<Image src={getStatusSymbol(Math.ceil(item?.score))} width={statusSize} height={statusSize} /> </span>
                                                     <Image src="/rightArrow.svg" height={iconSize} width={iconSize} /></div>
                                             </div>
     
@@ -90,7 +90,7 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
                                                                 <li>
                                                                     <div className={styles.basic}>
                                                                         <Image className={styles.django} src={tech.img} width={iconSize} height={iconSize} />
-                                                                        <span>{tech.skill}</span>
+                                                                        <span>{tech?.skill}</span>
                                                                     </div>
                                                                     {/* <p>{tech.experience}+ Years</p> */}
                                                                 </li>
@@ -101,8 +101,8 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
                                             </div>
     
                                             <div className={styles.lowerContainer}>
-                                                <p><span>Applied:</span>{item.appliedThrough}</p>
-                                                <p><span>Experience:</span>{item.overAllExperience}</p>
+                                                <p><span>Applied:</span>{item?.appliedThrough}</p>
+                                                <p><span>Experience:</span>{item?.overAllExperience}</p>
                                             </div>
                                         </div>
                                     </>
