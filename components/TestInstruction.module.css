@@ -1,34 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 
-
-.backDropContainer{
-    height: 100vh;
-    width: 100%;
-    backdrop-filter: blur(5px);
-    font-family: "Poppins", sans-serif;
-    transform:translate3d(0,0,0);
-    background-color: rgba(0, 0, 0, 0.11);
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.backDropContainer {
+  height: 100vh;
+  width: 100%;
+  backdrop-filter: blur(5px);
+  font-family: "Poppins", sans-serif;
+  transform: translate3d(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.11);
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.instructionsBox{
-    height: 70%;
-    width: 40%;
-    background-color: #fff;
-    border-radius: 20px;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.instructionsBox {
+  height: 70%;
+  width: 40%;
+  background-color: #fff;
+  border-radius: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.container{
-    width: 90%;
-    height: 95%;
+.container {
+  width: 90%;
+  height: 95%;
 }
 
 .instructionsContainer{
@@ -43,56 +42,76 @@
     overflow: scroll;
 }
 
-.instructionsContainer ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
+.instructionsContainer ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
-.instructionsContainer ul li{
-    width: 80%;
-    display:  flex;
-    align-items: center;
-    border-bottom: 2px solid #EBEBEB;
-    padding: 1rem 0;
-    color: #4A525D;
-    font-size: 1.1rem;
+.instructionsContainer ul li {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ebebeb;
+  padding: 1rem 0;
+  color: #4a525d;
+  font-size: 1.1rem;
 }
 
 .custom-bullets {
-    list-style: none; 
-    padding-left: 0; 
+  list-style: none;
+  padding-left: 0;
 }
 
 .custom-bullets li::before {
-    content: '•'; 
-    color: #6137DB; 
-    display: inline-block;
-    width: 2rem; 
-    font-size: 30px;
+  content: "•";
+  color: #6137db;
+  display: inline-block;
+  width: 2rem;
+  font-size: 30px;
 }
 
-.lowerContainer{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 15%;
+.lowerContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 15%;
 }
 
-.lowerContainer button{
-    font-family: 'Poppins',sans-serif;
-    border: none;
-    background-color: #6137DB;
-    color: #fff;
-    border-radius: 30px;
-    width: 50%;
-    font-size: 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    justify-items: center;
+.lowerContainer button {
+  font-family: "Poppins", sans-serif;
+  border: none;
+  background-color: #6137db;
+  color: #fff;
+  border-radius: 30px;
+  width: 50%;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 40%;
+  justify-items: center;
+}
 
+/* 1024px */
+@media screen and (max-width: 64em) {
+  .instructionsBox {
+    min-height: 33rem;
+    min-width: 31rem;
+  }
+
+  .lowerContainer {
+    margin-top: 0.3rem;
+    height: auto;
+  }
+
+  .lowerContainer button {
+    margin-bottom: 0;
+    height: 3.5rem;
+    min-width: 12rem;
+    margin-top: 0.9rem;
+  }
 }
