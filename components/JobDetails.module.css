@@ -1,47 +1,55 @@
 .superContainer {
-    width: 60%;
-    height: 50%;
+  width: 60%;
+  height: 50%;
 }
 
 .infoFieldContainers {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .infoField {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #F8F7FA;
-    padding: 1rem 1rem;
-    border-radius: 30px;
-    gap: 1rem;
-    border: 1px solid #EBEBEB;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f8f7fa;
+  padding: 1rem 1rem;
+  border-radius: 30px;
+  gap: 1rem;
+  border: 1px solid #ebebeb;
 }
 
 .jobDescription {
-    border: 1px solid #EBEBEB;
-    background-color: #F8F7FA;
-    border-radius: 30px;
-    margin-top: 1rem;
-    padding: 1rem;
-    overflow-y: scroll;
+  border: 1px solid #ebebeb;
+  background-color: #f8f7fa;
+  border-radius: 30px;
+  margin-top: 1rem;
+  padding: 1rem;
+  overflow-y: scroll;
 }
 
 .jobDescription h4 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .jobDescription::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .jobDescription::-webkit-scrollbar-thumb {
-    background-color: transparent;
+  background-color: transparent;
 }
 
-#gap{
-    padding-bottom: 1rem;
+#gap {
+  padding-bottom: 1rem;
+}
+
+/* 1024px */
+@media (max-width: 64em) {
+  .superContainer {
+    /* 900px */
+    min-width: 56.25rem;
+  }
 }

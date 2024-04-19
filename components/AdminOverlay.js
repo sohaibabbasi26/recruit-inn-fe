@@ -19,6 +19,7 @@
 
     const AdminOverlay = ({adminToken, message, showError, showErrorMessage, showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
+
         console.log('stage headings:'.stageHeadings);
 
         const overlayRef = useRef(null);
@@ -66,6 +67,7 @@
         const [companyId, setCompanyId] = useState(null);
         const [text, setText] = useState(null);
         const [subject, setSubject] = useState(null);
+        const[isLoading , setisLoading] = useState(false);
 
         const validateEmailReceiver = () => {
             if (!email || !isValidEmail(email)) {
@@ -149,6 +151,7 @@
             }
 
             try {
+                setisLoading(true);
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
                     method: 'POST',
                     headers: {
@@ -164,7 +167,10 @@
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
-            // }try {
+            
+            router.push(`http://localhost:3000/set-password/${companyId}`);
+            
+                // }try {
             //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
             //         method: 'POST',
             //         headers: {
@@ -190,6 +196,7 @@
             //     console.error('Error submitting form:', error);
             // }
             // sendMail(data?.data?.data?.company_id);
+
         };
 
         const sendMail = async (companyId) => {
@@ -223,6 +230,7 @@
             } catch (error) {
                 console.error('Error sending email:', error);
             }
+            setisLoading(false);
         };
 
         return (
@@ -243,7 +251,7 @@
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
-                            {currentStage === stages.CLIENT_INFO && (
+                            {currentStage === stages.CLIENT_INFO && !isLoading && (
                                 <>
                                     <ClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
                                     <div className={styles.wrapper}>
@@ -251,11 +259,11 @@
                                     </div>
                                 </>
                             )}
+                            {isLoading && <div className={styles.loader}></div>}
                         </div>
                     </div>
                 </div>
             </>
         )
     }
-
-    export default AdminOverlay;
+export default AdminOverlay;

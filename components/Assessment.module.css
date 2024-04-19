@@ -42,3 +42,17 @@
     margin-top: 0;
     margin: 1rem 0 ;
 }
+@media only screen and (max-width: 1024px) {
+    .summary {
+        font-size: small;
+    }
+    .header {
+        font-size: small;
+    }
+}
+
+.ReportOverlay_infoDiv__TaAh_ {
+    width: 90%;
+    margin-top: 1rem;
+    font-size: 16px;
+}

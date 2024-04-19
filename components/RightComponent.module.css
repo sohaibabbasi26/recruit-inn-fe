@@ -1,64 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@400;500&display=swap");
+.superContainer {
+  width: 32%;
+  background-color: #fff;
+  /* margin-top: 7px; */
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+}
+.masterConatiner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 100vh;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@400;500&display=swap');
-.superContainer{
-    width: 32% ;
-    background-color: #fff;
-    margin-top: 7px;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-start;
+.btnsDiv {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 25px;
+  width: 100%;
 }
-.masterConatiner{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-height: 100vh;
-}
-.btnsDiv{
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-bottom: 25px;
-    width: 100%;
-}
-.addJobBtn{
-    border: none;
-    background-color: #6137DB;
-    height: 70px;
-    width: 100%;
-    margin-right: 0px;
-    border-radius: 60px;
-    color: #fff;
-    letter-spacing: 0.5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 0.5px;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
+.addJobBtn {
+  border: none;
+  background-color: #6137db;
+  height: 70px;
+  width: 100%;
+  margin-right: 0px;
+  border-radius: 60px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
 }
 
 .addJobBtn:hover {
-    background-color: #5A33CC;
+  background-color: #5a33cc;
 }
-.notificationsBtn{
-    background-color: #F8F7FC;
-    height: 70px;
-    min-width: 25%;
-    border-radius: 48px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    border: none;
-    color: gray;
-    border: 1px ;
 
+.notificationsBtn {
+  background-color: #f8f7fc;
+  height: 70px;
+  min-width: 25%;
+  border-radius: 48px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  color: gray;
+  border: 1px;
 }
-.notificationsBtn :hover{
+.notificationsBtn :hover {
+  height: 50px;
+  color: black;
+  font-family: "Poppins", sans-serif;
+}
+
+/* looking at options */
+/* 1024px */
+@media screen and (max-width: 64em) {
+  .superContainer {
+    width: 35%;
+    display: block;
+    height: 100%;
+  }
+
+  .masterConatiner {
+    height: 100%;
+  }
+
+  .addJobBtn,
+  .notificationsBtn {
     height: 50px;
-    color: black;
-    font-family: 'Poppins', sans-serif;
-}
+  }
 
+  .btnsDiv {
+    margin-bottom: 1.5rem;
+  }
+}
