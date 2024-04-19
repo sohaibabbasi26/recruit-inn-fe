@@ -48,6 +48,7 @@
 }
 
 .topContainer span{
+    margin-top: 3%;
     padding: 0.75rem;
     background-color: #6E62E5;
     color: #fff;
@@ -88,18 +89,18 @@
 
 .lowerContainer{
     width: 95%;
-    height: 20%;
+    height: 30%;
     display: flex;
     justify-content: flex-end;
     margin-top: 3rem;
 }
 
 .lowerContainer button{
-    height: 50%;
+    height: 30%;
     border: none;
     color: #fff;
     background-color: #6137DB;
-    width: 30%;
+    width: 20%;
     border-radius: 35px;
     font-family: 'Poppins',sans-serif;
     font-size: 1rem;
@@ -107,4 +108,10 @@
     align-items: center;
     margin-top: 10px;
     justify-content: space-around;
+}
+@media only screen and (max-width: 1024px) {
+    .lowerContainer button{
+        height: 60%;
+        width: 40%;
+    }
 }

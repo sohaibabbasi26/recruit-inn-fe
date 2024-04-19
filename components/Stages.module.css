@@ -1,5 +1,5 @@
 .stagesContainer{
-    width: 900px;
+    width: 80%;
     margin-bottom: 1.5rem;
 
 }
@@ -7,7 +7,7 @@
 .stagesContainer ul{
     display: flex;
     list-style: none;
-    width: 900px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     padding: 0;
