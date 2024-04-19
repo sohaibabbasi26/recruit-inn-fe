@@ -5,11 +5,3 @@ body {
 
   font-family: "Poppins", sans-serif;
 }
-
-/* looking at options */
-/* 1024px */
-@media (max-width: 64em) {
-  h3 {
-    font-size: 0.9rem;
-  }
-}

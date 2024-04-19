@@ -8,11 +8,16 @@
   max-height: 95vh;
 }
 
-@media (max-width: 64em) {
+/* 1024px */
+@media screen and (max-width: 64em) {
   .clientPortal {
     /* for now heigh, will look at max it has no effect rn */
     height: calc(100vh - 35px);
     padding: 18px;
     gap: 12px;
+  }
+
+  .clientPortal h3 {
+    font-size: 0.9rem;
   }
 }

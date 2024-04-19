@@ -248,6 +248,7 @@
 @media (max-width: 64em) {
   .masterContainer {
     width: 25%;
+    height: 100%;
   }
 
   .logoContainer {
@@ -289,5 +290,9 @@
     margin-left: 8px;
     margin-right: 8px;
     width: 90%;
+  }
+
+  .profileTab h4 {
+    white-space: nowrap;
   }
 }

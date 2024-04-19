@@ -1,90 +1,113 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 
+.btnsContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  height: 60%;
+  width: 85%;
+  margin-top: 4%;
+}
 
-.btnsContainer{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
-    height: 60%;
-    width: 85%;
-    margin-top: 4%;
-}   
-@media only screen and (max-width: 1024px) {
-    .btnsContainer {
-        margin-top: 20px;
-    }
+#backBtn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f0edfc;
+  border: none;
+  border-radius: 40px;
+  width: 180px;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  gap: 1rem;
+  height: 60%;
+  font-family: "Poppins", sans-serif;
 }
-#backBtn{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #F0EDFC;
-    border: none;
-    border-radius: 40px;
-    width: 180px;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-    gap: 1rem;
-    height: 60%;
-    font-family: 'Poppins', sans-serif;
-}
-#backBtn:hover{
-    background-color: #F3F2F5;
+#backBtn:hover {
+  background-color: #f3f2f5;
 }
 
 #forwardBtn {
-    display: flex;
-    justify-content: space-around;
-    margin: 1rem 0;
-    align-items: center;
-    background-color: #6137DB;
-    color: #fff;
-    border: none;
-    border-radius: 40px;
-    font-weight: 500;
-    width: 280px;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-    gap: 3rem;
-    height: 60%;
-    font-family: 'Poppins', sans-serif;
-    padding-left: 32px;
-    padding-right: 24px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+  align-items: center;
+  background-color: #6137db;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  font-weight: 500;
+  width: 280px;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  gap: 3rem;
+  height: 60%;
+  font-family: "Poppins", sans-serif;
+  padding-left: 32px;
+  padding-right: 24px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-
 
 #forwardBtn:hover {
-    background-color: #5A33CC;
-    color: #fff;
+  background-color: #5a33cc;
+  color: #fff;
 }
 
-@media only screen and (max-width: 1024px) {
-    #forwardBtn {
-        width: 100px; 
-        height: 60%;
-        font-size: 12px;
-        gap: 1rem;
-    }
-}
-
-
-@media only screen and (max-width: 1100px) {
-    #backBtn, #forwardBtn { 
-        width: 180px; 
-        height: 60%;
-        font-size: 12px;
-        gap: 10px;
-    }
-}
+/* @media only screen and (max-width: 1024px) {
+  #forwardBtn {
+    width: 100px;
+    height: 60%;
+    font-size: 1rem;
+    gap: 1rem;
+  }
+} */
 
 @media only screen and (max-width: 1200px) {
-    #backBtn, #forwardBtn { 
-        width: 180px; 
-        height: 90%;
-        font-size: 12px;
-        gap: 10px;
-    }
+  #backBtn,
+  #forwardBtn {
+    width: 180px;
+    height: 90%;
+    font-size: 12px;
+    gap: 10px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  #backBtn,
+  #forwardBtn {
+    width: 180px;
+    height: 60%;
+    font-size: 12px;
+    gap: 10px;
+  }
+}
+
+/* 1024px */
+@media screen and (max-width: 64em) {
+  .btnsContainer {
+    margin-top: 20px;
+    float: right;
+    /*  */
+    margin-right: 3px;
+  }
+
+  /* #forwardBtn {
+    width: 100px;
+    height: 60%;
+    font-size: 1rem;
+    gap: 1rem;
+  } */
+
+  #backBtn,
+  #forwardBtn {
+    white-space: nowrap;
+    font-size: 1rem;
+    height: 3.5rem;
+  }
+
+  #forwardBtn {
+    width: auto;
+  }
 }
