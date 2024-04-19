@@ -14,6 +14,7 @@ import AdminOverlay from '../../components/AdminOverlay';
 import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
 import ErrorIndicator from '../../components/ErrorIndicator';
+import ClientSignup from './client-signup';
 
 const Admin = ({ }) => {
 
