@@ -78,7 +78,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 23%;
+    height: 15%;
 }
 
 .lowerContainer button{
@@ -87,10 +87,13 @@
     background-color: #6137DB;
     color: #fff;
     border-radius: 30px;
-    width: 30%;
+    width: 50%;
     font-size: 1rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 1rem 0;
+    padding: 10px;
+    margin-bottom: 40%;
+    justify-items: center;
+
 }
