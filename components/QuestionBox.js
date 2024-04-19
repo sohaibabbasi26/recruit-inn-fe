@@ -25,6 +25,8 @@ const QuestionBox = ({ hasStarted }) => {
     const [questions, setQuestions] = useState();
     const { speak, cancel } = useSpeechSynthesis();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
     const isLastQuestion = currentQuestion === questions?.length;
 
     useEffect(() => {
@@ -115,8 +117,18 @@ const QuestionBox = ({ hasStarted }) => {
             .catch(err => console.error('Error accessing the microphone:', err));
     }, []);
 
+    // const startRecording = () => {
+    //     if (mediaRecorderRef.current) {
+    //         mediaRecorderRef.current.start();
+    //         setIsRecording(true);
+    //         setRecordingDone(true);
+    //         console.log('Recording started');
+    //     };
+    // }
+
     const startRecording = () => {
         if (mediaRecorderRef.current) {
+            cancel(); // Stops speech synthesis before starting recording
             mediaRecorderRef.current.start();
             setIsRecording(true);
             setRecordingDone(true);
@@ -180,6 +192,11 @@ const QuestionBox = ({ hasStarted }) => {
 
 
     const submitTestHandler = async () => {
+
+        if (isSubmitted) return;
+        setIsSubmitted(true);
+
+
         const requestBody = {
             candidate_id: cid,
             question_answer: answers
@@ -198,7 +215,9 @@ const QuestionBox = ({ hasStarted }) => {
         console.log("take-test api response:", data);
         // router.push('/test-submit-completion')
 
-        if(test_req === true && a_id){
+        console.log('value in test_req state:', test_req);
+        console.log('test_req state = ', test_req === 'true');
+        if(test_req === 'true' && a_id){
             router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
             setIsLoading(false);
         }

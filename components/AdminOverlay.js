@@ -148,7 +148,6 @@
                 contact_no: phoneNo
             }
 
-
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
                     method: 'POST',
