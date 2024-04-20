@@ -14,7 +14,7 @@ const Socials = () => {
                             <Image src='/hand.svg' width={handWave} height={handWave} />
                         </h3>
                     </div>
-                    <div className={styles.contentContainer}>
+                    <div className={styles.socialContainer}>
                         <div className={styles.social}>
                             <div className={styles.info}>
                                 <Image id={styles.logoImage} src='/Xspace.svg' height={socialIconSize} width={socialIconSize} />
