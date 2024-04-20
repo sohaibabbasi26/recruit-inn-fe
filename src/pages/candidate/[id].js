@@ -33,8 +33,6 @@ import { useActiveFlow } from '@/contexts/ActiveFlowContext';
 import SelfReportOverlay from '../../../components/SelfReportOverlay';
 
 const inter = Inter({ subsets: ['latin'] })
-
-
 export default function Candidate({ allJobsData, allActiveJobsData, allClosedJobsData }) {
   const router = useRouter();
   const { id } = router?.query;
@@ -49,7 +47,6 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
-    // Set active flow to 'candidate' in local storage
     localStorage.setItem('activeFlow', 'Candidate');
   }, []);
 
@@ -77,7 +74,6 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
                 });
                 const data = await response.json();
                 console.log("one candidate details: ", data);
-                // setEmail(data?.data?.email);
                 setExpertise(data?.data?.expertise);
                 setCandName(data?.data?.name);
                 setExperience(data?.data?.over_all_exp);
@@ -120,7 +116,6 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
         }
         fetchResults();
         }, [router?.isReady]);
-
 
     useEffect(() => {
         setActiveFlow('candidate-self');

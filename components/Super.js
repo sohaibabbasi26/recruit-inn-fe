@@ -17,7 +17,7 @@ const Super = ({
     reportOverlay,
     setReportOverlay,
     jobOverlay,
-    setJobOverlay,  
+    setJobOverlay,
     setSelectedCandidate,
     toggleOverlay,
     setSelectedJob
@@ -71,7 +71,7 @@ const Super = ({
             </div>
             </div>
 
-            {dataToRender && <JobsHub heading='All Jobs' data={dataToRender} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
+            {finalData && <JobsHub heading='All Jobs' data={finalData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
             {activeJobsData && <JobsHub heading='Active Jobs' data={activeJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
             {closedJobsData && <JobsHub heading='Closed Jobs' data={closedJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
             {allCandidates && <CandidatesHub heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}

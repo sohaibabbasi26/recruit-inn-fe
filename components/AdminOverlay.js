@@ -68,6 +68,7 @@
         const [text, setText] = useState(null);
         const [subject, setSubject] = useState(null);
         const[isLoading , setisLoading] = useState(false);
+        const [linkk, setLink] = useState();
 
         const validateEmailReceiver = () => {
             if (!email || !isValidEmail(email)) {
@@ -138,7 +139,6 @@
                 account_user_name: actManager,
                 contact_no: phoneNo
             }
-
             try {
                 setisLoading(true);
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
@@ -158,6 +158,9 @@
                 console.error('Error submitting form:', error);
             }
         };
+
+       
+    
 
         const sendMail = async (companyId) => {
             const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;
@@ -187,10 +190,11 @@
         
                 const data = await response.text();
                 console.log('Email sent successfully:', data);
+                setisLoading(false);
             } catch (error) {
                 console.error('Error sending email:', error);
             }
-            setisLoading(false);
+            
         };
 
         return (

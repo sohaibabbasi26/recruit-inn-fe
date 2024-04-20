@@ -82,11 +82,14 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       console.log("Final fata from active filter " , finalData);
       const filterActive = (job) => job?.status === 'Active';
       const filterClosed = (job) => job?.status === 'Closed';
+      const filterall = (job) => job?.status === 'Active' || job?.status === 'Closed';
 
-      console.log("all jobs data is ... ", finalData);
-      setAllJobData(finalData);
+      
+      setAllJobData(finalData.filter(filterall));
+      console.log("all jobs data is ... ", finalData.filter(filterall));
+      
       setActiveJobsData(finalData.filter(filterActive));
-      console.log("Active jobs data ... ", finalData.filter(filterActive))
+      console.log("Active jobs data ... ", finalData.filter(filterActive));
       setClosedJobsData(finalData.filter(filterClosed));
 
       console.log("active jobs" , finalData.filter(filterActive))
@@ -318,7 +321,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           <RightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
         </>;
       case 'AllJobs':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} allJobData={allJobData} toggleOverlay={toggleOverlay} />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} finalData={allJobData} toggleOverlay={toggleOverlay} />
       case 'Active':
         return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay} />
       case 'Closed':
