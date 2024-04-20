@@ -68,6 +68,7 @@
         const [text, setText] = useState(null);
         const [subject, setSubject] = useState(null);
         const[isLoading , setisLoading] = useState(false);
+        const [linkk, setLink] = useState();
 
         const validateEmailReceiver = () => {
             if (!email || !isValidEmail(email)) {
@@ -117,6 +118,13 @@
             }
         }, [companyId, email,subject,text])
 
+        useEffect(() => {
+            if (companyId) {
+                // router.push(`http://localhost:3000/set-password/${companyId}`);
+                setLink(`http://localhost:3000/set-password/${companyId}`)
+            }
+        }, [companyId, router?.isReady]);
+
         // const sendMail = async () => {
         //     const reqBody = {
         //         to: email,
@@ -149,8 +157,6 @@
                 account_user_name: actManager,
                 contact_no: phoneNo
             }
-
-
             try {
                 setisLoading(true);
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
@@ -169,9 +175,11 @@
                 console.error('Error submitting form:', error);
             }
             
-            router.push(`http://localhost:3000/set-password/${companyId}`);
+            if(companyId){
+                router.push(linkk);
+            }
             
-                // }try {
+            // }try {
             //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
             //         method: 'POST',
             //         headers: {
@@ -197,8 +205,10 @@
             //     console.error('Error submitting form:', error);
             // }
             // sendMail(data?.data?.data?.company_id);
-
         };
+
+       
+    
 
         const sendMail = async (companyId) => {
             const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;
@@ -228,10 +238,11 @@
         
                 const data = await response.text();
                 console.log('Email sent successfully:', data);
+                setisLoading(false);
             } catch (error) {
                 console.error('Error sending email:', error);
             }
-            setisLoading(false);
+            
         };
 
         return (
