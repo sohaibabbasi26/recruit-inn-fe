@@ -25,13 +25,15 @@
   gap: 1rem;
 }
 
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .superContainer {
+    width: 80%;
+  }
+}
+
 /* 1024px */
 @media screen and (max-width: 64em) {
-  .superContainer {
-    height: auto;
-    /* 900px; */
-    min-width: 56.25em;
-  }
 
   .listItem {
     height: auto;

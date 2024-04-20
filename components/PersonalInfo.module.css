@@ -92,10 +92,6 @@
 
 /* 1024px */
 @media screen and (max-width: 64em) {
-  .superContainer {
-    /* 900px */
-    min-width: 56.25rem;
-  }
   .errorMessage {
     position: relative;
     top: -5px;

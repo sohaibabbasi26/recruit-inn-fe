@@ -46,10 +46,9 @@
   padding-bottom: 1rem;
 }
 
-/* 1024px */
-@media (max-width: 64em) {
+/* 1680px */
+@media screen and (max-width: 105em) {
   .superContainer {
-    /* 900px */
-    min-width: 56.25rem;
+    width: 80%;
   }
 }

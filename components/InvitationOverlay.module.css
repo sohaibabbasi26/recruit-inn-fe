@@ -77,12 +77,11 @@
 }
 
 .topContainer {
-    width: 80%;
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+  width: 80%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .topContainer img:hover {
@@ -169,6 +168,14 @@ x .transparentContainer button {
   font-size: xx-large;
   font-weight: bolder;
 }
+
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .wrapper {
+    width: 80%;
+  }
+}
+
 @media only screen and (max-width: 1300px) {
   .headingjob {
     font-size: larger;
@@ -184,7 +191,7 @@ x .transparentContainer button {
 @media (max-width: 64em) {
   .wrapper {
     width: auto;
-    min-width: 56.25rem !important;
+    width: 80%;
     display: block;
   }
 }

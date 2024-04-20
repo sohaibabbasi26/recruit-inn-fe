@@ -64,7 +64,23 @@
   }
 } */
 
-@media only screen and (max-width: 1200px) {
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .superContainer {
+    width: 80%;
+  }
+
+  #backBtn,
+  #forwardBtn {
+    white-space: nowrap;
+  }
+
+  #forwardBtn img {
+    width: 20px !important;
+  }
+}
+
+/* @media only screen and (max-width: 1200px) {
   #backBtn,
   #forwardBtn {
     width: 180px;
@@ -82,7 +98,7 @@
     font-size: 12px;
     gap: 10px;
   }
-}
+} */
 
 /* 1024px */
 @media screen and (max-width: 64em) {

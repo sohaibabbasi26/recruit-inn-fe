@@ -1,207 +1,180 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 .searchBar {
-    background-color: #F8F7FA;
-    border: 1px solid #E0E0E0;
-    width: 100%;
-    height: 70px;
-    margin-bottom: 24px;
-    border-radius: 40px;
-    display: flex;
-    justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    transition: border 0.3s, box-shadow 0.3s, height 0.3s;
-}
-/* Media query for screens with a width of 1024 pixels or larger */
-@media only screen and (min-width: 1024px) {
-    .searchBar {
-        height: 50px; /* Adjust height for screens 1024px and larger */
-    }
-}
-
-/* Media query for screens with a width of 1100 pixels or larger */
-@media only screen and (min-width: 1100px) {
-    .searchBar {
-        width: 90%; /* Adjust width for screens 1100px and larger */
-    }
-}
-
-/* Media query for screens with a width of 1200 pixels or larger */
-@media only screen and (min-width: 1200px) {
-    .searchBar {
-        width: 100%; /* Adjust width for screens 1200px and larger */
-    }
-}
-
-/* Media query for screens with a width of 1300 pixels or larger */
-@media only screen and (min-width: 1300px) {
-    .searchBar {
-        width: 100%; /* Adjust width for screens 1300px and larger */
-    }
-}
-
-/* Media query for screens with a width of 1400 pixels or larger */
-@media only screen and (min-width: 1400px) {
-    .searchBar {
-        width: 100%; /* Adjust width for screens 1400px and larger */
-    }
+  background-color: #f8f7fa;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  height: 70px;
+  margin-bottom: 24px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  transition: border 0.3s, box-shadow 0.3s, height 0.3s;
 }
 
 .searchBar:hover {
-    background-color: #F8F7FA;
-    border: 1px solid #EBEBEB;
-
+  background-color: #f8f7fa;
+  border: 1px solid #ebebeb;
 }
 .searchBar:focus {
-    background-color: white;
-    outline: 2px solid #6137DB;
- 
+  background-color: white;
+  outline: 2px solid #6137db;
 }
 .searchBar:active {
-    background-color: white;
-    outline: 2px solid #6137DB;
-
+  background-color: white;
+  outline: 2px solid #6137db;
 }
-.masterContainer{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    gap: 1rem;
+.masterContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  gap: 1rem;
 }
 .masterContainer button {
-    background-color: #F8F7FC;
-    color: #6137DB;
-    border: none;
-    height: 63%;
-    border-radius: 30px;
-    width: 20%;
-    font-family: "Poppins",sans-serif;
-    font-size: 0.9rem;
-    padding: 0 0.5rem;
+  background-color: #f8f7fc;
+  color: #6137db;
+  border: none;
+  height: 63%;
+  border-radius: 30px;
+  width: 20%;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
 }
-.container{
-    height: 100%;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.container {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.container input{
-    content: attr(value);
-    border: none;
-    background-color: transparent;
-    color: #170D23;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+.container input {
+  content: attr(value);
+  border: none;
+  background-color: transparent;
+  color: #170d23;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
 }
-.btnsDiv{
-    width: 30%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 1rem;
-    justify-content: flex-end;
-    gap: 1rem;
+.btnsDiv {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 1rem;
+  justify-content: flex-end;
+  gap: 1rem;
 }
-.addJobBtn{
-    border: none;
-    background-color: #6137DB;
-    height: 100%;
-    padding: 0 2rem;
-    border-radius: 40px;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+.addJobBtn {
+  border: none;
+  background-color: #6137db;
+  height: 100%;
+  padding: 0 2rem;
+  border-radius: 40px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
-.notificationsBtn{
-    border: none;
-    background-color: #F8F7FC;
-    height: 100%;
-    padding: 0 2rem;
-    border-radius: 40px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+.notificationsBtn {
+  border: none;
+  background-color: #f8f7fc;
+  height: 100%;
+  padding: 0 2rem;
+  border-radius: 40px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
-.notificationsBtn :hover{
-   color: #170D23;
+.notificationsBtn :hover {
+  color: #170d23;
 }
 .notificationsBtn:focus {
-    background-color: darkblue;
+  background-color: darkblue;
 }
-.notificationsBtn :active{
-    background-color: darkblue;
+.notificationsBtn :active {
+  background-color: darkblue;
 }
-.searchInput{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    font-family: 'Poppins',sans-serif;
+.searchInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-family: "Poppins", sans-serif;
 }
-.searchInput input{
-    font-family: 'Poppins',sans-serif;
+.searchInput input {
+  font-family: "Poppins", sans-serif;
 }
-.searchInput input:focus{
-    outline: none;
+.searchInput input:focus {
+  outline: none;
 }
 .searchResults {
-    width: 60%;
-    position: absolute;
-    background-color: #FFFFFF; /* or any color that suits your design */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-    width: 100%; /* or the width of the search bar */
-    border-radius: 4px; /* optional, for rounded corners */
-    z-index: 1000; /* make sure it stacks above other content */
-    max-height: 300px; /* maximum height before scrolling */
-    overflow-y: auto; /* allows scrolling */
-    top: 10%; /* position right below the search bar */
-  }
-  .searchResults ul {
-    list-style: none; /* removes bullets from list */
-    margin: 0;
-    padding: 0;
-  }
-  .searchResults li {
-    padding: 10px 15px; /* decent padding around text */
-    cursor: pointer; /* indicates the item is clickable */
-    border-bottom: 1px solid #F0F0F0; /* subtle separator */
-  }
-  .searchResults li:hover {
-    background-color: #F7F7F7; /* highlight on hover */
-  }
-
-
-.selectCategory select{
-    border-radius: 32px;
-    border: none;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    padding-top: 11px;
-    padding-right: 16px;
-    padding-left: 24px;
-    padding-bottom: 11px;
-    font-family: 'Poppins',sans-serif;
+  width: 60%;
+  position: absolute;
+  background-color: #ffffff; /* or any color that suits your design */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+  width: 100%; /* or the width of the search bar */
+  border-radius: 4px; /* optional, for rounded corners */
+  z-index: 1000; /* make sure it stacks above other content */
+  max-height: 300px; /* maximum height before scrolling */
+  overflow-y: auto; /* allows scrolling */
+  top: 10%; /* position right below the search bar */
+}
+.searchResults ul {
+  list-style: none; /* removes bullets from list */
+  margin: 0;
+  padding: 0;
+}
+.searchResults li {
+  padding: 10px 15px; /* decent padding around text */
+  cursor: pointer; /* indicates the item is clickable */
+  border-bottom: 1px solid #f0f0f0; /* subtle separator */
+}
+.searchResults li:hover {
+  background-color: #f7f7f7; /* highlight on hover */
 }
 
-.selectCategory select input{
-    color: #170D23;
-}
-.selectCategory select:focus{
-    outline: none;
+.selectCategory select {
+  border-radius: 32px;
+  border: none;
+  background-color: #ffffff;
+  font-size: 1rem;
+  padding-top: 11px;
+  padding-right: 16px;
+  padding-left: 24px;
+  padding-bottom: 11px;
+  font-family: "Poppins", sans-serif;
 }
 
-.searchOptions{
-    border-radius: 32px;
-    border: none;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    padding-top: 11px;
-    padding-right: 16px;
-    padding-left: 24px;
-    padding-bottom: 11px;
-    font-family: 'Poppins',sans-serif;
+.selectCategory select input {
+  color: #170d23;
+}
+.selectCategory select:focus {
+  outline: none;
+}
+
+.searchOptions {
+  border-radius: 32px;
+  border: none;
+  background-color: #ffffff;
+  font-size: 1rem;
+  padding-top: 11px;
+  padding-right: 16px;
+  padding-left: 24px;
+  padding-bottom: 11px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .searchResults {
+    width: 50.5%;
+  }
+
+  .searchBar {
+    height: 50px;
+  }
 }
