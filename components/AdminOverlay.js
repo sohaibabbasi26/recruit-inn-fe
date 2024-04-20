@@ -154,7 +154,7 @@
                 setisLoading(true);
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
                     method: 'POST',
-                    headers: {
+                    headers: {  
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${adminToken}`,
                     },

@@ -28,6 +28,11 @@
   align-items: center;
 }
 
+.logoContainer h3{
+  margin: 0.75rem;
+  margin-bottom: 1rem;
+}
+
 .mainContainer {
   height: 100vh;
   width: 100%;
@@ -253,6 +258,11 @@
 
   .logoContainer {
     height: 50px;
+  }
+
+  .logoContainer h3{
+    margin: 1rem;
+    /* margin-bottom: 1rem; */
   }
 
   .dashboardButton {
