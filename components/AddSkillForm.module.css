@@ -85,6 +85,12 @@
     }
 }
 
+@media only screen and (max-width: 1100px) {
+    .addSkillFormContainer{
+        width: 88%;
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .inputField {
         width: 91%;
@@ -112,3 +118,4 @@
 .wrapper select {
     outline: auto;
 }
+

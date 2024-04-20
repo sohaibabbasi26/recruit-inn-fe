@@ -6,7 +6,7 @@
 }
 
 .container {
-  width: 63%;
+  width: 80%;
   height: 100%;
   background-color: #f8f7fc;
   border-radius: 20px;
@@ -49,5 +49,12 @@
   .bannerContainer {
     /* 272px */
     height: 17rem;
+    width: 100%;
   }
+
+  .leftContent p {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
 }
