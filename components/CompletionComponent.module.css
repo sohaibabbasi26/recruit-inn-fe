@@ -37,7 +37,7 @@
 
 .feedbackContainer textarea{
     height: 100%;
-    width: 100%;
+    width: 90%;
     background-color: transparent;
     border: none;
     padding: 1.5rem;
@@ -58,8 +58,8 @@
 }
 
 .lowerContainer button{
-    width: 20%;
-    height: 60%;
+    width: 30%;
+    height: 50%;
     color: #fff;
     background-color: #6137DB;
     border-radius: 30px;

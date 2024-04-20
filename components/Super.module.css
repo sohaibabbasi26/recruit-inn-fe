@@ -1,51 +1,59 @@
-.superContainer{
-    height: 87vh;
-    width: 100%;
+.superContainer {
+  height: 87vh;
+  width: 100%;
 }
 
-.searchContainer{
-    width: 70%;
+.searchContainer {
+  width: 70%;
 }
 
-.btnsDiv{
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-bottom: 25px;
-    width: 30%;
+.btnsDiv {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 25px;
+  width: 30%;
 }
-.RightComponent_addJobBtn__PGBvV{
-    border: none;
-    background-color: #6137DB;
-    height: 70px;
-    width: 100%;
-    margin-right: 0px;
-    border-radius: 60px;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 0.5px;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.notificationsBtn{
-   background-color: #F8F7FC;
-    height: 70px;
-    min-width: 25%;
-    border-radius: 48px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    border: none;
-    color: gray;
-    border: 1px;
+.RightComponent_addJobBtn__PGBvV {
+  border: none;
+  background-color: #6137db;
+  height: 70px;
+  width: 100%;
+  margin-right: 0px;
+  border-radius: 60px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.topContainer{
-    display: flex;
-    gap: 24px;
+.notificationsBtn {
+  background-color: #f8f7fc;
+  height: 70px;
+  min-width: 25%;
+  border-radius: 48px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  color: gray;
+  border: 1px;
+}
+
+.topContainer {
+  display: flex;
+  gap: 24px;
+}
+
+/* 1024px */
+@media screen and (max-width: 64em) {
+  .RightComponent_addJobBtn__PGBvV,
+  .notificationsBtn {
+    height: 50px;
+  }
 }

@@ -16,6 +16,7 @@ import SuccessIndicator from '../../../components/SuccessIndicator';
 import ErrorIndicator from '../../../components/ErrorIndicator';
 import PaymentOverlay from '../../../components/PaymentOverlay';
 import { FormProvider } from '@/contexts/FormContext';
+import { useTestState } from '@/contexts/TestRequirementContext';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +25,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const router = useRouter();
   const { id } = router?.query;
 
-  console.log("all jobs data :", allJobsData)
+  console.log("all jobs data :", allJobsData);
   console.log("all active jobs data :", allActiveJobsData);
   console.log("all closed jobs data :", allClosedJobsData);
   const [finalData, setFinalData] = useState();
@@ -36,6 +37,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [notEligibleCand, setNotEligibleCand] = useState([]);
   const [activeJobsData, setActiveJobsData] = useState(null);
   const [closedJobsData, setClosedJobsData] = useState(null);
+  const [allJobData, setAllJobData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
   const [showOverlay1, setShowOverlay1] = useState();
@@ -64,7 +66,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           },
           body: JSON.stringify(requestBody),
         });
-      console.log('response: ', response);
+      console.log('response:', response);
       const allData = await response.json();
       setFinalData(allData.data);
       setIsLoading(false);
@@ -81,7 +83,10 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const filterActive = (job) => job?.status === 'Active';
       const filterClosed = (job) => job?.status === 'Closed';
 
+      console.log("all jobs data is ... ", finalData);
+      setAllJobData(finalData);
       setActiveJobsData(finalData.filter(filterActive));
+      console.log("Active jobs data ... ", finalData.filter(filterActive))
       setClosedJobsData(finalData.filter(filterClosed));
 
       console.log("active jobs" , finalData.filter(filterActive))
@@ -243,7 +248,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [message, setMessage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  
+  const { isTestRequired, setIsTestRequired } = useTestState();
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -313,7 +318,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           <RightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
         </>;
       case 'AllJobs':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay} />
+        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} allJobData={allJobData} toggleOverlay={toggleOverlay} />
       case 'Active':
         return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} activeJobsData={activeJobsData} toggleOverlay={toggleOverlay} />
       case 'Closed':
@@ -336,10 +341,10 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
       {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
       <FormProvider>
-        {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
+        {showOverlay && <Overlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       </FormProvider>
       {reportOverlay && <ReportOverlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-      {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
+      {jobOverlay && <JobOverlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
         <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />

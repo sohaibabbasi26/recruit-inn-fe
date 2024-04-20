@@ -19,10 +19,9 @@ import SuccessIndicator from './SuccessIndicator';
 import React from 'react';
 import ErrorIndicator from './ErrorIndicator'; 
 import { useTestState } from '@/contexts/TestRequirementContext';
-
 import { fetchQuestions } from '../store/slices/questionSlice';
 
-const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {
+const Overlay = React.memo(({setIsTestRequired, isTestRequired, showError, showErrorMessage, token, showOverlay, onClose, stages, stageHeadings, showSuccessMessage, message, setMessage, showSuccess }) => {
 
     const overlayRef = useRef(null);
     // const { test, setTest } = useTest();
@@ -94,7 +93,7 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     const [assessmentId,setAssessmentId] = useState();
     
     // const [isTestRequired, setIsTestRequired] = useState(false);
-    const { isTestRequired, setIsTestRequired } = useTestState();
+    
     const [codingExpertise, setCodingExpertise] = useState(null);
     const [codeQues, setCodeQues] = useState(null);
 
@@ -193,17 +192,18 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             expertise: techStack,
             job_type: jobTypeRef.current.value,
             description: description,
-            location: locationRef.current.value
+            location: locationRef.current.value,
+            is_test_required: isTestRequired
         }
 
         localStorage.setItem('expertiseData', JSON.stringify({
             description: description,
             techStack: techStack,
             jobtype: jobtype,
-            position: position
+            position: position,
+            isTestRequired: isTestRequired
         }));
-        // console.log("Expertise:", expertiseItem);
-        // console.log("Token in Overlay method:", token)
+
         try {
             setIsLoading(true);
             console.log("Payload size in bytes:", new Blob([JSON.stringify(requestBody)]).size);
@@ -263,13 +263,8 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
         } catch (error) {
             console.error('Error submitting form:', error);
         }
-
         console.log('required:',isTestRequired)
-
-
         if(isTestRequired===true){
-
-            
             try{
                 setIsLoading(true);
                 const req = {    
@@ -333,20 +328,17 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
     };
 
     const handleEmailInvite = async () => {
-        // Filter out email receivers with empty or invalid email addresses
         const validEmailReceivers = emailReceivers.filter(receiver => {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
             return receiver.email.trim() !== '' && emailRegex.test(receiver.email.trim());
         });
-        // Check if there are any valid email receivers
         if (validEmailReceivers.length === 0) {
-            // Throw an error message if there are no valid email receivers
             console.error('No valid email addresses found.');
             setMessage('Enter valid email address');
             showError();
-            // You can also show an error message to the user if needed
             return;
         }
+
         const sendInvitesPromises = validEmailReceivers.map(receiver => {
             return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
                 method: 'POST',
@@ -362,15 +354,13 @@ const Overlay = React.memo(({ showError, showErrorMessage, token, showOverlay, o
             });
         });
         try {
-            // Wait for all promises to resolve
             await Promise.all(sendInvitesPromises);
             console.log("email sent")
             setMessage('Invitations have been sent to all candidates via email');
             showSuccess();
-            onClose(); // Close the modal or overlay if needed
+            onClose(); 
         } catch (error) {
             console.error('Error sending invites:', error);
-            // Handle the error as needed (e.g., show an error message to the user)
         }
     };
 
