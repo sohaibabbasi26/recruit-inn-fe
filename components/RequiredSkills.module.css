@@ -34,7 +34,6 @@
 
 /* 1024px */
 @media screen and (max-width: 64em) {
-
   .listItem {
     height: auto;
     padding: 1rem;
