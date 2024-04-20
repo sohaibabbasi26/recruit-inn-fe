@@ -31,6 +31,10 @@ const ClientSignup = ({ }) => {
     const [allClients, setAllClients] = useState();
     const [allResults, setAllResults] = useState();
     const[isLoading , setisLoading] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem('activeFlow', 'Client');
+    }, []);
     
     const showError = (message) => {
         setMessage(message);
