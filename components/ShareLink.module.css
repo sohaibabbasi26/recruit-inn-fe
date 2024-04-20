@@ -1,157 +1,163 @@
 .superContainer {
-    width: 900px;
-    height: 328px;
+  width: 900px;
+  height: 328px;
 }
 
 .subContainer {
-    height: 30%;
-    background-color: #F8F7FC;
-    border-radius: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  height: 30%;
+  background-color: #f8f7fc;
+  border-radius: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.rightContainer{
-    display: flex;
-    height: 100%;
-    align-items: flex-end;
+.rightContainer {
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
 }
 
-.rightContainer img{
-    border-radius: 0 0 20px 0 ;
+.rightContainer img {
+  border-radius: 0 0 20px 0;
 }
 
 .leftContainer {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    padding-left: 1rem;
-    gap: 1rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding-left: 1rem;
+  gap: 1rem;
 }
 
 .leftContainer p {
-    font-size: 2rem;
-    letter-spacing: 1px;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
 .topBar {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 1rem 0; 
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 1rem 0;
 }
 
 .topBar button {
-    border: none;
-    color: #6137DB;
-    font-size: 1rem;
-    background-color: transparent;
-    font-weight: 700;
-    font-family: 'Poppins',sans-serif;
+  border: none;
+  color: #6137db;
+  font-size: 1rem;
+  background-color: transparent;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
 }
 
 .topBar button:focus {
-    outline: none;
+  outline: none;
 }
 
 .allFields {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    height: 15%;
-    margin-top: 1.2rem;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  height: 15%;
+  margin-top: 1.2rem;
+  align-items: center;
+  gap: 1rem;
 }
 
-.parent{
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+.parent {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .parent::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .parent::-webkit-scrollbar-thumb {
-    background-color: transparent;
+  background-color: transparent;
 }
 
-.subParent{
-    height: 100%;
-    
+.subParent {
+  height: 100%;
 }
 
 .field {
-    display: flex;
-    align-items: center;
-    background-color: #F8F7FC;
-    padding: 0.25rem 1rem;
-    height: 3rem;
-    width: 97%;
-    border-radius: 40px;
-    align-items: center;
-
+  display: flex;
+  align-items: center;
+  background-color: #f8f7fc;
+  padding: 0.25rem 1rem;
+  height: 3rem;
+  width: 97%;
+  border-radius: 40px;
+  align-items: center;
 }
 
 .field img {
-    padding-right: 1rem;
+  padding-right: 1rem;
 }
 
 .allFields input {
-    border: none;
-    background-color: transparent;
-    font-size: 1.1rem;
-    height: 100%;
-    width: 100%;
+  border: none;
+  background-color: transparent;
+  font-size: 1.1rem;
+  height: 100%;
+  width: 100%;
 }
 
-.allFields input:focus{
-    outline: none;
+.allFields input:focus {
+  outline: none;
 }
 
 .linkContainer {
-    margin-top: 2rem;
-    width: 99% ;
-    background-color: #F8F7FC;
-    height: 18%;
-    border-radius: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.5rem;
+  margin-top: 2rem;
+  width: 99%;
+  background-color: #f8f7fc;
+  height: 18%;
+  border-radius: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
 }
 
-.linkContainer button{
-    background-color: #6137DB;
-    color: #fff;
-    border: none;
-    border-radius: 40px;
-    height: 2.5rem;
-    letter-spacing: 1px;
-    padding: 0 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;    
-    font-size: 1rem;
+.linkContainer button {
+  background-color: #6137db;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  height: 2.5rem;
+  letter-spacing: 1px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
 }
 
-.wrapper input{
-    border: none;
-    background-color: transparent;
-    font-size: 1rem;
-    width: 100%;
-    height: 3rem;
+.wrapper input {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  width: 100%;
+  height: 3rem;
 }
 
-.wrapper{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 60%;
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 60%;
+}
+
+@media screen and (max-width: 64em) {
+  .superContainer {
+    /* 268px */
+    /* height: 17.75rem; */
+    height: 16.75rem;
+  }
 }

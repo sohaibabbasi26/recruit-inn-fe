@@ -1,5 +1,5 @@
 .stagesContainer{
-    width: 900px;
+    width: 80%;
     margin-bottom: 1.5rem;
 
 }
@@ -7,74 +7,83 @@
 .stagesContainer ul{
     display: flex;
     list-style: none;
-    width: 900px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     padding: 0;
 }
 
-.stagesContainer ul li{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    color: #ACA7BA;
-    border: 2px solid #ACA7BA;
-    border-radius: 30px;
-    min-width: 20%;
-    height: 10%;
-    text-transform: initial;
+.stagesContainer ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  color: #aca7ba;
+  border: 2px solid #aca7ba;
+  border-radius: 30px;
+  min-width: 20%;
+  height: 10%;
+  text-transform: initial;
+  padding-left: 20px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.stageLine {
+  height: 2px;
+  background-color: #f4f1fc;
+  width: 20%;
+}
+
+s .active {
+  color: #6137db;
+  padding: 1rem 2rem;
+  border: 2px solid #6137db;
+  border-radius: 30px;
+  height: 8%;
+}
+
+.active img {
+  color: #6137db;
+}
+
+@media only screen and (max-width: 1100px) {
+  .stagesContainer ul li {
+    /* font-size: xx-small; */
     padding-left: 20px;
     padding-right: 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+  }
 }
-
 
 @media only screen and (max-width: 1024px) {
-    .stagesContainer ul li{
-        font-size: small;
-        padding-left: 20px;
-        padding-right: 16px;
-    }
-}
-@media only screen and (max-width: 1100px) {
-    .stagesContainer ul li{
-        font-size: xx-small ;
-        padding-left: 20px;
-        padding-right: 16px;
-    }
+  .stagesContainer {
+    /* 900px; */
+    min-width: 56.25em;
+    margin-bottom: 0.9rem;
+  }
+
+  .stagesContainer ul li {
+    /* font-size: small; */
+    /* font-weight: medium; */
+    font-weight: 500;
+    padding-left: 20px;
+    padding-right: 16px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .stagesContainer{
-        width: 80%;
-        margin-bottom: 0.5rem;
-    }
-    .stagesContainer ul li span{
-        display: none;
-    }
-
-    .stagesContainer ul li{
-        justify-content: space-around;
-        min-width: 6%;
-    }
+  .stagesContainer {
+    width: 80%;
+    margin-bottom: 0.5rem;
   }
 
-.stageLine {
-    height: 2px; 
-    background-color: #F4F1FC; 
-    width: 20%;
-}
-s
-.active {
-    color: #6137DB;
-    padding: 1rem 2rem; 
-    border: 2px solid #6137DB;
-    border-radius: 30px;
-    height: 8%;
-}
+  .stagesContainer ul li span {
+    display: none;
+  }
 
-.active img{
-    color: #6137DB;
+  .stagesContainer ul li {
+    justify-content: space-around;
+    min-width: 6%;
+  }
 }

@@ -16,6 +16,7 @@ import SuccessIndicator from '../../../components/SuccessIndicator';
 import ErrorIndicator from '../../../components/ErrorIndicator';
 import PaymentOverlay from '../../../components/PaymentOverlay';
 import { FormProvider } from '@/contexts/FormContext';
+import { useTestState } from '@/contexts/TestRequirementContext';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -65,7 +66,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
           },
           body: JSON.stringify(requestBody),
         });
-      console.log('response: ', response);
+      console.log('response:', response);
       const allData = await response.json();
       setFinalData(allData.data);
       setIsLoading(false);
@@ -250,7 +251,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [message, setMessage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  
+  const { isTestRequired, setIsTestRequired } = useTestState();
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -343,10 +344,10 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
       {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
       <FormProvider>
-        {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
+        {showOverlay && <Overlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       </FormProvider>
       {reportOverlay && <ReportOverlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-      {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
+      {jobOverlay && <JobOverlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
         <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
