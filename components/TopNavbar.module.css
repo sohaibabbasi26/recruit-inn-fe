@@ -28,21 +28,21 @@
 /* Media query for screens with a width of 1200 pixels or larger */
 @media only screen and (min-width: 1200px) {
     .searchBar {
-        width: 80%; /* Adjust width for screens 1200px and larger */
+        width: 100%; /* Adjust width for screens 1200px and larger */
     }
 }
 
 /* Media query for screens with a width of 1300 pixels or larger */
 @media only screen and (min-width: 1300px) {
     .searchBar {
-        width: 70%; /* Adjust width for screens 1300px and larger */
+        width: 100%; /* Adjust width for screens 1300px and larger */
     }
 }
 
 /* Media query for screens with a width of 1400 pixels or larger */
 @media only screen and (min-width: 1400px) {
     .searchBar {
-        width: 60%; /* Adjust width for screens 1400px and larger */
+        width: 100%; /* Adjust width for screens 1400px and larger */
     }
 }
 

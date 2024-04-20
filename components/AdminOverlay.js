@@ -117,29 +117,18 @@
             }
         }, [companyId, email,subject,text])
 
-        // const sendMail = async () => {
-        //     const reqBody = {
-        //         to: email,
-        //         subject: subject,
-        //         text: text,
-        //     };
-
-
-        //     try {
-        //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             body: JSON.stringify(reqBody),
-        //         });
-        //         const data = await response.text();
-        //         console.log('response:', data);
-        //     } catch (error) {
-        //         console.error('Error mailing the client:', error);
-        //     }
-        // }
-
+        const getActiveComponent = () => {
+            const activeFlow = localStorage.getItem('activeFlow');
+            console.log("Current active flow:", activeFlow);
+            switch (activeFlow) {
+                case 'Client':
+                    router.push(`/set-password/${companyId}`);
+                case 'Admin':
+                    console.log('its an admin flow!!!!')
+                default:
+                    return null;
+            }
+        };
 
         const handleFormSubmit = async () => {
             const requestBody = {   
@@ -150,12 +139,11 @@
                 contact_no: phoneNo
             }
 
-
             try {
                 setisLoading(true);
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
                     method: 'POST',
-                    headers: {
+                    headers: {  
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${adminToken}`,
                     },
@@ -165,39 +153,10 @@
                 console.log("login response:", data?.data?.data?.company_id);
                 setCompanyId(data?.data?.data?.company_id);
                 sendMail(data?.data?.data?.company_id)
+                getActiveComponent();
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
-            
-            router.push(`http://localhost:3000/set-password/${companyId}`);
-            
-                // }try {
-            //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'Authorization': `Bearer ${adminToken}`,
-            //         },
-            //         body: JSON.stringify(requestBody),
-            //     });
-            
-            //     if (!response.ok) {
-            //         throw new Error('Network response was not ok');
-            //     }
-            
-            //     const data = await response.json();
-            //     console.log("log-in id:",data?.data?.data?.company_id)
-            //     setCompanyId(data?.data?.data?.company_id);
-            //     sendMail(data?.data?.data?.company_id);
-
-            //     // if(data?.data?.data?.companyId){
-            //     //     await sendMail(data?.data?.data?.companyId)
-            //     // }
-            // } catch (error) {
-            //     console.error('Error submitting form:', error);
-            // }
-            // sendMail(data?.data?.data?.company_id);
-
         };
 
         const sendMail = async (companyId) => {

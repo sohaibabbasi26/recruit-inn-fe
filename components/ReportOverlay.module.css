@@ -246,3 +246,10 @@
 .cont::-webkit-scrollbar-thumb {
     background-color: transparent;
 }
+
+@media only screen and (max-width: 1024px) {
+    .infoDiv ul li{
+        font-size: 14px;
+    }
+}
+

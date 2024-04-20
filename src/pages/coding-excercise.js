@@ -31,7 +31,7 @@ const CodingExcersice = () => {
             headers: { 'Content-type': 'application/json' }
         });
         const data = await response.json();
-        console.log('response: ', data)
+        console.log('response: ', data);
         setOutput(data?.data?.data?.output);
         setIsLoading(false);
     }
@@ -48,17 +48,16 @@ const CodingExcersice = () => {
             candidate_id : cid
         };
 
-        useEffect(() => {
-            if (timeLeft > 0) {
-                const timerId = setInterval(() => {
-                    setTimeLeft(timeLeft - 1);
-                }, 1000);
-                return () => clearInterval(timerId);
-            } else {
-                console.log('Timer finished');
-            }
-        }, [timeLeft]);
-
+        // useEffect(() => {
+        //     if (timeLeft > 0) {
+        //         const timerId = setInterval(() => {
+        //             setTimeLeft(timeLeft - 1);
+        //         }, 1000);
+        //         return () => clearInterval(timerId);
+        //     } else {
+        //         console.log('Timer finished');
+        //     }
+        // }, [timeLeft]);
         // const getActiveComponent = () => {
         //     const activeFlow = localStorage.getItem('activeFlow');
         //     console.log("Current active flow:", activeFlow);

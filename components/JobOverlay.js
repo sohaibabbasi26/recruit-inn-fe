@@ -5,22 +5,45 @@ import gsap from 'gsap';
 import ErrorIndicator from './ErrorIndicator';
 import SuccessIndicator from './SuccessIndicator';
 
-const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, token, onClose, jobOverlay, selectedJob, companyId, setMessage, showSuccess }) => {
+const JobOverlay = ({  showError, message, showErrorMessage, showSuccessMessage, token, onClose, jobOverlay, selectedJob, companyId, setMessage, showSuccess , isTestRequired }) => {
 
-    console.log('selected job data:',selectedJob)
+    console.log('selected job data:', selectedJob)
     const [techStack, setTechStack] = useState();
     const [test, setTest] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const overlayRef = useRef(null);
-    const [link , setLink] = useState();
+    const [link, setLink] = useState();
     const [questionId, setQuestionId] = useState();
     const iconSize = 20;
     const infoSymbolSize = 10;
-    const [jobStatus,setJobStatus] = useState();
+    const [jobStatus, setJobStatus] = useState();
+    const [assessmentId, setAssessmentId] = useState();
 
     useEffect(() => {
         setTechStack(selectedJob?.expertise);
-    },[selectedJob?.expertise]);
+    }, [selectedJob?.expertise]);
+
+    // useEffect(() => {   
+    //     async function fetchAssessmentById(){
+    //         try {
+    //             const reqBody = {
+    //                 candidate_id : selectedJob?.candidate_id
+    //             };
+    //             const response =  await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-assessment-by-candidate`,{
+    //                 method: 'PUT',
+    //                 body: JSON.stringify(reqBody),
+    //                 headers : {
+    //                     "Content-type": "application/JSON"
+    //                 }
+    //             });
+    //             const data = await response.json();
+    //             console.log('data is:', data);
+    //         } catch (err){
+    //             console.log("ERROR:", err);
+    //         }
+    //     }
+    //     fetchAssessmentById();
+    // },[])
 
     // async function fetchAndCopyAssessmentLink() {
     //     setIsLoading(true);
@@ -55,20 +78,42 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
     //     }
     // }
 
+    useEffect(() => {
+
+        const reqBody = {
+            position_id: selectedJob?.position_id
+        }
+
+        async function fetchAssessmentIdByPosition() {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-assessment-by-candidate`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(reqBody),
+                }
+            );
+            const data = await response.json();
+            console.log('assessment id:', data?.data?.assessment_id);
+            setAssessmentId(data?.data?.assessment_id);
+        }
+        fetchAssessmentIdByPosition();
+        }, [])
+
     async function toggleJobStatus() {
-
         const newStatus = selectedJob?.status === 'Active' ? 'Closed' : 'Active';
-
-        try{
+        try {
             const reqBody = {
                 status: newStatus,
                 position_id: selectedJob?.position_id
             };
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/toggle-job`,{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/toggle-job`, {
                 method: 'PUT',
                 body: JSON.stringify(reqBody),
-                headers : {
+                headers: {
                     "Content-type": "application/JSON"
                 }
             });
@@ -78,19 +123,19 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
             setJobStatus(newStatus);
 
         } catch (err) {
-            console.log('error:',err);
+            console.log('error:', err);
         }
     }
 
 
     async function fetchAndCopyAssessmentLink() {
         setIsLoading(true);
-    
+
         try {
             if (techStack) {
                 const reqBody = {
                     expertise: techStack,
-                    position_id : selectedJob?.position_id
+                    position_id: selectedJob?.position_id
                 }
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
                     method: 'POST',
@@ -104,9 +149,9 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
                 setTest(data?.data);
                 const newQuestionId = data?.data?.message?.question_id;
                 console.log('test:', test);
-                setQuestionId(newQuestionId); 
-                const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}`;
-                setLink(newLink); 
+                setQuestionId(newQuestionId);
+                const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}&a_id=${assessmentId}&test_req=${selectedJob?.is_test_req}`;
+                setLink(newLink);
                 copyToClipboard(newLink).then(() => {
                     setMessage("Your link has been copied");
                     showSuccess();
@@ -119,17 +164,17 @@ const JobOverlay = ({ showError, message, showErrorMessage, showSuccessMessage, 
         }
         setIsLoading(false);
     }
-    
 
 
-useEffect(() => {
-  if (questionId) {
-    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}`;
-    setLink(newLink);
-  }
-}, [questionId]); 
 
-    
+    useEffect(() => {
+        if (questionId) {
+            const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${test?.data?.message?.question_id}&a_id=${assessmentId}&test_req=${isTestRequired}`;
+            setLink(newLink);
+        }
+    }, [questionId]);
+
+
 
 
     function copyToClipboard(text) {
@@ -149,12 +194,12 @@ useEffect(() => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("link in useEffect:", link);
-    },[link])
+    }, [link])
 
     const handleCopyClick = async () => {
-        console.log('link:',link)
+        console.log('link:', link)
         copyToClipboard(link)
             .then(() => console.log('copied!'))
             .catch(err => console.error('Could not copy text: ', err));
@@ -206,7 +251,7 @@ useEffect(() => {
         }
     }
 
-    
+
     // const disableCreateLink = () => {
     //     showError('The job is closed for now, make it active if you wish to copy a link!')
     // }
@@ -225,7 +270,7 @@ useEffect(() => {
                 <div className={styles.superContainer}>
                     <Image id={styles.topImage} src='/flower1.png' width={800} height={500} />
                     <div className={styles.coverContainer}>
-                        
+
                         {/*top conatiner */}
                         <div className={styles.topContainer}>
                             <div className={styles.content}>
@@ -243,14 +288,14 @@ useEffect(() => {
                                 setMessage('Job Status has been changed, refresh to see changes!')
                                 showSuccess();
                             }}>
-                                {selectedJob?.status === 'Active' ? 'Close Job' : 'Open Job' }
+                                {selectedJob?.status === 'Active' ? 'Close Job' : 'Open Job'}
                             </span>
                             {isLoading ? (
                                 <div className={styles.loader}></div>
                             ) : (
                                 <button disabled={
                                     selectedJob?.status === 'Closed'
-                                }  onClick={async () => {
+                                } onClick={async () => {
                                     await fetchAndCopyAssessmentLink();
                                 }}>Copy Assessment Link <Image src='/copylink.svg' height={25} width={25} /></button>
                             )}

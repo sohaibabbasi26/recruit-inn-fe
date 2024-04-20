@@ -31,6 +31,10 @@ const Admin = ({ }) => {
     const [allClients, setAllClients] = useState();
     const [allResults, setAllResults] = useState();
 
+    useEffect(() => {
+        localStorage.setItem('activeFlow', 'Admin');
+    }, []);
+
     const showError = (message) => {
         setMessage(message);
         setShowErrorMessage(true);
@@ -150,7 +154,7 @@ const Admin = ({ }) => {
             setNotEligibleCand(processedData?.filter(filterNotEligible));
         }
     }, [allResults]);
-
+    
     useEffect(() => {
         console.log('Recommended Candidate:', recommendedCand);
         console.log('Qualified Candidate:', qualifiedCand);
