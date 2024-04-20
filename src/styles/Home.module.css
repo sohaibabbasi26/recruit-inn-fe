@@ -8,10 +8,18 @@
   max-height: 95vh;
 }
 
+/* 1440px */
+@media screen and (max-width: 90em) {
+  .clientPortal {
+    /* for now heigh, will look at maheight it has no effect rn */
+    height: calc(100vh - 35px);
+  }
+}
+
 /* 1024px */
 @media screen and (max-width: 64em) {
   .clientPortal {
-    /* for now heigh, will look at max it has no effect rn */
+    /* for now heigh, will look at maheight it has no effect rn */
     height: calc(100vh - 35px);
     padding: 18px;
     gap: 12px;
