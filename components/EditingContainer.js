@@ -6,11 +6,11 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import TopContainer from './TopContainer';
 
-const EditingContainer = ({ descriptionRef, setDescription }) => {
+const EditingContainer = ({ descriptionRef, setDescription, description }) => {
     return (
         <div className={styles.superContainer}>
             <div className={styles.masterContainer}>
-                <TopContainer ref={descriptionRef} setDescription={setDescription} />
+                <TopContainer description={description} ref={descriptionRef} setDescription={setDescription} />
             </div>
         </div>
     );
