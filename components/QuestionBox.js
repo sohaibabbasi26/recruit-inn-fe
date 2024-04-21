@@ -122,7 +122,7 @@ const QuestionBox = ({ hasStarted }) => {
     //         mediaRecorderRef.current.start();
     //         setIsRecording(true);
     //         setRecordingDone(true);
-    //         console.log('Recording started');
+    //         console. log('Recording started');
     //     };
     // }
 
@@ -227,96 +227,120 @@ const QuestionBox = ({ hasStarted }) => {
         }
     }
 
-    const toggleComponent = async () => {
-        setIsLoading(true);
+    // const toggleComponent = async () => {
+    //     setIsLoading(true);
 
-        if (!recordingDone && recordedChunksRef.current.length === 0) {
-            const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-            setAnswers(prev => [...prev, {
-                question: questions[currentQuestion - 1]?.question,
-                answer: silentBase64Wav,
-            }]);
+    //     if (!recordingDone && recordedChunksRef.current.length === 0) {
+    //         const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+    //         setAnswers(prev => [...prev, {
+    //             question: questions[currentQuestion - 1]?.question,
+    //             answer: silentBase64Wav,
+    //         }]);
 
-            if (currentQuestion < questions.length) {
-                setCurrentQuestion(current => current + 1);
-                setRecordingDone(false);
-            }
+    //         if (currentQuestion < questions.length) {
+    //             setCurrentQuestion(current => current + 1);
+    //             setRecordingDone(false);
+    //         }
 
-            setIsLoading(false);
-            console.log("No recording made, adding silent audio blob as answer.");
-            // });
-        } else {
-            await stopAndHandleRecording();
-            setIsLoading(false);
-        }
-        // setCompletedQuestions(oldArray => [...oldArray, currentQuestion]);
-        if (currentQuestion < questions.length) {
-            setCurrentQuestion(prevCurrent => prevCurrent + 1);
-            setRecordingDone(false);
-            setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
+    //         setIsLoading(false);
+    //         console.log("No recording made, adding silent audio blob as answer.");
+    //     } else {
+    //         await stopAndHandleRecording();
+    //         setIsLoading(false);
+    //     }
+    //     if (currentQuestion < questions.length) {
+    //         setCurrentQuestion(prevCurrent => prevCurrent + 1);
+    //         setRecordingDone(false);
+    //         setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
 
-            if (currentQuestionIndex < questions.length - 1) {
-                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-                speakQuestion(questions[currentQuestionIndex + 1]);
-            }
-        } else if (isLastQuestion) {
-            await submitTestHandler();
-        }
-    }
+    //         if (currentQuestionIndex < questions.length - 1) {
+    //             setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+    //             speakQuestion(questions[currentQuestionIndex + 1]);
+    //         }
+    //     } else if (isLastQuestion) {
+    //         await submitTestHandler();
+    //     }
+    // }
 
     useEffect(() => {
         setTimeLeft(59)
     }, [currentQuestion])
 
 
+    // useEffect(() => {
+    //     if (timeLeft === 0 && (!isLastQuestion)) {
+    //         toggleComponent();
+    //     }
+    //     const intervalId = setInterval(() => {
+    //         setTimeLeft(timeLeft - 1);
+    //     }, 1000);
+
+    //     return () => clearInterval(intervalId);
+    // }, [timeLeft, isLastQuestion]);
+    
     useEffect(() => {
-        if (timeLeft === 0 && (!isLastQuestion)) {
-            toggleComponent();
+        let intervalId;
+    
+        if (hasStarted) {
+            intervalId = setInterval(() => {
+                setTimeLeft((prevTimeLeft) => {
+                    const updatedTimeLeft = prevTimeLeft - 1;
+                    if (updatedTimeLeft === 0) {
+                        clearInterval(intervalId); // Clear the interval here as well
+                        if (!isLastQuestion) {
+                            toggleComponent();
+                        }
+                        return 0;
+                    }
+                    return updatedTimeLeft;
+                });
+            }, 1000);
         }
-        const intervalId = setInterval(() => {
-            setTimeLeft(timeLeft - 1);
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    }, [timeLeft, isLastQuestion]);
-
-    const stopAndHandleRecording = async () => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
-            await new Promise((resolve) => {
-                mediaRecorderRef.current.onstop = resolve;
-                mediaRecorderRef.current.stop();
-            });
-            setIsRecording(false);
-            let blob;
-            if (recordedChunksRef.current.length > 0) {
-                blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
-                console.log(`Blob created: Size - ${blob.size}, Type - ${blob.type}`);
-                const newAudioURL = URL.createObjectURL(blob);
-                setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-                const base64Data = await blobToBase64(blob);
-                const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
-                setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
-            } else {
-                const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-                setAnswers(prev => [...prev, {
-                    question: questions[currentQuestion - 1]?.question,
-                    answer: silentBase64Wav,
-                }]);
     
-                if (currentQuestion < questions.length) {
-                    setCurrentQuestion(current => current + 1);
-                    setRecordingDone(false);
-                }
-    
-                setIsLoading(false);
-                console.log("No recording made, adding silent audio blob as answer.");
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId); // Make sure to clear the interval on cleanup
             }
+        };
+    }, [hasStarted, isLastQuestion]);
 
-        } else {
-            console.error("Recorder not active or already stopped.");
-        }
-        recordedChunksRef.current = [];
-    };
+    // const stopAndHandleRecording = async () => {
+    //     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+    //         await new Promise((resolve) => {
+    //             mediaRecorderRef.current.onstop = resolve;
+    //             mediaRecorderRef.current.stop();
+    //         });
+    //         setIsRecording(false);
+    //         let blob;
+    //         if (recordedChunksRef.current.length > 0) {
+    //             blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
+    //             console.log(`Blob created: Size - ${blob.size}, Type - ${blob.type}`);
+    //             const newAudioURL = URL.createObjectURL(blob);
+    //             setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+    //             const base64Data = await blobToBase64(blob);
+    //             const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
+    //             setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+    //         } else {
+    //             const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+    //             setAnswers(prev => [...prev, {
+    //                 question: questions[currentQuestion - 1]?.question,
+    //                 answer: silentBase64Wav,
+    //             }]);
+    
+    //             if (currentQuestion < questions.length) {
+    //                 setCurrentQuestion(current => current + 1);
+    //                 setRecordingDone(false);
+    //             }
+    
+    //             setIsLoading(false);
+    //             console.log("No recording made, adding silent audio blob as answer.");
+    //         }
+
+    //     } else {
+    //         console.error("Recorder not active or already stopped.");
+    //     }
+    //     recordedChunksRef.current = [];
+    // };
 
     async function sendAudioToServer(base64Data) {
         try {
@@ -342,7 +366,7 @@ const QuestionBox = ({ hasStarted }) => {
 
     function blobToBase64(blob) {
         return new Promise((resolve, reject) => {
-            const reader = new FileReader();
+            const reader = new FileReader();    
             reader.readAsDataURL(blob);
             reader.onloadend = () => {
                 const base64data = reader.result.split(',')[1];
@@ -353,6 +377,54 @@ const QuestionBox = ({ hasStarted }) => {
         });
     }
 
+    useEffect(() => {
+        if (currentQuestionIndex < questions?.length) {
+            // Speak next question only if the current question index is valid
+            speakQuestion(questions[currentQuestionIndex]);
+        }
+    }, [currentQuestionIndex, questions]);
+
+    const toggleComponent = async () => {
+        console.log("toggleComponent called", new Date().toISOString()); // Log when the function is called
+        if (!recordingDone && recordedChunksRef.current.length === 0) {
+            const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+            setAnswers(prev => [...prev, {
+                question: questions[currentQuestion - 1]?.question,
+                answer: silentBase64Wav,
+            }]);
+        } else {
+            await stopAndHandleRecording();
+        }
+        setCurrentQuestion(current => current + 1);
+        setRecordingDone(false);
+    };
+
+    const stopAndHandleRecording = async () => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+            await new Promise((resolve) => {
+                mediaRecorderRef.current.onstop = resolve;
+                mediaRecorderRef.current.stop();
+            });
+            setIsRecording(false);
+            handleRecordingComplete(); // Handle recording completion separately
+        }
+    };
+
+    const handleRecordingComplete = () => {
+        let blob;
+        if (recordedChunksRef.current.length > 0) {
+            blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
+            const newAudioURL = URL.createObjectURL(blob);
+            setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+            saveAnswer(blob); // Save answer separately
+        }
+    };
+
+    const saveAnswer = async (blob) => {
+        const base64Data = await blobToBase64(blob);
+        const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
+        setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+    };
 
     return (
         <>
