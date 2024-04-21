@@ -104,7 +104,6 @@
 }
 @media only screen and (max-width: 1024px) {
   .topContainer {
-    width: 900px;
     height: 10%;
     display: flex;
     justify-content: space-between;
@@ -497,11 +496,6 @@ x .transparentContainer button {
 /* Large screens (desktops and laptops) */
 @media only screen and (min-width: 1024px) and (max-width: 1440px) {
   /* Styles for large screens go here */
-  .wrapper {
-    /* 900px */
-    min-width: 56.25rem;
-    display: block;
-  }
 }
 
 /* Medium screens (tablets) */

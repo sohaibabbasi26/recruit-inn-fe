@@ -30,16 +30,16 @@
   height: 95%;
 }
 
-.instructionsContainer{
-    /* height: 50%; */
-    height: 70%;
-    width: 100%;
-    background-color: #F8F7FA;
-    border-radius: 20px;
-    border: 1px solid #EBEBEB;
-    display: flex;
-    justify-content: start;
-    overflow: scroll;
+.instructionsContainer {
+  /* height: 50%; */
+  height: 70%;
+  width: 100%;
+  background-color: #f8f7fa;
+  border-radius: 20px;
+  border: 1px solid #ebebeb;
+  display: flex;
+  justify-content: start;
+  overflow: scroll;
 }
 
 .instructionsContainer ul {
@@ -95,12 +95,22 @@
   justify-items: center;
 }
 
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .lowerContainer button {
+    margin-bottom: 0;
+    height: 3.5rem;
+    min-width: 12rem;
+    margin-top: 0.9rem;
+  }
+}
+
 /* 1024px */
 @media screen and (max-width: 64em) {
-  .instructionsBox {
+  /* .instructionsBox {
     min-height: 33rem;
     min-width: 31rem;
-  }
+  } */
 
   .lowerContainer {
     margin-top: 0.3rem;
