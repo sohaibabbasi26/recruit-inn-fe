@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 
-const CodingChild = ({formatTime, question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
+const CodingChild = ({formatTime , question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
 
     const router = useRouter();
 
@@ -64,7 +64,7 @@ const CodingChild = ({formatTime, question, setQuestion, codeSubmitHandler, cons
         }
 
         fetchCodingQues();
-    }, [router?.isReady])
+    }, [router?.isReady]);
 
     return (
         <>

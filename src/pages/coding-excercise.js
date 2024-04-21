@@ -88,12 +88,11 @@ const CodingExcersice = () => {
         const seconds = timeLeft % 60;
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
-
+    
     return (
         <>
             <CodingChild formatTime={formatTime}  codeSubmitHandler={codeSubmitHandler} constraints={constraints} setConstraints={setConstraints} question={question} setQuestion={setQuestion} isLoading={isLoading} setIsLoading={setIsLoading} output={output} executeCode={executeCode} code={Code} language={language} setCode={setCode} setLanguage={setLanguage} />
         </>
     )
 }
-
 export default CodingExcersice;
