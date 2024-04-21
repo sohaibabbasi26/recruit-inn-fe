@@ -99,7 +99,7 @@
   justify-content: space-between;
   align-items: center;
   margin-left: 10px;
-  gap: 0rem;
+  font-size: 10px;
 }
 .profileTab h4 span {
   color: #170d23;
@@ -108,7 +108,7 @@
 .profileTab h4 {
   padding: 0;
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 12px;
 }
 
 .dashboardButton {
