@@ -20,6 +20,7 @@
   width: 180px;
   font-size: 1rem;
   letter-spacing: 0.5px;
+  margin: 1rem 0;
   gap: 1rem;
   height: 60%;
   font-family: "Poppins", sans-serif;
@@ -70,13 +71,33 @@
     width: 80%;
   }
 
+  .btnsContainer {
+    margin-top: 0;
+  }
+
   #backBtn,
   #forwardBtn {
     white-space: nowrap;
+    width: 250px;
+    height: 4rem;
+    margin-top: 0;
   }
 
   #forwardBtn img {
     width: 20px !important;
+  }
+}
+
+/* 1440px */
+@media screen and (max-width: 90em) {
+  #backBtn,
+  #forwardBtn {
+    width: 200px;
+    height: 3rem;
+  }
+
+  .btnsContainer {
+    margin-top: 0px;
   }
 }
 
