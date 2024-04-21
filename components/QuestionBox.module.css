@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 
-<<<<<<< HEAD
 
 .container{
     width: 70%;
@@ -12,18 +11,6 @@
     align-items: center;
     justify-content: center;
     font-family: 'Poppins',sans-serif;
-=======
-.container {
-  width: 50%;
-  height: 65%;
-  border: 1px solid #ebebeb;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: "Poppins", sans-serif;
->>>>>>> a4a3658620be1ddc2a09c90754f614505694e24c
 }
 
 .loader {
@@ -139,7 +126,7 @@
 
 @media only screen and (max-width: 1024px) {
   .lowerContainer button {
-    height: 60%;
-    width: 40%;
+    height: 30%;
+    width: 30%;
   }
 }
