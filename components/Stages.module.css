@@ -1,16 +1,15 @@
-.stagesContainer{
-    width: 80%;
-    margin-bottom: 1.5rem;
-
+.stagesContainer {
+  width: 80%;
+  margin-bottom: 1.5rem;
 }
 
-.stagesContainer ul{
-    display: flex;
-    list-style: none;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
+.stagesContainer ul {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
 }
 
 .stagesContainer ul li {
@@ -59,7 +58,7 @@ s .active {
 @media only screen and (max-width: 1024px) {
   .stagesContainer {
     /* 900px; */
-    min-width: 56.25em;
+    width: 80%;
     margin-bottom: 0.9rem;
   }
 

@@ -1,5 +1,5 @@
 .superContainer {
-  height: 87vh;
+  height: 96vh;
   width: 100%;
 }
 
@@ -50,8 +50,8 @@
   gap: 24px;
 }
 
-/* 1024px */
-@media screen and (max-width: 64em) {
+/* 1680px */
+@media screen and (max-width: 105em) {
   .RightComponent_addJobBtn__PGBvV,
   .notificationsBtn {
     height: 50px;

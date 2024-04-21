@@ -6,7 +6,7 @@
   align-items: center;
   gap: 1rem;
   height: 60%;
-  width: 100%;
+  width: 80%;
   margin-top: 4%;
 }
 
@@ -17,9 +17,10 @@
   background-color: #f0edfc;
   border: none;
   border-radius: 40px;
-  width: 180px;
+  width: 20%;
   font-size: 1rem;
   letter-spacing: 0.5px;
+  margin: 1rem 0;
   gap: 1rem;
   height: 60%;
   font-family: "Poppins", sans-serif;
@@ -38,7 +39,7 @@
   border: none;
   border-radius: 40px;
   font-weight: 500;
-  width: 280px;
+  width: 20%;
   font-size: 1rem;
   letter-spacing: 0.5px;
   gap: 3rem;
@@ -64,25 +65,70 @@
   }
 } */
 
-@media only screen and (max-width: 1200px) {
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .superContainer {
+    width: 80%;
+  }
+
+  .btnsContainer {
+    margin-top: 0;
+  }
+
   #backBtn,
   #forwardBtn {
-    width: 180px;
-    height: 90%;
-    font-size: 12px;
+    white-space: nowrap;
+    width: 250px;
+    height: 4rem;
+    margin-top: 0;
+  }
+
+  #forwardBtn img {
+    width: 20px !important;
+  }
+}
+
+/* 1440px */
+@media screen and (max-width: 90em) {
+  #backBtn,
+  #forwardBtn {
+    width: 200px;
+    height: 3rem;
+  }
+
+  .btnsContainer {
+    margin-top: 0px;
+  }
+}
+
+/* @media only screen and (max-width: 1200px) {
+  #backBtn,
+  #forwardBtn {
+    width:40%;
+    height: 60%;
+    font-size: 8px;
     gap: 10px;
   }
 }
 
-@media only screen and (max-width: 1100px) {
-  #backBtn,
+@media only screen and (max-width: 1440px) {
   #forwardBtn {
-    width: 180px;
+    width: 25%;
     height: 60%;
-    font-size: 12px;
+    font-size: 14px;
     gap: 10px;
   }
 }
+
+
+@media only screen and (max-width: 1600px) {
+  #forwardBtn {
+    width: 30%;
+    height: 60%;
+    font-size: 16px;
+    gap: 10px;
+  }
+} */
 
 /* 1024px */
 @media screen and (max-width: 64em) {
@@ -93,6 +139,7 @@
     margin-right: 3px;
   }
 
+
   /* #forwardBtn {
     width: 100px;
     height: 60%;
@@ -100,14 +147,10 @@
     gap: 1rem;
   } */
 
-  #backBtn,
-  #forwardBtn {
-    white-space: nowrap;
-    font-size: 1rem;
-    height: 3.5rem;
-  }
+ 
 
   #forwardBtn {
-    width: auto;
+    width: 30%;
+    font-size: 12PX;
   }
 }
