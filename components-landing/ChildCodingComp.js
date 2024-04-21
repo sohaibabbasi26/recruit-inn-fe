@@ -7,42 +7,45 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 
-const CodingChild = ({formatTime , question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
+const CodingChild = ({formatTime , timeLeft , question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
 
     const router = useRouter();
-
+  
     const { a_id, pid } = router?.query;
-    const [timeLeft, setTimeLeft] = useState(600);   
+    // const [timeLeft, setTimeLeft] = useState(600);   
 
     useEffect(() => {
         console.log("a_id", a_id);
         console.log('router:', router?.query);
     }, [a_id])
 
-    useEffect(() => {
-        const timerId = setInterval(() => {
-            setTimeLeft(prevTimeLeft => {
-                if (prevTimeLeft <= 1) {
-                    clearInterval(timerId);
-                    console.log('Timer finished');
-                    return 0;  // Ensure timer stops at 0
-                }
-                return prevTimeLeft - 1;
-            });
-        }, 1000);
+    // useEffect(() => {
+    //     const timerId = setInterval(() => {
+    //         setTimeLeft(prevTimeLeft => {
+    //             if (prevTimeLeft <= 1) {
+    //                 clearInterval(timerId);
+    //                 console.log('Timer finished');
+    //                 return 0;  // Ensure timer stops at 0
+    //             }
+    //             return prevTimeLeft - 1;
+    //         });
+    //     }, 1000);
     
-        return () => clearInterval(timerId);  // Cleanup interval on component unmount
-    }, []);
+    //     return () => clearInterval(timerId);  // Cleanup interval on component unmount
+    // }, []);
+
+    
 
     useEffect(() => {
 
         async function fetchCodingQues() {
-            if (!router.isReady) return; 
+            if (!router.isReady) return;
 
             const reqBody = {
                 assessment_id: a_id,
                 position_id: pid
             }
+
             console.log("req body:", reqBody)
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-assessment`, {
                 method: 'POST',
@@ -56,7 +59,6 @@ const CodingChild = ({formatTime , question, setQuestion, codeSubmitHandler, con
 
             const contentType = response.headers.get('content-type');
 
-
             const data = await response.json();
             setQuestion(data?.data?.assesment);
             setConstraints(data?.data?.assesment?.constraints);
@@ -65,7 +67,7 @@ const CodingChild = ({formatTime , question, setQuestion, codeSubmitHandler, con
 
         fetchCodingQues();
     }, [router?.isReady]);
-
+    const formattedTime = formatTime(timeLeft);
     return (
         <>
             <div className="w-full h-screen bg-[#F5F5F5] justify-center items-center flex overflow-hidden">
@@ -78,6 +80,7 @@ const CodingChild = ({formatTime , question, setQuestion, codeSubmitHandler, con
                                 <div className="w-[95%] h-[100%] border-b-[1px] border-[#EBEBEB] flex items-center gap-2">
                                     <span className="bg-[#F0EDFC] py-[0.25rem] px-3 rounded-2xl text-sm font-semibold text-[#6137DB]">Code</span>
                                     <select onChange={(e) => setLanguage(e.target.value)} className="bg-[#F0EDFC] py-[0.35rem] px-3 rounded-2xl text-sm font-semibold text-[#4A525D]">
+                                    <option value="" >Select programming language</option>
                                         <option value="python3">
                                             Python
                                         </option>
@@ -91,7 +94,7 @@ const CodingChild = ({formatTime , question, setQuestion, codeSubmitHandler, con
                                             C
                                         </option>
                                     </select>
-                                    <span className="bg-[#6137DB] py-[0.25rem] flex items-center px-3 rounded-2xl text-sm font-semibold text-[#F0EDFC] gap-2"><Image src='/timer.svg' height={12} width={12} />{formatTime()}</span>
+                                    <span className="bg-[#6137DB] py-[0.25rem] flex items-center px-3 rounded-2xl text-sm font-semibold text-[#F0EDFC] gap-2"><Image src='/timer.svg' height={12} width={12} />{formattedTime}</span>
                                 </div>
                             </div>
 

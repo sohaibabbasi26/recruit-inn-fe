@@ -9,7 +9,7 @@ const JobType = ({position, jobType, description, location,positionRef,jobTypeRe
         <>
             <div className={styles.jobTypeContainer}>
                 <JobInfoFields positionRef={positionRef} jobTypeRef={jobTypeRef} locationRef={locationRef} setPosition={setPosition} setLocation={setLocation} setJobtype={setJobtype} />
-                <EditingContainer descriptionRef={descriptionRef} setDescription={setDescription} />    
+                <EditingContainer description={description} descriptionRef={descriptionRef} setDescription={setDescription} />    
             </div>
         </>
     );

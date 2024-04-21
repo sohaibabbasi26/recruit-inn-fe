@@ -111,8 +111,6 @@ const AddSkillForm = forwardRef(({ codingExpertise, setCodingExpertise, setTechS
                     </select>
                 </div>
 
-                
-
                 {isTestRequired && (
                     <>
                     <p className={styles.codingheading}>Expertise for Coding Assessment:</p>

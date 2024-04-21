@@ -3,6 +3,7 @@ import ContentEditor from "../../components-landing/ContentEditor";
 import { useEffect, useState } from "react";
 import CodingChild from "../../components-landing/ChildCodingComp";
 import { useRouter } from "next/router";
+import ErrorIndicator from "../../components/ErrorIndicator";
 
 const CodingExcersice = () => {
 
@@ -14,7 +15,18 @@ const CodingExcersice = () => {
     const [constraints, setConstraints] = useState();
     const router = useRouter();
     const [timeLeft, setTimeLeft] = useState(600);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [message,setMessage] = useState(false);
     const {cid} = router?.query;
+
+    const showError = (message) => {
+        setMessage(message);
+        setShowErrorMessage(true);
+    
+        setTimeout(() => {
+          setShowErrorMessage(false);
+        }, 3000);
+      };
 
     async function executeCode() {
         const reqBody = {
@@ -22,7 +34,11 @@ const CodingExcersice = () => {
             versionIndex: 1,
             script: Code
         }
-
+        if (!language) {
+            console.log("Please select a programming language.");
+            showError('Please select a programming language.')
+            return;
+        }
         console.log("req body:", reqBody)
         setIsLoading(true);
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/execute-code`, {
@@ -83,15 +99,32 @@ const CodingExcersice = () => {
         router.push('/test-submit-completion');
     }
 
-    const formatTime = () => {
+    const formatTime = (timeLeft) => {
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
-    
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime > 0) {
+                    return prevTime - 1;
+                } else {
+                    clearInterval(timer); // Clear the interval if timeLeft reaches 0
+                    codeSubmitHandler(); // Call the function when timer completes
+                    return 0;
+                }
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <>
-            <CodingChild formatTime={formatTime}  codeSubmitHandler={codeSubmitHandler} constraints={constraints} setConstraints={setConstraints} question={question} setQuestion={setQuestion} isLoading={isLoading} setIsLoading={setIsLoading} output={output} executeCode={executeCode} code={Code} language={language} setCode={setCode} setLanguage={setLanguage} />
+            {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
+            <CodingChild formatTime={formatTime} timeLeft = {timeLeft} codeSubmitHandler={codeSubmitHandler} constraints={constraints} setConstraints={setConstraints} question={question} setQuestion={setQuestion} isLoading={isLoading} setIsLoading={setIsLoading} output={output} executeCode={executeCode} code={Code} language={language} setCode={setCode} setLanguage={setLanguage} />
         </>
     )
 }

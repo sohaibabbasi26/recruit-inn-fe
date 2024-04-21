@@ -80,52 +80,53 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
     const [viewMode, setViewMode] = useState('login');
     const [subject, setSubject] = useState('');
     const [text, setText] = useState('');
-    const [candidateId,setCandidateId] = useState();
-    
+    const [candidateId, setCandidateId] = useState();
 
-    const redirectToClientPage = (candidateId) => {
+
+    const redirectToCandidatePage = (candidateId) => {
         router.push(`/candidate/${candidateId}`);
     };
 
     useEffect(() => {
-        // Check if user is logged in
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn) {
             const candidate_id = localStorage.getItem('candidateID');
             if (candidate_id) {
-                redirectToClientPage(candidate_id);
+                redirectToCandidatePage(candidate_id);
             }
         }
     }, [router]);
 
     const loginApiCall = async () => {
-        
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
-
-        const data = await response.json();
-        console.log('login info:', data?.data);
-        setCandidateId(data?.data?.id);
-        if (data?.data?.token) {
-            localStorage.setItem('candidate-token', data?.data?.token);
-            localStorage.setItem('isLoggedInCandidate', 'true');
-            localStorage.setItem('candidateId', data?.data?.id); 
-            redirectToClientPage(data?.data?.id);   
-        } else {
+            const data = await response.json();
+            console.log('login info:', data?.data);
+            setCandidateId(data?.data?.id);
+            if (data?.data?.token) {
+                localStorage.setItem('candidate-token', data?.data?.token);
+                localStorage.setItem('isLoggedInCandidate', 'true');
+                localStorage.setItem('candidateId', data?.data?.id);
+                redirectToCandidatePage(data?.data?.id);
+            } else {
+                showError('Login failed. Please check your credentials.');
+            }
+        } catch (err) {
             showError('Login failed. Please check your credentials.');
         }
     };
 
-    useEffect(() => {   
+    useEffect(() => {
         const demolink = `http://localhost:3000/cand-new-pass/${candidateId}`;
         setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
         setText(`
@@ -140,11 +141,11 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
             email: email
         };
 
-        const requestBody = {
-            to: emailReceiver,
-            subject: subject,
-            text: text
-        }
+        // const requestBody = {
+        //     to: emailReceiver,
+        //     subject: subject,
+        //     text: text
+        // }
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate`, {
@@ -224,8 +225,8 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
                                     <ForgotPassword email={email} setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
                                     <div className={styles.wrapper}>
                                         <ForgotPasswordBtns setViewMode={setViewMode}
-                                        checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler}
-                                         email={emailReceiver} />
+                                            checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler}
+                                            email={emailReceiver} />
                                     </div>
                                 </>
                             ) : (
