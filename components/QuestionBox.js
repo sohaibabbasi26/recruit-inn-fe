@@ -404,7 +404,7 @@ const QuestionBox = ({ hasStarted }) => {
                             disabled={isRecording}
                         >
                             <Image src={recordingDone ? '/mic-disabled.svg' : '/mic.svg'} width={20} height={20} />
-                            {isRecording ? 'Stop Recording' : 'Click To Record Answer'}
+                            {isRecording ? 'Click To Record Answer' : 'Click To Record Answer'}
                         </button>
                         {/*lower container */}
                         <div className={styles.lowerContainer}>
