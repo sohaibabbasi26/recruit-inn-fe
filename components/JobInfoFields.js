@@ -12,8 +12,7 @@ const JobInfoFields = ({position, jobType, description, location, positionRef,jo
                 <div className={styles.conatiner} >
                     <Image src='/suitcase.svg' width={iconSize} height={iconSize} />
                     <input type='text' placeholder='Add Job Title' value={position}  ref={positionRef} />
-                </div>
-        
+                </div>    
                 <div className={styles.conatiner} >
                 <Image src='/location.svg' width={iconSize} height={iconSize} />
                 <input type='text' placeholder='Anywhere' value={location} ref={locationRef} />
