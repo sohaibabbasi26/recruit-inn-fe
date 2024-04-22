@@ -39,7 +39,6 @@ const JobInfoFields = ({
         </div>
       </div>
 
-<<<<<<< HEAD
       <div className={styles.wrapper}>
         <Image src="/suitcase.svg" width={iconSize} height={iconSize} />
         <select ref={jobTypeRef}>
@@ -55,19 +54,5 @@ const JobInfoFields = ({
     </>
   );
 };
-=======
-    return (
-        <>
-            <div className={styles.fieldsContainer}>
-                <div className={styles.conatiner} >
-                    <Image src='/suitcase.svg' width={iconSize} height={iconSize} />
-                    <input type='text' placeholder='Add Job Title' value={position}  ref={positionRef} />
-                </div>    
-                <div className={styles.conatiner} >
-                <Image src='/location.svg' width={iconSize} height={iconSize} />
-                <input type='text' placeholder='Anywhere' value={location} ref={locationRef} />
-                </div>
-            </div>      
->>>>>>> 910e63e2e7ccd69c1961dbdd4fb6c719507de85a
 
 export default JobInfoFields;
