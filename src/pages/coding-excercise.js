@@ -111,8 +111,8 @@ const CodingExcersice = () => {
                 if (prevTime > 0) {
                     return prevTime - 1;
                 } else {
-                    clearInterval(timer); // Clear the interval if timeLeft reaches 0
-                    codeSubmitHandler(); // Call the function when timer completes
+                    clearInterval(timer); 
+                    codeSubmitHandler(); 
                     return 0;
                 }
             });

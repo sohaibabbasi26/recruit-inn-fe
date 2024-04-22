@@ -259,6 +259,9 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     }
 
     async function sendEmail(email) {
+        const otpCode = generateRandomCode();
+        setGeneratedCode(otpCode);
+
         try {
             const requestBody = {
                 to: email,
@@ -387,7 +390,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                         )}
                         {currentStage === stages.VERIFICATION && (
                             <>
-                                <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
+                                <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} email={email} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
                                 <div className={styles.wrapper}>
                                     <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>

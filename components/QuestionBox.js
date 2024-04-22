@@ -285,7 +285,7 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     useEffect(() => {
-        setTimeLeft(9)
+        setTimeLeft(59)
         speakQuestion(currentQuestion);
     }, [currentQuestion])
 
@@ -461,9 +461,7 @@ const QuestionBox = ({ hasStarted }) => {
             setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
             if (currentQuestionIndex < questions.length - 1) {
                 setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-                // speakQuestion(questions[currentQuestionIndex]);
             }
-            // setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
             setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: data?.data?.transcriptionResult }]);
             return data;
 
