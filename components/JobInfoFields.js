@@ -43,7 +43,6 @@ const JobInfoFields = ({
         <Image src="/suitcase.svg" width={iconSize} height={iconSize} />
         <select ref={jobTypeRef}>
           <option value="" selected disable>
-            {" "}
             Select Job Type
           </option>
           <option value="On-site">On-site</option>
