@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const RightBottomBtns = ({ onContinue, onBack, setCompletedStages, completedStages, onClose }) => {
 
-    const navigationIconSize = 40;
+    const navigationIconSize = 30;
 
     return (
         <>
