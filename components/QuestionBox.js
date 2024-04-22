@@ -55,7 +55,7 @@ const QuestionBox = ({ hasStarted }) => {
 
                 const data = await response.json();
                 console.log("questions:", data);
-                if (data && data?.code === 200 && data?.data[0]) {
+                if (data && data?.code === 200 && data?.data[0] && hasStarted) {
                     console.log(hasStarted)
                     setQuestions(data?.data[0]?.question);
                     console.log("there?", data?.data[0]?.question[0].question);
@@ -64,7 +64,7 @@ const QuestionBox = ({ hasStarted }) => {
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
-            } finally {
+            }finally{
                 setIsLoading(false);
             }
         };
@@ -230,19 +230,18 @@ const QuestionBox = ({ hasStarted }) => {
     const toggleComponent = async () => {
         setIsLoading(true);
 
-        if (!recordingDone && recordedChunksRef.current.length === 0) {
+        if(!recordingDone && recordedChunksRef.current.length === 0) {
             const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
             setAnswers(prev => [...prev, {
                 question: questions[currentQuestion - 1]?.question,
                 answer: silentBase64Wav,
             }]);
-
             if (currentQuestion < questions.length) {
                 setCurrentQuestion(current => current + 1);
                 setRecordingDone(false);
             }
-
             setIsLoading(false);
+
             console.log("No recording made, adding silent audio blob as answer.");
             // });
         } else {
@@ -411,7 +410,6 @@ const QuestionBox = ({ hasStarted }) => {
                             <button onClick={isLastQuestion ? submitTestHandler : toggleComponent} disabled={!recordingDone}>
                                 {isLastQuestion ? 'Submit Test' : 'Next Question'}
                                 <Image src='/Forward.svg' width={20} height={20} />
-
                             </button>
                         </div>
                     </>
