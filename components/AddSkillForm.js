@@ -2,9 +2,9 @@ import { useFormContext } from "@/contexts/FormContext";
 import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { forwardRef, useState, useEffect } from "react";
-import { getSvg } from "@/util/helpers";
-// useFormContext
+// import { getSvg } from "@/util/helpers";
 
+// useFormContext
 const AddSkillForm = forwardRef(
   ({
     codingExpertise,
@@ -64,8 +64,8 @@ const AddSkillForm = forwardRef(
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
-                // src="/Award.svg"
-                src={skill1.length > 1 ? getSvg(skill1) : "/Award.svg"}
+                src="/Award.svg"
+                // src={skill1.length > 1 ? getSvg(skill1) : "/Award.svg"}
                 width={iconSize}
                 height={iconSize}
               />
