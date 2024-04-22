@@ -27,6 +27,9 @@ const QuestionBox = ({ hasStarted }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isTestCompleted, setIsTestCompleted] = useState(false);
+    const currentRecordingQuestionIndexRef = useRef(currentQuestion);
+
+    const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
 
     const isLastQuestion = currentQuestion === questions?.length;
 
@@ -124,6 +127,7 @@ const QuestionBox = ({ hasStarted }) => {
             mediaRecorderRef.current.start();
             setIsRecording(true);
             setRecordingDone(true);
+            currentRecordingQuestionIndexRef.current = currentQuestion;
             console.log('Recording started');
         };
     }
@@ -137,27 +141,27 @@ const QuestionBox = ({ hasStarted }) => {
 
     useEffect(() => {
         if (!hasStarted || isTestCompleted) {
-            return; 
+            return;
         }
         const intervalId = setInterval(() => {
             setTimeLeft(prevTimeLeft => {
                 if (prevTimeLeft > 1) {
-                    return prevTimeLeft - 1; 
+                    return prevTimeLeft - 1;
                 } else {
-                    clearInterval(intervalId); 
+                    clearInterval(intervalId);
                     if (isLastQuestion && !isSubmitted) {
-                        setIsSubmitted(true); 
+                        setIsSubmitted(true);
                         submitTestHandler();
                     }
-                     else if (!isLastQuestion) {
-                        toggleComponent(); 
+                    else if (!isLastQuestion) {
+                        toggleComponent();
                     }
-                    return 0; 
+                    return 0;
                 }
             });
         }, 1000);
-    
-        return () => clearInterval(intervalId); // Clean up interval on unmount or when dependencies change
+
+        return () => clearInterval(intervalId);
     }, [hasStarted, isLastQuestion, timeLeft, isSubmitted, isTestCompleted]);
 
     // useEffect(() => {
@@ -187,8 +191,6 @@ const QuestionBox = ({ hasStarted }) => {
     //     }
     // }, [hasStarted, timeLeft, isLastQuestion]);
 
-
-
     const stopMediaStreamTracks = () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
             mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
@@ -204,7 +206,7 @@ const QuestionBox = ({ hasStarted }) => {
 
     const submitTestHandler = async () => {
 
-        if (isSubmitted) return; 
+        if (isSubmitted) return;
 
         setIsSubmitted(true);
         setIsLoading(true);
@@ -223,9 +225,7 @@ const QuestionBox = ({ hasStarted }) => {
                 },
                 body: JSON.stringify(requestBody),
             });
-
             const data = await response.json();
-
             console.log("take-test api response:", data);
             console.log('value in test_req state:', test_req);
             console.log('test_req state = ', test_req === 'true');
@@ -238,7 +238,7 @@ const QuestionBox = ({ hasStarted }) => {
                 setIsLoading(false);
             }
         } catch (err) {
-            console.error('Failed to submit test:', error);
+            console.error('Failed to submit test:', err);
         } finally {
             setIsLoading(false); // Ensure loading is turned off after operation
         }
@@ -247,40 +247,42 @@ const QuestionBox = ({ hasStarted }) => {
     const toggleComponent = async () => {
         if (isLastQuestion) return;
         setIsLoading(true);
-
-        // Check if it's the last question before deciding to submit or move next
         if (!isLastQuestion) {
             if (!recordingDone && recordedChunksRef.current.length === 0) {
                 const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
                 setAnswers(prevAnswers => {
-                    // Adding check to ensure not to add duplicate entry
                     return prevAnswers.some(ans => ans.question === questions[currentQuestion - 1]?.question) ? prevAnswers : [...prevAnswers, { question: questions[currentQuestion - 1]?.question, answer: silentBase64Wav }];
                 });
-
                 console.log("No recording made, adding silent audio blob as answer.");
-            } else {
-                await stopAndHandleRecording();
-            }
-            // Move to the next question if not the last
-            if (currentQuestion < questions.length) {
+
                 setCurrentQuestion(prevCurrent => prevCurrent + 1);
                 setIsRecording(false);
                 setRecordingDone(false);
                 setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
-                if (currentQuestionIndex < questions.length - 1) {  
+                if (currentQuestionIndex < questions.length - 1) {
                     setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-                    speakQuestion(questions[currentQuestionIndex + 1]);
+                    speakQuestion(questions[currentQuestionIndex]);
                 }
-            }
-        } 
-        // else {
-        //     // Handle the test submission if it's the last question
-        //     await submitTestHandler();
-        // }
+            } else {
 
+                await stopAndHandleRecording();
+            }
+
+            console.log('completed questions:', completedQuestions);
+            console.log('current questions:', currentQuestion);
+            // if (currentQuestion < questions.length ) {
+            //     setCurrentQuestion(prevCurrent => prevCurrent + 1);
+            //     setIsRecording(false);
+            //     setRecordingDone(false);
+            //     setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
+            //     if (currentQuestionIndex < questions.length - 1) {  
+            //         setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+            //         speakQuestion(questions[currentQuestionIndex]);
+            //     }
+            // }
+        }
         setIsLoading(false);
     }
-
 
     useEffect(() => {
         setTimeLeft(9)
@@ -337,34 +339,64 @@ const QuestionBox = ({ hasStarted }) => {
             if (recordedChunksRef.current.length > 0) {
                 blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
                 const newAudioURL = URL.createObjectURL(blob);
-                setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+                // setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
                 const base64Data = await blobToBase64(blob);
-                const questionBeingAnswered = currentQuestion; 
-    
+                const questionBeingAnswered = currentQuestion;
+
                 const finalData = await sendAudioToServer(base64Data);
-                setAnswers(prevAnswers => {
-                    if (questionBeingAnswered === currentQuestion) {
-                        return [...prevAnswers, { question: questions[questionBeingAnswered - 1]?.question, answer: finalData.data.transcriptionResult }];
-                    }
-                    return prevAnswers;
-                });
+                // setAnswers(prevAnswers => {
+                //     if (questionBeingAnswered === currentQuestion) {
+                //         return [...prevAnswers, { question: questions[questionBeingAnswered - 1]?.question, answer: finalData.data.transcriptionResult }];
+                //     }
+                //     return prevAnswers;
+                // });
+
+                if (!isTranscriptionComplete) {
+                    return
+                }
+                // else{
+                //     setCurrentQuestion(prevCurrent => prevCurrent + 1);
+                //     setIsRecording(false);
+                //     setRecordingDone(false);
+                //     setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
+                //     if (currentQuestionIndex < questions.length - 1) {  
+                //         setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                //         speakQuestion(questions[currentQuestionIndex]);
+                //     }
+                // }
+
+                if (currentRecordingQuestionIndexRef.current === currentQuestion) { // Check if the current question index matches the one during recording
+                    setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+                    setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+                }
+
+                // if (currentRecordingQuestionIndexRef.current === currentQuestion) { // Only update if still on the same question
+                //     setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
+                // }
             } else {
                 const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-                setAnswers(prevAnswers => {
-                    if (currentQuestion === questionBeingAnswered) { 
-                        return [...prevAnswers, { question: questions[questionBeingAnswered - 1]?.question, answer: silentBase64Wav }];
-                    }
-                    return prevAnswers;
-                });
+                // setAnswers(prevAnswers => {
+                //     if (currentQuestion === questionBeingAnswered) { 
+                //         return [...prevAnswers, { question: questions[questionBeingAnswered - 1]?.question, answer: silentBase64Wav }];
+                //     }
+                //     return prevAnswers;
+                // });
+
+                if (currentRecordingQuestionIndexRef.current === currentQuestion) { // Only add silent blob if still on the same question
+                    setAnswers(prev => [...prev, {
+                        question: questions[currentQuestion - 1]?.question,
+                        answer: silentBase64Wav,
+                    }]);
+                }
             }
-    
+
             setIsLoading(false);
         } else {
             console.error("Recorder not active or already stopped.");
         }
         recordedChunksRef.current = [];
     };
-    
+
 
     // const stopAndHandleRecording = async () => {
     //     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
@@ -407,6 +439,7 @@ const QuestionBox = ({ hasStarted }) => {
     async function sendAudioToServer(base64Data) {
         try {
             setIsLoading(true)
+            setIsTranscriptionComplete(true);
             console.log("send audio to server:", base64Data)
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`, {
                 method: 'POST',
@@ -420,9 +453,20 @@ const QuestionBox = ({ hasStarted }) => {
             console.log(
                 'audio response:', data.data.transcriptionResult
             )
-            
+            setIsLoading(false);
+            setIsTranscriptionComplete(false);
+            setCurrentQuestion(prevCurrent => prevCurrent + 1);
+            setIsRecording(false);
+            setRecordingDone(false);
+            setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
+            if (currentQuestionIndex < questions.length - 1) {
+                setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                // speakQuestion(questions[currentQuestionIndex]);
+            }
+            // setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+            setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: data?.data?.transcriptionResult }]);
             return data;
-            setIsLoading(false)
+
         } catch (error) {
             console.error('Error sending audio to server:', error);
             return 'Error in transcription';
