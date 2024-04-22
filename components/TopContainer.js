@@ -23,44 +23,37 @@ const TopContainer = ({setDescription,description}) => {
         }
     }, [quillRef.current]);
 
-    // useEffect(()=> {
-    //     setDescription(value);
-    // },[value]);
-
-    // useEffect(() => {
-    //     const plainText = convertHtmlToPlainText(value);
-    //     setDescription(plainText);
-    //     console.log('value:', value);
-    //     console.log('description:', description)
-    // }, [value]);
-
-    useEffect(() => {
-        if (description !== undefined && value !== description) {
-            setValue(description);
-        }
-    }, [description]);
-    
     useEffect(()=> {
-        if (value !== undefined) {
-            const plainText = convertHtmlToPlainText(value);
-            setDescription(plainText);
-            console.log('value:', value);
-            console.log('description:', description);
-        }
+        setDescription(value);
+    },[value]);
+    useEffect(() => {
+        const plainText = convertHtmlToPlainText(value);
+        setDescription(plainText);
+        console.log('value:', value);
+        console.log('description:', description)
     }, [value]);
 
+    // useEffect(() => {
+    //     if (description !== undefined && value !== description) {
+    //         setValue(description);
+    //     }
+    // }, [description]);
+    // useEffect(()=> {
+    //     if (value !== undefined) {
+    //         const plainText = convertHtmlToPlainText(value);
+    //         setDescription(plainText);
+    //         console.log('value:', value);
+    //         console.log('description:', description);
+    //     }
+    // }, [value]);
     useEffect(() => {
         setValue(description || '');
     }, []);
-
     const convertHtmlToPlainText = (html) => {
-
         const tempDivElement = document.createElement("div");
-
         tempDivElement.innerHTML = html;
         return tempDivElement.textContent || tempDivElement.innerText || "";
     };
-
     const modules = {
         toolbar: [
             [{ 'header': [1, 2, false] }],
@@ -72,15 +65,12 @@ const TopContainer = ({setDescription,description}) => {
             ['blockquote']
         ],
     };
-
     const placeholder =
     `About us:
             Write about your company...
     Job Description:
             Describe your job position...
     `;
-
-
     return (
         <>
             <div className={styles.super} ref={quillRef}>
@@ -91,4 +81,5 @@ const TopContainer = ({setDescription,description}) => {
         </>
     )
 }
+
 export default TopContainer;

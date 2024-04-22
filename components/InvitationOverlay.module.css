@@ -75,14 +75,14 @@
   align-items: center;
   position: absolute;
 }
-
 .topContainer {
-  width: 80%;
-  height: 10%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    width: 80%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 
 .topContainer img:hover {
   border-radius: 20px;
