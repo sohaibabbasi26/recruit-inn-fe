@@ -14,26 +14,36 @@ const Socials = () => {
                             <Image src='/hand.svg' width={handWave} height={handWave} />
                         </h3>
                     </div>
+                   
                     <div className={styles.socialContainer}>
                         <div className={styles.social}>
+                        <a href='https://twitter.com/recruitinn' target='blank' className={styles.twitter}>
                             <div className={styles.info}>
+                            
                                 <Image id={styles.logoImage} src='/Xspace.svg' height={socialIconSize} width={socialIconSize} />
+                                
                                 <div className={styles.textContainer}>
                                     <h3>X</h3>
                                     <span>@recruitinn.ai</span>
                                 </div>
+                            
                             </div>
+                            </a>
                             <Image src='/rightArrow.svg' height={arrowSize} width={arrowSize} />
                         </div>
                         
-                        <div className={styles.social}>
+                        <div className={styles.social}> 
+                        <a href='https://www.linkedin.com/company/recruitinn-ai/about/'  target='blank' className={styles.linkedin}>
                             <div className={styles.info}>
+                            
                                 <Image id={styles.logoImage} src='/linkedin.svg' height={socialIconSize} width={socialIconSize} />
                                 <div className={styles.textContainer}>
                                     <h3>LinkedIn</h3>
                                     <span>/recruitinn.ai</span>
                                 </div>
+                                
                             </div>
+                        </a>
                             <Image src='/rightArrow.svg' height={arrowSize} width={arrowSize} />
                         </div>
                     </div>

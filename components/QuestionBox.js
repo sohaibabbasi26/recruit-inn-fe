@@ -59,8 +59,8 @@ const QuestionBox = ({ hasStarted }) => {
 
                 const data = await response.json();
                 console.log("questions:", data);
-                if (data && data?.code === 200 && data?.data[0]) {
-                    console.log(hasStarted)
+                if (data && data?.code === 200 && data?.data[0] && hasStarted) {
+                    console.log(hasStarted);
                     setQuestions(data?.data[0]?.question);
                     console.log("there?", data?.data[0]?.question[0].question);
                     speakQuestion(data?.data[0]?.question[0]);
@@ -68,7 +68,7 @@ const QuestionBox = ({ hasStarted }) => {
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
-            } finally {
+            }finally{
                 setIsLoading(false);
             }
         };
@@ -566,7 +566,6 @@ const QuestionBox = ({ hasStarted }) => {
                             <button onClick={isLastQuestion ? submitTestHandler : toggleComponent} disabled={!recordingDone || isSubmitted || isLoading}>
                                 {isLastQuestion ? 'Submit Test' : 'Next Question'}
                                 <Image src='/Forward.svg' width={20} height={20} />
-
                             </button>
                         </div>
                     </>

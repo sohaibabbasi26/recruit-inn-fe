@@ -6,7 +6,7 @@ import Assessment from './Assessment';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
+const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selectedCandidate }) => {
 
     console.log('selected candidate is:', selectedCandidate)
     const [codingResult, setCodingResult] = useState();
@@ -90,6 +90,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             pdf.save('download.pdf');
         }
     };
+    
+    
 
     const handleDownloadPdf = async () => {
         const htmlContent = document.getElementById('content-to-print').innerHTML;
@@ -195,7 +197,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                             </div>
 
                             <div className={styles.rightContainer}>
-                                <button onClick={downloadPDF}>Download PDF</button>
+                                {!isLoading && <button onClick={downloadPDF}>Download PDF</button>}
+                                {isLoading && <div className={styles.loader}> </div>}
                                 <span>{Math.ceil(selectedCandidate?.results?.technicalRating)}/10</span>
                             </div>
                         </div>
