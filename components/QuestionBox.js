@@ -285,7 +285,7 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     useEffect(() => {
-        setTimeLeft(9)
+        setTimeLeft(59)
         speakQuestion(currentQuestion);
     }, [currentQuestion])
 
