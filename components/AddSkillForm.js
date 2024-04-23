@@ -26,6 +26,11 @@ const AddSkillForm = forwardRef(
     const [skill4, setSkill4] = useState("");
     const [codingSkill, setCodingSkill] = useState("");
 
+    // const [level1, setLevel1] = useState();
+    // const [level2, setLevel2] = useState();
+    // const [level3, setLevel3] = useState();
+    // const [level4, setLevel4] = useState();
+
     const [level1, setLevel1] = useState("");
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
@@ -77,12 +82,22 @@ const AddSkillForm = forwardRef(
               />
             </div>
 
-            <select
+            {/* <select
               placeholder="Choose level of difficulty"
               value={level1}
               onChange={(e) => setLevel1(e.target.value)}
             >
               <option value="beginner">Choose level of difficulty</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="expert">Expert</option>
+            </select> */}
+
+            <select
+              value={level1 || ""} // Fallback to empty string if level1 is undefined or null
+              onChange={(e) => setLevel1(e.target.value)}
+            >
+              <option value="" disabled>Choose level of difficulty</option>
               <option value="beginner">Beginner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
@@ -110,7 +125,7 @@ const AddSkillForm = forwardRef(
               value={level2}
               onChange={(e) => setLevel2(e.target.value)}
             >
-              <option value="beginner">Choose level of difficulty</option>
+              <option value="" disabled>Choose level of difficulty</option>
               <option value="beginner">Beginnner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
@@ -138,7 +153,7 @@ const AddSkillForm = forwardRef(
               value={level3}
               onChange={(e) => setLevel3(e.target.value)}
             >
-              <option value="beginner">Choose level of difficulty</option>
+              <option value="" disabled>Choose level of difficulty</option>
               <option value="beginner">Beginnner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
@@ -166,30 +181,12 @@ const AddSkillForm = forwardRef(
               value={level4}
               onChange={(e) => setLevel4(e.target.value)}
             >
-              <option value="beginner">Choose level of difficulty</option>
+              <option value="" disabled>Choose level of difficulty</option>
               <option value="beginner">Beginnner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
             </select>
           </div>
-
-          {/* {isTestRequired && (
-                    <>
-                    <p className={styles.codingheading}>Expertise for Coding Assessment:</p>
-                        <div className={styles.inputField}>
-                            <div className={styles.wrapper}>
-                                <Image className={styles.img} src='/Award.svg' width={iconSize} height={iconSize} />
-                                <input type='text' placeholder='Add Required Skill' value={codingSkill} onChange={(e) => setCodingSkill(e.target.value)} />
-                            </div>
-
-                            <select placeholder='Choose level of difficulty' value={codingLevel} onChange={(e) => setCodingLevel(e.target.value)}>
-                                <option value="beginner">Beginnner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="expert">Expert</option>
-                            </select>
-                        </div>
-                    </>
-                )} */}
 
           <div>
             <label>Would you like to add a coding assignment too?</label>
