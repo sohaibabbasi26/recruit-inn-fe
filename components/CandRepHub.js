@@ -1,7 +1,7 @@
 import styles from './CandRepHub.module.css';
 import Image from 'next/image';
 
-const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidate, setReportOverlay }) => {
+const CandRepHub = ({ showError, showSuccess, heading, data, setSelectedCandidate, setReportOverlay }) => {
 
     const cardClickHandler = (candidate) => {
         setSelectedCandidate(candidate);
@@ -43,6 +43,30 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
         }
     }
 
+    const calculateCumulativeMean = () => {
+        let total = 0;
+        let count = 0;
+
+        if (selectedCandidate?.results?.technicalRating) {
+            total += Math.ceil(selectedCandidate.results.technicalRating);
+            count += 1;
+        }
+
+        if (selectedCandidate?.results?.softskillRating) {
+            total += Math.ceil(selectedCandidate.results.softskillRating);
+            count += 1;
+        }
+
+        if (codingResult?.data?.result?.technicalRating) {
+            total += Math.ceil(parseInt(codingResult.data.result.technicalRating));
+            count += 1;
+        }
+
+        if (count === 0) return 0;
+
+        return (total / count).toFixed(2);
+    }
+
     return (
         <>
             <div className={styles.parentContainer}>
@@ -80,7 +104,7 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
                                                     <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.score)) }}>{getFilter(Math.ceil(item?.score))}<Image src={getStatusSymbol(Math.ceil(item?.score))} width={statusSize} height={statusSize} /> </span>
                                                     <Image src="/rightArrow.svg" height={iconSize} width={iconSize} /></div>
                                             </div>
-    
+
                                             {/* techstack Conatiner */}
                                             <div className={styles.techStack}>
                                                 <ul>
@@ -99,7 +123,7 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
                                                     })}
                                                 </ul>
                                             </div>
-    
+
                                             <div className={styles.lowerContainer}>
                                                 <p><span>Applied:</span>{item?.appliedThrough}</p>
                                                 <p><span>Experience:</span>{item?.overAllExperience}</p>
@@ -108,7 +132,7 @@ const CandRepHub = ({showError,  showSuccess, heading, data, setSelectedCandidat
                                     </>
                                 )
                             })
-                        ): (
+                        ) : (
                             <div className={styles.tempContainer}>
                                 <Image src='/SearchEmpty.gif' width={300} height={300} />
                                 <h3>You don't have {heading} yet...</h3>
