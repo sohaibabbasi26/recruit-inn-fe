@@ -31,30 +31,36 @@ const TopContainer = ({setDescription,description}) => {
         console.log('value:', value);
         console.log('description:', description)
     }, [value]);
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-          if (false) {
-            event.preventDefault();
-            const activeElement = document.activeElement;
-           if (activeElement.tagName === 'INPUT' && activeElement.form) {
-              const form = activeElement.form;
-              const submitButton = form.querySelector('[type="submit"]');
-              if (submitButton) {
-                submitButton.click();
-              }
-            } else {
-              const continueButton = document.getElementById('RightBottomBtns_forwardBtn__83dJ2');
-              if (continueButton) {
-                continueButton.click();
-              }
-            }
-          }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => {
-          window.removeEventListener('keydown', handleKeyDown);
-        };
-      }, []);
+
+
+    // useEffect(() => {
+    //     const handleKeyDown = (event) => {
+    //       if (false) {
+    //         event.preventDefault();
+    
+    //         const activeElement = document.activeElement;
+    
+    //        if (activeElement.tagName === 'INPUT' && activeElement.form) {
+    //           const form = activeElement.form;
+    //           const submitButton = form.querySelector('[type="submit"]');
+    //           if (submitButton) {
+    //             submitButton.click();
+    //           }
+    //         } else {
+    //           const continueButton = document.getElementById('RightBottomBtns_forwardBtn__83dJ2'); 
+    //           if (continueButton) {
+    //             continueButton.click();
+    //           }
+    //         }
+    //       }
+    //     };
+    
+    //     window.addEventListener('keydown', handleKeyDown);
+    
+    //     return () => {
+    //       window.removeEventListener('keydown', handleKeyDown);
+    //     };
+    //   }, []);
     // useEffect(() => {
     //     if (description !== undefined && value !== description) {
     //         setValue(description);
