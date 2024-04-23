@@ -7,9 +7,7 @@ import { ExpertiseItemProvider } from '@/contexts/ExpertiseContext';
 import NameProvider from '@/contexts/NameProvider';
 import { ActiveFlowProvider } from '@/contexts/ActiveFlowContext';
 import { TestStateProvider } from '@/contexts/TestRequirementContext';
-
 function MyApp({ Component, pageProps }) {
- 
 
   return (
     <TestStateProvider>
@@ -22,5 +20,4 @@ function MyApp({ Component, pageProps }) {
     </TestStateProvider>
   );
 }
-
 export default MyApp;

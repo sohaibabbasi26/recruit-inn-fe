@@ -2,7 +2,7 @@ import { useFormContext } from "@/contexts/FormContext";
 import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { forwardRef, useState, useEffect } from "react";
-// import { getSvg } from "@/util/helpers";
+import { getSvg } from "@/util/helpers";
 
 // useFormContext
 const AddSkillForm = forwardRef(
@@ -69,8 +69,8 @@ const AddSkillForm = forwardRef(
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
-                src="/Award.svg"
-                // src={skill1.length > 1 ? getSvg(skill1) : "/Award.svg"}
+                // src="/Award.svg"
+                src={skill1.length > 1 ? getSvg(skill1) : "/Award.svg"}
                 width={iconSize}
                 height={iconSize}
               />
@@ -97,7 +97,9 @@ const AddSkillForm = forwardRef(
               value={level1 || ""} // Fallback to empty string if level1 is undefined or null
               onChange={(e) => setLevel1(e.target.value)}
             >
-              <option value="" disabled>Choose level of difficulty</option>
+              <option value="" disabled>
+                Choose level of difficulty
+              </option>
               <option value="beginner">Beginner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
@@ -108,7 +110,8 @@ const AddSkillForm = forwardRef(
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
-                src="/Award.svg"
+                // src="/Award.svg"
+                src={skill2.length > 1 ? getSvg(skill2) : "/Award.svg"}
                 width={iconSize}
                 height={iconSize}
               />
@@ -125,7 +128,9 @@ const AddSkillForm = forwardRef(
               value={level2}
               onChange={(e) => setLevel2(e.target.value)}
             >
-              <option value="" disabled>Choose level of difficulty</option>
+              <option value="" disabled>
+                Choose level of difficulty
+              </option>
               <option value="beginner">Beginnner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
@@ -136,7 +141,8 @@ const AddSkillForm = forwardRef(
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
-                src="/Award.svg"
+                // src="/Award.svg"
+                src={skill3.length > 1 ? getSvg(skill3) : "/Award.svg"}
                 width={iconSize}
                 height={iconSize}
               />
@@ -153,7 +159,9 @@ const AddSkillForm = forwardRef(
               value={level3}
               onChange={(e) => setLevel3(e.target.value)}
             >
-              <option value="" disabled>Choose level of difficulty</option>
+              <option value="" disabled>
+                Choose level of difficulty
+              </option>
               <option value="beginner">Beginnner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
@@ -164,7 +172,8 @@ const AddSkillForm = forwardRef(
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
-                src="/Award.svg"
+                // src="/Award.svg"
+                src={skill4.length > 1 ? getSvg(skill4) : "/Award.svg"}
                 width={iconSize}
                 height={iconSize}
               />
@@ -181,7 +190,9 @@ const AddSkillForm = forwardRef(
               value={level4}
               onChange={(e) => setLevel4(e.target.value)}
             >
-              <option value="" disabled>Choose level of difficulty</option>
+              <option value="" disabled>
+                Choose level of difficulty
+              </option>
               <option value="beginner">Beginnner</option>
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
