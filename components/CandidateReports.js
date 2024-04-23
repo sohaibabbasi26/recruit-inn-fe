@@ -4,6 +4,32 @@ import { useActiveItem } from '@/contexts/ActiveItemContext';
 
 const CandidateReports = ({ candidateReps, reportOverlay, setReportOverlay, setSelectedCandidate, isLoading, setIsLoading }) => {
 
+    const calculateCumulativeMean = (val1,val2,val3) => {
+        console.log("val1:",val1,"val2:",val2);
+
+        let total = 0;
+        let count = 0;
+
+        if (val1) {
+            total += Math.ceil(val1);
+            count += 1;
+        }
+
+        if (val2) {
+            total += Math.ceil(val2);
+            count += 1;
+        }
+
+        if (val3) {
+            total += Math.ceil(parseInt(val3));
+            count += 1;
+        }
+
+        if (count === 0) return 0;
+
+        return (total / count).toFixed(1);
+    }
+
     const iconSize = 25;
     const goToAllIconSize = 15;
     const { setActiveItem } = useActiveItem();
@@ -46,7 +72,7 @@ const CandidateReports = ({ candidateReps, reportOverlay, setReportOverlay, setS
                 {
                     hasData ? (
                         <div className={styles.reportsCardContainer}>
-                            {newArray.map((item) => {
+                            {newArray?.map((item) => {
                                 return (
                                     <>
                                         <div className={styles.reportsCard} onClick={() => { cardClickHandler(item) }} >
@@ -61,7 +87,8 @@ const CandidateReports = ({ candidateReps, reportOverlay, setReportOverlay, setS
                                                     </div>
                                                 </div>
                                                 <div className={styles.rightTop}>
-                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span>
+                                                    {/* <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span> */}
+                                                    <span style={{ backgroundColor: getBackgroundColor((calculateCumulativeMean(item?.results?.technicalRating,item?.results?.softskillRating))) }}>{(calculateCumulativeMean(item?.results?.technicalRating,item?.results?.softskillRating))}/10</span>
                                                     <Image />
                                                 </div>
                                             </div>

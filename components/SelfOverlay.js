@@ -28,6 +28,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const expertiseRef = useRef();
     const countryRef = useRef();
     const cityRef = useRef();
+    const generatedCodeRef = useRef();
+
+    // useEffect(() => {
+    //     generatedCodeRef.current = generateRandomCode();
+    // }, []);
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -62,6 +67,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
     const [completedStages, setCompletedStages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    
 
 
     const toggleComponent = () => {
@@ -136,6 +143,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     function generateRandomCode() {
         const randomCode = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+        console.log("Generated OTP:", randomCode);
         return randomCode;
     }
 
@@ -143,7 +151,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         return techStack.some(skillObj => skillObj.skill && skillObj.skill.trim() !== '');
     };
 
-    const [generatedCode, setGeneratedCode] = useState(() => generateRandomCode());
+    const [generatedCode, setGeneratedCode] = useState();
     const [name, setName] = useState(null);
     const [country, setCountry] = useState(null);
     const [city, setCity] = useState(null);
@@ -161,10 +169,9 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [reqBody, setReqBody] = useState(null);
     const [req, setReq] = useState(null);
     const [questionId, setQuestionId] = useState([]);
+    const [text, setText] = useState();
 
     useEffect(() => {
-
-
         const reqBody = {
             name: name,
             city: city,
@@ -258,14 +265,25 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         await sendEmail(email);    
     }
 
+    useEffect(() => {
+        console.log('recent generated otp:,', generatedCode);
+        // setText()
+
+    console.log(text);
+    },[generatedCode])
+
+
     async function sendEmail(email) {
+        const otpCode = generateRandomCode();
+        setGeneratedCode(otpCode);
+        console.log("otp:", otpCode)
         try {
             const requestBody = {
                 to: email,
                 subject: 'RECRUITINN: Verify your account!',
                 text: `
-                    Your verification code is : ${generatedCode}
-                `
+                Your verification code is : ${otpCode}
+            `
             }
             console.log("request body: ", requestBody);
 
@@ -284,12 +302,17 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         }
     }
 
+
     const verifyCode = () => {
         const otpCode = otp.join("");
         console.log("Entered OTP:", otpCode);
         console.log("generated code compare:", generatedCode)
 
         if (generatedCode === otpCode) {
+
+            console.log("generated code:", generatedCode);
+            console.log("otpCode:", otpCode);
+            console.log("generatedCode === otpCode : ",generatedCode === otpCode)
             console.log("OTP Verified");
             setCurrentStage(stages.SKILLS);
             setMessage("Success!")
@@ -387,7 +410,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                         )}
                         {currentStage === stages.VERIFICATION && (
                             <>
-                                <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
+                                <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} email={email} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
                                 <div className={styles.wrapper}>
                                     <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
                                 </div>

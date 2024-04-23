@@ -6,10 +6,12 @@ import Assessment from './Assessment';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selectedCandidate }) => {
+const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, selectedCandidate }) => {
 
     console.log('selected candidate is:', selectedCandidate)
     const [codingResult, setCodingResult] = useState();
+    const [isCodingAssessment, setIsCodingAssessment] = useState(false);
+
 
     useEffect(() => {
         async function fetchCandidatesCodingResult() {
@@ -29,10 +31,39 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
             const data = await response.json();
             console.log("data response:", data);
             setCodingResult(data);
+            if (data && data?.data && data?.data?.result && data?.data?.result?.technicalRating) {
+                setIsCodingAssessment(true);
+            } else {
+                setIsCodingAssessment(false);
+            }
         }
 
         fetchCandidatesCodingResult();
     }, [selectedCandidate]);
+
+    const calculateCumulativeMean = () => {
+        let total = 0;
+        let count = 0;
+
+        if (selectedCandidate?.results?.technicalRating) {
+            total += Math.ceil(selectedCandidate.results.technicalRating);
+            count += 1;
+        }
+
+        if (selectedCandidate?.results?.softskillRating) {
+            total += Math.ceil(selectedCandidate.results.softskillRating);
+            count += 1;
+        }
+
+        if (codingResult?.data?.result?.technicalRating) {
+            total += Math.ceil(parseInt(codingResult.data.result.technicalRating));
+            count += 1;
+        }
+
+        if (count === 0) return 0;
+
+        return (total / count).toFixed(2);
+    }
 
     const overlayRef = useRef(null);
     const overlayRef1 = useRef(null);
@@ -195,29 +226,6 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
         });
     }, [reportOverlay, onClose])
 
-    // useEffect(() => {
-    //     async function callingPuppeteer() {
-    //         const htmlContent = '<div>This is the content I want to export as PDF</div>';
-    //         const response = await fetch('/api/generate-pdf', {
-    //             method: 'POST',
-    //             body: JSON.stringify({ htmlContent }),
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         }).then((res) => res.blob())
-    //             .then((blob) => {
-    //                 const url = window.URL.createObjectURL(blob);
-    //                 const link = document.createElement('a');
-    //                 link.href = url;
-    //                 link.setAttribute('download', 'report.pdf');
-    //                 document.body.appendChild(link);
-    //                 link.click();
-    //             });
-    //         console.log("puppeteer response:", response);
-    //     }
-    //     callingPuppeteer();
-    // }, [])
-
     return (
         <>
             <div ref={overlayRef} className={styles.parent}>
@@ -245,7 +253,8 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
                             <div className={styles.rightContainer}>
                                 {!isLoading && <button onClick={downloadPDF}>Download PDF</button>}
                                 {isLoading && <div className={styles.loader}> </div>}
-                                <span>{Math.ceil(selectedCandidate?.results?.technicalRating)}/10</span>
+                                {/* <span>{Math.ceil(selectedCandidate?.results?.technicalRating)}/10</span> */}
+                                <span>{calculateCumulativeMean()}/10</span>
                             </div>
                         </div>
                         {/* candidate test info div */}
@@ -281,14 +290,19 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
                                 <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
                                 <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
 
-                                {codingResult ? (
-                                    <>
-                                    <Assessment heading={headingThree} para={codingResult?.data?.result?.technicalSummary} score={Math.ceil(parseInt(codingResult?.data?.result?.technicalRating))} />
-                                    </>
+                                {isCodingAssessment &&
+                                    (
+                                        <>
+                                            <Assessment heading={headingThree} para={codingResult?.data?.result?.technicalSummary} score={Math.ceil(parseInt(codingResult?.data?.result?.technicalRating))} />
+                                        </>
+                                    )
+                                }
+                                {/* {codingResult ? (
+                                    
                                 ) : (
                                     <>
                                     </>
-                                )}
+                                )} */}
                             </div>
                         </div>
                         

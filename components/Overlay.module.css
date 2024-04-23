@@ -91,6 +91,30 @@
   align-items: center;
 }
 
+.topContainer p {
+  position: relative;
+  background-color: #f0edfc;
+  margin: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 30px;
+  padding-left: 10px;
+  border-radius: 18px;
+  font-size: 0.8rem;
+}
+
+.topContainer p span {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.topContainer p span img {
+  height: 18px;
+  width: 18px;
+}
+
 .topContainer img:hover {
   border-radius: 20px;
 }
