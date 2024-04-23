@@ -441,7 +441,7 @@ const Overlay = React.memo(
                     <p>
                       You can add maximum of 4 skills and minimum of 1
                       <span>
-                        <Image src="/Warning.svg" width={15} height={15} />
+                        <Image src="/warning2.svg" width={15} height={15} />
                       </span>
                     </p>
                   ) : null}

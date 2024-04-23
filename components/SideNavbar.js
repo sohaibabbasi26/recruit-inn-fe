@@ -210,7 +210,7 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
                 >
                   Not Eligible
                   <Image
-                    src="/Warning.svg"
+                    src="/warning.svg"
                     width={listItemSize}
                     height={listItemSize}
                   />
