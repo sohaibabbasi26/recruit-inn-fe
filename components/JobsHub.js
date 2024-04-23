@@ -46,11 +46,7 @@ const JobsHub = ({ heading, data, jobOverlay, setJobOverlay, setSelectedJob }) =
                             <span>{data.length}</span>
                         </div>
 
-                        <select>
-                            <option value='hybrid'>Hybrid</option>
-                            <option value='onsite'>On-site</option>
-                            <option value='remote'>Remote</option>
-                        </select>
+
                     </div>
 
                     <div className={styles.subContainer}>
