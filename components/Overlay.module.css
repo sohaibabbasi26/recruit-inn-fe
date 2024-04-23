@@ -84,8 +84,9 @@
 }
 
 .topContainer {
-  width: 80%;
+  width: 60%;
   height: 10%;
+  margin-top: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;

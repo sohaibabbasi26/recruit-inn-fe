@@ -152,7 +152,7 @@ x .transparentContainer button {
   flex-direction: column;
   margin-top: 2rem;
   align-items: center;
-  position: relative;
+  position: sticky;
   bottom: 45%;
   z-index: 1;
 }

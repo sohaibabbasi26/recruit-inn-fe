@@ -49,12 +49,6 @@ const JobsHub = ({
               <h3>{heading}</h3>
               <span>{data.length}</span>
             </div>
-
-            <select>
-              <option value="hybrid">Hybrid</option>
-              <option value="onsite">On-site</option>
-              <option value="remote">Remote</option>
-            </select>
           </div>
 
           <div className={styles.subContainer}>
@@ -83,7 +77,6 @@ const JobsHub = ({
                       <ul>
                         {item?.expertise?.map((skill) => {
                           return (
-                            // <li><Image id={styles.unique} src={skill.img} width={iconSize} height={iconSize} />{skill.skill}</li>
                             <li>
                               <Image
                                 id={styles.unique}
