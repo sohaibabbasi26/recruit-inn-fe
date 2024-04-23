@@ -35,6 +35,7 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
     }, [selectedCandidate]);
 
     const overlayRef = useRef(null);
+    const overlayRef1 = useRef(null);
     const contentRef = useRef(null);
     const infoSymbolSize = 10;
 
@@ -73,25 +74,72 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
             return '/noteligible.svg';
         }
     }
-
     const downloadPDF = async () => {
         if (contentRef.current) {
-            const canvas = await html2canvas(contentRef.current);
-            const imgData = canvas.toDataURL('image/png');
-
-            const pdf = new jsPDF({
-                orientation: 'portrait',
+          const content = contentRef.current;
+    
+          // Get the total height and width of the content
+          const contentHeight = content.scrollHeight;
+          const contentWidth = content.scrollWidth;
+    
+          // Define the dimensions for capturing
+          const captureWidth = contentWidth;
+          const captureHeight = content.clientHeight;
+    
+          // Calculate the number of sections based on height and viewport
+          const numSections = Math.ceil(contentHeight / captureHeight);
+    
+          // Create a new PDF instance
+          const pdf = new jsPDF({
+            orientation: 'landscape', // or 'landscape'
+          });
+    
+          // Loop through each section and capture it
+          for (let i = 0; i < numSections; i++) {
+            // Scroll to the next section
+            content.scrollTo(0, i * captureHeight);
+    
+            // Wait for a brief moment to allow content to render
+            await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust delay as needed
+    
+            // Capture the current section as an image using html2canvas
+            const canvas = await html2canvas(content, {
+              width: captureWidth,
+              height: captureHeight,
+              scrollY: -window.scrollY, // Capture scrolled content
+              useCORS: true, // Enable CORS
             });
-
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save('download.pdf');
+    
+            // Add the captured image to the PDF
+            if (i > 0) {
+              pdf.addPage();
+            }
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+    
+            // Reset scroll position
+            content.scrollTo(0, 0);
+          }
+    
+          // Save the PDF
+          pdf.save('overlay.pdf');
         }
-    };
-    
-    
+      };
+    // const downloadPDF = async () => {
+    //     if (contentRef.current) {
+    //         const canvas = await html2canvas(contentRef.current);
+    //         const imgData = canvas.toDataURL('image/png');
+
+    //         const pdf = new jsPDF({
+    //             orientation: 'portrait',
+    //         });
+
+    //         const imgProps = pdf.getImageProperties(imgData);
+    //         const pdfWidth = pdf.internal.pageSize.getWidth();
+    //         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    //         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    //         pdf.save('download.pdf');
+    //     }
+    // };
 
     const handleDownloadPdf = async () => {
         const htmlContent = document.getElementById('content-to-print').innerHTML;
@@ -172,16 +220,14 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
 
     return (
         <>
-
             <div ref={overlayRef} className={styles.parent}>
-
                 <div className={styles.btn}>
                     <button onClick={onClose}>
                         <Image src='/shut.svg' width={15} height={15} />
                     </button>
                 </div>
 
-                <div ref={contentRef} className={`${styles.superContainer} content-to-print`}>
+                <div  className={`${styles.superContainer} content-to-print`}>
                     <div className={styles.coverContainer}>
                         {/*top container */}
                         <div className={styles.topContainer}>
@@ -203,6 +249,7 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
                             </div>
                         </div>
                         {/* candidate test info div */}
+                        
                         <div className={styles.infoDiv}>
                             <ul>
                                 <li>
@@ -229,7 +276,7 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
                         </div>
 
                         {/*assessment components */}
-                        <div className={styles.cont}>
+                        <div className={styles.cont} ref={contentRef}>
                             <div className={styles.auto}>
                                 <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
                                 <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
@@ -244,9 +291,9 @@ const ReportOverlay = ({ isLoading , setIsLoading, onClose, reportOverlay, selec
                                 )}
                             </div>
                         </div>
+                        
                     </div>
                 </div>
-
             </div>
         </>
     )
