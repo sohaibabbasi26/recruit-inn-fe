@@ -7,7 +7,33 @@ import SearchEmpty from '../public/SearchEmpty.gif'
 
 const CandidatesHub = ({ heading, data, reportOverlay, setReportOverlay, setSelectedCandidate }) => {
 
-    console.log('data in candidates Hub:', data)
+    console.log('data in candidates Hub:', data);
+
+    const calculateCumulativeMean = (val1,val2,val3) => {
+        console.log("val1:",val1,"val2:",val2);
+
+        let total = 0;
+        let count = 0;
+
+        if (val1) {
+            total += Math.ceil(val1);
+            count += 1;
+        }
+
+        if (val2) {
+            total += Math.ceil(val2);
+            count += 1;
+        }
+
+        if (val3) {
+            total += Math.ceil(parseInt(val3));
+            count += 1;
+        }
+
+        if (count === 0) return 0;
+
+        return (total / count).toFixed(1);
+    }
 
     const [recommended, setRecommended] = useState('Recommended');
     const iconSize = 25;
@@ -79,7 +105,9 @@ const CandidatesHub = ({ heading, data, reportOverlay, setReportOverlay, setSele
                                                     </div>
                                                 </div>
                                                 <div className={styles.rightTop}>
-                                                    <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span>
+                                                    {/* <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span> */}
+                                                    <span style={{ backgroundColor: getBackgroundColor((calculateCumulativeMean(item?.results?.technicalRating,item?.results?.softskillRating))) }}>{(calculateCumulativeMean(item?.results?.technicalRating,item?.results?.softskillRating))}/10</span>
+
                                                     <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{getFilter(Math.ceil(item?.results?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(item?.results?.technicalRating))} width={statusSize} height={statusSize} /> </span>
                                                     <Image src="/rightArrow.svg" height={iconSize} width={iconSize} />
                                                 </div>
