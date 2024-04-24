@@ -217,7 +217,7 @@
 
                             {currentStage === stages.CLIENT_INFO && !isLoading && (
                                 <>
-                                    <ClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
+                                    <ClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} country={country} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
                                     <div className={styles.wrapper}>
                                         <AdminOverlayBtns email={email} showError={showError} setMessage={setMessage} fillValidity={fillValidity} validateEmailReceiver={validateEmailReceiver} showSuccess={showSuccess} handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>
