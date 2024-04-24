@@ -84,7 +84,6 @@ const Jobs = ({
                   <ul>
                     {item?.expertise?.map((skill) => (
                       <li>
-                        {/* <Image id={styles.unique} src={skill.img} width={iconSize} height={iconSize} /> */}
                         <Image
                           id={styles.unique}
                           src={getSvg(skill.skill)}
