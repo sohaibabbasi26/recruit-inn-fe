@@ -86,8 +86,9 @@
   /* CSS rules for screens less than 1150px wide */
   /* For example, you can modify styles for smaller screens here */
   .infoField input {
-    padding-top: 0.5rem; /* Adjust font size for smaller screens */
-    padding-bottom: 0.5rem;
+    /* Adjust font size for smaller screens */
+    /* padding-top: 0.5rem;  */
+    /* padding-bottom: 0.5rem; */
   }
   /* Add more CSS rules as needed */
 }
