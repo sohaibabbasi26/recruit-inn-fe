@@ -5,6 +5,9 @@ import { useFormContext } from '@/contexts/FormContext';
 
 const JobType = ({position, jobType, description, location,positionRef,jobTypeRef, descriptionRef, locationRef, setPosition,setLocation,setJobtype,setDescription}) => {
 
+
+
+    
     return(
         <>
             <div className={styles.jobTypeContainer}>

@@ -322,7 +322,7 @@
 }
 
 .django {
-  background-color: #2ba977;
+  /* background-color: #2ba977; */
   border-radius: 50%;
 }
 
@@ -466,22 +466,20 @@
     height: calc(100% - 32px);
   }
 }
-.searchOptions{
-    border-radius: 32px;
-    border: none;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    padding-top: 11px;
-    padding-right: 16px;
-    padding-left: 24px;
-    padding-bottom: 11px;
-    font-family: 'Poppins',sans-serif;
+.searchOptions {
+  border-radius: 32px;
+  border: none;
+  background-color: #ffffff;
+  font-size: 1rem;
+  padding-top: 11px;
+  padding-right: 16px;
+  padding-left: 24px;
+  padding-bottom: 11px;
+  font-family: "Poppins", sans-serif;
 }
 
 @media only screen and (max-width: 1024px) {
-    .parentContainer {
-        
-        font-size: small;
-    }
-      }
-      
+  .parentContainer {
+    font-size: small;
+  }
+}

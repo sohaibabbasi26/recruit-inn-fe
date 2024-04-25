@@ -152,7 +152,7 @@ x .transparentContainer button {
   flex-direction: column;
   margin-top: 2rem;
   align-items: center;
-  position: relative;
+  position: sticky;
   bottom: 45%;
   z-index: 1;
 }
@@ -269,7 +269,7 @@ x .transparentContainer button {
 }
 
 #unique {
-  background-color: #2ba977;
+  /* background-color: #2ba977; */
   border-radius: 50%;
 }
 
