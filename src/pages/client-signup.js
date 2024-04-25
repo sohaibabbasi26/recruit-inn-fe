@@ -65,7 +65,7 @@ const ClientSignup = ({ }) => {
     useEffect(() => {
         localStorage.setItem('activeFlow', 'Client');
     }, []);
-    
+
     const showError = (message) => {
         setMessage(message);
         setShowErrorMessage(true);
