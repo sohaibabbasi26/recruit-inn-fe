@@ -14,6 +14,7 @@ import AdminOverlay from '../../components/AdminOverlay';
 import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
 import ErrorIndicator from '../../components/ErrorIndicator';
+import ClientSignUpOverlay from '../../components/ClientSignupOverlay';
 
 
 const ClientSignup = ({ }) => {
@@ -319,14 +320,10 @@ const ClientSignup = ({ }) => {
         <>
             {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-            <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings}/>
+            <ClientSignUpOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings}/>
             { <div className={styles.loader}></div>}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-            {/* <div className={styles.adminPortal}>
-                <AdminSideNavbar />
-                {getActiveComponent()}
-            </div> */}
         </>
     )
 }

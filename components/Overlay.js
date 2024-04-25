@@ -99,6 +99,7 @@ const Overlay = React.memo(
     const [subject, setSubject] = useState(null);
     const [text, setText] = useState(null);
     const [positionId, setPositionId] = useState(null);
+    const [positionName, setPositionName] = useState(null);
     const expertiseRef = useRef({});
     const positionRef = useRef();
     const locationRef = useRef();
@@ -107,6 +108,17 @@ const Overlay = React.memo(
     const [questionId, setQuestionId] = useState();
     const [emailReceivers, setEmailReceivers] = useState([{ email: "" }]);
     const [assessmentId, setAssessmentId] = useState();
+    const [skill1, setSkill1] = useState("");
+    const [skill2, setSkill2] = useState("");
+    const [skill3, setSkill3] = useState("");
+    const [skill4, setSkill4] = useState("");
+    const [codingSkill, setCodingSkill] = useState("");
+    const [level1, setLevel1] = useState("");
+    const [level2, setLevel2] = useState("");
+    const [level3, setLevel3] = useState("");
+    const [level4, setLevel4] = useState("");
+    const [isLevelEntered, setIsLevelEntered] = useState('');
+
 
     // const [isTestRequired, setIsTestRequired] = useState(false);
 
@@ -154,7 +166,24 @@ const Overlay = React.memo(
     };
 
     const toggleComponent = async () => {
+
+      const skillsWithLevels = [
+        { skill: skill1, level: level1 },
+        { skill: skill2, level: level2 },
+        { skill: skill3, level: level3 },
+        { skill: skill4, level: level4 },
+      ];
+
       let isValid = false;
+
+      const isAnySkillEntered = skillsWithLevels.some(({ skill }) => skill.trim());
+      const areAllLevelsSelected = skillsWithLevels.every(({ skill, level }) => {
+        return skill.trim() ? level : true;
+      });
+
+      if(areAllLevelsSelected){
+        setIsLevelEntered(true);
+      }
 
       let newCompletedStages = [...completedStages, currentStage];
       setCompletedStages(newCompletedStages);
@@ -163,7 +192,11 @@ const Overlay = React.memo(
         case stages.ADD_SKILL:
           isValid = validateAddSkill();
           if (!isValid) {
-            setMessage("Please fill in at least one skill.");
+            setMessage("Please enter at least one skill and its difficulty level properly");
+            showError();
+            return;
+          } else if (isAnySkillEntered && !areAllLevelsSelected) {
+            setMessage("Please select a level for the entered skills.");
             showError();
             return;
           }
@@ -193,6 +226,11 @@ const Overlay = React.memo(
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
       }
+
+      // if(isAnySkillEntered){
+      //   const newCompletedStages = [...completedStages, currentStage];
+      //   setCompletedStages(newCompletedStages);
+      // }
     };
 
     const backToggleComponent = () => {
@@ -257,6 +295,7 @@ const Overlay = React.memo(
         console.log("data of just created position:", data);
         console.log("data of created position:", data?.data?.data?.position_id);
         setPositionId(data?.data?.data?.position_id);
+        setPositionName(data?.data?.data?.position);
         setIsLoading(false);
         console.log(data);
       } catch (error) {
@@ -456,6 +495,22 @@ const Overlay = React.memo(
                 {currentStage === stages.ADD_SKILL && (
                   <>
                     <AddSkillForm
+                      skill1={skill1}
+                      setSkill1={setSkill1}
+                      skill2={skill2}
+                      setSkill2={setSkill2}
+                      skill3={skill3}
+                      setSkill3={setSkill3}
+                      skill4={skill4}
+                      setSkill4={setSkill4}
+                      level1={level1}
+                      setLevel1={setLevel1}
+                      level2={level2}
+                      setLevel2={setLevel2}
+                      level3={level3}
+                      setLevel3={setLevel3}
+                      level4={level4}
+                      setLevel4={setLevel4}
                       codingExpertise={codingExpertise}
                       setCodingExpertise={setCodingExpertise}
                       isTestRequired={isTestRequired}
@@ -539,6 +594,7 @@ const Overlay = React.memo(
                       position={position}
                       showSuccess={showSuccess}
                       setMessage={setMessage}
+                      positionName={positionName}
                     />
                     <div className={styles.wrapper}>
                       <ShareLinkBtns
