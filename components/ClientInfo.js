@@ -1,11 +1,19 @@
 import styles from './ClientInfo.module.css';
 import Image from 'next/image';
 import { useState } from 'react';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
-const ClientInfo = ({email, setActManager,setCity,setClientname,setEmail,setPhoneNo,setCompanySize,setCountry,setCompanyname}) => {
+const ClientInfo = ({email, phoneNo , setActManager,setCity,setClientname,setEmail,setPhoneNo,setCompanySize,setCountry,setCompanyname}) => {
 
     const iconSize = 25;
-
+    const [isValid, setIsValid] = useState(true);
+    const handlePhoneChange = (value, country) => {
+        setPhoneNo(value);
+        // Check if the phone number is valid
+        setIsValid(isValidPhoneNumber(value, country));
+    };
     return (
         <>
             <div className={styles.superContainer}>
@@ -21,14 +29,28 @@ const ClientInfo = ({email, setActManager,setCity,setClientname,setEmail,setPhon
                     <Image src='/email.svg' width={iconSize} height={iconSize} />
                     <input placeholder='Business Email' onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                <div className={styles.inputField} >
+
+                {/* <div className={styles.inputField} >
                     <Image src='/phone.svg' width={iconSize} height={iconSize} />
                     <input placeholder='Client’s phone number' onChange={(e) => setPhoneNo(e.target.value)} />
+                </div> */}
+                <div className={styles.inputField}>
+                    <Image src='/phone.svg' width={iconSize} height={iconSize} />
+                    <PhoneInput
+                        country={'us'} // Set default country (you can change it based on your requirement)
+                        onChange={handlePhoneChange}
+                        inputStyle={{border: 'none' }}
+                        inputProps={{
+                            placeholder: 'phone number',
+                        }}
+                    />
                 </div>
+                
                 <div className={styles.inputField} >
                     <Image src='/Case.svg' width={iconSize} height={iconSize} />
                     <input placeholder='Account manager' onChange={(e) => setActManager(e.target.value)} />
                 </div>
+                
                 <div className={styles.inputField} >
                     <Image src='/company.svg' width={iconSize} height={iconSize} />
                     <select onChange={(e) => setCompanySize(e.target.value)}>

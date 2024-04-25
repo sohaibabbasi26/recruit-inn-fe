@@ -35,7 +35,7 @@ const ClientSignup = ({ }) => {
     useEffect(() => {
         localStorage.setItem('activeFlow', 'Client');
     }, []);
-    
+
     const showError = (message) => {
         setMessage(message);
         setShowErrorMessage(true);
@@ -294,6 +294,7 @@ const ClientSignup = ({ }) => {
             { <div className={styles.loader}></div>}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
+            
             {/* <div className={styles.adminPortal}>
                 <AdminSideNavbar />
                 {getActiveComponent()}
