@@ -42,6 +42,10 @@
   overflow: scroll;
 }
 
+.instructionsContainer::-webkit-scrollbar {
+  scrollbar-width: none;
+}
+
 .instructionsContainer ul {
   display: flex;
   justify-content: center;
