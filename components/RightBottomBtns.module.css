@@ -65,17 +65,20 @@
     font-size: 8px;
     gap: 1rem;
   }
-} 
+}
 
 /* 1680px */
-
-
- @media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1600px) {
+  /* try this */
+  .btnsContainer {
+    margin-top: 0;
+    align-items: flex-start;
+  }
 
   #forwardBtn {
-    width:40%;
+    width: 30%;
     height: 60%;
-    font-size: 8px;
+    font-size: 14px;
     gap: 10px;
   }
 }
@@ -89,15 +92,11 @@
   }
 }
 
-
-@media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 1200px) {
   #forwardBtn {
-    width: 30%;
+    width: 40%;
     height: 60%;
-    font-size: 14px;
+    font-size: 8px;
     gap: 10px;
   }
 }
-
- 
-
