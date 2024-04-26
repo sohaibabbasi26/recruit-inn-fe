@@ -14,14 +14,15 @@ const Body = ({
     reportOverlay,
     setReportOverlay,
     setSelectedJob,
-    setSelectedCandidate
+    setSelectedCandidate,
+    selectedCandidate
 }) => {
 
     return (
         <>
             <div className={styles.body}>
                 <Jobs isLoading={isLoading} setIsLoading={setIsLoading} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} data={data} setSelectedJob={setSelectedJob} />
-                <CandidateReports isLoading={isLoading} setIsLoading={setIsLoading} candidateReps={candidateReps} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} reportOverlay={reportOverlay} />
+                <CandidateReports selectedCandidate={selectedCandidate} isLoading={isLoading} setIsLoading={setIsLoading} candidateReps={candidateReps} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} reportOverlay={reportOverlay} />
             </div>
         </>
     )

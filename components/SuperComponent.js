@@ -23,10 +23,11 @@ const SuperComponent = ({selectedCandidate, companyId, setIsLoading,isLoading, d
     return (
         <>
             <div className={styles.superContainer} >
-                <TopNavbar onJobSelect={showJobOverlay} onCandidateSelect={showCandidateOverlay} companyId={companyId} />
+                <TopNavbar selectedCandidate={selectedCandidate} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} onJobSelect={showJobOverlay} onCandidateSelect={showCandidateOverlay} companyId={companyId} />
                 <Body
                     setIsLoading={setIsLoading}
                     isLoading
+                    selectedCandidate={selectedCandidate}
                     setSelectedCandidate={setSelectedCandidate}
                     setSelectedJob = {setSelectedJob}
                     data={data}
