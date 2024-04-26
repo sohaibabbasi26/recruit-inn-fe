@@ -97,11 +97,23 @@
 
 /* 1680px */
 @media screen and (max-width: 105em) {
+  .instructionsBox {
+    padding-bottom: 1rem;
+    height: auto;
+  }
+
   .lowerContainer button {
     margin-bottom: 0;
     height: 3.5rem;
     min-width: 12rem;
     margin-top: 0.9rem;
+  }
+}
+
+/* 1200px */
+@media screen and (max-width: 1200px) {
+  .instructionsBox {
+    height: 70%;
   }
 }
 
