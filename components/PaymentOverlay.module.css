@@ -75,7 +75,7 @@
   position: absolute;
   /* try this */
   justify-content: flex-start;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .topContainer {
