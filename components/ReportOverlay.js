@@ -11,6 +11,9 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
     console.log('selected candidate is:', selectedCandidate)
     const [codingResult, setCodingResult] = useState();
     const [isCodingAssessment, setIsCodingAssessment] = useState(false);
+    const [results, setResults] = useState(false);
+
+    
 
 
     useEffect(() => {
@@ -38,25 +41,51 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
             }
         }
 
-        fetchCandidatesCodingResult();
+        fetchCandidatesCodingResult();  
     }, [selectedCandidate]);
 
-    const calculateCumulativeMean = () => {
+    // const calculateCumulativeMean = (val1,val2,val3) => {
+    //     let total = 0;
+    //     let count = 0;
+
+    //     if (selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment) {
+    //         total += Math.ceil(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment);
+    //         count += 1;
+    //     }
+
+    //     if (selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating) {
+    //         total += Math.ceil(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating);
+    //         count += 1;
+    //     }
+
+    //     if (codingResult?.data?.result?.technicalRating) {
+    //         total += Math.ceil(parseInt(codingResult.data.result.technicalRating));
+    //         count += 1;
+    //     }
+
+    //     if (count === 0) return 0;
+
+    //     return (total / count).toFixed(2);
+    // }
+
+    const calculateCumulativeMean = (val1,val2,val3) => {
+        
+
         let total = 0;
         let count = 0;
 
-        if (selectedCandidate?.results?.technicalRating) {
-            total += Math.ceil(selectedCandidate.results.technicalRating);
+        if (val1) {
+            total += Math.ceil(parseInt(val1));
             count += 1;
         }
 
-        if (selectedCandidate?.results?.softskillRating) {
-            total += Math.ceil(selectedCandidate.results.softskillRating);
+        if (val2) {
+            total += Math.ceil(parseInt(val2));
             count += 1;
         }
 
-        if (codingResult?.data?.result?.technicalRating) {
-            total += Math.ceil(parseInt(codingResult.data.result.technicalRating));
+        if (val3) {
+            total += Math.ceil(parseInt(val3));
             count += 1;
         }
 
@@ -164,13 +193,31 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
     //             orientation: 'portrait',
     //         });
 
-    //         const imgProps = pdf.getImageProperties(imgData);
-    //         const pdfWidth = pdf.internal.pageSize.getWidth();
-    //         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    //         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    //         pdf.save('download.pdf');
-    //     }
-    // };
+    useEffect(() => {
+        async function fetchAllCandidateReports() {
+            const requestBody = {
+                candidate_id: selectedCandidate?.candidate_id
+            };
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+
+            console.log('response: ', response);
+            if (!response.ok) {
+                console.log(`Error: ${response.status}`);
+            }
+            const allData = await response.json();
+            setResults(allData);
+            console.log('jsonified candidates response: ', allData);
+        }
+        fetchAllCandidateReports()
+    }, []);
+
 
     const handleDownloadPdf = async () => {
         console.log("Calling pdf download");
@@ -288,15 +335,14 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                                 <div className={styles.info}>
                                     <h3>{selectedCandidate?.name}</h3>
                                     <p>{selectedCandidate?.position}</p>
-                                    <h4 style={{ backgroundColor: getBackgroundColor(Math.ceil(selectedCandidate?.results?.technicalRating)) }}>{getFilter(Math.ceil(selectedCandidate?.results?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.results?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
+                                    <h4 style={{ backgroundColor: getBackgroundColor(calculateCumulativeMean(Math.ceil(selectedCandidate?.results?.technicalRating) || Math.ceil(results?.data?.result?.technicalRating),Math.ceil(selectedCandidate?.results?.softskillRating) || Math.ceil(results?.data?.result?.softskillRating))) }}>{getFilter(Math.ceil(selectedCandidate?.results?.technicalRating|| results?.data?.result?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
                                 </div>
                             </div>
 
                             <div className={styles.rightContainer}>
                                 {!isLoading && <button onClick={handleDownloadPdf}>Download PDF</button>}
                                 {isLoading && <div className={styles.loader}> </div>}
-                                {/* <span>{Math.ceil(selectedCandidate?.results?.technicalRating)}/10</span> */}
-                                <span>{calculateCumulativeMean()}/10</span>
+                                <span>{calculateCumulativeMean(Math.ceil(selectedCandidate?.results?.technicalRating) || Math.ceil(results?.data?.result?.technicalRating),Math.ceil(selectedCandidate?.results?.softskillRating) || Math.ceil(results?.data?.result?.softskillRating))}/10</span>
                             </div>
                         </div>
                         {/* candidate test info div */}
@@ -309,11 +355,11 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Date</span>
-                                    <span>{selectedCandidate?.date}</span>
+                                    <span>{selectedCandidate?.date || results?.data?.createdAt}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Job Type</span>
-                                    <span>{selectedCandidate?.jobType}</span>
+                                    <span>{selectedCandidate?.jobType || selectedCandidate?.job_type}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Applied For</span>
@@ -329,8 +375,13 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                         {/*assessment components */}
                         <div className={styles.cont}>
                             <div className={styles.auto}>
-                                <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
-                                <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
+
+                                <Assessment
+                                    heading={headingOne}
+                                    para={selectedCandidate?.results?.technicalAssessment || results?.data?.result?.technicalAssessment}
+                                    score={Math.ceil(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalRating)}
+                                />
+                                <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment || results?.data?.result?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating)} />
 
                                 {isCodingAssessment &&
                                     (

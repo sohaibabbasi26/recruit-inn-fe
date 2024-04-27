@@ -10,12 +10,18 @@
   border: none;
 }
 
-.super .ql-toolbar.ql-snow {
+.super .ql-toolbar .ql-snow {
   border: none !important;
 }
 
 .super .ql-editor .ql-snow {
   border: none !important;
+}
+
+@media screen and (max-width: 1600px) {
+  .super div {
+    border: none !important;
+  }
 }
 
 /* 1024px */

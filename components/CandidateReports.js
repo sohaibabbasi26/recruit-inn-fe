@@ -3,14 +3,8 @@ import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
 
-const CandidateReports = ({
-  candidateReps,
-  reportOverlay,
-  setReportOverlay,
-  setSelectedCandidate,
-  isLoading,
-  setIsLoading,
-}) => {
+const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setReportOverlay, setSelectedCandidate, isLoading, setIsLoading }) => {
+
   const calculateCumulativeMean = (val1, val2, val3) => {
     console.log("val1:", val1, "val2:", val2);
 

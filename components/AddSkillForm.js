@@ -7,7 +7,22 @@ import { getSvg } from "@/util/helpers";
 // useFormContext
 const AddSkillForm = forwardRef(
   ({
-    codingExpertise,
+    skill1,
+    setSkill1,
+    skill2,
+    setSkill2,
+    skill3,
+    setSkill3,
+    skill4,
+    setSkill4,
+    level1,
+    setLevel1,
+    level2,
+    setLevel2,
+    level3,
+    setLevel3,
+    level4,
+    setLevel4,
     setCodingExpertise,
     setTechStack,
     isTestRequired,
@@ -20,21 +35,21 @@ const AddSkillForm = forwardRef(
 
     const iconSize = 25;
 
-    const [skill1, setSkill1] = useState("");
-    const [skill2, setSkill2] = useState("");
-    const [skill3, setSkill3] = useState("");
-    const [skill4, setSkill4] = useState("");
+    // const [skill1, setSkill1] = useState("");
+    // const [skill2, setSkill2] = useState("");
+    // const [skill3, setSkill3] = useState("");
+    // const [skill4, setSkill4] = useState("");
     const [codingSkill, setCodingSkill] = useState("");
 
-    // const [level1, setLevel1] = useState();
-    // const [level2, setLevel2] = useState();
-    // const [level3, setLevel3] = useState();
-    // const [level4, setLevel4] = useState();
+    // // const [level1, setLevel1] = useState();
+    // // const [level2, setLevel2] = useState();
+    // // const [level3, setLevel3] = useState();
+    // // const [level4, setLevel4] = useState();
 
-    const [level1, setLevel1] = useState("");
-    const [level2, setLevel2] = useState("");
-    const [level3, setLevel3] = useState("");
-    const [level4, setLevel4] = useState("");
+    // const [level1, setLevel1] = useState("");
+    // const [level2, setLevel2] = useState("");
+    // const [level3, setLevel3] = useState("");
+    // const [level4, setLevel4] = useState("");
     const [codingLevel, setCodingLevel] = useState("beginner");
 
     useEffect(() => {

@@ -65,17 +65,26 @@
     font-size: 8px;
     gap: 1rem;
   }
-} 
+}
 
 /* 1680px */
+@media only screen and (max-width: 1600px) {
+  /* try this */
+  .btnsContainer {
+    margin-top: 0;
+    align-items: flex-start;
+  }
 
-
- @media only screen and (max-width: 1200px) {
+  #backBtn,
+  #forwardBtn {
+    height: 60px;
+    margin-top: 0px;
+  }
 
   #forwardBtn {
-    width:40%;
-    height: 60%;
-    font-size: 8px;
+    width: 30%;
+    /* height: 60%; */
+    font-size: 14px;
     gap: 10px;
   }
 }
@@ -83,21 +92,29 @@
 @media only screen and (max-width: 1440px) {
   #forwardBtn {
     width: 25%;
-    height: 60%;
+    /* height: 60%; */
     font-size: 12px;
     gap: 10px;
   }
-}
 
-
-@media only screen and (max-width: 1600px) {
+  #backBtn,
   #forwardBtn {
-    width: 30%;
-    height: 60%;
-    font-size: 14px;
-    gap: 10px;
+    height: 55px;
+    margin-top: 0px;
   }
 }
 
- 
+@media only screen and (max-width: 1200px) {
+  #forwardBtn {
+    width: 30%;
+    /* height: 60%; */
+    font-size: 8px;
+    gap: 10px;
+  }
 
+  #backBtn,
+  #forwardBtn {
+    height: 50px;
+    margin-top: 0px;
+  }
+}

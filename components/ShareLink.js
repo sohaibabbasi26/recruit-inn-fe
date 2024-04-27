@@ -23,6 +23,7 @@ const ShareLink = ({
   showSuccess,
   setMessage,
   positionId,
+  positionName
 }) => {
   const imageSize = 80;
   const plusSize = 20;
@@ -69,9 +70,9 @@ const ShareLink = ({
     setMessage("Your link has been copied");
     showSuccess();
   };
-
+  
   useEffect(() => {
-    setSubject(`RECRUITINN: Test link for ${position} position.`);
+    setSubject(`RECRUITINN: Test link for ${positionName} position.`);
     setText(`Click on the following link to start a test:
         ${link}
         `);
