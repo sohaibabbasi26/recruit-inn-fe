@@ -128,15 +128,6 @@
   align-items: center;
   width: 900px;
 }
-@media only screen and (max-width: 1024px) {
-  .topContainer {
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: smaller;
-  }
-}
 
 .tooltip {
   visibility: hidden;
@@ -511,13 +502,6 @@ x .transparentContainer button {
   transition: transform 0.25s ease-in-out;
 }
 
-/* Small screens (phones) */
-@media only screen and (max-width: 600px) {
-  .topContainer {
-    width: 80%;
-  }
-}
-
 /* Extra-large screens */
 @media only screen and (min-width: 1441px) {
   /* Styles for extra-large screens go here */
@@ -528,7 +512,24 @@ x .transparentContainer button {
   /* Styles for large screens go here */
 }
 
+@media only screen and (max-width: 1024px) {
+  .topContainer {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: smaller;
+  }
+}
+
 /* Medium screens (tablets) */
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
   /* Styles for medium screens go here */
+}
+
+/* Small screens (phones) */
+@media only screen and (max-width: 600px) {
+  .topContainer {
+    width: 80%;
+  }
 }
