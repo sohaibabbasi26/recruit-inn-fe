@@ -105,61 +105,61 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
             return '/noteligible.svg';
         }
     }
-    const downloadPDF = async () => {
-        if (contentRef.current) {
-          const content = contentRef.current;
     
-          // Get the total height and width of the content
-          const contentHeight = content.scrollHeight;
-          const contentWidth = content.scrollWidth;
+    // const downloadPDF = async () => {
+    //     if (contentRef.current) {
+    //       const content = contentRef.current;
     
-          // Define the dimensions for capturing
-          const captureWidth = contentWidth;
-          const captureHeight = content.clientHeight;
+    //       // Get the total height and width of the content
+    //       const contentHeight = content.scrollHeight;
+    //       const contentWidth = content.scrollWidth;
     
-          // Calculate the number of sections based on height and viewport
-          const numSections = Math.ceil(contentHeight / captureHeight);
+    //       // Define the dimensions for capturing
+    //       const captureWidth = contentWidth;
+    //       const captureHeight = content.clientHeight;
     
-          // Create a new PDF instance
-          const pdf = new jsPDF({
-            orientation: 'landscape', // or 'landscape'
-          });
+    //       // Calculate the number of sections based on height and viewport
+    //       const numSections = Math.ceil(contentHeight / captureHeight);
     
-          // Loop through each section and capture it
-          for (let i = 0; i < numSections; i++) {
-            // Scroll to the next section
-            content.scrollTo(0, i * captureHeight);
+    //       // Create a new PDF instance
+    //       const pdf = new jsPDF({
+    //         orientation: 'landscape', // or 'landscape'
+    //       });
     
-            // Wait for a brief moment to allow content to render
-            await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust delay as needed
+    //       // Loop through each section and capture it
+    //       for (let i = 0; i < numSections; i++) {
+    //         // Scroll to the next section
+    //         content.scrollTo(0, i * captureHeight);
     
-            // Capture the current section as an image using html2canvas
-            const canvas = await html2canvas(content, {
-              width: captureWidth,
-              height: captureHeight,
-              scrollY: -window.scrollY, // Capture scrolled content
-              useCORS: true, // Enable CORS
-            });
+    //         // Wait for a brief moment to allow content to render
+    //         await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust delay as needed
     
-            // Add the captured image to the PDF
-            if (i > 0) {
-              pdf.addPage();
-            }
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+    //         // Capture the current section as an image using html2canvas
+    //         const canvas = await html2canvas(content, {
+    //           width: captureWidth,
+    //           height: captureHeight,
+    //           scrollY: -window.scrollY, // Capture scrolled content
+    //           useCORS: true, // Enable CORS
+    //         });
     
-            // Reset scroll position
-            content.scrollTo(0, 0);
-          }
+    //         // Add the captured image to the PDF
+    //         if (i > 0) {
+    //           pdf.addPage();
+    //         }
+    //         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
     
-          // Save the PDF
-          pdf.save('overlay.pdf');
-        }
-      };
+    //         // Reset scroll position
+    //         content.scrollTo(0, 0);
+    //       }
+    
+    //       // Save the PDF
+    //       pdf.save('overlay.pdf');
+    //     }
+    //   };
     // const downloadPDF = async () => {
     //     if (contentRef.current) {
     //         const canvas = await html2canvas(contentRef.current);
     //         const imgData = canvas.toDataURL('image/png');
-
     //         const pdf = new jsPDF({
     //             orientation: 'portrait',
     //         });
@@ -173,30 +173,72 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
     // };
 
     const handleDownloadPdf = async () => {
-        const htmlContent = document.getElementById('content-to-print').innerHTML;
-        if (htmlContent) {
-            const response = await fetch('/api/generate-pdf', {
-                method: 'POST',
-                body: JSON.stringify({ htmlContent }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+        console.log("Calling pdf download");
+        if (contentRef.current) {
+          const content = contentRef.current.innerHTML;
+    
+          try {
+            const response = await fetch('/api/puppeteer', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ content }),
             });
-
+    
             if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'report.pdf');
-                document.body.appendChild(link);
-                link.click();
-                link.parentNode.removeChild(link);
+              // Convert the response to Blob object
+              const pdfBlob = await response.blob();
+    
+              // Create a temporary URL for the Blob
+              const url = window.URL.createObjectURL(pdfBlob);
+    
+              // Create a link element to trigger the download
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = 'overlay.pdf';
+              document.body.appendChild(link);
+    
+              // Click the link to trigger the download
+              link.click();
+    
+              // Cleanup: remove the link and revoke the URL
+              document.body.removeChild(link);
+              window.URL.revokeObjectURL(url);
             } else {
-                console.error('Failed to load PDF document.');
+              console.error('Failed to generate PDF:', response.statusText);
             }
+          } catch (error) {
+            console.error('Error downloading PDF:', error);
+          }
         }
-    };
+    }
+
+    // const handleDownloadPdf = async () => {
+    //     const htmlContent = document.getElementById('content-to-print').innerHTML;
+    //     if (htmlContent) {
+    //         const response = await fetch('/api/generate-pdf', {
+    //             method: 'POST',
+    //             body: JSON.stringify({ htmlContent }),
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+
+    //         if (response.ok) {
+    //             const blob = await response.blob();
+    //             const url = window.URL.createObjectURL(blob);
+    //             const link = document.createElement('a');
+    //             link.href = url;
+    //             link.setAttribute('download', 'report.pdf');
+    //             document.body.appendChild(link);
+    //             link.click();
+    //             link.parentNode.removeChild(link);
+    //         } else {
+    //             console.error('Failed to load PDF document.');
+    //         }
+    //     }
+    // };
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -235,7 +277,7 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                     </button>
                 </div>
 
-                <div  className={`${styles.superContainer} content-to-print`}>
+                <div  className={`${styles.superContainer} content-to-print`} id='content-to-print'>
                     <div className={styles.coverContainer}>
                         {/*top container */}
                         <div className={styles.topContainer}>
@@ -251,14 +293,14 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                             </div>
 
                             <div className={styles.rightContainer}>
-                                {!isLoading && <button onClick={downloadPDF}>Download PDF</button>}
+                                {!isLoading && <button onClick={handleDownloadPdf}>Download PDF</button>}
                                 {isLoading && <div className={styles.loader}> </div>}
                                 {/* <span>{Math.ceil(selectedCandidate?.results?.technicalRating)}/10</span> */}
                                 <span>{calculateCumulativeMean()}/10</span>
                             </div>
                         </div>
                         {/* candidate test info div */}
-                        
+                        <div ref={contentRef}>
                         <div className={styles.infoDiv}>
                             <ul>
                                 <li>
@@ -285,7 +327,7 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                         </div>
 
                         {/*assessment components */}
-                        <div className={styles.cont} ref={contentRef}>
+                        <div className={styles.cont}>
                             <div className={styles.auto}>
                                 <Assessment heading={headingOne} para={selectedCandidate?.results?.technicalAssessment} score={Math.ceil(selectedCandidate?.results?.technicalRating)} />
                                 <Assessment heading={headingTwo} para={selectedCandidate?.results?.softskillAssessment} score={Math.ceil(selectedCandidate?.results?.softskillRating)} />
@@ -305,12 +347,11 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                                 )} */}
                             </div>
                         </div>
-                        
+                        </div>
                     </div>
                 </div>
             </div>
         </>
     )
 }
-
 export default ReportOverlay;

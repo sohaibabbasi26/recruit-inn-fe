@@ -129,8 +129,30 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
             console.log('err:', err)
         }
     }
+    const [confirmPassword,setConfirmPassword] = useState(null);
+    const [pass,setPass] = useState(null);
+
+
+    const handlePasswordChange = (e) => {
+            setPass(e.target.value);  
+          };
+          const handleConfirmPasswordChange = (e) => {
+             setConfirmPassword(e.target.value);
+        };
+    
 
     const handleFormSubmit = async () => {
+    if (!pass || !confirmPassword) {
+        showError('Please fill in both password fields.');
+        
+        return;
+    }
+
+    if (pass !== confirmPassword) {
+        console.log("")
+        showError('Password not match');
+      return;
+    }
         const reqBody = {
             token: id,
             password: password
@@ -164,7 +186,6 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
         <>
 
             <div ref={overlayRef} className={styles.parent}>
-
                 {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
                 {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
                 <div className={styles.btn}>
@@ -181,7 +202,7 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
 
                         {currentStage === stages.SET_PASSWORD && (
                             <>
-                                <PasswordConfirm error={error} password={password} setPassword={setPassword} />
+                                <PasswordConfirm error={error} password={password} setPassword={setPassword} handlePasswordChange = {handlePasswordChange} handleConfirmPasswordChange = {handleConfirmPasswordChange}  />
                                 <div className={styles.wrapper}>
                                     <PasswordBtns handleFormSubmit={handleFormSubmit} />
                                 </div>
