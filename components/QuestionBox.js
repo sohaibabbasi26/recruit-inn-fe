@@ -31,6 +31,7 @@ const QuestionBox = ({ hasStarted }) => {
     const currentRecordingQuestionIndexRef = useRef(currentQuestion);
     const [message, setMessage] = useState(null);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [isGeneratingResult, setIsGeneratingResult] = useState(false);
 
     const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
 
@@ -71,7 +72,7 @@ const QuestionBox = ({ hasStarted }) => {
                 }
             } catch (err) {
                 console.error('Error fetching questions:', err);
-            }finally{
+            } finally {
                 setIsLoading(false);
             }
         };
@@ -185,6 +186,7 @@ const QuestionBox = ({ hasStarted }) => {
         if (isSubmitted) return;
 
         setIsSubmitted(true);
+        setIsGeneratingResult(true);
         setIsLoading(true);
         setIsTestCompleted(true);
 
@@ -221,38 +223,47 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     const toggleComponent = async () => {
-        if (isLastQuestion) return;
+
         setIsLoading(true);
-        if (!isLastQuestion) {
-            if (!recordingDone && recordedChunksRef.current.length === 0) {
-                const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-                setAnswers(prevAnswers => {
-                    return prevAnswers.some(ans => ans.question === questions[currentQuestion - 1]?.question) ? prevAnswers : [...prevAnswers, { question: questions[currentQuestion - 1]?.question, answer: silentBase64Wav }];
-                });
-                console.log("No recording made, adding silent audio blob as answer.");
-                showError("No answer was provided, moving on to next question.")
-                setCurrentQuestion(prevCurrent => prevCurrent + 1);
-                setIsRecording(false);
-                setRecordingDone(false);
-                setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
-                if (currentQuestionIndex < questions.length - 1) {
-                    setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-                    speakQuestion(questions[currentQuestionIndex]);
+        try {
+            if (isLastQuestion) return;
+
+            if (!isLastQuestion) {
+                if (!recordingDone && recordedChunksRef.current.length === 0) {
+                    const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+                    setAnswers(prevAnswers => {
+                        return prevAnswers.some(ans => ans.question === questions[currentQuestion - 1]?.question) ? prevAnswers : [...prevAnswers, { question: questions[currentQuestion - 1]?.question, answer: silentBase64Wav }];
+                    });
+                    console.log("No recording made, adding silent audio blob as answer.");
+                    showError("No answer was provided, moving on to next question.")
+                    setCurrentQuestion(prevCurrent => prevCurrent + 1);
+                    setIsRecording(false);
+                    setRecordingDone(false);
+                    setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
+                    if (currentQuestionIndex < questions.length - 1) {
+                        setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                        speakQuestion(questions[currentQuestionIndex]);
+                        // setIsLoading(false);
+                    }
+
+                } else {
+                    await stopAndHandleRecording();
+                    // setIsLoading(false);
                 }
-            } else {
-
-                await stopAndHandleRecording();
+                console.log('completed questions:', completedQuestions);
+                console.log('current questions:', currentQuestion);
             }
-
-            console.log('completed questions:', completedQuestions);
-            console.log('current questions:', currentQuestion);
+        }
+        catch (err) {
+            console.log('ERR:', err);
+        }
+        finally {
 
         }
-        setIsLoading(false);
     }
 
     useEffect(() => {
-        setTimeLeft(59)
+        setTimeLeft(19)
         speakQuestion(currentQuestion);
     }, [currentQuestion])
 
@@ -320,7 +331,6 @@ const QuestionBox = ({ hasStarted }) => {
             console.log(
                 'audio response:', data.data.transcriptionResult
             )
-            setIsLoading(false);
             setIsTranscriptionComplete(false);
             setCurrentQuestion(prevCurrent => prevCurrent + 1);
             setIsRecording(false);
@@ -328,6 +338,8 @@ const QuestionBox = ({ hasStarted }) => {
             setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
             if (currentQuestionIndex < questions.length - 1) {
                 setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                setIsLoading(false);
+
             }
             setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: data?.data?.transcriptionResult }]);
             return data;
@@ -377,11 +389,11 @@ const QuestionBox = ({ hasStarted }) => {
     const showError = (message) => {
         setMessage(message);
         setShowErrorMessage(true);
-    
+
         setTimeout(() => {
-          setShowErrorMessage(false);
+            setShowErrorMessage(false);
         }, 3000);
-      };
+    };
 
     return (
         <>
@@ -389,7 +401,10 @@ const QuestionBox = ({ hasStarted }) => {
 
                 {/*top container*/}
                 {isLoading ? (
-                    <div className={styles.loader}></div>
+                    <>
+                        <div className={styles.loader}></div>
+                        {isGeneratingResult && (<div className={styles.generatingResultText}>Please wait, it might take some time, AI is busy generating your result.</div>)}
+                    </>
                 ) : (
                     <>
                         {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}

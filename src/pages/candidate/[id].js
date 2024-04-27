@@ -45,7 +45,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [results, setResults] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
-  
+
   useEffect(() => {
     localStorage.setItem('activeFlow', 'Candidate');
   }, []);
@@ -59,102 +59,106 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
 
   useEffect(() => {
     async function fetchCompanyDetails() {
-        const reqBody = {
-            candidate_id : id
-        }
+      const reqBody = {
+        candidate_id: id
+      }
 
-        try {
-            if (id) {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(reqBody),
-                });
-                const data = await response.json();
-                console.log("one candidate details: ", data);
-                setExpertise(data?.data?.expertise);
-                setCandName(data?.data?.name);
-                setExperience(data?.data?.over_all_exp);
-                setDate(data?.data?.applied_through);
-                setEmail(data?.data?.email);
-                setJobType(data?.data?.applied_through);
-                setAppliedThrough(data?.data?.applied_through);
-                console.log('Expertise in fetch company details:',expertise);
-            }
-        } catch (err) {
-            console.log('err:', err)
+      try {
+        if (id) {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate-self`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reqBody),
+          });
+          const data = await response.json();
+          console.log("one candidate details: ", data);
+          setExpertise(data?.data?.expertise);
+          setCandName(data?.data?.name);
+          setExperience(data?.data?.over_all_exp);
+          const date = new Date(data?.data?.createdAt);
+          setDate(date.toDateString());
+          setEmail(data?.data?.email);
+          setJobType(data?.data?.job_type);
+          setAppliedThrough(data?.data?.applied_through);
+          console.log('Expertise in fetch company details:', expertise);
         }
+      } catch (err) {
+        console.log('err:', err)
+      }
     }
     fetchCompanyDetails();
-    }, [router?.isReady]);
+  }, [router?.isReady]);
 
-    useEffect(() => {
-        async function fetchResults() {
-            const reqBody = {
-                candidate_id : id
-            }
-    
-            try {
-                if (id) {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(reqBody),
-                    });
-                    const data = await response.json();
-                    console.log("one candidate result details: ", data);
-                    setResults(data?.data);
-                    console.log('Expertise in fetch company details:',expertise);
-                }
-            } catch (err) {
-                console.log('err:', err)
-            }
+  useEffect(() => {
+    async function fetchResults() {
+      const reqBody = {
+        candidate_id: id
+      }
+
+      try {
+        if (id) {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id-self`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reqBody),
+          });
+          const data = await response.json();
+          
+          if(data){
+            setResults(Array.isArray(data) ? data : [data?.data]);
+            console.log("one candidate result details: ", results);
+          }
+          console.log('Expertise in fetch company details:', expertise);
         }
-        fetchResults();
-        }, [router?.isReady]);
-
-    useEffect(() => {
-        setActiveFlow('candidate-self');
-        console.log('current flow:',activeFlow);
-    },[])
-
-    const generateTestAndRedirect = async () => {
-        const reqBody = {
-            expertise : expertise
-        }
-
-        console.log('generate test and redirect:' , reqBody);
-
-        try {
-            setIsLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(reqBody),
-            });
-            const data = await response.json();
-            localStorage.setItem('testData', JSON.stringify(data));
-            setQuestionId(data?.data?.message?.question_id);
-            console.log('question id:', questionId);
-            console.log('data in test preparation:', data);
-            setIsLoading(false);
-            router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}`);
-        } catch (err) {
-            setIsLoading(false);    
-            console.log("error:", err)
-        }
+      } catch (err) {
+        console.log('err:', err)
+      }
     }
+    fetchResults();
+  }, [router?.isReady,id]);
+
+  useEffect(() => {
+    setActiveFlow('candidate-self');
+    console.log('current flow:', activeFlow);
+  }, [])
+
+  const generateTestAndRedirect = async () => {
+    const reqBody = {
+      expertise: expertise
+    }
+
+    console.log('generate test and redirect:', reqBody);
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reqBody),
+      });
+      const data = await response.json();
+      localStorage.setItem('testData', JSON.stringify(data));
+      setQuestionId(data?.data?.message?.question_id);
+      console.log('question id:', questionId);
+      console.log('data in test preparation:', data);
+      setIsLoading(false);
+      router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}`);
+    } catch (err) {
+      setIsLoading(false);
+      console.log("error:", err)
+    }
+  }
 
 
 
   const { activeItem } = useActiveItem();
-  const {setActiveFlow, activeFlow} = useActiveFlow();
+  const { setActiveFlow, activeFlow } = useActiveFlow();
   const [showOverlay, setShowOverlay] = useState(false);
   const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
   const [reportOverlay, setReportOverlay] = useState(false);
@@ -167,17 +171,17 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [candName, setCandName] = useState();
   const [experience, setExperience] = useState();
   const [appliedThrough, setAppliedThrough] = useState();
-  const [contact,setContact] = useState();
+  const [contact, setContact] = useState();
   const [date, setDate] = useState();
   const [jobtype, setJobType] = useState();
   const [email, setEmail] = useState();
   const [isDisable, setIsDisable] = useState(false);
 
   useEffect(() => {
-    if(results?.length > 0) {
+    if (results?.length > 0) {
       setIsDisable(true)
     }
-  },[results])
+  }, [results])
 
 
   const showError = () => {
@@ -209,7 +213,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     JOB_TYPE: 'Enter Job Details',
     AI_ASSESSMENT: 'Your Job Is Created Successfully',
     SHARE_LINK: 'Share the link with candidates'
-  };    
+  };
 
   const toggleOverlay = () => {
     setShowOverlay(!showOverlay);
@@ -230,7 +234,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <CandidateSuper isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience}  name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect}  />
+          <CandidateSuper isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect} />
         </>;
       default:
         return null;
@@ -244,10 +248,10 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       <FormProvider>
         {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       </FormProvider>
-      {reportOverlay && <SelfReportOverlay email={email} jobtype={jobtype} date={date} contact={contact} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
+      {reportOverlay && <SelfReportOverlay jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date} contact={contact} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
-      <div className={styles.clientPortal}> 
+      <div className={styles.clientPortal}>
         <CandidateSideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}
       </div>

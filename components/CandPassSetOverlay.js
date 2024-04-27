@@ -85,7 +85,7 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
             }
             try {
                 if (id) {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate`, {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate-self`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
