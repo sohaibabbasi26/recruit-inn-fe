@@ -28,7 +28,7 @@
   align-items: center;
 }
 
-.logoContainer h3{
+.logoContainer h3 {
   margin: 0.75rem;
   margin-bottom: 2rem;
 }
@@ -49,6 +49,7 @@
   color: #aca7ba;
   margin-top: 1.5rem;
   color: #170d23;
+  cursor: pointer;
 }
 
 .mainContainer ul {
@@ -74,10 +75,6 @@
 
 .listContainer {
   width: 80%;
-}
-
-.listContainer h4 img {
-  cursor: pointer;
 }
 
 .list {
@@ -137,6 +134,7 @@
   justify-content: space-between;
   align-items: center;
   width: 80%;
+  cursor: pointer;
 }
 
 .clicked {
@@ -260,7 +258,7 @@
     height: 50px;
   }
 
-  .logoContainer h3{
+  .logoContainer h3 {
     margin: 1rem;
     /* margin-bottom: 1rem; */
   }

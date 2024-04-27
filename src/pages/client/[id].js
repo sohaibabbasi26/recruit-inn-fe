@@ -43,11 +43,9 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const [showOverlay1, setShowOverlay1] = useState();
 
   useEffect(() => {
-    // Check if user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     
     if (!isLoggedIn) {
-      // If not logged in, redirect to login page
       router.push('/client-login');
     }
   }, [router]);
@@ -302,10 +300,9 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <SuperComponent
+          <SuperComponent 
             selectedCandidate={selectedCandidate}
             selectedJob={selectedJob}
-            // setSelectedJob={setSelectedJob}
             companyId={id}
             setIsLoading={setIsLoading}
             isLoading={isLoading}

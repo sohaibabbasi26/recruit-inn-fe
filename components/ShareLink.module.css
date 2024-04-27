@@ -172,6 +172,16 @@
   width: 60%;
 }
 
+@media screen and (max-width: 1600px) {
+  .topBar {
+    margin: 0.5rem 0;
+  }
+
+  .allFields {
+    margin-top: 0.5rem;
+  }
+}
+
 @media screen and (max-width: 64em) {
   .superContainer {
     /* 268px */

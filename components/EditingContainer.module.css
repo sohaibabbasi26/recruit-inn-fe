@@ -40,9 +40,29 @@
   width: 95%;
 }
 
+@media screen and (max-width: 1600px) {
+  .masterContainer {
+    margin-top: 12px;
+    justify-content: flex-start;
+  }
+
+  .superContainer {
+    height: 73%;
+  }
+}
+
+/* 1400px */
+@media screen and (max-width: 87.5em) {
+  .superContainer {
+    height: 68%;
+  }
+}
+
+/* 1024px */
 @media screen and (max-width: 64em) {
   .superContainer {
-    height: 11.5rem;
+    /* height: 11.5rem; */
+    /* height: 70%; */
   }
 
   .masterContainer {

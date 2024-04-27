@@ -84,14 +84,8 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
 
           <div className={styles.listContainer}>
             <div className={styles.list}>
-              <h4>
-                Jobs{" "}
-                <Image
-                  src="/dropdown.svg"
-                  width={15}
-                  height={15}
-                  onClick={handleDropDownJobsToggle}
-                />
+              <h4 onClick={handleDropDownJobsToggle}>
+                Jobs <Image src="/dropdown.svg" width={15} height={15} />
               </h4>
               {isDropDownJobsToggle && (
                 <ul>
@@ -144,14 +138,8 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
               )}
             </div>
 
-            <h4>
-              Candidates{" "}
-              <Image
-                src="/dropdown.svg"
-                width={15}
-                height={15}
-                onClick={handleDropDownCandidatesToggle}
-              />
+            <h4 onClick={handleDropDownCandidatesToggle}>
+              Candidates <Image src="/dropdown.svg" width={15} height={15} />
             </h4>
             {isDropDownCandidatesToggle && (
               <ul>
@@ -210,7 +198,7 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
                 >
                   Not Eligible
                   <Image
-                    src="/Warning.svg"
+                    src="/warning.svg"
                     width={listItemSize}
                     height={listItemSize}
                   />

@@ -132,6 +132,7 @@
         };
 
         const handleFormSubmit = async () => {
+            setisLoading(true);
             const requestBody = {   
                 company_name: companyname,
                 company_location: city,
@@ -140,7 +141,7 @@
                 contact_no: phoneNo
             }
             try {
-                setisLoading(true);
+                
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`, {
                     method: 'POST',
                     headers: {  
@@ -217,7 +218,7 @@
 
                             {currentStage === stages.CLIENT_INFO && !isLoading && (
                                 <>
-                                    <ClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
+                                    <ClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} phoneNo = {phoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
                                     <div className={styles.wrapper}>
                                         <AdminOverlayBtns email={email} showError={showError} setMessage={setMessage} fillValidity={fillValidity} validateEmailReceiver={validateEmailReceiver} showSuccess={showSuccess} handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>

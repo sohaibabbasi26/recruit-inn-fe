@@ -1,5 +1,5 @@
 .stagesContainer {
-  width:80%;
+  width: 80%;
   margin-bottom: 1.5rem;
 }
 
@@ -45,6 +45,12 @@ s .active {
 
 .active img {
   color: #6137db;
+}
+
+@media screen and (max-width: 1600px) {
+  .stagesContainer {
+    margin-bottom: 0.5rem;
+  }
 }
 
 @media only screen and (max-width: 1100px) {

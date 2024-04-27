@@ -31,25 +31,16 @@
   justify-content: flex-start;
   background-color: #f8f7fa;
   border-radius: 30px;
-  padding: 1rem 0;
   border: 1px solid #ebebeb;
-  max-height: 50%;
+  /* max-height: 50%; */
   font-size: 2rem;
-}
-@media (max-width: 1149px) {
-  /* CSS rules for screens less than 1150px wide */
-  /* For example, you can modify styles for smaller screens here */
-  .infoField {
-    padding: 0.5rem 0; /* Adjust font size for smaller screens */
-  }
-  /* Add more CSS rules as needed */
 }
 
 .infoField input {
   width: 100%;
   border: none;
   background-color: transparent;
-  padding: 0 1rem;
+  padding: 1rem;
   font-family: "Poppins", sans-serif;
   height: 80%;
 }
@@ -62,9 +53,9 @@
   width: 95%;
   border: none;
   background-color: transparent;
-  padding: 0 1rem;
+  padding: 1rem;
   font-family: "Poppins", sans-serif;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .infoField select:focus {
@@ -89,6 +80,17 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+@media (max-width: 1149px) {
+  /* CSS rules for screens less than 1150px wide */
+  /* For example, you can modify styles for smaller screens here */
+  .infoField input {
+    /* Adjust font size for smaller screens */
+    /* padding-top: 0.5rem;  */
+    /* padding-bottom: 0.5rem; */
+  }
+  /* Add more CSS rules as needed */
 }
 
 /* 1024px */

@@ -14,6 +14,7 @@ import AdminOverlay from '../../components/AdminOverlay';
 import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
 import ErrorIndicator from '../../components/ErrorIndicator';
+import ClientSignUpOverlay from '../../components/ClientSignupOverlay';
 
 
 const ClientSignup = ({ }) => {
@@ -33,9 +34,38 @@ const ClientSignup = ({ }) => {
     const[isLoading , setisLoading] = useState(false);
 
     useEffect(() => {
+        const handleKeyDown = (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+    
+            const activeElement = document.activeElement;
+    
+           if (activeElement.tagName === 'INPUT' && activeElement.form) {
+              const form = activeElement.form;
+              const submitButton = form.querySelector('[type="submit"]');
+              if (submitButton) {
+                submitButton.click();
+              }
+            } else {
+              const continueButton = document.getElementById('RightBottomBtns_forwardBtn__83dJ2'); 
+              if (continueButton) {
+                continueButton.click();
+              }
+            }
+          }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+    
+        return () => {
+          window.removeEventListener('keydown', handleKeyDown);
+        };
+      }, []);
+
+    useEffect(() => {
         localStorage.setItem('activeFlow', 'Client');
     }, []);
-    
+
     const showError = (message) => {
         setMessage(message);
         setShowErrorMessage(true);
@@ -290,14 +320,10 @@ const ClientSignup = ({ }) => {
         <>
             {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-            <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings}/>
+            <ClientSignUpOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings}/>
             { <div className={styles.loader}></div>}
             {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-            {/* <div className={styles.adminPortal}>
-                <AdminSideNavbar />
-                {getActiveComponent()}
-            </div> */}
         </>
     )
 }

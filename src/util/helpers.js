@@ -30,9 +30,14 @@ const skillsList = {
 };
 
 export function getSvg(skill) {
-  const sk = skill.replace(" ", "").replace("++", "plus").toLowerCase();
+  // replace white spaces and ++ sequence
+  const replacedSkill = skill
+    .replace(/\s+/g, "")
+    .replace(/\+\+/g, "plus")
+    .toLowerCase();
 
-  if (skillsList.hasOwnProperty(sk)) return `/${skillsList[sk]}.svg`;
+  if (skillsList.hasOwnProperty(replacedSkill))
+    return `/${skillsList[replacedSkill]}.svg`;
 
   return `/Award.svg`;
 }
