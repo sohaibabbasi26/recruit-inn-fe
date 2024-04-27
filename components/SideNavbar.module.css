@@ -30,7 +30,7 @@
 
 .logoContainer h3 {
   margin: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .mainContainer {
@@ -248,7 +248,7 @@
 
 /* looking at options */
 /* 1024px */
-@media (max-width: 64em) {
+@media (max-width: 64rem) {
   .masterContainer {
     width: 25%;
     height: 100%;
@@ -267,7 +267,7 @@
     margin-top: 1.5rem;
   }
 
-  .mainContainer h4 {
+  .mainContainer h3 {
     margin-bottom: 0.3rem;
   }
 
@@ -302,5 +302,21 @@
 
   .profileTab h4 {
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 105rem) {
+  .masterContainer {
+    width: 25%;
+    height: 100%;
+  }
+
+  .logoContainer {
+    height: 50px;
+  }
+
+  .logoContainer h3{
+    margin: 1rem;
+    /* margin-bottom: 1rem; */
   }
 }

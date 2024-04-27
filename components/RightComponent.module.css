@@ -27,7 +27,7 @@
 .addJobBtn {
   border: none;
   background-color: #6137db;
-  height: 50px;
+  height: 4rem;
   width: 100%;
   margin-right: 0px;
   border-radius: 60px;
@@ -48,7 +48,7 @@
 
 .notificationsBtn {
   background-color: #f8f7fc;
-  height: 50px;
+  height: 4rem;
   min-width: 25%;
   border-radius: 48px;
   font-weight: 700;
