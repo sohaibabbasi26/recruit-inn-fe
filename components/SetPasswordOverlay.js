@@ -10,14 +10,13 @@ import SuccessIndicator from './SuccessIndicator';
 import ErrorIndicator from './ErrorIndicator';
 
 
-const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, stageHeadings }) => {
+const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const overlayRef = useRef(null);
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
     const [condition, setCondition] = useState();
-    
-
+    const [email, setEmail] = useState();
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -107,7 +106,7 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
     const checkAndComparePassword = async () => {
         const reqBody = {
             email: email,
-            newPassword: password
+            newPassword: pass
         };
 
         try {
@@ -116,7 +115,7 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        
+
                     },
                     body: JSON.stringify(reqBody),
                 });
@@ -129,33 +128,34 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
             console.log('err:', err)
         }
     }
-    const [confirmPassword,setConfirmPassword] = useState(null);
-    const [pass,setPass] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [pass, setPass] = useState(null);
 
 
     const handlePasswordChange = (e) => {
-            setPass(e.target.value);  
-          };
-          const handleConfirmPasswordChange = (e) => {
-             setConfirmPassword(e.target.value);
-        };
-    
+        setPass(e.target.value);
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+    };
+
 
     const handleFormSubmit = async () => {
-    if (!pass || !confirmPassword) {
-        showError('Please fill in both password fields.');
-        
-        return;
-    }
+        if (!pass || !confirmPassword) {
+            showError('Please fill in both password fields.');
 
-    if (pass !== confirmPassword) {
-        console.log("")
-        showError('Password not match');
-      return;
-    }
+            return;
+        }
+
+        if (pass !== confirmPassword) {
+            console.log("")
+            showError('Password not match');
+            return;
+        }
         const reqBody = {
             token: id,
-            password: password
+            password: pass
         }
 
         const checkIfNotNewPassword = await checkAndComparePassword();
@@ -202,7 +202,7 @@ const SetPasswordOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
 
                         {currentStage === stages.SET_PASSWORD && (
                             <>
-                                <PasswordConfirm error={error} password={password} setPassword={setPassword} handlePasswordChange = {handlePasswordChange} handleConfirmPasswordChange = {handleConfirmPasswordChange}  />
+                                <PasswordConfirm confirmPassword={confirmPassword} setPass={setPass} pass={pass} setConfirmPassword={setConfirmPassword} error={error} password={password} setPassword={setPassword} handlePasswordChange={handlePasswordChange} handleConfirmPasswordChange={handleConfirmPasswordChange} />
                                 <div className={styles.wrapper}>
                                     <PasswordBtns handleFormSubmit={handleFormSubmit} />
                                 </div>

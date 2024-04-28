@@ -436,7 +436,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                             )}
                             {currentStage === stages.VERIFICATION && (
                                 <>
-                                    <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} email={email} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
+                                    <CandidateVerify  sendEmail={sendEmail} showSuccess={showSuccess} email={email} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
                                     <div className={styles.wrapper}>
                                         <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
                                     </div>

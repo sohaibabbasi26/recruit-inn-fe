@@ -1,7 +1,7 @@
 import styles from './CandidateVerify.module.css';
 import Image from 'next/image';
 
-const CandidateVerify = ({otp,setOtp ,isCodeInvalid, sendEmail, email ,setMessage, showSuccess}) => {
+const CandidateVerify = ({ otp,setOtp ,isCodeInvalid, sendEmail, email ,setMessage, showSuccess}) => {
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
@@ -20,7 +20,7 @@ const CandidateVerify = ({otp,setOtp ,isCodeInvalid, sendEmail, email ,setMessag
                     <div className={styles.leftContainer}>
                         <h2>Enter Verification Code</h2>
                         <p>Enter the 6-digit verification</p>
-                        <p>send to <span>*******@gmail.com</span></p>
+                        <p>send to <span>{email}</span></p>
 
                         <div className={styles.otpContainer}>
                             {/* <input />
