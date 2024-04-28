@@ -243,12 +243,12 @@ const QuestionBox = ({ hasStarted }) => {
                     if (currentQuestionIndex < questions.length - 1) {
                         setCurrentQuestionIndex(prevIndex => prevIndex + 1);
                         speakQuestion(questions[currentQuestionIndex]);
-                        // setIsLoading(false);
+                        setIsLoading(false);
                     }
 
                 } else {
                     await stopAndHandleRecording();
-                    // setIsLoading(false);
+                    
                 }
                 console.log('completed questions:', completedQuestions);
                 console.log('current questions:', currentQuestion);
@@ -258,7 +258,7 @@ const QuestionBox = ({ hasStarted }) => {
             console.log('ERR:', err);
         }
         finally {
-
+            // setIsLoading(false);
         }
     }
 
@@ -288,7 +288,7 @@ const QuestionBox = ({ hasStarted }) => {
                     return
                 }
 
-                if (currentRecordingQuestionIndexRef.current === currentQuestion) { // Check if the current question index matches the one during recording
+                if (currentRecordingQuestionIndexRef.current === currentQuestion) { 
                     setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
                     setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
                 }
@@ -297,14 +297,13 @@ const QuestionBox = ({ hasStarted }) => {
                 const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
 
 
-                if (currentRecordingQuestionIndexRef.current === currentQuestion) { // Only add silent blob if still on the same question
+                if (currentRecordingQuestionIndexRef.current === currentQuestion) { 
                     setAnswers(prev => [...prev, {
                         question: questions[currentQuestion - 1]?.question,
                         answer: silentBase64Wav,
                     }]);
                 }
             }
-
             setIsLoading(false);
         } else {
             console.error("Recorder not active or already stopped.");
