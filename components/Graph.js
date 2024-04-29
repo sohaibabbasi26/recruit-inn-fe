@@ -62,7 +62,7 @@ const Graph = () => {
                     </div>
 
                     <div className={styles.graphContainer}>
-                        <Bar style={{height: '100px'}} className={styles.graph} options={options} data={data} />
+                        <Bar className={styles.graph} options={options} data={data} />
                     </div>
                 </div>
             </div>
