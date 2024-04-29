@@ -1,3 +1,5 @@
+import { citiesList } from "./cities";
+
 const skillsList = {
   html: "html5",
   html5: "html5",
@@ -40,4 +42,10 @@ export function getSvg(skill) {
     return `/${skillsList[replacedSkill]}.svg`;
 
   return `/Award.svg`;
+}
+
+export function getCities(country) {
+  if (citiesList.hasOwnProperty(country)) return citiesList[country];
+
+  return ["Empty"];
 }

@@ -9,7 +9,6 @@
   overflow: hidden;
 }
 
-
 .mainContainer h3 {
   display: flex;
   align-items: center;
@@ -51,7 +50,6 @@
   color: #170d23;
   cursor: pointer;
   margin-top: -0.2rem;
-
 }
 
 .mainContainer ul {
@@ -73,6 +71,7 @@
   align-items: center;
   margin-left: 0;
   padding: 0.5rem 0.8rem;
+  cursor: pointer;
 }
 
 .listContainer {
@@ -84,6 +83,7 @@
   flex-direction: column;
   justify-content: flex-end;
   margin-top: 20px;
+  margin-bottom: 1rem;
 }
 
 .list h4 img {
