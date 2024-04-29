@@ -4,6 +4,8 @@ import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import { countryList } from "@/util/cities";
+import { getCities } from "@/util/helpers";
 
 const ClientInfo = ({
   email,
@@ -25,6 +27,7 @@ const ClientInfo = ({
     // Check if the phone number is valid
     setIsValid(isValidPhoneNumber(value, country));
   };
+  console.log(getCities(country));
   return (
     <>
       <div className={styles.superContainer}>
@@ -87,20 +90,21 @@ const ClientInfo = ({
           <Image src="/earth.svg" width={iconSize} height={iconSize} />
           <select onChange={(e) => setCountry(e.target.value)}>
             <option>Select country</option>
-            <option value="Pakistan">Pakistan</option>
-            <option value="India">India</option>
+            {countryList.map((country) => (
+              <option value={country}> {country} </option>
+            ))}
           </select>
         </div>
         <div className={styles.inputField}>
           <Image src="/aim.svg" width={iconSize} height={iconSize} />
-          <select onChange={(e) => setCity(e.target.value)}>
+          <select
+            disabled={country === null}
+            onChange={(e) => setCity(e.target.value)}
+          >
             <option>Select city</option>
-            <option value={country === "India" ? "Mumbai" : "Karachi"}>
-              {country === "India" ? "Mumbai" : "Karachi"}
-            </option>
-            <option value={country === "India" ? "Kolkata" : "Lahore"}>
-              {country === "India" ? "Kolkata" : "Lahore"}
-            </option>
+            {getCities(country)?.map((city) => (
+              <option value={city}> {city} </option>
+            ))}
           </select>
         </div>
       </div>
