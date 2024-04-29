@@ -17,7 +17,7 @@ const LoginComp = ({setPassword,setEmail, onViewChange}) => {
                     <div className={styles.inputField}><Image src='/msg.svg' width={20} height={20} /> <input onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Enter your email' /></div>
                     <div className={styles.inputField}><Image src='/lock.svg' width={20} height={20} /> <input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Enter your password' /></div>
                 </div>
-
+                
                 <div className={styles.midContainer}>   
                     <div className={styles.checkBox}>
                         <input type='checkbox' placeholder='Remember Password for 15 Days' />
