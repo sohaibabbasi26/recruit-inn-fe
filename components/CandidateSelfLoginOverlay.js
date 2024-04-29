@@ -93,13 +93,13 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
             const candidate_id = localStorage.getItem('candidateID');
             if (candidate_id) {
                 redirectToCandidatePage(candidate_id);
-            }
+            } 
         }
     }, [router]);
 
     const loginApiCall = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in-self`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -126,26 +126,20 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
         }
     };
 
-    useEffect(() => {
-        const demolink = `http://localhost:3000/cand-new-pass/${candidateId}`;
-        setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
-        setText(`
-        follow the link to set up your new password: \n
-            ${demolink}
-        `)
-    }, [candidateId, emailReceiver]);
+    // useEffect(() => {
+    //     const demolink = `http://localhost:3000/cand-new-pass/${candidateId}`;
+    //     setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
+    //     setText(`
+    //     follow the link to set up your new password: \n
+    //         ${demolink}
+    //     `)
+    // }, [candidateId, emailReceiver]);
 
 
     const checkIfEmailIsInDbHandler = async () => {
         const reqBody = {
             email: email
         };
-
-        // const requestBody = {
-        //     to: emailReceiver,
-        //     subject: subject,
-        //     text: text
-        // }
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate`, {
@@ -162,7 +156,7 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
                 // ${candidateId}
                 const demolink = `https://app.recruitinn.ai/cand-new-pass/${data?.data?.message?.candidate_id}`;
                 const subject = 'RECRUITINN: SET UP YOUR NEW PASSWORD';
-                const text = `Follow the link to set up your new password: \n ${demolink}`;
+                const text = `Follow the link to set up your new passw  ord: \n ${demolink}`;
 
                 console.log('link:', demolink)
                 const requestBody = {
