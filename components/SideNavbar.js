@@ -254,7 +254,7 @@ const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
               src="/rightArrow.svg"
               width={listItemSize}
               height={listItemSize}
-              style={{ marginLeft: "-10px", marginRight: "-20px" }}
+              style={{ marginLeft: "-10px", marginRight: "-10px" }}
             />
           </div>
         </div>

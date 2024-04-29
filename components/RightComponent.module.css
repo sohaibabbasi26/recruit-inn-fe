@@ -39,6 +39,7 @@
   align-items: center;
   letter-spacing: 0.5px;
   font-family: "Poppins", sans-serif;
+  gap: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
 }
@@ -78,12 +79,9 @@
     height: 100%;
   }
 
-  .addJobBtn,
-  .notificationsBtn {
-    height: 50px;
-  }
-
   .btnsDiv {
     margin-bottom: 2.2rem;
   }
 }
+
+
