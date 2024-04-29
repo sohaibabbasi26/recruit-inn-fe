@@ -7,7 +7,6 @@ const PersonalInfoBtns = ({ showSuccess, validateEmailReceiver, fillValidity, sh
     const navigationIconSize = 30;
 
     const handleContinue = () => {
-        // showSuccess();
         onContinue();
     }
 

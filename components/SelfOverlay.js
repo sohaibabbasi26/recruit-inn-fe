@@ -71,13 +71,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const toggleComponent = async () => {
 
         if ((currentStage === stages.PERSONAL_INFO) && (!name?.trim() || !email?.trim() || !contact?.trim() || !expertise?.trim() || !country?.trim() || !city?.trim() || !password.trim())) {
-
-            // if (checkIfEmailPresent === true) {
-            //     setMessage("The email used for signup is already in use! Try with another one");
-            //     showError();
-            //     return;
-            // }
-
             setMessage("Please fill all the fields first");
             showError();
             return;
@@ -123,8 +116,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                     break
 
                 case stages.VERIFICATION:
-                    setMessage("Success!");
-                    showSuccess();
                     verifyCode();
                     break;
                 case stages.SKILLS:
@@ -181,6 +172,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [req, setReq] = useState(null);
     const [questionId, setQuestionId] = useState([]);
     const [text, setText] = useState();
+    const [personalInfo, setPersonalInfo] = useState();
 
     useEffect(() => {
         const reqBody = {
@@ -229,6 +221,12 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     };
 
     const validateNumber = () => {
+    if(isNaN(contact)) {
+        setMessage("Enter a correct number! ");
+        showError();
+        return
+    };
+
         return /^\d+$/.test(contact);
     }
 
@@ -254,6 +252,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             };
 
             console.log("request body: ", reqBody);
+            setPersonalInfo(reqBody)
 
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info-self`, {
                 method: 'POST',
@@ -275,11 +274,12 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                 return true; 
               } else {
                 setCheckIfEmailPresent(true);
-                setMessage(data?.message || "An unexpected error occurred. Please try again.");
+                setMessage(data?.message || "Email used for registering is already in use!");
                 showError();
+                setCurrentStage(stages.PERSONAL_INFO)
                 setIsLoading(false);
                 return false; 
-              }
+            }
         } catch (err) {
             console.log('ERRROR:', err);
         } finally {
@@ -328,14 +328,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         }
     }
 
-
     const verifyCode = () => {
         const otpCode = otp.join("");
         console.log("Entered OTP:", otpCode);
         console.log("generated code compare:", generatedCode)
-
         if (generatedCode === otpCode) {
-
             console.log("generated code:", generatedCode);
             console.log("otpCode:", otpCode);
             console.log("generatedCode === otpCode : ", generatedCode === otpCode)

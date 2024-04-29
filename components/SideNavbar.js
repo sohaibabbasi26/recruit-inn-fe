@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 
-const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
+const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
   const router = useRouter();
   const [showupgrade, setshowupgrade] = useState(false);
   const { activeItem, setActiveItem } = useActiveItem();
@@ -197,7 +197,7 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
                 >
                   Not Eligible
                   <Image
-                    src="/warning.svg"
+                    src="/Warning.svg"
                     width={listItemSize}
                     height={listItemSize}
                   />
@@ -215,14 +215,14 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
               </button>
             </div>
           )}
-          {showupgrade && (
+          {/* {showupgrade && (
             <div>
               <button className={styles.btnset} onClick={openAddJobHandler}>
                 Setting{" "}
                 <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" />
               </button>
             </div>
-          )}
+          )} */}
 
           {showupgrade && (
             <div>
@@ -241,14 +241,14 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
 
           <div className={styles.profileTab} onClick={upgradeHandler}>
             <Image
-              src="/dp.svg"
+              src="/Emoji.svg"
               height={50}
               width={50}
               className="profileImage"
             />
             <div className={styles.textContent}>
               <span style={{ color: "#4A525D" }}>Hello</span>
-              <h4>Bruce Wayne</h4>
+              <h4>{name}</h4>
             </div>
             <Image
               src="/rightArrow.svg"

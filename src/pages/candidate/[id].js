@@ -42,7 +42,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [token, setToken] = useState(null);
   const [expertise, setExpertise] = useState();
   const [questionId, setQuestionId] = useState();
-  const [results, setResults] = useState();
+  const [results, setResults] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -96,7 +96,6 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       const reqBody = {
         candidate_id: id
       }
-
       try {
         if (id) {
           const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id-self`, {
@@ -107,9 +106,8 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
             body: JSON.stringify(reqBody),
           });
           const data = await response.json();
-          
-          if(data){
-            setResults(Array.isArray(data) ? data : [data?.data]);
+          if(data?.data){
+            setResults([data?.data]);
             console.log("one candidate result details: ", results);
           }
           console.log('Expertise in fetch company details:', expertise);
@@ -252,7 +250,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
-        <CandidateSideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
+        <CandidateSideNavbar name={candName} showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}
       </div>
     </>
