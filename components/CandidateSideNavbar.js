@@ -6,7 +6,7 @@ import { useActiveItem } from '../src/contexts/ActiveItemContext';
 import { useRouter } from 'next/router';
 
 
-const CandidateSideNavbar = ({ navbarIte, showOverlay1, setShowOverlay1 }) => {
+const CandidateSideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
     const router = useRouter();
     const [showupgrade, setshowupgrade] = useState(false);
     const { activeItem, setActiveItem } = useActiveItem();
@@ -20,7 +20,7 @@ const CandidateSideNavbar = ({ navbarIte, showOverlay1, setShowOverlay1 }) => {
     }
 
     const openAddJobHandler = () => {
-        setShowOverlay1(true);
+        setShowOverlay(true);
         console.log("clicking button");
     }
 
@@ -48,7 +48,12 @@ const CandidateSideNavbar = ({ navbarIte, showOverlay1, setShowOverlay1 }) => {
 
 
     const listItemSize = 28;
-    const logoSize = 30
+    const logoSize = 30;
+
+    // const openAddJobHandler = () => {
+    //     setShowOverlay(true);
+    //     console.log("clicking button");
+    // };
 
     return (
         <>
@@ -141,13 +146,13 @@ const CandidateSideNavbar = ({ navbarIte, showOverlay1, setShowOverlay1 }) => {
                                 Upgrade <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
                             </button>
                         </div>}
-                    {showupgrade &&
+                    {/* {showupgrade &&
 
                         <div>
                             <button className={styles.btnset} onClick={openAddJobHandler}>
                                 Setting <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" />
                             </button>
-                        </div>}
+                        </div>} */}
 
                     {showupgrade &&
 
@@ -158,10 +163,15 @@ const CandidateSideNavbar = ({ navbarIte, showOverlay1, setShowOverlay1 }) => {
                         </div>}
 
                     <div className={styles.profileTab} onClick={upgradeHandler}>
-                        <Image src='/dp.svg' height={50} width={50} className='profileImage' />
+                        <Image
+                            src="/Emoji.svg"
+                            height={50}
+                            width={50}
+                            className="profileImage"
+                        />
                         <div className={styles.textContent}>
                             <span style={{ color: '#4A525D' }}>Hello</span>
-                            <h4>Bruce Wayne</h4>
+                            <h4>{name}</h4>
                         </div>
                         <Image src='/rightArrow.svg' width={listItemSize} height={listItemSize} />
                     </div>

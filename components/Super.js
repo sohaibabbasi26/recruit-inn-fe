@@ -63,9 +63,9 @@ const Super = ({
                     <button className={styles.RightComponent_addJobBtn__PGBvV} onClick={toggleOverlay}>
                         <Image src='/Add.svg' width={iconSize} height={iconSize}  style={{ marginRight: '20px'}} /> Create A Job
                     </button>
-                    <button className={styles.notificationsBtn}>
+                    {/* <button className={styles.notificationsBtn}>
                         <Image src="/BellIcon.svg" width={bellIconSize} height={bellIconSize}  />
-                    </button>
+                    </button> */}
                 </div>
             </div>
             </div>

@@ -4,15 +4,15 @@ import Image from 'next/image';
 import debounce from 'lodash.debounce';
 import { isActionCreator } from '@reduxjs/toolkit';
 
-
 const TopNavbar = ({selectedCandidate, companyId, onJobSelect,reportOverlay, onCandidateSelect,setReportOverlay,setSelectedCandidate }) => {
-    const searchLogoSize = 20;``
+    const searchLogoSize = 20;
     const [query, setQuery] = useState('');
     const [searchType, setSearchType] = useState('Candidates');
     const [searchResults, setSearchResults] = useState(null);
     const searchResultsRef = useRef(null);
     const searchInputRef = useRef(null);
     const [isClicked, setIsClicked] = useState(false);
+    const [results, setResults] = useState(false);
 
     const searchApiCall = debounce(async (query, type) => {
         setSearchResults(null);

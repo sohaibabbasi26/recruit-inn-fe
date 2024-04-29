@@ -143,20 +143,24 @@
 import styles from './CandidatesHub.module.css';
 import TopNavbar from './TopNavbar';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SearchEmpty from '../public/SearchEmpty.gif'
 
-const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, data, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
+const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
 
     console.log('data in candidates Hub:', results)
 
     const [recommended, setRecommended] = useState('Recommended');
+    const [data,setData] = useState([]);
     const iconSize = 25;
     const goToAllIconSize = 18;
     const statusSize = 10;
 
     const hasData = results && results?.length > 0;
+    console.log('hasData:',hasData);
+
+    
 
     const getBackgroundColor = (score) => {
         if (score >= 7 && score <= 10) {
