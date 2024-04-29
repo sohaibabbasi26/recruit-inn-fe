@@ -15,7 +15,6 @@ const SideNavbar = ({ navbarIte, showOverlay1, setShowOverlay }) => {
     useState(false);
 
   const upgradeHandler = () => {
-    // close jobgs m=and candidate menu if open
     if (isDropDownJobsToggle) setIsDropDownJobsToggle(false);
     if (isDropDownCandidatesToggle) setIsDropDownJobsCandidatesToggle(false);
 

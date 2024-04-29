@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 
-const PasswordConfirm = ({error,setPassword,password , handlePasswordChange , handleConfirmPasswordChange}) => {
+const PasswordConfirm = ({error,setPassword,password,pass, setPass, confirmPassword,setConfirmPasswword , handlePasswordChange , handleConfirmPasswordChange}) => {
 
-    const [confirmPassword,setConfirmPassword] = useState(null);
-    const [pass,setPass] = useState(null);
+    // const [confirmPassword,setConfirmPassword] = useState(null);
+    // const [pass,setPass] = useState(null);
 
 //     const handlePasswordChange = (e) => {
 //     setPass(e.target.value);
@@ -21,7 +21,7 @@ const PasswordConfirm = ({error,setPassword,password , handlePasswordChange , ha
 
     useEffect(() => {
         const checkPassword = () => {
-            if(pass === confirmPassword){
+            if(pass === confirmPassword){   
                 setPass(pass);
             }
         }

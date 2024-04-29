@@ -6,7 +6,7 @@ import Assessment from './Assessment';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const SelfReportOverlay = ({ onClose, reportOverlay, selectedCandidate, email, jobType, date, contact , jobtype}) => {
+const SelfReportOverlay = ({candName, onClose, reportOverlay, selectedCandidate, email, jobType, date, contact , jobtype}) => {
 
     console.log('selected candidate is:',selectedCandidate)
 
@@ -163,7 +163,7 @@ const SelfReportOverlay = ({ onClose, reportOverlay, selectedCandidate, email, j
                                     <Image id={styles.emoji} src='/bigEmoji.svg' width={80} height={80} />
                                 </div>
                                 <div className={styles.info}>
-                                    <h3>{selectedCandidate?.name}</h3>
+                                    <h3>{selectedCandidate?.name || candName}</h3>
                                     <p>{selectedCandidate?.position}</p>
                                     <h4 style={{ backgroundColor: getBackgroundColor(Math.ceil(selectedCandidate?.result?.technicalRating)) }}>{getFilter(Math.ceil(selectedCandidate?.result?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.result?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
                                 </div>
@@ -183,11 +183,11 @@ const SelfReportOverlay = ({ onClose, reportOverlay, selectedCandidate, email, j
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Date</span>
-                                    <span>{date}</span>
+                                    <span>{date || selectedCandidate?.createdAt}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Job Type</span>
-                                    <span>{jobtype}</span>
+                                    <span>{jobtype || "None"}</span>
                                 </li>
                                 <li>
                                     <span className={styles.bold}>Applied For</span>

@@ -9,6 +9,7 @@
   overflow: hidden;
 }
 
+
 .mainContainer h3 {
   display: flex;
   align-items: center;
@@ -30,7 +31,7 @@
 
 .logoContainer h3 {
   margin: 0.75rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .mainContainer {
@@ -248,7 +249,7 @@
 
 /* looking at options */
 /* 1024px */
-@media (max-width: 64rem) {
+@media (max-width: 64em) {
   .masterContainer {
     width: 25%;
     height: 100%;
@@ -267,7 +268,7 @@
     margin-top: 1.5rem;
   }
 
-  .mainContainer h3 {
+  .mainContainer h4 {
     margin-bottom: 0.3rem;
   }
 
@@ -302,21 +303,5 @@
 
   .profileTab h4 {
     white-space: nowrap;
-  }
-}
-
-@media (max-width: 105rem) {
-  .masterContainer {
-    width: 25%;
-    height: 100%;
-  }
-
-  .logoContainer {
-    height: 50px;
-  }
-
-  .logoContainer h3{
-    margin: 1rem;
-    /* margin-bottom: 1rem; */
   }
 }

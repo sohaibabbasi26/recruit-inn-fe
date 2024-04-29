@@ -75,7 +75,6 @@
 .social h3 {
   margin: 0;
   color: #000;
-
 }
 .info {
   display: flex;
@@ -117,7 +116,6 @@
   .social {
     margin-top: 0.4rem;
     color: #000;
-
   }
 
   .social:not(:first-child) {
@@ -152,7 +150,6 @@
     margin-top: 0;
     height: 70px;
     color: #000;
-
   }
   .social:not(:last-child) {
     margin-bottom: 0.5rem;

@@ -16,7 +16,7 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
     const [condition, setCondition] = useState();
-    
+
 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -73,6 +73,9 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
     const [currentStage, setCurrentStage] = useState(stages.SET_PASSWORD);
     const [completedStages, setCompletedStages] = useState([]);
     const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [pass, setPass] = useState(null);
+
 
     useEffect(() => {
         setCurrentStage(stages.SET_PASSWORD);
@@ -81,11 +84,11 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
     useEffect(() => {
         async function fetchCompanyDetails() {
             const reqBody = {
-                candidate_id : id
+                candidate_id: id
             }
             try {
                 if (id) {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate`, {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate-self`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -107,7 +110,7 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
     const checkAndComparePassword = async () => {
         const reqBody = {
             email: email,
-            newPassword: password
+            newPassword: pass
         };
 
         try {
@@ -116,7 +119,7 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        
+
                     },
                     body: JSON.stringify(reqBody),
                 });
@@ -130,10 +133,18 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
         }
     }
 
+    const handlePasswordChange = (e) => {
+        setPass(e.target.value);
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+    };
+
     const handleFormSubmit = async () => {
         const reqBody = {
             token: id,
-            password: password
+            password: pass
         }
 
         const checkIfNotNewPassword = await checkAndComparePassword();
@@ -181,7 +192,7 @@ const CandPassSetOverlay = ({ setEmail, email, showOverlay, onClose, stages, sta
 
                         {currentStage === stages.SET_PASSWORD && (
                             <>
-                                <PasswordConfirm error={error} password={password} setPassword={setPassword} />
+                                <PasswordConfirm handlePasswordChange={handlePasswordChange} handleConfirmPasswordChange={handleConfirmPasswordChange} confirmPassword={confirmPassword} setPass={setPass} pass={pass} setConfirmPassword={setConfirmPassword} error={error} password={password} setPassword={setPassword} />
                                 <div className={styles.wrapper}>
                                     <PasswordBtns handleFormSubmit={handleFormSubmit} />
                                 </div>
