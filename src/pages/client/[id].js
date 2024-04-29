@@ -295,6 +295,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
   const toggleJobOverlay = () => {
     setJobOverlay(!jobOverlay);
   }
+
   const getActiveComponent = () => {
     
     switch (activeItem) {
@@ -347,7 +348,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       {jobOverlay && <JobOverlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
-        <SideNavbar showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
+        <SideNavbar name={allCandidatesReports?.data?.company_name} showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
         {getActiveComponent()}
       </div>
     </>

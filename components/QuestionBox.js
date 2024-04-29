@@ -258,12 +258,11 @@ const QuestionBox = ({ hasStarted }) => {
             console.log('ERR:', err);
         }
         finally {
-            // setIsLoading(false);
         }
     }
 
     useEffect(() => {
-        setTimeLeft(19)
+        setTimeLeft(59)
         speakQuestion(currentQuestion);
     }, [currentQuestion])
 
