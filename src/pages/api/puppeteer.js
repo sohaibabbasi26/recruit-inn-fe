@@ -48,7 +48,11 @@ export default async function handler(req, res) {
 
     try {
       // Launch Puppeteer with the new Headless mode
-      const browser = await puppeteer.launch({ headless: "new" });
+      // const browser = await puppeteer.launch({ headless: "new" });
+      const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        headless: true 
+      });
       const page = await browser.newPage();
       await page.setContent(content); // Set content on the page
 

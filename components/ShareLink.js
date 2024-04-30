@@ -5,6 +5,10 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ShareLink = ({
+  removeEmailReceiver,
+  setNameReceivers,
+  name,
+  setName,
   assessmentId,
   isTestRequired,
   emailReceivers,
@@ -30,6 +34,7 @@ const ShareLink = ({
   const iconSize = 20;
   const clipSize = 30;
   const [link, setLink] = useState();
+  
   // const [emailReceivers, setEmailReceivers] = useState([{ email: '' }]);
 
   useEffect(() => {
@@ -78,11 +83,7 @@ const ShareLink = ({
         `);
   });
 
-  const removeEmailReceiver = (index) => {
-    setEmailReceivers((currentReceivers) =>
-      currentReceivers.filter((_, i) => i !== index)
-    );
-  };
+  
 
   return (
     <>
@@ -154,7 +155,7 @@ const ShareLink = ({
                 <div className={styles.field} key={index}>
                   <div className={styles.left}>
                     <Image src="/sticker.svg" width={28} height={28} />
-                    <input type="text" placeholder="Enter your name" />
+                    <input type="text" onChange={(e) => {setName(e.target.value)}} placeholder="Enter your name" />
                   </div>
                   <div className={styles.right}>
                     <Image src="/Bag.svg" width={iconSize} height={iconSize} />

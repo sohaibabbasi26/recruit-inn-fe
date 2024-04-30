@@ -147,7 +147,7 @@ import { useEffect, useState } from 'react';
 
 import SearchEmpty from '../public/SearchEmpty.gif'
 
-const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
+const CandidatesSelfHub = ({ contact, isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
 
     console.log('data in candidates Hub:', results)
 

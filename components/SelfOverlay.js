@@ -58,7 +58,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                 { y: '100%', opacity: 0, duration: 0.1, ease: 'power1' }
             );
         });
-    }, [showOverlay, onClose])
+    }, [showOverlay, onClose]);
 
     const router = useRouter();
     const infoSymbolSize = 20;
@@ -88,7 +88,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             return;
         }
 
-
         else if ((currentStage === stages.SKILLS) && !validateAddSkill()) {
             setMessage("At least enter one skill!");
             showError();
@@ -114,7 +113,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                         break;
                     }
                     break
-
                 case stages.VERIFICATION:
                     verifyCode();
                     break;
