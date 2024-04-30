@@ -7,6 +7,7 @@ const skillsList = {
   css3: "css3",
   sass: "sass",
   javascript: "javascript",
+  java: "java",
   reactjs: "reactjs",
   react: "reactjs",
   reactquery: "reactquery",
