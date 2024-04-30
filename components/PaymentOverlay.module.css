@@ -162,6 +162,7 @@ x .transparentContainer button {
   text-align: center;
   padding-top: 0px;
   /* Add any other styles you need */
+  /* margin-bottom: 1.5rem; */
 }
 
 .center h1 {
@@ -268,11 +269,11 @@ x .transparentContainer button {
   padding: 20px;
   background-color: #fff;
   border-radius: 32px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   text-align: center;
   width: 100%;
   margin-bottom: 100px;
-  border: 1px solid #6137db;
+  border: 1px solid #fff5f5;
 }
 .pricing_column1 {
   flex: 1;
@@ -280,12 +281,12 @@ x .transparentContainer button {
   padding: 20px;
   background-color: #fff;
   border-radius: 32px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   text-align: center;
   height: 100%;
   width: 100%;
   margin-bottom: 100px;
-  border: 1px solid #6137db;
+  border: 1px solid #fff5f5;
 }
 
 .pricing_column h2 {
@@ -353,6 +354,13 @@ x .transparentContainer button {
   letter-spacing: 0;
   text-align: left;
 }
+
+.pricing_column .span {
+  color: #aca7ba;
+  font-weight: 400;
+  font-size: 1rem !important;
+}
+
 .tick_list {
   font-family: "DM Sans", sans-serif; /* Choose your preferred font */
   font-size: 17px;
@@ -380,7 +388,7 @@ x .transparentContainer button {
 .tick_item::before {
   content: "\2713"; /* Unicode character for a checkmark */
   color: #6137db; /* Custom color for the tick */
-  font-size: 20px; /* Adjust as needed for the size of the tick */
+  font-size: 15px; /* Adjust as needed for the size of the tick */
   position: absolute;
   left: 0;
   top: 50%;

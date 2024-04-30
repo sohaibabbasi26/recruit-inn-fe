@@ -7,6 +7,7 @@ import SuccessIndicator from "./SuccessIndicator";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
 import { checkout } from "@/util/Checkout";
+import PackagesCards from "./PackagesCards";
 
 const PaymentOverlay = React.memo(
   ({
@@ -111,6 +112,10 @@ const PaymentOverlay = React.memo(
                     </div>
                   </div>
                 </div>
+
+                {/* packages */}
+                {/* <PackagesCards /> */}
+
                 <div>
                   <div className={styles.pricing_section}>
                     <div className={styles.pricing_column}>
