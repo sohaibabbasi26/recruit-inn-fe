@@ -138,6 +138,7 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
             localStorage.setItem('clientId', data?.data?.id); // Save client ID
             redirectToClientPage(data?.data?.id); // Reuse the navigation function
         } else {
+            console.log("Testing thiss .....")
             showError('Login failed. Please check your credentials.');
         }
     };
@@ -163,7 +164,6 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
             subject: subject,
             text: text
         }
-
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`, {
                 method: 'POST',
@@ -193,7 +193,7 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
                 showError('Some error occurred, failed to send an Email')
             }
         } catch (err) {
-            showError("Such a client doesn't exist")
+            showError("Such a client doesn't exist");
         }
     }
 
@@ -234,14 +234,14 @@ const LoginOverlay = ({ message, setMessage, onClose, stages, stageHeadings, sho
                                 <>
                                     <LoginComp onViewChange={() => setViewMode('forgotPassword')} setPassword={setPassword} setEmail={setEmail} />
                                     <div className={styles.wrapper}>
-                                        <LoginBtns loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                        <LoginBtns loginApiCall={loginApiCall} showError = {showError} email = {email} setEmail = {setEmail} password = {password} setPassword = {setPassword} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>
                                 </>
                             ) : viewMode === 'forgotPassword' ? (
                                 <>
-                                    <ForgotPassword email={email} setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
+                                    <ForgotPassword setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
                                     <div className={styles.wrapper}>
-                                        <ForgotPasswordBtns setViewMode={setViewMode} checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler} email={emailReceiver} />
+                                        <ForgotPasswordBtns setViewMode={setViewMode} checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler} email={email} showError = {showError}/>
                                     </div>
                                 </>
                             ) : (
