@@ -392,5 +392,4 @@ const JobOverlay = ({
     </>
   );
 };
-
 export default JobOverlay;

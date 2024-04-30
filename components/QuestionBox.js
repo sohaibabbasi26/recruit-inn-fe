@@ -401,7 +401,7 @@ const QuestionBox = ({ hasStarted }) => {
                 {isLoading ? (
                     <>
                         <div className={styles.loader}></div>
-                        {isGeneratingResult && (<div className={styles.generatingResultText}>Please wait, it might take some time, AI is busy generating your result.</div>)}
+                        {isGeneratingResult && (<div className={styles.generatingResultText}>Please wait, it might take some time, AI is generating your result.</div>)}
                     </>
                 ) : (
                     <>
