@@ -2,7 +2,7 @@ import styles from './RightBottomBtns.module.css';
 
 import Image from 'next/image';
 
-const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, onClose }) => {
+const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, showError , onClose }) => {
 
     const text = `Follow this link to set your new password: \n
     `
@@ -41,15 +41,35 @@ const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, onCl
     //     showSuccess();
     //     onClose();
     // }
+    const validateForm = () => {
+        let isValid = true;
+        // Validate email
+        if (!email?.trim()) {
+            console.log("email checking   ...");
+            showError('Email is required');
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            console.log("is condition me chala jaa bhai");
+            showError('Invalid email format');
+            isValid = false;
+        }
+        return isValid;
+    };
+    const Handleforgotpassword = (e) =>{
+        console.log("Handle forgot password for:", email);
+        e.preventDefault();
+        if (validateForm()) {
+            // Proceed with form submission
+            checkIfEmailIsInDbHandler();
+            // You can send your request to the server here
+        };
+    }
 
     return (
         <>
             <div className={styles.btnsContainer} >
                 <button id={styles.backBtn} onClick={handler} >Back</button>
-                <button id={styles.forwardBtn} onClick={() => {
-                    console.log("Handle forgot password for:", email);
-                    checkIfEmailIsInDbHandler();
-                }}>Reset Password<Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize}  /></button>
+                <button id={styles.forwardBtn} onClick={Handleforgotpassword}>Reset Password<Image src='/Forward.svg' width={navigationIconSize} height={navigationIconSize}  /></button>
             </div>
         </> 
     )

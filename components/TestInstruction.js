@@ -20,7 +20,7 @@ const TestInstruction = ({onClose}) => {
                                 <li>
                                 Your score will reflect on your profile.                                </li>
                                 <li>
-                                Your score will reflect on your profile.                                </li>
+                                Avoid Refreshing your page during interview                               </li>
                                 <li>
                                 Make sure there’s no background noise while answering the questions.                                </li>
                             </ul>

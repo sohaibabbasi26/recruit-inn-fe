@@ -1,0 +1,24 @@
+.packagesCardWrapper {
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(401px, 1fr));
+  gap: 2rem;
+  justify-content: space-between; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+.packageCard {
+  flex: 0 0 20%;
+  font-size: 1.1rem;
+}
+
+.packageHeading {
+  margin: 0;
+}
+
+.packageOptionsWrapper {
+  list-style: none;
+}

@@ -1,3 +1,5 @@
+import { citiesList } from "./cities";
+
 const skillsList = {
   html: "html5",
   html5: "html5",
@@ -5,6 +7,7 @@ const skillsList = {
   css3: "css3",
   sass: "sass",
   javascript: "javascript",
+  java: "java",
   reactjs: "reactjs",
   react: "reactjs",
   reactquery: "reactquery",
@@ -41,3 +44,64 @@ export function getSvg(skill) {
 
   return `/Award.svg`;
 }
+
+export function getCities(country) {
+  if (citiesList.hasOwnProperty(country)) return citiesList[country];
+
+  return ["Empty"];
+}
+
+// packages
+export const packages = {
+  availableOptions: [
+    "4 reports of candidates",
+    "add upto 4 skills",
+    "4 reports of candidates",
+    "add upto 4 skills",
+    "4 reports of candidates",
+    "add upto 4 skills",
+  ],
+  availablePackages: [
+    {
+      buttonText: "selected package",
+      name: "free",
+      price: "0",
+      options: ["4 reports of candidates", "add upto 4 skills"],
+    },
+    {
+      buttonText: "get started",
+      name: "standard",
+      price: "49",
+      options: [
+        "4 reports of candidates",
+        "add upto 4 skills",
+        "4 reports of candidates",
+      ],
+    },
+    {
+      buttonText: "get started",
+      name: "pro",
+      price: "99",
+      options: [
+        "4 reports of candidates",
+        "add upto 4 skills",
+        "4 reports of candidates",
+        "add upto 4 skills",
+        "4 reports of candidates",
+      ],
+    },
+    {
+      buttonText: "contact sales",
+      name: "enterprise",
+      price: "contact us",
+      options: [
+        "4 reports of candidates",
+        "add upto 4 skills",
+        "4 reports of candidates",
+        "add upto 4 skills",
+        "4 reports of candidates",
+        "add upto 4 skills",
+      ],
+    },
+  ],
+};

@@ -17,7 +17,7 @@ const invitedCandidate = () => {
     }
     
     const stageHeadings = {
-        JOB_DETAIL: 'Youve been invited for the interview',
+        JOB_DETAIL: "You've been invited for the interview",
         PERSONAL_INFO: 'Hello there, tell us about yourself',
         REQUIRED_SKILLS: 'Technologies you will be asked for',
     };

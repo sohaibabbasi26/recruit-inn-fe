@@ -23,6 +23,7 @@ const testSumitCompletion = () => {
         console.log("Current active flow:", activeFlow);
         switch (activeFlow) {
             case 'Candidate':
+                // localStorage.setItem('isLoggedIn', 'true');
                 return `/candidate/${candidateId}`;
             case 'Client':
                 return `/`;
