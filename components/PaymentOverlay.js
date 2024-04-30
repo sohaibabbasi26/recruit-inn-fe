@@ -7,6 +7,7 @@ import SuccessIndicator from "./SuccessIndicator";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
 import { checkout } from "@/util/Checkout";
+import PackagesCards from "./PackagesCards";
 
 const PaymentOverlay = React.memo(
   ({
@@ -111,6 +112,10 @@ const PaymentOverlay = React.memo(
                     </div>
                   </div>
                 </div>
+
+                {/* packages */}
+                {/* <PackagesCards /> */}
+
                 <div>
                   <div className={styles.pricing_section}>
                     <div className={styles.pricing_column}>
@@ -122,7 +127,7 @@ const PaymentOverlay = React.memo(
                         $0 <span className={styles.time}>/month</span>
                       </p>
                       <hr />
-                      <p style={{ color: "lightgray" }} className={styles.span} >What’s included</p>
+                      <p style={{ color: "lightgray" }}>What’s included</p>
                       <div className={styles.tick_list}>
                         <div className={styles.tick_item}>
                           Your first item goes here.
