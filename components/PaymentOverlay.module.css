@@ -353,6 +353,13 @@ x .transparentContainer button {
   letter-spacing: 0;
   text-align: left;
 }
+
+/* .span {
+  color: #aca7ba;
+  font-weight: 400;
+  font-size: 1rem !important;
+} */
+
 .tick_list {
   font-family: "DM Sans", sans-serif; /* Choose your preferred font */
   font-size: 17px;

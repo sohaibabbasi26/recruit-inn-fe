@@ -122,7 +122,7 @@ const PaymentOverlay = React.memo(
                         $0 <span className={styles.time}>/month</span>
                       </p>
                       <hr />
-                      <p style={{ color: "lightgray" }}>What’s included</p>
+                      <p style={{ color: "lightgray" }} className={styles.span} >What’s included</p>
                       <div className={styles.tick_list}>
                         <div className={styles.tick_item}>
                           Your first item goes here.
