@@ -72,6 +72,10 @@
   margin-left: 0;
   padding: 0.5rem 0.8rem;
   cursor: pointer;
+  /* try this */
+  width: unset;
+  padding-left: 0.4rem;
+  padding-right: 0;
 }
 
 .listContainer {
