@@ -4,15 +4,15 @@ import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 
-const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
+const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
   const router = useRouter();
   const [showupgrade, setshowupgrade] = useState(false);
   const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
 
-  const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
+  const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(true);
   const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] =
-    useState(false);
+    useState(true);
 
   const upgradeHandler = () => {
     if (isDropDownJobsToggle) setIsDropDownJobsToggle(false);

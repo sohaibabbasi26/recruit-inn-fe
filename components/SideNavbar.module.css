@@ -7,6 +7,8 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  /* try this */
+  position: relative;
 }
 
 .mainContainer h3 {
@@ -40,6 +42,8 @@
   flex-direction: column;
   align-items: center;
   color: #aca7ba;
+  /* try this */
+  height: calc(100% - 4rem);
 }
 
 .mainContainer h4 {
@@ -80,6 +84,9 @@
 
 .listContainer {
   width: 80%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .list {
