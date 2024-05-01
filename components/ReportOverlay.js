@@ -335,7 +335,7 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                                 <div className={styles.info}>
                                     <h3>{selectedCandidate?.name}</h3>
                                     <p>{selectedCandidate?.position}</p>
-                                    <h4 style={{ backgroundColor: getBackgroundColor(calculateCumulativeMean(Math.ceil(selectedCandidate?.results?.technicalRating) || Math.ceil(results?.data?.result?.technicalRating),Math.ceil(selectedCandidate?.results?.softskillRating) || Math.ceil(results?.data?.result?.softskillRating))) }}>{getFilter(Math.ceil(selectedCandidate?.results?.technicalRating|| results?.data?.result?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
+                                    <h4 style={{ backgroundColor: getBackgroundColor(calculateCumulativeMean(Math.ceil(selectedCandidate?.results?.technicalRating) || Math.ceil(results?.data?.result?.technicalRating),Math.ceil(selectedCandidate?.results?.softskillRating) || Math.ceil(results?.data?.result?.softskillRating))) }}>{getFilter(calculateCumulativeMean(Math.ceil(selectedCandidate?.results?.technicalRating) || Math.ceil(results?.data?.result?.technicalRating),Math.ceil(selectedCandidate?.results?.softskillRating) || Math.ceil(results?.data?.result?.softskillRating)))}<Image src={getStatusSymbol(calculateCumulativeMean(Math.ceil(selectedCandidate?.results?.technicalRating) || Math.ceil(results?.data?.result?.technicalRating),Math.ceil(selectedCandidate?.results?.softskillRating) || Math.ceil(results?.data?.result?.softskillRating)))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
                                 </div>
                             </div>
 
@@ -346,7 +346,7 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                             </div>
                         </div>
                         {/* candidate test info div */}
-                        <div ref={contentRef}>
+                        <div className={styles.infoContainer} ref={contentRef}>
                         <div className={styles.infoDiv}>
                             <ul>
                                 <li>

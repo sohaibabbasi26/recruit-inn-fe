@@ -493,7 +493,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [positionId, router.query, router.isReady])
 
     const updateFormData = () => {
-        // Save form data to local storage whenever it changes
         try {
           const formData = {
             name: nameRef.current.value,
@@ -507,7 +506,11 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         } catch (error) {
           console.error('Error saving form data to local storage:', error);
         }
-      };
+    };
+
+    useEffect(() => {
+
+    },[])
 
     const createCandidate = async () => {
 
@@ -526,6 +529,25 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             });
             const data = await response.json();
             console.log("candidate data :", data?.data?.data?.candidate_id)
+
+            try {
+
+                const requestBody = {
+                    position_id : positionId
+                };
+                const secondResponse = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${newToken}`
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+                const data = await secondResponse.json();
+                console.log("response from the second api in create candidate:",data);
+            }catch(err){
+
+            }
             return data?.data?.data?.candidate_id;
         } catch (error) {
             console.error('Error creating candidate:', error);

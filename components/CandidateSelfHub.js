@@ -147,7 +147,7 @@ import { useEffect, useState } from 'react';
 
 import SearchEmpty from '../public/SearchEmpty.gif'
 
-const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
+const CandidatesSelfHub = ({ contact, isDisable, name, expertise, results, isLoading, generateTestAndRedirect,heading, reportOverlay, setReportOverlay, setSelectedCandidate , appliedThrough,experience }) => {
 
     console.log('data in candidates Hub:', results)
 
@@ -210,7 +210,7 @@ const CandidatesSelfHub = ({isDisable, name, expertise, results, isLoading, gene
                             <span>{results?.length}</span>
                         </div>
 
-                        {!isDisable && <button onClick={generateTestAndRedirect}>{isLoading ? (
+                        {!isDisable && <button style={styles.evaluate} onClick={generateTestAndRedirect}>{isLoading ? (
                         <>
                             <div className={styles.loader}></div>
                         </>

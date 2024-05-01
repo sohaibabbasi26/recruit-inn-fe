@@ -64,7 +64,7 @@ const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
         <div className={styles.mainContainer}>
           <div className={styles.logoContainer}>
             <h3>
-              <Image src="/logo.svg" width={logoSize} height={logoSize} />
+              <Image src="/logo (3).png" width={logoSize} height={logoSize} />
               recruitinn.ai
             </h3>
           </div>

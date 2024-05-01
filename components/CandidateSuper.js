@@ -7,6 +7,7 @@ import TopNavbar from './TopNavbar';
 import CandidatesSelfHub from './CandidateSelfHub';
 
 const CandidateSuper = ({
+    contact,
     results,
     isLoading,
     generateTestAndRedirect,
@@ -39,7 +40,7 @@ const CandidateSuper = ({
 
     return (
         <div className={styles.superContainer}>
-            <CandidatesSelfHub isDisable={isDisable} appliedThrough={appliedThrough} experience={experience}  name={name} expertise={expertise} results={results} isLoading={isLoading}  generateTestAndRedirect={generateTestAndRedirect} heading='Reports' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate}  />
+            <CandidatesSelfHub contact={contact} isDisable={isDisable} appliedThrough={appliedThrough} experience={experience}  name={name} expertise={expertise} results={results} isLoading={isLoading}  generateTestAndRedirect={generateTestAndRedirect} heading='Reports' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate}  />
         </div>
     );
 }
