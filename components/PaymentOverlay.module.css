@@ -78,6 +78,10 @@
   overflow-y: scroll;
 }
 
+.superContainer div:first-child {
+  width: 100%;
+}
+
 .topContainer {
   width: 60%;
   height: 10%;

@@ -1,24 +1,130 @@
 .packagesCardWrapper {
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(401px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   gap: 2rem;
-  justify-content: space-between; */
-  display: flex;
   justify-content: center;
   align-items: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: flex-start;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  */
   padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 
 .packageCard {
-  flex: 0 0 20%;
-  font-size: 1.1rem;
+  /* max-width: 20rem; */
+  font-size: 1.0625rem;
+  border: 1px solid #fff5f5;
+  padding: 1.5rem;
+  border-radius: 2rem;
+}
+
+.packageCard.enterprise {
+  border: 1px solid #6137db;
+}
+
+.packageCard * {
+  margin: 0;
+  padding: 0;
 }
 
 .packageHeading {
-  margin: 0;
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.pro .packageHeading,
+.enterprise .packageHeading {
+  color: #6137db;
+}
+/* following sibling */
+.packageHeading + p {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #4a525d;
+}
+
+.price,
+.price span {
+  color: #6137db;
+}
+
+.price {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.price span {
+  font-size: 1.0625rem;
+  font-weight: 400;
+}
+
+.packageCard hr {
+  width: 85%;
+  height: 0px;
+  border: 1px solid #fff5f5;
+  margin: 1rem auto;
+}
+
+.packageCard h5 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: #aca7ba;
+  opacity: 0.8;
+  margin-bottom: 0.8rem;
 }
 
 .packageOptionsWrapper {
   list-style: none;
+  margin-bottom: 2rem;
+}
+.packageOptionsWrapper li {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: #aca7ba;
+  margin-bottom: 1.125rem;
+}
+
+.packageOptionsWrapper li.include {
+  background-color: red;
+}
+
+.packageBtn {
+  border-radius: 3.75rem;
+  background-color: #fff5f5;
+  border: none;
+  text-transform: capitalize;
+  color: #6137db;
+  font-size: 1rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.standard .packageBtn,
+.pro .packageBtn {
+  border: 1px solid #6137db;
+  background-color: transparent;
+}
+
+.enterprise .packageBtn {
+  background-color: #6137db;
+  color: #fff;
+}
+
+.hover {
+  color: #5a33cc;
+}
+
+.active {
+  color: #4f2db2;
 }

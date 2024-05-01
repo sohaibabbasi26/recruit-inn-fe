@@ -9,3 +9,7 @@ body {
 *:disabled {
   cursor: not-allowed;
 }
+
+button {
+  cursor: pointer;
+}
