@@ -210,7 +210,7 @@ const CandidatesSelfHub = ({ contact, isDisable, name, expertise, results, isLoa
                             <span>{results?.length}</span>
                         </div>
 
-                        {!isDisable && <button style={styles.evaluate} onClick={generateTestAndRedirect}>{isLoading ? (
+                        {!isDisable && <button onClick={generateTestAndRedirect}>{isLoading ? (
                         <>
                             <div className={styles.loader}></div>
                         </>
