@@ -18,7 +18,7 @@
   height: 20px;
   animation: spin 2s linear infinite;
 }
-.evaluate{
+.evaluate {
   cursor: pointer;
 }
 
@@ -172,14 +172,14 @@
   padding-top: 1rem;
 }
 
-.TechStack {
+.techStack {
   width: 100%;
   display: flex;
   justify-content: center;
   font-family: "Poppins", sans-serif;
 }
 
-.TechStack ul {
+.techStack ul {
   display: flex;
   justify-content: flex-start;
   width: 95%;
@@ -188,7 +188,7 @@
   padding: 0;
 }
 
-.TechStack ul li {
+.techStack ul li {
   background-color: #f8f7fc;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -345,22 +345,13 @@
   gap: 1rem;
 }
 
-.techStack ul li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f8f7fc;
-  padding: 0.5rem 1rem;
-  border-radius: 40px;
-}
-
 .techStack ul li p {
   margin: 0;
 }
 
 .basic {
   display: flex;
-  gap: 0.5rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
@@ -416,29 +407,20 @@
   gap: 1rem;
 }
 
-.TechStack {
+.techStack {
   width: 100%;
   display: flex;
   justify-content: center;
   font-family: "Poppins", sans-serif;
 }
 
-.TechStack ul {
+.techStack ul {
   display: flex;
   justify-content: flex-start;
   width: 95%;
   list-style: none;
   gap: 2rem;
   padding: 0;
-}
-
-.TechStack ul li {
-  background-color: #f8f7fc;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
 }
 
 .jobType {

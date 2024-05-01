@@ -134,7 +134,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                     >
                       Closed
                       <Image
-                        src="/Restrict.svg"
+                        src="/crossAlt.svg"
                         width={listItemSize}
                         height={listItemSize}
                       />
@@ -158,7 +158,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     All
                     <Image
-                      src="/Globe.svg"
+                      src="/Apps.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />
@@ -173,7 +173,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Recommended
                     <Image
-                      src="/Bolt.svg"
+                      src="/star.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />
@@ -188,7 +188,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Qualified
                     <Image
-                      src="/Star.svg"
+                      src="/like.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />
@@ -203,7 +203,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Not Eligible
                     <Image
-                      src="/Warning.svg"
+                      src="/Restrict.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />

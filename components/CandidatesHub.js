@@ -163,21 +163,22 @@ const CandidatesHub = ({
                       </div>
                       {/* techstack Conatiner */}
 
-                      <div className={styles.TechStack}>
+                      <div className={styles.techStack}>
                         <ul>
                           {item?.expertise?.map((skill) => {
                             return (
                               <>
                                 <li>
                                   <div className={styles.basic}>
+                                    <span>{skill.skill}</span>
+
                                     <Image
                                       className={styles.django}
-                                    //   src={skill.img}
+                                      //   src={skill.img}
                                       src={getSvg(skill.skill)}
                                       width={iconSize}
                                       height={iconSize}
                                     />
-                                    <span>{skill.skill}</span>
                                   </div>
                                 </li>
                               </>
