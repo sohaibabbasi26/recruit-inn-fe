@@ -9,6 +9,7 @@
   overflow: hidden;
   /* try this */
   position: relative;
+  /* justify-content: flex-start; */
 }
 
 .mainContainer h3 {
@@ -43,7 +44,7 @@
   align-items: center;
   color: #aca7ba;
   /* try this */
-  height: calc(100% - 4rem);
+  height: calc(100% - 7rem);
 }
 
 .mainContainer h4 {
@@ -237,6 +238,8 @@
   padding-top: 10px;
   padding-bottom: 0px;
   gap: 5px;
+  /* try this */
+  margin-top: auto;
 }
 
 .btn {
