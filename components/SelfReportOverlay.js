@@ -6,7 +6,7 @@ import Assessment from './Assessment';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const SelfReportOverlay = ({candName, onClose, reportOverlay, selectedCandidate, email, jobType, date, contact , jobtype}) => {
+const SelfReportOverlay = ({ candName, onClose, reportOverlay, selectedCandidate, email, jobType, date, contact , jobtype}) => {
 
     console.log('selected candidate is:',selectedCandidate)
 

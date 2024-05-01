@@ -4,7 +4,8 @@ import Image from 'next/image';
 import NameContext from '@/contexts/NameContext';
 import { useContext } from 'react';
 import { useState } from 'react';
-
+import { countryList } from '@/util/cities';
+import { getCities } from '@/util/helpers';
 const PersonalInfoSelf = forwardRef(({
     setCity,
     setCountry,
@@ -95,28 +96,29 @@ const PersonalInfoSelf = forwardRef(({
                     </div>
 
                     <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <select value={country}
-                                onChange={(e) => setCountry(e.target.value)}
-                            >
-                                <option>Select your country</option>
-                                <option value='Pakistan'>Pakistan</option>
-                            </select>
-                        </div>
+                    <div className={styles.infoField}>
+                        <Image />
+                        <select onChange={(e) => setCountry(e.target.value)}>
+                            <option>Select country</option>
+                            {countryList.map((country) => (
+                            <option value={country}> {country} </option>
+                            ))}
+                        </select>
+                    </div>
                         {validationErrors?.country && <div className={styles.errorMessage}>{validationErrors?.country}</div>}
                     </div>
+                    <div className={styles.infoField}>
+          <Image />
+          <select
+            disabled={country === null}
+            onChange={(e) => setCity(e.target.value)}
+          >
+            <option>Select city</option>
+            {getCities(country)?.map((city) => (
+              <option value={city}> {city} </option>
+            ))}
+          </select>
 
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <select value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            >
-                                <option>Select your city</option>
-                                <option value='Karachi'>Karachi</option>
-                            </select>
-                        </div>
                         {validationErrors?.city && <div className={styles.errorMessage}>{validationErrors?.city}</div>}
                     </div>
 

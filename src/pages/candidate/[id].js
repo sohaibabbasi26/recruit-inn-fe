@@ -43,7 +43,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
   const [expertise, setExpertise] = useState();
   const [questionId, setQuestionId] = useState();
   const [results, setResults] = useState([]);
-
+  // const [contact, setContact] = useState()
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -77,6 +77,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
           setExpertise(data?.data?.expertise);
           setCandName(data?.data?.name);
           setExperience(data?.data?.over_all_exp);
+          setContact(data?.data?.contact_no)
           const date = new Date(data?.data?.createdAt);
           setDate(date.toDateString());
           setEmail(data?.data?.email);
@@ -232,7 +233,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <CandidateSuper isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect} />
+          <CandidateSuper contact={contact} isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect} />
         </>;
       default:
         return null;
@@ -246,7 +247,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       <FormProvider>
         {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
       </FormProvider>
-      {reportOverlay && <SelfReportOverlay jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date} contact={contact} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
+      {reportOverlay && <SelfReportOverlay contact={contact} jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date}  showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
       {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>

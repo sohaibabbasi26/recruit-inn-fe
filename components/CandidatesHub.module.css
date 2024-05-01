@@ -18,6 +18,9 @@
   height: 20px;
   animation: spin 2s linear infinite;
 }
+.evaluate{
+  cursor: pointer;
+}
 
 @keyframes spin {
   0% {

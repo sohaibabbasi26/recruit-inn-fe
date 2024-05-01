@@ -211,16 +211,17 @@ const CandidateSelfLoginOverlay = ({ message, setMessage, onClose, stages, stage
                                 <>
                                     <LoginComp onViewChange={() => setViewMode('forgotPassword')} setPassword={setPassword} setEmail={setEmail} />
                                     <div className={styles.wrapper}>
-                                        <LoginBtns loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                        <LoginBtns loginApiCall={loginApiCall} showError = {showError} email = {email} setEmail = {setEmail} password = {password} setPassword = {setPassword} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>
                                 </>
-                            ) : viewMode === 'forgotPassword' ? (
+                            ) : viewMode === 'forgotPasswbord' ? (
                                 <>
                                     <ForgotPassword email={email} setEmail={setEmail} setEmailReceiver={setEmailReceiver} />
                                     <div className={styles.wrapper}>
                                         <ForgotPasswordBtns setViewMode={setViewMode}
                                             checkIfEmailIsInDbHandler={checkIfEmailIsInDbHandler}
-                                            email={emailReceiver} />
+                                            email={email} 
+                                            showError = {showError} />
                                     </div>
                                 </>
                             ) : (

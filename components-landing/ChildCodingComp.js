@@ -72,7 +72,7 @@ const CodingChild = ({formatTime , timeLeft , question, setQuestion, codeSubmitH
         <>
             <div className="w-full h-screen bg-[#F5F5F5] justify-center items-center flex overflow-hidden">
                 <div className="w-[98%] h-[100%] items-center flex justify-between">
-                    <CodingLeftComponent question={question} />
+                    <CodingLeftComponent question={question} /> 
 
                     <div className="w-[70%] h-[95%] flex flex-col justify-between ">
                         <div className="w-[100%] flex flex-col items-center h-[63%] rounded-2xl bg-[#fff]">
