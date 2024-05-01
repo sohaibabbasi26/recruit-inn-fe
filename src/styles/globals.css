@@ -9,3 +9,60 @@ body {
 *:disabled {
   cursor: not-allowed;
 }
+.PhoneInputCountryIcon{
+  width: 60%;
+  height: 40px;
+
+
+}
+.PhoneInput{
+  width: 100%;
+  display: flex;
+
+}
+.PhoneInputCountry{
+  width: 100%;
+  display: flex;
+  border-radius: 40px;
+
+}
+.PhoneInputCountryIconImg{
+    /* padding-bottom: inherit; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* margin: 10px; */
+    padding-top: 7px;
+    height: 40px;
+    margin-left: -40px;
+    border-radius: 580px;
+    width: 20px;
+}
+
+.css-b62m3t-container{
+font-size: 12px;
+background-color: #f8f7fa;
+color: black;
+border: none;
+}
+.css-13cymwt-control {
+ 
+  align-items: right;
+  cursor: default;
+  
+  display: flex;
+  
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  min-height: 12px;
+  outline: 0 !important;
+  position: relative;
+  -webkit-transition: none;
+  transition: none;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: none;
+  border-style: none;
+  border-width: 0px;
+  box-sizing: 0px;
+}
