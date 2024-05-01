@@ -29,11 +29,27 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 18px;
 }
 
 .logoContainer h3 {
   margin: 0.75rem;
   margin-bottom: 1rem;
+}
+
+.dashboardWrapper {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.dashboardWrapper div {
+  margin: 0 auto;
+}
+
+.dashboardWrapper div:first-child {
+  margin-bottom: 1.5rem;
 }
 
 .mainContainer {
@@ -85,9 +101,9 @@
 
 .listContainer {
   width: 80%;
-  overflow-x: hidden;
+  /* overflow-x: hidden;
   overflow-y: scroll;
-  scrollbar-width: none;
+  scrollbar-width: none; */
 }
 
 .list {
@@ -261,6 +277,13 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
+}
+
+/* 1366px */
+@media (max-width: 85.375em) {
+  .masterContainer {
+    width: 23%;
+  }
 }
 
 /* looking at options */
