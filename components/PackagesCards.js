@@ -77,8 +77,22 @@ function PackagesCards() {
           <h5>What's included</h5>
           <ul className={styles.packageOptionsWrapper}>
             {packages.availableOptions.map((option, index) => (
-              <li className={`${pack.options[index] ? "included" : ""}`}>
-                <Image src="/CROSS.svg" width={32} height={32} />
+              <li
+                className={`${
+                  packages.availableOptions[index] === pack.options[index]
+                    ? styles.included
+                    : ""
+                }`}
+              >
+                <Image
+                  src={
+                    packages.availableOptions[index] === pack.options[index]
+                      ? "/check.svg"
+                      : "/cross.svg"
+                  }
+                  width={32}
+                  height={32}
+                />
                 <span> {option}</span>
               </li>
             ))}

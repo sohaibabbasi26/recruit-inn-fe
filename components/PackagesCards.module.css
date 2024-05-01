@@ -1,9 +1,9 @@
 .packagesCardWrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   /* display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -58,6 +58,7 @@
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1rem;
+  white-space: nowrap;
 }
 
 .price span {
@@ -93,10 +94,11 @@
   font-weight: 400;
   color: #aca7ba;
   margin-bottom: 1.125rem;
+  margin-right: 1rem;
 }
 
-.packageOptionsWrapper li.include {
-  background-color: red;
+.packageOptionsWrapper li.included {
+  color: #6137db;
 }
 
 .packageBtn {

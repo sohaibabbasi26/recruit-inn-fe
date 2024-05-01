@@ -114,9 +114,9 @@ const PaymentOverlay = React.memo(
                 </div>
 
                 {/* packages */}
-                {/* <PackagesCards /> */}
+                <PackagesCards />
 
-                <div>
+                {/* <div>
                   <div className={styles.pricing_section}>
                     <div className={styles.pricing_column}>
                       <h2>Free</h2>
@@ -284,7 +284,7 @@ const PaymentOverlay = React.memo(
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 
               </div>
             )}
