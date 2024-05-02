@@ -467,6 +467,11 @@
   background-color: #f8f7fa;
   height: 100%;
   display: block;
+  background-image: url("/framCandidateSelfBg.png");
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-position: bottom 0px right 0px;
+  background-size: 300px 300px;
 }
 
 .tempContainer * {
@@ -534,6 +539,12 @@
   justify-content: center;
   align-items: center;
   gap: 1.25rem;
+}
+
+@media screen and (max-width: 1680px) {
+  .tempContainer {
+    background-size: 210px 210px;
+  }
 }
 
 @media screen and (max-width: 1400px) {

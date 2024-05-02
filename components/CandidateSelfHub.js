@@ -340,37 +340,8 @@ const CandidatesSelfHub = ({
                 );
               })
             ) : (
-              //   <div className={styles.temporaryContainer}>
-              //     <Image
-              //       src="/framCandidateSelfBg.png"
-              //       width={374}
-              //       height={374}
-              //       className={styles.bg}
-              //     />
-              //     <h1>Here’s Where Your Journey Begins</h1>
-
-              //     <div className={styles.candidateDefaultWrapper}>
-              //       <div className={styles.candidateDefault}>
-              //         <Image src="/avatarDefault.svg" width={77} height={100} />
-              //         <h2>Welcome, "candidate name" </h2>
-              //         <p>
-              //           Are you ready to tackle the AI Assessment to stand out
-              //           amongst other candidates?
-              //         </p>
-              //       </div>
-              //     </div>
-              //   </div>
-
               <div className={styles.tempContainer}>
                 <div>
-                  {/* 
-                <h3>You don't have {heading} yet...</h3> */}
-                  <Image
-                    src="/framCandidateSelfBg.png"
-                    width={214}
-                    height={214}
-                    className={styles.bg}
-                  />
                   <h1>Here’s Where Your Journey Begins</h1>
 
                   <div className={styles.candidateDefault}>
