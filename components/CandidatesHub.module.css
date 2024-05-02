@@ -541,6 +541,10 @@
   gap: 1.25rem;
 }
 
+.candidateDefault button:has(div.loader) {
+  padding: 1.5rem;
+}
+
 @media screen and (max-width: 1680px) {
   .tempContainer {
     background-size: 210px 210px;
