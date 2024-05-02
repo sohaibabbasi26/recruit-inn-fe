@@ -351,7 +351,7 @@ const CandidatesSelfHub = ({
                       width={77}
                       height={100}
                     />
-                    <h2>Welcome, "candidate name" </h2>
+                    <h2>Welcome, {name} </h2>
                     <p>
                       Are you ready to tackle the AI Assessment to stand out
                       amongst other candidates?
