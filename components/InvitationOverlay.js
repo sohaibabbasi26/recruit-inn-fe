@@ -27,7 +27,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
           expertiseRef.current.value = savedFormData.expertise || '';
           countryRef.current.value = savedFormData.country || '';
           cityRef.current.value = savedFormData.city || '';
-          
+         
         } catch (error) {
           console.error('Error loading form data from local storage:', error);
         }
@@ -125,7 +125,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const [validationErrors, setValidationErrors] = useState({});
     const [allFieldsCheck,setAllFieldsCheck] = useState();
     const [reqBody, setReqBody] = useState(null);
-    
+   
 
     useEffect(() => {
         console.log("hey its me! req body", reqBody);
@@ -135,7 +135,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         const allFields = validateAllFields();
         console.log('all fields:',allFields);
         setAllFieldsCheck(allFields);
-        
+       
         if(!validateAllFields){
             setMessage('Please enter all the fields')
             showSuccess();
@@ -206,9 +206,9 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             (country && country.trim() !== '') &&
             (city && city.trim() !== '')
         );
-        
+       
     }
-    
+   
     const handleContinue = () => {
         const errors = {};
         let isFormIncomplete = false;
@@ -337,7 +337,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
         let isValid = false;
-    
+   
         switch (currentStage) {
             case stages.JOB_DETAIL:
                 setCurrentStage(stages.PERSONAL_INFO);
@@ -345,7 +345,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             case stages.PERSONAL_INFO:
                 isValid = validateAllFields();
                 console.log("validation :",validateAllFields());
-                
+               
                 if (!isValid || isValid == undefined) {
                     setMessage('Please make sure to fill all the fields correctly.');
                     showSuccess();
@@ -357,7 +357,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                 setCurrentStage(stages.JOB_DETAIL);
         }
     };
-    
+   
 
     // const toggleComponent = () => {
     //     // First, check if we are in the PERSONAL_INFO stage and validate fields
@@ -371,7 +371,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     //     //         return; // Do not proceed to the next stage
     //     //     }
     //     // }
-    
+   
     //     // Proceed with setting the next stage as before
     //     const newCompletedStages = [...completedStages, currentStage];
     //     setCompletedStages(newCompletedStages);
@@ -489,6 +489,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [positionId, router.query, router.isReady])
 
     const updateFormData = () => {
+        // Save form data to local storage whenever it changes
         try {
           const formData = {
             name: nameRef.current.value,
@@ -502,11 +503,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         } catch (error) {
           console.error('Error saving form data to local storage:', error);
         }
-    };
-
-    useEffect(() => {
-
-    },[])
+      };
 
     const createCandidate = async () => {
 
@@ -525,25 +522,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             });
             const data = await response.json();
             console.log("candidate data :", data?.data?.data?.candidate_id)
-
-            try {
-
-                const requestBody = {
-                    position_id : positionId
-                };
-                const secondResponse = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${newToken}`
-                    },
-                    body: JSON.stringify(requestBody),
-                });
-                const data = await secondResponse.json();
-                console.log("response from the second api in create candidate:",data);
-            }catch(err){
-
-            }
             return data?.data?.data?.candidate_id;
         } catch (error) {
             console.error('Error creating candidate:', error);
@@ -572,7 +550,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
     return (
         <>
-        {positionStatus === "Closed" && 
+        {positionStatus === "Closed" &&
         <div className={styles.closejobs}>
             <p >This job is closed </p>
         </div>

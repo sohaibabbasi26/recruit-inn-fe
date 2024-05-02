@@ -7,6 +7,9 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  /* try this */
+  position: relative;
+  /* justify-content: flex-start; */
 }
 
 .mainContainer h3 {
@@ -26,11 +29,27 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 18px;
 }
 
 .logoContainer h3 {
   margin: 0.75rem;
   margin-bottom: 1rem;
+}
+
+.dashboardWrapper {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.dashboardWrapper div {
+  margin: 0 auto;
+}
+
+.dashboardWrapper div:first-child {
+  margin-bottom: 1.5rem;
 }
 
 .mainContainer {
@@ -40,6 +59,8 @@
   flex-direction: column;
   align-items: center;
   color: #aca7ba;
+  /* try this */
+  height: calc(100% - 7rem);
 }
 
 .mainContainer h4 {
@@ -72,10 +93,17 @@
   margin-left: 0;
   padding: 0.5rem 0.8rem;
   cursor: pointer;
+  /* try this */
+  width: unset;
+  padding-left: 0.4rem;
+  padding-right: 0;
 }
 
 .listContainer {
   width: 80%;
+  /* overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none; */
 }
 
 .list {
@@ -226,6 +254,8 @@
   padding-top: 10px;
   padding-bottom: 0px;
   gap: 5px;
+  /* try this */
+  margin-top: auto;
 }
 
 .btn {
@@ -247,6 +277,13 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
+}
+
+/* 1366px */
+@media (max-width: 85.375em) {
+  .masterContainer {
+    width: 23%;
+  }
 }
 
 /* looking at options */

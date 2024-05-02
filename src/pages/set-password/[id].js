@@ -14,7 +14,7 @@ const SetPassword = () => {
     const stageHeadings = {
         SET_PASSWORD: 'Set your password up and be ready to login!',
     };
-
+    
     const showOverlay = true;
 
     return(
