@@ -4,6 +4,8 @@ import Image from "next/image";
 import NameContext from "@/contexts/NameContext";
 import { useContext } from "react";
 import { useState } from "react";
+import { countryList } from "@/util/cities";
+import { getCities } from "@/util/helpers";
 
 const PersonalInfo = forwardRef(
   ({
@@ -112,6 +114,32 @@ const PersonalInfo = forwardRef(
 
             <div>
               <div className={styles.infoField}>
+                {/* <Image src="/earth.svg" width={20} height={20} /> */}
+                <select onChange={(e) => setCountry(e.target.value)}>
+                  <option>Select country</option>
+                  {countryList.map((country) => (
+                    <option value={country}> {country} </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div>
+              <div className={styles.infoField}>
+                {/* <Image src="/aim.svg" width={20} height={20} /> */}
+                <select
+                  disabled={country === null}
+                  onChange={(e) => setCity(e.target.value)}
+                >
+                  <option>Select city</option>
+                  {getCities(country)?.map((city) => (
+                    <option value={city}> {city} </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            {/* 
+            <div>
+              <div className={styles.infoField}>
                 <Image />
                 <select
                   value={country}
@@ -141,7 +169,7 @@ const PersonalInfo = forwardRef(
                   {validationErrors?.city}
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </>

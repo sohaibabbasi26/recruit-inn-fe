@@ -421,10 +421,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         updateFormData();
     }
 
-    // useEffect(() => {
-
-    // },[])
-
     useEffect(() => {
         const { client_id } = router.query;
         const { position_id } = router.query;

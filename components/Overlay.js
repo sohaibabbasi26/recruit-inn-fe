@@ -43,16 +43,6 @@ const Overlay = React.memo(
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    // const dispatch = useDispatch();
-    // const { items, status, error } = useSelector((state) => state.questions);
-    // // const techStack = 'exampleTechStack'; // Define how you choose the techStack
-
-    // useEffect(() => {
-    //     if (techStack) {
-    //       dispatch(fetchQuestions(techStack));
-    //     }
-    //   }, [dispatch]);
-
     useEffect(() => {
       document.body.style.overflow = "hidden";
 
@@ -120,8 +110,22 @@ const Overlay = React.memo(
     const [level4, setLevel4] = useState("");
     const [isLevelEntered, setIsLevelEntered] = useState('');
     const [name, setName] = useState();
+    const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
 
-    // const [isTestRequired, setIsTestRequired] = useState(false);
+    const handleReceiverChange = (index, field, value) => {
+      const newReceivers = [...receivers];
+      newReceivers[index][field] = value;
+      setReceivers(newReceivers);
+    };
+
+    const addReceiver = () => {
+      setReceivers([...receivers, { name: "", email: "" }]);
+    };
+
+    const removeReceiver = (index) => {
+      setReceivers(receivers.filter((_, i) => i !== index));
+    };
+
 
     const [codingExpertise, setCodingExpertise] = useState(null);
     const [codeQues, setCodeQues] = useState(null);
@@ -430,113 +434,37 @@ const Overlay = React.memo(
       setNameReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
     }
 
-    // const validateAndProceed = () => {
-    //   const validEmailReceivers = emailReceivers.filter((receiver, i) => {
-    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return receiver.email.trim() !== "" && emailRegex.test(receiver.email.trim()) && nameReceivers[i].name.trim() !== "";
-    //   });
-    //   if (validEmailReceivers.length === 0) {
-    //     setMessage("Enter valid name and email address for all entries");
-    //     showError();
-    //     return false;
-    //   }
-    //   onClose();
-    // };
-
-    // const handleEmailInvite = async () => {
-    //   // const validEmailReceivers = emailReceivers.filter((receiver) => {
-    //   //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //   //   return (
-    //   //     receiver.email.trim() !== "" && emailRegex.test(receiver.email.trim())
-    //   //   );
-    //   // });
-    //   // if (validEmailReceivers.length === 0) {
-    //   //   console.error("No valid email addresses found.");
-    //   //   setMessage("Please fill email and name of the recipents");
-    //   //   showError();
-    //   //   return;
-    //   // }
-
-    //   const validatedReceivers = emailReceivers.map((receiver, index) => {
-    //     const emailIsValid = emailRegex.test(receiver.email.trim());
-    //     const nameIsValid = nameReceivers[index].name.trim() !== "";
-    
-    //     if (!emailIsValid && !nameIsValid) {
-    //       setMessage("Both name and email are required for each entry.");
-    //       showError();
-    //       hasError = true;
-    //       return null; // Return null to filter out this receiver from the processing list
-    //     } else if (!emailIsValid) {
-    //       setMessage("Please enter a valid email address.");
-    //       showError();
-    //       hasError = true;
-    //       return null;
-    //     } else if (!nameIsValid) {
-    //       setMessage("Please enter a name for each email.");
-    //       showError();
-    //       hasError = true;
-    //       return null;
-    //     }
-    //     return receiver;  // Only return valid receivers
-    //   }).filter(receiver => receiver !== null);
-
-    //   const sendInvitesPromises = validEmailReceivers.map((receiver) => {
-    //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //       body: JSON.stringify({
-    //         to: receiver.email,
-    //         subject: subject,
-    //         text: text,
-    //       }),
-    //     });
-    //   });
-    //   try {
-    //     await Promise.all(sendInvitesPromises);
-    //     console.log("email sent");
-    //     setMessage("Invitations have been sent to all candidates via email");
-    //     showSuccess();
-    //     validateAndProceed();
-    //     // onClose();
-    //   } catch (error) {
-    //     console.error("Error sending invites:", error);
-    //   }
-    // };
-
     const handleEmailInvite = async () => {
-      let hasError = false;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Correct regex for email validation
 
-    const validatedReceivers = emailReceivers.map((receiver, index) => {
-        // Check each receiver's email and corresponding name for validity
+      console.log("HANDLE EMAIL INVITE")
+      let hasError = false;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      const validatedReceivers = emailReceivers.map((receiver, index) => {
         const emailIsValid = emailRegex.test(receiver.email.trim());
         const nameIsValid = nameReceivers[index]?.name?.trim() !== "";
 
         if (!emailIsValid && !nameIsValid) {
-            setMessage("Both name and email are required for each entry.");
-            showError();
-            hasError = true;
-            return null; // Skip further processing for this entry
+          setMessage("Both name and email are required for each entry.");
+          showError();
+          hasError = true;
+          return null;
         } else if (!emailIsValid) {
-            setMessage("Please enter a valid email address.");
-            showError();
-            hasError = true;
-            return null;
+          setMessage("Please enter a valid email address.");
+          showError();
+          hasError = true;
+          return null;
         } else if (!nameIsValid) {
-            setMessage("Please enter a name for each email.");
-            showError();
-            hasError = true;
-            return null;
+          setMessage("Please enter a name for each email.");
+          showError();
+          hasError = true;
+          return null;
         }
-        return receiver; // This entry is valid
-    }).filter(receiver => receiver !== null); // Remove invalid entries
+        return receiver;
+      }).filter(receiver => receiver !== null);
 
-    
-      if (hasError) return;  
-    
+      if (hasError) return;
+
       const sendInvitesPromises = validatedReceivers.map(receiver => {
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
           method: "POST",
@@ -551,7 +479,6 @@ const Overlay = React.memo(
           }),
         });
       });
-    
       try {
         await Promise.all(sendInvitesPromises);
         setMessage("Invitations have been sent to all candidates via email");
@@ -563,8 +490,18 @@ const Overlay = React.memo(
         showError();
       }
     };
-    
-    
+
+    const validateReceivers = async () => {
+      for (let receiver of receivers) {
+        if (!receiver.email || !isValidEmail(receiver.email) || !receiver.name.trim()) {
+          console.log("!receiver.email",!receiver.email, " !isValidEmail(receiver.email)",!isValidEmail(receiver.email), '!receiver.name.trim()',!receiver.name.trim())
+          setMessage("Each receiver must have a valid name and email.");
+          showError();
+          return false;
+        }
+      }
+      return true; // All receivers are valid
+    };
 
     return (
       <>
@@ -694,6 +631,10 @@ const Overlay = React.memo(
                 {currentStage === stages.SHARE_LINK && (
                   <>
                     <ShareLink
+                      receivers={receivers}
+                      removeReceiver={removeReceiver}
+                      setReceivers={setReceivers}
+                      handleReceiverChange={handleReceiverChange}
                       name={name}
                       setName={setName}
                       assessmentId={assessmentId}
@@ -702,10 +643,12 @@ const Overlay = React.memo(
                       emailReceivers={emailReceivers}
                       handle
                       handleEmailChange={handleEmailChange}
+                      handleNameChange={handleNameChange}
                       addEmailReceiver={addEmailReceiver}
                       questionId={questionId}
                       positionId={positionId}
                       companyId={id}
+                      nameReceivers={nameReceivers}
                       emailReceiver={emailReceiver}
                       setEmailReceiver={setEmailReceiver}
                       setNameReceivers={setNameReceivers}
@@ -721,6 +664,8 @@ const Overlay = React.memo(
                     />
                     <div className={styles.wrapper}>
                       <ShareLinkBtns
+                        showError={showError}
+                        validateReceivers={validateReceivers}
                         showSuccess={showSuccess}
                         setMessage={setMessage}
                         handleEmailInvite={handleEmailInvite}

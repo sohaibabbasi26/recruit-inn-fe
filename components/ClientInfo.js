@@ -15,6 +15,8 @@ const ClientInfo = ({
   setClientname,
   setEmail,
   setPhoneNo,
+  setpassword,
+  setconfirmpassword,
   setCompanySize,
   country,
   setCountry,
@@ -66,6 +68,24 @@ const ClientInfo = ({
             inputProps={{
               placeholder: "phone number",
             }}
+          />
+        </div>
+
+        <div className={styles.inputField}>
+          <Image src="/Case.svg" width={iconSize} height={iconSize} />
+          <input
+            placeholder="Password"
+            type="password"
+            onChange={(e) => setpassword(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.inputField}>
+          <Image src="/Case.svg" width={iconSize} height={iconSize} />
+          <input
+            placeholder="Confirm password"
+            type="password"
+            onChange={(e) => setconfirmpassword(e.target.value)}
           />
         </div>
 

@@ -92,11 +92,14 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     fetchCompanyDetails();
   }, [router?.isReady]);
 
+  
+
   useEffect(() => {
+    
     async function fetchResults() {
       const reqBody = {
         candidate_id: id
-      }
+      } 
       try {
         if (id) {
           const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id-self`, {
@@ -112,11 +115,16 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
             console.log("one candidate result details: ", results);
           }
           console.log('Expertise in fetch company details:', expertise);
+          
         }
       } catch (err) {
         console.log('err:', err)
       }
+      finally{
+        setIsLoading(false);
+      }
     }
+    setIsLoading(true);
     fetchResults();
   }, [router?.isReady,id]);
 
@@ -153,8 +161,6 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
       console.log("error:", err)
     }
   }
-
-
 
   const { activeItem } = useActiveItem();
   const { setActiveFlow, activeFlow } = useActiveFlow();
@@ -233,7 +239,7 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     switch (activeItem) {
       case 'Dashboard':
         return <>
-          <CandidateSuper contact={contact} isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect} />
+          <CandidateSuper isLoading={isLoading} contact={contact} isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} generateTestAndRedirect={generateTestAndRedirect} />
         </>;
       default:
         return null;
@@ -244,11 +250,11 @@ export default function Candidate({ allJobsData, allActiveJobsData, allClosedJob
     <>
       {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
       {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-      <FormProvider>
+      {/* <FormProvider>
         {showOverlay && <Overlay showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} message={message} token={token} set onClose={toggleOverlay} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />}
-      </FormProvider>
+      </FormProvider> */}
       {reportOverlay && <SelfReportOverlay contact={contact} jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date}  showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-      {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
+      {/* {jobOverlay && <JobOverlay message={message} showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} showSuccess={showSuccess} token={token} onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />} */}
       {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />}
       <div className={styles.clientPortal}>
         <CandidateSideNavbar name={candName} showOverlay={showOverlay} setShowOverlay={setShowPaymentOverlay} />
