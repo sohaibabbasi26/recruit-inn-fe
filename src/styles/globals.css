@@ -9,7 +9,40 @@ body {
 *:disabled {
   cursor: not-allowed;
 }
+.PhoneInputCountryIcon{
+  width: 60%;
+  height: 40px;
 
-button {
-  cursor: pointer;
+
+}
+
+.PhoneInput{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.PhoneInputCountry{
+  width: 10%;
+  display: flex;
+  border-radius: 40px;
+
+}
+.PhoneInputCountryIconImg{
+    /* padding-bottom: inherit; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* margin: 10px; */
+    padding-top: 7px;
+    height: 40px;
+    margin-left: 20px;
+    border-radius: 580px;
+    width: 30px;
+}
+.phoneInput2{
+   margin-left:30px;
+   padding-left: 200px;
+}
+
+.PhoneInputInput{
+  margin-left: 1.5rem;
 }
