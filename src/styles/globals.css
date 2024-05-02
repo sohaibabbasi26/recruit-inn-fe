@@ -9,10 +9,13 @@ body {
 *:disabled {
   cursor: not-allowed;
 }
+<<<<<<< HEAD
 
 button {
   cursor: pointer;
 }
+=======
+>>>>>>> feature-designFixes
 .PhoneInputCountryIcon{
   width: 60%;
   height: 40px;
@@ -49,4 +52,8 @@ button {
 
 .PhoneInputInput{
   margin-left: 1.5rem;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> feature-designFixes
