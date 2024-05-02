@@ -9,9 +9,10 @@ import LoginBtns from './LoginBtns';
 import ForgotPassword from './ForgotPassword';
 import { Foldit } from 'next/font/google';
 import ForgotPasswordBtns from './ForgotPassBtns';
+import { Pass } from 'codemirror';
 // import Login from '@/pages/client-login';
 
-const AdminLoginOverlay = ({ email, setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
+const AdminLoginOverlay = ({ email, password , setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
 
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -75,14 +76,14 @@ const AdminLoginOverlay = ({ email, setPassword, setEmail, loginApiCall, onClose
                                 <>
                                     <LoginComp onViewChange={() => setViewMode('forgotPassword')} email={email} setPassword={setPassword} setEmail={setEmail} />
                                     <div className={styles.wrapper}>
-                                        <LoginBtns email={email} loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
+                                        <LoginBtns showError={showError} password={password} email={email} loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>
                                 </>
                             ) : viewMode === 'forgotPassword' ? (
                                 <>
                                     <ForgotPassword setEmailReceiver={setEmailReceiver} />
                                     <div className={styles.wrapper}>
-                                        <ForgotPasswordBtns email={emailReceiver} />
+                                        <ForgotPasswordBtns email={email} password={password} />
                                     </div>
                                 </>
                             ) : (
