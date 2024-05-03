@@ -17,7 +17,7 @@
   background-color: #f0edfc;
   border: none;
   border-radius: 40px;
-  width: 20%;
+  width: 10%;
   font-size: 1rem;
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -46,6 +46,7 @@
   letter-spacing: 0.5px;
   gap: 3rem;
   height: 60%;
+  font-size: ;
   font-family: "Poppins", sans-serif;
   padding-left: 32px;
   padding-right: 24px;
@@ -97,9 +98,10 @@
     gap: 10px;
   }
 
-  #backBtn,
-  #forwardBtn {
+  #backBtn
+   {
     height: 55px;
+    width: 15%;
     margin-top: 0px;
   }
 }
@@ -108,7 +110,7 @@
   #forwardBtn {
     width: 30%;
     /* height: 60%; */
-    font-size: 8px;
+    font-size: 12px;
     gap: 10px;
   }
 
@@ -116,5 +118,7 @@
   #forwardBtn {
     height: 50px;
     margin-top: 0px;
+    font-size: 12px;
+
   }
 }

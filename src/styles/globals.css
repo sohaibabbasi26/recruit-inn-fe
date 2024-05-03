@@ -9,6 +9,10 @@ body {
 *:disabled {
   cursor: not-allowed;
 }
+
+button {
+  cursor: pointer;
+}
 .PhoneInputCountryIcon{
   width: 60%;
   height: 40px;
@@ -37,7 +41,7 @@ body {
     margin-left: 20px;
     border-radius: 580px;
     width: 30px;
-}
+} 
 .phoneInput2{
    margin-left:30px;
    padding-left: 200px;

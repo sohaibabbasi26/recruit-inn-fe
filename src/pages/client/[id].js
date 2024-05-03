@@ -1,22 +1,20 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css';
-import SideNavbar from '../../../components/SideNavbar';
-import SuperComponent from '../../../components/SuperComponent';
-import RightComponent from '../../../components/RightComponent';
-import { useState, useEffect } from 'react';
-import Overlay from '../../../components/Overlay';
-import { useActiveItem } from '../../contexts/ActiveItemContext';
-import Super from '../../../components/Super';
-import ReportOverlay from '../../../components/ReportOverlay';
-import JobOverlay from '../../../components/JobOverlay';
-import { useRouter } from 'next/router';
-import SuccessIndicator from '../../../components/SuccessIndicator';
-import ErrorIndicator from '../../../components/ErrorIndicator';
-import PaymentOverlay from '../../../components/PaymentOverlay';
 import { FormProvider } from '@/contexts/FormContext';
 import { useTestState } from '@/contexts/TestRequirementContext';
+import styles from '@/styles/Home.module.css';
+import { Inter } from 'next/font/google';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import ErrorIndicator from '../../../components/ErrorIndicator';
+import JobOverlay from '../../../components/JobOverlay';
+import Overlay from '../../../components/Overlay';
+import PaymentOverlay from '../../../components/PaymentOverlay';
+import ReportOverlay from '../../../components/ReportOverlay';
+import RightComponent from '../../../components/RightComponent';
+import SideNavbar from '../../../components/SideNavbar';
+import SuccessIndicator from '../../../components/SuccessIndicator';
+import Super from '../../../components/Super';
+import SuperComponent from '../../../components/SuperComponent';
+import { useActiveItem } from '../../contexts/ActiveItemContext';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -152,12 +150,12 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
       const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
 
-      const expertiseList = candidate.expertise.map(exp => ({
+      const expertiseList = candidate?.expertise?.map(exp => ({
         skill: exp.skill,
         level: exp.level
       }));
 
-      const inferredPosition = candidate.expertise.length > 0 ? candidate.expertise[0].skill : 'N/A'; // Inferred position from the first skill
+      const inferredPosition = candidate?.expertise?.length > 0 ? candidate?.expertise[0]?.skill : 'N/A'; // Inferred position from the first skill
 
       return {
         candidate_id: candidate.candidate_id,
