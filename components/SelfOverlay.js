@@ -66,6 +66,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
   const [checkIfEmailPresent, setCheckIfEmailPresent] = useState(false);
 
   const toggleComponent = async () => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
     if (
       currentStage === stages.PERSONAL_INFO &&
       (!name?.trim() ||
@@ -269,6 +271,25 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     return regex.test(email);
   };
 
+  const validatePassword = (password) => {
+    // Password should be at least 8 characters long
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+    if (password.length < 8) {
+      setMessage("Password must be at least 8 characters long.");
+      showError();
+      return false;
+    } else if (!regex.test(password)) {
+      setMessage(
+        "Password must contain at least 8 characters one lowercase letter, one uppercase letter, one number, and one special character."
+      );
+      showError();
+      return false;
+    } else {
+      return true;
+    }
+    return true; // Empty string indicates no validation errors
+  };
   const handlePersonalInfo = async () => {
     setIsLoading(true);
     try {

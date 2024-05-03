@@ -129,8 +129,7 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
     return () => {
       isMounted = false;
     };
-  }, [id])
-
+  }, [id]);
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates.map(candidate => {
