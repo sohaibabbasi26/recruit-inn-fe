@@ -69,7 +69,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [checkIfEmailPresent, setCheckIfEmailPresent] = useState(false);
 
     const toggleComponent = async () => {
-
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+        
         if ((currentStage === stages.PERSONAL_INFO) && (!name?.trim() || !email?.trim() || !contact?.trim() || !expertise?.trim() || !country?.trim() || !city?.trim() || !password.trim())) {
             setMessage("Please fill all the fields first");
             showError();
@@ -81,12 +82,18 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             showError();
             return;
         }
-
+        else if (currentStage === stages.PERSONAL_INFO && (password.length < 8 )) {
+            console.log("going to this condition : " )
+            setMessage("Password must be at least 8 characters long ");
+            showError();
+            return;
+        }
         else if (currentStage === stages.PERSONAL_INFO && !validateNumber()) {
             setMessage("Entered contact is not a number");
             showError();
             return;
         }
+
 
         else if ((currentStage === stages.SKILLS) && !validateAddSkill()) {
             setMessage("At least enter one skill!");
@@ -233,6 +240,24 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         return regex.test(email);
     };
 
+    const validatePassword = (password) => {
+        // Password should be at least 8 characters long
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+        if (password.length < 8) {
+            setMessage("Password must be at least 8 characters long.");
+            showError();
+            return false;
+        }
+        else if (!regex.test(password)) {
+            setMessage("Password must contain at least 8 characters one lowercase letter, one uppercase letter, one number, and one special character.");
+            showError();
+            return false;
+        }
+        else{
+            return true;
+        }
+        return true; // Empty string indicates no validation errors
+    };
     const handlePersonalInfo = async () => {
         setIsLoading(true);
         try {

@@ -414,11 +414,12 @@ const QuestionBox = ({ hasStarted }) => {
                                             <>
                                                 <li
                                                     key={question.question_id}
-                                                    style={completedQuestions.includes(question) ?
-                                                        { backgroundColor: '#F0EDFC', color: '#6137DB' } :
-                                                        currentQuestion === question ?
-                                                            { backgroundColor: '#6137DB', color: '#fff' } :
-                                                            { backgroundColor: '#F5F5F5', color: '#4A525D' }}>{question.question_id}
+                                                    style={{
+                                                        backgroundColor: currentQuestion === question.question_id ? '#6137db' : '#f0edfc',
+                                                        color: currentQuestion === question.question_id ? 'white' : 'black'
+                                                    }}
+                                                >
+                                                    {question.question_id}
                                                 </li>
                                             </>
                                         )

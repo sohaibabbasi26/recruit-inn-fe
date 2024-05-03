@@ -52,7 +52,7 @@ const Jobs = ({
         <div className={styles.headingContainer}>
           <div className={styles.heading}>
             <h3>Posted Jobs</h3>
-            <span>{data?.length || 0}</span>
+            <span>{ data?.length || 0}</span>
           </div>
           <Image
             src="/goAll.svg"

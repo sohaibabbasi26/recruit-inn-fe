@@ -30,7 +30,7 @@ const CompletionComponent = ({ getActiveComponent}) => {
             <div className={styles.container}>
                 <div className={styles.topContainer}>
                         <Image src='/completion.svg' width={imagsSize} height={imagsSize} />
-                        <h3>Congratulations</h3>
+                        <h3>Congratulations {} </h3>
                         <p>You've successfully completed your assessment</p>
                 </div>
 

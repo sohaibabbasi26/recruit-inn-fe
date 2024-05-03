@@ -3,14 +3,16 @@ import Image from 'next/image';
 
 const Banner = () => {
 
-    const successIndicatorSize = 70;
+    const successIndicatorSize = 60;
     const rightImg = 200;
 
     return (<>
         <div className={styles.bannerContainer}>
+
             <div className={styles.container}>
-                <div className={styles.leftContent}>
-                    <Image src='/successIndicator.svg' width={successIndicatorSize} height={successIndicatorSize} />
+            <div className={styles.leftContent}>
+
+            <img src='/successIndicator.svg' width={successIndicatorSize} height={successIndicatorSize} className='successIndicator' />
                     <p>
                         Click on <span>Generate Test</span> to create AI Assessment for candidate
                     </p>
