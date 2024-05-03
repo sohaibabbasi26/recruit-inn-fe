@@ -89,6 +89,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
       setMessage("Entered email is not valid");
       showError();
       return;
+    } else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
+      console.log("going to this condition : ");
+      setMessage("Password must be at least 8 characters long ");
+      showError();
+      return;
     } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateNumber(contact)
