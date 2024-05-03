@@ -1,8 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState, useContext } from 'react';
 import styles from './PersonalInfo.module.css';
 import Image from 'next/image';
-import NameContext from '@/contexts/NameContext';
-import { useContext } from 'react';
+import PhoneInput from 'react-phone-number-input';
 
 const PersonalInfo = forwardRef(({
     setCity,
@@ -26,94 +25,95 @@ const PersonalInfo = forwardRef(({
     expertise,
     country,
     city,
-}) => {
-    const { updateName } = useContext(NameContext);
+}, ref) => {
+    // const [phoneNumber, setPhoneNumber] = useState(contact || '');
 
-    const handleNameChange = (e) => {
-        updateName(e.target.value);
+    // // Handling the form input changes
+    const handleInputChange = (setter) => (event) => {
+        setter(event.target.value);
     };
 
-    console.log("validation errors:", validationErrors);
-
     return (
-
         <>
             <div className={styles.superContainer}>
                 <div className={styles.masterContainer}>
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <input placeholder='Enter your name' value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </div>
-                        {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors?.name}</div>}
+                    <div className={styles.infoField}>
+                        <Image src="/smiley.svg" alt="Name" width={20} height={20} />
+                        <input
+                            placeholder="Enter your name"
+                            type="text"
+                            value={name}
+                            onChange={handleInputChange(setName)}
+                        />
+                        {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors.name}</div>}
                     </div>
 
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <input placeholder='Enter your email' value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-                        {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors?.email}</div>}
+                    <div className={styles.infoField}>
+                        <Image src="/email.svg" alt="Email" width={20} height={20} />
+                        <input
+                            placeholder="Enter your email"
+                            type="email"
+                            value={email}
+                            onChange={handleInputChange(setEmail)}
+                        />
+                        {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors.email}</div>}
                     </div>
 
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <input placeholder='Enter your number' value={contact}
-                                onChange={(e) => setContact(e.target.value)}
-                            />
-                        </div>
-                        {validationErrors?.contact && <div className={styles.errorMessage}>{validationErrors?.contact}</div>}
+                    <div className={styles.infoField}>
+                        <Image src="/phone.svg" alt="Phone" width={20} height={20} />
+                        <PhoneInput className={styles.phoneInput2}
+                            international
+                            defaultCountry="PK"
+                            value={contact}
+                            onChange={setContact}
+                        />
+                        {validationErrors?.contact && <div className={styles.errorMessage}>{validationErrors.contact}</div>}
+                    </div>
+                     
+                    <div className={styles.infoField}>
+                        <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
+                    <select
+                        placeholder="Choose level of difficulty"
+                        value={expertise}
+                        onChange={handleInputChange(setExpertise)}
+                        >
+                        <option value="" enable>
+                            Choose level of difficulty
+                        </option>
+                        <option value="beginner">Beginnner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="expert">Expert</option>
+                        </select>
+                        {validationErrors?.expertise && <div className={styles.errorMessage}>{validationErrors.expertise}</div>}
+                    </div>
+        
+                    <div className={styles.infoField}>
+                        <Image src="/earth.svg" alt="Country" width={20} height={20} />
+                        <select
+                            value={country}
+                            onChange={handleInputChange(setCountry)}
+                        >
+                            <option value="">Select your country</option>
+                            <option value="PK">Pakistan</option>
+                        </select>
+                        {validationErrors?.country && <div className={styles.errorMessage}>{validationErrors.country}</div>}
                     </div>
 
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <select value={expertise}
-                                onChange={(e) => setExpertise(e.target.value)}
-                            >
-                                <option value='Select Your Expertise' selected disabled>Select Your Expertise</option>
-                                <option value='Expert'>Expert</option>
-                                <option value='Intermediate'>Intermediate</option>
-                                <option value='Beginner' >Beginner</option>
-                            </select>
-                        </div>
-                        {validationErrors?.expertise && <div className={styles.errorMessage}>{validationErrors?.expertise}</div>}
+                    <div className={styles.infoField}>
+                        <Image src="/aim.svg" alt="City" width={20} height={20} />
+                        <select
+                            value={city}
+                            onChange={handleInputChange(setCity)}
+                        >
+                            <option value="">Select your city</option>
+                            <option value="Karachi">Karachi</option>
+                        </select>
+                        {validationErrors?.city && <div className={styles.errorMessage}>{validationErrors.city}</div>}
                     </div>
-
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <select value={country}
-                                onChange={(e) => setCountry(e.target.value)}
-                            >
-                                <option>Select your country</option>
-                                <option value='Pakistan'>Pakistan</option>
-                            </select>
-                        </div>
-                        {validationErrors?.country && <div className={styles.errorMessage}>{validationErrors?.country}</div>}
-                    </div>
-
-                    <div>
-                        <div className={styles.infoField}>
-                            <Image />
-                            <select value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            >
-                                <option>Select your city</option>
-                                <option value='Karachi'>Karachi</option>
-                            </select>
-                        </div>
-                        {validationErrors?.city && <div className={styles.errorMessage}>{validationErrors?.city}</div>}
-                    </div>
-
                 </div>
             </div>
         </>
-    )
-})
+    );
+});
+
 export default PersonalInfo;
