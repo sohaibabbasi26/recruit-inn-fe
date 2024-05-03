@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import ErrorIndicator from "../../components/ErrorIndicator";
 
 const CodingExcersice = () => {
+    useEffect(() => {
+        localStorage.setItem('activeFlow', 'Candidate_self');
+    }, []);
 
     const [Code, setCode] = useState(null);
     const [language, setLanguage] = useState(null);
@@ -124,7 +127,7 @@ const CodingExcersice = () => {
     return (
         <>
             {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
-            <CodingChild formatTime={formatTime} timeLeft = {timeLeft} codeSubmitHandler={codeSubmitHandler} constraints={constraints} setConstraints={setConstraints} question={question} setQuestion={setQuestion} isLoading={isLoading} setIsLoading={setIsLoading} output={output} executeCode={executeCode} code={Code} language={language} setCode={setCode} setLanguage={setLanguage} />
+            <CodingChild cid={cid} formatTime={formatTime} timeLeft = {timeLeft} codeSubmitHandler={codeSubmitHandler} constraints={constraints} setConstraints={setConstraints} question={question} setQuestion={setQuestion} isLoading={isLoading} setIsLoading={setIsLoading} output={output} executeCode={executeCode} code={Code} language={language} setCode={setCode} setLanguage={setLanguage} />
         </>
     )
 }

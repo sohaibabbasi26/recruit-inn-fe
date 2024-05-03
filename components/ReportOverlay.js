@@ -13,9 +13,6 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
     const [isCodingAssessment, setIsCodingAssessment] = useState(false);
     const [results, setResults] = useState(false);
 
-    
-
-
     useEffect(() => {
         async function fetchCandidatesCodingResult() {
             const requestBody = {
@@ -26,7 +23,6 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify(requestBody),
                 });

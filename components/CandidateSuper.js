@@ -10,7 +10,6 @@ const CandidateSuper = ({
     isLoading,
     contact,
     results,
-    // isLoading,
     generateTestAndRedirect,
     recommendedCandidates,
     reportOverlay,
@@ -25,15 +24,15 @@ const CandidateSuper = ({
     isDisable
 }) => {
 
-    const showJobOverlay = (job) => {
-        setSelectedJob(job);
-        setJobOverlay(true)
-    };
+    // const showJobOverlay = (job) => {
+    //     setSelectedJob(job);
+    //     setJobOverlay(true)
+    // };
 
-    const showCandidateOverlay = (cand) => {
-        setSelectedCandidate(cand);
-        setReportOverlay(true);
-    }
+    // const showCandidateOverlay = (cand) => {
+    //     setSelectedCandidate(cand);
+    //     setReportOverlay(true);
+    // }
 
     const activeItem = useActiveItem();
     const iconSize = 20;
@@ -42,7 +41,7 @@ const CandidateSuper = ({
     return (
         <div className={styles.superContainer}>
             {isLoading ? (
-                
+
                 <>
                     <div className={styles.loader}>
 

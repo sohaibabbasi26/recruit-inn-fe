@@ -18,7 +18,7 @@ import SuccessIndicator from './SuccessIndicator';
 import PersonalInfoSelf from './PersonalInfoself';
 // import ErrorIndicator from './ErrorIndicator';
 
-const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
+const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequired, setIsTestRequired }) => {
 
     const overlayRef = useRef(null);
 
@@ -67,6 +67,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [candidate, setCandidate] = useState();
     const [checkIfEmailPresent, setCheckIfEmailPresent] = useState(false);
+    const [codeQues,setCodeQues] = useState();
+    const [assessmentId,setAssessmentId] = useState();
 
     const toggleComponent = async () => {
 
@@ -171,6 +173,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [questionId, setQuestionId] = useState([]);
     const [text, setText] = useState();
     const [personalInfo, setPersonalInfo] = useState();
+    const [testReq, setTestReq] = useState(false);
+    // const [isTestRequired,setIsTestRequired] = useState();
 
     useEffect(() => {
         const reqBody = {
@@ -399,7 +403,45 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
         } catch (err) {
             console.log("error:", err)
         }
+
+        console.log("Is test Required:",isTestRequired);
+        if (isTestRequired === true) {
+        try {
+          setIsLoading(true);
+          const req = {
+            codingExpertise: techStack,
+            candidate_id: candidateId
+          };
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(req),
+            }
+          );
+          const data = await response.json();
+          setCodeQues(data);
+          setAssessmentId(data?.data?.assessment_id);
+          if(data?.data?.assessment_id){
+            setTestReq(true);
+            
+          }
+          console.log("assessment id:", assessmentId);
+          console.log("code question data:", data);
+          setIsLoading(false);
+     
+        } catch (err) {
+          console.error("ERROR:", err);
+        }
+      }
     }
+
+    useEffect(() => {
+        console.log('code assessment id:', assessmentId)
+    },[assessmentId])
 
     return (
         <>
@@ -417,7 +459,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                             <div className={styles.topContainer}>
                                 <h2>{stageHeadings[currentStage]}</h2>
                             </div>
-
 
                             <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
@@ -437,10 +478,9 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                                     </div>
                                 </>
                             )}
-
                             {currentStage === stages.SKILLS && (
                                 <>
-                                    <CandSelfSkill handleTestPreparation={handleTestPreparation} setTechStack={setTechStack} />
+                                    <CandSelfSkill isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} handleTestPreparation={handleTestPreparation} setTechStack={setTechStack} />
 
                                     <div className={styles.wrapper}>
                                         <CandSelfSkillBtns handleTestPreparation={handleTestPreparation} onContinue={toggleComponent} onBack={backToggleComponent} />
@@ -452,7 +492,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
                                 <>
                                     <CandSelfAssessment />
                                     <div className={styles.wrapper}>
-                                        <CandSelfAssessmentBtns setIsLoading={setIsLoading} questionId={questionId} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
+                                        <CandSelfAssessmentBtns testReq={testReq} assessmentId={assessmentId} questionId={questionId} setIsLoading={setIsLoading} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
                                     </div>
                                 </>
                             )}

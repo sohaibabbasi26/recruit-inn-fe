@@ -1,14 +1,11 @@
-<<<<<<< HEAD
-import { forwardRef } from "react";
-import styles from "./PersonalInfo.module.css";
-import Image from "next/image";
+// import { forwardRef } from "react";
+// import styles from "./PersonalInfo.module.css";
+// import Image from "next/image";
 import NameContext from "@/contexts/NameContext";
-import { useContext } from "react";
-import { useState } from "react";
+// import { useContext } from "react";
+// import { useState } from "react";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
-=======
->>>>>>> 4a751b7e88f9b27e95dbcf20cc2407b2e10614db
 
 import { forwardRef, useState, useContext } from 'react';
 import styles from './PersonalInfo.module.css';
@@ -153,16 +150,11 @@ const PersonalInfo = forwardRef(({
                         {validationErrors?.city && <div className={styles.errorMessage}>{validationErrors.city}</div>}
                     </div>
                 </div>
-<<<<<<< HEAD
               )}
             </div> */}
           </div>
         </div>
       </>
-=======
-            </div>
-        </>
->>>>>>> 4a751b7e88f9b27e95dbcf20cc2407b2e10614db
     );
 });
 

@@ -207,6 +207,7 @@ const QuestionBox = ({ hasStarted }) => {
             console.log("take-test api response:", data);
             console.log('value in test_req state:', test_req);
             console.log('test_req state = ', test_req === 'true');
+            console.log("a_ID:", a_id);
             if (test_req === 'true' && a_id) {
                 router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
                 setIsLoading(false);
@@ -248,7 +249,6 @@ const QuestionBox = ({ hasStarted }) => {
 
                 } else {
                     await stopAndHandleRecording();
-                    
                 }
                 console.log('completed questions:', completedQuestions);
                 console.log('current questions:', currentQuestion);
