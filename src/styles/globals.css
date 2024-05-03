@@ -9,13 +9,10 @@ body {
 *:disabled {
   cursor: not-allowed;
 }
-<<<<<<< HEAD
-=======
 
 button {
   cursor: pointer;
 }
->>>>>>> 5c1c60bbc183b22bf78a389c1426b964a2dd75ed
 .PhoneInputCountryIcon{
   width: 60%;
   height: 40px;

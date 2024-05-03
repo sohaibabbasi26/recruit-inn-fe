@@ -1,17 +1,8 @@
-<<<<<<< HEAD
 import { forwardRef, useState, useContext } from 'react';
 import styles from './PersonalInfo.module.css';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-number-input';
 
-=======
-
-import { forwardRef, useState, useContext } from 'react';
-import styles from './PersonalInfo.module.css';
-import Image from 'next/image';
-import PhoneInput from 'react-phone-number-input';
-
->>>>>>> 5c1c60bbc183b22bf78a389c1426b964a2dd75ed
 const PersonalInfo = forwardRef(({
     setCity,
     setCountry,
@@ -122,5 +113,4 @@ const PersonalInfo = forwardRef(({
     );
 });
 
-<<<<<<< HEAD
 export default PersonalInfo;
