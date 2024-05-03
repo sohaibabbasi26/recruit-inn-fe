@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import { forwardRef, useState, useContext } from 'react';
 import styles from './PersonalInfo.module.css';
 import Image from 'next/image';
 import PhoneInput from 'react-phone-number-input';
 
+=======
+
+import { forwardRef, useState, useContext } from 'react';
+import styles from './PersonalInfo.module.css';
+import Image from 'next/image';
+import PhoneInput from 'react-phone-number-input';
+
+>>>>>>> 5c1c60bbc183b22bf78a389c1426b964a2dd75ed
 const PersonalInfo = forwardRef(({
     setCity,
     setCountry,
@@ -69,24 +78,21 @@ const PersonalInfo = forwardRef(({
                         />
                         {validationErrors?.contact && <div className={styles.errorMessage}>{validationErrors.contact}</div>}
                     </div>
-                     
+
                     <div className={styles.infoField}>
                         <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
-                    <select
-                        placeholder="Choose level of difficulty"
-                        value={expertise}
-                        onChange={handleInputChange(setExpertise)}
+                        <select
+                            value={expertise}
+                            onChange={handleInputChange(setExpertise)}
                         >
-                        <option value="" enable>
-                            Choose level of difficulty
-                        </option>
-                        <option value="beginner">Beginnner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="expert">Expert</option>
+                            <option value="" disabled>Select Your Expertise</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Expert">Expert</option>
                         </select>
                         {validationErrors?.expertise && <div className={styles.errorMessage}>{validationErrors.expertise}</div>}
                     </div>
-        
+
                     <div className={styles.infoField}>
                         <Image src="/earth.svg" alt="Country" width={20} height={20} />
                         <select
@@ -116,4 +122,5 @@ const PersonalInfo = forwardRef(({
     );
 });
 
+<<<<<<< HEAD
 export default PersonalInfo;

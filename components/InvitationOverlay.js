@@ -28,7 +28,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
           expertiseRef.current.value = savedFormData.expertise || '';
           countryRef.current.value = savedFormData.country || '';
           cityRef.current.value = savedFormData.city || '';
-          
+         
         } catch (error) {
           console.error('Error loading form data from local storage:', error);
         }
@@ -126,7 +126,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     const [validationErrors, setValidationErrors] = useState({});
     const [allFieldsCheck,setAllFieldsCheck] = useState();
     const [reqBody, setReqBody] = useState(null);
-    
+   
 
     useEffect(() => {
         console.log("hey its me! req body", reqBody);
@@ -136,7 +136,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         const allFields = validateAllFields();
         console.log('all fields:',allFields);
         setAllFieldsCheck(allFields);
-        
+       
         if(!validateAllFields){
             setMessage('Please enter all the fields')
             showSuccess();
@@ -208,9 +208,9 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             (country && country.trim() !== '') &&
             (city && city.trim() !== '')
         );
-        
+       
     }
-    
+   
     const handleContinue = () => {
         const errors = {};
         let isFormIncomplete = false;
@@ -339,7 +339,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         const newCompletedStages = [...completedStages, currentStage];
         setCompletedStages(newCompletedStages);
         let isValid = false;
-    
+   
         switch (currentStage) {
             case stages.JOB_DETAIL:
                 setCurrentStage(stages.PERSONAL_INFO);
@@ -347,7 +347,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             case stages.PERSONAL_INFO:
                 isValid = validateAllFields();
                 console.log("validation :",validateAllFields());
-                
+               
                 if (!isValid || isValid == undefined) {
                     setMessage('Please make sure to fill all the fields correctly.');
                     showSuccess();
@@ -359,7 +359,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                 setCurrentStage(stages.JOB_DETAIL);
         }
     };
-    
+   
 
     // const toggleComponent = () => {
     //     // First, check if we are in the PERSONAL_INFO stage and validate fields
@@ -373,7 +373,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     //     //         return; // Do not proceed to the next stage
     //     //     }
     //     // }
-    
+   
     //     // Proceed with setting the next stage as before
     //     const newCompletedStages = [...completedStages, currentStage];
     //     setCompletedStages(newCompletedStages);
@@ -556,7 +556,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
     return (
         <>
-        {positionStatus === "Closed" && 
+        {positionStatus === "Closed" &&
         <div className={styles.closejobs}>
             <p >This job is closed </p>
         </div>

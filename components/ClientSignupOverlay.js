@@ -224,9 +224,7 @@ const ClientSignUpOverlay = ({
           <div className={styles.coverContainer}>
             <div className={styles.topContainer}>
               <h2>
-                {stageHeadings[currentStage]
-                  ? stageHeadings[currentStage]
-                  : "Default Heading"}
+                Personal Info
               </h2>
             </div>
 

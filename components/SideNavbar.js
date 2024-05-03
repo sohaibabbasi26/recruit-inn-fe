@@ -4,15 +4,15 @@ import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 
-const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
+const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
   const router = useRouter();
   const [showupgrade, setshowupgrade] = useState(false);
   const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
 
-  const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(false);
+  const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(true);
   const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] =
-    useState(false);
+    useState(true);
 
   const upgradeHandler = () => {
     if (isDropDownJobsToggle) setIsDropDownJobsToggle(false);
@@ -69,34 +69,94 @@ const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
             </h3>
           </div>
 
-          <div
-            className={
-              activeItem === "Dashboard"
-                ? `${styles.dashboardButton} ${styles.active}`
-                : `${styles.dash}`
-            }
-            onClick={() => handleItemClick("Dashboard")}
-          >
-            Dashboard
-            <Image src="/Feed.svg" width={listItemSize} height={listItemSize} />
-          </div>
+          {/* Try */}
+          <div className={styles.dashboardWrapper}>
+            <div
+              className={
+                activeItem === "Dashboard"
+                  ? `${styles.dashboardButton} ${styles.active}`
+                  : `${styles.dash}`
+              }
+              onClick={() => handleItemClick("Dashboard")}
+            >
+              Dashboard
+              <Image
+                src="/Feed.svg"
+                width={listItemSize}
+                height={listItemSize}
+              />
+            </div>
 
-          <div className={styles.listContainer}>
-            <div className={styles.list}>
-              <h4 onClick={handleDropDownJobsToggle}>
-                Jobs <Image src="/dropdown.svg" width={15} height={15} />
+            <div className={styles.listContainer}>
+              <div className={styles.list}>
+                <h4 onClick={handleDropDownJobsToggle}>
+                  Jobs <Image src="/dropdown.svg" width={15} height={15} />
+                </h4>
+                {isDropDownJobsToggle && (
+                  <ul>
+                    <li
+                      className={
+                        activeItem === "AllJobs"
+                          ? `${styles.dashboardButton} ${styles.active}`
+                          : ""
+                      }
+                      onClick={() => handleItemClick("AllJobs")}
+                    >
+                      All{" "}
+                      <Image
+                        src="/Apps.svg"
+                        width={listItemSize}
+                        height={listItemSize}
+                      />
+                    </li>
+                    <li
+                      className={
+                        activeItem === "Active"
+                          ? `${styles.dashboardButton} ${styles.active}`
+                          : ""
+                      }
+                      onClick={() => handleItemClick("Active")}
+                    >
+                      Active
+                      <Image
+                        src="/CheckAlt.svg"
+                        width={listItemSize}
+                        height={listItemSize}
+                      />
+                    </li>
+                    <li
+                      className={
+                        activeItem === "Closed"
+                          ? `${styles.dashboardButton} ${styles.active}`
+                          : ""
+                      }
+                      onClick={() => handleItemClick("Closed")}
+                    >
+                      Closed
+                      <Image
+                        src="/crossAlt.svg"
+                        width={listItemSize}
+                        height={listItemSize}
+                      />
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              <h4 onClick={handleDropDownCandidatesToggle}>
+                Candidates <Image src="/dropdown.svg" width={15} height={15} />
               </h4>
-              {isDropDownJobsToggle && (
+              {isDropDownCandidatesToggle && (
                 <ul>
                   <li
                     className={
-                      activeItem === "AllJobs"
+                      activeItem === "All"
                         ? `${styles.dashboardButton} ${styles.active}`
                         : ""
                     }
-                    onClick={() => handleItemClick("AllJobs")}
+                    onClick={() => handleItemClick("All")}
                   >
-                    All{" "}
+                    All
                     <Image
                       src="/Apps.svg"
                       width={listItemSize}
@@ -105,28 +165,43 @@ const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
                   </li>
                   <li
                     className={
-                      activeItem === "Active"
+                      activeItem === "Recommended"
                         ? `${styles.dashboardButton} ${styles.active}`
                         : ""
                     }
-                    onClick={() => handleItemClick("Active")}
+                    onClick={() => handleItemClick("Recommended")}
                   >
-                    Active
+                    Recommended
                     <Image
-                      src="/CheckAlt.svg"
+                      src="/star.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />
                   </li>
                   <li
                     className={
-                      activeItem === "Closed"
+                      activeItem === "Qualified"
                         ? `${styles.dashboardButton} ${styles.active}`
                         : ""
                     }
-                    onClick={() => handleItemClick("Closed")}
+                    onClick={() => handleItemClick("Qualified")}
                   >
-                    Closed
+                    Qualified
+                    <Image
+                      src="/like.svg"
+                      width={listItemSize}
+                      height={listItemSize}
+                    />
+                  </li>
+                  <li
+                    className={
+                      activeItem === "NotEligible"
+                        ? `${styles.dashboardButton} ${styles.active}`
+                        : ""
+                    }
+                    onClick={() => handleItemClick("NotEligible")}
+                  >
+                    Not Eligible
                     <Image
                       src="/Restrict.svg"
                       width={listItemSize}
@@ -136,75 +211,8 @@ const SideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) => {
                 </ul>
               )}
             </div>
-
-            <h4 onClick={handleDropDownCandidatesToggle}>
-              Candidates <Image src="/dropdown.svg" width={15} height={15} />
-            </h4>
-            {isDropDownCandidatesToggle && (
-              <ul>
-                <li
-                  className={
-                    activeItem === "All"
-                      ? `${styles.dashboardButton} ${styles.active}`
-                      : ""
-                  }
-                  onClick={() => handleItemClick("All")}
-                >
-                  All
-                  <Image
-                    src="/Globe.svg"
-                    width={listItemSize}
-                    height={listItemSize}
-                  />
-                </li>
-                <li
-                  className={
-                    activeItem === "Recommended"
-                      ? `${styles.dashboardButton} ${styles.active}`
-                      : ""
-                  }
-                  onClick={() => handleItemClick("Recommended")}
-                >
-                  Recommended
-                  <Image
-                    src="/Bolt.svg"
-                    width={listItemSize}
-                    height={listItemSize}
-                  />
-                </li>
-                <li
-                  className={
-                    activeItem === "Qualified"
-                      ? `${styles.dashboardButton} ${styles.active}`
-                      : ""
-                  }
-                  onClick={() => handleItemClick("Qualified")}
-                >
-                  Qualified
-                  <Image
-                    src="/Star.svg"
-                    width={listItemSize}
-                    height={listItemSize}
-                  />
-                </li>
-                <li
-                  className={
-                    activeItem === "NotEligible"
-                      ? `${styles.dashboardButton} ${styles.active}`
-                      : ""
-                  }
-                  onClick={() => handleItemClick("NotEligible")}
-                >
-                  Not Eligible
-                  <Image
-                    src="/Warning.svg"
-                    width={listItemSize}
-                    height={listItemSize}
-                  />
-                </li>
-              </ul>
-            )}
           </div>
+          {/* End */}
         </div>
         <div className={`${styles.profnameback} ${styles.focus}`}>
           {showupgrade && (

@@ -42,9 +42,15 @@ const CandidateVerify = ({
 
     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
 
-    if (element.nextSibling) {
-      element.nextSibling.focus();
-    }
+    // focus Next sibling
+    if (element.value)
+      if (element.nextSibling) {
+        element.nextSibling.focus();
+      }
+
+    // focus Prev sibling
+    if (!element.value)
+      if (element.previousSibling) element.previousSibling.focus();
   };
 
   return (
