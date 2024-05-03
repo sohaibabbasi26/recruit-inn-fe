@@ -1,4 +1,3 @@
-
 import { forwardRef, useState, useContext } from 'react';
 import styles from './PersonalInfo.module.css';
 import Image from 'next/image';
