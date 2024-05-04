@@ -82,7 +82,8 @@ const Overlay = React.memo(
     const [completedStages, setCompletedStages] = useState([]);
     const [techStack, setTechStack] = useState(null);
     const [position, setPosition] = useState(null);
-    const [location, setLocation] = useState(null);
+    const [city, setCity] = useState(null);
+    const [country, setCountry] = useState(null);
     const [jobtype, setJobtype] = useState(null);
     const [description, setDescription] = useState(null);
     const [emailReceiver, setEmailReceiver] = useState(null);
@@ -92,7 +93,8 @@ const Overlay = React.memo(
     const [positionName, setPositionName] = useState(null);
     const expertiseRef = useRef({});
     const positionRef = useRef();
-    const locationRef = useRef();
+    const cityRef = useRef();
+    const countryRef = useRef();
     const jobTypeRef = useRef();
     const descriptionRef = useRef();
     const [questionId, setQuestionId] = useState();
@@ -135,13 +137,15 @@ const Overlay = React.memo(
 
     useEffect(() => {
       setPosition(positionRef?.current?.value);
-      setLocation(locationRef?.current?.value);
+      setCity(cityRef?.current?.value);
+      setCountry(countryRef?.current?.value);
       setJobtype(jobTypeRef?.current?.value);
       setDescription(descriptionRef?.current?.value);
     }, [
       positionRef?.current?.value,
       expertiseRef?.current?.value,
-      locationRef?.current?.value,
+      cityRef?.current?.value,
+      countryRef?.current?.value,
       jobTypeRef?.current?.value,
       description?.current?.value,
     ]);
@@ -164,7 +168,8 @@ const Overlay = React.memo(
     const validateJobType = () => {
       return (
         positionRef.current.value.trim() !== "" &&
-        locationRef.current.value.trim() !== "" &&
+        cityRef.current.value.trim() !== "" &&
+        countryRef.current.value.trim() !== "" &&
         jobTypeRef.current.value.trim() !== "" &&
         description?.trim()
       );
@@ -263,9 +268,12 @@ const Overlay = React.memo(
         expertise: techStack,
         job_type: jobTypeRef.current.value,
         description: description,
-        location: locationRef.current.value,
+        location: cityRef.current.value + ", " + countryRef.current.value,
+        // country: ,
         is_test_required: isTestRequired,
       };
+
+      console.log("request body:", requestBody);
 
       localStorage.setItem(
         "expertiseData",
@@ -591,15 +599,18 @@ const Overlay = React.memo(
                       position={position}
                       jobtype={jobtype}
                       description={description}
-                      location={location}
+                      city={city}
+                      country={country}
                       positionRef={positionRef}
                       jobTypeRef={jobTypeRef}
                       descriptionRef={descriptionRef}
-                      locationRef={locationRef}
+                      cityRef={cityRef}
+                      countryRef={countryRef}
                       setPosition={setPosition}
                       setJobtype={setJobtype}
                       setDescription={setDescription}
-                      setLocation={setLocation}
+                      setCity={setCity}
+                      setCountry={setCountry}
                     />
                     <div className={styles.wrapper}>
                       <JobTypeBtns

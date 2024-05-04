@@ -22,8 +22,6 @@ const CodingChild = ({ formatTime, timeLeft, question, setQuestion, codeSubmitHa
     }, [a_id])
 
     const getActiveComponent = () => {
-
-
         const activeFlow = localStorage.getItem('activeFlow');
         setActvflow(activeFlow)
         console.log("Current active flow:", activeFlow);
@@ -41,24 +39,12 @@ const CodingChild = ({ formatTime, timeLeft, question, setQuestion, codeSubmitHa
 
         async function fetchCodingQues() {
             if (!router.isReady) return;
-            // if (actvFlow === 'Client') {
-            //     console.log('actvFlow:',actvFlow);
-                
-            //     console.log('request body:', rBody);
-            //     setRequestBody(rBody);
-            // } else if (actvFlow === 'Candidate_self') {
-            //     const reqBody = {
-            //         assessment_id: a_id,
-            //         candidate_id: cid
-            //     }
-            //   setRequestBody(reqBody);
-            // }
+
             const rBody = {
                 assessment_id: a_id,
                 position_id: pid,
                 candidate_id : cid
             }
-
 
             console.log("API WE ARE GONNA SMASHHHHH:HHH", `${process.env.NEXT_PUBLIC_REMOTE_URL}${getActiveComponent()}`);
             console.log("req body:", requestBody)

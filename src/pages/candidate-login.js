@@ -16,7 +16,7 @@ const CandidateSelfLogin = () => {
     }
 
     const stageHeadings = {
-        LOG_IN: 'Login',
+        LOG_IN: 'Personal Info',
     };
 
         useEffect(() => {

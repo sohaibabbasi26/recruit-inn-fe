@@ -1,22 +1,25 @@
-import CompletionComponent from '../../components/CompletionComponent';
-import styles from './test.module.css';
-import { useActiveFlow } from '@/contexts/ActiveFlowContext';
-import { useEffect,useState } from 'react';
+import CompletionComponent from "../../components/CompletionComponent";
+import styles from "./test.module.css";
+import { useActiveFlow } from "@/contexts/ActiveFlowContext";
+import { useEffect, useState } from "react";
 
 const testSumitCompletion = () => {
+  const { activeFlow } = useActiveFlow();
+  const [candidateId, setCandidateId] = useState("");
 
-    const {activeFlow} = useActiveFlow();
-    const [candidateId, setCandidateId] = useState('');
+  useEffect(() => {
+    const storedTestData = localStorage.getItem("candidate-id");
+    const candidateNameForTimeBeing = localStorage.getItem(
+      "candidateNameForTimeBeing"
+    );
 
-    
+    if (storedTestData) {
+      setCandidateId(storedTestData);
+      console.log("candidate id:", candidateId);
+    }
 
-    useEffect(() => {
-        const storedTestData = localStorage.getItem('candidate-id');
-        if (storedTestData) {
-            setCandidateId(storedTestData);
-            console.log("candidate id:",candidateId);
-        }
-    }, [candidateId]);
+    console.log(candidateNameForTimeBeing);
+  }, [candidateId]);
 
     const getActiveComponent = () => {
         const activeFlow = localStorage.getItem('activeFlow');
@@ -31,13 +34,16 @@ const testSumitCompletion = () => {
         }
     };
 
-    return(
-        <>
-            <div className={styles.superContainer}>
-                <CompletionComponent candidateId={candidateId} getActiveComponent={getActiveComponent} /> 
-            </div>
-        </>
-    )
-}
+  return (
+    <>
+      <div className={styles.superContainer}>
+        <CompletionComponent
+          candidateId={candidateId}
+          getActiveComponent={getActiveComponent}
+        />
+      </div>
+    </>
+  );
+};
 
-export default testSumitCompletion
+export default testSumitCompletion;

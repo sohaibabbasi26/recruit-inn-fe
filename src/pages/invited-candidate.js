@@ -6,7 +6,6 @@ import { useState , useEffect } from 'react';
 const invitedCandidate = () => {
 
     useEffect(() => {
-        // Set active flow to 'candidate' in local storage
         localStorage.setItem('activeFlow', 'Client');
     }, []);
 

@@ -13,6 +13,7 @@ import RequiredSkills from './RequiredSkills';
 import RequiredSkillsBtns from './RequiredSkillsBtns';
 import { useExpertiseContext } from '@/contexts/ExpertiseContext';
 import ErrorIndicator from './ErrorIndicator';
+import PhoneInput from 'react-phone-number-input';
 
 const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
@@ -163,6 +164,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
 
     useEffect(() => {
         if (contact?.trim() === '') {
+            
             setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
         } else {
             const { contact, ...rest } = validationErrors;
@@ -618,7 +620,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                     </div>
                 </div>
             </div>
-}
+        }
         </>
     )
 }

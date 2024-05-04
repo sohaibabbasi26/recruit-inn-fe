@@ -1,21 +1,18 @@
-import { useState } from 'react';
-import styles from './InvitationOverlay.module.css';
-import Image from 'next/image';
-import Stages from './Stages';
-import { useRouter } from 'next/router';
-import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import PersonalInfo from './PersonalInfo';
-import PersonalInfoBtns from './PersonalInfoBtns';
-import CandidateVerify from './CandidateVerify';
-import CandidateVerifyBtns from './CandVerifyBtns';
-import CandSelfSkill from './CandSelfSkill';
-import CandSelfSkillBtns from './CandSelfSkillBtn';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import CandSelfAssessment from './CandSelfAssessment';
 import CandSelfAssessmentBtns from './CandSelfAssessmentBtns';
+import CandSelfSkill from './CandSelfSkill';
+import CandSelfSkillBtns from './CandSelfSkillBtn';
+import CandidateVerifyBtns from './CandVerifyBtns';
+import CandidateVerify from './CandidateVerify';
 import ErrorIndicator from './ErrorIndicator';
-import SuccessIndicator from './SuccessIndicator';
+import styles from './InvitationOverlay.module.css';
+import PersonalInfoBtns from './PersonalInfoBtns';
 import PersonalInfoSelf from './PersonalInfoself';
+import Stages from './Stages';
+import SuccessIndicator from './SuccessIndicator';
 // import ErrorIndicator from './ErrorIndicator';
 
 const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequired, setIsTestRequired }) => {
@@ -84,9 +81,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
             return;
         }
 
-        else if (currentStage === stages.PERSONAL_INFO && !validateNumber()) {
-            setMessage("Entered contact is not a number");
-            showError();
+        else if (currentStage === stages.PERSONAL_INFO && !validateNumber(contact)) {
+            
             return;
         }
 
@@ -222,16 +218,31 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
         return true;
     };
 
-    const validateNumber = () => {
-    if(isNaN(contact)) {
-        setMessage("Enter a correct number! ");
-        showError();
-        return
+    // const validateNumber = (contact) => {
+    // if(isNaN(contact)) {
+    //     setMessage("Enter a correct number! ");
+    //     showError();
+    //     return
+    // };
+
+    //     return /^\d+$/.test(contact);
+    // }
+    const validateNumber = (contact) => {
+        const num = parseInt(contact); // Convert input to a number
+        console.log("num:", num)
+        
+        if (isNaN(num)) {
+            setMessage("Please enter a valid number.");
+            showError();
+            return false;
+        } else if (num < 10) {
+            setMessage("Number must be greater than or equal to 10.");
+            showError();
+            return false;
+        } else {
+            return true; // Number is between 10 and 12 (inclusive)
+        }
     };
-
-        return /^\d+$/.test(contact);
-    }
-
     const isValidEmail = (email) => {
         const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return regex.test(email);

@@ -6,9 +6,6 @@ import { useRouter } from "next/router";
 import ErrorIndicator from "../../components/ErrorIndicator";
 
 const CodingExcersice = () => {
-    useEffect(() => {
-        localStorage.setItem('activeFlow', 'Candidate_self');
-    }, []);
 
     const [Code, setCode] = useState(null);
     const [language, setLanguage] = useState(null);

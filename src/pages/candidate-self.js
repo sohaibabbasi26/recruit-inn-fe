@@ -10,7 +10,7 @@ const CandidateSelf = () => {
   const {isTestRequired, setIsTestRequired} =  useTestState()
 
   useEffect(() => {
-    localStorage.setItem('activeFlow', 'Candidate');
+    localStorage.setItem('activeFlow', 'Candidate_self');
   }, []);
 
   const stages = {
