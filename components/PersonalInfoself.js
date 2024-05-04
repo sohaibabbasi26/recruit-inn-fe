@@ -1,9 +1,10 @@
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
 import Image from "next/image";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import styles from "./PersonalInfo.module.css";
+import ShowPassword from "./ShowPassword";
 
 const PersonalInfoSelf = forwardRef(
   ({
@@ -37,6 +38,8 @@ const PersonalInfoSelf = forwardRef(
     const handleInputChange = (e, ref) => {
       ref.current.value = e.target.value;
     };
+    const [isPassword, setIsPassword] = useState(false);
+    const [isConfirmPassword, setIsConfirmPassword] = useState(false);
 
     return (
       <>
@@ -100,9 +103,10 @@ const PersonalInfoSelf = forwardRef(
                 <input
                   placeholder="Enter your Password"
                   value={password}
-                  type="password"
+                  type={isPassword ? "text" : "password"}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <ShowPassword pass={isPassword} setPass={setIsPassword} />
               </div>
               {validationErrors?.password && (
                 <div className={styles.errorMessage}>
@@ -118,8 +122,12 @@ const PersonalInfoSelf = forwardRef(
                 <input
                   placeholder="Confirm Password"
                   value={confirmPassword}
-                  type="password"
+                  type={isConfirmPassword ? "text" : "password"}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <ShowPassword
+                  pass={isConfirmPassword}
+                  setPass={setIsConfirmPassword}
                 />
               </div>
               {validationErrors?.confirmPassword && (

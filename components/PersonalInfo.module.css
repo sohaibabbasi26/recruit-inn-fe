@@ -47,6 +47,9 @@
   height: 80%;
 }
 
+.infoField input:has(+ img) {
+  width: calc(100% - 5.25rem);
+}
 .infoField input:focus {
   outline: none;
 }
@@ -107,7 +110,3 @@
     height: 0px;
   }
 }
-.inputField:hover {
-  border: solid 1px #6137db;
-  background-color: white;
-  }

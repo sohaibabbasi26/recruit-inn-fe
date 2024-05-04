@@ -146,6 +146,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import SearchEmpty from "../public/SearchEmpty.gif";
+import { getSvg } from "@/util/helpers";
 
 const CandidatesSelfHub = ({
   contact,
@@ -300,7 +301,7 @@ const CandidatesSelfHub = ({
                       </div>
                       {/* techstack Conatiner */}
 
-                      <div className={styles.TechStack}>
+                      <div className={styles.techStack}>
                         <ul>
                           {expertise?.map((skill) => {
                             return (
@@ -309,7 +310,7 @@ const CandidatesSelfHub = ({
                                   <div className={styles.basic}>
                                     <Image
                                       className={styles.django}
-                                      src={skill.img}
+                                      src={getSvg(skill.skill)}
                                       width={iconSize}
                                       height={iconSize}
                                     />
