@@ -78,6 +78,10 @@
     outline: none;
 }
 
+.inputField:hover {
+    border: solid 1px #6137db;
+    background-color: white;
+    }
 .midContainer{
     width: 100%;
     display: flex;

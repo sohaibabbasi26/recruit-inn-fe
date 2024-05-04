@@ -13,17 +13,15 @@
 }
 
 .searchBar:hover {
-  background-color: #f8f7fa;
-  border: 1px solid #ebebeb;
+  background-color: white;
+  outline: 1px solid #6137db;
 }
 .searchBar:focus {
   background-color: white;
-  outline: 2px solid #6137db;
-}
+  outline: 1px solid #6137db;}
 .searchBar:active {
   background-color: white;
-  outline: 2px solid #6137db;
-}
+  outline: 1px solid #6137db;}
 .masterContainer {
   width: 100%;
   display: flex;

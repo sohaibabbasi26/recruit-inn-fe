@@ -114,8 +114,10 @@
     height: 80%;
   }
   
+    
+  
   .infoField input:focus {
-    outline: none;
+    outline: slateblue;
   }
   
   .infoField select {
@@ -131,3 +133,5 @@
     outline: none;
   }
   
+ 
+ 
