@@ -1,3 +1,5 @@
+// client side component
+"use client";
 import styles from "./ShowPassword.module.css";
 import Image from "next/image";
 
