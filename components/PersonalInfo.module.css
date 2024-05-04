@@ -46,6 +46,9 @@
   height: 80%;
 }
 
+.infoField input:has(+ img) {
+  width: calc(100% - 5.25rem);
+}
 .infoField input:focus {
   outline: none;
 }
