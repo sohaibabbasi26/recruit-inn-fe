@@ -50,7 +50,6 @@ const TopNavbar = ({selectedCandidate, companyId, onJobSelect,reportOverlay, onC
         return () => searchApiCall.cancel(); 
     }, [isClicked]);
 
-
     const handleClickOutside = (event) => {
         if (searchResultsRef.current && !searchResultsRef.current.contains(event.target) && !searchInputRef.current.contains(event.target)) {
             setSearchResults(null);

@@ -219,7 +219,8 @@
 
 .superContainer {
   width: 97%;
-  height: 100%;
+  /* height: 100%; */
+  height: 102%;
   background-color: #f8f7fc;
   font-family: "Poppins", sans-serif;
 }
@@ -549,11 +550,25 @@
   .tempContainer {
     background-size: 210px 210px;
   }
+  .candidateDefault button {
+    padding: 1rem;
+    padding-left: 1.5rem;
+  }
+  .candidateDefault button:has(div.loader) {
+    padding: 1rem;
+  }
 }
 
 @media screen and (max-width: 1400px) {
   .tempContainer h1 {
     font-size: 1.8rem;
+  }
+  .candidateDefault button {
+    padding: 0.8rem;
+    padding-left: 1.3rem;
+  }
+  .candidateDefault button:has(div.loader) {
+    padding: 0.8rem;
   }
 }
 

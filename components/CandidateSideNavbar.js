@@ -60,7 +60,7 @@ const CandidateSideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) =
             <div className={styles.masterContainer}>
                 <div className={styles.mainContainer}>
                     <div className={styles.logoContainer}>
-                        <h3><Image src="/logo.svg" width={logoSize} height={logoSize} />recruitinn.ai</h3>
+                        <h3><Image src="/logo (3).png" width={logoSize} height={logoSize} />recruitinn.ai</h3>
                     </div>
 
                     <div className={activeItem === 'Dashboard' ? `${styles.dashboardButton} ${styles.active}` : `${styles.dash}`}
