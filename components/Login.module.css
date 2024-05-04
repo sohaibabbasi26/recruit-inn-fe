@@ -89,12 +89,6 @@
   cursor: pointer;
 }
 
-.showPassword,
-.hidePassword {
-  cursor: pointer;
-  display: block;
-}
-
 @media only screen and (max-width: 1100px) {
   .banner h1 {
     font-size: x-large;

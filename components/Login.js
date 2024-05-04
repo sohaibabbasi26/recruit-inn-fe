@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Login.module.css";
 import Image from "next/image";
+import ShowPassword from "./ShowPassword";
 
 const LoginComp = ({ setPassword, setEmail, onViewChange }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,23 +32,7 @@ const LoginComp = ({ setPassword, setEmail, onViewChange }) => {
               placeholder="Enter your password"
               type={showPassword ? "text" : "password"}
             />
-            {showPassword ? (
-              <Image
-                className={styles.hidePassword}
-                src="/eyeHide.svg"
-                width={19.64}
-                height={18}
-                onClick={() => setShowPassword((pass) => !pass)}
-              />
-            ) : (
-              <Image
-                className={styles.showPassword}
-                src="/eyeShow.svg"
-                width={21.33}
-                height={16}
-                onClick={() => setShowPassword((pass) => !pass)}
-              />
-            )}
+            <ShowPassword pass={showPassword} setPass={setShowPassword} />
           </div>
         </div>
 
