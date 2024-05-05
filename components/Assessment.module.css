@@ -41,7 +41,7 @@
 
 .summary h4 {
   margin-top: 0;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 }
 @media only screen and (max-width: 1024px) {
   .summary {
