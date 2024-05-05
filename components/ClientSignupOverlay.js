@@ -18,7 +18,6 @@ import AdminOverlayBtns from "./AdminOverlayBtns";
 import ErrorIndicator from "./ErrorIndicator";
 import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 
-
 const ClientSignUpOverlay = ({
   adminToken,
   message,
@@ -119,7 +118,7 @@ const ClientSignUpOverlay = ({
     setCurrentStage(stages.CLIENT_INFO);
   }, []);
 
-  useEffect(() => { }, [companyId, email]);
+  useEffect(() => {}, [companyId, email]);
 
   useEffect(() => {
     if (companyId && email) {
@@ -158,8 +157,8 @@ const ClientSignUpOverlay = ({
 
   const checkClient = async () => {
     const requestBody = {
-      email: email
-    }
+      email: email,
+    };
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`,
@@ -173,7 +172,7 @@ const ClientSignUpOverlay = ({
         }
       );
       const data = await response.json();
-      console.log('checking if client exists:', data);
+      console.log("checking if client exists:", data);
 
       // setCheckClient(data);
       // console.log("state of check client:", checkkClient)
@@ -183,20 +182,19 @@ const ClientSignUpOverlay = ({
       //   return;
       // }
       // if (data?.data?.data) {
-      //   setMessage("Email you are registering with is already in use, try another one!"); 
+      //   setMessage("Email you are registering with is already in use, try another one!");
       //   showError();
       //   // return
       //   // return;
       // }
 
       return data;
-    }
-    catch (e) {
-      console.log(e)
-      setMessage("some expected error occurs")
+    } catch (e) {
+      console.log(e);
+      setMessage("some expected error occurs");
       showError();
     }
-  }
+  };
 
   // useEffect(() => {
   //   if (message) {
@@ -205,9 +203,6 @@ const ClientSignUpOverlay = ({
   // }, [message]);
 
   const handleFormSubmit = async () => {
-
-    
-
     const requestBody = {
       company_name: companyname,
       company_location: city,
@@ -220,7 +215,9 @@ const ClientSignUpOverlay = ({
     const check = await checkClient();
 
     if (check?.data?.message !== null) {
-      setMessage("Email you are registering with is already in use, try another one!");
+      setMessage(
+        "Email you are registering with is already in use, try another one!"
+      );
       showError();
       return;
     } else if (check?.data?.message === null) {
@@ -241,7 +238,7 @@ const ClientSignUpOverlay = ({
         console.log("login response:", data?.data?.data?.company_id);
         setCompanyId(data?.data?.data?.company_id);
         sendMail(data?.data?.data?.company_id);
-        setisLoading(false)
+        setisLoading(false);
         getActiveComponent();
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -260,7 +257,7 @@ const ClientSignUpOverlay = ({
     const emailText = `Follow the link to set up your new password: \n ${demolink}`;
 
     const reqBody = {
-      to: email,  
+      to: email,
       subject: emailSubject,
       text: emailText,
     };
@@ -300,9 +297,7 @@ const ClientSignUpOverlay = ({
         <div className={styles.superContainer}>
           <div className={styles.coverContainer}>
             <div className={styles.topContainer}>
-              <h2>
-                Personal Info
-              </h2>
+              <h2>Personal Info</h2>
             </div>
 
             <Stages
@@ -332,7 +327,7 @@ const ClientSignUpOverlay = ({
                     password={password}
                     conformpassword={conformpassword}
                     email={email}
-                    showError={showError} 
+                    showError={showError}
                     setMessage={setMessage}
                     fillValidity={fillValidity}
                     validateEmailReceiver={validateEmailReceiver}
