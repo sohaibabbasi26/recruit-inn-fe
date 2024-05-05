@@ -7,17 +7,24 @@ import PhoneInput from "react-phone-number-input";
 import ShowPassword from "./ShowPassword";
 
 const ClientInfo = ({
+  clientName,
+  companyName,
   email,
   phoneNo,
+  password,
+  confirmPassword,
+  actManager,
+  companySize,
+  country,
+  city,
   setActManager,
   setCity,
   setClientname,
   setEmail,
   setPhoneNo,
-  setpassword,
-  setconfirmpassword,
+  setPassword,
+  setConfirmPassword,
   setCompanySize,
-  country,
   setCountry,
   setCompanyname,
 }) => {
@@ -36,7 +43,11 @@ const ClientInfo = ({
     <>
       <div className={styles.superContainer}>
         {/* Client Name Input */}
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            clientName ? styles.filled : null
+          }`}
+        >
           <Image
             src="/smiley.svg"
             width={iconSize}
@@ -50,7 +61,11 @@ const ClientInfo = ({
         </div>
 
         {/* Company Name Input */}
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            companyName ? styles.filled : null
+          }`}
+        >
           <Image
             src="/company.svg"
             width={iconSize}
@@ -64,7 +79,7 @@ const ClientInfo = ({
         </div>
 
         {/* Email Input */}
-        <div className={styles.inputField}>
+        <div className={`${styles.inputField} ${email ? styles.filled : null}`}>
           <Image
             src="/email.svg"
             width={iconSize}
@@ -79,7 +94,9 @@ const ClientInfo = ({
 
         {/* Phone Input with Validation */}
 
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${phoneNo ? styles.filled : null}`}
+        >
           <Image
             src="/phone.svg"
             alt="Phone"
@@ -96,7 +113,9 @@ const ClientInfo = ({
         </div>
 
         {/* Account Manager Input */}
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${password ? styles.filled : null}`}
+        >
           <Image
             src="/Case.svg"
             width={iconSize}
@@ -106,17 +125,21 @@ const ClientInfo = ({
           <input
             placeholder="Password"
             type={showPassword ? "text" : "password"}
-            onChange={(e) => setpassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <ShowPassword pass={showPassword} setPass={setShowPassword} />
         </div>
 
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            confirmPassword ? styles.filled : null
+          }`}
+        >
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Confirm password"
             type={showConfirmPassword ? "text" : "password"}
-            onChange={(e) => setconfirmpassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <ShowPassword
             pass={showConfirmPassword}
@@ -124,7 +147,11 @@ const ClientInfo = ({
           />
         </div>
 
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            actManager ? styles.filled : null
+          }`}
+        >
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Account manager"
@@ -133,7 +160,11 @@ const ClientInfo = ({
         </div>
 
         {/* Company Size Selection */}
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            companySize ? styles.filled : null
+          }`}
+        >
           <Image
             src="/company.svg"
             width={iconSize}
@@ -149,7 +180,9 @@ const ClientInfo = ({
         </div>
 
         {/* Country Selection */}
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${country ? styles.filled : null}`}
+        >
           <Image
             src="/earth.svg"
             width={iconSize}
@@ -168,7 +201,7 @@ const ClientInfo = ({
         </div>
 
         {/* City Selection */}
-        <div className={styles.inputField}>
+        <div className={`${styles.inputField} ${city ? styles.filled : null}`}>
           <Image src="/aim.svg" width={iconSize} height={iconSize} alt="Aim" />
           <select disabled={!country} onChange={(e) => setCity(e.target.value)}>
             <option>Select city</option>
