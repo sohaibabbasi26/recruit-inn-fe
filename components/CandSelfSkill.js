@@ -3,7 +3,7 @@ import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const CandSelfSkill = ({ setTechStack }) => {
+const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
   const iconSize = 25;
 
   const [skill1, setSkill1] = useState("");
@@ -22,6 +22,11 @@ const CandSelfSkill = ({ setTechStack }) => {
 
     setTechStack(filledSkills);
   }, [skill1, skill2, level1, level2]);
+
+  const handleTestRequirementChange = (event) => {
+    console.log("clicked", event.target.checked);
+    setIsTestRequired(event.target.checked);
+  };
 
   return (
     <>
@@ -84,7 +89,19 @@ const CandSelfSkill = ({ setTechStack }) => {
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
           </select>
+
+
+          
         </div>
+
+        <div>
+            <label>Would you like to add a coding assignment too?</label>
+            <input
+              type="checkbox"
+              checked={isTestRequired}
+              onChange={handleTestRequirementChange}
+            />
+          </div>
       </form>
     </>
   );

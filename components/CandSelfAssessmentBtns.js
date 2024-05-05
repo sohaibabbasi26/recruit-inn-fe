@@ -2,16 +2,16 @@ import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const CandSelfAssessmentBtns = ({setIsLoading, questionId, onContinue, onBack, setCompletedStages, completedStages, onClose,candidateId }) => {
+const CandSelfAssessmentBtns = ({testReq, assessmentId, setIsLoading, questionId, onContinue, onBack, setCompletedStages, completedStages, onClose,candidateId }) => {
 
     const navigationIconSize = 30;
     const router = useRouter();
-
+    
     const startAssessmentHandler = () => {
-        
-        console.log(`/test?id=${candidateId}`);
-
-        router.push(`/test?cid=${candidateId}&qid=${questionId}`)
+        if(assessmentId){
+            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${testReq}`);
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${testReq}`);
+        }
     }
 
     const redirectToCandidateDashB = () => {

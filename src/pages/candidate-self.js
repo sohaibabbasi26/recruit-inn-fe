@@ -2,13 +2,15 @@ import styles from './candidate-self.module.css';
 import InvitationOverlay from '../../components/InvitationOverlay';
 import SelfOverlay from '../../components/SelfOverlay';
 import { useEffect , useState } from 'react';
+import { useTestState } from '@/contexts/TestRequirementContext';
 
 const CandidateSelf = () => {
 
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const {isTestRequired, setIsTestRequired} =  useTestState()
 
   useEffect(() => {
-    localStorage.setItem('activeFlow', 'Candidate');
+    localStorage.setItem('activeFlow', 'Candidate_self');
   }, []);
 
   const stages = {
@@ -59,7 +61,7 @@ const CandidateSelf = () => {
   return (
     <>
 
-      <SelfOverlay setShowErrorMessage={setShowErrorMessage} showErrorMessage={showErrorMessage} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
+      <SelfOverlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} setShowErrorMessage={setShowErrorMessage} showErrorMessage={showErrorMessage} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
     </>
   );
 }

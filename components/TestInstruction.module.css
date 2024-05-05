@@ -73,8 +73,9 @@
   content: "•";
   color: #6137db;
   display: inline-block;
-  width: 2rem;
   font-size: 30px;
+  /* width: 2rem; */
+  margin-right: 1.5rem;
 }
 
 .lowerContainer {

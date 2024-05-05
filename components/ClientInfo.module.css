@@ -59,3 +59,7 @@
         padding: 0rem 0.5rem;
     }
 }
+.inputField:hover {
+    border: solid 1px #6137db;
+    background-color: white;
+    }

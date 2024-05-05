@@ -37,6 +37,7 @@
   padding-left: 10px;
 }
 
+
 .infoField input {
   width: 100%;
   border: none;
@@ -46,10 +47,17 @@
   height: 80%;
 }
 
+.infoField input:has(+ img) {
+  width: calc(100% - 5.25rem);
+}
 .infoField input:focus {
   outline: none;
 }
 
+.infoField:hover {
+  border: solid 1px #6137db;
+  background-color: white;
+  }
 .infoField select {
   width: 95%;
   border: none;

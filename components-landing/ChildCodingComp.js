@@ -7,49 +7,50 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 
-const CodingChild = ({formatTime , timeLeft , question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
+const CodingChild = ({ formatTime, timeLeft, question, setQuestion, codeSubmitHandler, constraints, setConstraints, setIsLoading, isLoading, output, executeCode, code, language, setCode, setLanguage }) => {
 
     const router = useRouter();
-  
-    const { a_id, pid } = router?.query;
-    // const [timeLeft, setTimeLeft] = useState(600);   
+    const [requestBody, setRequestBody] = useState();
+    const [actvFlow, setActvflow] = useState();
+
+    const { cid, a_id, pid } = router?.query;
+    console.log('cid:', cid, 'a_id:',a_id, 'pid:',pid);
 
     useEffect(() => {
         console.log("a_id", a_id);
         console.log('router:', router?.query);
     }, [a_id])
 
-    // useEffect(() => {
-    //     const timerId = setInterval(() => {
-    //         setTimeLeft(prevTimeLeft => {
-    //             if (prevTimeLeft <= 1) {
-    //                 clearInterval(timerId);
-    //                 console.log('Timer finished');
-    //                 return 0;  // Ensure timer stops at 0
-    //             }
-    //             return prevTimeLeft - 1;
-    //         });
-    //     }, 1000);
-    
-    //     return () => clearInterval(timerId);  // Cleanup interval on component unmount
-    // }, []);
-
-    
+    const getActiveComponent = () => {
+        const activeFlow = localStorage.getItem('activeFlow');
+        setActvflow(activeFlow)
+        console.log("Current active flow:", activeFlow);
+        switch (activeFlow) {
+            case 'Candidate_self':
+                return `/get-coding-assessment-self`;
+            case 'Client':
+                return `/get-coding-assessment`;
+            default:
+                return null;
+        }
+    };
 
     useEffect(() => {
 
         async function fetchCodingQues() {
             if (!router.isReady) return;
 
-            const reqBody = {
+            const rBody = {
                 assessment_id: a_id,
-                position_id: pid
+                position_id: pid,
+                candidate_id : cid
             }
 
-            console.log("req body:", reqBody)
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-assessment`, {
+            console.log("API WE ARE GONNA SMASHHHHH:HHH", `${process.env.NEXT_PUBLIC_REMOTE_URL}${getActiveComponent()}`);
+            console.log("req body:", requestBody)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}${getActiveComponent()}`, {
                 method: 'POST',
-                body: JSON.stringify(reqBody),
+                body: JSON.stringify(rBody), 
                 headers: { 'Content-type': 'application/json' }
             });
 
@@ -64,15 +65,16 @@ const CodingChild = ({formatTime , timeLeft , question, setQuestion, codeSubmitH
             setConstraints(data?.data?.assesment?.constraints);
             console.log('response of coding Question  : ', data);
         }
-
         fetchCodingQues();
     }, [router?.isReady]);
+
+
     const formattedTime = formatTime(timeLeft);
     return (
         <>
             <div className="w-full h-screen bg-[#F5F5F5] justify-center items-center flex overflow-hidden">
                 <div className="w-[98%] h-[100%] items-center flex justify-between">
-                    <CodingLeftComponent question={question} /> 
+                    <CodingLeftComponent question={question} />
 
                     <div className="w-[70%] h-[95%] flex flex-col justify-between ">
                         <div className="w-[100%] flex flex-col items-center h-[63%] rounded-2xl bg-[#fff]">
@@ -80,7 +82,7 @@ const CodingChild = ({formatTime , timeLeft , question, setQuestion, codeSubmitH
                                 <div className="w-[95%] h-[100%] border-b-[1px] border-[#EBEBEB] flex items-center gap-2">
                                     <span className="bg-[#F0EDFC] py-[0.25rem] px-3 rounded-2xl text-sm font-semibold text-[#6137DB]">Code</span>
                                     <select onChange={(e) => setLanguage(e.target.value)} className="bg-[#F0EDFC] py-[0.35rem] px-3 rounded-2xl text-sm font-semibold text-[#4A525D]">
-                                    <option value="" >Select programming language</option>
+                                        <option value="" >Select programming language</option>
                                         <option value="python3">
                                             Python
                                         </option>

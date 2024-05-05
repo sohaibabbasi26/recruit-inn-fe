@@ -5,6 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ShareLink = ({
+  removeReceiver,
+  receivers,
+  setReceivers,
+  handleReceiverChange,
+  handleNameChange,
   removeEmailReceiver,
   setNameReceivers,
   name,
@@ -34,7 +39,7 @@ const ShareLink = ({
   const iconSize = 20;
   const clipSize = 30;
   const [link, setLink] = useState();
-  
+
   // const [emailReceivers, setEmailReceivers] = useState([{ email: '' }]);
 
   useEffect(() => {
@@ -75,30 +80,15 @@ const ShareLink = ({
     setMessage("Your link has been copied");
     showSuccess();
   };
-  
+
   useEffect(() => {
     setSubject(`RECRUITINN: Test link for ${positionName} position.`);
-    setText(`Click on the following link to start a test:
-        ${link}
-        `);
+    setText(`Click on the following link to start a test:${link}`);
   });
-
-  
 
   return (
     <>
       <div className={styles.superContainer}>
-        {/* <div className={styles.subContainer}>
-                    <div className={styles.leftContainer}>
-                        <Image src='/successIndicator.svg' width={imageSize} height={imageSize} />
-                        <p>Your AI Assessment is ready!</p>
-                    </div>
-
-                    <div className={styles.rightContainer}>
-                        <Image src='/Element.png' width={imageSize} height={imageSize} />
-                    </div>
-                </div> */}
-
         <div className={styles.parent}>
           <div className={styles.subParent}>
             <div className={styles.subContainer}>
@@ -120,10 +110,6 @@ const ShareLink = ({
               </div>
             </div>
 
-            {/* <div className={styles.rightContainer}>
-                        <Image src='/Element.png' width={imageSize} height={imageSize} />
-                    </div> */}
-
             <div className={styles.form}>
               <div className={styles.topBar}>
                 <button
@@ -139,37 +125,26 @@ const ShareLink = ({
               </div>
             </div>
 
-            {/* <div className={styles.allFields}>
-                    <div className={styles.field}>
-                        <Image src='/Bag.svg' width={iconSize} height={iconSize} />
-                        <input type='text' placeholder="Add job title" />
-                    </div>
-
-                    <div className={styles.field}>
-                        <Image src='/Bag.svg' width={iconSize} height={iconSize} />
-                        <input type='text' onChange={(e) => setEmailReceiver(e.target.value)} placeholder="Enter email" />
-                    </div>
-                </div> */}
             <div className={styles.allFields}>
-              {emailReceivers.map((receiver, index) => (
+              {receivers.map((receiver, index) => (
                 <div className={styles.field} key={index}>
                   <div className={styles.left}>
                     <Image src="/sticker.svg" width={28} height={28} />
-                    <input type="text" onChange={(e) => {setName(e.target.value)}} placeholder="Enter your name" />
+                    <input type="text" value={receiver.name} onChange={(e) => { handleReceiverChange(index,'name',e.target.value) }} placeholder="Enter your name" />
                   </div>
                   <div className={styles.right}>
                     <Image src="/Bag.svg" width={iconSize} height={iconSize} />
                     <input
                       type="text"
                       value={receiver.email}
-                      onChange={(e) => handleEmailChange(e, index)}
+                      // onChange={(e) => handleEmailChange(e, index)}
+                      onChange={(e) => { handleReceiverChange(index,'email',e.target.value) }}
                       placeholder="Enter email"
                     />
                     {
-                      // Only show the remove button if there is more than one email receiver
-                      emailReceivers.length > 1 && (
+                      receivers.length > 1 && (
                         <Image
-                          onClick={() => removeEmailReceiver(index)}
+                          onClick={() => removeReceiver(index)}
                           src="/trash-bin.svg"
                           width={30}
                           height={30}
@@ -180,8 +155,6 @@ const ShareLink = ({
                 </div>
               ))}
             </div>
-
-            {/* <button onClick={addEmailReceiver} disabled={emailReceivers.length >= 3} >Add another candidate</button> */}
 
             <div className={styles.linkContainer}>
               <div className={styles.wrapper}>

@@ -21,19 +21,18 @@ const testSumitCompletion = () => {
     console.log(candidateNameForTimeBeing);
   }, [candidateId]);
 
-  const getActiveComponent = () => {
-    const activeFlow = localStorage.getItem("activeFlow");
-    console.log("Current active flow:", activeFlow);
-    switch (activeFlow) {
-      case "Candidate":
-        // localStorage.setItem('isLoggedIn', 'true');
-        return `/candidate/${candidateId}`;
-      case "Client":
-        return `/`;
-      default:
-        return null;
-    }
-  };
+    const getActiveComponent = () => {
+        const activeFlow = localStorage.getItem('activeFlow');
+        console.log("Current active flow:", activeFlow);
+        switch (activeFlow) {
+            case 'Candidate_self':
+                return `/candidate/${candidateId}`;
+            case 'Client':
+                return `/`;
+            default:
+                return null;
+        }
+    };
 
   return (
     <>

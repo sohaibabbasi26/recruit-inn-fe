@@ -114,6 +114,7 @@
   margin-bottom: 1rem;
 }
 
+
 .list h4 img {
   cursor: pointer;
 }
@@ -128,6 +129,7 @@
   align-items: center;
   margin-left: 10px;
   font-size: 10px;
+  cursor: pointer;
 }
 .profileTab h4 span {
   color: #170d23;
