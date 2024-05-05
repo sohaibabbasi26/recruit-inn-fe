@@ -3,7 +3,13 @@ import styles from "./Login.module.css";
 import Image from "next/image";
 import ShowPassword from "./ShowPassword";
 
-const LoginComp = ({ setPassword, setEmail, onViewChange }) => {
+const LoginComp = ({
+  password,
+  setPassword,
+  email,
+  setEmail,
+  onViewChange,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <>
@@ -17,7 +23,9 @@ const LoginComp = ({ setPassword, setEmail, onViewChange }) => {
         </div>
 
         <div className={styles.inputFieldsContainer}>
-          <div className={styles.inputField}>
+          <div
+            className={`${styles.inputField} ${email ? styles.filled : null}`}
+          >
             <Image src="/msg.svg" width={20} height={20} />
             <input
               onChange={(e) => setEmail(e.target.value)}
@@ -25,7 +33,11 @@ const LoginComp = ({ setPassword, setEmail, onViewChange }) => {
               placeholder="Enter your email"
             />
           </div>
-          <div className={styles.inputField}>
+          <div
+            className={`${styles.inputField} ${
+              password ? styles.filled : null
+            }`}
+          >
             <Image src="/lock.svg" width={20} height={20} />
             <input
               onChange={(e) => setPassword(e.target.value)}

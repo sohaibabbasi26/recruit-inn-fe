@@ -62,7 +62,7 @@
   padding: 0 1rem;
   background-color: #fff;
   border: 1px solid #ebebeb;
-  border-radius: 30px;
+  border-radius: 3.125rem;
   margin: 1rem 0;
   gap: 0.5rem;
 }
@@ -76,6 +76,14 @@
 
 .inputField input:focus {
   outline: none;
+}
+
+.inputField:has(input:focus) {
+  border: 1px solid #6137db;
+}
+
+.inputField:has(input:not(:focus)).filled {
+  background-color: #f8f7fa;
 }
 
 .midContainer {
