@@ -85,11 +85,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             showError();
             return;
         }
-        else if (currentStage === stages.PERSONAL_INFO && !validateNumber()) {
-            setMessage("Entered contact is not a number");
-            showError();
-            return;
-        }
+        // else if (currentStage === stages.PERSONAL_INFO && !validateNumber()) {
+        //     setMessage("Entered contact is not a number");
+        //     showError();
+        //     return;
+        // }
 
 
         else if ((currentStage === stages.SKILLS) && !validateAddSkill()) {
@@ -169,6 +169,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
     const [candidateId, setCandidateId] = useState(null);
     const [showErrorMessage, setshowErrorMessage] = useState(false);
     const [message, setMessage] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [reqBody, setReqBody] = useState(null);
     const [req, setReq] = useState(null);
@@ -247,6 +248,10 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
             return true; // Number is between 10 and 12 (inclusive)
         }
     };
+    function isConfirmPassword() {
+        return password === confirmPassword;
+      }
+
     const isValidEmail = (email) => {
         const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return regex.test(email);
@@ -460,7 +465,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
                             {currentStage === stages.PERSONAL_INFO && (
                                 <>
-                                    <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} password={password} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef={passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword={setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
+                                    <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} password={password} confirmPassword={confirmPassword} setConfirmPassword = {setConfirmPassword} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef={passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword={setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
                                     <div className={styles.wrapper}>
                                         <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
                                     </div>

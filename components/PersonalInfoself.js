@@ -99,7 +99,7 @@ const PersonalInfoSelf = forwardRef(({
                         value={expertise}
                         onChange= {(e)=> setExpertise(e.target.value)}
                         >
-                       <option value="" enable>Select Your Expertise</option>
+                       <option value="" enable>How do you rate yourself</option>
                         <option value="beginner">Beginnner</option>
                         <option value="intermediate">Intermediate</option>
                         <option value="expert">Expert</option>
