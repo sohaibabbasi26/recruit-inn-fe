@@ -37,6 +37,7 @@
   padding-left: 10px;
 }
 
+
 .infoField input {
   width: 100%;
   border: none;
@@ -53,6 +54,10 @@
   outline: none;
 }
 
+.infoField:hover {
+  border: solid 1px #6137db;
+  background-color: white;
+  }
 .infoField select {
   width: 95%;
   border: none;

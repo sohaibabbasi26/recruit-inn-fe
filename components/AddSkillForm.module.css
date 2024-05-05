@@ -47,6 +47,12 @@
   height: 20%;
 }
 
+.inputField:hover {
+border: solid 1px #6137db;
+}
+
+
+
 .wrapper {
   display: flex;
   align-items: center;

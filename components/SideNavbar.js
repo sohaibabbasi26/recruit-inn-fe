@@ -237,10 +237,10 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
               <button className={styles.btnlog} onClick={logoutHandler}>
                 Logout{" "}
                 <Image
-                  src="/Bolt.png"
+                  src="/vector.png"
                   alt="Upgrade"
-                  width="24"
-                  height="24"
+                  width="18"
+                  height="18"
                   style={{ color: "#FF0000" }}
                 />
               </button>
