@@ -289,6 +289,9 @@ const ClientSignUpOverlay = ({
     }
   };
 
+  // return loader separately if there is one
+  if (isLoading) return <div className={styles.loader}></div>;
+
   return (
     <>
       <div ref={overlayRef} className={styles.parent}>
@@ -340,7 +343,6 @@ const ClientSignUpOverlay = ({
                 </div>
               </>
             )}
-            {isLoading && <div className={styles.loader}></div>}
           </div>
         </div>
       </div>
