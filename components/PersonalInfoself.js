@@ -3,7 +3,7 @@ import { getCities } from "@/util/helpers";
 import Image from "next/image";
 import { forwardRef, useState } from "react";
 import PhoneInput from "react-phone-number-input";
-import styles from "./PersonalInfo.module.css";
+import styles from "./PersonalInfoself.module.css";
 import ShowPassword from "./ShowPassword";
 
 const PersonalInfoSelf = forwardRef(
@@ -46,7 +46,9 @@ const PersonalInfoSelf = forwardRef(
         <div className={styles.superContainer}>
           <div className={styles.masterContainer}>
             <div>
-              <div className={styles.infoField}>
+              <div
+                className={`${styles.infoField} ${name ? styles.filled : null}`}
+              >
                 <Image src="/smiley.svg" alt="Name" width={20} height={20} />
                 <input
                   placeholder="Enter your name"
@@ -63,7 +65,11 @@ const PersonalInfoSelf = forwardRef(
             </div>
 
             <div>
-              <div className={styles.infoField}>
+              <div
+                className={`${styles.infoField} ${
+                  email ? styles.filled : null
+                }`}
+              >
                 <Image src="/email.svg" alt="Email" width={20} height={20} />
                 <input
                   placeholder="Enter your email"
@@ -80,25 +86,11 @@ const PersonalInfoSelf = forwardRef(
             </div>
 
             <div>
-              <div className={styles.infoField}>
-                <Image src="/phone.svg" alt="Phone" width={20} height={20} />
-                <PhoneInput
-                  className={styles.phoneInput}
-                  international
-                  defaultCountry="PK"
-                  value={contact}
-                  onChange={setContact}
-                />
-              </div>
-              {validationErrors?.contact && (
-                <div className={styles.errorMessage}>
-                  {validationErrors?.contact}
-                </div>
-              )}
-            </div>
-
-            <div>
-              <div className={styles.infoField}>
+              <div
+                className={`${styles.infoField} ${
+                  password ? styles.filled : null
+                }`}
+              >
                 <Image src="/password.svg" alt="City" width={20} height={20} />
                 <input
                   placeholder="Enter your Password"
@@ -117,7 +109,11 @@ const PersonalInfoSelf = forwardRef(
 
             {/* confirm password here */}
             <div>
-              <div className={styles.infoField}>
+              <div
+                className={`${styles.infoField} ${
+                  confirmPassword ? styles.filled : null
+                }`}
+              >
                 <Image src="/password.svg" alt="City" width={20} height={20} />
                 <input
                   placeholder="Confirm Password"
@@ -137,7 +133,33 @@ const PersonalInfoSelf = forwardRef(
               )}
             </div>
 
-            <div className={styles.infoField}>
+            <div>
+              <div
+                className={`${styles.infoField} ${
+                  contact ? styles.filled : null
+                }`}
+              >
+                <Image src="/phone.svg" alt="Phone" width={20} height={20} />
+                <PhoneInput
+                  className={styles.phoneInput}
+                  international
+                  defaultCountry="PK"
+                  value={contact}
+                  onChange={setContact}
+                />
+              </div>
+              {validationErrors?.contact && (
+                <div className={styles.errorMessage}>
+                  {validationErrors?.contact}
+                </div>
+              )}
+            </div>
+
+            <div
+              className={`${styles.infoField} ${
+                expertise ? styles.filled : null
+              }`}
+            >
               <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
               <select
                 placeholder="How do you Rate yourself"
@@ -145,7 +167,7 @@ const PersonalInfoSelf = forwardRef(
                 onChange={(e) => setExpertise(e.target.value)}
               >
                 <option value="" enable>
-                    How do you Rate yourself
+                  How do you Rate yourself
                 </option>
                 <option value="beginner">Beginnner</option>
                 <option value="intermediate">Intermediate</option>
@@ -159,7 +181,11 @@ const PersonalInfoSelf = forwardRef(
             </div>
 
             <div>
-              <div className={styles.infoField}>
+              <div
+                className={`${styles.infoField} ${
+                  country ? styles.filled : null
+                }`}
+              >
                 <Image src="/earth.svg" alt="Country" width={20} height={20} />
                 <select onChange={(e) => setCountry(e.target.value)}>
                   <option>Select country</option>
@@ -174,7 +200,9 @@ const PersonalInfoSelf = forwardRef(
                 </div>
               )}
             </div>
-            <div className={styles.infoField}>
+            <div
+              className={`${styles.infoField} ${city ? styles.filled : null}`}
+            >
               <Image src="/aim.svg" alt="City" width={20} height={20} />
               <select
                 disabled={country === null}

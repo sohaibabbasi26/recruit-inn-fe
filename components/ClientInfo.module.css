@@ -23,11 +23,12 @@
 } */
 
 /* change border when it has a input field on focus state */
-/* last 2 lines are for phone input */
 .inputField:has(input:focus),
 .inputField:has(select:focus),
-.inputField:has(div:first-child):has(input:focus),
-.inputField:has(div:first-child):has(select:focus) {
+.inputField:has(.phoneInput):has(input:focus),
+.inputField:has(.phoneInput):has(select:focus),
+.inputField:has(.phoneInput):has(input:nth-child(2):focus),
+.inputField:has(.phoneInput):has(select:nth-child(2):focus) {
   border: 1px solid #6137db;
   background-color: #fff;
 }
@@ -35,8 +36,8 @@
 /* trying filled styles on input field */
 .inputField:has(input:not(:focus)).filled,
 .inputField:has(select:not(:focus)).filled,
-.inputField:has(div:first-child):has(input:not(:focus)).filled,
-.inputField:has(div:first-child):has(input:not(:focus)).filled {
+.inputField:has(.phoneInput):has(input:nth-child(2):not(:focus)).filled,
+.inputField:has(.phoneInput):has(select:nth-child(2):not(:focus)).filled {
   background-color: #f8f7fa;
 }
 
