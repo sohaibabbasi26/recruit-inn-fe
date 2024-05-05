@@ -34,7 +34,7 @@ const ShareLink = ({
   positionId,
   positionName
 }) => {
-  const imageSize = 80;
+  const imageSize = 60;
   const plusSize = 20;
   const iconSize = 20;
   const clipSize = 30;

@@ -18,7 +18,7 @@
 .leftContent {
   width: 60%;
   margin-left: 2rem;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .leftContent p {
@@ -27,6 +27,14 @@
 
 .leftContent p span {
   font-weight: 700;
+}
+
+
+
+@media screen and (min-width: 1024px) {
+  .leftContent {
+    margin-bottom: -1rem;
+  }
 }
 
 .rightContent {
