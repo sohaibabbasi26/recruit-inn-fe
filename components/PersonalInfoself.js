@@ -140,12 +140,12 @@ const PersonalInfoSelf = forwardRef(
             <div className={styles.infoField}>
               <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
               <select
-                placeholder="Choose level of difficulty"
+                placeholder="How do you Rate yourself"
                 value={expertise}
                 onChange={(e) => setExpertise(e.target.value)}
               >
                 <option value="" enable>
-                  Select Your Expertise
+                    How do you Rate yourself
                 </option>
                 <option value="beginner">Beginnner</option>
                 <option value="intermediate">Intermediate</option>

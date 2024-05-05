@@ -67,7 +67,7 @@ const ClientSignup = ({ }) => {
     }, []);
 
     const showError = (message) => {
-        setMessage(message);
+        // setMessage(message);
         setShowErrorMessage(true);
 
         setTimeout(() => {
@@ -76,7 +76,7 @@ const ClientSignup = ({ }) => {
     };
 
     const showSuccess = (message) => {
-        setMessage(message);
+        // setMessage(message);
         setShowSuccessMessage(true);
 
         setTimeout(() => {

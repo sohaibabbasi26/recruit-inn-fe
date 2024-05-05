@@ -16,6 +16,7 @@
     import ClientInfo from './ClientInfo';
     import AdminOverlayBtns from './AdminOverlayBtns';
     import ErrorIndicator from './ErrorIndicator';
+import AdminClientInfo from './AdminClientInfo';
 
     const AdminOverlay = ({adminToken, message, showError, showErrorMessage, showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
@@ -218,7 +219,7 @@
 
                             {currentStage === stages.CLIENT_INFO && !isLoading && (
                                 <>
-                                    <ClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} phoneNo = {phoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
+                                    <AdminClientInfo email={email} setActManager={setActManager} setCity={setCity} setClientname={setClientname} setEmail={setEmail} setPhoneNo={setPhoneNo} phoneNo = {phoneNo} setCountry={setCountry} setCompanySize={setCompanySize} setCompanyname={setCompanyname} />
                                     <div className={styles.wrapper}>
                                         <AdminOverlayBtns email={email} showError={showError} setMessage={setMessage} fillValidity={fillValidity} validateEmailReceiver={validateEmailReceiver} showSuccess={showSuccess} handleFormSubmit={handleFormSubmit} onClose={onClose} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>

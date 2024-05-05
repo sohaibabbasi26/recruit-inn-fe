@@ -98,10 +98,11 @@ export default function Candidate({
   }, [router?.isReady]);
 
   useEffect(() => {
+    
     async function fetchResults() {
       const reqBody = {
-        candidate_id: id,
-      };
+        candidate_id: id
+      } 
       try {
         if (id) {
           const response = await fetch(
@@ -124,7 +125,11 @@ export default function Candidate({
       } catch (err) {
         console.log("err:", err);
       }
+      finally{
+        setIsLoading(false);
+      }
     }
+    setIsLoading(true);
     fetchResults();
   }, [router?.isReady, id]);
 
@@ -163,7 +168,7 @@ export default function Candidate({
       setIsLoading(false);
       console.log("error:", err);
     }
-  };
+  }
 
   const { activeItem } = useActiveItem();
   const { setActiveFlow, activeFlow } = useActiveFlow();
@@ -246,24 +251,10 @@ export default function Candidate({
 
   const getActiveComponent = () => {
     switch (activeItem) {
-      case "Dashboard":
-        return (
-          <>
-            <CandidateSuper
-              contact={contact}
-              isDisable={isDisable}
-              setReportOverlay={setReportOverlay}
-              setSelectedCandidate={setSelectedCandidate}
-              appliedThrough={appliedThrough}
-              experience={experience}
-              name={candName}
-              expertise={expertise}
-              results={results}
-              isLoading={isLoading}
-              generateTestAndRedirect={generateTestAndRedirect}
-            />
-          </>
-        );
+      case 'Dashboard':
+        return <>
+          <CandidateSuper isLoading={isLoading} contact={contact} isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} generateTestAndRedirect={generateTestAndRedirect} />
+        </>;
       default:
         return null;
     }
@@ -271,6 +262,11 @@ export default function Candidate({
 
   return (
     <>
+{/* <<<<<<< HEAD */}
+      {/* {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
+      {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
+      {reportOverlay && <SelfReportOverlay contact={contact} jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date}  showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
+      {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />} */}
       {showErrorMessage && (
         <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
       )}

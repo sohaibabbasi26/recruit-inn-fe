@@ -7,14 +7,14 @@ import TopNavbar from './TopNavbar';
 import CandidatesSelfHub from './CandidateSelfHub';
 
 const CandidateSuper = ({
+    isLoading,
     contact,
     results,
-    isLoading,
     generateTestAndRedirect,
     recommendedCandidates,
     reportOverlay,
     setReportOverlay,
-    setJobOverlay,  
+    setJobOverlay,
     setSelectedCandidate,
     setSelectedJob,
     name,
@@ -24,15 +24,15 @@ const CandidateSuper = ({
     isDisable
 }) => {
 
-    const showJobOverlay = (job) => {
-        setSelectedJob(job);
-        setJobOverlay(true)
-    };
+    // const showJobOverlay = (job) => {
+    //     setSelectedJob(job);
+    //     setJobOverlay(true)
+    // };
 
-    const showCandidateOverlay = (cand) => {
-        setSelectedCandidate(cand);
-        setReportOverlay(true);
-    }
+    // const showCandidateOverlay = (cand) => {
+    //     setSelectedCandidate(cand);
+    //     setReportOverlay(true);
+    // }
 
     const activeItem = useActiveItem();
     const iconSize = 20;
@@ -40,8 +40,20 @@ const CandidateSuper = ({
 
     return (
         <div className={styles.superContainer}>
-            <CandidatesSelfHub contact={contact} isDisable={isDisable} appliedThrough={appliedThrough} experience={experience}  name={name} expertise={expertise} results={results} isLoading={isLoading}  generateTestAndRedirect={generateTestAndRedirect} heading='Reports' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate}  />
-        </div>
+            {isLoading ? (
+
+                <>
+                    <div className={styles.loader}>
+
+                    </div>
+                </>
+
+            ): (<>
+            <CandidatesSelfHub contact = { contact } isDisable = { isDisable } appliedThrough = { appliedThrough } experience = { experience }  name = { name } expertise = { expertise } results = { results } isLoading = { isLoading }  generateTestAndRedirect = { generateTestAndRedirect } heading = 'Reports' data = { recommendedCandidates } reportOverlay = { reportOverlay } setReportOverlay = { setReportOverlay } setSelectedCandidate = { setSelectedCandidate }  />
+        </>
+    )
+}
+        </div >
     );
 }
 

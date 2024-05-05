@@ -1,32 +1,36 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const AdminOverlayBtns = ({password ,conformpassword, email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+const ClientSignUpOverlayBtn = ({password ,conformpassword, email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+    
 
     const onAddClientHandler = async () => {
         if (!fillValidity()) {
-            showError("Fill all the fields")
+            setMessage("Fill all the fields")
+            showError()
             // setMessage();
             
             return
         }
 
         if (!validateEmailReceiver()) {
-            
-            showError("Please enter a valid email address");
-            return
+            setMessage("Please enter a valid email address")
+            showError();
+            return;
         }
 
         if (password !== conformpassword) {
             console.log("")
-            showError('Password not match');
+            setMessage('Password not match')
+            showError();
             return;
         }
 
         await handleFormSubmit();
+        // setisLoading(false);
         onClose();
-        setMessage("Client has been created")
-        showSuccess();
+        // setMessage("Client has been created")
+        // showSuccess();
     }
 
     const navigationIconSize = 30;
@@ -41,4 +45,4 @@ const AdminOverlayBtns = ({password ,conformpassword, email, fillValidity, valid
     )
 }
 
-export default AdminOverlayBtns;
+export default ClientSignUpOverlayBtn;

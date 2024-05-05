@@ -1,12 +1,13 @@
 import styles from "./ClientInfo.module.css";
 import Image from "next/image";
 import { useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { isValidPhoneNumber } from "libphonenumber-js";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
-import PhoneInput from 'react-phone-number-input';
 
-
-const ClientInfo = ({
+const AdminClientInfo = ({
   email,
   phoneNo,
   setActManager,
@@ -22,76 +23,71 @@ const ClientInfo = ({
   setCompanyname,
 }) => {
   const iconSize = 25;
-
-  const [validationErrors, setValidationErrors] = useState({}); // Define if used for error handling
-
-  const handleInputChange = (setter) => (event) => {
-    setter(event.target.value);
-    console.log(getCities(country));
+  const [isValid, setIsValid] = useState(true);
+  const handlePhoneChange = (value, country) => {
+    setPhoneNo(value);
+    // Check if the phone number is valid
+    setIsValid(isValidPhoneNumber(value, country));
   };
-
+  console.log(getCities(country));
   return (
     <>
-    
       <div className={styles.superContainer}>
-        {/* Client Name Input */}
         <div className={styles.inputField}>
-          <Image src="/smiley.svg" width={iconSize} height={iconSize} alt="Smiley" />
+          <Image src="/smiley.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Client Name"
             onChange={(e) => setClientname(e.target.value)}
           />
         </div>
-
-        {/* Company Name Input */}
         <div className={styles.inputField}>
-          <Image src="/company.svg" width={iconSize} height={iconSize} alt="Company" />
+          <Image src="/company.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Company Name"
             onChange={(e) => setCompanyname(e.target.value)}
           />
         </div>
-
-        {/* Email Input */}
         <div className={styles.inputField}>
-          <Image src="/email.svg" width={iconSize} height={iconSize} alt="Email" />
+          <Image src="/email.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Business Email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
-        {/* Phone Input with Validation */}
-      
+        {/* <div className={styles.inputField} >
+                    <Image src='/phone.svg' width={iconSize} height={iconSize} />
+                    <input placeholder='Client’s phone number' onChange={(e) => setPhoneNo(e.target.value)} />
+                </div> */}
         <div className={styles.inputField}>
-          <Image src="/phone.svg" alt="Phone" width={iconSize} height={iconSize} />
+          <Image src="/phone.svg" width={iconSize} height={iconSize} />
           <PhoneInput
-            international
-            defaultCountry="PK"
-            value={phoneNo}
-            onChange={setPhoneNo}
-            className={styles.phoneInput}
+            country={"us"} // Set default country (you can change it based on your requirement)
+            onChange={handlePhoneChange}
+            inputStyle={{ border: "none" }}
+            inputProps={{
+              placeholder: "phone number",
+            }}
           />
         </div>
-
-        {/* Account Manager Input */}
+{/* 
         <div className={styles.inputField}>
-          <Image src="/Case.svg" width={iconSize} height={iconSize} alt="Case" />
+          <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Password"
             type="password"
             onChange={(e) => setpassword(e.target.value)}
           />
-        </div>
+        </div> */}
 
-        <div className={styles.inputField}>
+        {/* <div className={styles.inputField}>
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Confirm password"
             type="password"
             onChange={(e) => setconfirmpassword(e.target.value)}
           />
-        </div>
+        </div> */}
 
         <div className={styles.inputField}>
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
@@ -101,38 +97,33 @@ const ClientInfo = ({
           />
         </div>
 
-        {/* Company Size Selection */}
         <div className={styles.inputField}>
-          <Image src="/company.svg" width={iconSize} height={iconSize} alt="Company Size" />
+          <Image src="/company.svg" width={iconSize} height={iconSize} />
           <select onChange={(e) => setCompanySize(e.target.value)}>
             <option>Company size</option>
-            <option value="0-15">0-15</option>
-            <option value="16-50">16-50</option>
-            <option value="51-100">51-100</option>
+            <option>100-50</option>
+            <option>25-50</option>
+            <option>0-15</option>
           </select>
         </div>
-
-        {/* Country Selection */}
         <div className={styles.inputField}>
-          <Image src="/earth.svg" width={iconSize} height={iconSize} alt="Earth" />
+          <Image src="/earth.svg" width={iconSize} height={iconSize} />
           <select onChange={(e) => setCountry(e.target.value)}>
             <option>Select country</option>
-            {countryList.map((country, index) => (
-              <option key={index} value={country}> {country} </option>
+            {countryList.map((country) => (
+              <option value={country}> {country} </option>
             ))}
           </select>
         </div>
-
-        {/* City Selection */}
         <div className={styles.inputField}>
-          <Image src="/aim.svg" width={iconSize} height={iconSize} alt="Aim" />
+          <Image src="/aim.svg" width={iconSize} height={iconSize} />
           <select
-            disabled={!country}
+            disabled={country === null}
             onChange={(e) => setCity(e.target.value)}
           >
             <option>Select city</option>
-            {country && getCities(country)?.map((city, index) => (
-              <option key={index} value={city}>{city}</option>
+            {getCities(country)?.map((city) => (
+              <option value={city}> {city} </option>
             ))}
           </select>
         </div>
@@ -141,4 +132,4 @@ const ClientInfo = ({
   );
 };
 
-export default ClientInfo;
+export default AdminClientInfo;

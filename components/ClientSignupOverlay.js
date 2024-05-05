@@ -16,6 +16,7 @@ import gsap from "gsap";
 import ClientInfo from "./ClientInfo";
 import AdminOverlayBtns from "./AdminOverlayBtns";
 import ErrorIndicator from "./ErrorIndicator";
+import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 
 const ClientSignUpOverlay = ({
   adminToken,
@@ -60,7 +61,7 @@ const ClientSignUpOverlay = ({
         ease: "power1",
       });
     };
-  }, [showOverlay]);
+  }, []);
 
   const router = useRouter();
   const infoSymbolSize = 20;
@@ -72,6 +73,8 @@ const ClientSignUpOverlay = ({
   const [phoneNo, setPhoneNo] = useState(null);
   const [actManager, setActManager] = useState(null);
   const [companySize, setCompanySize] = useState(null);
+  const [password, setpassword] = useState(null);
+  const [conformpassword, setconfirmpassword] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [companyId, setCompanyId] = useState(null);
@@ -79,6 +82,7 @@ const ClientSignUpOverlay = ({
   const [subject, setSubject] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [linkk, setLink] = useState();
+  const [checkkClient, setCheckClient] = useState();
 
   const validateEmailReceiver = () => {
     if (!email || !isValidEmail(email)) {
@@ -100,6 +104,8 @@ const ClientSignUpOverlay = ({
       companySize &&
       phoneNo &&
       actManager &&
+      password &&
+      conformpassword &&
       country &&
       city &&
       clientname &&
@@ -139,7 +145,7 @@ const ClientSignUpOverlay = ({
     console.log("Current active flow:", activeFlow);
     switch (activeFlow) {
       case "Client":
-        router.push(`/set-password/${companyId}`);
+        router.push(`/client-login`);
       case "Admin":
         console.log("its an admin flow!!!!");
       default:
@@ -147,18 +153,15 @@ const ClientSignUpOverlay = ({
     }
   };
 
-  const handleFormSubmit = async () => {
+  // /check-client
+
+  const checkClient = async () => {
     const requestBody = {
-      company_name: companyname,
-      company_location: city,
       email: email,
-      account_user_name: actManager,
-      contact_no: phoneNo,
     };
     try {
-      setisLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`,
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`,
         {
           method: "POST",
           headers: {
@@ -169,12 +172,82 @@ const ClientSignUpOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("login response:", data?.data?.data?.company_id);
-      setCompanyId(data?.data?.data?.company_id);
-      sendMail(data?.data?.data?.company_id);
-      getActiveComponent();
-    } catch (error) {
-      console.error("Error submitting form:", error);
+      console.log("checking if client exists:", data);
+
+      // setCheckClient(data);
+      // console.log("state of check client:", checkkClient)
+      // if(data?.data?.message === null){
+      //   setMessage("Email you are registering with is already in use, try another one!")
+      //   showError()
+      //   return;
+      // }
+      // if (data?.data?.data) {
+      //   setMessage("Email you are registering with is already in use, try another one!");
+      //   showError();
+      //   // return
+      //   // return;
+      // }
+
+      return data;
+    } catch (e) {
+      console.log(e);
+      setMessage("some expected error occurs");
+      showError();
+    }
+  };
+
+  // useEffect(() => {
+  //   if (message) {
+  //     showError();
+  //   }
+  // }, [message]);
+
+  const handleFormSubmit = async () => {
+    const requestBody = {
+      company_name: companyname,
+      company_location: city,
+      email: email,
+      password: password,
+      account_user_name: actManager,
+      contact_no: phoneNo,
+    };
+
+    const check = await checkClient();
+
+    if (check?.data?.message !== null) {
+      setMessage(
+        "Email you are registering with is already in use, try another one!"
+      );
+      showError();
+      return;
+    } else if (check?.data?.message === null) {
+      try {
+        setisLoading(true);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${adminToken}`,
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
+        const data = await response.json();
+        console.log("login response:", data?.data?.data?.company_id);
+        setCompanyId(data?.data?.data?.company_id);
+        sendMail(data?.data?.data?.company_id);
+        setisLoading(false);
+        getActiveComponent();
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        setMessage("Failed to process form submission.");
+        showError();
+        setisLoading(false);
+      } finally {
+        setisLoading(false);
+      }
     }
   };
 
@@ -209,9 +282,10 @@ const ClientSignUpOverlay = ({
 
       const data = await response.text();
       console.log("Email sent successfully:", data);
-      setisLoading(false);
+      // setisLoading(false);
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.log("Error sending email:", error);
+      setisLoading(false);
     }
   };
 
@@ -223,9 +297,7 @@ const ClientSignUpOverlay = ({
         <div className={styles.superContainer}>
           <div className={styles.coverContainer}>
             <div className={styles.topContainer}>
-              <h2>
-                Personal Info
-              </h2>
+              <h2>Personal Info</h2>
             </div>
 
             <Stages
@@ -240,6 +312,8 @@ const ClientSignUpOverlay = ({
                   email={email}
                   setActManager={setActManager}
                   setCity={setCity}
+                  setpassword={setpassword}
+                  setconfirmpassword={setconfirmpassword}
                   setClientname={setClientname}
                   setEmail={setEmail}
                   setPhoneNo={setPhoneNo}
@@ -249,7 +323,9 @@ const ClientSignUpOverlay = ({
                   setCompanyname={setCompanyname}
                 />
                 <div className={styles.wrapper}>
-                  <AdminOverlayBtns
+                  <ClientSignUpOverlayBtn
+                    password={password}
+                    conformpassword={conformpassword}
                     email={email}
                     showError={showError}
                     setMessage={setMessage}

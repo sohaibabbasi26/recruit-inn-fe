@@ -93,7 +93,7 @@ const LandingFAQs = () => {
                             <li className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple">
                                 <div className=" w-[100%] flex justify-between">
                                     <span className="text-lg tracking-wide font-semibold font-sans">How does billing work?</span>
-                                    <Image o    nClick={toggleFourthDropDown} src='/dropdown-white.svg' width={15} height={15} />
+                                    <Image onClick={toggleFourthDropDown} src='/dropdown-white.svg' width={15} height={15} />
                                 </div>
                                 {
                                     fourthDropDownState && <p className="text-sm  text-smallText mt-3">
@@ -102,10 +102,11 @@ const LandingFAQs = () => {
                                         an AI tool for vetting top talent.
                                     </p>
                                 }
-                            </li><li className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple">
+                            </li>
+                            <li onClick={toggleFifthDropDown} className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple">
                                 <div className=" w-[100%] flex justify-between">
                                     <span className="text-lg tracking-wide font-semibold font-sans">How are you different?</span>
-                                    <Image onClick={toggleFifthDropDown} src='/dropdown-white.svg' width={15} height={15} />
+                                    <Image  src='/dropdown-white.svg' width={15} height={15} />
                                 </div>
                                 {
                                     fifthDropDownState && <p className="text-sm  text-smallText mt-3">
@@ -115,7 +116,7 @@ const LandingFAQs = () => {
                                     </p>
                                 }
                             </li>
-                            <li className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple">
+                            <li onClick={toggleSixthDropDown}  className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple">
                                 <div className=" w-[100%] flex justify-between">
                                     <span className="text-lg tracking-wide font-semibold font-sans">What technologies do recruitinn developers know?</span>
                                     <Image onClick={toggleSixthDropDown} src='/dropdown-white.svg' width={15} height={15} />

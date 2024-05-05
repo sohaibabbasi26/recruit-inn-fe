@@ -1,10 +1,10 @@
-import styles from "./ReportOverlay.module.css";
-import Image from "next/image";
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import Assessment from "./Assessment";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import styles from './ReportOverlay.module.css';
+import Image from 'next/image';
+import { useRef, useEffect, useState } from 'react';
+import gsap from 'gsap';
+import Assessment from './Assessment';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const SelfReportOverlay = ({
   candName,
@@ -17,15 +17,45 @@ const SelfReportOverlay = ({
   contact,
   jobtype,
 }) => {
-  console.log("selected candidate is:", selectedCandidate);
+  // console.log("selected candidate is:", selectedCandidate);
 
-  const overlayRef = useRef(null);
-  const contentRef = useRef(null);
-  const infoSymbolSize = 10;
+  console.log('selected candidate is:', selectedCandidate)
+  const [codingResult, setCodingResult] = useState();
+  const [isCodingAssessment, setIsCodingAssessment] = useState();
 
-  const headingOne = "Technical";
-  const headingTwo = "Soft-skill";
+  useEffect(() => {
+    async function fetchCandidatesCodingResult() {
+      const requestBody = {
+        candidate_id: selectedCandidate?.candidate_id
+      }
 
+      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+
+      const data = await response.json();
+      console.log("data response:", data);
+      setCodingResult(data);
+      if (data && data?.data && data?.data?.result && data?.data?.result?.technicalRating) {
+        setIsCodingAssessment(true);
+      } else {
+        setIsCodingAssessment(false);
+      }
+    }
+
+    fetchCandidatesCodingResult();
+  }, [selectedCandidate]);
+
+
+
+  const headingOne = 'Technical';
+  const headingTwo = 'Soft-skill';
+  const headingThree = 'Coding Exercise Analysis'
   const paraOne = `Welcome to HyperTech Solutions Unlimited, where we transcend the boundaries of reality to pioneer groundbreaking solutions in quantum software engineering. As a Quantum Code Wizard, you'll be part of a dynamic team of multidimensional thinkers who harness the power of quarks, warp drives, and a touch of magic to push the boundaries of technology.`;
   const paraTwo = `Welcome to HyperTech Solutions Unlimited, where we transcend the boundaries of reality to pioneer groundbreaking solutions in quantum software engineering. As a Quantum Code Wizard, you'll be part of a dynamic team of multidimensional thinkers who harness the power of quarks, warp drives, and a touch of magic to push the boundaries of technology.`;
 
@@ -163,51 +193,25 @@ const SelfReportOverlay = ({
           </button>
         </div>
 
-        <div
-          ref={contentRef}
-          className={`${styles.superContainer} content-to-print`}
-        >
+
+        <div ref={contentRef} className={`${styles.superContainer} content-to-print`}>
           <div className={styles.coverContainer}>
             {/*top container */}
             <div className={styles.topContainer}>
               <div className={styles.leftContainer}>
                 <div className={styles.imageDiv}>
-                  <Image
-                    id={styles.emoji}
-                    src="/bigEmoji.svg"
-                    width={80}
-                    height={80}
-                  />
+                  <Image id={styles.emoji} src='/bigEmoji.svg' width={80} height={80} />
                 </div>
                 <div className={styles.info}>
                   <h3>{selectedCandidate?.name || candName}</h3>
                   <p>{selectedCandidate?.position}</p>
-                  <h4
-                    style={{
-                      backgroundColor: getBackgroundColor(
-                        Math.ceil(selectedCandidate?.result?.technicalRating)
-                      ),
-                    }}
-                  >
-                    {getFilter(
-                      Math.ceil(selectedCandidate?.result?.technicalRating)
-                    )}
-                    <Image
-                      src={getStatusSymbol(
-                        Math.ceil(selectedCandidate?.result?.technicalRating)
-                      )}
-                      width={infoSymbolSize}
-                      height={infoSymbolSize}
-                    />
-                  </h4>
+                  <h4 style={{ backgroundColor: getBackgroundColor(Math.ceil(selectedCandidate?.result?.technicalRating)) }}>{getFilter(Math.ceil(selectedCandidate?.result?.technicalRating))}<Image src={getStatusSymbol(Math.ceil(selectedCandidate?.result?.technicalRating))} width={infoSymbolSize} height={infoSymbolSize} /></h4>
                 </div>
               </div>
 
               <div className={styles.rightContainer}>
-                {/* <button onClick={downloadPDF}>Download PDF</button> */}
-                <span>
-                  {Math.ceil(selectedCandidate?.result?.technicalRating)}/10
-                </span>
+                <button onClick={downloadPDF}>Download PDF</button>
+                <span>{Math.ceil(selectedCandidate?.result?.technicalRating)}/10</span>
               </div>
             </div>
             {/* candidate test info div */}
@@ -215,7 +219,7 @@ const SelfReportOverlay = ({
               <ul>
                 <li>
                   <span className={styles.bold}>Phone</span>
-                  <span>{contact ? contact : "03122597173"}</span>
+                  <span>{contact ? contact : '03122597173'}</span>
                 </li>
                 <li>
                   <span className={styles.bold}>Date</span>
@@ -227,11 +231,7 @@ const SelfReportOverlay = ({
                 </li>
                 <li>
                   <span className={styles.bold}>Applied For</span>
-                  <span>
-                    {selectedCandidate?.company
-                      ? selectedCandidate?.company?.name
-                      : "Self"}
-                  </span>
+                  <span>{selectedCandidate?.company ? selectedCandidate?.company?.name : 'Self'}</span>
                 </li>
                 <li>
                   <span className={styles.bold}>Email</span>
@@ -243,45 +243,45 @@ const SelfReportOverlay = ({
             {/*assessment components */}
             <div className={styles.cont}>
               <div className={styles.auto}>
-                <Assessment
-                  heading={headingOne}
-                  para={selectedCandidate?.result?.technicalAssessment}
-                  score={Math.ceil(selectedCandidate?.result?.technicalRating)}
-                />
-                <Assessment
-                  heading={headingTwo}
-                  para={selectedCandidate?.result?.softskillAssessment}
-                  score={Math.ceil(selectedCandidate?.result?.softskillRating)}
-                />
+                <Assessment heading={headingOne} para={selectedCandidate?.result?.technicalAssessment} score={Math.ceil(selectedCandidate?.result?.technicalRating)} />
+                <Assessment heading={headingTwo} para={selectedCandidate?.result?.softskillAssessment} score={Math.ceil(selectedCandidate?.result?.softskillRating)} />
+                {isCodingAssessment &&
+                  (
+                    <>
+                      <Assessment heading={headingThree} para={codingResult?.data?.result?.technicalSummary} score={Math.ceil(parseInt(codingResult?.data?.result?.technicalRating))} />
+                    </>
+                  )
+                }
               </div>
             </div>
-            <div className={styles.selfReportOverlayButtons}>
-              <button className={styles.backButton} onClick={onClose}>
-                <span>
-                  <Image
-                    alt="Back arrow"
-                    height={40}
-                    width={40}
-                    src="/backBlack.svg"
-                  />
-                </span>
-                Back
-              </button>
-              <button className={styles.downloadButton} onClick={downloadPDF}>
-                Download PDF
-                <span>
-                  <Image
-                    alt="Download icon"
-                    height={40}
-                    width={40}
-                    src="/download.svg"
-                  />
-                </span>
-              </button>
-            </div>
           </div>
+
+        </div >
+        <div className={styles.selfReportOverlayButtons}>
+          <button className={styles.backButton} onClick={onClose}>
+            <span>
+              <Image
+                alt="Back arrow"
+                height={40}
+                width={40}
+                src="/backBlack.svg"
+              />
+            </span>
+            Back
+          </button>
+          <button className={styles.downloadButton} onClick={downloadPDF}>
+            Download PDF
+            <span>
+              <Image
+                alt="Download icon"
+                height={40}
+                width={40}
+                src="/download.svg"
+              />
+            </span>
+          </button>
         </div>
-      </div>
+      </div >
     </>
   );
 };
