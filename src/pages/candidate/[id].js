@@ -98,11 +98,10 @@ export default function Candidate({
   }, [router?.isReady]);
 
   useEffect(() => {
-    
     async function fetchResults() {
       const reqBody = {
-        candidate_id: id
-      } 
+        candidate_id: id,
+      };
       try {
         if (id) {
           const response = await fetch(
@@ -124,8 +123,7 @@ export default function Candidate({
         }
       } catch (err) {
         console.log("err:", err);
-      }
-      finally{
+      } finally {
         setIsLoading(false);
       }
     }
@@ -168,7 +166,7 @@ export default function Candidate({
       setIsLoading(false);
       console.log("error:", err);
     }
-  }
+  };
 
   const { activeItem } = useActiveItem();
   const { setActiveFlow, activeFlow } = useActiveFlow();
@@ -193,6 +191,7 @@ export default function Candidate({
   // trying this weird way to get candidate name [not recommended]
   useEffect(
     function () {
+      localStorage.removeItem("jobCandidateNameForNow");
       localStorage.setItem("candidateNameForNow", candName);
     },
     [candName]
@@ -251,10 +250,24 @@ export default function Candidate({
 
   const getActiveComponent = () => {
     switch (activeItem) {
-      case 'Dashboard':
-        return <>
-          <CandidateSuper isLoading={isLoading} contact={contact} isDisable={isDisable} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} appliedThrough={appliedThrough} experience={experience} name={candName} expertise={expertise} results={results} generateTestAndRedirect={generateTestAndRedirect} />
-        </>;
+      case "Dashboard":
+        return (
+          <>
+            <CandidateSuper
+              isLoading={isLoading}
+              contact={contact}
+              isDisable={isDisable}
+              setReportOverlay={setReportOverlay}
+              setSelectedCandidate={setSelectedCandidate}
+              appliedThrough={appliedThrough}
+              experience={experience}
+              name={candName}
+              expertise={expertise}
+              results={results}
+              generateTestAndRedirect={generateTestAndRedirect}
+            />
+          </>
+        );
       default:
         return null;
     }
@@ -262,7 +275,7 @@ export default function Candidate({
 
   return (
     <>
-{/* <<<<<<< HEAD */}
+      {/* <<<<<<< HEAD */}
       {/* {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
       {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
       {reportOverlay && <SelfReportOverlay contact={contact} jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date}  showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
