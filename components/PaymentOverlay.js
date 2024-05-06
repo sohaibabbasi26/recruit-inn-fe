@@ -23,7 +23,7 @@ const PaymentOverlay = React.memo(
     showErrorMessage;
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isActive, setIsActive] = useState("");
+    const [isActive, setIsActive] = useState("monthly");
 
     useEffect(() => {
       document.body.style.overflow = "hidden";
