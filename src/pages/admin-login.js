@@ -10,6 +10,9 @@ const AdminLogin = () => {
     const router = useRouter();
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [message,setMessage] = useState();
 
     const stages = {
         LOG_IN: 'LOG_IN',
@@ -42,11 +45,27 @@ const AdminLogin = () => {
         }
     }
 
+    const showError = (message) => {
+        setShowErrorMessage(true);
+        setMessage(message);
+        setTimeout(() => {
+            setShowErrorMessage(false);
+        }, 3000);
+    };
+
+    const showSuccess = (message) => {
+        setShowSuccessMessage(true);
+        setMessage(message);
+        setTimeout(() => {
+            setShowSuccessMessage(false);
+        }, 3000);
+    };
+
     const showOverlay = true;
 
     return (
         <>
-            <AdminLoginOverlay email={email} password = {password} setEmail={setEmail} setPassword={setPassword} loginApiCall={loginApiCall} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
+            <AdminLoginOverlay setMessage={setMessage} showError={showError} email={email} password = {password} setEmail={setEmail} setPassword={setPassword} loginApiCall={loginApiCall} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
         </>
     )
 }

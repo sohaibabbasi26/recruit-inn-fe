@@ -33,7 +33,6 @@ const QuestionBox = ({ hasStarted }) => {
     const [message, setMessage] = useState(null);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [isGeneratingResult, setIsGeneratingResult] = useState(false);
-
     const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
 
     const isLastQuestion = currentQuestion === questions?.length;
@@ -183,9 +182,7 @@ const QuestionBox = ({ hasStarted }) => {
 
 
     const submitTestHandler = async () => {
-
         if (isSubmitted) return;
-
         setIsSubmitted(true);
         setIsGeneratingResult(true);
         setIsLoading(true);
@@ -211,11 +208,11 @@ const QuestionBox = ({ hasStarted }) => {
             console.log("a_ID:", a_id);
             if (test_req === 'true' && a_id) {
                 router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
-                setIsLoading(false);
+                // setIsLoading(false);
             }
             else {
                 router.push('/test-submit-completion');
-                setIsLoading(false);
+                // setIsLoading(false);
             }
         } catch (err) {
             console.error('Failed to submit test:', err);
@@ -225,7 +222,6 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     const toggleComponent = async () => {
-
         setIsLoading(true);
         try {
             if (isLastQuestion) return;
@@ -266,8 +262,6 @@ const QuestionBox = ({ hasStarted }) => {
         setTimeLeft(59)
         speakQuestion(currentQuestion);
     }, [currentQuestion])
-
-
 
     const stopAndHandleRecording = async () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
@@ -310,8 +304,6 @@ const QuestionBox = ({ hasStarted }) => {
         }
         recordedChunksRef.current = [];
     };
-
-
 
     async function sendAudioToServer(base64Data) {
         try {
@@ -360,11 +352,10 @@ const QuestionBox = ({ hasStarted }) => {
             };
             reader.onerror = reject;
         });
-    }
+    };
 
     useEffect(() => {
         if (currentQuestionIndex < questions?.length) {
-            // Speak next question only if the current question index is valid
             speakQuestion(questions[currentQuestionIndex]);
         }
     }, [currentQuestionIndex, questions]);
@@ -375,7 +366,7 @@ const QuestionBox = ({ hasStarted }) => {
             blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
             const newAudioURL = URL.createObjectURL(blob);
             setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-            saveAnswer(blob); // Save answer separately
+            saveAnswer(blob); 
         }
     };
 

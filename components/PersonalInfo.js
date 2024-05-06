@@ -248,7 +248,7 @@ const PersonalInfo = forwardRef(({
             <div className={styles.infoField}>
               <Image src="/earth.svg" width={20} height={20} />
               <select onChange={(e) => setCountry(e.target.value)}>
-                <option>Select country</option>
+                <option disabled={true}>Select country</option>
                 {countryList.map((country) => (
                   <option value={country}> {country} </option>
                 ))}
@@ -262,7 +262,7 @@ const PersonalInfo = forwardRef(({
                 disabled={country === null}
                 onChange={(e) => setCity(e.target.value)}
               >
-                <option>Select city</option>
+                <option disabled={true}>Select city</option>
                 {getCities(country)?.map((city) => (
                   <option value={city}> {city} </option>
                 ))}

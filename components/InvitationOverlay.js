@@ -491,7 +491,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [positionId, router.query, router.isReady])
 
     const updateFormData = () => {
-        // Save form data to local storage whenever it changes
         try {
           const formData = {
             name: nameRef.current.value,

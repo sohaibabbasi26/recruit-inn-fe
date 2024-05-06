@@ -168,6 +168,7 @@ const JobOverlay = ({
         console.log("test:", test);
         setQuestionId(newQuestionId);
         const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}&a_id=${assessmentId}&test_req=${selectedJob?.is_test_req}`;
+        console.log("new link:", newLink);
         setLink(newLink);
         copyToClipboard(newLink)
           .then(() => {
