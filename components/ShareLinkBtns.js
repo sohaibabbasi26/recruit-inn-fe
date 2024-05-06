@@ -9,8 +9,6 @@ const ShareLinkBtns = ({showError, validateReceivers, onContinue , onBack , onCl
         const valid = validateReceivers();
         if (valid) {
           await handleEmailInvite();
-          setMessage("Invitations have been sent successfully.");
-          showSuccess();
         } else {
           // Already handled in validateReceivers, just exit
           setMessage("Validation failed");
