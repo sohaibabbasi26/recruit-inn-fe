@@ -13,7 +13,6 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
     return (
         <>
             {/* leptup sacreen */}
-
             <>
             <div className=" max-sm:hidden bg-black" >
             <div className='h-[10vh] w-full flex bg-black justify-center max-lg:hidden z-50 fixed' >
@@ -44,7 +43,7 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
     className="px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold"
     style={{
       transition: "background-color 0.3s, color 0.3s", // Add transition for smooth hover effect
-      backgroundColor: "#6137db", // Default background color
+      backgroundColor: "#6137db", // Default background color hello
       color: "#fff", // Default text color
       border: "none", // Remove default button border
     }}
