@@ -363,6 +363,8 @@ const Overlay = React.memo(
             codingExpertise: codingExpertise,
             position_id: positionId,
           };
+
+          
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
             {
@@ -380,23 +382,26 @@ const Overlay = React.memo(
           console.log("assessment id:", assessmentId);
           console.log("code question data:", data);
           setIsLoading(false);
-          // try{
-          //     const body ={
+          try{
+              const body ={
+                position_id: positionId,
+                is_test_req: isTestRequired
+              }
 
-          //     }
-          //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-coding-assessment`, {
-          //         method: 'POST',
-          //         headers: {
-          //             'Content-Type': 'application/json',
-          //             'Authorization': `Bearer ${token}`,
-          //         },
-          //         body: JSON.stringify(body),
-          //     });
-          //     const data = await response.json();
-          //     setCodeQues(data);
-          // } catch(err){
-          //     console.log('ERROR:',err);
-          // }
+              console.log("body data sent in setPositionTestReq:",body);
+              const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`,
+                  },
+                  body: JSON.stringify(body),
+              });
+              const data = await response.json();
+              setCodeQues(data);
+          } catch(err){
+              console.log('ERROR:',err);
+          }
         } catch (err) {
           console.error("ERROR:", err);
         }

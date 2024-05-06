@@ -24,6 +24,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   const expertiseRef = useRef();
   const countryRef = useRef();
   const cityRef = useRef();
+  const overlayRef = useRef();
   const generatedCodeRef = useRef();
 
   useEffect(() => {
@@ -63,6 +64,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   const [isLoading, setIsLoading] = useState(false);
   const [candidate, setCandidate] = useState();
   const [checkIfEmailPresent, setCheckIfEmailPresent] = useState(false);
+  const [assessmentId, setAssessmentId] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
 
   const toggleComponent = async () => {
     const regex =
@@ -145,6 +148,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       }
     }
   };
+
+
   const backToggleComponent = () => {
     const stageToBePopped = completedStages.slice(0, -1);
     setCompletedStages(stageToBePopped);
@@ -174,8 +179,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
     );
   };
 
-
-
   const [generatedCode, setGeneratedCode] = useState();
   const [name, setName] = useState(null);
   const [country, setCountry] = useState(null);
@@ -197,6 +200,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   const [text, setText] = useState();
   const [personalInfo, setPersonalInfo] = useState();
   const [testReq, setTestReq] = useState(false);
+  const [codeQues, setCodeQues] = useState();
+
   // const [isTestRequired,setIsTestRequired] = useState();
 
   useEffect(() => {
@@ -255,7 +260,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   //     return /^\d+$/.test(contact);
   // }
   const validateNumber = (contact) => {
-    const num = parseInt(contact); // Convert input to a number
+    const num = parseInt(contact);
     console.log("num:", num);
 
     if (isNaN(num)) {
@@ -267,7 +272,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       showError();
       return false;
     } else {
-      return true; // Number is between 10 and 12 (inclusive)
+      return true;
     }
   };
 
@@ -474,43 +479,46 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       console.log("Loading status", isLoading);
     } catch (err) {
       console.log("error:", err);
+    }
+    console.log("Is test Required:", isTestRequired);
+    if (isTestRequired === true) {
 
-
-      console.log("Is test Required:", isTestRequired);
-      if (isTestRequired === true) {
-        try {
-          setIsLoading(true);
-          const req = {
-            codingExpertise: techStack,
-            candidate_id: candidateId
-          };
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(req),
-            }
-          );
-          const data = await response.json();
-          setCodeQues(data);
-          setAssessmentId(data?.data?.assessment_id);
-          if (data?.data?.assessment_id) {
-            setTestReq(true);
-
+      console.log("hey from the if cond");
+      try {
+        setIsLoading(true);
+        const req = {
+          codingExpertise: techStack,
+          candidate_id: candidateId
+        };
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(req),
           }
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
-          setIsLoading(false);
+        );
+        const data = await response.json();
+        console.log("hey from the try block");
 
-        } catch (err) {
-          console.error("ERROR:", err);
+        setCodeQues(data);
+        setAssessmentId(data?.data?.assessment_id);
+        if (data?.data?.assessment_id) {
+          setTestReq(true);
         }
+        console.log("assessment id:", assessmentId);
+        console.log("code question data:", data);
+        setIsLoading(false);
+
+      } catch (err) {
+        console.log("hey from the if cond");
+
+        console.error("ERROR:", err);
       }
     }
-  };
+  }
 
   useEffect(() => {
     console.log('code assessment id:', assessmentId)
@@ -532,18 +540,18 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
                 <h2>{stageHeadings[currentStage]}</h2>
               </div>
 
-              <Stages
+              {/* <Stages
                 currentStage={currentStage}
                 stages={stages}
                 completedStages={completedStages}
-              />
+              /> */}
 
               <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
 
               {
                 currentStage === stages.PERSONAL_INFO && (
                   <>
-                    <PersonalInfoSelf expertiseRef={expertiseRef} contact={contact} password={password} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef={passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword={setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
+                    <PersonalInfoSelf confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword} expertiseRef={expertiseRef} contact={contact} password={password} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef={passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword={setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
                     <div className={styles.wrapper}>
                       <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
                     </div>
@@ -577,7 +585,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
                   <>
                     <CandSelfAssessment />
                     <div className={styles.wrapper}>
-                      <CandSelfAssessmentBtns testReq={testReq} assessmentId={assessmentId} questionId={questionId} setIsLoading={setIsLoading} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
+                      <CandSelfAssessmentBtns isTestRequired={isTestRequired} testReq={testReq} assessmentId={assessmentId} questionId={questionId} setIsLoading={setIsLoading} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
                     </div>
                   </>
                 )
@@ -587,7 +595,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
           )}
         </div >
 
-        
+
       </div >
     </>
   );

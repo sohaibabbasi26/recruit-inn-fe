@@ -9,10 +9,10 @@ import LoginBtns from './LoginBtns';
 import ForgotPassword from './ForgotPassword';
 import { Foldit } from 'next/font/google';
 import ForgotPasswordBtns from './ForgotPassBtns';
-import { Pass } from 'codemirror';
+// import { Pass } from 'codemirror';
 // import Login from '@/pages/client-login';
 
-const AdminLoginOverlay = ({ email, password , setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
+const AdminLoginOverlay = ({ showError, email, password , setPassword, setEmail, loginApiCall, onClose, stages, stageHeadings, showOverlay }) => {
 
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);

@@ -31,16 +31,10 @@
 
  .searchBar:active {
   background-color: white;
-<<<<<<< HEAD
-  outline: 2px solid #6137db;
-}
-
-=======
   outline: 1px solid #6137db;}
 .searchBar:active {
   background-color: white;
   outline: 1px solid #6137db;}
->>>>>>> 0864a324d78658a50c171d0cd797f50304af7e40
 .masterContainer {
   width: 100%;
   display: flex;

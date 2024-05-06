@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
   const iconSize = 25;
 
+  console.log("Is test Required:", isTestRequired);
+
   const [skill1, setSkill1] = useState("");
   const [skill2, setSkill2] = useState("");
 
@@ -26,6 +28,8 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
   const handleTestRequirementChange = (event) => {
     console.log("clicked", event.target.checked);
     setIsTestRequired(event.target.checked);
+    console.log("Is test Required:", isTestRequired);
+
   };
 
   return (
