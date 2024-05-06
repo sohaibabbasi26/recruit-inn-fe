@@ -18,7 +18,6 @@ import AdminOverlayBtns from "./AdminOverlayBtns";
 import ErrorIndicator from "./ErrorIndicator";
 import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 
-
 // const ClientSignUpOverlay = ({
 //   adminToken,
 //   message,
@@ -183,7 +182,7 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //       //   return;
 //       // }
 //       // if (data?.data?.data) {
-//       //   setMessage("Email you are registering with is already in use, try another one!"); 
+//       //   setMessage("Email you are registering with is already in use, try another one!");
 //       //   showError();
 //       //   // return
 //       //   // return;
@@ -205,8 +204,6 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //   // }, [message]);
 
 //   const handleFormSubmit = async () => {
-
-    
 
 //     const requestBody = {
 //       company_name: companyname,
@@ -260,7 +257,7 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //     const emailText = `Follow the link to set up your new password: \n ${demolink}`;
 
 //     const reqBody = {
-//       to: email,  
+//       to: email,
 //       subject: emailSubject,
 //       text: emailText,
 //     };
@@ -332,7 +329,7 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //                     password={password}
 //                     conformpassword={conformpassword}
 //                     email={email}
-//                     showError={showError} 
+//                     showError={showError}
 //                     setMessage={setMessage}
 //                     fillValidity={fillValidity}
 //                     validateEmailReceiver={validateEmailReceiver}
@@ -354,7 +351,6 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 // };
 
 // export default ClientSignUpOverlay;
-
 
 const ClientSignUpOverlay = ({
   adminToken,
@@ -451,7 +447,7 @@ const ClientSignUpOverlay = ({
     setCurrentStage(stages.CLIENT_INFO);
   }, []);
 
-  useEffect(() => { }, [companyId, email]); 
+  useEffect(() => {}, [companyId, email]);
 
   // useEffect(() => {
   //   if (companyId && email) {
@@ -505,10 +501,9 @@ const ClientSignUpOverlay = ({
         }
       );
       const data = await response.json();
-      console.log('checking if client exists:', data);
+      console.log("checking if client exists:", data);
       return data;
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
       setMessage("some expected error occurs");
       showError();
@@ -554,10 +549,10 @@ const ClientSignUpOverlay = ({
         setCompanyId(data?.data?.data?.company_id);
         await sendMail(data?.data?.data?.company_id);
         setMessage("A client account for you has been created!");
-        showSuccess()
+        showSuccess();
         setIsLoading(false);
         // getActiveComponent();
-        router.push('/client-login');
+        router.push("/client-login");
       } catch (error) {
         console.error("Error submitting form:", error);
         setMessage("Failed to process form submission.");
@@ -603,6 +598,7 @@ const ClientSignUpOverlay = ({
       setIsLoading(false);
     }
   };
+
 
   return (
     <>
@@ -672,4 +668,3 @@ const ClientSignUpOverlay = ({
 };
 
 export default ClientSignUpOverlay;
-

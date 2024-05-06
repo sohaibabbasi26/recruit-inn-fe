@@ -47,7 +47,7 @@ const PersonalInfoSelf = forwardRef(
           <div className={styles.masterContainer}>
             <div>
               <div
-                className={`${styles.infoField} ${name ? styles.filled : null}`}
+                className={`${styles.infoField} ${name ? styles.filled : ""}`}
               >
                 <Image src="/smiley.svg" alt="Name" width={20} height={20} />
                 <input
@@ -66,9 +66,7 @@ const PersonalInfoSelf = forwardRef(
 
             <div>
               <div
-                className={`${styles.infoField} ${
-                  email ? styles.filled : null
-                }`}
+                className={`${styles.infoField} ${email ? styles.filled : ""}`}
               >
                 <Image src="/email.svg" alt="Email" width={20} height={20} />
                 <input
@@ -88,7 +86,7 @@ const PersonalInfoSelf = forwardRef(
             <div>
               <div
                 className={`${styles.infoField} ${
-                  password ? styles.filled : null
+                  password ? styles.filled : ""
                 }`}
               >
                 <Image src="/password.svg" alt="City" width={20} height={20} />
@@ -111,7 +109,7 @@ const PersonalInfoSelf = forwardRef(
             <div>
               <div
                 className={`${styles.infoField} ${
-                  confirmPassword ? styles.filled : null
+                  confirmPassword ? styles.filled : ""
                 }`}
               >
                 <Image src="/password.svg" alt="City" width={20} height={20} />
@@ -136,7 +134,7 @@ const PersonalInfoSelf = forwardRef(
             <div>
               <div
                 className={`${styles.infoField} ${
-                  contact ? styles.filled : null
+                  contact ? styles.filled : ""
                 }`}
               >
                 <Image src="/phone.svg" alt="Phone" width={20} height={20} />
@@ -157,7 +155,7 @@ const PersonalInfoSelf = forwardRef(
 
             <div
               className={`${styles.infoField} ${
-                expertise ? styles.filled : null
+                expertise ? styles.filled : ""
               }`}
             >
               <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
@@ -183,7 +181,7 @@ const PersonalInfoSelf = forwardRef(
             <div>
               <div
                 className={`${styles.infoField} ${
-                  country ? styles.filled : null
+                  country ? styles.filled : ""
                 }`}
               >
                 <Image src="/earth.svg" alt="Country" width={20} height={20} />
@@ -200,9 +198,7 @@ const PersonalInfoSelf = forwardRef(
                 </div>
               )}
             </div>
-            <div
-              className={`${styles.infoField} ${city ? styles.filled : null}`}
-            >
+            <div className={`${styles.infoField} ${city ? styles.filled : ""}`}>
               <Image src="/aim.svg" alt="City" width={20} height={20} />
               <select
                 disabled={country === null}
