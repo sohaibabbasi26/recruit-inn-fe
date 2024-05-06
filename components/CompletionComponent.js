@@ -6,7 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import NameContext from "@/contexts/NameContext";
 
 const CompletionComponent = ({ getActiveComponent }) => {
-  const [name, setName] = useState("");
+  const [candidateNameTemp, setCandidateNameTemp] = useState(undefined);
+  const [jobCandidateName, setJobCandidateName] = useState(undefined);
   // const { name } = useContext(NameContext);
   const imagsSize = 130;
   const iconSize = 20;
@@ -14,7 +15,11 @@ const CompletionComponent = ({ getActiveComponent }) => {
 
   // trying this weird way to get candidate name [not recommended]
   useEffect(function () {
-    setName(localStorage.getItem("candidateNameForNow"));
+    setCandidateNameTemp(localStorage.getItem("candidateNameForNow"));
+  }, []);
+  // trying this weird way to get candidate name [not recommended]
+  useEffect(function () {
+    setJobCandidateName(localStorage.getItem("jobCandidateNameForNow"));
   }, []);
 
   // const finishTestHandler = () =>  {
@@ -30,12 +35,19 @@ const CompletionComponent = ({ getActiveComponent }) => {
     }
   };
 
+  console.log(candidateNameTemp);
+  console.log(jobCandidateName);
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.topContainer}>
           <Image src="/completion.svg" width={imagsSize} height={imagsSize} />
-          <h3>Congratulations {name ? name : null} </h3>
+          <h3>
+            Congratulations{" "}
+            {candidateNameTemp !== "undefined" ? candidateNameTemp : ""}
+            {jobCandidateName !== "undefinde" ? jobCandidateName : ""}.
+          </h3>
           <p>You've successfully completed your assessment</p>
         </div>
 
