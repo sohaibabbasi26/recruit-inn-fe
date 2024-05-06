@@ -269,7 +269,6 @@ const Overlay = React.memo(
         job_type: jobTypeRef.current.value,
         description: description,
         location: cityRef.current.value + ", " + countryRef.current.value,
-        // country: ,
         is_test_required: isTestRequired,
       };
 

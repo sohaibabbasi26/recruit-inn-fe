@@ -176,7 +176,7 @@ const PersonalInfo = forwardRef(({
   msgText,
   name,
   email,
-  contact,
+  contact,  
   expertise,
   country,
   city,

@@ -1,5 +1,9 @@
-import styles from "./JobInfoFields.module.css";
+
 import Image from "next/image";
+import styles from "./JobInfoFields.module.css";
+import { countryList } from '@/util/cities';
+import { getCities } from '@/util/helpers';
+import { useEffect } from "react";
 
 const JobInfoFields = ({
   position,
@@ -24,6 +28,12 @@ const JobInfoFields = ({
   const handleInputChange = (setter) => (event) => {
     setter(event.target.value);
 };
+
+// useEffect(() => {
+//   countryRef.current.value = country;
+//   cityRef.current.value = city;
+// },[city, country])
+
   return (
     <>
       <div className={styles.fieldsContainer}>
@@ -37,21 +47,8 @@ const JobInfoFields = ({
           />
         </div>
 
-        <div className={styles.infoField}>
-          <Image src="/aim.svg" alt="City" width={20} height={20} />
-          <select
-            name="city"
-            value={city}
-            ref={cityRef}
-            // onChange={handleInputChange(setCity)}
-          >
-            <option value="">Select your city</option>
-            <option value="Karachi">Karachi</option>
-          </select>
-        </div>
-      </div>
   
-      <div className={styles.fieldsContainer}>
+
 
       <div className={styles.infoField}>
         <Image src="/suitcase.svg" width={iconSize} height={iconSize} />
@@ -64,21 +61,44 @@ const JobInfoFields = ({
           <option value="Hybrid">Hybrid</option>
         </select>
       </div>
+      </div>
 
+
+
+      <div className={styles.fieldsContainer}>
         <div className={styles.infoField}>
-                        <Image src="/earth.svg" alt="Country" width={20} height={20} />
-                        <select
-                            value={country}
-                            ref={countryRef}
-                            // onChange={handleInputChange(setCountry)}
-                        >
-                            <option value="">Select your country</option>
-                            <option value="PK">Pakistan</option>
-                        </select>
-                        {validationErrors?.country && <div className={styles.errorMessage}>{validationErrors.country}</div>}
-      </div>
 
-      </div>
+              <Image src="/earth.svg" width={20} height={20} />
+              <select 
+              ref={countryRef}
+              // onChange={(e) => setCountry(e.target.value)}
+              >
+                <option disabled={true}>Select country</option>
+                {countryList.map((country) => (
+                  <option value={country}> {country} </option>
+                ))}
+              </select>
+            </div>
+          
+          
+            <div className={styles.infoField}>
+              <Image src="/aim.svg" width={20} height={20} />
+              <select
+                disabled={country === null}
+                // onChange={(e) => setCity(e.target.value)}
+                ref={cityRef}
+              >
+                <option disabled={true}>Select city</option>
+                {getCities(country)?.map((city) => (
+                  <option value={city}> {city} </option>
+                ))}
+              </select>
+            </div>
+
+        </div>
+
+
+
     </>
   );
 };

@@ -74,7 +74,6 @@ border: solid 1px #6137db;
 
 .inputField select:focus {
   outline: none; /* Removes the default outline */
-  box-shadow: 0 0 0 2px #000; /* Adds a blue shadow as a focus indicator */
 }
 
 .inputField input:focus {
