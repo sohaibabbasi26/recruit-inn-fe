@@ -542,7 +542,7 @@ const ClientSignUpOverlay = ({
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${adminToken}`,
+                // Authorization: `Bearer ${adminToken}`,
               },
               body: JSON.stringify(requestBody),
             }

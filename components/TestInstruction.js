@@ -28,7 +28,7 @@ const TestInstruction = ({onClose}) => {
 
                         {/* closing button */}
                         <div className={styles.lowerContainer}>
-                            <button onClick={onClose}>Let's Start <Image src='/forward.svg' width={15} height={15} /> </button>
+                            <button onClick={onClose}>Let's Start <Image src='/Forward.svg' width={15} height={15} /> </button>
                         </div>
 
                     </div>

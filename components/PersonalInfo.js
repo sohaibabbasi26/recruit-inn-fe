@@ -153,100 +153,80 @@ import { getCities } from "@/util/helpers";
 
 // export default PersonalInfo;
 
-import { forwardRef, useState, useContext } from "react";
-import styles from "./PersonalInfo.module.css";
-import Image from "next/image";
-import PhoneInput from "react-phone-number-input";
-const PersonalInfo = forwardRef(
-  (
-    {
-      setCity,
-      setCountry,
-      setContact,
-      setEmail,
-      setExpertise,
-      setName,
-      nameRef,
-      contactRef,
-      emailRef,
-      expertiseRef,
-      countryRef,
-      cityRef,
-      validationErrors,
-      showSuccessMessage,
-      msgText,
-      name,
-      email,
-      contact,
-      expertise,
-      country,
-      city,
-    },
-    ref
-  ) => {
-    // const [phoneNumber, setPhoneNumber] = useState(contact || '');
-    // // Handling the form input changes
-    function handleNameChange(e) {
-      setName(e.target.value);
-      localStorage.setItem("jobCandidateNameForNow", e.target.value);
-    }
-    const handleInputChange = (setter) => (event) => {
-      setter(event.target.value);
-    };
-    return (
-      <>
-        <div className={styles.superContainer}>
-          <div className={styles.masterContainer}>
-            <div>
-              <div className={styles.infoField}>
-                <Image src="/smiley.svg" alt="Name" width={20} height={20} />
-                <input
-                  placeholder="Enter your name"
-                  type="text"
-                  value={name}
-                  // onChange={handleInputChange(setName)}
-                  onChange={handleNameChange}
-                />
-                {validationErrors?.name && (
-                  <div className={styles.errorMessage}>
-                    {validationErrors.name}
-                  </div>
-                )}
-              </div>
+
+import { forwardRef, useState, useContext } from 'react';
+import styles from './PersonalInfo.module.css';
+import Image from 'next/image';
+import PhoneInput from 'react-phone-number-input';
+const PersonalInfo = forwardRef(({
+  setCity,
+  setCountry,
+  setContact,
+  setEmail,
+  setExpertise,
+  setName,
+  nameRef,
+  contactRef,
+  emailRef,
+  expertiseRef,
+  countryRef,
+  cityRef,
+  validationErrors,
+  showSuccessMessage,
+  msgText,
+  name,
+  email,
+  contact,  
+  expertise,
+  country,
+  city,
+}, ref) => {
+  // const [phoneNumber, setPhoneNumber] = useState(contact || '');
+  // // Handling the form input changes
+  const handleInputChange = (setter) => (event) => {
+    setter(event.target.value);
+  };
+  return (
+    <>
+      <div className={styles.superContainer}>
+        <div className={styles.masterContainer}>
+
+          <div>
+            <div className={styles.infoField}>
+              <Image src="/smiley.svg" alt="Name" width={20} height={20} />
+              <input
+                placeholder="Enter your name"
+                type="text"
+                value={name}
+                onChange={handleInputChange(setName)}
+              />
+              {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors.name}</div>}
             </div>
-            <div>
-              <div className={styles.infoField}>
-                <Image src="/email.svg" alt="Email" width={20} height={20} />
-                <input
-                  placeholder="Enter your email"
-                  type="email"
-                  value={email}
-                  onChange={handleInputChange(setEmail)}
-                />
-                {validationErrors?.email && (
-                  <div className={styles.errorMessage}>
-                    {validationErrors.email}
-                  </div>
-                )}
-              </div>
+          </div>
+          <div>
+            <div className={styles.infoField}>
+              <Image src="/email.svg" alt="Email" width={20} height={20} />
+              <input
+                placeholder="Enter your email"
+                type="email"
+                value={email}
+                onChange={handleInputChange(setEmail)}
+              />
+              {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors.email}</div>}
             </div>
-            <div>
-              <div className={styles.infoField}>
-                <Image src="/phone.svg" alt="Phone" width={20} height={20} />
-                <PhoneInput
-                  className={styles.phoneInput2}
-                  international
-                  defaultCountry="PK"
-                  value={contact}
-                  onChange={setContact}
-                />
-                {validationErrors?.contact && (
-                  <div className={styles.errorMessage}>
-                    {validationErrors.contact}
-                  </div>
-                )}
-              </div>
+          </div>
+          <div>
+            <div className={styles.infoField}>
+              <Image src="/phone.svg" alt="Phone" width={20} height={20} />
+              <PhoneInput className={styles.phoneInput2}
+                international
+                defaultCountry="PK"
+                value={contact}
+                onChange={setContact}
+              />
+              {validationErrors?.contact && <div className={styles.errorMessage}>{validationErrors.contact}</div>}
             </div>
+          </div>
 
             <div>
               <div className={styles.infoField}>
