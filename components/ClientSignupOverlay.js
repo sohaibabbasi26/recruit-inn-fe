@@ -406,8 +406,8 @@ const ClientSignUpOverlay = ({
   const [phoneNo, setPhoneNo] = useState(null);
   const [actManager, setActManager] = useState(null);
   const [companySize, setCompanySize] = useState(null);
-  const [password, setpassword] = useState(null);
-  const [conformpassword, setconfirmpassword] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [companyId, setCompanyId] = useState(null);
@@ -438,7 +438,7 @@ const ClientSignUpOverlay = ({
       phoneNo &&
       actManager &&
       password &&
-      conformpassword &&
+      confirmPassword &&
       country &&
       city &&
       clientname &&
@@ -490,8 +490,8 @@ const ClientSignUpOverlay = ({
 
   const checkClient = async () => {
     const requestBody = {
-      email: email
-    }
+      email: email,
+    };
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`,
@@ -514,7 +514,7 @@ const ClientSignUpOverlay = ({
       showError();
       return null;
     }
-  }
+  };
 
   const handleFormSubmit = async () => {
     setIsLoading(true);
@@ -530,7 +530,9 @@ const ClientSignUpOverlay = ({
     const check = await checkClient();
 
     if (check?.data?.message !== null) {
-      setMessage("Email you are registering with is already in use, try another one!");
+      setMessage(
+        "Email you are registering with is already in use, try another one!"
+      );
       showError();
       setIsLoading(false);
       return;
@@ -571,7 +573,7 @@ const ClientSignUpOverlay = ({
     const emailText = `Follow the link to set up your new password: \n ${demolink}`;
 
     const reqBody = {
-      to: email,  
+      to: email,
       subject: emailSubject,
       text: emailText,
     };
@@ -610,9 +612,7 @@ const ClientSignUpOverlay = ({
         <div className={styles.superContainer}>
           <div className={styles.coverContainer}>
             <div className={styles.topContainer}>
-              <h2>
-                Personal Info
-              </h2>
+              <h2>Personal Info</h2>
             </div>
 
             <Stages
@@ -624,15 +624,23 @@ const ClientSignUpOverlay = ({
             {currentStage === stages.CLIENT_INFO && !isLoading && (
               <>
                 <ClientInfo
+                  clientName={clientname}
+                  companyName={companyname}
                   email={email}
+                  phoneNo={phoneNo}
+                  password={password}
+                  confirmPassword={setConfirmPassword}
+                  actManager={actManager}
+                  companySize={companySize}
+                  country={country}
+                  city={city}
                   setActManager={setActManager}
                   setCity={setCity}
-                  setpassword={setpassword}
-                  setconfirmpassword={setconfirmpassword}
+                  setPassword={setPassword}
+                  setConfirmPassword={setConfirmPassword}
                   setClientname={setClientname}
                   setEmail={setEmail}
                   setPhoneNo={setPhoneNo}
-                  country={country}
                   setCountry={setCountry}
                   setCompanySize={setCompanySize}
                   setCompanyname={setCompanyname}
@@ -640,9 +648,9 @@ const ClientSignUpOverlay = ({
                 <div className={styles.wrapper}>
                   <ClientSignUpOverlayBtn
                     password={password}
-                    conformpassword={conformpassword}
+                    confirmPassword={confirmPassword}
                     email={email}
-                    showError={showError} 
+                    showError={showError}
                     setMessage={setMessage}
                     fillValidity={fillValidity}
                     validateEmailReceiver={validateEmailReceiver}

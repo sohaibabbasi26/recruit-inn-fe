@@ -3,24 +3,33 @@ import Image from "next/image";
 import { useState } from "react";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
-import PhoneInput from 'react-phone-number-input';
-
+import PhoneInput from "react-phone-number-input";
+import ShowPassword from "./ShowPassword";
 
 const ClientInfo = ({
+  clientName,
+  companyName,
   email,
   phoneNo,
+  password,
+  confirmPassword,
+  actManager,
+  companySize,
+  country,
+  city,
   setActManager,
   setCity,
   setClientname,
   setEmail,
   setPhoneNo,
-  setpassword,
-  setconfirmpassword,
+  setPassword,
+  setConfirmPassword,
   setCompanySize,
-  country,
   setCountry,
   setCompanyname,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const iconSize = 25;
 
   const [validationErrors, setValidationErrors] = useState({}); // Define if used for error handling
@@ -32,11 +41,19 @@ const ClientInfo = ({
 
   return (
     <>
-    
       <div className={styles.superContainer}>
         {/* Client Name Input */}
-        <div className={styles.inputField}>
-          <Image src="/smiley.svg" width={iconSize} height={iconSize} alt="Smiley" />
+        <div
+          className={`${styles.inputField} ${
+            clientName ? styles.filled : null
+          }`}
+        >
+          <Image
+            src="/smiley.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Smiley"
+          />
           <input
             placeholder="Client Name"
             onChange={(e) => setClientname(e.target.value)}
@@ -44,8 +61,17 @@ const ClientInfo = ({
         </div>
 
         {/* Company Name Input */}
-        <div className={styles.inputField}>
-          <Image src="/company.svg" width={iconSize} height={iconSize} alt="Company" />
+        <div
+          className={`${styles.inputField} ${
+            companyName ? styles.filled : null
+          }`}
+        >
+          <Image
+            src="/company.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Company"
+          />
           <input
             placeholder="Company Name"
             onChange={(e) => setCompanyname(e.target.value)}
@@ -53,8 +79,13 @@ const ClientInfo = ({
         </div>
 
         {/* Email Input */}
-        <div className={styles.inputField}>
-          <Image src="/email.svg" width={iconSize} height={iconSize} alt="Email" />
+        <div className={`${styles.inputField} ${email ? styles.filled : null}`}>
+          <Image
+            src="/email.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Email"
+          />
           <input
             placeholder="Business Email"
             onChange={(e) => setEmail(e.target.value)}
@@ -62,9 +93,16 @@ const ClientInfo = ({
         </div>
 
         {/* Phone Input with Validation */}
-      
-        <div className={styles.inputField}>
-          <Image src="/phone.svg" alt="Phone" width={iconSize} height={iconSize} />
+
+        <div
+          className={`${styles.inputField} ${phoneNo ? styles.filled : null}`}
+        >
+          <Image
+            src="/phone.svg"
+            alt="Phone"
+            width={iconSize}
+            height={iconSize}
+          />
           <PhoneInput
             international
             defaultCountry="PK"
@@ -75,25 +113,45 @@ const ClientInfo = ({
         </div>
 
         {/* Account Manager Input */}
-        <div className={styles.inputField}>
-          <Image src="/Case.svg" width={iconSize} height={iconSize} alt="Case" />
+        <div
+          className={`${styles.inputField} ${password ? styles.filled : null}`}
+        >
+          <Image
+            src="/Case.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Case"
+          />
           <input
             placeholder="Password"
-            type="password"
-            onChange={(e) => setpassword(e.target.value)}
+            type={showPassword ? "text" : "password"}
+            onChange={(e) => setPassword(e.target.value)}
           />
+          <ShowPassword pass={showPassword} setPass={setShowPassword} />
         </div>
 
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            confirmPassword ? styles.filled : null
+          }`}
+        >
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Confirm password"
-            type="password"
-            onChange={(e) => setconfirmpassword(e.target.value)}
+            type={showConfirmPassword ? "text" : "password"}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <ShowPassword
+            pass={showConfirmPassword}
+            setPass={setShowConfirmPassword}
           />
         </div>
 
-        <div className={styles.inputField}>
+        <div
+          className={`${styles.inputField} ${
+            actManager ? styles.filled : null
+          }`}
+        >
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
             placeholder="Account manager"
@@ -102,8 +160,17 @@ const ClientInfo = ({
         </div>
 
         {/* Company Size Selection */}
-        <div className={styles.inputField}>
-          <Image src="/company.svg" width={iconSize} height={iconSize} alt="Company Size" />
+        <div
+          className={`${styles.inputField} ${
+            companySize ? styles.filled : null
+          }`}
+        >
+          <Image
+            src="/company.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Company Size"
+          />
           <select onChange={(e) => setCompanySize(e.target.value)}>
             <option>Company size</option>
             <option value="0-15">0-15</option>
@@ -113,27 +180,37 @@ const ClientInfo = ({
         </div>
 
         {/* Country Selection */}
-        <div className={styles.inputField}>
-          <Image src="/earth.svg" width={iconSize} height={iconSize} alt="Earth" />
+        <div
+          className={`${styles.inputField} ${country ? styles.filled : null}`}
+        >
+          <Image
+            src="/earth.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Earth"
+          />
           <select onChange={(e) => setCountry(e.target.value)}>
             <option>Select country</option>
             {countryList.map((country, index) => (
-              <option key={index} value={country}> {country} </option>
+              <option key={index} value={country}>
+                {" "}
+                {country}{" "}
+              </option>
             ))}
           </select>
         </div>
 
         {/* City Selection */}
-        <div className={styles.inputField}>
+        <div className={`${styles.inputField} ${city ? styles.filled : null}`}>
           <Image src="/aim.svg" width={iconSize} height={iconSize} alt="Aim" />
-          <select
-            disabled={!country}
-            onChange={(e) => setCity(e.target.value)}
-          >
+          <select disabled={!country} onChange={(e) => setCity(e.target.value)}>
             <option>Select city</option>
-            {country && getCities(country)?.map((city, index) => (
-              <option key={index} value={city}>{city}</option>
-            ))}
+            {country &&
+              getCities(country)?.map((city, index) => (
+                <option key={index} value={city}>
+                  {city}
+                </option>
+              ))}
           </select>
         </div>
       </div>

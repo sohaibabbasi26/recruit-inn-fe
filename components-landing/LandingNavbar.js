@@ -13,7 +13,6 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
     return (
         <>
             {/* leptup sacreen */}
-
             <>
             <div className=" max-sm:hidden bg-black" >
             <div className='h-[10vh] w-full flex bg-black justify-center max-lg:hidden z-50 fixed' >
@@ -39,8 +38,27 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
                                 <li><a href="https://app.recruitinn.ai/client-login">Login As Client</a></li>
                             </ul>
                             </div>
-                                <a href="https://app.recruitinn.ai/client-signup"><button className="  px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold">Recruit A Talent</button></a>
-                            </div>
+                            <a href="https://app.recruitinn.ai/client-signup">
+  <button
+    className="px-10 py-3.5 text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold"
+    style={{
+      transition: "background-color 0.3s, color 0.3s", // Add transition for smooth hover effect
+      backgroundColor: "#6137db", // Default background color hello
+      color: "#fff", // Default text color
+      border: "none", // Remove default button border
+    }}
+    onMouseEnter={(e) => {
+      e.target.style.backgroundColor = "#fff"; // Change background color on hover
+      e.target.style.color = "rgb(54 21 247 / var(--tw-text-opacity))"; // Change text color on hover
+    }}
+    onMouseLeave={(e) => {
+      e.target.style.backgroundColor = ""; // Restore default background color
+      e.target.style.color = ""; // Restore default text color
+    }}
+  >
+    Recruit A Talent
+  </button>
+</a>                            </div>
                     </div>
                 </div>
             </div>

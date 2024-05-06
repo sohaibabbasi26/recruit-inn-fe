@@ -51,6 +51,11 @@
   text-align: center;
 }
 
+.otpContainer input:focus {
+  outline: none;
+  border: 1px solid #6137db;
+}
+
 .banner span {
   color: #6137db;
 }
@@ -61,6 +66,10 @@
 
 #margin {
   margin-top: 1rem;
+}
+
+#margin span {
+  cursor: pointer;
 }
 
 .imageDiv {

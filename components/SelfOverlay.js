@@ -13,9 +13,10 @@ import PersonalInfoBtns from "./PersonalInfoBtns";
 import PersonalInfoSelf from "./PersonalInfoself";
 import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
-// import ErrorIndicator from './ErrorIndicator';
 
 const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequired, setIsTestRequired }) => {
+
+  const overlayRef = useRef();
 
   const nameRef = useRef();
   const contactRef = useRef();
@@ -24,7 +25,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   const expertiseRef = useRef();
   const countryRef = useRef();
   const cityRef = useRef();
-  const overlayRef = useRef();
   const generatedCodeRef = useRef();
 
   useEffect(() => {
@@ -64,12 +64,55 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   const [isLoading, setIsLoading] = useState(false);
   const [candidate, setCandidate] = useState();
   const [checkIfEmailPresent, setCheckIfEmailPresent] = useState(false);
-  const [assessmentId, setAssessmentId] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [generatedCode, setGeneratedCode] = useState();
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [name, setName] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [city, setCity] = useState(null);
+  const [expertise, setExpertise] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [contact, setContact] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [isCodeInvalid, setIsCodeInvalid] = useState(false);
+  const [techStack, setTechStack] = useState(null);
+  const [candidateId, setCandidateId] = useState(null);
+  const [showErrorMessage, setshowErrorMessage] = useState(false);
+  const [message, setMessage] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [reqBody, setReqBody] = useState(null);
+  const [req, setReq] = useState(null);
+  const [questionId, setQuestionId] = useState([]);
+  const [text, setText] = useState();
+  const [personalInfo, setPersonalInfo] = useState();
+  const [testReq, setTestReq] = useState(false);
+  const [assessmentId, setAssessmentId] = useState(null);
+  const [codeQues, setCodeQues] = useState(null);
+
+  useEffect(() => {
+    const reqBody = {
+      name: name,
+      city: city,
+      contact_no: contact,
+      Password: password,
+      email: email,
+      over_all_exp: expertise,
+      country: country,
+      applied_through: 'Self'
+    };
+
+    const reqtwo = {
+      expertise: techStack
+    };
+
+    setReq(reqtwo);
+    setReqBody(reqBody);
+  }, [name, city, contact, password, email, expertise, country, techStack]);
 
   const toggleComponent = async () => {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+
     if (
       currentStage === stages.PERSONAL_INFO &&
       (!name?.trim() ||
@@ -92,7 +135,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       showError();
       return;
     } else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
-      console.log("going to this condition : ");
       setMessage("Password must be at least 8 characters long ");
       showError();
       return;
@@ -132,7 +174,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
               "Email you're using to register is already in use, try another one!"
             );
             showError();
-            break;
+            return;
           }
           break;
         case stages.VERIFICATION:
@@ -148,7 +190,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       }
     }
   };
-
 
   const backToggleComponent = () => {
     const stageToBePopped = completedStages.slice(0, -1);
@@ -179,53 +220,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
     );
   };
 
-  const [generatedCode, setGeneratedCode] = useState();
-  const [name, setName] = useState(null);
-  const [country, setCountry] = useState(null);
-  const [city, setCity] = useState(null);
-  const [expertise, setExpertise] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [contact, setContact] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [otp, setOtp] = useState(new Array(6).fill(""));
-  const [isCodeInvalid, setIsCodeInvalid] = useState(false);
-  const [techStack, setTechStack] = useState(null);
-  const [candidateId, setCandidateId] = useState(null);
-  const [showErrorMessage, setshowErrorMessage] = useState(false);
-  const [message, setMessage] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [reqBody, setReqBody] = useState(null);
-  const [req, setReq] = useState(null);
-  const [questionId, setQuestionId] = useState([]);
-  const [text, setText] = useState();
-  const [personalInfo, setPersonalInfo] = useState();
-  const [testReq, setTestReq] = useState(false);
-  const [codeQues, setCodeQues] = useState();
-
-  // const [isTestRequired,setIsTestRequired] = useState();
-
-  useEffect(() => {
-    const reqBody = {
-      name: name,
-      city: city,
-      contact_no: contact,
-      Password: password,
-      email: email,
-      over_all_exp: expertise,
-      country: country,
-      applied_through: 'Self'
-    }
-
-    const reqtwo = {
-      expertise: techStack
-    }
-
-    setReq(reqtwo);
-
-    setReqBody(reqBody)
-  }, [name, city, contact, password, email, expertise, country, techStack])
-
-
   const showError = () => {
     setshowErrorMessage(true);
 
@@ -243,26 +237,14 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   };
 
   const validateEmailReceiver = () => {
-    console.log("email");
     if (!isValidEmail(email)) {
       return false;
     }
     return true;
   };
 
-  // const validateNumber = (contact) => {
-  // if(isNaN(contact)) {
-  //     setMessage("Enter a correct number! ");
-  //     showError();
-  //     return
-  // };
-
-  //     return /^\d+$/.test(contact);
-  // }
   const validateNumber = (contact) => {
     const num = parseInt(contact);
-    console.log("num:", num);
-
     if (isNaN(num)) {
       setMessage("Please enter a valid number.");
       showError();
@@ -279,13 +261,13 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   function isConfirmPassword() {
     return password === confirmPassword;
   }
+
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
   };
 
   const validatePassword = (password) => {
-    // Password should be at least 8 characters long
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
     if (password.length < 8) {
@@ -301,12 +283,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
     } else {
       return true;
     }
-    return true; // Empty string indicates no validation errors
   };
+
   const handlePersonalInfo = async () => {
     setIsLoading(true);
     try {
-      console.log("is loading check", isLoading);
       const requestBody = {
         name: name,
         city: city,
@@ -318,8 +299,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
         password: password,
       };
 
-      console.log("request body: ", reqBody);
-      setPersonalInfo(reqBody);
+      setPersonalInfo(requestBody);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info-self`,
@@ -344,16 +324,14 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
         return true;
       } else {
         setCheckIfEmailPresent(true);
-        setMessage(
-          data?.message || "Email used for registering is already in use!"
-        );
+        setMessage(data?.message || "Email used for registering is already in use!");
         showError();
         setCurrentStage(stages.PERSONAL_INFO);
         setIsLoading(false);
         return false;
       }
     } catch (err) {
-      console.log("ERRROR:", err);
+      console.log('ERRROR:', err);
     } finally {
       setIsLoading(false);
     }
@@ -365,7 +343,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
 
   useEffect(() => {
     console.log("recent generated otp:,", generatedCode);
-
     console.log(text);
   }, [generatedCode]);
 
@@ -378,8 +355,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
         to: email,
         subject: "RECRUITINN: Verify your account!",
         text: `
-                Your verification code is : ${otpCode}
-            `,
+          Your verification code is : ${otpCode}
+        `,
       };
       console.log("request body: ", requestBody);
 
@@ -403,13 +380,7 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
 
   const verifyCode = () => {
     const otpCode = otp.join("");
-    console.log("Entered OTP:", otpCode);
-    console.log("generated code compare:", generatedCode);
     if (generatedCode === otpCode) {
-      console.log("generated code:", generatedCode);
-      console.log("otpCode:", otpCode);
-      console.log("generatedCode === otpCode : ", generatedCode === otpCode);
-      console.log("OTP Verified");
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
       showSuccess();
@@ -427,11 +398,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       expertise: techStack,
     };
 
-    console.log("req body for setting expertise:", requestBody);
-
     try {
       setIsLoading(true);
-      console.log("loading in personal info", isLoading);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-expertise-by-cand`,
         {
@@ -444,7 +412,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       );
       const data = await response.json();
       console.log("data in set expertise:", data);
-      console.log("loading in personal info", isLoading);
     } catch (err) {
       console.log("error:", err);
     }
@@ -458,7 +425,6 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
     console.log("request.boy in handle test prep method:", req);
     console.log("handle test prep here!");
     try {
-      // setIsLoading(true);
       console.log("Loading status", isLoading);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
@@ -479,57 +445,60 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       console.log("Loading status", isLoading);
     } catch (err) {
       console.log("error:", err);
-    }
-    console.log("Is test Required:", isTestRequired);
-    if (isTestRequired === true) {
-
-      console.log("hey from the if cond");
-      try {
-        setIsLoading(true);
-        const req = {
-          codingExpertise: techStack,
-          candidate_id: candidateId
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(req),
+      if (isTestRequired === true) {
+        try {
+          setIsLoading(true);
+          const req = {
+            codingExpertise: techStack,
+            candidate_id: candidateId,
+          };
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(req),
+            }
+          );
+          const data = await response.json();
+          setCodeQues(data);
+          setAssessmentId(data?.data?.assessment_id);
+          if (data?.data?.assessment_id) {
+            setTestReq(true);
           }
-        );
-        const data = await response.json();
-        console.log("hey from the try block");
-
-        setCodeQues(data);
-        setAssessmentId(data?.data?.assessment_id);
-        if (data?.data?.assessment_id) {
-          setTestReq(true);
+          console.log("assessment id:", assessmentId);
+          console.log("code question data:", data);
+          setIsLoading(false);
+        } catch (err) {
+          console.error("ERROR:", err);
         }
-        console.log("assessment id:", assessmentId);
-        console.log("code question data:", data);
-        setIsLoading(false);
-
-      } catch (err) {
-        console.log("hey from the if cond");
-
-        console.error("ERROR:", err);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    console.log('code assessment id:', assessmentId)
-  }, [assessmentId])
+    console.log("code assessment id:", assessmentId);
+  }, [assessmentId]);
 
   return (
     <>
-      {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
+      {showErrorMessage && (
+        <ErrorIndicator
+          showErrorMessage={showErrorMessage}
+          msgText={message}
+        />
+      )}
       <div ref={overlayRef} className={styles.parent}>
-        <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />
-        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
+        <SuccessIndicator
+          showSuccessMessage={showSuccessMessage}
+          msgText={message}
+        />
+        <ErrorIndicator
+          showErrorMessage={showErrorMessage}
+          msgText={message}
+        />
 
         <div className={styles.superContainer}>
           {isLoading ? (
@@ -540,63 +509,107 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
                 <h2>{stageHeadings[currentStage]}</h2>
               </div>
 
-              {/* <Stages
+              <Stages
                 currentStage={currentStage}
                 stages={stages}
                 completedStages={completedStages}
-              /> */}
+              />
 
-              <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
+              {currentStage === stages.PERSONAL_INFO && (
+                <>
+                  <PersonalInfoSelf
+                    expertiseRef={expertiseRef}
+                    contact={contact}
+                    password={password}
+                    confirmPassword={confirmPassword}
+                    setConfirmPassword={setConfirmPassword}
+                    expertise={expertise}
+                    name={name}
+                    email={email}
+                    country={country}
+                    city={city}
+                    passwordRef={passwordRef}
+                    contactRef={contactRef}
+                    nameRef={nameRef}
+                    cityRef={cityRef}
+                    countryRef={countryRef}
+                    emailRef={emailRef}
+                    setName={setName}
+                    setPassword={setPassword}
+                    setExpertise={setExpertise}
+                    setContact={setContact}
+                    setCity={setCity}
+                    setEmail={setEmail}
+                    setCountry={setCountry}
+                  />
+                  <div className={styles.wrapper}>
+                    <PersonalInfoBtns
+                      showSuccess={showSuccess}
+                      setMessage={setMessage}
+                      validateEmailReceiver={validateEmailReceiver}
+                      showError={showError}
+                      onContinue={toggleComponent}
+                      onBack={backToggleComponent}
+                    />
+                  </div>
+                </>
+              )}
+              {currentStage === stages.VERIFICATION && (
+                <>
+                  <CandidateVerify
+                    sendEmail={sendEmail}
+                    showSuccess={showSuccess}
+                    email={email}
+                    setMessage={setMessage}
+                    otp={otp}
+                    setOtp={setOtp}
+                    isCodeInvalid={isCodeInvalid}
+                    setIsCodeInvalid={setIsCodeInvalid}
+                  />
+                  <div className={styles.wrapper}>
+                    <CandidateVerifyBtns
+                      onContinue={toggleComponent}
+                      onBack={backToggleComponent}
+                    />
+                  </div>
+                </>
+              )}
 
-              {
-                currentStage === stages.PERSONAL_INFO && (
-                  <>
-                    <PersonalInfoSelf confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword} expertiseRef={expertiseRef} contact={contact} password={password} expertise={expertise} name={name} email={email} country={country} city={city} passwordRef={passwordRef} contactRef={contactRef} nameRef={nameRef} cityRef={cityRef} countryRef={countryRef} emailRef={emailRef} setName={setName} setPassword={setPassword} setExpertise={setExpertise} setContact={setContact} setCity={setCity} setEmail={setEmail} setCountry={setCountry} />
-                    <div className={styles.wrapper}>
-                      <PersonalInfoBtns showSuccess={showSuccess} setMessage={setMessage} validateEmailReceiver={validateEmailReceiver} showError={showError} onContinue={toggleComponent} onBack={backToggleComponent} />
-                    </div>
-                  </>
-                )
-              }
-              {
-                currentStage === stages.VERIFICATION && (
-                  <>
-                    <CandidateVerify sendEmail={sendEmail} showSuccess={showSuccess} email={email} setMessage={setMessage} otp={otp} setOtp={setOtp} isCodeInvalid={isCodeInvalid} setIsCodeInvalid={setIsCodeInvalid} />
-                    <div className={styles.wrapper}>
-                      <CandidateVerifyBtns onContinue={toggleComponent} onBack={backToggleComponent} />
-                    </div>
-                  </>
-                )
-              }
-              {
-                currentStage === stages.SKILLS && (
-                  <>
-                    <CandSelfSkill isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} handleTestPreparation={handleTestPreparation} setTechStack={setTechStack} />
+              {currentStage === stages.SKILLS && (
+                <>
+                  <CandSelfSkill
+                    handleTestPreparation={handleTestPreparation}
+                    setTechStack={setTechStack}
+                  />
 
-                    <div className={styles.wrapper}>
-                      <CandSelfSkillBtns handleTestPreparation={handleTestPreparation} onContinue={toggleComponent} onBack={backToggleComponent} />
-                    </div>
-                  </>
-                )
-              }
+                  <div className={styles.wrapper}>
+                    <CandSelfSkillBtns
+                      handleTestPreparation={handleTestPreparation}
+                      onContinue={toggleComponent}
+                      onBack={backToggleComponent}
+                    />
+                  </div>
+                </>
+              )}
 
-              {
-                currentStage === stages.ASSESSMENT && (
-                  <>
-                    <CandSelfAssessment />
-                    <div className={styles.wrapper}>
-                      <CandSelfAssessmentBtns isTestRequired={isTestRequired} testReq={testReq} assessmentId={assessmentId} questionId={questionId} setIsLoading={setIsLoading} candidateId={candidateId} onContinue={toggleComponent} onBack={backToggleComponent} />
-                    </div>
-                  </>
-                )
-              }
-
-            </div >
+              {currentStage === stages.ASSESSMENT && (
+                <>
+                  <CandSelfAssessment />
+                  <div className={styles.wrapper}>
+                    <CandSelfAssessmentBtns
+                      setIsLoading={setIsLoading}
+                      questionId={questionId}
+                      candidateId={candidateId}
+                      onContinue={toggleComponent}
+                      onBack={backToggleComponent}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
           )}
-        </div >
-
-
-      </div >
+        </div>
+      </div>
     </>
   );
 };

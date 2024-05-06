@@ -1,65 +1,85 @@
-.superContainer{
-    width: 80%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 1rem;
+.superContainer {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
 }
 
-.inputField{
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    width: 94%;
-    background-color: #fff;
-    border: 1px solid #989a9c;
-    gap: 0.5rem;
-    border-radius: 30px;
-}
-@media only screen and (max-width: 1300px) {
-    .inputField{
-        padding: 0rem 0.5rem;
-    }
+.inputField {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 94%;
+  background-color: #fff;
+  border: 1px solid #989a9c;
+  gap: 0.5rem;
+  border-radius: 30px;
 }
 
-.inputField input{
-    border: none;
-    background-color: transparent;
-    color: #4A525D;
-    padding: 1rem 1rem;
-    width: 100%;
-    font-size: 1rem;
-}
-
-.inputField select{
-    border: none;
-    background-color: transparent;
-    color: #4A525D;
-    padding: 1rem 1rem;
-    width: 100%;
-    font-size: 1rem;
-}
-
-.inputField input:focus{
-    outline: none;
-}
-
-.inputField select:focus{
-    outline: none;
-}
-
-
-@media only screen and (max-width: 1024px) {
-    .superContainer{
-        height: 80%;
-        gap: 0.45rem;
-    }
-
-    .inputField{
-        padding: 0rem 0.5rem;
-    }
-}
-.inputField:hover {
+/* .inputField:hover {
     border: solid 1px #6137db;
     background-color: white;
-    }
+} */
+
+/* change border when it has a input field on focus state */
+.inputField:has(input:focus),
+.inputField:has(select:focus),
+.inputField:has(.phoneInput):has(input:focus),
+.inputField:has(.phoneInput):has(select:focus),
+.inputField:has(.phoneInput):has(input:nth-child(2):focus),
+.inputField:has(.phoneInput):has(select:nth-child(2):focus) {
+  border: 1px solid #6137db;
+  background-color: #fff;
+}
+
+/* trying filled styles on input field */
+.inputField:has(input:not(:focus)).filled,
+.inputField:has(select:not(:focus)).filled,
+.inputField:has(.phoneInput):has(input:nth-child(2):not(:focus)).filled,
+.inputField:has(.phoneInput):has(select:nth-child(2):not(:focus)).filled {
+  background-color: #f8f7fa;
+}
+
+@media only screen and (max-width: 1300px) {
+  .inputField {
+    padding: 0rem 0.5rem;
+  }
+}
+
+.inputField input {
+  border: none;
+  background-color: transparent;
+  color: #4a525d;
+  padding: 1rem 1rem;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.inputField select {
+  border: none;
+  background-color: transparent;
+  color: #4a525d;
+  padding: 1rem 1rem;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.inputField input:focus {
+  outline: none;
+}
+
+.inputField select:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .superContainer {
+    height: 80%;
+    gap: 0.45rem;
+  }
+
+  .inputField {
+    padding: 0rem 0.5rem;
+  }
+}

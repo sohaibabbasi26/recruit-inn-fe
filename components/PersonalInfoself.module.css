@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
+
+.superContainer {
+  width: 80%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  justify-content: flex-start;
+}
+
+.masterContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1rem;
+  height: 70%;
+}
+
+.errorMessage {
+  margin: 0.25rem;
+  font-size: 0.75rem;
+  text-align: center;
+  color: red;
+}
+
+.infoField {
+  background-color: #ffffff;
+  border-radius: 30px;
+  border: 1px solid #ebebeb;
+  font-size: 2rem;
+  padding-left: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.infoField input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+  height: 80%;
+}
+
+.infoField input:has(+ img) {
+  width: calc(100% - 5.25rem);
+}
+
+.infoField input:focus,
+.infoField select:focus {
+  outline: none;
+}
+
+.infoField select {
+  width: 95%;
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+  /* height: 100%; */
+}
+
+.infoField select:focus {
+  outline: none;
+}
+
+/* .infoField:hover {
+  border: solid 1px #6137db;
+  background-color: white;
+} */
+
+/* change border when it has a input field on focus state */
+.infoField:has(input:focus),
+.infoField:has(select:focus),
+.infoField:has(.phoneInput):has(input:focus),
+.infoField:has(.phoneInput):has(select:focus),
+.infoField:has(.phoneInput):has(input:nth-child(2):focus),
+.infoField:has(.phoneInput):has(select:nth-child(2):focus) {
+  border: 1px solid #6137db;
+  background-color: #fff;
+}
+
+/* trying filled styles on input field */
+.infoField:has(input:not(:focus)).filled,
+.infoField:has(select:not(:focus)).filled,
+.infoField:has(.phoneInput):has(input:nth-child(2):not(:focus)).filled,
+.infoField:has(.phoneInput):has(select:nth-child(2):not(:focus)).filled {
+  background-color: #f8f7fa;
+}
+
+.errorsContainer {
+  width: 100%;
+  height: 70%;
+  border: 1px solid red;
+  border-radius: 10px;
+  background-color: rgb(246, 211, 211);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  color: rgb(110, 0, 0);
+}
+
+/* 1024px */
+@media screen and (max-width: 64em) {
+  .errorMessage {
+    position: relative;
+    top: -5px;
+    height: 0px;
+  }
+}
