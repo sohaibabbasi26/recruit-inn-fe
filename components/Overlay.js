@@ -448,7 +448,7 @@ const Overlay = React.memo(
 
     const handleEmailInvite = async () => {
 
-      console.log("HANDLE EMAIL INVITE")
+      console.log("HANDLE EMAIL INVITE");
       let hasError = false;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -478,6 +478,7 @@ const Overlay = React.memo(
       if (hasError) return;
 
       const sendInvitesPromises = validatedReceivers.map(receiver => {
+        console.log("sending email ...")
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
           method: "POST",
           headers: {
