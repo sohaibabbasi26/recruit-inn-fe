@@ -1,36 +1,35 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const ClientSignUpOverlayBtn = ({password ,conformpassword, email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+const ClientSignUpOverlayBtn = ({password ,confirmPassword, email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
     
 
     const onAddClientHandler = async () => {
         if (!fillValidity()) {
             setMessage("Fill all the fields")
             showError()
-            // setMessage();
-            
+            console.log("in fill validatity!")
             return
         }
 
         if (!validateEmailReceiver()) {
             setMessage("Please enter a valid email address")
             showError();
+            console.log("in email validatity!")
+
             return;
         }
 
-        if (password !== conformpassword) {
-            console.log("")
+        if (password !== confirmPassword) {
+            console.log("in password validity!")
             setMessage('Password not match')
             showError();
             return;
         }
+        console.log("butonnnif")
 
         await handleFormSubmit();
-        // setisLoading(false);
         onClose();
-        // setMessage("Client has been created")
-        // showSuccess();
     }
 
     const navigationIconSize = 30;
