@@ -4,6 +4,7 @@
   width: 100%;
   background-color: #f8f7fa;
   height: 90%;
+  height: calc(100% - 77px);
   border-radius: 20px;
   display: flex;
   justify-content: center;
