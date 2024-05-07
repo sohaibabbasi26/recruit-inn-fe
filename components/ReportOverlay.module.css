@@ -148,13 +148,13 @@
   border-radius: 20px;
 }
 
-.topContainer span {
+/* .topContainer span {
   display: flex;
   cursor: pointer;
   justify-content: flex-end;
   align-items: center;
   width: 50%;
-}
+} */
 
 .tooltip {
   visibility: hidden;
@@ -321,11 +321,11 @@
 }
 
 .rightContainer {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  width: 20%;
+  width: 20%; */
   margin: auto 0 auto auto !important;
 }
 
@@ -356,69 +356,8 @@
   margin-bottom: 4rem; */
 }
 
-.cont::-webkit-scrollbar {
-  width: 6px;
-}
-
-.cont::-webkit-scrollbar-thumb {
-  background-color: transparent;
-}
-
-/* selfReportOver styles */
-.superContainer:has(.coverContainer:first-child):has(
-    .selfReportOverlayButtons:last-child
-  ) {
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-.superContainer::-webkit-scrollbar {
-  width: 10px;
-  margin-right: -20px;
-}
-
-.superContainer::-webkit-scrollbar-track {
-  background-color: none !important;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-
-.superContainer::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgb(235, 235, 235);
-  background: linear-gradient(
-    180deg,
-    rgba(235, 235, 235, 0) 20%,
-    rgba(235, 235, 235, 1) 25%,
-    rgba(235, 235, 235, 1) 75%,
-    rgba(235, 235, 235, 1) 80%,
-    rgba(235, 235, 235, 0) 100%
-  );
-}
-
-.cont:has(+ .selfReportOverlayButtons) {
-  /* height: 55%; */
-  height: unset;
-  overflow: unset;
-}
-
-.rightContainer:has(span:first-child) {
-  display: inline-block;
-  width: unset;
-}
-
-.rightContainer span:first-child {
-  display: inline-block;
-  width: unset;
-  cursor: unset;
-}
-
 .selfReportOverlayButtons {
-  width: 90%;
-  margin: 0 auto;
-  padding: 0 0 1rem;
-
+  margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -469,6 +408,13 @@
 
 /* 1600px */
 @media screen and (max-width: 100em) {
+  .superContainer {
+    padding: 1.8rem 2rem 1rem;
+  }
+
+  .avatarContainer {
+    padding: 1rem 1.5rem;
+  }
   .backButton,
   .downloadButton {
     padding: 8px 1rem;

@@ -386,10 +386,6 @@ const ReportOverlay = ({
               </div>
 
               <div className={styles.rightContainer}>
-                {!isLoading && (
-                  <button onClick={handleDownloadPdf}>Download PDF</button>
-                )}
-                {isLoading && <div className={styles.loader}> </div>}
                 <span>
                   {calculateCumulativeMean(
                     Math.ceil(selectedCandidate?.results?.technicalRating) ||
@@ -486,6 +482,38 @@ const ReportOverlay = ({
                                 )} */}
                 </div>
               </div>
+            </div>
+
+            <div className={styles.selfReportOverlayButtons}>
+              <button className={styles.backButton} onClick={onClose}>
+                <span>
+                  <Image
+                    alt="Back arrow"
+                    height={40}
+                    width={40}
+                    src="/backBlack.svg"
+                  />
+                </span>
+                Back
+              </button>
+
+              {!isLoading && (
+                <button
+                  className={styles.downloadButton}
+                  onClick={handleDownloadPdf}
+                >
+                  Download PDF{" "}
+                  <span>
+                    <Image
+                      alt="Download icon"
+                      height={40}
+                      width={40}
+                      src="/download.svg"
+                    />
+                  </span>
+                </button>
+              )}
+              {isLoading && <div className={styles.loader}> </div>}
             </div>
           </div>
         </div>
