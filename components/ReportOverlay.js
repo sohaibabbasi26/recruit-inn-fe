@@ -15,6 +15,7 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
 
     useEffect(() => {
         async function fetchCandidatesCodingResult() {
+            setIsLoading(true);
             const requestBody = {
                 candidate_id: selectedCandidate?.candidate_id
             }
@@ -32,8 +33,10 @@ const ReportOverlay = ({ isLoading, setIsLoading, onClose, reportOverlay, select
             setCodingResult(data);
             if (data && data?.data && data?.data?.result && data?.data?.result?.technicalRating) {
                 setIsCodingAssessment(true);
+                setIsLoading(false);
             } else {
                 setIsCodingAssessment(false);
+                setIsLoading(false);
             }
         }
 

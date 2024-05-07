@@ -28,11 +28,6 @@ const TopNavbar = ({ selectedCandidate, companyId, onJobSelect, reportOverlay, o
         }
     }, 300);
 
-    // const blurSearchInput = () => {
-    //     console.log("Search field blurred!")
-    //     setIsClicked(false);
-    // }
-
     useEffect(() => {
         if (query.trim()) {
             searchApiCall(query, searchType);
@@ -172,7 +167,8 @@ const TopNavbar = ({ selectedCandidate, companyId, onJobSelect, reportOverlay, o
                                     {
                                         searchType === 'Jobs' ? (result?.position) : searchType === 'Candidates' ? (result?.name) : ''
                                     }
-                                </li>
+                                    {searchType === 'Candidates' ?  (<span>  Tech stack: {result?.expertise?.map(expertise => expertise?.skill).join(', ')} </span>) : <></>}
+                                </li>   
                             ))}
                         </ul>
                     </div>

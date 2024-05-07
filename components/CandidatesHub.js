@@ -139,16 +139,25 @@ const CandidatesHub = ({
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                Math.ceil(item?.results?.technicalRating)
+                                Math.ceil(calculateCumulativeMean(
+                                  item?.results?.technicalRating,
+                                  item?.results?.softskillRating
+                                ))
                               ),
                             }}
                           >
                             {getFilter(
-                              Math.ceil(item?.results?.technicalRating)
+                              Math.ceil(calculateCumulativeMean(
+                                item?.results?.technicalRating,
+                                item?.results?.softskillRating
+                              ))
                             )}
                             <Image
                               src={getStatusSymbol(
-                                Math.ceil(item?.results?.technicalRating)
+                                Math.ceil(calculateCumulativeMean(
+                                  item?.results?.technicalRating,
+                                  item?.results?.softskillRating
+                                ))
                               )}
                               width={statusSize}
                               height={statusSize}

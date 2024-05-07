@@ -394,7 +394,7 @@ const ClientSignUpOverlay = ({
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [showOverlay, onClose]);
+  }, [ showOverlay]);
 
   const router = useRouter();
   const infoSymbolSize = 20;

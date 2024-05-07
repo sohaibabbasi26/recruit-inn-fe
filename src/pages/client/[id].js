@@ -322,13 +322,13 @@ export default function Home({ allJobsData, allActiveJobsData, allClosedJobsData
       case 'Closed':
         return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setJobOverlay={setJobOverlay} reportOverlay={jobOverlay} closedJobsData={closedJobsData} toggleOverlay={toggleOverlay} />
       case 'All':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} allCandidates={preprocessedCandidates} toggleOverlay={toggleOverlay} />
+        return <Super selectedCandidate={selectedCandidate} companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} allCandidates={preprocessedCandidates} toggleOverlay={toggleOverlay} />
       case 'Recommended':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} recommendedCandidates={recommendedCand} toggleOverlay={toggleOverlay} />
+        return <Super selectedCandidate={selectedCandidate} companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob}  selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} recommendedCandidates={recommendedCand} toggleOverlay={toggleOverlay} />
       case 'Qualified':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} qualifiedCandidates={qualifiedCand} toggleOverlay={toggleOverlay} />
+        return <Super selectedCandidate={selectedCandidate} companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob}  selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} qualifiedCandidates={qualifiedCand} toggleOverlay={toggleOverlay} />
       case 'NotEligible':
-        return <Super companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob} selectedCandidate={selectedCandidate} selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} notEligibleCandidates={notEligibleCand} toggleOverlay={toggleOverlay} />
+        return <Super selectedCandidate={selectedCandidate} companyId={id} setSelectedCandidate={setSelectedCandidate} setSelectedJob={setSelectedJob}  selectedJob={selectedJob} setReportOverlay={setReportOverlay} reportOverlay={reportOverlay} notEligibleCandidates={notEligibleCand} toggleOverlay={toggleOverlay} />
       default:
         return null;
     }

@@ -6,6 +6,7 @@ import styles from './Super.module.css';
 import TopNavbar from './TopNavbar';
 
 const Super = ({
+    selectedCandidate,
     companyId,
     activeJobsData,
     closedJobsData,
@@ -55,7 +56,7 @@ const Super = ({
         <div className={styles.superContainer}>
             <div className={styles.topContainer}>
                 <div className={styles.searchContainer}>
-                    <TopNavbar companyId={companyId} onJobSelect={showJobOverlay} onCandidateSelect={showCandidateOverlay} />
+                    <TopNavbar selectedCandidate={selectedCandidate} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} onJobSelect={showJobOverlay} onCandidateSelect={showCandidateOverlay} companyId={companyId} />
                 </div>
                 <div class="RightComponent_superContainer__1aFKs">
                     <div class="RightComponent_masterConatiner__SO9Zb">

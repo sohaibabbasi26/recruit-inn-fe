@@ -262,11 +262,6 @@ export default function Candidate({
 
   return (
     <>
-{/* <<<<<<< HEAD */}
-      {/* {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
-      {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-      {reportOverlay && <SelfReportOverlay contact={contact} jobType={jobtype} experience={experience}  candName={candName} email={email} jobtype={jobtype} date={date}  showError={showError} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-      {showPaymentOverlay && <PaymentOverlay onClose={togglePaymentOverlay} showPaymentOverlay={showPaymentOverlay} />} */}
       {showErrorMessage && (
         <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
       )}

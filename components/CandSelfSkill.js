@@ -59,6 +59,7 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
               setLevel1(e.target.value);
             }}
           >
+            <option selected disabled={true}>Select Expertise Level</option>
             <option value="beginner">Beginnner</option>
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
@@ -70,7 +71,7 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
             <Image
               className={styles.img}
               //   src="/award.svg"
-              src={skill2.length > 1 ? getSvg(skill2) : "/award.svg"}
+              src={skill2.length > 1 ? getSvg(skill2) : "/Award.svg"}
               width={iconSize}
               height={iconSize}
             />
@@ -89,6 +90,7 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
               setLevel2(e.target.value);
             }}
           >
+            <option selected disabled={true}>Select Expertise Level</option>
             <option value="beginner">Beginnner</option>
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>

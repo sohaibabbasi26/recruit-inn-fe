@@ -235,13 +235,13 @@ const PersonalInfo = forwardRef(({
                 value={expertise}
                 onChange={handleInputChange(setExpertise)}
               >
-                <option value="" disabled>Select Your Expertise</option>
+                <option selected disabled>Select Your Expertise</option>
                 <option value="Beginner">Beginner</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Expert">Expert</option>
               </select>
               {validationErrors?.expertise && <div className={styles.errorMessage}>{validationErrors.expertise}</div>}
-            </div>
+            </div> 
           </div>
 
           <div>

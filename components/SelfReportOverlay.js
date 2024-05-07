@@ -19,6 +19,9 @@ const SelfReportOverlay = ({
 }) => {
   // console.log("selected candidate is:", selectedCandidate);
 
+  const overlayRef = useRef();
+  const contentRef = useRef();
+  const infoSymbolSize = 10;
   console.log('selected candidate is:', selectedCandidate)
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState();
