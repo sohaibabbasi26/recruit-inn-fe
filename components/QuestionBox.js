@@ -179,9 +179,16 @@ const QuestionBox = ({ hasStarted }) => {
             stopMediaStreamTracks();
         };
     }, []);
-
+    useEffect(() => {
+        // Check if user is logged in
+        const testcomplete = localStorage.getItem("testcompleted");
+        if (testcomplete) {
+            router.push("/test-submit-completion");
+        }
+      }, [router]);
 
     const submitTestHandler = async () => {
+        localStorage.setItem("testcompleted", "true");
         if (isSubmitted) return;
         setIsSubmitted(true);
         setIsGeneratingResult(true);

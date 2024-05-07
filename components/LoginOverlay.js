@@ -149,7 +149,7 @@ const LoginOverlay = ({
     } else {
       console.log("Testing thiss .....");
       showError("Login failed. Please check your credentials.");
-    }
+    };
   };
 
   useEffect(() => {

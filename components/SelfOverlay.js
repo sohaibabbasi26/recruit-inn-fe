@@ -141,7 +141,15 @@ const SelfOverlay = ({
       setMessage("Entered email is not valid");
       showError();
       return;
-    } else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
+    } else if (
+        currentStage === stages.PERSONAL_INFO &&
+      !validateContactReciever()
+    ){
+        setMessage("Entered contact is not valid");
+      showError();
+      return;
+    }
+    else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
       setMessage("Password must be at least 8 characters long ");
       showError();
       return;
@@ -249,6 +257,12 @@ const SelfOverlay = ({
     }
     return true;
   };
+  const validateContactReciever = () => {
+    if (!isvalidphone(contact)) {
+      return false;
+    }
+    return true;
+  };
 
   const validateNumber = (contact) => {
     const num = parseInt(contact);
@@ -273,7 +287,10 @@ const SelfOverlay = ({
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
   };
-
+  const isvalidphone = (phone) => {
+    const phoneRegex = /^\+[1-9]\d{6,14}$/;
+    return phoneRegex.test(phone);
+  }
   const validatePassword = (password) => {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;

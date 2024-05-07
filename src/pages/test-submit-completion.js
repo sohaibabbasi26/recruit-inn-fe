@@ -26,6 +26,7 @@ const testSumitCompletion = () => {
         console.log("Current active flow:", activeFlow);
         switch (activeFlow) {
             case 'Candidate_self':
+                console.log(`/candidate/${candidateId}`)
                 return `/candidate/${candidateId}`;
             case 'Client':
                 return `/`;
@@ -33,7 +34,6 @@ const testSumitCompletion = () => {
                 return null;
         }
     };
-
   return (
     <>
       <div className={styles.superContainer}>

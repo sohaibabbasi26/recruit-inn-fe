@@ -27,6 +27,8 @@ const CompletionComponent = ({ getActiveComponent }) => {
   // }
 
   const finishTestHandler = () => {
+    localStorage.removeItem("testcompleted");
+    localStorage.removeItem("codingtestcompleted");
     const route = getActiveComponent();
     if (route) {
       router.push(route);
