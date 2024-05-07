@@ -213,6 +213,7 @@
   padding: 1.125rem 3.375rem;
   background-color: #f8f7fa;
   border-radius: 1.875rem;
+  display: inline-block;
 }
 
 .leftContainer h3 {
