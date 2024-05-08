@@ -192,8 +192,9 @@
   
 }
 
+/* <<<<<<< HEAD */
 /* 1680px */
-@media screen and (max-width: 105em) {
+/* @media screen and (max-width: 105em) {
   .searchResults {
     width: 50.5%;
   }
@@ -207,3 +208,30 @@
   }
   
 }
+======= */
+.selectCategory select{
+    border-radius: 32px;
+    border: none;
+    background-color: #FFFFFF;
+    font-size: 1rem;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 24px;
+    padding-bottom: 11px;
+    font-family: 'Poppins',sans-serif;
+}
+@media only screen and (max-width: 1200px) {
+    .selectCategory select{
+        padding-top: 2.5px;
+        padding-right: 8px;
+        padding-left: 12px;
+        padding-bottom: 2.5px;
+   
+    }}
+.selectCategory select input{
+    color: #170D23;
+}
+.selectCategory select:focus{
+    outline: none;
+}
+/* >>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258 */

@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - develop
+<<<<<<< HEAD
+=======
+      - main
+>>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258
 
 jobs:
   build:
@@ -25,6 +29,21 @@ jobs:
       - name: Build
         run: npm run build
 
+<<<<<<< HEAD
     
+=======
+      - name: Manually Trigger Backend Workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Trigger the backend workflow
+          response=$(curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/sohaibabbasi26/events-app-backend/actions/workflows/backend.yml/dispatches \
+            -d '{"ref":"main"}')
+          echo "Workflow dispatched. Response: $response"
+
+>>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258
       - name: Restart Frontend Server
         run: pm2 restart recruit-inn-fe-frontend

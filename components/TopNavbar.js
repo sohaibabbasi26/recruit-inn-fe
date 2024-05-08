@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './TopNavbar.module.css';
 import Image from 'next/image';
 import debounce from 'lodash.debounce';
-import { isActionCreator } from '@reduxjs/toolkit';
+// import { isActionCreator } from '@reduxjs/toolkit';
+
 
 const TopNavbar = ({ selectedCandidate, companyId, onJobSelect, reportOverlay, onCandidateSelect, setReportOverlay, setSelectedCandidate }) => {
     const searchLogoSize = 20;
@@ -21,7 +22,7 @@ const TopNavbar = ({ selectedCandidate, companyId, onJobSelect, reportOverlay, o
             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=${companyId}`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
-            console.log('search API:', data)
+            console.log('search API:', data);
             setSearchResults(data);
         } catch (error) {
             console.error("Failed to fetch search results:", error);
@@ -177,4 +178,5 @@ const TopNavbar = ({ selectedCandidate, companyId, onJobSelect, reportOverlay, o
         </>
     );
 };
+
 export default TopNavbar;

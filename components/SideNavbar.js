@@ -34,14 +34,12 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
   };
 
   const handleDropDownJobsToggle = () => {
-    // Close upgrade
     if (setshowupgrade) setshowupgrade(false);
 
     setIsDropDownJobsToggle(!isDropDownJobsToggle);
   };
 
   const handleDropDownCandidatesToggle = () => {
-    // Close upgrade
     if (setshowupgrade) setshowupgrade(false);
 
     setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle);
