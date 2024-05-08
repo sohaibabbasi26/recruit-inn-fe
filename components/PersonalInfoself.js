@@ -34,6 +34,7 @@ const PersonalInfoSelf = forwardRef(
     city,
     password,
     confirmPassword,
+    setIsTestRequired
   }) => {
     const handleInputChange = (e, ref) => {
       ref.current.value = e.target.value;

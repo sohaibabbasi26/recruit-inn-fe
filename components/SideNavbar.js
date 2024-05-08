@@ -171,7 +171,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Recommended
                     <Image
-                      src="/star.svg"
+                      src="/Star.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />
@@ -186,7 +186,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Qualified
                     <Image
-                      src="/like.svg"
+                      src="/Like.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />

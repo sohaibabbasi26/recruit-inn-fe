@@ -602,6 +602,7 @@ const SelfOverlay = ({
                     setCity={setCity}
                     setEmail={setEmail}
                     setCountry={setCountry}
+                    setIsTestRequired={setIsTestRequired}
                   />
                   <div className={styles.wrapper}>
                     <PersonalInfoBtns
@@ -639,6 +640,7 @@ const SelfOverlay = ({
               {currentStage === stages.SKILLS && (
                 <>
                   <CandSelfSkill
+                    setIsTestRequired={setIsTestRequired}
                     handleTestPreparation={handleTestPreparation}
                     setTechStack={setTechStack}
                   />

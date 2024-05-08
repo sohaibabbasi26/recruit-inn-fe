@@ -423,6 +423,19 @@ const ClientSignUpOverlay = ({
     }
     return true;
   };
+  const validatephoneReceiver = () =>{
+    if(!phoneNo || !isvalidcontact(phoneNo)){
+      setMessage("Please enter a valid contact number");
+      showError();
+      return false;
+    }
+    return true;
+  }
+
+  const isvalidcontact = (contact) =>{
+    const phoneRegex = /^\+[1-9]\d{6,14}$/;
+    return phoneRegex.test(contact);
+  };
 
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -657,6 +670,7 @@ const ClientSignUpOverlay = ({
                     setMessage={setMessage}
                     fillValidity={fillValidity}
                     validateEmailReceiver={validateEmailReceiver}
+                    validatephoneReceiver = {validatephoneReceiver}
                     showSuccess={showSuccess}
                     handleFormSubmit={handleFormSubmit}
                     onClose={onClose}

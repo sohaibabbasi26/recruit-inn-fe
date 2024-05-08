@@ -250,7 +250,7 @@ const PersonalInfo = forwardRef(
                   value={expertise}
                   onChange={handleInputChange(setExpertise)}
                 >
-                  <option value="" disabled>
+                  <option value="" disabled selected>
                     Select Your Expertise
                   </option>
                   <option value="Beginner">Beginner</option>
