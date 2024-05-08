@@ -31,65 +31,12 @@ const JobOverlay = ({
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
   const [assessmentId, setAssessmentId] = useState();
-
+  const [codeQues,setCodeQues] = useState();
+  // const [assessmentId,setAssessmentId] = useState();
   useEffect(() => {
     setTechStack(selectedJob?.expertise);
   }, [selectedJob?.expertise]);
 
-  // useEffect(() => {
-  //     async function fetchAssessmentById(){
-  //         try {
-  //             const reqBody = {
-  //                 candidate_id : selectedJob?.candidate_id
-  //             };
-  //             const response =  await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-assessment-by-candidate`,{
-  //                 method: 'PUT',
-  //                 body: JSON.stringify(reqBody),
-  //                 headers : {
-  //                     "Content-type": "application/JSON"
-  //                 }
-  //             });
-  //             const data = await response.json();
-  //             console.log('data is:', data);
-  //         } catch (err){
-  //             console.log("ERROR:", err);
-  //         }
-  //     }
-  //     fetchAssessmentById();
-  // },[])
-
-  // async function fetchAndCopyAssessmentLink() {
-  //     setIsLoading(true);
-  //     try {
-  //         if (techStack) {
-  //             console.log('techstack:', techStack);
-  //             const reqBody = {
-  //                 expertise: techStack,
-  //                 position_id : selectedJob?.position_id
-  //             }
-  //             const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-  //                 {
-  //                     method: 'POST',
-  //                     headers: {
-  //                         'Content-Type': 'application/json',
-  //                         'Authorization': `Bearer ${token}`,
-  //                     },
-  //                     body: JSON.stringify(reqBody),
-  //                 });
-  //             const data = await response.json();
-  //             console.log("response data:", data);
-  //             setTest(data?.data);
-  //             setQuestionId(data?.data?.message?.question_id);
-  //             setIsLoading(false);
-  //             console.log('test data:', test);
-  //             localStorage.setItem('testData', JSON.stringify(data));
-  //             console.log(data);
-  //             await handleCopyClick();
-  //         }
-  //     } catch (err) {
-  //         console.log('error:', err);
-  //     }
-  // }
 
   useEffect(() => {
     const reqBody = {
@@ -164,6 +111,60 @@ const JobOverlay = ({
         );
         const data = await response.json();
         setTest(data?.data);
+
+        console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
+        if(selectedJob?.is_test_req === true){
+          try {
+            setIsLoading(true);
+            const req = {
+              codingExpertise: selectedJob?.expertise,
+              position_id: selectedJob?.position_id,
+            };
+
+            console.log("request:",req);
+  
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(req),
+              }
+            );
+            const data = await response.json();
+            setCodeQues(data);
+            setAssessmentId(data?.data?.assessment_id);
+            console.log("assessment id:", assessmentId);
+            console.log("code question data:", data);
+            setIsLoading(false);
+            try{
+                const body ={
+                  position_id: positionId,
+                  is_test_req: isTestRequired
+                }
+  
+                console.log("body data sent in setPositionTestReq:",body);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(body),
+                });
+                const data = await response.json();
+                setCodeQues(data);
+            } catch(err){
+                console.log('ERROR:',err);
+            }
+          } catch (err) {
+            console.error("ERROR:", err);
+          }
+        }
+
         const newQuestionId = data?.data?.message?.question_id;
         console.log("test:", test);
         setQuestionId(newQuestionId);
@@ -267,10 +268,6 @@ const JobOverlay = ({
       return "/noteligible.svg";
     }
   };
-
-  // const disableCreateLink = () => {
-  //     showError('The job is closed for now, make it active if you wish to copy a link!')
-  // }
 
   return (
     <>
