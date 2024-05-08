@@ -3,6 +3,7 @@ import styles from './Login.module.css';
 import { useEffect, useState } from 'react';
 import CandidateSelfLoginOverlay from '../../components/CandidateSelfLoginOverlay';
 
+
 const CandidateSelfLogin = () => {
     const router = useRouter();
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
