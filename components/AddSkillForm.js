@@ -80,7 +80,9 @@ const AddSkillForm = forwardRef(
     return (
       <>
         <form className={styles.addSkillFormContainer}>
-          <div className={styles.inputField}>
+          <div
+            className={`${styles.inputField} ${skill1 ? styles.filled : ""}`}
+          >
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
@@ -121,7 +123,9 @@ const AddSkillForm = forwardRef(
             </select>
           </div>
 
-          <div className={styles.inputField}>
+          <div
+            className={`${styles.inputField} ${skill2 ? styles.filled : ""}`}
+          >
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
@@ -152,7 +156,9 @@ const AddSkillForm = forwardRef(
             </select>
           </div>
 
-          <div className={styles.inputField}>
+          <div
+            className={`${styles.inputField} ${skill3 ? styles.filled : ""}`}
+          >
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
@@ -183,7 +189,9 @@ const AddSkillForm = forwardRef(
             </select>
           </div>
 
-          <div className={styles.inputField}>
+          <div
+            className={`${styles.inputField} ${skill4 ? styles.filled : ""}`}
+          >
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
