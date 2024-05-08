@@ -3,7 +3,7 @@ import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
+const CandSelfSkill = ({ setTechStack, isTestRequired, setIsTestRequired }) => {
   const iconSize = 25;
 
   console.log("Is test Required:", isTestRequired);
@@ -11,8 +11,8 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
   const [skill1, setSkill1] = useState("");
   const [skill2, setSkill2] = useState("");
 
-  const [level1, setLevel1] = useState("beginner");
-  const [level2, setLevel2] = useState("beginner");
+  const [level1, setLevel1] = useState("");
+  const [level2, setLevel2] = useState("");
 
   useEffect(() => {
     const skills = [
@@ -29,7 +29,6 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
     console.log("clicked", event.target.checked);
     setIsTestRequired(event.target.checked);
     console.log("Is test Required:", isTestRequired);
-
   };
 
   return (
@@ -55,10 +54,14 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
 
           <select
             placeholder="Choose level of difficulty"
+            defaultValue="no-value"
             onChange={(e) => {
               setLevel1(e.target.value);
             }}
           >
+            <option value="no-value" disabled>
+              Choose level of difficulty
+            </option>
             <option value="beginner">Beginnner</option>
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
@@ -70,7 +73,7 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
             <Image
               className={styles.img}
               //   src="/award.svg"
-              src={skill2.length > 1 ? getSvg(skill2) : "/award.svg"}
+              src={skill2.length > 1 ? getSvg(skill2) : "/Award.svg"}
               width={iconSize}
               height={iconSize}
             />
@@ -85,27 +88,28 @@ const CandSelfSkill = ({ setTechStack,isTestRequired,setIsTestRequired }) => {
 
           <select
             placeholder="Choose level of difficulty"
+            defaultValue="no-value"
             onChange={(e) => {
               setLevel2(e.target.value);
             }}
           >
+            <option value="no-value" disabled>
+              Choose level of difficulty
+            </option>
             <option value="beginner">Beginnner</option>
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
           </select>
-
-
-          
         </div>
 
         <div>
-            <label>Would you like to add a coding assignment too?</label>
-            <input
-              type="checkbox"
-              checked={isTestRequired}
-              onChange={handleTestRequirementChange}
-            />
-          </div>
+          <label>Would you like to add a coding assignment too?</label>
+          <input
+            type="checkbox"
+            checked={isTestRequired}
+            onChange={handleTestRequirementChange}
+          />
+        </div>
       </form>
     </>
   );

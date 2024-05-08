@@ -194,6 +194,35 @@ x .transparentContainer button {
   max-width: 1170px;
 }
 
+.pricingButtons {
+  background-color: #f8f7fa;
+  padding: 7px 8px;
+  border-radius: 3rem;
+  width: max-content;
+  margin: 0 auto 1.5rem;
+}
+
+.pricingButtons button {
+  border: none;
+  display: inline-block;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: transparent;
+  color: #170d23;
+  transition: all 0.3s ease-in;
+}
+
+.pricingButtons button:hover {
+  background-color: #f7f5ff;
+}
+
+.pricingButtons button.active {
+  background-color: #6137db;
+  color: #ffffff;
+}
+
 .pricing_container.full-width {
   width: 100%;
   max-width: none;

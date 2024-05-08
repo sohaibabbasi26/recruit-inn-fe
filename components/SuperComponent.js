@@ -7,7 +7,7 @@ import { useState } from 'react';
 const SuperComponent = ({selectedCandidate, companyId, setIsLoading,isLoading, data, candidateReps, jobOverlay, setJobOverlay, reportOverlay, selectedJob, setReportOverlay, setSelectedJob, setSelectedCandidate
  }) => {
 
-        const [jobOverlayVisible, setJobOverlayVisible] = useState(false);
+        // const [jobOverlayVisible, setJobOverlayVisible] = useState(false);
         // const [selectedJob, setSelectedJob] = useState(null);
 
         const showJobOverlay = (job) => {

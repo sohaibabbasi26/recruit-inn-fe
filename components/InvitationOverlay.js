@@ -163,14 +163,25 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [name]);
 
     useEffect(() => {
-        if (contact?.trim() === '') {
+        const phoneRegex = /^\+[1-9]\d{6,14}$/;
+        if ( contact && !phoneRegex.test(contact)) {
             
-            setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
+            setValidationErrors(errors => ({ ...errors, contact: 'Invalid Contact number' }));
         } else {
             const { contact, ...rest } = validationErrors;
             setValidationErrors(rest);
         }
     }, [contact]);
+
+    // useEffect(() => {
+    //     if (contact?.trim() === '') {
+            
+    //         setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
+    //     } else {
+    //         const { contact, ...rest } = validationErrors;
+    //         setValidationErrors(rest);
+    //     }
+    // }, [contact]);
 
     useEffect(() => {
         if (country?.trim() === '') {
@@ -265,9 +276,20 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             }
         }
         if (!contact?.trim()) {
-            errors.contact = 'Please enter a contact number.';
+            errors.contact = 'Please enter a phone number.';
             isValid = false;
+        } else {
+            // Regular expression for phone number validation
+            const phoneRegex = /^\+[1-9]\d{6,14}$/;
+            if (!phoneRegex.test(contact)) {
+                errors.contact = 'Phone number is not valid.';
+                isValid = false;
+            }
         }
+        // if (!contact?.trim()) {
+        //     errors.contact = 'Please enter a contact number.';
+        //     isValid = false;
+        // }
 
         if (!expertise?.trim()) {
             errors.expertise = 'Please enter an expertise level!';

@@ -34,14 +34,12 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
   };
 
   const handleDropDownJobsToggle = () => {
-    // Close upgrade
     if (setshowupgrade) setshowupgrade(false);
 
     setIsDropDownJobsToggle(!isDropDownJobsToggle);
   };
 
   const handleDropDownCandidatesToggle = () => {
-    // Close upgrade
     if (setshowupgrade) setshowupgrade(false);
 
     setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle);
@@ -173,7 +171,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Recommended
                     <Image
-                      src="/star.svg"
+                      src="/Star.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />
@@ -188,7 +186,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
                   >
                     Qualified
                     <Image
-                      src="/like.svg"
+                      src="/Like.svg"
                       width={listItemSize}
                       height={listItemSize}
                     />

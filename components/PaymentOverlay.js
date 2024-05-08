@@ -23,6 +23,7 @@ const PaymentOverlay = React.memo(
     showErrorMessage;
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isActive, setIsActive] = useState("monthly");
 
     useEffect(() => {
       document.body.style.overflow = "hidden";
@@ -87,7 +88,7 @@ const PaymentOverlay = React.memo(
                     class={styles.pricing_container}
                     style={{ margin: "0px" }}
                   >
-                    <div
+                    {/* <div
                       className={styles.pricing_switcher}
                       style={{ margin: "0px" }}
                     >
@@ -109,6 +110,24 @@ const PaymentOverlay = React.memo(
                         <label for="yearly-1">Yearly</label>
                         <span className={styles.switch}></span>
                       </p>
+                    </div> */}
+                    <div className={styles.pricingButtons}>
+                      <button
+                        className={`${
+                          isActive === "monthly" ? styles.active : ""
+                        }`}
+                        onClick={() => setIsActive("monthly")}
+                      >
+                        Monthly Billing
+                      </button>
+                      <button
+                        className={`${
+                          isActive === "yearly" ? styles.active : ""
+                        }`}
+                        onClick={() => setIsActive("yearly")}
+                      >
+                        Yearly Billing
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -285,7 +304,6 @@ const PaymentOverlay = React.memo(
                     </div>
                   </div>
                 </div> */}
-                
               </div>
             )}
           </div>

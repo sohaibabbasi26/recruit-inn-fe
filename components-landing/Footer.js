@@ -86,10 +86,22 @@ const Footer = ({
                 Community Stories
               </p>
               <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
-                Twitter
+                <a
+                  href="https://twitter.com/recruitinn"
+                  target="blank"
+                  rel="noopener noreferrer"
+                >
+                  Twitter
+                </a>
               </p>
               <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
-                Linkedin
+                <a
+                  href="https://www.linkedin.com/company/recruitinn-ai/about"
+                  target="blank"
+                  rel="noopener noreferrer"
+                >
+                  Linkedin
+                </a>
               </p>
               <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 YouTube

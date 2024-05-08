@@ -18,7 +18,6 @@ import AdminOverlayBtns from "./AdminOverlayBtns";
 import ErrorIndicator from "./ErrorIndicator";
 import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 
-
 // const ClientSignUpOverlay = ({
 //   adminToken,
 //   message,
@@ -183,7 +182,7 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //       //   return;
 //       // }
 //       // if (data?.data?.data) {
-//       //   setMessage("Email you are registering with is already in use, try another one!"); 
+//       //   setMessage("Email you are registering with is already in use, try another one!");
 //       //   showError();
 //       //   // return
 //       //   // return;
@@ -260,7 +259,7 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //     const emailText = `Follow the link to set up your new password: \n ${demolink}`;
 
 //     const reqBody = {
-//       to: email,  
+//       to: email,
 //       subject: emailSubject,
 //       text: emailText,
 //     };
@@ -332,7 +331,7 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 //                     password={password}
 //                     conformpassword={conformpassword}
 //                     email={email}
-//                     showError={showError} 
+//                     showError={showError}
 //                     setMessage={setMessage}
 //                     fillValidity={fillValidity}
 //                     validateEmailReceiver={validateEmailReceiver}
@@ -354,7 +353,6 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 // };
 
 // export default ClientSignUpOverlay;
-
 
 const ClientSignUpOverlay = ({
   adminToken,
@@ -394,7 +392,7 @@ const ClientSignUpOverlay = ({
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [showOverlay, onClose]);
+  }, [ showOverlay]);
 
   const router = useRouter();
   const infoSymbolSize = 20;
@@ -425,6 +423,19 @@ const ClientSignUpOverlay = ({
     }
     return true;
   };
+  const validatephoneReceiver = () =>{
+    if(!phoneNo || !isvalidcontact(phoneNo)){
+      setMessage("Please enter a valid contact number");
+      showError();
+      return false;
+    }
+    return true;
+  }
+
+  const isvalidcontact = (contact) =>{
+    const phoneRegex = /^\+[1-9]\d{6,14}$/;
+    return phoneRegex.test(contact);
+  };
 
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -451,7 +462,7 @@ const ClientSignUpOverlay = ({
     setCurrentStage(stages.CLIENT_INFO);
   }, []);
 
-  useEffect(() => { }, [companyId, email]);
+  useEffect(() => {}, [companyId, email]);
 
   // useEffect(() => {
   //   if (companyId && email) {
@@ -499,16 +510,15 @@ const ClientSignUpOverlay = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${adminToken}`,
+            // Authorization: `Bearer ${adminToken}`,
           },
           body: JSON.stringify(requestBody),
         }
       );
       const data = await response.json();
-      console.log('checking if client exists:', data);
+      console.log("checking if client exists:", data);
       return data;
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
       setMessage("some expected error occurs");
       showError();
@@ -609,6 +619,7 @@ const ClientSignUpOverlay = ({
     }
   };
 
+
   return (
     <>
       <div ref={overlayRef} className={styles.parent}>
@@ -659,6 +670,7 @@ const ClientSignUpOverlay = ({
                     setMessage={setMessage}
                     fillValidity={fillValidity}
                     validateEmailReceiver={validateEmailReceiver}
+                    validatephoneReceiver = {validatephoneReceiver}
                     showSuccess={showSuccess}
                     handleFormSubmit={handleFormSubmit}
                     onClose={onClose}

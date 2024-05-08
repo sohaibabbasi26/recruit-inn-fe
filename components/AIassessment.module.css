@@ -1,11 +1,11 @@
 .parent {
-  width: 100%;
+  width: 80%;
   height: 50%;
 }
 
-@media screen and (max-width: 64em) {
+/* @media screen and (max-width: 64em) {
   .parent {
-    /* 900px */
+    900px
     max-width: 80%;
   }
-}
+} */

@@ -3,8 +3,8 @@
 .parentContainer {
   width: 100%;
   background-color: #f8f7fa;
-  height: 90%;
-  height: calc(100% - 77px);
+  /* height: 90%; */
+  height: 100%;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -216,8 +216,6 @@
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  height: 90%;
-  height: calc(100% - 120px);
 }
 
 .superContainer {
@@ -449,15 +447,131 @@
   font-family: "Poppins", sans-serif;
 }
 
+/* tempcontainer here */
+/* here */
+.parentContainer:has(.tempContainer) {
+  display: block;
+  height: 100%;
+  background-color: transparent;
+}
+.superContainer:has(.tempContainer) {
+  width: 100%;
+  height: 102%;
+  background-color: transparent;
+}
+.subContainer:has(.tempContainer) {
+  height: 100%;
+  display: block;
+}
+
 .tempContainer {
   position: relative;
   border-radius: 2rem;
   background-color: #f8f7fa;
   height: 100%;
+  display: block;
+  background-image: url("/framCandidateSelfBg.png");
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-position: bottom 0px right 0px;
+  background-size: 300px 300px;
+}
+
+.tempContainer * {
+  margin: 0;
+}
+
+.tempContainer div:first-child {
+  padding: 1.5rem;
+  height: calc(100% - 3.1rem);
+  width: calc(100% - 2.8rem);
+}
+
+.tempContainer h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.tempContainer .bg {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.candidateDefault {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.candidateDefault .avatar {
+  margin-bottom: 1rem;
+}
+
+.candidateDefault h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.candidateDefault p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #4a525d;
+}
+
+.candidateDefault button {
+  background-color: #6137db;
+  border: none;
+  border-radius: 3.75rem;
+  color: #f8f7fc;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  padding-left: 2rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.candidateDefault button:has(div.loader) {
+  padding: 1.5rem;
+}
+
+@media screen and (max-width: 1680px) {
+  .tempContainer {
+    background-size: 210px 210px;
+  }
+  .candidateDefault button {
+    padding: 1rem;
+    padding-left: 1.5rem;
+  }
+  .candidateDefault button:has(div.loader) {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .tempContainer h1 {
+    font-size: 1.8rem;
+  }
+  .candidateDefault button {
+    padding: 0.8rem;
+    padding-left: 1.3rem;
+  }
+  .candidateDefault button:has(div.loader) {
+    padding: 0.8rem;
+  }
 }
 
 @media only screen and (max-width: 1024px) {

@@ -51,11 +51,17 @@ const CodingExcersice = () => {
         setOutput(data?.data?.data?.output);
         setIsLoading(false);
     }
-    
+    useEffect(() => {
+        // Check if user is logged in
+        const testcomplete = localStorage.getItem("codingtestcompleted");
+        if (testcomplete) {
+            router.push("/test-submit-completion");
+        }
+      }, [router]);
+
     async function codeSubmitHandler(){
-
         setIsLoading(true);
-
+        localStorage.setItem("codingtestcompleted", "true");
         const reqBody = {
             code : Code,
             exercise : question,

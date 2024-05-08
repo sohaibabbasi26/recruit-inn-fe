@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const TechstackTwo = () => {
 
-    const images = ['/cplusplus.png', '/python.png', '/tech1.svg', '/tech2.svg', '/tech3.svg', '/tech4.svg', '/tech5.svg', '/tech6.svg'];
+    const images = ['/cplusplus.png', '/python.svg', '/tech1.svg', '/tech2.svg', '/tech3.svg', '/tech4.svg', '/tech5.svg', '/tech6.svg'];
 
 
     return (

@@ -1,73 +1,79 @@
-
-import { useRouter } from 'next/router';
-import styles from './Login.module.css';
-import { useEffect, useState } from 'react';
-import LoginOverlay from '../../components/LoginOverlay';
+import { useRouter } from "next/router";
+import styles from "./Login.module.css";
+import { useEffect, useState } from "react";
+import LoginOverlay from "../../components/LoginOverlay";
 
 const Login = () => {
+  const router = useRouter();
 
-    const router = useRouter();
-    
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const [message , setMessage] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [message, setMessage] = useState("");
 
-    // const [showOverlay, setShowOverlay] = useState(false);
+  // const [showOverlay, setShowOverlay] = useState(false);
 
-    const stages = {
-        LOG_IN: 'LOG_IN',
-    }
+  const stages = {
+    LOG_IN: "LOG_IN",
+  };
 
-    const stageHeadings = {
-        LOG_IN: 'Personal Info',
-    };
-    
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-          if (event.key === 'Enter') {
-            event.preventDefault();
-    
-            const activeElement = document.activeElement;
-    
-           if (activeElement.tagName === 'INPUT' && activeElement.form) {
-              const form = activeElement.form;
-              const submitButton = form.querySelector('[type="submit"]');
-              if (submitButton) {
-                submitButton.click();
-              }
-            } else {
-              const continueButton = document.getElementById('RightBottomBtns_forwardBtn__83dJ2'); 
-              if (continueButton) {
-                continueButton.click();
-              }
-            }
+  const stageHeadings = {
+    LOG_IN: "Personal Info",
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+
+        const activeElement = document.activeElement;
+
+        if (activeElement.tagName === "INPUT" && activeElement.form) {
+          const form = activeElement.form;
+          const submitButton = form.querySelector('[type="submit"]');
+          if (submitButton) {
+            submitButton.click();
           }
-        };
-    
-        window.addEventListener('keydown', handleKeyDown);
-    
-        return () => {
-          window.removeEventListener('keydown', handleKeyDown);
-        };
-      }, []);
+        } else {
+          const continueButton = document.getElementById(
+            "RightBottomBtns_forwardBtn__83dJ2"
+          );
+          if (continueButton) {
+            continueButton.click();
+          }
+        }
+      }
+    };
 
+    window.addEventListener("keydown", handleKeyDown);
 
-    const showError = (message) => {
-        setMessage(message);
-        setShowErrorMessage(true);
-    
-        setTimeout(() => {
-          setShowErrorMessage(false);
-        }, 3000);
-      };
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
+  const showError = (message) => {
+    setMessage(message);
+    setShowErrorMessage(true);
 
-    const showOverlay = true;
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 3000);
+  };
 
-    return (
-        <>  
-            <LoginOverlay showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage} setMessage={setMessage} message={message} stageHeadings={stageHeadings} stages={stages} showOverlay={showOverlay} />
-        </>
-    )
-}
+  const showOverlay = true;
+
+  return (
+    <>
+      <LoginOverlay
+        showErrorMessage={showErrorMessage}
+        showSuccessMessage={showSuccessMessage}
+        setMessage={setMessage}
+        message={message}
+        stageHeadings={stageHeadings}
+        stages={stages}
+        showOverlay={showOverlay}
+      />
+    </>
+  );
+};
 export default Login;
