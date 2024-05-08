@@ -88,7 +88,7 @@ function PackagesCards() {
                   src={
                     packages.availableOptions[index] === pack.options[index]
                       ? "/check.svg"
-                      : "/cross.svg"
+                      : "/CROSS.svg"
                   }
                   width={32}
                   height={32}

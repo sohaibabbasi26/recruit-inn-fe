@@ -2,8 +2,8 @@
 // import styles from './PersonalInfo.module.css';
 // import Image from 'next/image';
 // import PhoneInput from 'react-phone-number-input';
-import { countryList } from '@/util/cities';
-import { getCities } from '@/util/helpers';
+import { countryList } from "@/util/cities";
+import { getCities } from "@/util/helpers";
 
 // const PersonalInfo = forwardRef(({
 //     setCity,
@@ -86,7 +86,7 @@ import { getCities } from '@/util/helpers';
 //                 </select>
 //               </div>
 //             </div>
-//             {/* 
+//             {/*
 //             <div>
 //               <div className={styles.infoField}>
 //                 <Image />
@@ -153,55 +153,130 @@ import { getCities } from '@/util/helpers';
 
 // export default PersonalInfo;
 
-
-import { forwardRef, useState, useContext } from 'react';
-import styles from './PersonalInfo.module.css';
-import Image from 'next/image';
-import PhoneInput from 'react-phone-number-input';
-const PersonalInfo = forwardRef(({
-  setCity,
-  setCountry,
-  setContact,
-  setEmail,
-  setExpertise,
-  setName,
-  nameRef,
-  contactRef,
-  emailRef,
-  expertiseRef,
-  countryRef,
-  cityRef,
-  validationErrors,
-  showSuccessMessage,
-  msgText,
-  name,
-  email,
-  contact,
-  expertise,
-  country,
-  city,
-}, ref) => {
-  // const [phoneNumber, setPhoneNumber] = useState(contact || '');
-  // // Handling the form input changes
-  const handleInputChange = (setter) => (event) => {
-    setter(event.target.value);
-  };
-  return (
-    <>
-      <div className={styles.superContainer}>
-        <div className={styles.masterContainer}>
-
-          <div>
-            <div className={styles.infoField}>
-              <Image src="/smiley.svg" alt="Name" width={20} height={20} />
-              <input
-                placeholder="Enter your name"
-                type="text"
-                value={name}
-                onChange={handleInputChange(setName)}
-              />
-              {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors.name}</div>}
+import { forwardRef, useState, useContext } from "react";
+import styles from "./PersonalInfo.module.css";
+import Image from "next/image";
+import PhoneInput from "react-phone-number-input";
+const PersonalInfo = forwardRef(
+  (
+    {
+      setCity,
+      setCountry,
+      setContact,
+      setEmail,
+      setExpertise,
+      setName,
+      nameRef,
+      contactRef,
+      emailRef,
+      expertiseRef,
+      countryRef,
+      cityRef,
+      validationErrors,
+      showSuccessMessage,
+      msgText,
+      name,
+      email,
+      contact,
+      expertise,
+      country,
+      city,
+    },
+    ref
+  ) => {
+    // const [phoneNumber, setPhoneNumber] = useState(contact || '');
+    // // Handling the form input changes
+    const handleInputChange = (setter) => (event) => {
+      setter(event.target.value);
+    };
+    return (
+      <>
+        <div className={styles.superContainer}>
+          <div className={styles.masterContainer}>
+            <div>
+              <div className={styles.infoField}>
+                <Image src="/smiley.svg" alt="Name" width={20} height={20} />
+                <input
+                  placeholder="Enter your name"
+                  type="text"
+                  value={name}
+                  onChange={handleInputChange(setName)}
+                />
+                {validationErrors?.name && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.name}
+                  </div>
+                )}
+              </div>
             </div>
+            <div>
+              <div className={styles.infoField}>
+                <Image src="/email.svg" alt="Email" width={20} height={20} />
+                <input
+                  placeholder="Enter your email"
+                  type="email"
+                  value={email}
+                  onChange={handleInputChange(setEmail)}
+                />
+                {validationErrors?.email && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.email}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <div className={styles.infoField}>
+                <Image src="/phone.svg" alt="Phone" width={20} height={20} />
+                <PhoneInput
+                  className={styles.phoneInput2}
+                  international
+                  defaultCountry="PK"
+                  value={contact}
+                  onChange={setContact}
+                />
+                {validationErrors?.contact && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.contact}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div className={styles.infoField}>
+                <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
+                <select
+                  value={expertise}
+                  onChange={handleInputChange(setExpertise)}
+                >
+                  <option value="" disabled>
+                    Select Your Expertise
+                  </option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Expert">Expert</option>
+                </select>
+                {validationErrors?.expertise && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.expertise}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div className={styles.infoField}>
+                <Image src="/earth.svg" width={20} height={20} />
+                <select onChange={(e) => setCountry(e.target.value)}>
+                  <option disabled={true}>Select country</option>
+                  {countryList.map((country) => (
+                    <option value={country}> {country} </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+{/* <<<<<<< HEAD
           </div>
           <div>
             <div className={styles.infoField}>
@@ -267,11 +342,26 @@ const PersonalInfo = forwardRef(({
                   <option value={city}> {city} </option>
                 ))}
               </select>
+======= */}
+            <div>
+              <div className={styles.infoField}>
+                <Image src="/aim.svg" width={20} height={20} />
+                <select
+                  disabled={country === null}
+                  onChange={(e) => setCity(e.target.value)}
+                >
+                  <option disabled={true}>Select city</option>
+                  {getCities(country)?.map((city) => (
+                    <option value={city}> {city} </option>
+                  ))}
+                </select>
+              </div>
+{/* >>>>>>> 1ff503ba8c5106ac7c7339ef41aa0718b229abae */}
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-});
+      </>
+    );
+  }
+);
 export default PersonalInfo;

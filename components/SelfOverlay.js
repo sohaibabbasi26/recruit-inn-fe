@@ -14,8 +14,14 @@ import PersonalInfoSelf from "./PersonalInfoself";
 import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
 
-const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequired, setIsTestRequired }) => {
-
+const SelfOverlay = ({
+  showOverlay,
+  onClose,
+  stages,
+  stageHeadings,
+  isTestRequired,
+  setIsTestRequired,
+}) => {
   const overlayRef = useRef();
 
   const nameRef = useRef();
@@ -73,7 +79,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   const [email, setEmail] = useState(null);
   const [contact, setContact] = useState(null);
   const [password, setPassword] = useState(null);
-  const [otp, setOtp] = useState(new Array(6).fill(""));
+  // const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [otp, setOtp] = useState(null);
   const [isCodeInvalid, setIsCodeInvalid] = useState(false);
   const [techStack, setTechStack] = useState(null);
   const [candidateId, setCandidateId] = useState(null);
@@ -98,11 +105,11 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       email: email,
       over_all_exp: expertise,
       country: country,
-      applied_through: 'Self'
+      applied_through: "Self",
     };
 
     const reqtwo = {
-      expertise: techStack
+      expertise: techStack,
     };
 
     setReq(reqtwo);
@@ -134,7 +141,15 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
       setMessage("Entered email is not valid");
       showError();
       return;
-    } else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
+    } else if (
+        currentStage === stages.PERSONAL_INFO &&
+      !validateContactReciever()
+    ){
+        setMessage("Entered contact is not valid");
+      showError();
+      return;
+    }
+    else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
       setMessage("Password must be at least 8 characters long ");
       showError();
       return;
@@ -242,6 +257,12 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
     }
     return true;
   };
+  const validateContactReciever = () => {
+    if (!isvalidphone(contact)) {
+      return false;
+    }
+    return true;
+  };
 
   const validateNumber = (contact) => {
     const num = parseInt(contact);
@@ -266,7 +287,10 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
   };
-
+  const isvalidphone = (phone) => {
+    const phoneRegex = /^\+[1-9]\d{6,14}$/;
+    return phoneRegex.test(phone);
+  }
   const validatePassword = (password) => {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
@@ -324,14 +348,16 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
         return true;
       } else {
         setCheckIfEmailPresent(true);
-        setMessage(data?.message || "Email used for registering is already in use!");
+        setMessage(
+          data?.message || "Email used for registering is already in use!"
+        );
         showError();
         setCurrentStage(stages.PERSONAL_INFO);
         setIsLoading(false);
         return false;
       }
     } catch (err) {
-      console.log('ERRROR:', err);
+      console.log("ERRROR:", err);
     } finally {
       setIsLoading(false);
     }
@@ -379,7 +405,8 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   }
 
   const verifyCode = () => {
-    const otpCode = otp.join("");
+    // const otpCode = otp.join("");
+    const otpCode = otp;
     if (generatedCode === otpCode) {
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
@@ -485,20 +512,14 @@ const SelfOverlay = ({ showOverlay, onClose, stages, stageHeadings, isTestRequir
   return (
     <>
       {showErrorMessage && (
-        <ErrorIndicator
-          showErrorMessage={showErrorMessage}
-          msgText={message}
-        />
+        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
       )}
       <div ref={overlayRef} className={styles.parent}>
         <SuccessIndicator
           showSuccessMessage={showSuccessMessage}
           msgText={message}
         />
-        <ErrorIndicator
-          showErrorMessage={showErrorMessage}
-          msgText={message}
-        />
+        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
 
         <div className={styles.superContainer}>
           {isLoading ? (

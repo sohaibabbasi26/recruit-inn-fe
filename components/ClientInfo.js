@@ -44,9 +44,7 @@ const ClientInfo = ({
       <div className={styles.superContainer}>
         {/* Client Name Input */}
         <div
-          className={`${styles.inputField} ${
-            clientName ? styles.filled : null
-          }`}
+          className={`${styles.inputField} ${clientName ? styles.filled : ""}`}
         >
           <Image
             src="/smiley.svg"
@@ -62,9 +60,7 @@ const ClientInfo = ({
 
         {/* Company Name Input */}
         <div
-          className={`${styles.inputField} ${
-            companyName ? styles.filled : null
-          }`}
+          className={`${styles.inputField} ${companyName ? styles.filled : ""}`}
         >
           <Image
             src="/company.svg"
@@ -79,7 +75,7 @@ const ClientInfo = ({
         </div>
 
         {/* Email Input */}
-        <div className={`${styles.inputField} ${email ? styles.filled : null}`}>
+        <div className={`${styles.inputField} ${email ? styles.filled : ""}`}>
           <Image
             src="/email.svg"
             width={iconSize}
@@ -94,9 +90,7 @@ const ClientInfo = ({
 
         {/* Phone Input with Validation */}
 
-        <div
-          className={`${styles.inputField} ${phoneNo ? styles.filled : null}`}
-        >
+        <div className={`${styles.inputField} ${phoneNo ? styles.filled : ""}`}>
           <Image
             src="/phone.svg"
             alt="Phone"
@@ -114,7 +108,7 @@ const ClientInfo = ({
 
         {/* Account Manager Input */}
         <div
-          className={`${styles.inputField} ${password ? styles.filled : null}`}
+          className={`${styles.inputField} ${password ? styles.filled : ""}`}
         >
           <Image
             src="/Case.svg"
@@ -132,7 +126,7 @@ const ClientInfo = ({
 
         <div
           className={`${styles.inputField} ${
-            confirmPassword ? styles.filled : null
+            confirmPassword ? styles.filled : ""
           }`}
         >
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
@@ -148,9 +142,7 @@ const ClientInfo = ({
         </div>
 
         <div
-          className={`${styles.inputField} ${
-            actManager ? styles.filled : null
-          }`}
+          className={`${styles.inputField} ${actManager ? styles.filled : ""}`}
         >
           <Image src="/Case.svg" width={iconSize} height={iconSize} />
           <input
@@ -161,9 +153,7 @@ const ClientInfo = ({
 
         {/* Company Size Selection */}
         <div
-          className={`${styles.inputField} ${
-            companySize ? styles.filled : null
-          }`}
+          className={`${styles.inputField} ${companySize ? styles.filled : ""}`}
         >
           <Image
             src="/company.svg"
@@ -180,9 +170,7 @@ const ClientInfo = ({
         </div>
 
         {/* Country Selection */}
-        <div
-          className={`${styles.inputField} ${country ? styles.filled : null}`}
-        >
+        <div className={`${styles.inputField} ${country ? styles.filled : ""}`}>
           <Image
             src="/earth.svg"
             width={iconSize}
@@ -201,7 +189,7 @@ const ClientInfo = ({
         </div>
 
         {/* City Selection */}
-        <div className={`${styles.inputField} ${city ? styles.filled : null}`}>
+        <div className={`${styles.inputField} ${city ? styles.filled : ""}`}>
           <Image src="/aim.svg" width={iconSize} height={iconSize} alt="Aim" />
           <select disabled={!country} onChange={(e) => setCity(e.target.value)}>
             <option>Select city</option>

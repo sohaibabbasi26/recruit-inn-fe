@@ -140,12 +140,10 @@
 
 // export default CandidatesSelfHub;
 
-import styles from "./CandidatesHub.module.css";
-import TopNavbar from "./TopNavbar";
+import styles from "./CandidateSelfHub.module.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import SearchEmpty from "../public/SearchEmpty.gif";
 import { getSvg } from "@/util/helpers";
 
 const CandidatesSelfHub = ({
