@@ -1,19 +1,20 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const ShareLinkBtns = ({showError, validateReceivers, onContinue , onBack , onClose, setCompletedStages, completedStages, handleEmailInvite, setMessage, showSuccess }) => {
+const ShareLinkBtns = ({showError, onContinue , onBack , onClose, setCompletedStages, completedStages, handleEmailInvite, setMessage, showSuccess }) => {
 
     const navigationIconSize = 20;
 
     async function handleSendInvite() {
-        const valid = validateReceivers();
-        if (valid) {
+        // const valid = validateReceivers();
+        // if (valid) {
           await handleEmailInvite();
-        } else {
-          // Already handled in validateReceivers, just exit
-          setMessage("Validation failed");
-          showError()
-        }
+        // } 
+        // else {
+        //   // Already handled in validateReceivers, just exit
+        //   setMessage("Validation failed");
+        //   showError()
+        // }
       }
 
 
