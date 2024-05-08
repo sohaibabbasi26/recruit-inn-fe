@@ -72,6 +72,7 @@ const ClientInfo = ({
             placeholder="Company Name"
             onChange={(e) => setCompanyname(e.target.value)}
           />
+            {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors.name}</div>}
         </div>
 
         {/* Email Input */}
@@ -86,6 +87,7 @@ const ClientInfo = ({
             placeholder="Business Email"
             onChange={(e) => setEmail(e.target.value)}
           />
+            {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors.name}</div>}
         </div>
 
         {/* Phone Input with Validation */}
@@ -104,6 +106,7 @@ const ClientInfo = ({
             onChange={setPhoneNo}
             className={styles.phoneInput}
           />
+            {validationErrors?.phoneNo && <div className={styles.errorMessage}>{validationErrors.name}</div>}
         </div>
 
         {/* Account Manager Input */}
@@ -122,6 +125,7 @@ const ClientInfo = ({
             onChange={(e) => setPassword(e.target.value)}
           />
           <ShowPassword pass={showPassword} setPass={setShowPassword} />
+          {validationErrors?.password && <div className={styles.errorMessage}>{validationErrors.name}</div>}
         </div>
 
         <div
@@ -139,6 +143,7 @@ const ClientInfo = ({
             pass={showConfirmPassword}
             setPass={setShowConfirmPassword}
           />
+            {validationErrors?.confirmPassword && <div className={styles.errorMessage}>{validationErrors.name}</div>}
         </div>
 
         <div
