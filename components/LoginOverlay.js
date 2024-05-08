@@ -149,7 +149,7 @@ const LoginOverlay = ({
     } else {
       console.log("Testing thiss .....");
       showError("Login failed. Please check your credentials.");
-    };
+    }
   };
 
   useEffect(() => {
@@ -263,7 +263,7 @@ const LoginOverlay = ({
                     onViewChange={() => setViewMode("forgotPassword")}
                     password={password}
                     setPassword={setPassword}
-                    email={setEmail}
+                    email={email}
                     setEmail={setEmail}
                   />
                   <div className={styles.wrapper}>

@@ -205,8 +205,6 @@ import ClientSignUpOverlayBtn from "./ClientSignUpOverlayBtn";
 
 //   const handleFormSubmit = async () => {
 
-
-
 //     const requestBody = {
 //       company_name: companyname,
 //       company_location: city,
@@ -392,7 +390,7 @@ const ClientSignUpOverlay = ({
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [ showOverlay]);
+  }, [showOverlay]);
 
   const router = useRouter();
   const infoSymbolSize = 20;
@@ -423,16 +421,16 @@ const ClientSignUpOverlay = ({
     }
     return true;
   };
-  const validatephoneReceiver = () =>{
-    if(!phoneNo || !isvalidcontact(phoneNo)){
+  const validatephoneReceiver = () => {
+    if (!phoneNo || !isvalidcontact(phoneNo)) {
       setMessage("Please enter a valid contact number");
       showError();
       return false;
     }
     return true;
-  }
+  };
 
-  const isvalidcontact = (contact) =>{
+  const isvalidcontact = (contact) => {
     const phoneRegex = /^\+[1-9]\d{6,14}$/;
     return phoneRegex.test(contact);
   };
@@ -565,10 +563,10 @@ const ClientSignUpOverlay = ({
           setCompanyId(data?.data?.data?.company_id);
           await sendMail(data?.data?.data?.company_id);
           setMessage("A client account for you has been created!");
-          showSuccess()
+          showSuccess();
           setIsLoading(false);
           // getActiveComponent();
-          router.push('/client-login');
+          router.push("/client-login");
         } catch (error) {
           console.error("Error submitting form:", error);
           setMessage("Failed to process form submission.");
@@ -576,8 +574,7 @@ const ClientSignUpOverlay = ({
           setIsLoading(false);
         }
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log("ERR:", err);
     }
   };
@@ -619,7 +616,6 @@ const ClientSignUpOverlay = ({
     }
   };
 
-
   return (
     <>
       <div ref={overlayRef} className={styles.parent}>
@@ -645,7 +641,7 @@ const ClientSignUpOverlay = ({
                   email={email}
                   phoneNo={phoneNo}
                   password={password}
-                  confirmPassword={setConfirmPassword}
+                  confirmPassword={confirmPassword}
                   actManager={actManager}
                   companySize={companySize}
                   country={country}
@@ -670,7 +666,7 @@ const ClientSignUpOverlay = ({
                     setMessage={setMessage}
                     fillValidity={fillValidity}
                     validateEmailReceiver={validateEmailReceiver}
-                    validatephoneReceiver = {validatephoneReceiver}
+                    validatephoneReceiver={validatephoneReceiver}
                     showSuccess={showSuccess}
                     handleFormSubmit={handleFormSubmit}
                     onClose={onClose}
