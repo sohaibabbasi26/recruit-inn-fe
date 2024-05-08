@@ -6,37 +6,35 @@ import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-const ReportOverlay = ({
-  isLoading,
-  setIsLoading,
-  onClose,
-  reportOverlay,
-  selectedCandidate,
-}) => {
+const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
+  console.log("selected candidate is:", selectedCandidate);
+  const [codingResult, setCodingResult] = useState();
+  const [isCodingAssessment, setIsCodingAssessment] = useState(false);
+  const [results, setResults] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    console.log('selected candidate is:', selectedCandidate)
-    const [codingResult, setCodingResult] = useState();
-    const [isCodingAssessment, setIsCodingAssessment] = useState(false);
-    const [results, setResults] = useState(false);
-
-    useEffect(() => {
-        async function fetchCandidatesCodingResult() {
-            setIsLoading(true);
-            const requestBody = {
-                candidate_id: selectedCandidate?.candidate_id
-            }
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestBody),
-                });
+  useEffect(() => {
+    async function fetchCandidatesCodingResult() {
+      setIsLoading(true);
+      const requestBody = {
+        candidate_id: selectedCandidate?.candidate_id,
+      };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       const data = await response.json();
       console.log("data response:", data);
       setCodingResult(data);
+      //
+      setIsLoading(false);
       if (
         data &&
         data?.data &&

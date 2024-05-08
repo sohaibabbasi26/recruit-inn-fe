@@ -72,7 +72,7 @@
 @media only screen and (max-width: 1600px) {
   /* try this */
   .btnsContainer {
-    margin-top: 0;
+    margin-top: 1rem;
     align-items: flex-start;
   }
 
@@ -98,8 +98,7 @@
     gap: 10px;
   }
 
-  #backBtn
-   {
+  #backBtn {
     height: 55px;
     width: 15%;
     margin-top: 0px;
@@ -119,6 +118,5 @@
     height: 50px;
     margin-top: 0px;
     font-size: 12px;
-
   }
 }
