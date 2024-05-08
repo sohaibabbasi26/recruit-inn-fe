@@ -119,8 +119,6 @@ const SelfOverlay = ({
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
 
-    const emailAlreadyExists = await checkIfCandidateAlreadyThere();
-
     if (
       currentStage === stages.PERSONAL_INFO &&
       (!name?.trim() ||
@@ -134,31 +132,27 @@ const SelfOverlay = ({
     ) {
       setMessage("Please fill all the fields first");
       showError();
-
-      if (currentStage === stages.PERSONAL_INFO && emailAlreadyExists) {
-        setMessage("Email is already registered.");
-        showError();
-        return;
-      } else {
-        setCurrentStage(stages.VERIFICATION);
-      }
-      
       return;
-    }
-    else if (
+    } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateEmailReceiver()
     ) {
       setMessage("Entered email is not valid");
       showError();
       return;
-    } 
+    } else if (
+        currentStage === stages.PERSONAL_INFO &&
+      !validateContactReciever()
+    ){
+        setMessage("Entered contact is not valid");
+      showError();
+      return;
+    }
     else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
       setMessage("Password must be at least 8 characters long ");
       showError();
       return;
-    }
-    else if (
+    } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateNumber(contact)
     ) {
