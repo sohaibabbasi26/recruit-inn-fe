@@ -3,7 +3,7 @@ import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const ClientSignUpOverlayBtn = ({password ,confirmPassword, email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+const ClientSignUpOverlayBtn = ({password ,confirmPassword,validatephoneReceiver , email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
     const router = useRouter();
 
     const onAddClientHandler = async () => {
@@ -13,7 +13,6 @@ const ClientSignUpOverlayBtn = ({password ,confirmPassword, email, fillValidity,
             console.log("in fill validatity!")
             return
         }
-
         if(password.length < 8) {
             console.log("in password length check!")
             setMessage("Password must be at least 8 characters long ");            
@@ -25,6 +24,12 @@ const ClientSignUpOverlayBtn = ({password ,confirmPassword, email, fillValidity,
             setMessage("Please enter a valid email address")
             showError();
             console.log("in email validatity!")
+
+            return;
+        }
+        if (!validatephoneReceiver()) {
+            setMessage("Please enter a valid Contact number")
+            showError();
 
             return;
         }
