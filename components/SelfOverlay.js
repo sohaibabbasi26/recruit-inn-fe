@@ -121,8 +121,6 @@ const SelfOverlay = ({
 
     const emailAlreadyExists = await checkIfCandidateAlreadyThere();
 
-
-
     if (
       currentStage === stages.PERSONAL_INFO &&
       (!name?.trim() ||
