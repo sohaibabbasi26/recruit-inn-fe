@@ -34,6 +34,7 @@ const PersonalInfoSelf = forwardRef(
     city,
     password,
     confirmPassword,
+    setIsTestRequired
   }) => {
     const handleInputChange = (e, ref) => {
       ref.current.value = e.target.value;
@@ -164,8 +165,8 @@ const PersonalInfoSelf = forwardRef(
                 value={expertise}
                 onChange={(e) => setExpertise(e.target.value)}
               >
-                <option value="" enable>
-                  How do you Rate yourself
+                <option disabled={true} selected  >
+                  How do you rate yourself
                 </option>
                 <option value="beginner">Beginnner</option>
                 <option value="intermediate">Intermediate</option>
