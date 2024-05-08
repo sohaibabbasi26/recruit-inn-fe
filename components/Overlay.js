@@ -269,6 +269,7 @@ const Overlay = React.memo(
         job_type: jobTypeRef.current.value,
         description: description,
         location: cityRef.current.value + ", " + countryRef.current.value,
+        // country: ,
         is_test_required: isTestRequired,
       };
 
@@ -447,74 +448,34 @@ const Overlay = React.memo(
     }
 
     const handleEmailInvite = async () => {
-
-      console.log("HANDLE EMAIL INVITE");
-      let hasError = false;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      const validatedReceivers = emailReceivers.map((receiver, index) => {
-        const emailIsValid = emailRegex.test(receiver.email.trim());
-        const nameIsValid = nameReceivers[index]?.name?.trim() !== "";
-
-        if (!emailIsValid && !nameIsValid) {
-          setMessage("Both name and email are required for each entry.");
-          showError();
-          hasError = true;
-          return null;
-        } else if (!emailIsValid) {
-          setMessage("Please enter a valid email address.");
-          showError();
-          hasError = true;
-          return null;
-        } else if (!nameIsValid) {
-          setMessage("Please enter a name for each email.");
-          showError();
-          hasError = true;
-          return null;
-        }
-        return receiver;
-      }).filter(receiver => receiver !== null);
-
-      if (hasError) return;
-
-      const sendInvitesPromises = validatedReceivers.map(receiver => {
-        console.log("sending email ...")
-        return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            to: receiver.email,
-            subject: subject,
-            text: text,
-          }),
-        });
+      const sendInvitesPromises = emailReceivers.map(receiver => {
+          return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                  to: receiver.email,
+                  subject: subject,
+                  text: text
+              }),
+          });
       });
+  
       try {
-        await Promise.all(sendInvitesPromises);
-        setMessage("Invitations have been sent to all candidates via email");
-        showSuccess();
-        onClose();
+          await Promise.all(sendInvitesPromises);
+          console.log("Email sent successfully");
+          setMessage('Invitations have been sent to all candidates via email');
+          showSuccess();
+          // onClose(); 
       } catch (error) {
-        console.error("Error sending invites:", error);
-        setMessage("Failed to send invitations, please try again.");
-        showError();
+          console.error('Error sending invites:', error);
       }
-    };
-
-    const validateReceivers = async () => {
-      for (let receiver of receivers) {
-        if (!receiver.email || !isValidEmail(receiver.email) || !receiver.name.trim()) {
-          console.log("!receiver.email",!receiver.email, " !isValidEmail(receiver.email)",!isValidEmail(receiver.email), '!receiver.name.trim()',!receiver.name.trim())
-          setMessage("Each receiver must have a valid name and email.");
-          showError();
-          return false;
-        }
-      }
-      return true; // All receivers are valid
-    };
+  };
+  
+  
+  
 
     return (
       <>
@@ -681,7 +642,7 @@ const Overlay = React.memo(
                     <div className={styles.wrapper}>
                       <ShareLinkBtns
                         showError={showError}
-                        validateReceivers={validateReceivers}
+                        // validateReceivers={validateReceivers}
                         showSuccess={showSuccess}
                         setMessage={setMessage}
                         handleEmailInvite={handleEmailInvite}

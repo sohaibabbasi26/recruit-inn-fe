@@ -101,6 +101,7 @@ const SelfReportOverlay = ({
       pdf.save("download.pdf");
     }
   };
+  
   const handleDownloadPdf = async () => {
     const htmlContent = document.getElementById("content-to-print").innerHTML;
     if (htmlContent) {

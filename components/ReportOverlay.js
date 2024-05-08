@@ -229,7 +229,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       const content = contentRef.current.innerHTML;
 
       try {
-        const response = await fetch("/api/puppeteer", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -238,22 +238,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
         });
 
         if (response.ok) {
-          // Convert the response to Blob object
           const pdfBlob = await response.blob();
-
-          // Create a temporary URL for the Blob
           const url = window.URL.createObjectURL(pdfBlob);
-
-          // Create a link element to trigger the download
           const link = document.createElement("a");
           link.href = url;
           link.download = "overlay.pdf";
           document.body.appendChild(link);
-
-          // Click the link to trigger the download
           link.click();
-
-          // Cleanup: remove the link and revoke the URL
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
         } else {

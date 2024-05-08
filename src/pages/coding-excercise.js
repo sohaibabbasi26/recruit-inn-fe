@@ -70,29 +70,6 @@ const CodingExcersice = () => {
             candidate_id : cid
         };
 
-        // useEffect(() => {
-        //     if (timeLeft > 0) {
-        //         const timerId = setInterval(() => {
-        //             setTimeLeft(timeLeft - 1);
-        //         }, 1000);
-        //         return () => clearInterval(timerId);
-        //     } else {
-        //         console.log('Timer finished');
-        //     }
-        // }, [timeLeft]);
-        // const getActiveComponent = () => {
-        //     const activeFlow = localStorage.getItem('activeFlow');
-        //     console.log("Current active flow:", activeFlow);
-        //     switch (activeFlow) {
-        //         case 'Candidate':
-        //             return `/candidate/${candidateId}`;
-        //         case 'Client':
-        //             return `/`;
-        //         default:
-        //             return null;
-        //     }
-        // };
-
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-submit`, {
             method: 'POST',
             body: JSON.stringify(reqBody),
@@ -102,7 +79,7 @@ const CodingExcersice = () => {
         const data = await response.json();
         console.log('response: ', data);
         setIsLoading(false);
-        router.push('/test-submit-completion');
+        router.push(`/test-submit-completion/${cid}`);
     }
 
     const formatTime = (timeLeft) => {
