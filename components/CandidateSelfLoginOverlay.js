@@ -258,7 +258,7 @@ const CandidateSelfLoginOverlay = ({
                     />
                   </div>
                 </>
-              ) : viewMode === "forgotPasswbord" ? (
+              ) : viewMode === "forgotPassword" ? (
                 <>
                   <ForgotPassword
                     email={email}
