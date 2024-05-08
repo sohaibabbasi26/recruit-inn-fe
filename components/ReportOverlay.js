@@ -6,17 +6,12 @@ import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-const ReportOverlay = ({
-  isLoading,
-  setIsLoading,
-  onClose,
-  reportOverlay,
-  selectedCandidate,
-}) => {
+const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
   const [results, setResults] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
