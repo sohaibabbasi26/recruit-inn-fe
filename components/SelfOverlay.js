@@ -119,6 +119,10 @@ const SelfOverlay = ({
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
 
+    const emailAlreadyExists = await checkIfCandidateAlreadyThere();
+
+
+
     if (
       currentStage === stages.PERSONAL_INFO &&
       (!name?.trim() ||
