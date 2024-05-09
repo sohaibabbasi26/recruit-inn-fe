@@ -628,7 +628,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                 </div>
                             </>
                         )}
-
                         {currentStage === stages.REQUIRED_SKILLS && (
                             <>
                                 <RequiredSkills expertise={newExpert} />

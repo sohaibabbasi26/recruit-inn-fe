@@ -250,11 +250,14 @@ const QuestionBox = ({ hasStarted }) => {
                     console.log("err:", err)
                 }
                 router.push(`/test-submit-completion/${cid}`);
+                setIsLoading(false);
+                
             }
         } catch (err) {
             console.error('Failed to submit test:', err);
         } finally {
-            setIsLoading(false);
+            
+            
         }
     }
 
