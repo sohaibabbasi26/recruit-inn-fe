@@ -12,7 +12,7 @@
   transition: border 0.3s, box-shadow 0.3s, height 0.3s;
 }
 
-.searchBar:hover {
+/* .searchBar:hover {
   background-color: white;
   outline: 1px solid #6137db;
 }
@@ -30,7 +30,13 @@
   outline: 1px solid #6137db;}
 .searchBar:active {
   background-color: white;
-  outline: 1px solid #6137db;}
+  outline: 1px solid #6137db;} */
+
+.searchBar:has(.container):has(.searchInput):has(input:focus),
+.searchBar:has(.container):has(.searchInput):has(select:focus) {
+  border: 1px solid #6137db;
+}
+
 .masterContainer {
   width: 100%;
   display: flex;
@@ -138,12 +144,12 @@
   padding: 0;
 }
 .searchResults li {
-  padding: 10px 15px; 
-  cursor: pointer; 
+  padding: 10px 15px;
+  cursor: pointer;
   border-bottom: 1px solid #f0f0f0; /* subtle separator */
 }
 .searchResults li:hover {
-  background-color: #f7f7f7; 
+  background-color: #f7f7f7;
 }
 
 .selectCategory select {
@@ -189,7 +195,6 @@
     padding-top: 5px;
     padding-bottom: 5px;
   }
-  
 }
 
 /* <<<<<<< HEAD */
@@ -209,29 +214,29 @@
   
 }
 ======= */
-.selectCategory select{
-    border-radius: 32px;
-    border: none;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    padding-top: 11px;
-    padding-right: 16px;
-    padding-left: 24px;
-    padding-bottom: 11px;
-    font-family: 'Poppins',sans-serif;
+.selectCategory select {
+  border-radius: 32px;
+  border: none;
+  background-color: #ffffff;
+  font-size: 1rem;
+  padding-top: 11px;
+  padding-right: 16px;
+  padding-left: 24px;
+  padding-bottom: 11px;
+  font-family: "Poppins", sans-serif;
 }
 @media only screen and (max-width: 1200px) {
-    .selectCategory select{
-        padding-top: 2.5px;
-        padding-right: 8px;
-        padding-left: 12px;
-        padding-bottom: 2.5px;
-   
-    }}
-.selectCategory select input{
-    color: #170D23;
+  .selectCategory select {
+    padding-top: 2.5px;
+    padding-right: 8px;
+    padding-left: 12px;
+    padding-bottom: 2.5px;
+  }
 }
-.selectCategory select:focus{
-    outline: none;
+.selectCategory select input {
+  color: #170d23;
+}
+.selectCategory select:focus {
+  outline: none;
 }
 /* >>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258 */
