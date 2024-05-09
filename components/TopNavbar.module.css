@@ -167,19 +167,6 @@
   outline: none;
 }
 
-/* .searchOptions {
-  border-radius: 32px;
-  border: none;
-  background-color: #ffffff;
-  font-size: 1rem;
-  padding-top: 11px;
-  padding-right: 16px;
-  padding-left: 24px;
-  padding-bottom: 11px;
-  padding: 14px 48px 14px 24px;
-  font-family: "Poppins", sans-serif;
-} */
-
 @media screen and (max-width: 64em) {
   .searchResults {
     width: 50.5%;
@@ -208,4 +195,3 @@
 .selectCategory select:focus {
   outline: none;
 }
-/* >>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258 */
