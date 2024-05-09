@@ -76,10 +76,13 @@ const skillsList = {
   kotlin: "kotlin",
   rust: "rust",
   flutter: "flutter",
-  "c#": "c#",
+  csharp: "csharp",
   swift: "swift",
   graphql: "graphql",
+  invision: "invision",
+  framer: "framer",
   json: "json",
+  django: "django",
   hotjar: "hotjar",
 };
 
