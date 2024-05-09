@@ -13,6 +13,7 @@ const skillsList = {
   reactquery: "reactquery",
   redux: "redux",
   nextjs: "nextjs",
+  next: "nextjs",
   angular: "angular",
   sveltejs: "sveltejs",
   angularjs: "angularjs",
