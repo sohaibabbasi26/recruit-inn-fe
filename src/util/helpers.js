@@ -8,21 +8,16 @@ const skillsList = {
   sass: "sass",
   javascript: "javascript",
   java: "java",
-  reactjs: "reactjs",
   react: "reactjs",
   reactquery: "reactquery",
   redux: "redux",
-  nextjs: "nextjs",
   next: "nextjs",
   angular: "angular",
-  sveltejs: "sveltejs",
-  angularjs: "angularjs",
+  svelte: "sveltejs",
   angular: "angularjs",
   typescript: "typescript",
-  vitejs: "vitejs",
   vite: "vitejs",
   node: "nodejs",
-  nodejs: "nodejs",
   python: "python",
   figma: "figma",
   jquery: "jquery",
@@ -35,12 +30,11 @@ const skillsList = {
   npm: "npm",
   cplus: "cplus",
   nim: "nim",
-  nestjs: "nest",
   nest: "nest",
   vitest: "vitest",
   logrocket: "logrocket",
   kubernetes: "kubernetes",
-  "react-query": "reactquery",
+  express: "express",
   reactquery: "reactquery",
   prisma: "prisma",
   trpc: "trpc",
@@ -51,6 +45,7 @@ const skillsList = {
   serverless: "serverless",
   openai: "openai",
   astro: "astro",
+  mongoose: "mongoose",
   azure: "azure",
   jest: "jest",
   codeigniter: "codeigniter",
@@ -90,8 +85,11 @@ const skillsList = {
 export function getSvg(skill) {
   // replace white spaces and ++ sequence
   const replacedSkill = skill
-    .replace(/\s+/g, "")
-    .replace(/\+\+/g, "plus")
+    .replace(/\s+/g, "") //whitespace
+    .replace(/-/g, "") // -
+    .replace(/\+\+/g, "plus") // ++ pattern
+    .replace(/#/g, "sharp") // #
+    .replace(/js+$/i, "") // js at the end
     .toLowerCase();
 
   if (skillsList.hasOwnProperty(replacedSkill))
