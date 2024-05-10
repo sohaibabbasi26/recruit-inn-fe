@@ -223,12 +223,14 @@ const AddSkillForm = forwardRef(
           </div>
 
           <div>
-            <label>Would you like to add a coding assignment too?</label>
             <input
               type="checkbox"
+              className={styles.codeAssignment}
+              id="code-assignment"
               checked={isTestRequired}
               onChange={handleTestRequirementChange}
             />
+            <label htmlFor="code-assignment">Add a cooding assignment</label>
           </div>
         </form>
       </>
