@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@400;500&display=swap");
 .superContainer {
-  width: 32%;
-  width: 400px;
+  /* width: 32%; */
+  flex: 0 0 21%;
   background-color: #fff;
   /* margin-top: 7px; */
   overflow: hidden;
@@ -70,7 +70,7 @@
 /* 1024px */
 @media screen and (max-width: 64em) {
   .superContainer {
-    width: 35%;
+    /* width: 35%; */
     display: block;
     height: 100%;
   }
