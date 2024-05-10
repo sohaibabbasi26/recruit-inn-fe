@@ -13,11 +13,11 @@ const Login = () => {
   // const [showOverlay, setShowOverlay] = useState(false);
 
   const stages = {
-    LOG_IN: "LOG_IN",
+    PERSONAL_INFO: "PERSONAL_INFO",
   };
 
   const stageHeadings = {
-    LOG_IN: "Personal Info",
+    PERSONAL_INFO: "Log in",
   };
 
   useEffect(() => {

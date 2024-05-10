@@ -48,12 +48,13 @@ const LandingNavbar = ({scrollToRef, howItWorksRef,LandingThirdRef , HeroRef}) =
       border: "none", // Remove default button border
     }}
     onMouseEnter={(e) => {
-      e.target.style.backgroundColor = "#fff"; // Change background color on hover
-      e.target.style.color = "rgb(54 21 247 / var(--tw-text-opacity))"; // Change text color on hover
+      e.target.style.backgroundColor = "#D3CFFC"; // Change background color on hover
+      e.target.style.color = "rgb(0 1 0 / var(--tw-text-opacity))"; // Change text color on hover
     }}
     onMouseLeave={(e) => {
       e.target.style.backgroundColor = ""; // Restore default background color
       e.target.style.color = ""; // Restore default text color
+    
     }}
   >
     Recruit A Talent

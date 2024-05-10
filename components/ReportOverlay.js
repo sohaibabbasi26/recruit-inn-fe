@@ -38,8 +38,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       if (
         data &&
         data?.data &&
-        data?.data?.result &&
-        data?.data?.result?.technicalRating
+        data?.data?.result
       ) {
         setIsCodingAssessment(true);
       } else {
@@ -218,6 +217,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       }
       const allData = await response.json();
       setResults(allData);
+
       console.log("jsonified candidates response: ", allData);
     }
     fetchAllCandidateReports();
@@ -325,12 +325,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
-          <div className={styles.coverContainer}>
+          <div className={styles.coverContainer} >
             {/*top container */}
             <div className={styles.topContainer}>
               <div className={styles.avatarContainer}>
                 <Image src="/avatarDefault.svg" width={65} height={84} />
               </div>
+
               <div className={styles.information}>
                 <h1>{selectedCandidate?.name}</h1>
                 <p className={styles.role}>{selectedCandidate?.position}</p>
@@ -390,7 +391,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               <div className={styles.infoDiv}>
                 <ul>
                   <li>
-                    <span className={styles.bold}>Phone</span>
+                    <span className={styles.bold}>Phone: </span>
                     <span>
                       {selectedCandidate?.contactNo
                         ? selectedCandidate?.contactNo
@@ -398,20 +399,20 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Date</span>
+                    <span className={styles.bold}>Date: </span>
                     <span>
                       {selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Job Type</span>
+                    <span className={styles.bold}>Job Type: </span>
                     <span>
                       {selectedCandidate?.jobType ||
                         selectedCandidate?.job_type}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Applied For</span>
+                    <span className={styles.bold}>Applied For: </span>
                     <span>
                       {selectedCandidate?.company
                         ? selectedCandidate?.company?.name
@@ -419,7 +420,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Email</span>
+                    <span className={styles.bold}>Email: </span>
                     <span>{selectedCandidate?.email}</span>
                   </li>
                 </ul>

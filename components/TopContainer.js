@@ -96,7 +96,7 @@ const TopContainer = ({setDescription,description}) => {
         ],
     };
     const placeholder =
-    `About us:
+`About us:
             Write about your company...
     Job Description:
             Describe your job position...

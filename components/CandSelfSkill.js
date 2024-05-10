@@ -49,7 +49,7 @@ const CandSelfSkill = ({ setTechStack, isTestRequired, setIsTestRequired }) => {
             />
             <input
               type="text"
-              placeholder="Add Required Skill"
+              placeholder="Add your skill"
               onChange={(e) => {
                 setSkill1(e.target.value);
               }}
@@ -83,7 +83,7 @@ const CandSelfSkill = ({ setTechStack, isTestRequired, setIsTestRequired }) => {
             />
             <input
               type="text"
-              placeholder="Add Required Skill"
+              placeholder="Add your skill"
               onChange={(e) => {
                 setSkill2(e.target.value);
               }}

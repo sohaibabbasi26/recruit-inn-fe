@@ -23,7 +23,9 @@ const JobDetails = ({ details, clientName }) => {
 
         <div className={styles.jobDescription}>
           <h4>Job Description:</h4>
-          <span>{parse(details?.description)}</span>
+          <span>{
+            details?.description ? ( parse(details?.description)) : ('')
+            }</span>
         </div>
       </div>
     </>

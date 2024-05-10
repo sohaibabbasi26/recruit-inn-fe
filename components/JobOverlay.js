@@ -84,13 +84,26 @@ const JobOverlay = ({
           }
         );
         const dataTwo = await response.json();
-        if(dataTwo?.data?.message?.question_id){
+// <<<<<<< HEAD
+//         if(dataTwo?.data?.message?.question_id){
+//           setTest(dataTwo);
+//           console.log('Test data:', dataTwo);
+//         }
+//         console.log('Test data:', test);
+//         console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
+//         if(selectedJob?.is_test_req === true){
+// =======
+        if (dataTwo?.data?.message?.question_id) {
           setTest(dataTwo);
-          console.log('Test data:', dataTwo);
+          console.log("Test data:", dataTwo);
         }
-        console.log('Test data:', test);
-        console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
-        if(selectedJob?.is_test_req === true){
+        console.log("Test data:", test);
+        console.log(
+          "selectedJob?.is_test_req === true :",
+          selectedJob?.is_test_req === true
+        );
+        if (selectedJob?.is_test_req === true) {
+// >>>>>>> d49cedf82b23c054cf4acc90c134dcd1a902c9c1
           try {
             setIsLoading(true);
             const req = {
@@ -98,8 +111,8 @@ const JobOverlay = ({
               position_id: selectedJob?.position_id,
             };
 
-            console.log("request:",req);
-  
+            console.log("request:", req);
+
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
               {

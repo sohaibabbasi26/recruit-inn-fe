@@ -8,15 +8,14 @@ const ShareLinkBtns = ({showError, onContinue , onBack , onClose, setCompletedSt
     async function handleSendInvite() {
         // const valid = validateReceivers();
         // if (valid) {
-          await handleEmailInvite();
+        await handleEmailInvite();
         // } 
         // else {
         //   // Already handled in validateReceivers, just exit
         //   setMessage("Validation failed");
         //   showError()
         // }
-      }
-
+    }
 
     return (
         <>

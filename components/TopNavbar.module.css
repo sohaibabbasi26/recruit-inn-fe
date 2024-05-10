@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 .searchBar {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
+  /* background-color: #fff; */
+  border: 1px solid transparent;
+  background-color: #f8f7fa;
   width: 100%;
   height: 50px;
   margin-bottom: 24px;
@@ -12,25 +13,10 @@
   transition: border 0.3s, box-shadow 0.3s, height 0.3s;
 }
 
-.searchBar:hover {
-  background-color: white;
-  outline: 1px solid #6137db;
-}
-.searchBar:hover {
-  background-color: #fff;
-  border: 1px solid #ebebeb;
+.searchBar:has(.container):has(.searchInput):has(input:focus) {
+  border: 1px solid #6137db;
 }
 
-.searchBar:focus {
-  outline: 2px solid #6137db; 
-}
-
- .searchBar:active {
-  background-color: white;
-  outline: 1px solid #6137db;}
-.searchBar:active {
-  background-color: white;
-  outline: 1px solid #6137db;}
 .masterContainer {
   width: 100%;
   display: flex;
@@ -121,11 +107,10 @@
   outline: none;
 }
 .searchResults {
-  width: 60%;
   position: absolute;
   background-color: #ffffff; /* or any color that suits your design */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-  width: 100%; /* or the width of the search bar */
+  width: 55%; /* or the width of the search bar */
   border-radius: 4px; /* optional, for rounded corners */
   z-index: 1000; /* make sure it stacks above other content */
   max-height: 300px; /* maximum height before scrolling */
@@ -138,24 +123,40 @@
   padding: 0;
 }
 .searchResults li {
-  padding: 10px 15px; 
-  cursor: pointer; 
+  padding: 10px 15px;
+  cursor: pointer;
   border-bottom: 1px solid #f0f0f0; /* subtle separator */
 }
 .searchResults li:hover {
-  background-color: #f7f7f7; 
+  background-color: #f7f7f7;
 }
 
 .selectCategory select {
+  -webkit-appearance: none;
+  appearance: none;
   border-radius: 32px;
-  border: none;
-  background-color: #ffffff;
+  border: 1px solid transparent;
+  background-color: #f8f7fa;
+  background-repeat: no-repeat;
+  background-position-x: calc(100% - 11px);
+  background-position-y: 55%;
+  background-image: url(/Arrow.svg);
   font-size: 1rem;
-  padding-top: 5px;
-  padding-right: 16px;
-  padding-left: 24px;
-  padding-bottom: 5px;
   font-family: "Poppins", sans-serif;
+  padding-bottom: 5px;
+  padding: 10px 50px 10px 24px;
+  transition: background-color 0.1s ease-in-out;
+
+  cursor: pointer;
+}
+
+.selectCategory select:hover {
+  background-color: #ffffff;
+}
+
+.selectCategory select:focus {
+  border-color: #6137db;
+  background-color: #ffffff;
 }
 
 .selectCategory select input {
@@ -163,18 +164,6 @@
 }
 .selectCategory select:focus {
   outline: none;
-}
-
-.searchOptions {
-  border-radius: 32px;
-  border: none;
-  background-color: #ffffff;
-  font-size: 1rem;
-  padding-top: 11px;
-  padding-right: 16px;
-  padding-left: 24px;
-  padding-bottom: 11px;
-  font-family: "Poppins", sans-serif;
 }
 
 @media screen and (max-width: 64em) {
@@ -189,49 +178,19 @@
     padding-top: 5px;
     padding-bottom: 5px;
   }
-  
 }
 
-/* <<<<<<< HEAD */
-/* 1680px */
-/* @media screen and (max-width: 105em) {
-  .searchResults {
-    width: 50.5%;
-  }
-
-  .searchBar {
-    height: 50px;
-  }
-  .selectCategory select {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  
-}
-======= */
-.selectCategory select{
-    border-radius: 32px;
-    border: none;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    padding-top: 11px;
-    padding-right: 16px;
-    padding-left: 24px;
-    padding-bottom: 11px;
-    font-family: 'Poppins',sans-serif;
-}
 @media only screen and (max-width: 1200px) {
-    .selectCategory select{
-        padding-top: 2.5px;
-        padding-right: 8px;
-        padding-left: 12px;
-        padding-bottom: 2.5px;
-   
-    }}
-.selectCategory select input{
-    color: #170D23;
+  .selectCategory select {
+    padding-top: 2.5px;
+    padding-right: 8px;
+    padding-left: 12px;
+    padding-bottom: 2.5px;
+  }
 }
-.selectCategory select:focus{
-    outline: none;
+.selectCategory select input {
+  color: #170d23;
 }
-/* >>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258 */
+.selectCategory select:focus {
+  outline: none;
+}

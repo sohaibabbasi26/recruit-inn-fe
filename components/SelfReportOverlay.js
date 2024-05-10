@@ -1,6 +1,6 @@
 import styles from "./ReportOverlay.module.css";
 import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Fragment } from "react";
 import gsap from "gsap";
 import Assessment from "./Assessment";
 import jsPDF from "jspdf";
@@ -103,29 +103,38 @@ const SelfReportOverlay = ({
   };
   
   const handleDownloadPdf = async () => {
-    const htmlContent = document.getElementById("content-to-print").innerHTML;
-    if (htmlContent) {
-      const response = await fetch("/api/generate-pdf", {
-        method: "POST",
-        body: JSON.stringify({ htmlContent }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "report.pdf");
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-      } else {
-        console.error("Failed to load PDF document.");
+    console.log("Calling pdf download");
+    if (contentRef.current) {
+      const content = contentRef.current.innerHTML;
+
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content }),
+        });
+
+        if (response.ok) {
+          const pdfBlob = await response.blob();
+          const url = window.URL.createObjectURL(pdfBlob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "overlay.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        } else {
+          console.error("Failed to generate PDF:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error downloading PDF:", error);
       }
     }
   };
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     if (reportOverlay) {
@@ -183,10 +192,7 @@ const SelfReportOverlay = ({
             <Image src="/shut.svg" width={15} height={15} />
           </button>
         </div>
-        <div
-          ref={contentRef}
-          className={`${styles.superContainer} content-to-print`}
-        >
+        <div className={`${styles.superContainer} content-to-print`}>
           <div className={styles.coverContainer}>
             {/*top container */}
             <div className={styles.topContainer}>
@@ -215,32 +221,30 @@ const SelfReportOverlay = ({
                   />
                 </h4>
               </div>
-
               <div className={styles.rightContainer}>
-                {/* <button onClick={downloadPDF}>Download PDF</button> */}
                 <span>
                   {Math.ceil(selectedCandidate?.result?.technicalRating)}/10
                 </span>
               </div>
             </div>
             {/* candidate test info div */}
-            <div className={styles.infoContainer}>
+            <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
                 <ul>
                   <li>
-                    <span className={styles.bold}>Phone</span>
+                    <span className={styles.bold}>Phone: </span>
                     <span>{contact ? contact : "03122597173"}</span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Date</span>
+                    <span className={styles.bold}>Date: </span>
                     <span>{date || selectedCandidate?.createdAt}</span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Job Type</span>
+                    <span className={styles.bold}>Job Type: </span>
                     <span>{jobtype || "None"}</span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Applied For</span>
+                    <span className={styles.bold}>Applied For: </span>
                     <span>
                       {selectedCandidate?.company
                         ? selectedCandidate?.company?.name
@@ -248,12 +252,11 @@ const SelfReportOverlay = ({
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Email</span>
+                    <span className={styles.bold}>Email: </span>
                     <span>{email}</span>
                   </li>
                 </ul>
               </div>
-
               {/*assessment components */}
               <div className={styles.cont}>
                 <div className={styles.auto}>
@@ -272,15 +275,13 @@ const SelfReportOverlay = ({
                     )}
                   />
                   {isCodingAssessment && (
-                    <>
-                      <Assessment
-                        heading={headingThree}
-                        para={codingResult?.data?.result?.technicalSummary}
-                        score={Math.ceil(
-                          parseInt(codingResult?.data?.result?.technicalRating)
-                        )}
-                      />
-                    </>
+                    <Assessment
+                      heading={headingThree}
+                      para={codingResult?.data?.result?.technicalSummary}
+                      score={Math.ceil(
+                        parseInt(codingResult?.data?.result?.technicalRating)
+                      )}
+                    />
                   )}
                 </div>
               </div>
@@ -297,7 +298,7 @@ const SelfReportOverlay = ({
                 </span>
                 Back
               </button>
-              <button className={styles.downloadButton} onClick={downloadPDF}>
+              <button className={styles.downloadButton} onClick={handleDownloadPdf}>
                 Download PDF
                 <span>
                   <Image
@@ -313,6 +314,6 @@ const SelfReportOverlay = ({
         </div>
       </div>
     </>
-  );
+  );  
 };
 export default SelfReportOverlay;

@@ -83,7 +83,7 @@ const LoginOverlay = ({
 
   console.log("id:", id);
   const infoSymbolSize = 20;
-  const [currentStage, setCurrentStage] = useState(stages.LOG_IN);
+  const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
   const [viewMode, setViewMode] = useState("login");
   const [subject, setSubject] = useState("");

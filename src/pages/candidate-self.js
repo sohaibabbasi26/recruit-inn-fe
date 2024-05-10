@@ -60,6 +60,7 @@ const CandidateSelf = () => {
 
   return (
     <>
+
       <SelfOverlay isTestRequired={isTestRequired} setIsTestRequired={setIsTestRequired} setShowErrorMessage={setShowErrorMessage} showErrorMessage={showErrorMessage} showOverlay={showOverlay} stages={stages} stageHeadings={stageHeadings} />
     </>
   );

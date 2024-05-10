@@ -19,7 +19,7 @@ const SuperComponent = ({selectedCandidate, companyId, setIsLoading,isLoading, d
             setSelectedCandidate(cand);
             setReportOverlay(true);
         }
-
+        
     return (
         <>
             <div className={styles.superContainer} >

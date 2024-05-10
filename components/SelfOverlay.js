@@ -135,6 +135,10 @@ const SelfOverlay = ({
       setMessage("Please fill all the fields first");
       showError();
       return;
+      } else if (checkIfCandidateAlreadyThere() === true) { 
+      //   setMessage("Entered email is already registered");
+      // showError();
+      return;
     } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateEmailReceiver()
@@ -177,12 +181,17 @@ const SelfOverlay = ({
     } else {
       switch (currentStage) {
         case stages.PERSONAL_INFO:
-          const checkEmail = await checkIfCandidateAlreadyThere();
-          if (checkEmail === false) {
-            // setCurrentStage(stages.VERIFICATION);
-            return;
-          }
-          else if (checkEmail === true) {
+
+          if (email?.trim() && !checkIfEmailPresent) {
+            if (email?.trim()) {
+              setCurrentStage(stages.VERIFICATION);
+            } else if (result && checkIfEmailPresent === true) {
+            }
+            // console.log("in else if check if email present:");
+            // setMessage(
+            //   "Email you're using to register is already in use, try another one!"
+            // );
+            // showError();
             return;
           }
           break;
@@ -326,15 +335,13 @@ const SelfOverlay = ({
         setCheckIfEmailPresent(true);
         setMessage('Entered email is already registered');
         showError();
-        return checkIfEmailPresent;
       } else {
         setCurrentStage(stages.VERIFICATION);
         await sendEmail(email);
         setCheckIfEmailPresent(false);
-        return checkIfEmailPresent;
       }
 
-
+      return checkIfEmailPresent;
     } catch (err) {
       console.log('ERR:', err);
     }
@@ -416,8 +423,8 @@ const SelfOverlay = ({
         to: email,
         subject: "RECRUITINN: Verify your account!",
         text: `
-            Your verification code is : ${otpCode}
-          `,
+          Your verification code is : ${otpCode}
+        `,
       };
       console.log("request body: ", requestBody);
 
