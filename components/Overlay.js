@@ -125,7 +125,9 @@ const Overlay = React.memo(
     };
 
     const removeReceiver = (index) => {
-      setReceivers(receivers.filter((_, i) => i !== index));
+      const newReceivers = [...receivers];
+      newReceivers.splice(index, 1);
+      setReceivers(newReceivers);
     };
 
 
@@ -413,12 +415,9 @@ const Overlay = React.memo(
     }, [codeQues]);
 
     const addEmailReceiver = () => {
-      console.log("Adding a new email receiver");
-      setEmailReceivers((currentReceivers) => {
-        const newReceivers = [...currentReceivers, { email: "" }];
-        console.log("new recievers:");
-        return newReceivers;
-      });
+      if (receivers.length < 3) {
+        setReceivers([...receivers, { name: '', email: '' }]);
+      }
     };
 
     const addNameReceiver = () => {
@@ -446,38 +445,122 @@ const Overlay = React.memo(
       setEmailReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
       setNameReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
     }
-
+    const validateEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
     const handleEmailInvite = async () => {
-      const sendInvitesPromises = emailReceivers.map(receiver => {
-          return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                  to: receiver.email,
-                  subject: subject,
-                  text: text
-              }),
-          });
+      let isValid = true;
+    
+      // Validate each receiver
+      receivers.forEach(receiver => {
+        const trimmedEmail = receiver.email.trim();
+        const trimmedName = receiver.name.trim();
+    
+        if (trimmedEmail === '' || !validateEmail(trimmedEmail)) {
+          console.error('Invalid email address:', receiver.email);
+          setMessage('Please enter a valid email address for all candidates.');
+          showError();
+          isValid = false;
+        }
+    
+        if (trimmedName === '') {
+          console.error('Name field is empty:', receiver.name);
+          setMessage('Please enter a name for all candidates.');
+          showError();
+          isValid = false;
+        }
       });
-  
-      try {
-          await Promise.all(sendInvitesPromises);
-          console.log("Email sent successfully");
-          setMessage('Invitations have been sent to all candidates via email');
-          showSuccess();
-          // onClose(); 
-      } catch (error) {
-          console.error('Error sending invites:', error);
+    
+      if (!isValid) {
+        // If any receiver is invalid, stop and return
+        return;
       }
-  };
-  
-  
-  
+    
+      const validEmailReceivers = receivers.filter(receiver => {
+        const trimmedEmail = receiver.email.trim();
+        return validateEmail(trimmedEmail);
+      });
+    
+      const sendInvitesPromises = validEmailReceivers.map(receiver => {
+        console.log("Checking Email Functionality", receiver.email);
+        return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Ensure token is defined
+          },
+          body: JSON.stringify({
+            to: receiver.email,
+            subject: subject,
+            text: text,
+          }),
+        });
+      });
+    
+      try {
+        await Promise.all(sendInvitesPromises);
+        console.log("Emails sent successfully");
+        setMessage('Invitations have been sent to all candidates via email');
+        showSuccess();
+        onClose();
+      } catch (error) {
+        console.error('Error sending invites:', error);
+        setMessage('Error sending invites. Please try again later.');
+      }
+    };
+    
 
-    return (
+    // const handleEmailInvite = async () => {
+    //   const validEmailReceivers = receivers.filter(receiver => {
+    //     const trimmedEmail = receiver.email.trim();
+    //     return trimmedEmail !== '' && validateEmail(trimmedEmail);
+    //   });
+    //   const validNameReceivers = receivers.filter(receiver => {
+    //     const trimmedName = receiver.name.trim();
+    //     return trimmedName !== '';
+    //   });
+    //   if(validNameReceivers.length === 0){
+    //     setMessage("Please Fill both the field");
+    //     showError();
+    //     return;
+    //   }
+  
+    //   if (validEmailReceivers.length === 0) {
+    //     console.error('No valid email addresses found.');
+    //     setMessage('No valid email addresses found.');
+    //     showError();
+    //     return;
+    //   }
+  
+    //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
+    //     console.log("Checking Email Functionality", receiver.email);
+    //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${token}`, // Ensure token is defined
+    //       },
+    //       body: JSON.stringify({
+    //         to: receiver.email,
+    //         subject: subject,
+    //         text: text,
+    //       }),
+    //     });
+    //   });
+  
+    //   try {
+    //     await Promise.all(sendInvitesPromises);
+    //     console.log("Emails sent successfully");
+    //     setMessage('Invitations have been sent to all candidates via email');
+    //     showSuccess();
+        
+    //   } catch (error) {
+    //     console.error('Error sending invites:', error);
+    //     setMessage('Error sending invites. Please try again later.');
+    //   }
+    // };
+  return (
       <>
         <div ref={overlayRef} className={styles.parent}>
           {showErrorMessage && (
