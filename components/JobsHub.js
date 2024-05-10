@@ -2,7 +2,6 @@ import styles from "./JobsHub.module.css";
 import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
-
 const JobsHub = ({
   heading,
   data,
@@ -28,7 +27,6 @@ const JobsHub = ({
       return "#FFE6E6";
     }
   };
-
   const getStatusSymbol = (status) => {
     if (status === "Active") {
       return "/activeStatus.svg";
@@ -57,7 +55,6 @@ const JobsHub = ({
               <span>{data.length}</span>
             </div>
           </div>
-
           <div className={styles.subContainer}>
             {hasData ? (
               newArray.map((item) => {
@@ -70,7 +67,6 @@ const JobsHub = ({
                   >
                     <div className={styles.topContainer}>
                       <h3>{item?.position}</h3>
-
                       <div className={styles.rightTopBtns}>
                         <span>{item?.applied_candidates_count === 0 ? (
                           'No Candidates Yet'
@@ -135,5 +131,4 @@ const JobsHub = ({
     </>
   );
 };
-
 export default JobsHub;

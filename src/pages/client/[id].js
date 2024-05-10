@@ -338,7 +338,7 @@ export default function Home({
               candidateReps={preprocessedCandidates}
               data={finalData}
               setJobOverlay={setJobOverlay}
-              jobOverlay={jobOverlay}
+              jobOverlay={jobOverlay} 
               setReportOverlay={setReportOverlay}
               reportOverlay={reportOverlay}
               setSelectedCandidate={setSelectedCandidate}

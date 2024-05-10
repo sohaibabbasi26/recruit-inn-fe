@@ -1,25 +1,22 @@
-import { useState } from "react";
-import styles from "./Overlay.module.css";
+import gsap from "gsap";
 import Image from "next/image";
-import Stages from "./Stages";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import AIassessment from "./AIassesment";
 import AddSkillForm from "./AddSkillForm";
-import RightBottomBtns from "./RightBottomBtns";
+import AssessmentBtns from "./AssessmentBtns";
 import JobType from "./JobType";
 import JobTypeBtns from "./JobTypeBtns";
-import AIassessment from "./AIassesment";
-import AssessmentBtns from "./AssessmentBtns";
+import styles from "./Overlay.module.css";
+import RightBottomBtns from "./RightBottomBtns";
 import ShareLink from "./ShareLink";
-import { useRouter } from "next/router";
 import ShareLinkBtns from "./ShareLinkBtns";
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
+import Stages from "./Stages";
 // import { useTest } from '@/contexts/QuestionsContent';
 // import { useExpertiseContext } from '@/contexts/ExpertiseContext';
-import SuccessIndicator from "./SuccessIndicator";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
-import { useTestState } from "@/contexts/TestRequirementContext";
-import { fetchQuestions } from "../store/slices/questionSlice";
+import SuccessIndicator from "./SuccessIndicator";
 
 const Overlay = React.memo(
   ({
@@ -99,7 +96,7 @@ const Overlay = React.memo(
     const descriptionRef = useRef();
     const [questionId, setQuestionId] = useState();
     const [emailReceivers, setEmailReceivers] = useState([{ email: "" }]);
-    const [nameReceivers, setNameReceivers] = useState([{ name: "" }])
+    const [nameReceivers, setNameReceivers] = useState([{ name: "" }]);
     const [assessmentId, setAssessmentId] = useState();
     const [skill1, setSkill1] = useState("");
     const [skill2, setSkill2] = useState("");
@@ -110,7 +107,7 @@ const Overlay = React.memo(
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
     const [level4, setLevel4] = useState("");
-    const [isLevelEntered, setIsLevelEntered] = useState('');
+    const [isLevelEntered, setIsLevelEntered] = useState("");
     const [name, setName] = useState();
     const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
 
@@ -129,7 +126,6 @@ const Overlay = React.memo(
       newReceivers.splice(index, 1);
       setReceivers(newReceivers);
     };
-
 
     const [codingExpertise, setCodingExpertise] = useState(null);
     const [codeQues, setCodeQues] = useState(null);
@@ -168,17 +164,37 @@ const Overlay = React.memo(
     }, [description]);
 
     const validateJobType = () => {
-      return (
-        positionRef.current.value.trim() !== "" &&
-        cityRef.current.value.trim() !== "" &&
-        countryRef.current.value.trim() !== "" &&
-        jobTypeRef.current.value.trim() !== "" &&
-        description?.trim()
-      );
+      // Check each ref and value to ensure they are not null before accessing .trim()
+      const positionValid = positionRef.current && positionRef.current.value.trim() !== "";
+      const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
+      const countryValid = countryRef.current && countryRef.current.value.trim() !== "";
+      const jobTypeValid = jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
+      const descriptionValid = description && description.trim() !== "";
+    
+      return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
     };
+    
+    // const validateJobDescription = () => {
+    //     console.log('Handling text change:', content);
+    //     const text = editor.getText();
+    //     const words = text.split(/\s+/).filter(word => word.length > 0);
+
+    //     if (description.length <= 300) {
+    //         setValue(content);
+    //         setDescription(content);  // Optionally convert to plain text or other format
+    //     } else {
+    //         alert("You cannot write more than 300 words.");
+    //         const trimmedContent = words.slice(0, 300).join(' ') + ' ';
+    //         setValue(trimmedContent);
+    //         setDescription(trimmedContent);  // Optionally convert to plain text
+    //     }
+    // };
+    
+    //   return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
+    // };
+    
 
     const toggleComponent = async () => {
-
       const skillsWithLevels = [
         { skill: skill1, level: level1 },
         { skill: skill2, level: level2 },
@@ -187,11 +203,16 @@ const Overlay = React.memo(
       ];
 
       let isValid = false;
+      let isValiddescription =false;
 
-      const isAnySkillEntered = skillsWithLevels.some(({ skill }) => skill.trim());
-      const areAllLevelsSelected = skillsWithLevels.every(({ skill, level }) => {
-        return skill.trim() ? level : true;
-      });
+      const isAnySkillEntered = skillsWithLevels.some(({ skill }) =>
+        skill.trim()
+      );
+      const areAllLevelsSelected = skillsWithLevels.every(
+        ({ skill, level }) => {
+          return skill.trim() ? level : true;
+        }
+      );
 
       if (areAllLevelsSelected) {
         setIsLevelEntered(true);
@@ -204,7 +225,9 @@ const Overlay = React.memo(
         case stages.ADD_SKILL:
           isValid = validateAddSkill();
           if (!isValid) {
-            setMessage("Please enter at least one skill and its difficulty level properly");
+            setMessage(
+              "Please enter at least one skill and its difficulty level properly"
+            );
             showError();
             return;
           } else if (isAnySkillEntered && !areAllLevelsSelected) {
@@ -216,11 +239,20 @@ const Overlay = React.memo(
           break;
         case stages.JOB_TYPE:
           isValid = validateJobType();
+          
           if (!isValid) {
             setMessage("Please fill all the fields.");
             showError();
             return;
           }
+           else if(description.length > 3000) {
+             setMessage("Maximum 3000 words limit");
+            showError();
+            return;
+            
+           }
+
+
           setCurrentStage(stages.AI_ASSESSMENT);
           setMessage("Job has been created successfully!");
           showSuccess();
@@ -366,7 +398,6 @@ const Overlay = React.memo(
             position_id: positionId,
           };
 
-          
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
             {
@@ -384,25 +415,28 @@ const Overlay = React.memo(
           console.log("assessment id:", assessmentId);
           console.log("code question data:", data);
           setIsLoading(false);
-          try{
-              const body ={
-                position_id: positionId,
-                is_test_req: isTestRequired
-              }
+          try {
+            const body = {
+              position_id: positionId,
+              is_test_req: isTestRequired,
+            };
 
-              console.log("body data sent in setPositionTestReq:",body);
-              const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': `Bearer ${token}`,
-                  },
-                  body: JSON.stringify(body),
-              });
-              const data = await response.json();
-              setCodeQues(data);
-          } catch(err){
-              console.log('ERROR:',err);
+            console.log("body data sent in setPositionTestReq:", body);
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(body),
+              }
+            );
+            const data = await response.json();
+            setCodeQues(data);
+          } catch (err) {
+            console.log("ERROR:", err);
           }
         } catch (err) {
           console.error("ERROR:", err);
@@ -416,7 +450,7 @@ const Overlay = React.memo(
 
     const addEmailReceiver = () => {
       if (receivers.length < 3) {
-        setReceivers([...receivers, { name: '', email: '' }]);
+        setReceivers([...receivers, { name: "", email: "" }]);
       }
     };
 
@@ -432,8 +466,8 @@ const Overlay = React.memo(
     const handleNameChange = (e, index) => {
       const newNameReceivers = [...nameReceivers];
       newNameReceivers[index].email = e.target.value;
-      setNameReceivers(newNameReceivers)
-    }
+      setNameReceivers(newNameReceivers);
+    };
 
     const handleEmailChange = (e, index) => {
       const newEmailReceivers = [...emailReceivers];
@@ -442,53 +476,57 @@ const Overlay = React.memo(
     };
 
     const removeEmailReceiver = (index) => {
-      setEmailReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
-      setNameReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
-    }
+      setEmailReceivers((currentReceivers) =>
+        currentReceivers.filter((_, i) => i !== index)
+      );
+      setNameReceivers((currentReceivers) =>
+        currentReceivers.filter((_, i) => i !== index)
+      );
+    };
     const validateEmail = (email) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     };
     const handleEmailInvite = async () => {
       let isValid = true;
-    
+
       // Validate each receiver
-      receivers.forEach(receiver => {
+      receivers.forEach((receiver) => {
         const trimmedEmail = receiver.email.trim();
         const trimmedName = receiver.name.trim();
-    
-        if (trimmedEmail === '' || !validateEmail(trimmedEmail)) {
-          console.error('Invalid email address:', receiver.email);
-          setMessage('Please enter a valid email address for all candidates.');
+
+        if (trimmedEmail === "" || !validateEmail(trimmedEmail)) {
+          console.error("Invalid email address:", receiver.email);
+          setMessage("Please enter a valid email address for all candidates.");
           showError();
           isValid = false;
         }
-    
-        if (trimmedName === '') {
-          console.error('Name field is empty:', receiver.name);
-          setMessage('Please enter a name for all candidates.');
+
+        if (trimmedName === "") {
+          console.error("Name field is empty:", receiver.name);
+          setMessage("Please enter a name for all candidates.");
           showError();
           isValid = false;
         }
       });
-    
+
       if (!isValid) {
         // If any receiver is invalid, stop and return
         return;
       }
-    
-      const validEmailReceivers = receivers.filter(receiver => {
+
+      const validEmailReceivers = receivers.filter((receiver) => {
         const trimmedEmail = receiver.email.trim();
         return validateEmail(trimmedEmail);
       });
-    
-      const sendInvitesPromises = validEmailReceivers.map(receiver => {
+
+      const sendInvitesPromises = validEmailReceivers.map((receiver) => {
         console.log("Checking Email Functionality", receiver.email);
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Ensure token is defined
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Ensure token is defined
           },
           body: JSON.stringify({
             to: receiver.email,
@@ -497,19 +535,18 @@ const Overlay = React.memo(
           }),
         });
       });
-    
+
       try {
         await Promise.all(sendInvitesPromises);
         console.log("Emails sent successfully");
-        setMessage('Invitations have been sent to all candidates via email');
+        setMessage("Invitations have been sent to all candidates via email");
         showSuccess();
         onClose();
       } catch (error) {
-        console.error('Error sending invites:', error);
-        setMessage('Error sending invites. Please try again later.');
+        console.error("Error sending invites:", error);
+        setMessage("Error sending invites. Please try again later.");
       }
     };
-    
 
     // const handleEmailInvite = async () => {
     //   const validEmailReceivers = receivers.filter(receiver => {
@@ -525,14 +562,14 @@ const Overlay = React.memo(
     //     showError();
     //     return;
     //   }
-  
+
     //   if (validEmailReceivers.length === 0) {
     //     console.error('No valid email addresses found.');
     //     setMessage('No valid email addresses found.');
     //     showError();
     //     return;
     //   }
-  
+
     //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
     //     console.log("Checking Email Functionality", receiver.email);
     //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
@@ -548,19 +585,19 @@ const Overlay = React.memo(
     //       }),
     //     });
     //   });
-  
+
     //   try {
     //     await Promise.all(sendInvitesPromises);
     //     console.log("Emails sent successfully");
     //     setMessage('Invitations have been sent to all candidates via email');
     //     showSuccess();
-        
+
     //   } catch (error) {
     //     console.error('Error sending invites:', error);
     //     setMessage('Error sending invites. Please try again later.');
     //   }
     // };
-  return (
+    return (
       <>
         <div ref={overlayRef} className={styles.parent}>
           {showErrorMessage && (
@@ -632,6 +669,8 @@ const Overlay = React.memo(
                     />
                     <div className={styles.wrapper}>
                       <RightBottomBtns
+                        currentStage={currentStage}
+                        stages={stages}
                         onContinue={toggleComponent}
                         onBack={backToggleComponent}
                         onClose={onClose}

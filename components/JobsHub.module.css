@@ -1,17 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 
 .parentContainer {
-  width: 98.75%;
-  background-color: #f8f7fa;
-  height: 90%;
+  height: 85.5vh;
+  background-color: #F8F7FC;
   border-radius: 20px;
-  margin: 1rem 0;
-  margin-top: 0;
-  margin-right: 2rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding-bottom: 2%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
 
 .superContainer {

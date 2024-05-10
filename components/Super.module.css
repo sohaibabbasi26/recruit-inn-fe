@@ -1,6 +1,7 @@
 .superContainer {
   height: 95vh;
-  width: 100%;
+  /* width: 100%; */
+  flex: 1;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -39,7 +40,7 @@
 .RightComponent_addJobBtn__PGBvV {
   border: none;
   background-color: #6137db;
-  height: 70px;
+  height: 50px;
   width: 100%;
   margin-right: 0px;
   border-radius: 60px;
