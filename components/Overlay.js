@@ -166,14 +166,16 @@ const Overlay = React.memo(
     }, [description]);
 
     const validateJobType = () => {
-      return (
-        positionRef.current.value.trim() !== "" &&
-        cityRef.current.value.trim() !== "" &&
-        countryRef.current.value.trim() !== "" &&
-        jobTypeRef.current.value.trim() !== "" &&
-        description?.trim()
-      );
+      // Check each ref and value to ensure they are not null before accessing .trim()
+      const positionValid = positionRef.current && positionRef.current.value.trim() !== "";
+      const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
+      const countryValid = countryRef.current && countryRef.current.value.trim() !== "";
+      const jobTypeValid = jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
+      const descriptionValid = description && description.trim() !== "";
+    
+      return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
     };
+    
 
     const toggleComponent = async () => {
 

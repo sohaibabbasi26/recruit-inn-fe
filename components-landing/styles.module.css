@@ -15,6 +15,13 @@ body{  margin: 0;
 .btn-gradient {
   background-image: linear-gradient(to right, theme('colors.btnPurple'), theme('colors.lightPurple'));
 }
+
+.btn-gradient:hover {
+  background: #D3CFFC;
+color: black;
+border: solid 1px;
+border-color: Light Grey;
+}
 .blurred-overlay {
   position: absolute;
   inset: 0;
