@@ -83,7 +83,7 @@ const LoginOverlay = ({
 
   console.log("id:", id);
   const infoSymbolSize = 20;
-  const [currentStage, setCurrentStage] = useState(stages.LOG_IN);
+  const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
   const [viewMode, setViewMode] = useState("login");
   const [subject, setSubject] = useState("");
@@ -149,7 +149,7 @@ const LoginOverlay = ({
     } else {
       console.log("Testing thiss .....");
       showError("Login failed. Please check your credentials.");
-    };
+    }
   };
 
   useEffect(() => {
@@ -263,7 +263,7 @@ const LoginOverlay = ({
                     onViewChange={() => setViewMode("forgotPassword")}
                     password={password}
                     setPassword={setPassword}
-                    email={setEmail}
+                    email={email}
                     setEmail={setEmail}
                   />
                   <div className={styles.wrapper}>

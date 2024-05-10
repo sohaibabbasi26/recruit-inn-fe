@@ -29,7 +29,7 @@ export default function Home({
   console.log("all jobs data :", allJobsData);
   console.log("all active jobs data :", allActiveJobsData);
   console.log("all closed jobs data :", allClosedJobsData);
-  const [finalData, setFinalData] = useState();
+  const [finalData, setFinalData] = useState([]);
   const [allCandidatesReports, setAllCandidateReports] = useState();
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
   const [token, setToken] = useState(null);
@@ -331,7 +331,7 @@ export default function Home({
               candidateReps={preprocessedCandidates}
               data={finalData}
               setJobOverlay={setJobOverlay}
-              jobOverlay={jobOverlay}
+              jobOverlay={jobOverlay} 
               setReportOverlay={setReportOverlay}
               reportOverlay={reportOverlay}
               setSelectedCandidate={setSelectedCandidate}

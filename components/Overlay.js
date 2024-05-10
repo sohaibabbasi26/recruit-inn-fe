@@ -1,25 +1,22 @@
-import { useState } from "react";
-import styles from "./Overlay.module.css";
+import gsap from "gsap";
 import Image from "next/image";
-import Stages from "./Stages";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import AIassessment from "./AIassesment";
 import AddSkillForm from "./AddSkillForm";
-import RightBottomBtns from "./RightBottomBtns";
+import AssessmentBtns from "./AssessmentBtns";
 import JobType from "./JobType";
 import JobTypeBtns from "./JobTypeBtns";
-import AIassessment from "./AIassesment";
-import AssessmentBtns from "./AssessmentBtns";
+import styles from "./Overlay.module.css";
+import RightBottomBtns from "./RightBottomBtns";
 import ShareLink from "./ShareLink";
-import { useRouter } from "next/router";
 import ShareLinkBtns from "./ShareLinkBtns";
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
+import Stages from "./Stages";
 // import { useTest } from '@/contexts/QuestionsContent';
 // import { useExpertiseContext } from '@/contexts/ExpertiseContext';
-import SuccessIndicator from "./SuccessIndicator";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
-import { useTestState } from "@/contexts/TestRequirementContext";
-import { fetchQuestions } from "../store/slices/questionSlice";
+import SuccessIndicator from "./SuccessIndicator";
 
 const Overlay = React.memo(
   ({
@@ -125,7 +122,9 @@ const Overlay = React.memo(
     };
 
     const removeReceiver = (index) => {
-      setReceivers(receivers.filter((_, i) => i !== index));
+      const newReceivers = [...receivers];
+      newReceivers.splice(index, 1);
+      setReceivers(newReceivers);
     };
 
 
@@ -176,6 +175,25 @@ const Overlay = React.memo(
       return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
     };
     
+    // const validateJobDescription = () => {
+    //     console.log('Handling text change:', content);
+    //     const text = editor.getText();
+    //     const words = text.split(/\s+/).filter(word => word.length > 0);
+
+    //     if (description.length <= 300) {
+    //         setValue(content);
+    //         setDescription(content);  // Optionally convert to plain text or other format
+    //     } else {
+    //         alert("You cannot write more than 300 words.");
+    //         const trimmedContent = words.slice(0, 300).join(' ') + ' ';
+    //         setValue(trimmedContent);
+    //         setDescription(trimmedContent);  // Optionally convert to plain text
+    //     }
+    // };
+    
+    //   return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
+    // };
+    
 
     const toggleComponent = async () => {
 
@@ -187,6 +205,7 @@ const Overlay = React.memo(
       ];
 
       let isValid = false;
+      let isValiddescription =false;
 
       const isAnySkillEntered = skillsWithLevels.some(({ skill }) => skill.trim());
       const areAllLevelsSelected = skillsWithLevels.every(({ skill, level }) => {
@@ -216,11 +235,20 @@ const Overlay = React.memo(
           break;
         case stages.JOB_TYPE:
           isValid = validateJobType();
+          
           if (!isValid) {
             setMessage("Please fill all the fields.");
             showError();
             return;
           }
+           else if(description.length > 300) {
+             setMessage("Minimum 300 words limit");
+            showError();
+            return;
+            
+           }
+
+
           setCurrentStage(stages.AI_ASSESSMENT);
           setMessage("Job has been created successfully!");
           showSuccess();
@@ -271,6 +299,7 @@ const Overlay = React.memo(
         job_type: jobTypeRef.current.value,
         description: description,
         location: cityRef.current.value + ", " + countryRef.current.value,
+        // country: ,
         is_test_required: isTestRequired,
       };
 
@@ -414,12 +443,9 @@ const Overlay = React.memo(
     }, [codeQues]);
 
     const addEmailReceiver = () => {
-      console.log("Adding a new email receiver");
-      setEmailReceivers((currentReceivers) => {
-        const newReceivers = [...currentReceivers, { email: "" }];
-        console.log("new recievers:");
-        return newReceivers;
-      });
+      if (receivers.length < 3) {
+        setReceivers([...receivers, { name: '', email: '' }]);
+      }
     };
 
     const addNameReceiver = () => {
@@ -447,45 +473,50 @@ const Overlay = React.memo(
       setEmailReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
       setNameReceivers((currentReceivers) => currentReceivers.filter((_, i) => i !== index))
     }
-
-    const handleEmailInvite = async () => {
-
-      console.log("HANDLE EMAIL INVITE");
-      let hasError = false;
+    const validateEmail = (email) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      const validatedReceivers = emailReceivers.map((receiver, index) => {
-        const emailIsValid = emailRegex.test(receiver.email.trim());
-        const nameIsValid = nameReceivers[index]?.name?.trim() !== "";
-
-        if (!emailIsValid && !nameIsValid) {
-          setMessage("Both name and email are required for each entry.");
+      return emailRegex.test(email);
+    };
+    const handleEmailInvite = async () => {
+      let isValid = true;
+    
+      // Validate each receiver
+      receivers.forEach(receiver => {
+        const trimmedEmail = receiver.email.trim();
+        const trimmedName = receiver.name.trim();
+    
+        if (trimmedEmail === '' || !validateEmail(trimmedEmail)) {
+          console.error('Invalid email address:', receiver.email);
+          setMessage('Please enter a valid email address for all candidates.');
           showError();
-          hasError = true;
-          return null;
-        } else if (!emailIsValid) {
-          setMessage("Please enter a valid email address.");
-          showError();
-          hasError = true;
-          return null;
-        } else if (!nameIsValid) {
-          setMessage("Please enter a name for each email.");
-          showError();
-          hasError = true;
-          return null;
+          isValid = false;
         }
-        return receiver;
-      }).filter(receiver => receiver !== null);
-
-      if (hasError) return;
-
-      const sendInvitesPromises = validatedReceivers.map(receiver => {
-        console.log("sending email ...")
+    
+        if (trimmedName === '') {
+          console.error('Name field is empty:', receiver.name);
+          setMessage('Please enter a name for all candidates.');
+          showError();
+          isValid = false;
+        }
+      });
+    
+      if (!isValid) {
+        // If any receiver is invalid, stop and return
+        return;
+      }
+    
+      const validEmailReceivers = receivers.filter(receiver => {
+        const trimmedEmail = receiver.email.trim();
+        return validateEmail(trimmedEmail);
+      });
+    
+      const sendInvitesPromises = validEmailReceivers.map(receiver => {
+        console.log("Checking Email Functionality", receiver.email);
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Ensure token is defined
           },
           body: JSON.stringify({
             to: receiver.email,
@@ -494,31 +525,70 @@ const Overlay = React.memo(
           }),
         });
       });
+    
       try {
         await Promise.all(sendInvitesPromises);
-        setMessage("Invitations have been sent to all candidates via email");
+        console.log("Emails sent successfully");
+        setMessage('Invitations have been sent to all candidates via email');
         showSuccess();
         onClose();
       } catch (error) {
-        console.error("Error sending invites:", error);
-        setMessage("Failed to send invitations, please try again.");
-        showError();
+        console.error('Error sending invites:', error);
+        setMessage('Error sending invites. Please try again later.');
       }
     };
+    
 
-    const validateReceivers = async () => {
-      for (let receiver of receivers) {
-        if (!receiver.email || !isValidEmail(receiver.email) || !receiver.name.trim()) {
-          console.log("!receiver.email",!receiver.email, " !isValidEmail(receiver.email)",!isValidEmail(receiver.email), '!receiver.name.trim()',!receiver.name.trim())
-          setMessage("Each receiver must have a valid name and email.");
-          showError();
-          return false;
-        }
-      }
-      return true; // All receivers are valid
-    };
-
-    return (
+    // const handleEmailInvite = async () => {
+    //   const validEmailReceivers = receivers.filter(receiver => {
+    //     const trimmedEmail = receiver.email.trim();
+    //     return trimmedEmail !== '' && validateEmail(trimmedEmail);
+    //   });
+    //   const validNameReceivers = receivers.filter(receiver => {
+    //     const trimmedName = receiver.name.trim();
+    //     return trimmedName !== '';
+    //   });
+    //   if(validNameReceivers.length === 0){
+    //     setMessage("Please Fill both the field");
+    //     showError();
+    //     return;
+    //   }
+  
+    //   if (validEmailReceivers.length === 0) {
+    //     console.error('No valid email addresses found.');
+    //     setMessage('No valid email addresses found.');
+    //     showError();
+    //     return;
+    //   }
+  
+    //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
+    //     console.log("Checking Email Functionality", receiver.email);
+    //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${token}`, // Ensure token is defined
+    //       },
+    //       body: JSON.stringify({
+    //         to: receiver.email,
+    //         subject: subject,
+    //         text: text,
+    //       }),
+    //     });
+    //   });
+  
+    //   try {
+    //     await Promise.all(sendInvitesPromises);
+    //     console.log("Emails sent successfully");
+    //     setMessage('Invitations have been sent to all candidates via email');
+    //     showSuccess();
+        
+    //   } catch (error) {
+    //     console.error('Error sending invites:', error);
+    //     setMessage('Error sending invites. Please try again later.');
+    //   }
+    // };
+  return (
       <>
         <div ref={overlayRef} className={styles.parent}>
           {showErrorMessage && (
@@ -683,7 +753,7 @@ const Overlay = React.memo(
                     <div className={styles.wrapper}>
                       <ShareLinkBtns
                         showError={showError}
-                        validateReceivers={validateReceivers}
+                        // validateReceivers={validateReceivers}
                         showSuccess={showSuccess}
                         setMessage={setMessage}
                         handleEmailInvite={handleEmailInvite}

@@ -229,7 +229,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       const content = contentRef.current.innerHTML;
 
       try {
-        const response = await fetch("/api/puppeteer", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -238,22 +238,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
         });
 
         if (response.ok) {
-          // Convert the response to Blob object
           const pdfBlob = await response.blob();
-
-          // Create a temporary URL for the Blob
           const url = window.URL.createObjectURL(pdfBlob);
-
-          // Create a link element to trigger the download
           const link = document.createElement("a");
           link.href = url;
           link.download = "overlay.pdf";
           document.body.appendChild(link);
-
-          // Click the link to trigger the download
           link.click();
-
-          // Cleanup: remove the link and revoke the URL
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
         } else {
@@ -334,12 +325,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
-          <div className={styles.coverContainer}>
+          <div className={styles.coverContainer} >
             {/*top container */}
             <div className={styles.topContainer}>
               <div className={styles.avatarContainer}>
                 <Image src="/avatarDefault.svg" width={65} height={84} />
               </div>
+
               <div className={styles.information}>
                 <h1>{selectedCandidate?.name}</h1>
                 <p className={styles.role}>{selectedCandidate?.position}</p>
@@ -399,7 +391,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               <div className={styles.infoDiv}>
                 <ul>
                   <li>
-                    <span className={styles.bold}>Phone</span>
+                    <span className={styles.bold}>Phone: </span>
                     <span>
                       {selectedCandidate?.contactNo
                         ? selectedCandidate?.contactNo
@@ -407,20 +399,20 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Date</span>
+                    <span className={styles.bold}>Date: </span>
                     <span>
                       {selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Job Type</span>
+                    <span className={styles.bold}>Job Type: </span>
                     <span>
                       {selectedCandidate?.jobType ||
                         selectedCandidate?.job_type}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Applied For</span>
+                    <span className={styles.bold}>Applied For: </span>
                     <span>
                       {selectedCandidate?.company
                         ? selectedCandidate?.company?.name
@@ -428,7 +420,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Email</span>
+                    <span className={styles.bold}>Email: </span>
                     <span>{selectedCandidate?.email}</span>
                   </li>
                 </ul>

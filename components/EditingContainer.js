@@ -6,9 +6,13 @@ import TopContainer from './TopContainer';
 const EditingContainer = ({ descriptionRef, setDescription, description }) => {
     return (
         <div className={styles.superContainer}>
+             
             <div className={styles.masterContainer}>
+                
                 <TopContainer description={description} ref={descriptionRef} setDescription={setDescription} />
+      
             </div>
+         
         </div>
     );
 };

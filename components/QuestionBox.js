@@ -183,7 +183,7 @@ const QuestionBox = ({ hasStarted }) => {
         // Check if user is logged in
         const testcomplete = localStorage.getItem("testcompleted");
         if (testcomplete) {
-            router.push("/test-submit-completion");
+            router.push(`/test-submit-completion/${cid}`);
         }
       }, [router]);
 
@@ -214,6 +214,22 @@ const QuestionBox = ({ hasStarted }) => {
             console.log('test_req state = ', test_req === 'true');
             console.log("a_ID:", a_id);
             if (test_req === 'true' && a_id) {
+                const rBody = {
+                    position_id: pid
+                };
+                try {
+                    const response =  await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
+                        method: 'POST',
+                        headers: {  
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(rBody),
+                    });
+                    const data = await response.json();
+                    console.log("data fetched after setting the candidate count:",data);
+                } catch (err) {
+                    console.log("err:", err)
+                }
                 router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
             }
             else {
@@ -233,12 +249,15 @@ const QuestionBox = ({ hasStarted }) => {
                 } catch (err) {
                     console.log("err:", err)
                 }
-                router.push('/test-submit-completion');
+                router.push(`/test-submit-completion/${cid}`);
+                setIsLoading(false);
+                
             }
         } catch (err) {
             console.error('Failed to submit test:', err);
         } finally {
-            setIsLoading(false);
+            
+            
         }
     }
 

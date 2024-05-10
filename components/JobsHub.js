@@ -2,7 +2,6 @@ import styles from "./JobsHub.module.css";
 import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
-
 const JobsHub = ({
   heading,
   data,
@@ -14,9 +13,9 @@ const JobsHub = ({
   const iconSize = 25;
   const goToAllIconSize = 15;
   const statusSize = 10;
-
+  const newArray = data?.slice(0, 2);
+  const hasData = newArray && newArray.length > 0;
   console.log("Jobs hub data:", data);
-
   const getBackgroundColor = (status) => {
     if (status === "Active") {
       return "#E7FFE0";
@@ -24,7 +23,6 @@ const JobsHub = ({
       return "#FFE6E6";
     }
   };
-
   const getStatusSymbol = (status) => {
     if (status === "Active") {
       return "/activeStatus.svg";
@@ -32,14 +30,12 @@ const JobsHub = ({
       return "/noteligible.svg";
     }
   };
-
+  console.log("Data length:", data.length);
+  console.log("Has data:", hasData);
   const cardClickHandler = (job) => {
     setSelectedJob(job);
     setJobOverlay(true);
   };
-
-  const hasData = data && data.length > 0;
-
   return (
     <>
       <div className={styles.parentContainer}>
@@ -50,10 +46,9 @@ const JobsHub = ({
               <span>{data.length}</span>
             </div>
           </div>
-
           <div className={styles.subContainer}>
             {hasData ? (
-              data?.map((item) => {
+              newArray.map((item) => {
                 return (
                   <div
                     onClick={() => {
@@ -63,7 +58,6 @@ const JobsHub = ({
                   >
                     <div className={styles.topContainer}>
                       <h3>{item?.position}</h3>
-
                       <div className={styles.rightTopBtns}>
                         <span>{item?.applied_candidates_count === 0 ? (
                           'No Candidates Yet'
@@ -128,5 +122,4 @@ const JobsHub = ({
     </>
   );
 };
-
 export default JobsHub;

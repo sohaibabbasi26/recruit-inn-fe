@@ -1,8 +1,8 @@
-import Image from "next/image";
-import styles from "./JobInfoFields.module.css";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
+import styles from "./JobInfoFields.module.css";
 const JobInfoFields = ({
   position,
   jobType,
