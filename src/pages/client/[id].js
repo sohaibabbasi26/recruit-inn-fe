@@ -29,7 +29,7 @@ export default function Home({
   console.log("all jobs data :", allJobsData);
   console.log("all active jobs data :", allActiveJobsData);
   console.log("all closed jobs data :", allClosedJobsData);
-  const [finalData, setFinalData] = useState();
+  const [finalData, setFinalData] = useState([]);
   const [allCandidatesReports, setAllCandidateReports] = useState();
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
   const [token, setToken] = useState(null);
@@ -70,6 +70,9 @@ export default function Home({
       console.log("response:", response);
       const allData = await response.json();
       setFinalData(allData.data);
+      if(allData){
+        console.log("final data for the jobs:",allData);
+    }
       setIsLoading(false);
       console.log("jsonified response: ", allData.data);
     }
@@ -139,67 +142,68 @@ export default function Home({
   }, [id]);
 
   const preprocessCandidatesData = (candidates, company) => {
-    return candidates.map((candidate) => {
-      let latestResult = {
-        softskillRating: 0,
-        technicalRating: 0,
-        softskillAssessment: "",
-        technicalAssessment: "",
-        createdAt: null,
-      };
-
-      if (candidate.results && candidate.results.length > 0) {
+    return candidates
+      .filter(candidate => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
+      .map(candidate => {
+        let latestResult = {
+          softskillRating: 0,
+          technicalRating: 0,
+          softskillAssessment: "",
+          technicalAssessment: "",
+          createdAt: null,
+        };
+  
         const sortedResults = candidate.results.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
-      }
-
-      const score =
-        (latestResult.softskillRating + latestResult.technicalRating) / 2;
-      const formattedDate = latestResult.createdAt
-        ? new Date(latestResult.createdAt).toLocaleDateString()
-        : "N/A";
-
-      const expertiseList = candidate?.expertise?.map((exp) => ({
-        skill: exp.skill,
-        level: exp.level,
-      }));
-
-      const inferredPosition =
-        candidate?.expertise?.length > 0
-          ? candidate?.expertise[0]?.skill
-          : "N/A"; // Inferred position from the first skill
-
-      return {
-        candidate_id: candidate.candidate_id,
-        position: candidate.position,
-        jobType: candidate.job_type,
-        name: candidate.name,
-        email: candidate.email,
-        score: score.toFixed(1),
-        contactNo: candidate.contact_no,
-        date: formattedDate,
-        expertise: expertiseList,
-        position: inferredPosition,
-        overAllExperience: candidate.over_all_exp || "N/A",
-        results: {
-          softskillRating: latestResult.softskillRating,
-          technicalRating: latestResult.technicalRating,
-          softskillAssessment: latestResult.softskillAssessment,
-          technicalAssessment: latestResult.technicalAssessment,
-        },
-        company: {
-          name: company.company_name,
-          location: company.company_location,
-          email: company.email,
-          contactNo: company.contact_no,
-          status: company.status,
-        },
-      };
-    });
+  
+        const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
+        const formattedDate = latestResult.createdAt
+          ? new Date(latestResult.createdAt).toLocaleDateString()
+          : "N/A";
+  
+        const expertiseList = candidate?.expertise?.map(exp => ({
+          skill: exp.skill,
+          level: exp.level,
+        }));
+  
+        const inferredPosition =
+          candidate?.expertise?.length > 0
+            ? candidate?.expertise[0]?.skill
+            : "N/A"; // Inferred position from the first skill
+  
+        return {
+          candidate_id: candidate.candidate_id,
+          position: candidate.position,
+          jobType: candidate.job_type,
+          name: candidate.name,
+          email: candidate.email,
+          score: score.toFixed(1),
+          contactNo: candidate.contact_no,
+          date: formattedDate,
+          expertise: expertiseList,
+          position: inferredPosition,
+          overAllExperience: candidate.over_all_exp || "N/A",
+          results: {
+            softskillRating: latestResult.softskillRating,
+            technicalRating: latestResult.technicalRating,
+            softskillAssessment: latestResult.softskillAssessment,
+            technicalAssessment: latestResult.technicalAssessment,
+          },
+          company: {
+            name: company.company_name,
+            location: company.company_location,
+            email: company.email,
+            contactNo: company.contact_no,
+            status: company.status,
+          },
+        };
+      });
   };
+  
+  
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -239,9 +243,11 @@ export default function Home({
         allCandidatesReports.data.candidates,
         allCandidatesReports.data
       );
-      setPreprocessedCandidates(processedData);
+      // Filter out candidates who have completed the test
+      const completedCandidates = processedData.filter(candidate => candidate.results);
+      setPreprocessedCandidates(completedCandidates);
       console.log("pre processed data:", preprocessedCandidates);
-
+  
       const filterRecommended = (candidate) =>
         Math.ceil(candidate?.results?.technicalRating) >= 7 &&
         Math.ceil(candidate?.results?.technicalRating) <= 10;
@@ -250,15 +256,16 @@ export default function Home({
         Math.ceil(candidate?.results?.technicalRating) < 7;
       const filterNotEligible = (candidate) =>
         Math.ceil(candidate?.results?.technicalRating) < 5;
-
-      setRecommendedCand(processedData.filter(filterRecommended));
-      setQualifiedCand(processedData.filter(filterQualified));
-      setNotEligibleCand(processedData.filter(filterNotEligible));
+  
+      setRecommendedCand(completedCandidates.filter(filterRecommended));
+      setQualifiedCand(completedCandidates.filter(filterQualified));
+      setNotEligibleCand(completedCandidates.filter(filterNotEligible));
       console.log("Recommended Candidate:", recommendedCand);
       console.log("Qualified Candidate:", qualifiedCand);
       console.log("Not Eligible Candidate:", notEligibleCand);
     }
   }, [allCandidatesReports]);
+  
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);

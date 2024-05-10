@@ -14,8 +14,12 @@ const JobsHub = ({
   const iconSize = 25;
   const goToAllIconSize = 15;
   const statusSize = 10;
+  const newArray = data?.slice(0, 2);
+
+  const hasData = newArray && newArray.length > 0;
 
   console.log("Jobs hub data:", data);
+  
 
   const getBackgroundColor = (status) => {
     if (status === "Active") {
@@ -33,12 +37,15 @@ const JobsHub = ({
     }
   };
 
+  console.log("Data length:", data.length);
+  console.log("Has data:", hasData);
+  
   const cardClickHandler = (job) => {
+    
     setSelectedJob(job);
     setJobOverlay(true);
   };
-
-  const hasData = data && data.length > 0;
+ 
 
   return (
     <>
@@ -53,7 +60,7 @@ const JobsHub = ({
 
           <div className={styles.subContainer}>
             {hasData ? (
-              data?.map((item) => {
+              newArray.map((item) => {
                 return (
                   <div
                     onClick={() => {

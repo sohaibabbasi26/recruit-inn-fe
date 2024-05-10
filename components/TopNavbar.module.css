@@ -107,11 +107,10 @@
   outline: none;
 }
 .searchResults {
-  width: 60%;
   position: absolute;
   background-color: #ffffff; /* or any color that suits your design */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-  width: 100%; /* or the width of the search bar */
+  width: 55%; /* or the width of the search bar */
   border-radius: 4px; /* optional, for rounded corners */
   z-index: 1000; /* make sure it stacks above other content */
   max-height: 300px; /* maximum height before scrolling */

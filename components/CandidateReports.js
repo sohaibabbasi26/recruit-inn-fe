@@ -44,7 +44,7 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
     setSelectedCandidate(candidate);
     setReportOverlay(!reportOverlay);
   };
-
+  
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {
       return "#E7FFE0";
