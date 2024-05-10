@@ -135,11 +135,14 @@ const SelfOverlay = ({
       setMessage("Please fill all the fields first");
       showError();
       return;
-      } else if (checkIfCandidateAlreadyThere() === true) { 
+    }
+     else if (currentStage === stages.PERSONAL_INFO &&  checkIfCandidateAlreadyThere() === true) {
       //   setMessage("Entered email is already registered");
       // showError();
       return;
-    } else if (
+    } 
+    
+    else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateEmailReceiver()
     ) {
@@ -182,16 +185,12 @@ const SelfOverlay = ({
       switch (currentStage) {
         case stages.PERSONAL_INFO:
 
-          if (email?.trim() && !checkIfEmailPresent) {
-            if (email?.trim()) {
-              setCurrentStage(stages.VERIFICATION);
-            } else if (result && checkIfEmailPresent === true) {
-            }
-            // console.log("in else if check if email present:");
-            // setMessage(
-            //   "Email you're using to register is already in use, try another one!"
-            // );
-            // showError();
+          if (!checkIfEmailPresent) {
+            setCurrentStage(stages.VERIFICATION);
+            return;
+          }
+          else if (checkIfEmailPresent === true) {
+            setCurrentStage(stages.PERSONAL_INFO);
             return;
           }
           break;
@@ -313,6 +312,7 @@ const SelfOverlay = ({
   };
 
   const checkIfCandidateAlreadyThere = async () => {
+    setIsLoading(true);
     try {
       const reqBody = {
         email: email,
@@ -333,17 +333,19 @@ const SelfOverlay = ({
       console.log('data:', data);
       if (data?.data?.candidate_id) {
         setCheckIfEmailPresent(true);
+        setCurrentStage(stages.PERSONAL_INFO);
         setMessage('Entered email is already registered');
         showError();
       } else {
-        setCurrentStage(stages.VERIFICATION);
+        // setCurrentStage(stages.VERIFICATION);
         await sendEmail(email);
         setCheckIfEmailPresent(false);
       }
-
       return checkIfEmailPresent;
     } catch (err) {
       console.log('ERR:', err);
+    }finally{
+      setIsLoading(false);
     }
   }
 
@@ -383,13 +385,9 @@ const SelfOverlay = ({
         setCandidateId(data.data.data.candidate_id);
         setCandidate(data.data.data);
         await sendEmail(email);
-        // await checkIfCandidateAlreadyThere();
-        // setCheckIfEmailPresent(false);
         setIsLoading(false);
         return true;
       } else {
-        // setCheckIfEmailPresent(true);
-        // await checkIfCandidateAlreadyThere();
         setMessage(
           data?.message || "Email used for registering is already in use!"
         );
@@ -447,9 +445,11 @@ const SelfOverlay = ({
   }
 
   const verifyCode = async () => {
-    // const otpCode = otp.join("");
     const otpCode = otp;
+    console.log("generated code:", generatedCode);
+    console.log("entered otp code:", otpCode)
     if (generatedCode === otpCode) {
+      console.log("here in verify code if block");
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
       showSuccess();
@@ -534,7 +534,7 @@ const SelfOverlay = ({
           );
           const data = await response.json();
           console.log("code data:", data);
-          if ( data?.data?.assessment_id) {
+          if (data?.data?.assessment_id) {
             setCodeQues(data);
             setAssessmentId(data?.data?.assessment_id);
           }
