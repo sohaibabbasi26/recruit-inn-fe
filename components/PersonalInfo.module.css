@@ -29,14 +29,13 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #f8f7fa;
+  background-color: transparent;
   border-radius: 30px;
   border: 1px solid #ebebeb;
   /* max-height: 50%; */
   font-size: 2rem;
   padding-left: 10px;
 }
-
 
 .infoField input {
   width: 100%;
@@ -54,10 +53,11 @@
   outline: none;
 }
 
-.infoField:hover {
+/* .infoField:hover {
   border: solid 1px #6137db;
   background-color: white;
-  }
+} */
+
 .infoField select {
   width: 95%;
   border: none;
@@ -69,6 +69,16 @@
 
 .infoField select:focus {
   outline: none;
+}
+
+.infoField:has(input:focus),
+.infoField:has(select:focus) {
+  border: 1px solid #6137db;
+}
+
+.infoField:has(input:not(:focus)).filled,
+.infoField:has(select:not(:focus)).filled {
+  background-color: #f8f7fa;
 }
 
 .errorsContainer {
