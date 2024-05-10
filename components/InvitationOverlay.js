@@ -173,16 +173,6 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         }
     }, [contact]);
 
-    // useEffect(() => {
-    //     if (contact?.trim() === '') {
-            
-    //         setValidationErrors(errors => ({ ...errors, contact: 'Contact is required.' }));
-    //     } else {
-    //         const { contact, ...rest } = validationErrors;
-    //         setValidationErrors(rest);
-    //     }
-    // }, [contact]);
-
     useEffect(() => {
         if (country?.trim() === '') {
             setValidationErrors(errors => ({ ...errors, country: 'Country is required.' }));
@@ -628,6 +618,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                 </div>
                             </>
                         )}
+
                         {currentStage === stages.REQUIRED_SKILLS && (
                             <>
                                 <RequiredSkills expertise={newExpert} />

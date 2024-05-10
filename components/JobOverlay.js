@@ -31,12 +31,11 @@ const JobOverlay = ({
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
   const [assessmentId, setAssessmentId] = useState();
-  const [codeQues,setCodeQues] = useState();
+  const [codeQues, setCodeQues] = useState();
   // const [assessmentId,setAssessmentId] = useState();
   useEffect(() => {
     setTechStack(selectedJob?.expertise);
   }, [selectedJob?.expertise]);
-
 
   // useEffect(() => {
   //   const reqBody = {
@@ -109,13 +108,16 @@ const JobOverlay = ({
           }
         );
         const dataTwo = await response.json();
-        if(dataTwo?.data?.message?.question_id){
+        if (dataTwo?.data?.message?.question_id) {
           setTest(dataTwo);
-          console.log('Test data:', dataTwo);
+          console.log("Test data:", dataTwo);
         }
-        console.log('Test data:', test);
-        console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
-        if(selectedJob?.is_test_req === true){
+        console.log("Test data:", test);
+        console.log(
+          "selectedJob?.is_test_req === true :",
+          selectedJob?.is_test_req === true
+        );
+        if (selectedJob?.is_test_req === true) {
           try {
             setIsLoading(true);
             const req = {
@@ -123,8 +125,8 @@ const JobOverlay = ({
               position_id: selectedJob?.position_id,
             };
 
-            console.log("request:",req);
-  
+            console.log("request:", req);
+
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
               {
@@ -136,14 +138,17 @@ const JobOverlay = ({
               }
             );
             const data = await response.json();
-            console.log('data in job overlay about code question:', data?.data?.assessment_id);
+            console.log(
+              "data in job overlay about code question:",
+              data?.data?.assessment_id
+            );
 
             if (data?.data?.assessment_id) {
               setCodeQues(data);
-              setAssessmentId(data?.data?.assessment_id); 
+              setAssessmentId(data?.data?.assessment_id);
               console.log("assessment id:", data?.data?.assessment_id);
               console.log("code question data:", data);
-              
+
               const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${dataTwo?.data?.message?.question_id}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
               copyToClipboard(newLink)
                 .then(() => {
@@ -153,7 +158,6 @@ const JobOverlay = ({
                 .catch((err) => {
                   console.error("Could not copy text: ", err);
                 });
-        
             } else {
               console.error("Assessment ID not found in the response.");
             }
@@ -169,7 +173,6 @@ const JobOverlay = ({
             //       position_id: positionId,
             //       is_test_req: isTestRequired
             //     }
-  
             //     console.log("body data sent in setPositionTestReq:",body);
             //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`, {
             //         method: 'POST',
