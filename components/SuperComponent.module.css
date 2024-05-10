@@ -1,16 +1,13 @@
-.superContainer{
-    width: 70%;
-    height: 100%;
-    display:  flex;
-    flex-direction: column;
+.superContainer {
+  /* width: 70%; */
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.temp{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+.temp {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
-
-
-
-
