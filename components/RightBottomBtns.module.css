@@ -63,6 +63,8 @@
   font-weight: 700;
   padding: 1.5rem 2rem;
 
+  height: 65px;
+
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -91,6 +93,7 @@
   #backBtn,
   #forwardBtn {
     padding: 1rem 1.5rem;
+    height: 60px;
   }
 
   #backBtn {
