@@ -95,6 +95,8 @@ const SelfOverlay = ({
   const [assessmentId, setAssessmentId] = useState(null);
   const [codeQues, setCodeQues] = useState(null);
 
+  const [testRequirement, setTestRequirement] = useState(false);
+
   useEffect(() => {
     const reqBody = {
       name: name,
@@ -141,10 +143,10 @@ const SelfOverlay = ({
       showError();
       return;
     } else if (
-        currentStage === stages.PERSONAL_INFO &&
+      currentStage === stages.PERSONAL_INFO &&
       !validateContactReciever()
-    ){
-        setMessage("Entered contact is not valid");
+    ) {
+      setMessage("Entered contact is not valid");
       showError();
       return;
     }
@@ -327,6 +329,7 @@ const SelfOverlay = ({
         return checkIfEmailPresent;
       } else {
         setCurrentStage(stages.VERIFICATION);
+        await sendEmail(email);
         setCheckIfEmailPresent(false);
         return checkIfEmailPresent;
       }
@@ -504,8 +507,7 @@ const SelfOverlay = ({
       console.log("data in test preparation:", data);
       setIsLoading(false);
       console.log("Loading status", isLoading);
-    } catch (err) {
-      console.log("error:", err);
+
       if (isTestRequired === true) {
         try {
           setIsLoading(true);
@@ -524,11 +526,17 @@ const SelfOverlay = ({
             }
           );
           const data = await response.json();
-          setCodeQues(data);
-          setAssessmentId(data?.data?.assessment_id);
+          console.log("code data:", data);
+          if ( data?.data?.assessment_id) {
+            setCodeQues(data);
+            setAssessmentId(data?.data?.assessment_id);
+          }
+          console.log("Data is here:", codeQues);
+          console.log('assessment id:', assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
+
           console.log("assessment id:", assessmentId);
           console.log("code question data:", data);
           setIsLoading(false);
@@ -536,8 +544,14 @@ const SelfOverlay = ({
           console.error("ERROR:", err);
         }
       }
+    } catch (err) {
+
+
+      console.log("error:", err);
     }
-  };
+
+  }
+
 
   useEffect(() => {
     console.log("code assessment id:", assessmentId);
@@ -634,6 +648,7 @@ const SelfOverlay = ({
               {currentStage === stages.SKILLS && (
                 <>
                   <CandSelfSkill
+                    isTestRequired={isTestRequired}
                     setIsTestRequired={setIsTestRequired}
                     handleTestPreparation={handleTestPreparation}
                     setTechStack={setTechStack}
@@ -654,6 +669,8 @@ const SelfOverlay = ({
                   <CandSelfAssessment />
                   <div className={styles.wrapper}>
                     <CandSelfAssessmentBtns
+                      isTestRequired={isTestRequired}
+                      assessmentId={assessmentId}
                       setIsLoading={setIsLoading}
                       questionId={questionId}
                       candidateId={candidateId}

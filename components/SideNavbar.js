@@ -1,14 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../components/SideNavbar.module.css";
 import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 
-const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
+const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, setIsLoading }) => {
   const router = useRouter();
   const [showupgrade, setshowupgrade] = useState(false);
   const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
+
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   try {
+  //     const savedActiveItem = localStorage.getItem('activeItem');
+  //     if (savedActiveItem) {
+  //       setActiveItem(savedActiveItem);
+  //     }
+  //   } catch (err) {
+  //     console.log('ERROR:',err);
+  //   }finally {
+  //     setIsLoading(false)
+  //   }
+  // }, [setActiveItem]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const timer = setTimeout(() => {
+      try {
+        const savedActiveItem = localStorage.getItem('activeItem');
+        if (savedActiveItem) {
+          setActiveItem(savedActiveItem);
+        }
+      } catch (err) {
+        console.log('ERROR:', err);
+      } finally {
+        setIsLoading(false); // Turn off the loader after 2 seconds or when the process is done, whichever is later
+      }
+    }, 2000);
+
+    // Cleanup function to clear the timeout if the component unmounts within 2 seconds
+    return () => clearTimeout(timer);
+  }, [setActiveItem]);
+
 
   const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(true);
   const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] =
@@ -29,6 +64,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
   const handleItemClick = (itemName) => {
     setActiveItem(itemName);
     setClickedItem(itemName);
+    localStorage.setItem("activeItem", itemName);
     localStorage.setItem("currentPage", itemName);
     setTimeout(() => setClickedItem(""), 200);
   };
@@ -45,12 +81,26 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay }) => {
     setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle);
   };
 
+  useEffect(() => {
+    const savedActiveItem = localStorage.getItem('activeItem');
+    if (savedActiveItem) {
+      setActiveItem(savedActiveItem);
+    }
+  }, [setActiveItem]);
+
+  // // Handle item click
+  // const handleItemClick = (itemName) => {
+  //   setActiveItem(itemName);
+  //   localStorage.setItem("activeItem", itemName); // Save active item to localStorage
+  //   // Perform actions based on the item clicked, such as opening overlays or other logic
+  // };
+
   const logoutHandler = () => {
     localStorage.removeItem("client-token");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("clientId");
-
-    router.push("/client-login");
+    localStorage.clear(); // Optionally clear all local storage
+    router.push("/login"); // Adjust this to your login path
   };
 
   const listItemSize = 28;

@@ -26,8 +26,10 @@ const TopContainer = ({setDescription,description}) => {
         setDescription(value);
     },[value]);
     useEffect(() => {
-        const plainText = convertHtmlToPlainText(value);
-        setDescription(plainText);
+        // const plainText = convertHtmlToPlainText(value);
+        if(value){
+            setDescription(value);
+        }
         console.log('value:', value);
         console.log('description:', description)
     }, [value]);
@@ -99,11 +101,17 @@ const TopContainer = ({setDescription,description}) => {
     Job Description:
             Describe your job position...
     `;
+
+    const handleChange = (content, delta, source, editor) => {
+        setValue(editor.getHTML()); 
+        console.log("value state:", value);
+         // or use content for HTML output
+      };
     return (
         <>
             <div className={styles.super} ref={quillRef}>
                 {QuillNoSSRWrapper && (
-                    <QuillNoSSRWrapper placeholder={placeholder} className={styles.editor} modules={modules} value={value} onChange={setValue} />
+                    <QuillNoSSRWrapper placeholder={placeholder} className={styles.editor} modules={modules} value={value} onChange={handleChange} />
                 )}
             </div>
         </>

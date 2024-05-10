@@ -158,8 +158,8 @@ export default function Home({
 
       const score =
         (latestResult.softskillRating + latestResult.technicalRating) / 2;
-      const formattedDate = latestResult.createdAt
-        ? new Date(latestResult.createdAt).toLocaleDateString()
+      const formattedDate = latestResult?.createdAt
+        ? new Date(latestResult?.createdAt).toLocaleDateString()
         : "N/A";
 
       const expertiseList = candidate?.expertise?.map((exp) => ({
@@ -180,7 +180,7 @@ export default function Home({
         email: candidate.email,
         score: score.toFixed(1),
         contactNo: candidate.contact_no,
-        date: formattedDate,
+        date: candidate?.createdAt,
         expertise: expertiseList,
         position: inferredPosition,
         overAllExperience: candidate.over_all_exp || "N/A",
@@ -200,6 +200,8 @@ export default function Home({
       };
     });
   };
+
+  
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -338,6 +340,7 @@ export default function Home({
               setSelectedJob={setSelectedJob}
             />
             <RightComponent
+              preprocessedCandidates={preprocessedCandidates}
               setShowOverlay={setShowOverlay}
               showOverlay={showOverlay}
             />
@@ -514,6 +517,8 @@ export default function Home({
           name={allCandidatesReports?.data?.company_name}
           showOverlay={showOverlay}
           setShowOverlay={setShowPaymentOverlay}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
         />
         {getActiveComponent()}
       </div>

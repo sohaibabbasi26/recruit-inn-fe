@@ -9,7 +9,7 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 import ErrorIndicator from './ErrorIndicator';
 
 const QuestionBox = ({ hasStarted }) => {
-    // const { test } = useTest();
+    // const { test } = useTest();x
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [completedQuestions, setCompletedQuestions] = useState([]);
@@ -34,7 +34,7 @@ const QuestionBox = ({ hasStarted }) => {
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [isGeneratingResult, setIsGeneratingResult] = useState(false);
     const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
-
+    const isProcessingRef = useRef();
     const isLastQuestion = currentQuestion === questions?.length;
 
     useEffect(() => {
@@ -104,6 +104,15 @@ const QuestionBox = ({ hasStarted }) => {
         localStorage.setItem('candidate-id', cid);
     }, [cid])
 
+    const processRecording = async (blob, questionIndex) => {
+        const base64Data = await blobToBase64(blob);
+        saveAnswer(questionIndex, base64Data);
+    };
+
+    const saveAnswer = (questionIndex, answerData) => {
+        setAnswers(prev => [...prev, { question: questionIndex, answer: answerData }]);
+    };
+
     useEffect(() => {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
@@ -115,11 +124,16 @@ const QuestionBox = ({ hasStarted }) => {
                         console.log('Chunk recorded:', event.data.size);
                     }
                 };
-                mediaRecorderRef.current.onstop = () => {
+
+                mediaRecorderRef.current.onstop = async () => {
                     const blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
-                    const newAudioURL = URL.createObjectURL(blob);
-                    setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
                     recordedChunksRef.current = [];
+                    const audioURL = URL.createObjectURL(blob);
+                    setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: audioURL }));
+                    
+                    isProcessingRef.current = true; 
+                    await processRecording(blob, currentRecordingQuestionIndexRef.current);
+                    isProcessingRef.current = false; 
                 };
             })
             .catch(err => console.error('Error accessing the microphone:', err));
@@ -127,7 +141,7 @@ const QuestionBox = ({ hasStarted }) => {
 
     const startRecording = () => {
         if (mediaRecorderRef.current) {
-            cancel(); // Stops speech synthesis before starting recording
+            cancel();
             mediaRecorderRef.current.start();
             setIsRecording(true);
             setRecordingDone(true);
@@ -137,9 +151,8 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     const stopRecording = () => {
-        if (mediaRecorderRef.current) {
-            mediaRecorderRef.current.stop();
-            setIsRecording(false);
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+            mediaRecorderRef.current.stop(); // This asynchronously triggers the onstop event
         }
     };
 
@@ -185,7 +198,7 @@ const QuestionBox = ({ hasStarted }) => {
         if (testcomplete) {
             router.push(`/test-submit-completion/${cid}`);
         }
-      }, [router]);
+    }, [router]);
 
     const submitTestHandler = async () => {
         localStorage.setItem("testcompleted", "true");
@@ -218,15 +231,15 @@ const QuestionBox = ({ hasStarted }) => {
                     position_id: pid
                 };
                 try {
-                    const response =  await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
                         method: 'POST',
-                        headers: {  
+                        headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(rBody),
                     });
                     const data = await response.json();
-                    console.log("data fetched after setting the candidate count:",data);
+                    console.log("data fetched after setting the candidate count:", data);
                 } catch (err) {
                     console.log("err:", err)
                 }
@@ -237,15 +250,15 @@ const QuestionBox = ({ hasStarted }) => {
                     position_id: pid
                 };
                 try {
-                    const response =  await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`, {
                         method: 'POST',
-                        headers: {  
+                        headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(rBody),
                     });
                     const data = await response.json();
-                    console.log("data fetched after setting the candidate count:",data);
+                    console.log("data fetched after setting the candidate count:", data);
                 } catch (err) {
                     console.log("err:", err)
                 }
@@ -254,12 +267,16 @@ const QuestionBox = ({ hasStarted }) => {
         } catch (err) {
             console.error('Failed to submit test:', err);
         } finally {
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
         }
     }
 
     const toggleComponent = async () => {
         setIsLoading(true);
+        
+
         try {
             if (isLastQuestion) return;
 
@@ -311,7 +328,11 @@ const QuestionBox = ({ hasStarted }) => {
             if (recordedChunksRef.current.length > 0) {
                 blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
                 const newAudioURL = URL.createObjectURL(blob);
+                console.log('new audio url:', newAudioURL);
+                 // Clear the recorded chunks immediately after creating the blob
+            recordedChunksRef.current = [];
                 const base64Data = await blobToBase64(blob);
+                console.log("base64Data", base64Data, "=============== END OF DATA =================");
                 const questionBeingAnswered = currentQuestion;
                 const finalData = await sendAudioToServer(base64Data);
 
@@ -320,14 +341,12 @@ const QuestionBox = ({ hasStarted }) => {
                 }
 
                 if (currentRecordingQuestionIndexRef.current === currentQuestion) {
-                    setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
+                    // setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
                     setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
                 }
 
             } else {
                 const silentBase64Wav = "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-
-
                 if (currentRecordingQuestionIndexRef.current === currentQuestion) {
                     setAnswers(prev => [...prev, {
                         question: questions[currentQuestion - 1]?.question,
@@ -361,17 +380,18 @@ const QuestionBox = ({ hasStarted }) => {
             )
             setIsTranscriptionComplete(false);
             setCurrentQuestion(prevCurrent => prevCurrent + 1);
+            console.log("currentQuestion State:", currentQuestion);
             setIsRecording(false);
             setRecordingDone(false);
             setCompletedQuestions(prevCompleted => [...prevCompleted, currentQuestion]);
             if (currentQuestionIndex < questions.length - 1) {
                 setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+                console.log("currentQuestion State inside if condition:", currentQuestion);
+                console.log(console.log("state of currentQuestionIndex:", currentQuestionIndex));
                 setIsLoading(false);
-
             }
             setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: data?.data?.transcriptionResult }]);
             return data;
-
         } catch (error) {
             console.error('Error sending audio to server:', error);
             return 'Error in transcription';
@@ -391,27 +411,12 @@ const QuestionBox = ({ hasStarted }) => {
         });
     };
 
+
     useEffect(() => {
         if (currentQuestionIndex < questions?.length) {
             speakQuestion(questions[currentQuestionIndex]);
         }
     }, [currentQuestionIndex, questions]);
-
-    const handleRecordingComplete = () => {
-        let blob;
-        if (recordedChunksRef.current.length > 0) {
-            blob = new Blob(recordedChunksRef.current, { type: 'audio/wav' });
-            const newAudioURL = URL.createObjectURL(blob);
-            setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
-            saveAnswer(blob);
-        }
-    };
-
-    const saveAnswer = async (blob) => {
-        const base64Data = await blobToBase64(blob);
-        const finalData = base64Data.length > 0 ? await sendAudioToServer(base64Data) : "";
-        setAnswers(prev => [...prev, { question: questions[currentQuestion - 1]?.question, answer: finalData.data.transcriptionResult }]);
-    };
 
     const showError = (message) => {
         setMessage(message);

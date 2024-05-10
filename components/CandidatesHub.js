@@ -13,6 +13,8 @@ const CandidatesHub = ({
   setReportOverlay,
   setSelectedCandidate,
 }) => {
+
+  // const newData = data?.map()
   console.log("data in candidates Hub:", data);
 
   const calculateCumulativeMean = (val1, val2, val3) => {

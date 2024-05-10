@@ -31,6 +31,10 @@ const CandSelfSkill = ({ setTechStack, isTestRequired, setIsTestRequired }) => {
     console.log("Is test Required:", isTestRequired);
   };
 
+  useEffect(() => {
+    console.log("is test req from use effect:",isTestRequired);
+  },[isTestRequired])
+
   return (
     <>
       <form className={styles.addSkillFormContainer}>

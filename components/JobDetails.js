@@ -1,5 +1,6 @@
 import styles from "./JobDetails.module.css";
 import Image from "next/image";
+import parse from 'html-react-parser';
 
 const JobDetails = ({ details, clientName }) => {
   return (
@@ -21,13 +22,8 @@ const JobDetails = ({ details, clientName }) => {
         {/* about company container */}
 
         <div className={styles.jobDescription}>
-          {/* {/* <h4>About Us:</h4>
-                    <span id={styles.gap}>
-                        Write about your company
-                    </span> */}
-
           <h4>Job Description:</h4>
-          <span>{details?.description}</span>
+          <span>{parse(details?.description)}</span>
         </div>
       </div>
     </>

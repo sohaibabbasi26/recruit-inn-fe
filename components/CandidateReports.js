@@ -41,7 +41,7 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
   const hasData = newArray && newArray.length > 0;
 
   const cardClickHandler = (candidate) => {
-    setSelectedCandidate(candidate);
+    setSelectedCandidate(candidate);  
     setReportOverlay(!reportOverlay);
   };
 
