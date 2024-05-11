@@ -99,6 +99,7 @@ const SelfOverlay = ({
   const [level1, setLevel1] = useState("");
   const [level2, setLevel2] = useState("");
   const [isLevelEntered, setIsLevelEntered] = useState();
+  // const [testRequirement, setIsTestRequirement] = useState(false);
 
   const [testRequirement, setTestRequirement] = useState(false);
 
@@ -591,6 +592,28 @@ const SelfOverlay = ({
         } catch (err) {
           console.error("ERROR:", err);
         }
+
+        try{
+          const req = {
+            is_test_req: isTestRequired,
+            candidate_id: candidateId,
+          };
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-cand-test-req`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(req),
+            }
+          );
+          const data = await response.json();
+          console.log("data is updated perfectly:",data);
+        }
+        catch(err){
+          console.log("ERROR:",err)
+        }
       }
     } catch (err) {
 
@@ -708,6 +731,8 @@ const SelfOverlay = ({
                     setIsTestRequired={setIsTestRequired}
                     handleTestPreparation={handleTestPreparation}
                     setTechStack={setTechStack}
+                    setTestRequirement={setTestRequirement}
+                    testRequirement={testRequirement}
                   />
 
                   <div className={styles.wrapper}>
