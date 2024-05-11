@@ -40,7 +40,7 @@ const CandidateSideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) =
 
     const logoutHandler = () => {
         localStorage.removeItem('client-token');
-        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('isLoggedInCandidate');
         localStorage.removeItem('clientId');
 
         router.push('/candidate-login');
@@ -158,7 +158,7 @@ const CandidateSideNavbar = ({name, navbarIte, showOverlay1, setShowOverlay }) =
 
                         <div>
                             <button className={styles.btnlog} onClick={logoutHandler}>
-                                Logout <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" style={{ color: '#FF0000' }} />
+                                Logout <Image src="/Vector.png" alt="Upgrade" width="18" height="18" style={{ color: '#FF0000' }} />
                             </button>
                         </div>}
 

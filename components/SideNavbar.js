@@ -100,7 +100,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("clientId");
     localStorage.clear(); // Optionally clear all local storage
-    router.push("/login"); // Adjust this to your login path
+    router.push("/client-login"); // Adjust this to your login path
   };
 
   const listItemSize = 28;
@@ -285,7 +285,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
               <button className={styles.btnlog} onClick={logoutHandler}>
                 Logout{" "}
                 <Image
-                  src="/vector.png"
+                  src="/Vector.png"
                   alt="Upgrade"
                   width="18"
                   height="18"
