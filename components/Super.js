@@ -72,13 +72,13 @@ const Super = ({
             </div>
             </div>
 
-            {finalData && <JobsHub heading='All Jobs' data={finalData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
-            {activeJobsData && <JobsHub heading='Active Jobs' data={activeJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
-            {closedJobsData && <JobsHub heading='Closed Jobs' data={closedJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
-            {allCandidates && <CandidatesHub heading='All Candidates' data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
-            {recommendedCandidates && <CandidatesHub heading='Recommended Candidates' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
-            {qualifiedCandidates && <CandidatesHub heading='Qualified Candidates' data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
-            {notEligibleCandidates && <CandidatesHub heading='Not-Eligible Candidates' data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
+            {finalData && <JobsHub heading='All Jobs' setReportOverlay={setReportOverlay} data={finalData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
+            {activeJobsData && <JobsHub heading='Active Jobs' setReportOverlay={setReportOverlay} data={activeJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
+            {closedJobsData && <JobsHub heading='Closed Jobs' setReportOverlay={setReportOverlay} data={closedJobsData} jobOverlay={jobOverlay} setJobOverlay={setJobOverlay} setSelectedJob={setSelectedJob} />}
+            {allCandidates && <CandidatesHub heading='All Candidates' setJobOverlay={setJobOverlay} data={allCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
+            {recommendedCandidates && <CandidatesHub heading='Recommended Candidates' setJobOverlay={setJobOverlay}  data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
+            {qualifiedCandidates && <CandidatesHub heading='Qualified Candidates' setJobOverlay={setJobOverlay} data={qualifiedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
+            {notEligibleCandidates && <CandidatesHub heading='Not-Eligible Candidates' setJobOverlay={setJobOverlay} data={notEligibleCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />}
         </div>
     );
 }

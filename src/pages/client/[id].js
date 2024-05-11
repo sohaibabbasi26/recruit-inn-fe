@@ -411,6 +411,7 @@ export default function Home({
             setSelectedJob={setSelectedJob}
             selectedCandidate={selectedCandidate}
             selectedJob={selectedJob}
+            setReportOverlay={setReportOverlay}
             setJobOverlay={setJobOverlay}
             reportOverlay={jobOverlay}
             finalData={allJobData}
@@ -421,6 +422,7 @@ export default function Home({
         return (
           <Super
             companyId={id}
+            setReportOverlay={setReportOverlay}
             setSelectedCandidate={setSelectedCandidate}
             setSelectedJob={setSelectedJob}
             selectedCandidate={selectedCandidate}
@@ -435,6 +437,7 @@ export default function Home({
         return (
           <Super
             companyId={id}
+            setReportOverlay={setReportOverlay}
             setSelectedCandidate={setSelectedCandidate}
             setSelectedJob={setSelectedJob}
             selectedCandidate={selectedCandidate}
@@ -448,6 +451,7 @@ export default function Home({
       case "All":
         return (
           <Super
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -462,6 +466,7 @@ export default function Home({
       case "Recommended":
         return (
           <Super
+          setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -476,6 +481,7 @@ export default function Home({
       case "Qualified":
         return (
           <Super
+          setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -490,6 +496,7 @@ export default function Home({
       case "NotEligible":
         return (
           <Super
+          setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
