@@ -48,7 +48,9 @@ const CandidateSuper = ({
                     </div>
                 </>
 
-            ): (<>
+            ): (
+            
+        <>
             <CandidatesSelfHub contact = { contact } isDisable = { isDisable } appliedThrough = { appliedThrough } experience = { experience }  name = { name } expertise = { expertise } results = { results } isLoading = { isLoading }  generateTestAndRedirect = { generateTestAndRedirect } heading = 'Reports' data = { recommendedCandidates } reportOverlay = { reportOverlay } setReportOverlay = { setReportOverlay } setSelectedCandidate = { setSelectedCandidate }  />
         </>
     )

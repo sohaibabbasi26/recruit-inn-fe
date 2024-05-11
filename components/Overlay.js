@@ -203,7 +203,7 @@ const Overlay = React.memo(
       ];
 
       let isValid = false;
-      let isValiddescription =false;
+      let isValiddescription = false;
 
       const isAnySkillEntered = skillsWithLevels.some(({ skill }) =>
         skill.trim()
