@@ -327,11 +327,16 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
         >
           <div className={styles.coverContainer} >
             {/*top container */}
+            
+            {/* candidate test info div */}
+          
+
             <div className={styles.topContainer}>
               <div className={styles.avatarContainer}>
                 <Image src="/avatarDefault.svg" width={65} height={84} />
               </div>
 
+              
               <div className={styles.information}>
                 <h1>{selectedCandidate?.name}</h1>
                 <p className={styles.role}>{selectedCandidate?.position}</p>
@@ -386,7 +391,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 </span>
               </div>
             </div>
-            {/* candidate test info div */}
+
+
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
                 <ul>
@@ -396,6 +402,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       {selectedCandidate?.contactNo
                         ? selectedCandidate?.contactNo
                         : "03122597173"}
+                    </span>
+                  </li>
+                  <li>
+                    <span className={styles.bold}>Name: </span>
+                    <span>
+                      {selectedCandidate?.name}
                     </span>
                   </li>
                   <li>

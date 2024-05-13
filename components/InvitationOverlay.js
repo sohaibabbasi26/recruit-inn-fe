@@ -154,8 +154,9 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [email]);
 
     useEffect(() => {
-        if (name?.trim() === '') {
-            setValidationErrors(errors => ({ ...errors, name: 'Name is required.' }));
+        const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+        if (name && !nameRegex.test(name)) {
+            setValidationErrors(errors => ({ ...errors, name: 'Invalid name' }));
         } else {
             const { name, ...rest } = validationErrors;
             setValidationErrors(rest);
@@ -253,6 +254,12 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
         if (!name?.trim()) {
             errors.name = 'Please enter a name.';
             isValid = false;
+        }else{
+            const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+            if (!nameRegex.test(name)) {
+                errors.name = 'name is not valid.';
+                isValid = false;
+            }
         }
         if (!email?.trim()) {
             errors.email = 'Please enter an email.';
