@@ -13,6 +13,17 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [results, setResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+
+
+
+  const [datee, setDatee] = useState();
+
+
+  useEffect(() => {
+    const date = new Date(selectedCandidate?.date);
+    setDatee(date.toDateString());
+  })
+
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       setIsLoading(true);
@@ -352,9 +363,9 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   {getFilter(
                     calculateCumulativeMean(
                       Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                        Math.ceil(results?.data?.result?.technicalRating),
+                      Math.ceil(results?.data?.result?.technicalRating),
                       Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                        Math.ceil(results?.data?.result?.softskillRating)
+                      Math.ceil(results?.data?.result?.softskillRating)
                     )
                   )}
                   <Image
@@ -378,9 +389,9 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <span>
                   {calculateCumulativeMean(
                     Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                      Math.ceil(results?.data?.result?.technicalRating),
+                    Math.ceil(results?.data?.result?.technicalRating),
                     Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                      Math.ceil(results?.data?.result?.softskillRating)
+                    Math.ceil(results?.data?.result?.softskillRating)
                   )}
                   /10
                 </span>
@@ -401,7 +412,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <li>
                     <span className={styles.bold}>Date: </span>
                     <span>
-                      {selectedCandidate?.date || results?.data?.createdAt}
+                      {datee || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
@@ -437,7 +448,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     }
                     score={Math.ceil(
                       selectedCandidate?.results?.technicalRating ||
-                        results?.data?.result?.technicalRating
+                      results?.data?.result?.technicalRating
                     )}
                   />
                   <Assessment
@@ -448,7 +459,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     }
                     score={Math.ceil(
                       selectedCandidate?.results?.softskillRating ||
-                        results?.data?.result?.softskillRating
+                      results?.data?.result?.softskillRating
                     )}
                   />
 

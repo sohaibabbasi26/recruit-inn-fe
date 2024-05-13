@@ -124,17 +124,17 @@ const CandidatesHub = ({
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                calculateCumulativeMean(
+                                Math.ceil(calculateCumulativeMean(
                                   item?.results?.technicalRating,
                                   item?.results?.softskillRating
-                                )
+                                ))  
                               ),
                             }}
                           >
-                            {calculateCumulativeMean(
-                              item?.results?.technicalRating,
-                              item?.results?.softskillRating
-                            )}
+                            {Math.ceil(calculateCumulativeMean(
+                                item?.results?.technicalRating,
+                                item?.results?.softskillRating
+                              ))}
                             /10
                           </span>
 
