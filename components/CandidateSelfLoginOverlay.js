@@ -95,9 +95,9 @@ const CandidateSelfLoginOverlay = ({
   };
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const isLoggedIn = localStorage.getItem("isLoggedInCandidate");
     if (isLoggedIn) {
-      const candidate_id = localStorage.getItem("candidateID");
+      const candidate_id = localStorage.getItem("candidateId");
       if (candidate_id) {
         redirectToCandidatePage(candidate_id);
       }

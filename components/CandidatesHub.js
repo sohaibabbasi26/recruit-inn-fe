@@ -13,6 +13,8 @@ const CandidatesHub = ({
   setReportOverlay,
   setSelectedCandidate,
 }) => {
+
+  // const newData = data?.map()
   console.log("data in candidates Hub:", data);
 
   const calculateCumulativeMean = (val1, val2, val3) => {
@@ -122,17 +124,17 @@ const CandidatesHub = ({
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                calculateCumulativeMean(
+                                Math.ceil(calculateCumulativeMean(
                                   item?.results?.technicalRating,
                                   item?.results?.softskillRating
-                                )
+                                ))  
                               ),
                             }}
                           >
-                            {calculateCumulativeMean(
-                              item?.results?.technicalRating,
-                              item?.results?.softskillRating
-                            )}
+                            {Math.ceil(calculateCumulativeMean(
+                                item?.results?.technicalRating,
+                                item?.results?.softskillRating
+                              ))}
                             /10
                           </span>
 

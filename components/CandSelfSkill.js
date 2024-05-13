@@ -3,16 +3,12 @@ import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const CandSelfSkill = ({ setTechStack, isTestRequired, setIsTestRequired }) => {
+const CandSelfSkill = ({skill1,setTestRequirement, testRequirement, skill2, setSkill1,setSkill2, level1,level2, setLevel1, setLevel2, setTechStack, isTestRequired, setIsTestRequired }) => {
   const iconSize = 25;
 
   console.log("Is test Required:", isTestRequired);
 
-  const [skill1, setSkill1] = useState("");
-  const [skill2, setSkill2] = useState("");
 
-  const [level1, setLevel1] = useState("");
-  const [level2, setLevel2] = useState("");
 
   useEffect(() => {
     const skills = [
@@ -30,6 +26,10 @@ const CandSelfSkill = ({ setTechStack, isTestRequired, setIsTestRequired }) => {
     setIsTestRequired(event.target.checked);
     console.log("Is test Required:", isTestRequired);
   };
+
+  useEffect(() => {
+    console.log("is test req from use effect:",isTestRequired);
+  },[isTestRequired])
 
   return (
     <>

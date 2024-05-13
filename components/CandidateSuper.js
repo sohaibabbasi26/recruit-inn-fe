@@ -43,16 +43,18 @@ const CandidateSuper = ({
             {isLoading ? (
 
                 <>
-                    <div className={styles.loader}>
-
+                    <div className={styles.loaderContainer}>
+                        <div className={styles.loader}></div>
                     </div>
                 </>
 
-            ): (<>
-            <CandidatesSelfHub contact = { contact } isDisable = { isDisable } appliedThrough = { appliedThrough } experience = { experience }  name = { name } expertise = { expertise } results = { results } isLoading = { isLoading }  generateTestAndRedirect = { generateTestAndRedirect } heading = 'Reports' data = { recommendedCandidates } reportOverlay = { reportOverlay } setReportOverlay = { setReportOverlay } setSelectedCandidate = { setSelectedCandidate }  />
-        </>
-    )
-}
+            ) : (
+
+                <>
+                    <CandidatesSelfHub contact={contact} isDisable={isDisable} appliedThrough={appliedThrough} experience={experience} name={name} expertise={expertise} results={results} isLoading={isLoading} generateTestAndRedirect={generateTestAndRedirect} heading='Reports' data={recommendedCandidates} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} />
+                </>
+            )
+            }
         </div >
     );
 }

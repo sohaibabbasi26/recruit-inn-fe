@@ -41,10 +41,10 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
   const hasData = newArray && newArray.length > 0;
 
   const cardClickHandler = (candidate) => {
-    setSelectedCandidate(candidate);
+    setSelectedCandidate(candidate);  
     setReportOverlay(!reportOverlay);
   };
-
+  
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {
       return "#E7FFE0";
@@ -138,7 +138,7 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
                                   />
                                   <span>{skill.skill}</span>
                                 </div>
-                                <p>3+ Years</p>
+                                {/* <p>3+ Years</p> */}
                               </li>
                             </>
                           );

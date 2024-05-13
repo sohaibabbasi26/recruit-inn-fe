@@ -14,11 +14,11 @@ const CandSelfAssessmentBtns = ({testReq, assessmentId, isTestRequired, setIsLoa
         console.log('assessmentID:',assessmentId);
         if(assessmentId){
             console.log('assessmentID:',assessmentId);
-            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${testReq}`);
-            router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${testReq}`);
+            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
         }else{
-            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${testReq}`);
-            router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${testReq}`);
+            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
+            router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
         }
     }
 

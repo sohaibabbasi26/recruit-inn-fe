@@ -5,6 +5,7 @@ import gsap from "gsap";
 import ErrorIndicator from "./ErrorIndicator";
 import SuccessIndicator from "./SuccessIndicator";
 import { getSvg } from "@/util/helpers";
+import parse from 'html-react-parser';
 
 const JobOverlay = ({
   showError,
@@ -31,35 +32,11 @@ const JobOverlay = ({
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
   const [assessmentId, setAssessmentId] = useState();
-  const [codeQues, setCodeQues] = useState();
-  // const [assessmentId,setAssessmentId] = useState();
+  const [codeQues,setCodeQues] = useState();
+
   useEffect(() => {
     setTechStack(selectedJob?.expertise);
   }, [selectedJob?.expertise]);
-
-  // useEffect(() => {
-  //   const reqBody = {
-  //     position_id: selectedJob?.position_id,
-  //   };
-
-  //   async function fetchAssessmentIdByPosition() {
-  //     const response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-assessment-by-candidate`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify(reqBody),
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     console.log("assessment id:", data?.data?.assessment_id);
-  //     // setAssessmentId(data?.data?.assessment_id);
-  //   }
-  //   fetchAssessmentIdByPosition();
-  // }, []);
 
   async function toggleJobStatus() {
     const newStatus = selectedJob?.status === "Active" ? "Closed" : "Active";
@@ -108,6 +85,15 @@ const JobOverlay = ({
           }
         );
         const dataTwo = await response.json();
+// <<<<<<< HEAD
+//         if(dataTwo?.data?.message?.question_id){
+//           setTest(dataTwo);
+//           console.log('Test data:', dataTwo);
+//         }
+//         console.log('Test data:', test);
+//         console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
+//         if(selectedJob?.is_test_req === true){
+// =======
         if (dataTwo?.data?.message?.question_id) {
           setTest(dataTwo);
           console.log("Test data:", dataTwo);
@@ -118,6 +104,7 @@ const JobOverlay = ({
           selectedJob?.is_test_req === true
         );
         if (selectedJob?.is_test_req === true) {
+// >>>>>>> d49cedf82b23c054cf4acc90c134dcd1a902c9c1
           try {
             setIsLoading(true);
             const req = {
@@ -138,17 +125,14 @@ const JobOverlay = ({
               }
             );
             const data = await response.json();
-            console.log(
-              "data in job overlay about code question:",
-              data?.data?.assessment_id
-            );
+            console.log('data in job overlay about code question:', data?.data?.assessment_id);
 
             if (data?.data?.assessment_id) {
               setCodeQues(data);
-              setAssessmentId(data?.data?.assessment_id);
+              setAssessmentId(data?.data?.assessment_id); 
               console.log("assessment id:", data?.data?.assessment_id);
               console.log("code question data:", data);
-
+              
               const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${dataTwo?.data?.message?.question_id}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
               copyToClipboard(newLink)
                 .then(() => {
@@ -158,35 +142,12 @@ const JobOverlay = ({
                 .catch((err) => {
                   console.error("Could not copy text: ", err);
                 });
+        
             } else {
               console.error("Assessment ID not found in the response.");
             }
             setIsLoading(false);
 
-            // setCodeQues(data);
-            // setAssessmentId(data?.data?.assessment_id);
-            // console.log("assessment id:", assessmentId);
-            // console.log("code question data:", data);
-            // setIsLoading(false);
-            // try{
-            //     const body ={
-            //       position_id: positionId,
-            //       is_test_req: isTestRequired
-            //     }
-            //     console.log("body data sent in setPositionTestReq:",body);
-            //     const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`, {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //             'Authorization': `Bearer ${token}`,
-            //         },
-            //         body: JSON.stringify(body),
-            //     });
-            //     const data = await response.json();
-            //     setCodeQues(data);
-            // } catch(err){
-            //     console.log('ERROR:',err);
-            // }
           } catch (err) {
             console.error("ERROR:", err);
           }
@@ -380,8 +341,8 @@ const JobOverlay = ({
                 </button>
               )}
             </div>
-
-            <div className={styles.description}>{selectedJob?.description}</div>
+            
+            <div className={styles.description}>{selectedJob?.description ? ( parse(selectedJob?.description)) : ('')}</div>
             {/* skils section */}
 
             <div className={styles.techContainer}>

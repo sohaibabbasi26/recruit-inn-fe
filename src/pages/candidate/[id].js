@@ -9,7 +9,7 @@
 
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Finlandica, Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import SideNavbar from "../../../components/SideNavbar";
 import SuperComponent from "../../../components/SuperComponent";
@@ -45,11 +45,15 @@ export default function Candidate({
   const [expertise, setExpertise] = useState();
   const [questionId, setQuestionId] = useState();
   const [results, setResults] = useState([]);
+  const [testReq,setTestReq] = useState();
+  const [candidateId, setCandidateId] = useState();
+  const [codeQues, setCodeQues] = useState();
+  const [assessmentId, setAssessmentId] = useState();
   // const [contact, setContact] = useState()
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("activeFlow", "Candidate");
+    localStorage.setItem("activeFlow", "Candidate_self");
   }, []);
 
   useEffect(() => {
@@ -83,6 +87,8 @@ export default function Candidate({
           setCandName(data?.data?.name);
           setExperience(data?.data?.over_all_exp);
           setContact(data?.data?.contact_no);
+          setTestReq(data?.data?.is_test_req);
+          setCandidateId(data?.data?.candidate_id);
           const date = new Date(data?.data?.createdAt);
           setDate(date.toDateString());
           setEmail(data?.data?.email);
@@ -161,10 +167,56 @@ export default function Candidate({
       console.log("question id:", questionId);
       console.log("data in test preparation:", data);
       setIsLoading(false);
-      router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}`);
+
+      if(testReq === true){
+        try {
+          setIsLoading(true);
+          const req = {
+            codingExpertise: expertise,
+            candidate_id: candidateId ,
+          };
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(req),
+            }
+          );
+          const dataTwo = await response.json();
+          console.log("code data:", dataTwo);
+          if (dataTwo?.data) {
+            setCodeQues(dataTwo);
+            setAssessmentId(dataTwo?.data?.assessment_id);
+          }
+          console.log("Data is here:", codeQues);
+          console.log('assessment id:', assessmentId);
+          if (data?.data?.assessment_id) {
+            setTestReq(true);
+          }
+
+          console.log("assessment id:", assessmentId);
+          console.log("code question data:", data);
+          
+          if(dataTwo?.data?.assessment_id){
+            console.log(`/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`)
+            router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`);
+          }
+        } catch (err) {
+          console.error("ERROR:", err);
+        }
+      }else{
+        router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}`);
+      }
     } catch (err) {
       setIsLoading(false);
       console.log("error:", err);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+    }, 7000);
     }
   };
 

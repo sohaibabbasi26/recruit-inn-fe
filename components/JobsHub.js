@@ -13,8 +13,8 @@ const JobsHub = ({
   const iconSize = 25;
   const goToAllIconSize = 15;
   const statusSize = 10;
-  const newArray = data?.slice(0, 2);
-  const hasData = newArray && newArray.length > 0;
+  
+  const hasData = data && data.length > 0;
   console.log("Jobs hub data:", data);
   const getBackgroundColor = (status) => {
     if (status === "Active") {
@@ -48,7 +48,7 @@ const JobsHub = ({
           </div>
           <div className={styles.subContainer}>
             {hasData ? (
-              newArray.map((item) => {
+              data.map((item) => {
                 return (
                   <div
                     onClick={() => {

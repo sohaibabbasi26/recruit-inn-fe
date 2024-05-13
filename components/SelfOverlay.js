@@ -94,6 +94,14 @@ const SelfOverlay = ({
   const [testReq, setTestReq] = useState(false);
   const [assessmentId, setAssessmentId] = useState(null);
   const [codeQues, setCodeQues] = useState(null);
+  const [skill1, setSkill1] = useState("");
+  const [skill2, setSkill2] = useState("");
+  const [level1, setLevel1] = useState("");
+  const [level2, setLevel2] = useState("");
+  const [isLevelEntered, setIsLevelEntered] = useState();
+  // const [testRequirement, setIsTestRequirement] = useState(false);
+
+  const [testRequirement, setTestRequirement] = useState(false);
 
   useEffect(() => {
     const reqBody = {
@@ -116,6 +124,26 @@ const SelfOverlay = ({
   }, [name, city, contact, password, email, expertise, country, techStack]);
 
   const toggleComponent = async () => {
+
+    const skills = [
+      { skill: skill1, level: level1 },
+      { skill: skill2, level: level2 },
+    ];
+
+    const isAnySkillEntered = skills.some(({ skill }) =>
+      skill.trim()
+    );
+
+    const areAllLevelsSelected = skills.every(
+      ({ skill, level }) => {
+        return skill.trim() ? level : true;
+      }
+    );
+
+    if (areAllLevelsSelected) {
+      setIsLevelEntered(true);
+    }
+
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
 
@@ -133,11 +161,14 @@ const SelfOverlay = ({
       setMessage("Please fill all the fields first");
       showError();
       return;
-      } else if (checkIfCandidateAlreadyThere() === true) { 
+    }
+    else if (currentStage === stages.PERSONAL_INFO && checkIfCandidateAlreadyThere() === true) {
       //   setMessage("Entered email is already registered");
       // showError();
       return;
-    } else if (
+    }
+
+    else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateEmailReceiver()
     ) {
@@ -169,6 +200,10 @@ const SelfOverlay = ({
       setMessage("At least enter one skill!");
       showError();
       return;
+    } else if (isAnySkillEntered && !areAllLevelsSelected) {
+      setMessage("Please select a level for the entered skills.");
+      showError();
+      return;
     }
 
     const newCompletedStages = [...completedStages, currentStage];
@@ -179,17 +214,24 @@ const SelfOverlay = ({
     } else {
       switch (currentStage) {
         case stages.PERSONAL_INFO:
+          const requestBody = {
+            name: name,
+            city: city,
+            contact_no: contact,
+            email: email,
+            over_all_exp: expertise,
+            country: country,
+            applied_through: "Self",
+            password: password,
+          };
 
-          if (email?.trim() && !checkIfEmailPresent) {
-            if (email?.trim()) {
-              setCurrentStage(stages.VERIFICATION);
-            } else if (result && checkIfEmailPresent === true) {
-            }
-            // console.log("in else if check if email present:");
-            // setMessage(
-            //   "Email you're using to register is already in use, try another one!"
-            // );
-            // showError();
+          console.log("Request body:", requestBody);
+          if (!checkIfEmailPresent) {
+            setCurrentStage(stages.VERIFICATION);
+            return;
+          }
+          else if (checkIfEmailPresent === true) {
+            setCurrentStage(stages.PERSONAL_INFO);
             return;
           }
           break;
@@ -311,6 +353,7 @@ const SelfOverlay = ({
   };
 
   const checkIfCandidateAlreadyThere = async () => {
+    setIsLoading(true);
     try {
       const reqBody = {
         email: email,
@@ -331,15 +374,19 @@ const SelfOverlay = ({
       console.log('data:', data);
       if (data?.data?.candidate_id) {
         setCheckIfEmailPresent(true);
+        setCurrentStage(stages.PERSONAL_INFO);
         setMessage('Entered email is already registered');
         showError();
       } else {
+        // setCurrentStage(stages.VERIFICATION);
+        await sendEmail(email);
         setCheckIfEmailPresent(false);
       }
-
       return checkIfEmailPresent;
     } catch (err) {
       console.log('ERR:', err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -359,6 +406,7 @@ const SelfOverlay = ({
         password: password,
       };
 
+      console.log("Request body:", requestBody);
       setPersonalInfo(requestBody);
 
       const response = await fetch(
@@ -379,13 +427,9 @@ const SelfOverlay = ({
         setCandidateId(data.data.data.candidate_id);
         setCandidate(data.data.data);
         await sendEmail(email);
-        // await checkIfCandidateAlreadyThere();
-        // setCheckIfEmailPresent(false);
         setIsLoading(false);
         return true;
       } else {
-        // setCheckIfEmailPresent(true);
-        // await checkIfCandidateAlreadyThere();
         setMessage(
           data?.message || "Email used for registering is already in use!"
         );
@@ -443,9 +487,11 @@ const SelfOverlay = ({
   }
 
   const verifyCode = async () => {
-    // const otpCode = otp.join("");
     const otpCode = otp;
+    console.log("generated code:", generatedCode);
+    console.log("entered otp code:", otpCode)
     if (generatedCode === otpCode) {
+      console.log("here in verify code if block");
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
       showSuccess();
@@ -510,8 +556,7 @@ const SelfOverlay = ({
       console.log("data in test preparation:", data);
       setIsLoading(false);
       console.log("Loading status", isLoading);
-    } catch (err) {
-      console.log("error:", err);
+
       if (isTestRequired === true) {
         try {
           setIsLoading(true);
@@ -530,20 +575,54 @@ const SelfOverlay = ({
             }
           );
           const data = await response.json();
-          setCodeQues(data);
-          setAssessmentId(data?.data?.assessment_id);
+          console.log("code data:", data);
+          if (data?.data?.assessment_id) {
+            setCodeQues(data);
+            setAssessmentId(data?.data?.assessment_id);
+          }
+          console.log("Data is here:", codeQues);
+          console.log('assessment id:', assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
+
           console.log("assessment id:", assessmentId);
           console.log("code question data:", data);
           setIsLoading(false);
         } catch (err) {
           console.error("ERROR:", err);
         }
+
+        try{
+          const req = {
+            is_test_req: isTestRequired,
+            candidate_id: candidateId,
+          };
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-cand-test-req`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(req),
+            }
+          );
+          const data = await response.json();
+          console.log("data is updated perfectly:",data);
+        }
+        catch(err){
+          console.log("ERROR:",err)
+        }
       }
+    } catch (err) {
+
+
+      console.log("error:", err);
     }
-  };
+
+  }
+
 
   useEffect(() => {
     console.log("code assessment id:", assessmentId);
@@ -640,9 +719,20 @@ const SelfOverlay = ({
               {currentStage === stages.SKILLS && (
                 <>
                   <CandSelfSkill
+                    skill1={skill1}
+                    skill2={skill2}
+                    setSkill1={setSkill1}
+                    setSkill2={setSkill2}
+                    level1={level1}
+                    level2={level2}
+                    setLevel1={setLevel1}
+                    setLevel2={setLevel2}
+                    isTestRequired={isTestRequired}
                     setIsTestRequired={setIsTestRequired}
                     handleTestPreparation={handleTestPreparation}
                     setTechStack={setTechStack}
+                    setTestRequirement={setTestRequirement}
+                    testRequirement={testRequirement}
                   />
 
                   <div className={styles.wrapper}>
@@ -660,6 +750,8 @@ const SelfOverlay = ({
                   <CandSelfAssessment />
                   <div className={styles.wrapper}>
                     <CandSelfAssessmentBtns
+                      isTestRequired={isTestRequired}
+                      assessmentId={assessmentId}
                       setIsLoading={setIsLoading}
                       questionId={questionId}
                       candidateId={candidateId}

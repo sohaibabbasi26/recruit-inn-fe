@@ -231,9 +231,8 @@ const PersonalInfo = forwardRef(
             </div>
             <div>
               <div
-                className={`${styles.infoField} ${
-                  contact ? styles.filled : ""
-                }`}
+                className={`${styles.infoField} ${contact ? styles.filled : ""
+                  }`}
               >
                 <Image src="/phone.svg" alt="Phone" width={20} height={20} />
                 <PhoneInput
@@ -253,9 +252,8 @@ const PersonalInfo = forwardRef(
 
             <div>
               <div
-                className={`${styles.infoField} ${
-                  expertise ? styles.filled : ""
-                }`}
+                className={`${styles.infoField} ${expertise ? styles.filled : ""
+                  }`}
               >
                 <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
                 <select
@@ -279,9 +277,8 @@ const PersonalInfo = forwardRef(
 
             <div>
               <div
-                className={`${styles.infoField} ${
-                  country ? styles.filled : ""
-                }`}
+                className={`${styles.infoField} ${country ? styles.filled : ""
+                  }`}
               >
                 <Image src="/earth.svg" width={20} height={20} />
                 <select
@@ -364,23 +361,21 @@ const PersonalInfo = forwardRef(
                 ))}
               </select>
 ======= */}
-            <div>
-              <div
-                className={`${styles.infoField} ${city ? styles.filled : ""}`}
-              >
-                <Image src="/aim.svg" width={20} height={20} />
-                <select
-                  disabled={country === undefined}
-                  onChange={(e) => setCity(e.target.value)}
-                >
-                  <option disabled={true}>Select city</option>
-                  {getCities(country)?.map((city) => (
-                    <option value={city}> {city} </option>
+          <div>
+            <div className={`${styles.infoField} ${country ? styles.filled : ""
+                  }`}>
+              <Image src="/aim.svg" width={20} height={20} alt="Aim" />
+              <select disabled={!country} onChange={(e) => setCity(e.target.value)}>
+                <option>Select city</option>
+                {country &&
+                  getCities(country)?.map((city, index) => (
+                    <option key={index} value={city}>
+                      {city}
+                    </option>
                   ))}
-                </select>
-              </div>
-              {/* >>>>>>> 1ff503ba8c5106ac7c7339ef41aa0718b229abae */}
+              </select>
             </div>
+          </div>
           </div>
         </div>
       </>
