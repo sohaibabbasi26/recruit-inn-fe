@@ -25,6 +25,7 @@
     "libphonenumber-js": "^1.10.61",
     "lodash.debounce": "^4.0.8",
     "next": "14.0.3",
+    "next-themes": "^0.3.0",
     "postcss": "^8.4.35",
     "puppeteer": "^21.11.0",
     "react": "^18.3.1",
