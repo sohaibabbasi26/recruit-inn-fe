@@ -65,7 +65,7 @@ export const options = {
         'Sat': 0
     };
 
-    preprocessedCandidates.forEach(candidate => {
+    preprocessedCandidates?.forEach(candidate => {
         const candidateDate = new Date(candidate.date);
         if (isThisWeek(candidateDate)) {
             const dayOfWeek = getDayOfWeek(candidate.date);

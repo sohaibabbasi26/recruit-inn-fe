@@ -5,6 +5,7 @@ import gsap from "gsap";
 import ErrorIndicator from "./ErrorIndicator";
 import SuccessIndicator from "./SuccessIndicator";
 import { getSvg } from "@/util/helpers";
+import parse from 'html-react-parser';
 
 const JobOverlay = ({
   showError,
@@ -340,8 +341,8 @@ const JobOverlay = ({
                 </button>
               )}
             </div>
-
-            <div className={styles.description}>{selectedJob?.description}</div>
+            
+            <div className={styles.description}>{selectedJob?.description ? ( parse(selectedJob?.description)) : ('')}</div>
             {/* skils section */}
 
             <div className={styles.techContainer}>

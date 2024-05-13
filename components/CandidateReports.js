@@ -138,7 +138,7 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
                                   />
                                   <span>{skill.skill}</span>
                                 </div>
-                                <p>3+ Years</p>
+                                {/* <p>3+ Years</p> */}
                               </li>
                             </>
                           );

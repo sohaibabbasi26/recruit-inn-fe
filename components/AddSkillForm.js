@@ -230,7 +230,7 @@ const AddSkillForm = forwardRef(
               checked={isTestRequired}
               onChange={handleTestRequirementChange}
             />
-            <label htmlFor="code-assignment">Add a cooding assignment</label>
+            <label htmlFor="code-assignment">Add a coding assignment</label>
           </div>
         </form>
       </>
