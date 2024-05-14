@@ -117,8 +117,9 @@ export default function PaymentMethods() {
           priceColor={style["gradient-text"]}
         />
         <PaymentCard
-          bgColor={theme === "dark" ? style["payment-pro-gradient"] : "bg-white"}
-        
+          bgColor={
+            theme === "dark" ? style["payment-pro-gradient"] : "bg-white"
+          }
           headingColor={"text-lightPurpleText"}
           smallTextColor={"text-lightText"}
           borderColor={theme === "dark" ? "border-somePurple" : "border-black"}
@@ -127,7 +128,9 @@ export default function PaymentMethods() {
           priceColor={style["gradient-text"]}
         />
         <PaymentCard
-          bgColor={theme === "dark" ? style["payment-enterprise-gradient"]  : "bg-white"}
+          bgColor={
+            theme === "dark" ? style["payment-enterprise-gradient"] : "bg-white"
+          }
           headingColor={"text-goldenTextColor"}
           smallTextColor={"text-goldenLightText"}
           borderColor={"border-goldenTextColor"}
@@ -140,18 +143,7 @@ export default function PaymentMethods() {
       <div className="hidden max-md:block">
         <div className="flex h-[100%] w-[100%] flex-col items-center mb-[3rem] max-md:text-center">
           <PaymentCard
-          bgColor={theme === "dark" ? "bg-black" : "bg-white"}
-          headingColor={"text-lightPurpleText"}
-            smallTextColor={"text-lightText"}
-            borderColor={"border-somePurple"}
-            bg={" bg-darkPaymentPurple"}
-            img={"/included.png"}
-            priceColor={style["gradient-text"]}
-          />
-        </div>
-        <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
-          <PaymentCard
-            bgColor={"bg-black"}
+            bgColor={theme === "dark" ? "bg-black" : "bg-white"}
             headingColor={"text-lightPurpleText"}
             smallTextColor={"text-lightText"}
             borderColor={"border-somePurple"}
@@ -162,7 +154,20 @@ export default function PaymentMethods() {
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
           <PaymentCard
-            bgColor={"payment-pro-gradient"}
+            bgColor={theme === "dark" ? "bg-black" : "bg-white"}
+            headingColor={"text-lightPurpleText"}
+            smallTextColor={"text-lightText"}
+            borderColor={"border-somePurple"}
+            bg={" bg-darkPaymentPurple"}
+            img={"/included.png"}
+            priceColor={style["gradient-text"]}
+          />
+        </div>
+        <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
+          <PaymentCard
+            bgColor={
+              theme === "dark" ? style["payment-pro-gradient"] : "bg-white"
+            }
             headingColor={"text-lightPurpleText"}
             smallTextColor={"text-lightText"}
             borderColor={"border-somePurple"}
@@ -173,7 +178,11 @@ export default function PaymentMethods() {
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
           <PaymentCard
-            bgColor={"payment-enterprise-gradient"}
+            bgColor={
+              theme === "dark"
+                ? style["payment-enterprise-gradient"]
+                : "bg-white"
+            }
             headingColor={"text-goldenTextColor"}
             smallTextColor={"text-goldenLightText"}
             borderColor={"border-goldenTextColor"}

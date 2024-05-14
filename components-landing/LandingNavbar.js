@@ -32,7 +32,13 @@ const LandingNavbar = ({
                   <Image src="/logo (3).png" height={30} width={30} />
                   recruitinn.ai
                 </h2>
-               
+                <button
+                  className="px-4 py-2 text-steel dark:text-white bg-gray-100 dark:bg-gray-900 rounded-3xl text-sm md:text-base lg:text-xl"
+                  onClick={toggleTheme}
+                >
+                  {theme === "dark" ? "Light" : "Dark"}
+                </button>
+
                 <ul className="flex text-steel dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
                   <li
                     onClick={() => scrollToRef(howItWorksRef)}
@@ -96,13 +102,6 @@ const LandingNavbar = ({
                     </button>
                   </a>{" "}
                 </div>
-                <button
-                  className="px-4 py-2 text-steel dark:text-white bg-gray-100 dark:bg-gray-900 rounded-3xl text-sm md:text-base lg:text-xl"
-                  onClick={toggleTheme}
-                >
-                  {theme === "dark" ? "Light" : "Dark"}
-                </button>
-
               </div>
             </div>
           </div>
