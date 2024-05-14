@@ -41,11 +41,11 @@ const LandingFAQs = () => {
 
     return (
         <>
-            <div className="h-auto w-[100%]  max-md:items-center flex justify-center text-white items-center flex-col">
-                <div className="h-100p w-100p mb-[2rem] flex justify-center text-white items-center flex-col ">
+            <div className="h-auto w-[100%]  max-md:items-center flex justify-center text-black dark:text-white  items-center flex-col">
+                <div className="h-100p w-100p mb-[2rem] flex justify-center text-black dark:text-white  items-center flex-col ">
                     <div className="h-[20%] w-[90%] flex flex-col items-center justify-center">
                         <h2 className="text-4xl font-sans font-semibold">FAQs</h2>
-                        <p className="text-sm mt-3 text-smallText">Answers to the most frequently asked questions.</p>
+                        <p className="text-sm mt-3 text-black dark:text-white ">Answers to the most frequently asked questions.</p>
 
 
                     </div>

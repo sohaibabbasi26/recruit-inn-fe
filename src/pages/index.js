@@ -13,28 +13,50 @@ import LandingFifth from "../../components-landing/LandingFifth";
 import { useRef } from "react";
 
 const LandingPage = () => {
-    const LandingThirdRef = useRef(null);
-    const howItWorksRef = useRef(null);
-    const PaymentMethodsRef = useRef(null);
-    const FAQRef = useRef(null);
-    const HeroRef = useRef(null);
-    const scrollToRef = (ref) => ref.current?.scrollIntoView({ behavior: 'smooth' });
+  const LandingThirdRef = useRef(null);
+  const howItWorksRef = useRef(null);
+  const PaymentMethodsRef = useRef(null);
+  const FAQRef = useRef(null);
+  const HeroRef = useRef(null);
+  const scrollToRef = (ref) =>
+    ref.current?.scrollIntoView({ behavior: "smooth" });
 
-    return (
-        <>
-            <div className="bg-black h-[100%] w-full">
-                <LandingNavbar scrollToRef={scrollToRef} HeroRef={HeroRef} LandingThirdRef={LandingThirdRef} howItWorksRef={howItWorksRef} />
-                <div ref={HeroRef}><HeroSection /></div>
-                <LandingVideo />
-                <div ref={LandingThirdRef}><LandingThird /></div>
-                <LandingFourth />
-                <div ref={howItWorksRef}><HowItWorks /></div>
-                <div ref={PaymentMethodsRef}><PaymentMethods/></div>
-                <div ref={FAQRef}><LandingFAQs /></div>
-                <Footer scrollToRef={scrollToRef} HeroRef={HeroRef} FAQRef= {FAQRef} howItWorksRef={howItWorksRef} PaymentMethodsRef = {PaymentMethodsRef}/>
-            </div>
-        </>
-    )
-}
+  return (
+    <>
+      <div className=" bg-white dark:bg-black h-[100%] w-full">
+        <LandingNavbar
+          scrollToRef={scrollToRef}
+          HeroRef={HeroRef}
+          LandingThirdRef={LandingThirdRef}
+          howItWorksRef={howItWorksRef}
+        />
+        <div ref={HeroRef}>
+          <HeroSection />
+        </div>
+        <LandingVideo />
+        <div ref={LandingThirdRef}>
+          <LandingThird />
+        </div>
+        <LandingFourth />
+        <div ref={howItWorksRef}>
+          <HowItWorks />
+        </div>
+        <div ref={PaymentMethodsRef}>
+          <PaymentMethods />
+        </div>
+        <div ref={FAQRef}>
+          <LandingFAQs />
+        </div>
+        <Footer
+          scrollToRef={scrollToRef}
+          HeroRef={HeroRef}
+          FAQRef={FAQRef}
+          howItWorksRef={howItWorksRef}
+          PaymentMethodsRef={PaymentMethodsRef}
+        />
+      </div>
+    </>
+  );
+};
 
-export default LandingPage; 
+export default LandingPage;
