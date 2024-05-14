@@ -13,6 +13,7 @@ import PersonalInfoBtns from "./PersonalInfoBtns";
 import PersonalInfoSelf from "./PersonalInfoself";
 import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
+import PersonalInfoSelfBtns from "./PersonalInfoSelfBtns";
 
 const SelfOverlay = ({
   showOverlay,
@@ -321,6 +322,12 @@ const SelfOverlay = ({
     }
     return true;
   };
+  const validatePasswordReciever = () =>{
+    if(password.length  < 8){
+      return false;
+    }
+    return true;
+  }
 
   const validateNumber = (contact) => {
     const num = parseInt(contact);
@@ -353,8 +360,11 @@ const SelfOverlay = ({
     const phoneRegex = /^\+[1-9]\d{6,14}$/;
     return phoneRegex.test(phone);
   }
+  // const isvalidpassword = (password) => {
+    
+  // }
   const validatePassword = (password) => {
-    if (password.length < 8) {
+    if (password && password.length < 8) {
       setMessage("Password must be at least 8 characters long.");
       showError();
       return false;
@@ -695,16 +705,16 @@ const SelfOverlay = ({
                     setIsTestRequired={setIsTestRequired}
                   />
                   <div className={styles.wrapper}>
-                    <PersonalInfoBtns
-                      showSuccess={showSuccess}
-                      setMessage={setMessage}
-                      validateEmailReceiver={validateEmailReceiver}
-                      validateNameReceiver = {validateNameReceiver}
-                      validateContactReciever = {validateContactReciever}
-                      validatePassword ={validatePassword}
-                      showError={showError}
-                      onContinue={toggleComponent}
-                      onBack={backToggleComponent}
+                    <PersonalInfoSelfBtns 
+                    showSuccess={showSuccess}
+                    setMessage={setMessage}
+                    validateEmailReceiver={validateEmailReceiver}
+                    validateNameReceiver = {validateNameReceiver}
+                    validateContactReciever = {validateContactReciever}
+                    validatePasswordReciever ={validatePasswordReciever}
+                    showError={showError}
+                    onContinue={toggleComponent}
+                    onBack={backToggleComponent}
                     />
                   </div>
                 </>

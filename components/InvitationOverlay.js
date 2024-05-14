@@ -206,11 +206,8 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             (name && name.trim() !== '') &&
             (email && email.trim() !== '') &&
             (contact && contact.trim() !== '') &&
-            (expertise && expertise.trim() !== '') &&
-            (country && country.trim() !== '') &&
-            (city && city.trim() !== '')
+            (expertise && expertise.trim() !== '') 
         );
-       
     }
    
     const handleContinue = () => {

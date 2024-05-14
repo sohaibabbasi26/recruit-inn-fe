@@ -170,7 +170,7 @@ const Overlay = React.memo(
       const countryValid = countryRef.current && countryRef.current.value.trim() !== "";
       const jobTypeValid = jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
       const descriptionValid = description && description.trim() !== "";
-    
+      
       return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
     };
     
@@ -203,7 +203,6 @@ const Overlay = React.memo(
       ];
 
       let isValid = false;
-      let isValiddescription = false;
 
       const isAnySkillEntered = skillsWithLevels.some(({ skill }) =>
         skill.trim()
@@ -239,17 +238,15 @@ const Overlay = React.memo(
           break;
         case stages.JOB_TYPE:
           isValid = validateJobType();
-          
-          if (!isValid) {
+          if (!isValid){
             setMessage("Please fill all the fields.");
             showError();
             return;
           }
            else if(description.length > 3000) {
-             setMessage("Maximum 3000 words limit");
-            showError();
-            return;
-            
+              setMessage("Maximum 3000 words limit");
+              showError();
+              return;
            }
 
 
