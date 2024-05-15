@@ -367,7 +367,7 @@ const CandidatesSelfHub = ({
                       />
                       <h2>Welcome, {name} </h2>
                       <p>
-                        Are you ready to tackle the AI Assessment to stand out
+                        Are you ready to take the AI Assessment to stand out
                         amongst other candidates?
                       </p>
                       {!isDisable && (
