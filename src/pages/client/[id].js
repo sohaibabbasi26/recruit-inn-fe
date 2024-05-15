@@ -300,17 +300,22 @@ export default function Home({
       const completedCandidates = processedData.filter(candidate => candidate.results);
       setPreprocessedCandidates(completedCandidates);
       console.log("pre processed data:", preprocessedCandidates);
+      
       const filterRecommended = (candidate) =>
-        Math.ceil(candidate?.results?.technicalRating) >= 7 &&
-        Math.ceil(candidate?.results?.technicalRating) <= 10;
+        candidate?.results?.technicalRating >= 7 &&
+        candidate?.results?.technicalRating <= 10;
+      
       const filterQualified = (candidate) =>
-        Math.ceil(candidate?.results?.technicalRating) >= 5 &&
-        Math.ceil(candidate?.results?.technicalRating) < 7;
+        candidate?.results?.technicalRating >= 5 &&
+        candidate?.results?.technicalRating < 7;
+      
       const filterNotEligible = (candidate) =>
-        Math.ceil(candidate?.results?.technicalRating) < 5;
+        candidate?.results?.technicalRating < 5;
+      
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+
       console.log("Recommended Candidate:", recommendedCand);
       console.log("Qualified Candidate:", qualifiedCand);
       console.log("Not Eligible Candidate:", notEligibleCand);

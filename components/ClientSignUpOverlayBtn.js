@@ -3,7 +3,7 @@ import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const ClientSignUpOverlayBtn = ({password ,confirmPassword,validatephoneReceiver , email, fillValidity, validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
+const ClientSignUpOverlayBtn = ({password ,confirmPassword,validatephoneReceiver , email, fillValidity,validateNameReceiver , validateEmailReceiver, showError, showSuccess, setMessage, onContinue, onBack, setCompletedStages, completedStages, onClose, handleFormSubmit }) => {
     const router = useRouter();
 
     const onAddClientHandler = async () => {
@@ -19,7 +19,12 @@ const ClientSignUpOverlayBtn = ({password ,confirmPassword,validatephoneReceiver
             showError();
             return
         }
+        if (!validateNameReceiver()) {
+            setMessage("Please enter a valid name")
+            showError();
 
+            return;
+        }
         if (!validateEmailReceiver()) {
             setMessage("Please enter a valid email address")
             showError();

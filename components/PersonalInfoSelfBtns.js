@@ -3,7 +3,7 @@ import styles from './RightBottomBtns.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const PersonalInfoBtns = ({ showSuccess, validateEmailReceiver, validateContactReciever , validateNameReceiver , onBack , fillValidity, showError, showErrorMessage ,setMessage, onContinue  , setCompletedStages, completedStages, onClose }) => {
+const PersonalInfoSelfBtns = ({ showSuccess, validatePasswordReciever , validateEmailReceiver, validateContactReciever , validateNameReceiver , onBack , fillValidity, showError, showErrorMessage ,setMessage, onContinue  , setCompletedStages, completedStages, onClose }) => {
     
 
     const navigationIconSize = 30;
@@ -21,25 +21,31 @@ const PersonalInfoBtns = ({ showSuccess, validateEmailReceiver, validateContactR
         //     showError();
         //     return
         // }
-        // if (!validateNameReceiver()) {
-        //     setMessage("Please enter a valid name")
-        //     showError();
-        //     return;
-        // }
+        if (!validateNameReceiver()) {
+            setMessage("Please enter a valid name")
+            showError();
+            return;
+        }
         
-        // if (!validateEmailReceiver()) {
-        //     setMessage("Please enter a valid email address")
-        //     showError();
-        //     console.log("in email validatity!")
-        //     return;
-        // }
+        if (!validateEmailReceiver()) {
+            setMessage("Please enter a valid email address")
+            showError();
+            console.log("in email validatity!")
+            return;
+        }
 
-        // if (!validateContactReciever()) {
-        //     setMessage("Please enter a valid Contact number")
-        //     showError();
+        if (!validateContactReciever()) {
+            setMessage("Please enter a valid Contact number")
+            showError();
 
-        //     return;
-        // }
+            return;
+        }
+        if (!validatePasswordReciever()) {
+            setMessage("Please should be 8 charcters long")
+            showError();
+            return;
+        }
+
 
         // if (password !== confirmPassword) {
         //     console.log("in password validity!")
@@ -63,4 +69,4 @@ const PersonalInfoBtns = ({ showSuccess, validateEmailReceiver, validateContactR
     )
 };
 
-export default PersonalInfoBtns;
+export default PersonalInfoSelfBtns;
