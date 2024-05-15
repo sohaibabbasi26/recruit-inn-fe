@@ -157,6 +157,8 @@ import { forwardRef, useState, useContext } from "react";
 import styles from "./PersonalInfo.module.css";
 import Image from "next/image";
 import PhoneInput from "react-phone-number-input";
+import { findFlagUrlByCountryName } from "country-flags-svg";
+
 const PersonalInfo = forwardRef(
   (
     {
@@ -231,8 +233,9 @@ const PersonalInfo = forwardRef(
             </div>
             <div>
               <div
-                className={`${styles.infoField} ${contact ? styles.filled : ""
-                  }`}
+                className={`${styles.infoField} ${
+                  contact ? styles.filled : ""
+                }`}
               >
                 <Image src="/phone.svg" alt="Phone" width={20} height={20} />
                 <PhoneInput
@@ -252,8 +255,9 @@ const PersonalInfo = forwardRef(
 
             <div>
               <div
-                className={`${styles.infoField} ${expertise ? styles.filled : ""
-                  }`}
+                className={`${styles.infoField} ${
+                  expertise ? styles.filled : ""
+                }`}
               >
                 <Image src="/Case.svg" alt="Expertise" width={20} height={20} />
                 <select
@@ -277,10 +281,19 @@ const PersonalInfo = forwardRef(
 
             <div>
               <div
-                className={`${styles.infoField} ${country ? styles.filled : ""
-                  }`}
+                className={`${styles.infoField} ${
+                  country ? styles.filled : ""
+                }`}
               >
-                <Image src="/earth.svg" width={20} height={20} />
+                {/* <Image src=" /earth.svg"  width={20} height={20} /> */}
+                <Image
+                  className={country ? styles.countryField : ""}
+                  src={
+                    country ? findFlagUrlByCountryName(country) : "/earth.svg"
+                  }
+                  width={20}
+                  height={20}
+                />
                 <select
                   defaultValue="no-value"
                   onChange={(e) => setCountry(e.target.value)}
@@ -366,26 +379,34 @@ const PersonalInfo = forwardRef(
                 ))}
               </select>
 ======= */}
-          <div>
-            <div className={`${styles.infoField} ${country ? styles.filled : ""
-                  }`}>
-              <Image src="/aim.svg" width={20} height={20} alt="Aim" />
-              <select defaultValue="no-value" onChange={(e) => setCity(e.target.value)}>
-                <option disabled value="no-value">Select city</option>
-                {country &&
-                  getCities(country)?.map((city, index) => (
-                    <option key={index} value={city}>
-                      {city}
-                    </option>
-                  ))}
-              </select>
-              {validationErrors?.country && (
+            <div>
+              <div
+                className={`${styles.infoField} ${
+                  country ? styles.filled : ""
+                }`}
+              >
+                <Image src="/aim.svg" width={20} height={20} alt="Aim" />
+                <select
+                  defaultValue="no-value"
+                  onChange={(e) => setCity(e.target.value)}
+                >
+                  <option disabled value="no-value">
+                    Select city
+                  </option>
+                  {country &&
+                    getCities(country)?.map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                </select>
+                {validationErrors?.country && (
                   <div className={styles.errorMessage}>
                     {validationErrors.country}
                   </div>
                 )}
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </>

@@ -81,6 +81,12 @@
   background-color: #f8f7fa;
 }
 
+.infoField .countryField {
+  height: 30px !important;
+  width: 30px !important;
+  border-radius: 50% !important;
+}
+
 .errorsContainer {
   width: 100%;
   height: 70%;
