@@ -394,7 +394,7 @@ const ClientSignUpOverlay = ({
 
   const router = useRouter();
   const infoSymbolSize = 20;
-  const [currentStage, setCurrentStage] = useState(stages.CLIENT_INFO);
+  const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
   const [clientname, setClientname] = useState(null);
   const [companyname, setCompanyname] = useState(null);
@@ -438,10 +438,10 @@ const ClientSignUpOverlay = ({
     return true;
   };
 
-  const isvalidname = (name) =>{
+  const isvalidname = (name) => {
     const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
     return nameRegex.test(name);
-  }
+  };
 
   const isvalidcontact = (contact) => {
     const phoneRegex = /^\+[1-9]\d{6,14}$/;
@@ -470,7 +470,7 @@ const ClientSignUpOverlay = ({
 
   let link;
   useEffect(() => {
-    setCurrentStage(stages.CLIENT_INFO);
+    setCurrentStage(stages.PERSONAL_INFO);
   }, []);
 
   useEffect(() => {}, [companyId, email]);
@@ -637,7 +637,7 @@ const ClientSignUpOverlay = ({
         <div className={styles.superContainer}>
           <div className={styles.coverContainer}>
             <div className={styles.topContainer}>
-              <h2>Personal Info</h2>
+              <h2>Client Signup</h2>
             </div>
 
             <Stages
@@ -646,7 +646,7 @@ const ClientSignUpOverlay = ({
               completedStages={completedStages}
             />
 
-            {currentStage === stages.CLIENT_INFO && !isLoading && (
+            {currentStage === stages.PERSONAL_INFO && !isLoading && (
               <>
                 <ClientInfo
                   clientName={clientname}
@@ -678,7 +678,7 @@ const ClientSignUpOverlay = ({
                     showError={showError}
                     setMessage={setMessage}
                     fillValidity={fillValidity}
-                    validateNameReceiver = {validateNameReceiver}
+                    validateNameReceiver={validateNameReceiver}
                     validateEmailReceiver={validateEmailReceiver}
                     validatephoneReceiver={validatephoneReceiver}
                     showSuccess={showSuccess}
