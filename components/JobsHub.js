@@ -13,7 +13,7 @@ const JobsHub = ({
   const iconSize = 25;
   const goToAllIconSize = 15;
   const statusSize = 10;
-  
+
   const hasData = data && data.length > 0;
   console.log("Jobs hub data:", data);
   const getBackgroundColor = (status) => {
@@ -43,7 +43,15 @@ const JobsHub = ({
           <div className={styles.headingContainer}>
             <div className={styles.heading}>
               <h3>{heading}</h3>
-              <span>{data.length}</span>
+              {/* <span>{data.length <= 9 ? `0${data.length}` : data.length} </span> */}
+              <span>
+                {" "}
+                {!data?.length
+                  ? 0
+                  : data?.length <= 9
+                  ? `0${data?.length}`
+                  : data?.length}{" "}
+              </span>
             </div>
           </div>
           <div className={styles.subContainer}>
@@ -59,14 +67,13 @@ const JobsHub = ({
                     <div className={styles.topContainer}>
                       <h3>{item?.position}</h3>
                       <div className={styles.rightTopBtns}>
-                        <span>{item?.applied_candidates_count === 0 ? (
-                          'No Candidates Yet'
-                        ) :
-                          item?.applied_candidates_count === 1 ? (
-                            item?.applied_candidates_count + ' Candidate'
-                          ) : (
-                            item?.applied_candidates_count + ' Candidates'
-                          )}</span>
+                        <span>
+                          {item?.applied_candidates_count === 0
+                            ? "No Candidates Yet"
+                            : item?.applied_candidates_count === 1
+                            ? item?.applied_candidates_count + " Candidate"
+                            : item?.applied_candidates_count + " Candidates"}
+                        </span>
                         <Image
                           src="/rightArrow.svg"
                           height={iconSize}

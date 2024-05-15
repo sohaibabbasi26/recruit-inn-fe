@@ -3,8 +3,15 @@ import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
 
-const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setReportOverlay, setSelectedCandidate, isLoading, setIsLoading }) => {
-
+const CandidateReports = ({
+  selectedCandidate,
+  candidateReps,
+  reportOverlay,
+  setReportOverlay,
+  setSelectedCandidate,
+  isLoading,
+  setIsLoading,
+}) => {
   const calculateCumulativeMean = (val1, val2, val3) => {
     console.log("val1:", val1, "val2:", val2);
 
@@ -41,10 +48,10 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
   const hasData = newArray && newArray.length > 0;
 
   const cardClickHandler = (candidate) => {
-    setSelectedCandidate(candidate);  
+    setSelectedCandidate(candidate);
     setReportOverlay(!reportOverlay);
   };
-  
+
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {
       return "#E7FFE0";
@@ -65,7 +72,14 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
         <div className={styles.headingContainer}>
           <div className={styles.heading}>
             <h3>Candidate Reports</h3>
-            <span>{candidateReps.length}</span>
+            {/* <span>{candidateReps.length}</span> */}
+            <span>
+              {!candidateReps?.length
+                ? 0
+                : candidateReps?.length <= 9
+                ? `0${candidateReps?.length}`
+                : candidateReps?.length}
+            </span>
           </div>
           <Image
             src="/goAll.svg"

@@ -52,7 +52,14 @@ const Jobs = ({
         <div className={styles.headingContainer}>
           <div className={styles.heading}>
             <h3>Posted Jobs</h3>
-            <span>{ data?.length || 0}</span>
+            <span>
+              {/* {data?.length || 0} */}
+              {!data?.length
+                ? 0
+                : data?.length <= 9
+                ? `0${data?.length}`
+                : data?.length}
+            </span>
           </div>
           <Image
             src="/goAll.svg"
@@ -73,14 +80,13 @@ const Jobs = ({
                   <h3>{item?.position}</h3>
                   <div className={styles.rightTopBtns}>
                     {/* <span>{}</span> */}
-                    <span>{item?.applied_candidates_count === 0 ? (
-                      'No Candidates Yet'
-                    ): 
-                      item?.applied_candidates_count === 1 ? (
-                        item?.applied_candidates_count + ' Candidate'
-                    ) : (
-                      item?.applied_candidates_count + ' Candidates'
-                    )}</span>
+                    <span>
+                      {item?.applied_candidates_count === 0
+                        ? "No Candidates Yet"
+                        : item?.applied_candidates_count === 1
+                        ? item?.applied_candidates_count + " Candidate"
+                        : item?.applied_candidates_count + " Candidates"}
+                    </span>
 
                     <Image
                       src="/rightArrow.svg"
