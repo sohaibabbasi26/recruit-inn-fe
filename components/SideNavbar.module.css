@@ -145,13 +145,13 @@
   /* margin-top: 1rem; */
   background-color: #f0edfc;
   color: #6137db;
-  /*font-weight: 700;
+  font-weight: 700;
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 80%;
-  border-radius: 40px; */
+  border-radius: 40px;
 }
 
 .dashboardButton:hover,
