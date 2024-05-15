@@ -10,14 +10,25 @@ import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 
 import LandingFifth from "../../components-landing/LandingFifth";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
 
 const LandingPage = () => {
+  const [mounted, setMounted] = useState(false);
   const LandingThirdRef = useRef(null);
   const howItWorksRef = useRef(null);
   const PaymentMethodsRef = useRef(null);
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   const scrollToRef = (ref) =>
     ref.current?.scrollIntoView({ behavior: "smooth" });
 

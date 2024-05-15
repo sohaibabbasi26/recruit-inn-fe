@@ -13,8 +13,7 @@ function MyApp({ Component, pageProps }) {
     <TestStateProvider>
       <ActiveFlowProvider>
         <ActiveItemProvider>
-          <ThemeProvider attribute="class" defaultTheme="light">
-            {}
+          <ThemeProvider attribute="class">
             <Component {...pageProps} />
           </ThemeProvider>
         </ActiveItemProvider>
