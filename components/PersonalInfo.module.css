@@ -22,6 +22,12 @@
   font-size: 0.75rem;
   text-align: center;
   color: red;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  top: calc(100% - 7px);
 }
 
 .infoField {
@@ -35,6 +41,7 @@
   /* max-height: 50%; */
   font-size: 2rem;
   padding-left: 10px;
+  position: relative;
 }
 
 .infoField input {
@@ -119,9 +126,9 @@
 
 /* 1024px */
 @media screen and (max-width: 64em) {
-  .errorMessage {
+  /* .errorMessage {
     position: relative;
     top: -5px;
     height: 0px;
-  }
+  } */
 }
