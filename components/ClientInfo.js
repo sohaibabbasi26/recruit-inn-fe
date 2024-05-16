@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
+import { findFlagUrlByCountryName } from "country-flags-svg";
+
 import PhoneInput from "react-phone-number-input";
 import ShowPassword from "./ShowPassword";
 
@@ -36,7 +38,7 @@ const ClientInfo = ({
 
   const handleInputChange = (setter) => (event) => {
     setter(event.target.value);
-    console.log(getCities(country));
+    // console.log(getCities(country));
   };
 
   return (
@@ -72,7 +74,9 @@ const ClientInfo = ({
             placeholder="Company Name"
             onChange={(e) => setCompanyname(e.target.value)}
           />
-            {validationErrors?.name && <div className={styles.errorMessage}>{validationErrors.name}</div>}
+          {validationErrors?.name && (
+            <div className={styles.errorMessage}>{validationErrors.name}</div>
+          )}
         </div>
 
         {/* Email Input */}
@@ -87,7 +91,9 @@ const ClientInfo = ({
             placeholder="Business Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-            {validationErrors?.email && <div className={styles.errorMessage}>{validationErrors.name}</div>}
+          {validationErrors?.email && (
+            <div className={styles.errorMessage}>{validationErrors.name}</div>
+          )}
         </div>
 
         {/* Phone Input with Validation */}
@@ -106,7 +112,9 @@ const ClientInfo = ({
             onChange={setPhoneNo}
             className={styles.phoneInput}
           />
-            {validationErrors?.phoneNo && <div className={styles.errorMessage}>{validationErrors.name}</div>}
+          {validationErrors?.phoneNo && (
+            <div className={styles.errorMessage}>{validationErrors.name}</div>
+          )}
         </div>
 
         {/* Account Manager Input */}
@@ -125,7 +133,9 @@ const ClientInfo = ({
             onChange={(e) => setPassword(e.target.value)}
           />
           <ShowPassword pass={showPassword} setPass={setShowPassword} />
-          {validationErrors?.password && <div className={styles.errorMessage}>{validationErrors.name}</div>}
+          {validationErrors?.password && (
+            <div className={styles.errorMessage}>{validationErrors.name}</div>
+          )}
         </div>
 
         <div
@@ -143,7 +153,9 @@ const ClientInfo = ({
             pass={showConfirmPassword}
             setPass={setShowConfirmPassword}
           />
-            {validationErrors?.confirmPassword && <div className={styles.errorMessage}>{validationErrors.name}</div>}
+          {validationErrors?.confirmPassword && (
+            <div className={styles.errorMessage}>{validationErrors.name}</div>
+          )}
         </div>
 
         <div
@@ -175,13 +187,28 @@ const ClientInfo = ({
         </div>
 
         {/* Country Selection */}
-        <div className={`${styles.inputField} ${country ? styles.filled : ""}`}>
-          <Image
+        {/* <div className={`${styles.inputField} ${country ? styles.filled : ""}`}> */}
+        <div
+          className={`${styles.inputField} ${country ? styles.filled : ""} ${
+            country && findFlagUrlByCountryName(country) && styles.countryField
+          }`}
+        >
+          {/* <Image
             src="/earth.svg"
             width={iconSize}
             height={iconSize}
             alt="Earth"
+          /> */}
+          <Image
+            src={
+              country
+                ? findFlagUrlByCountryName(country) || "/earth.svg"
+                : "/earth.svg"
+            }
+            width={20}
+            height={20}
           />
+
           <select onChange={(e) => setCountry(e.target.value)}>
             <option>Select country</option>
             {countryList.map((country, index) => (
