@@ -30,16 +30,16 @@ const CodingLeftComponent = ({ question }) => {
                         <h3 className="text-xl font-semibold font-sans">Example:</h3>
                         <ul>
                             <li className="flex  items-center gap-3 text-[#ACA7BA]">
-                                Input <span className="py-2 text-black border-[#D3CFFC] rounded-md bg-[#F0F3FF] px-2 border-[1px] ">{question?.exampleInput}</span>
+                                Input <span className="py-2 text-black border-[#D3CFFC] rounded-md bg-[#F0F3FF] px-2 border-[1px] w-3/5">{question?.exampleInput}</span>
                             </li>
                         </ul>
                         <ul>
+
                             <li className="flex  items-center gap-3 text-[#ACA7BA]">
-                                Output <span className="py-2 text-black border-[#D3CFFC] rounded-md bg-[#F0F3FF] px-2 border-[1px] ">{question?.exampleOutput}</span>
+                                Output<span className="py-2 text-black border-[#D3CFFC] rounded-md bg-[#F0F3FF] px-2 border-[1px] w-3/5 break-all">{question?.exampleOutput}</span>
                             </li>
                         </ul>
-
-
+                        
                         <h3 className="text-xl font-semibold font-sans">Constraints:</h3>
                         {/* {question?.constraints?.length > 0 ? (question?.constraints?.map((constraint) => {
                             return (

@@ -292,6 +292,11 @@ const PersonalInfo = forwardRef(
                     <option value={country}> {country} </option>
                   ))}
                 </select>
+                {validationErrors?.country && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.country}
+                  </div>
+                )}
               </div>
             </div>
             {/* <<<<<<< HEAD
@@ -365,8 +370,8 @@ const PersonalInfo = forwardRef(
             <div className={`${styles.infoField} ${country ? styles.filled : ""
                   }`}>
               <Image src="/aim.svg" width={20} height={20} alt="Aim" />
-              <select disabled={!country} onChange={(e) => setCity(e.target.value)}>
-                <option>Select city</option>
+              <select defaultValue="no-value" onChange={(e) => setCity(e.target.value)}>
+                <option disabled value="no-value">Select city</option>
                 {country &&
                   getCities(country)?.map((city, index) => (
                     <option key={index} value={city}>
@@ -374,6 +379,11 @@ const PersonalInfo = forwardRef(
                     </option>
                   ))}
               </select>
+              {validationErrors?.country && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.country}
+                  </div>
+                )}
             </div>
           </div>
           </div>

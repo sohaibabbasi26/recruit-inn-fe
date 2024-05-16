@@ -236,6 +236,10 @@ const SelfReportOverlay = ({
                     <span>{contact ? contact : "03122597173"}</span>
                   </li>
                   <li>
+                    <span className={styles.bold}>Name: </span>
+                    <span>{selectedCandidate?.name || candName }</span>
+                  </li>
+                  <li>
                     <span className={styles.bold}>Date: </span>
                     <span>{date || selectedCandidate?.createdAt}</span>
                   </li>
