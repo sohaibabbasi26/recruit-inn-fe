@@ -56,7 +56,7 @@ const HeroSection = () => {
                                             <Image src='/Bitmoji.svg' width={20} height={20} />
                                         </div>
 
-                                        <span className="text-sm" >Dwayne Johnson</span>
+                                        <span  className="text-sm" >Dwayne Johnson</span>
                                     </div>
 
                                     <div className="w-80p justify-center flex flex-col space-y-8 mb-[6rem] ">

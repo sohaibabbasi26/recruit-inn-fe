@@ -89,6 +89,19 @@
   height: 10%;
   gap: 1rem;
 }
+.recordingPopup {
+  position: absolute;
+  z-index: 10;
+  background-color: #6137db;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  top: 10%;  
+  left: 50%;
+  font-size: 12px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
 .lowerContainer {
   width: 95%;
