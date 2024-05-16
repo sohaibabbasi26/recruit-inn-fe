@@ -283,13 +283,18 @@ const PersonalInfo = forwardRef(
               <div
                 className={`${styles.infoField} ${
                   country ? styles.filled : ""
+                } ${
+                  country &&
+                  findFlagUrlByCountryName(country) &&
+                  styles.countryField
                 }`}
               >
                 {/* <Image src=" /earth.svg"  width={20} height={20} /> */}
                 <Image
-                  className={country ? styles.countryField : ""}
                   src={
-                    country ? findFlagUrlByCountryName(country) : "/earth.svg"
+                    country
+                      ? findFlagUrlByCountryName(country) || "/earth.svg"
+                      : "/earth.svg"
                   }
                   width={20}
                   height={20}
