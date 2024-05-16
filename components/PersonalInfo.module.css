@@ -5,7 +5,6 @@
   height: 50%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
   justify-content: flex-start;
 }
 
@@ -38,7 +37,6 @@
   background-color: transparent;
   border-radius: 30px;
   border: 1px solid #ebebeb;
-  /* max-height: 50%; */
   font-size: 2rem;
   padding-left: 10px;
   position: relative;
@@ -59,11 +57,6 @@
 .infoField input:focus {
   outline: none;
 }
-
-/* .infoField:hover {
-  border: solid 1px #6137db;
-  background-color: white;
-} */
 
 .infoField select {
   width: 95%;
@@ -111,24 +104,4 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-@media (max-width: 1149px) {
-  /* CSS rules for screens less than 1150px wide */
-  /* For example, you can modify styles for smaller screens here */
-  .infoField input {
-    /* Adjust font size for smaller screens */
-    /* padding-top: 0.5rem;  */
-    /* padding-bottom: 0.5rem; */
-  }
-  /* Add more CSS rules as needed */
-}
-
-/* 1024px */
-@media screen and (max-width: 64em) {
-  /* .errorMessage {
-    position: relative;
-    top: -5px;
-    height: 0px;
-  } */
 }
