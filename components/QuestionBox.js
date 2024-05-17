@@ -277,7 +277,6 @@ const QuestionBox = ({ hasStarted }) => {
 
     const toggleComponent = async () => {
         setIsLoading(true);
-        
 
         try {
             if (isLastQuestion) return;
@@ -299,7 +298,7 @@ const QuestionBox = ({ hasStarted }) => {
                         speakQuestion(questions[currentQuestionIndex]);
                         setIsLoading(false);
                     }
-
+                    
                 } else {
                     await stopAndHandleRecording();
                 }
