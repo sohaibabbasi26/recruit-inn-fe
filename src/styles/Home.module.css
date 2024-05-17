@@ -13,6 +13,7 @@
 @media screen and (max-width: 105em) {
   .clientPortal {
     padding: 12px;
+    gap: 16px;
   }
 }
 

@@ -17,6 +17,11 @@
   border-radius: 30px;
 }
 
+.inputField.countryField img {
+  background-color: #ebebeb;
+  border-radius: 50%;
+}
+
 /* .inputField:hover {
     border: solid 1px #6137db;
     background-color: white;
