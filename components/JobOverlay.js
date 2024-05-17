@@ -108,7 +108,7 @@ const JobOverlay = ({
           try {
             setIsLoading(true);
             const req = {
-              codingExpertise: selectedJob?.expertise,
+              // codingExpertise: selectedJob?.expertise,
               position_id: selectedJob?.position_id,
             };
 
