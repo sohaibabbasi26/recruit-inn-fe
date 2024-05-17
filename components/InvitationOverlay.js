@@ -150,14 +150,16 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [email]);
 
     useEffect(() => {
-        const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+        const nameRegex = /^[a-zA-Z]+(?:[.\s][a-zA-Z]+)*$/;
         if (name && !nameRegex.test(name)) {
             setValidationErrors(errors => ({ ...errors, name: 'Invalid name' }));
+            console.log("Name regex condition");
         } else {
             const { name, ...rest } = validationErrors;
             setValidationErrors(rest);
         }
     }, [name]);
+    
 
     useEffect(() => {
         const phoneRegex = /^\+[1-9]\d{6,14}$/;
@@ -248,7 +250,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             errors.name = 'Please enter a name.';
             isValid = false;
         }else{
-            const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+            const nameRegex = /^[a-zA-Z]+(?:[. ][a-zA-Z]+)*$/;
             if (!nameRegex.test(name)) {
                 errors.name = 'name is not valid.';
                 isValid = false;

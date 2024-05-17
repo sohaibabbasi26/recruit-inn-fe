@@ -67,7 +67,6 @@ const JobOverlay = ({
 
   async function fetchAndCopyAssessmentLink() {
     setIsLoading(true);
-
     try {
       if (techStack) {
         const reqBody = {
@@ -85,35 +84,23 @@ const JobOverlay = ({
           }
         );
         const dataTwo = await response.json();
-// <<<<<<< HEAD
-//         if(dataTwo?.data?.message?.question_id){
-//           setTest(dataTwo);
-//           console.log('Test data:', dataTwo);
-//         }
-//         console.log('Test data:', test);
-//         console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
-//         if(selectedJob?.is_test_req === true){
-// =======
+  
         if (dataTwo?.data?.message?.question_id) {
           setTest(dataTwo);
           console.log("Test data:", dataTwo);
         }
-        console.log("Test data:", test);
-        console.log(
-          "selectedJob?.is_test_req === true :",
-          selectedJob?.is_test_req === true
-        );
+        
+        const questionId = dataTwo?.data?.message?.question_id;
+        
         if (selectedJob?.is_test_req === true) {
-// >>>>>>> d49cedf82b23c054cf4acc90c134dcd1a902c9c1
           try {
-            setIsLoading(true);
             const req = {
               codingExpertise: selectedJob?.expertise,
               position_id: selectedJob?.position_id,
             };
-
+  
             console.log("request:", req);
-
+  
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
               {
@@ -126,52 +113,42 @@ const JobOverlay = ({
             );
             const data = await response.json();
             console.log('data in job overlay about code question:', data?.data?.assessment_id);
-
+  
             if (data?.data?.assessment_id) {
               setCodeQues(data);
-              setAssessmentId(data?.data?.assessment_id); 
+              setAssessmentId(data?.data?.assessment_id);
               console.log("assessment id:", data?.data?.assessment_id);
               console.log("code question data:", data);
               
-              const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${dataTwo?.data?.message?.question_id}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-              copyToClipboard(newLink)
-                .then(() => {
-                  setMessage("Your link has been copied");
-                  showSuccess();
-                })
-                .catch((err) => {
-                  console.error("Could not copy text: ", err);
-                });
-        
+              const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
+              copyLink(newLink);
             } else {
               console.error("Assessment ID not found in the response.");
             }
-            setIsLoading(false);
-
+  
           } catch (err) {
             console.error("ERROR:", err);
           }
+        } else {
+          // If no candidate or test is not required, still generate the link
+          const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
+          copyLink(newLink);
         }
-
-        // const newQuestionId = data?.data?.message?.question_id;
-        // console.log("test:", test);
-        // setQuestionId(newQuestionId);
-        // const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-        // console.log("new link:", newLink);
-        // // setLink(newLink);
-        // copyToClipboard(newLink)
-        //   .then(() => {
-        //     setMessage("Your link has been copied");
-        //     showSuccess();
-        //   })
-        //   .catch((err) => {
-        //     console.error("Could not copy text: ", err);
-        //   });
       }
     } catch (err) {
       console.error("error:", err);
     }
     setIsLoading(false);
+  }
+  
+  async function copyLink(link) {
+    try {
+      await copyToClipboard(link);
+      setMessage("Your link has been copied");
+      showSuccess();
+    } catch (err) {
+      console.error("Could not copy text: ", err);
+    }
   }
 
   // useEffect(() => {
@@ -378,4 +355,5 @@ const JobOverlay = ({
     </>
   );
 };
+
 export default JobOverlay;

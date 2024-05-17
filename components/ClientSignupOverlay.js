@@ -439,7 +439,7 @@ const ClientSignUpOverlay = ({
   };
 
   const isvalidname = (name) =>{
-    const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+    const nameRegex = /^[a-zA-Z]+(?:[. ][a-zA-Z]+)*$/;
     return nameRegex.test(name);
   }
 

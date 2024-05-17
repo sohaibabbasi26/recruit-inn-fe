@@ -69,7 +69,7 @@ const CodingExcersice = () => {
             constraints : constraints,
             candidate_id : cid
         };
-
+        
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-submit`, {
             method: 'POST',
             body: JSON.stringify(reqBody),

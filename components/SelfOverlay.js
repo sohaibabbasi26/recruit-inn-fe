@@ -353,7 +353,7 @@ const SelfOverlay = ({
     return regex.test(email);
   };
   const isValidName = (name) =>{
-    const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+    const nameRegex = /^[a-zA-Z]+(?:[. ][a-zA-Z]+)*$/;
     return nameRegex.test(name);
   }
   const isvalidphone = (phone) => {

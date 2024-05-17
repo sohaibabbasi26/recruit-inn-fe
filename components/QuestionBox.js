@@ -13,7 +13,7 @@ const QuestionBox = ({ hasStarted }) => {
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [completedQuestions, setCompletedQuestions] = useState([]);
-    const [timeLeft, setTimeLeft] = useState(59);
+    const [timeLeft, setTimeLeft] = useState(130);
     const [newQuestions, setNewQuestions] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
     const [audioURLs, setAudioURLs] = useState({});
@@ -37,6 +37,8 @@ const QuestionBox = ({ hasStarted }) => {
     const isProcessingRef = useRef();
     const isLastQuestion = currentQuestion === questions?.length;
     const [isRecordingPopupVisible, setIsRecordingPopupVisible] = useState(false);
+    const minutes = Math.floor(timeLeft / 60);
+    const remainingSeconds = timeLeft % 60;
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -322,7 +324,6 @@ const QuestionBox = ({ hasStarted }) => {
                         speakQuestion(questions[currentQuestionIndex]);
                         setIsLoading(false);
                     }
-                    
                 } else {
                     await stopAndHandleRecording();
                 }
@@ -338,8 +339,9 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     useEffect(() => {
-        setTimeLeft(59)
         speakQuestion(currentQuestion);
+        setTimeLeft(130)
+
     }, [currentQuestion])
 
     const stopAndHandleRecording = async () => {
@@ -485,7 +487,9 @@ const QuestionBox = ({ hasStarted }) => {
                                     })}
                                 </ul>
                             </div>
-                            <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
+                            <span> <Image src='/timer.svg' width={20} height={20} />{minutes}:{
+                                remainingSeconds < 10 ? `0${remainingSeconds}` :
+                            remainingSeconds}</span>
                         </div>
 {/* Recording Popup */}
 {isRecordingPopupVisible && (

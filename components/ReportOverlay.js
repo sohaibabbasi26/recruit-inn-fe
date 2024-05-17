@@ -238,7 +238,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     console.log("Calling pdf download");
     if (contentRef.current) {
       const content = contentRef.current.innerHTML;
-
+  
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
           method: "POST",
@@ -247,7 +247,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           },
           body: JSON.stringify({ content }),
         });
-
+  
         if (response.ok) {
           const pdfBlob = await response.blob();
           const url = window.URL.createObjectURL(pdfBlob);
@@ -258,14 +258,18 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           link.click();
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
+          console.log("PDF Downloaded");
         } else {
           console.error("Failed to generate PDF:", response.statusText);
+          const errorText = await response.text(); // Fetching detailed error message from the server
+          console.error("Server response:", errorText);
         }
       } catch (error) {
         console.error("Error downloading PDF:", error);
       }
     }
   };
+  
 
   // const handleDownloadPdf = async () => {
   //     const htmlContent = document.getElementById('content-to-print').innerHTML;
@@ -336,18 +340,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
-          <div className={styles.coverContainer} >
+          <div className={styles.coverContainer}>
             {/*top container */}
-            
-            {/* candidate test info div */}
-          
-
             <div className={styles.topContainer}>
               <div className={styles.avatarContainer}>
                 <Image src="/avatarDefault.svg" width={65} height={84} />
               </div>
-
-              
               <div className={styles.information}>
                 <h1>{selectedCandidate?.name}</h1>
                 <p className={styles.role}>{selectedCandidate?.position}</p>
@@ -368,9 +366,9 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   {getFilter(
                     calculateCumulativeMean(
                       Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                      Math.ceil(results?.data?.result?.technicalRating),
+                        Math.ceil(results?.data?.result?.technicalRating),
                       Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                      Math.ceil(results?.data?.result?.softskillRating)
+                        Math.ceil(results?.data?.result?.softskillRating)
                     )
                   )}
                   <Image
@@ -394,21 +392,25 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <span>
                   {calculateCumulativeMean(
                     Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                    Math.ceil(results?.data?.result?.technicalRating),
+                      Math.ceil(results?.data?.result?.technicalRating),
                     Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                    Math.ceil(results?.data?.result?.softskillRating)
+                      Math.ceil(results?.data?.result?.softskillRating)
                   )}
                   /10
                 </span>
               </div>
             </div>
-
-
+            {/* candidate test info div */}
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
                 <ul>
+                <li>
+                    <span className={styles.bold}>Name</span>
+                    <span>{selectedCandidate?.name}</span>
+                  </li>
+                  
                   <li>
-                    <span className={styles.bold}>Phone: </span>
+                    <span className={styles.bold}>Phone</span>
                     <span>
                       {selectedCandidate?.contactNo
                         ? selectedCandidate?.contactNo
@@ -416,26 +418,20 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Name: </span>
+                    <span className={styles.bold}>Date</span>
                     <span>
-                      {selectedCandidate?.name}
+                      {selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Date: </span>
-                    <span>
-                      {datee || results?.data?.createdAt}
-                    </span>
-                  </li>
-                  <li>
-                    <span className={styles.bold}>Job Type: </span>
+                    <span className={styles.bold}>Job Type</span>
                     <span>
                       {selectedCandidate?.jobType ||
                         selectedCandidate?.job_type}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Applied For: </span>
+                    <span className={styles.bold}>Applied For</span>
                     <span>
                       {selectedCandidate?.company
                         ? selectedCandidate?.company?.name
@@ -443,9 +439,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Email: </span>
+                    <span className={styles.bold}>Email</span>
                     <span>{selectedCandidate?.email}</span>
                   </li>
+                  
                 </ul>
               </div>
 
@@ -460,7 +457,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     }
                     score={Math.ceil(
                       selectedCandidate?.results?.technicalRating ||
-                      results?.data?.result?.technicalRating
+                        results?.data?.result?.technicalRating
                     )}
                   />
                   <Assessment
@@ -471,7 +468,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     }
                     score={Math.ceil(
                       selectedCandidate?.results?.softskillRating ||
-                      results?.data?.result?.softskillRating
+                        results?.data?.result?.softskillRating
                     )}
                   />
 
