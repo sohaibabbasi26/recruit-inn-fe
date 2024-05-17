@@ -36,6 +36,7 @@ const QuestionBox = ({ hasStarted }) => {
     const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
     const isProcessingRef = useRef();
     const isLastQuestion = currentQuestion === questions?.length;
+    const [isRecordingPopupVisible, setIsRecordingPopupVisible] = useState(false);
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -146,15 +147,38 @@ const QuestionBox = ({ hasStarted }) => {
             setIsRecording(true);
             setRecordingDone(true);
             currentRecordingQuestionIndexRef.current = currentQuestion;
+            setIsRecordingPopupVisible(true);  // Show recording popup
             console.log('Recording started');
         };
     }
-
+    
     const stopRecording = () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
             mediaRecorderRef.current.stop(); // This asynchronously triggers the onstop event
+            setIsRecordingPopupVisible(false);  // Hide recording popup
         }
     };
+    useEffect(() => {
+        let timeoutId;
+    
+        if (isRecording) {
+            setIsRecordingPopupVisible(true); // Show the popup when recording starts
+            // Set a timeout to hide the popup after 5 seconds
+            timeoutId = setTimeout(() => {
+                if (isRecording) { // Check if still recording before hiding the popup
+                    setIsRecordingPopupVisible(false);
+                }
+            }, 5000);
+        } else {
+            setIsRecordingPopupVisible(false); // Hide the popup immediately when recording stops
+            clearTimeout(timeoutId); // Clear the timeout when recording stops to prevent it from firing
+        }
+    
+        return () => {
+            clearTimeout(timeoutId); // Ensure the timeout is cleared when the component unmounts or the effect re-runs
+        };
+    }, [isRecording]); // This useEffect runs whenever the isRecording state changes
+    
 
     useEffect(() => {
         if (!hasStarted || isTestCompleted) {
@@ -463,6 +487,12 @@ const QuestionBox = ({ hasStarted }) => {
                             </div>
                             <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
                         </div>
+{/* Recording Popup */}
+{isRecordingPopupVisible && (
+    <div className={styles.recordingPopup}>
+        Recording in progress...
+    </div>
+)}
 
                         {/* question container */}
 
