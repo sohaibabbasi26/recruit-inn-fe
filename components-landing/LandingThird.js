@@ -18,7 +18,7 @@ const LandingThird = () => {
               {/* <CardDiv className='top-[10rem]  max-xl:left-0 bg-elementGradOne border-[1px] border-themePurple max-md:left-[0rem] max-md:right-[10rem] max-md:top-[8rem] right-[8rem]' hoverEffect={false} /> */}
               {/* <CardDiv className='top-[3rem]  max-xl:right-0 bg-elementGradOne border-[1px] max-md:top-[10rem] max-md:left-[10rem] border-themePurple left-[16rem]' hoverEffect={true} /> */}
               <CardDiv
-                className="left-[25%] translate-x-[-25%] top-[25%] bg-elementGradOne border-[1px] border-themePurple "
+                className="left-[32%] translate-x-[-25%] top-[25%] bg-elementGradOne border-[1px] border-themePurple "
                 hoverEffect={false}
               />
               <CardDiv

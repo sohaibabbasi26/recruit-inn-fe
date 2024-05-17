@@ -311,6 +311,7 @@ export default function Home({
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+
       console.log("Recommended Candidate:", recommendedCand);
       console.log("Qualified Candidate:", qualifiedCand);
       console.log("Not Eligible Candidate:", notEligibleCand);

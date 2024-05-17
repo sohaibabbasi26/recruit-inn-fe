@@ -13,6 +13,7 @@ import PersonalInfoBtns from "./PersonalInfoBtns";
 import PersonalInfoSelf from "./PersonalInfoself";
 import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
+import PersonalInfoSelfBtns from "./PersonalInfoSelfBtns";
 
 const SelfOverlay = ({
   showOverlay,
@@ -175,7 +176,16 @@ const SelfOverlay = ({
       setMessage("Entered email is not valid");
       showError();
       return;
-    } else if (
+    }
+    else if (
+      currentStage === stages.PERSONAL_INFO &&
+      !validateNameReceiver()
+    ) {
+      setMessage("Entered name is not valid");
+      showError();
+      return;
+    }
+     else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateContactReciever()
     ) {
@@ -300,12 +310,24 @@ const SelfOverlay = ({
     }
     return true;
   };
+  const validateNameReceiver = () => {
+    if (!isValidName(name)) {
+      return false;
+    }
+    return true;
+  };
   const validateContactReciever = () => {
     if (!isvalidphone(contact)) {
       return false;
     }
     return true;
   };
+  const validatePasswordReciever = () =>{
+    if(password.length  < 8){
+      return false;
+    }
+    return true;
+  }
 
   const validateNumber = (contact) => {
     const num = parseInt(contact);
@@ -330,21 +352,20 @@ const SelfOverlay = ({
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
   };
+  const isValidName = (name) =>{
+    const nameRegex = /^[a-zA-Z]+(?:[. ][a-zA-Z]+)*$/;
+    return nameRegex.test(name);
+  }
   const isvalidphone = (phone) => {
     const phoneRegex = /^\+[1-9]\d{6,14}$/;
     return phoneRegex.test(phone);
   }
+  // const isvalidpassword = (password) => {
+    
+  // }
   const validatePassword = (password) => {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-    if (password.length < 8) {
+    if (password && password.length < 8) {
       setMessage("Password must be at least 8 characters long.");
-      showError();
-      return false;
-    } else if (!regex.test(password)) {
-      setMessage(
-        "Password must contain at least 8 characters one lowercase letter, one uppercase letter, one number, and one special character."
-      );
       showError();
       return false;
     } else {
@@ -684,13 +705,16 @@ const SelfOverlay = ({
                     setIsTestRequired={setIsTestRequired}
                   />
                   <div className={styles.wrapper}>
-                    <PersonalInfoBtns
-                      showSuccess={showSuccess}
-                      setMessage={setMessage}
-                      validateEmailReceiver={validateEmailReceiver}
-                      showError={showError}
-                      onContinue={toggleComponent}
-                      onBack={backToggleComponent}
+                    <PersonalInfoSelfBtns 
+                    showSuccess={showSuccess}
+                    setMessage={setMessage}
+                    validateEmailReceiver={validateEmailReceiver}
+                    validateNameReceiver = {validateNameReceiver}
+                    validateContactReciever = {validateContactReciever}
+                    validatePasswordReciever ={validatePasswordReciever}
+                    showError={showError}
+                    onContinue={toggleComponent}
+                    onBack={backToggleComponent}
                     />
                   </div>
                 </>

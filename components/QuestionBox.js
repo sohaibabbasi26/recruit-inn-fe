@@ -13,7 +13,7 @@ const QuestionBox = ({ hasStarted }) => {
     const router = useRouter();
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [completedQuestions, setCompletedQuestions] = useState([]);
-    const [timeLeft, setTimeLeft] = useState(59);
+    const [timeLeft, setTimeLeft] = useState(130);
     const [newQuestions, setNewQuestions] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
     const [audioURLs, setAudioURLs] = useState({});
@@ -36,6 +36,9 @@ const QuestionBox = ({ hasStarted }) => {
     const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
     const isProcessingRef = useRef();
     const isLastQuestion = currentQuestion === questions?.length;
+    const [isRecordingPopupVisible, setIsRecordingPopupVisible] = useState(false);
+    const minutes = Math.floor(timeLeft / 60);
+    const remainingSeconds = timeLeft % 60;
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -146,15 +149,38 @@ const QuestionBox = ({ hasStarted }) => {
             setIsRecording(true);
             setRecordingDone(true);
             currentRecordingQuestionIndexRef.current = currentQuestion;
+            setIsRecordingPopupVisible(true);  // Show recording popup
             console.log('Recording started');
         };
     }
-
+    
     const stopRecording = () => {
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
             mediaRecorderRef.current.stop(); // This asynchronously triggers the onstop event
+            setIsRecordingPopupVisible(false);  // Hide recording popup
         }
     };
+    useEffect(() => {
+        let timeoutId;
+    
+        if (isRecording) {
+            setIsRecordingPopupVisible(true); // Show the popup when recording starts
+            // Set a timeout to hide the popup after 5 seconds
+            timeoutId = setTimeout(() => {
+                if (isRecording) { // Check if still recording before hiding the popup
+                    setIsRecordingPopupVisible(false);
+                }
+            }, 5000);
+        } else {
+            setIsRecordingPopupVisible(false); // Hide the popup immediately when recording stops
+            clearTimeout(timeoutId); // Clear the timeout when recording stops to prevent it from firing
+        }
+    
+        return () => {
+            clearTimeout(timeoutId); // Ensure the timeout is cleared when the component unmounts or the effect re-runs
+        };
+    }, [isRecording]); // This useEffect runs whenever the isRecording state changes
+    
 
     useEffect(() => {
         if (!hasStarted || isTestCompleted) {
@@ -277,7 +303,6 @@ const QuestionBox = ({ hasStarted }) => {
 
     const toggleComponent = async () => {
         setIsLoading(true);
-        
 
         try {
             if (isLastQuestion) return;
@@ -299,7 +324,6 @@ const QuestionBox = ({ hasStarted }) => {
                         speakQuestion(questions[currentQuestionIndex]);
                         setIsLoading(false);
                     }
-
                 } else {
                     await stopAndHandleRecording();
                 }
@@ -315,8 +339,9 @@ const QuestionBox = ({ hasStarted }) => {
     }
 
     useEffect(() => {
-        setTimeLeft(59)
         speakQuestion(currentQuestion);
+        setTimeLeft(130)
+
     }, [currentQuestion])
 
     const stopAndHandleRecording = async () => {
@@ -462,8 +487,16 @@ const QuestionBox = ({ hasStarted }) => {
                                     })}
                                 </ul>
                             </div>
-                            <span> <Image src='/timer.svg' width={20} height={20} />0:{timeLeft}</span>
+                            <span> <Image src='/timer.svg' width={20} height={20} />{minutes}:{
+                                remainingSeconds < 10 ? `0${remainingSeconds}` :
+                            remainingSeconds}</span>
                         </div>
+{/* Recording Popup */}
+{isRecordingPopupVisible && (
+    <div className={styles.recordingPopup}>
+        Recording in progress...
+    </div>
+)}
 
                         {/* question container */}
 

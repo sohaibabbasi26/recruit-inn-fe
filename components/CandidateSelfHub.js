@@ -213,178 +213,186 @@ const CandidatesSelfHub = ({
   return (
     <>
       <div className={styles.parentContainer}>
-        {
-          isLoading ? (<>
-              <div className={styles.loader}></div>
-          </>) : (
-            <div className={styles.superContainer}>
-              {hasData ? (
-                <div className={styles.headingContainer}>
-                  <div className={styles.heading}>
-                    <h3>{heading}</h3>
-                    <span>{results?.length}</span>
-                  </div>
+        {isLoading ? (
+          <>
+            <div className={styles.loader}></div>
+          </>
+        ) : (
+          <div className={styles.superContainer}>
+            {hasData ? (
+              <div className={styles.headingContainer}>
+                <div className={styles.heading}>
+                  <h3>{heading}</h3>
+                  {/* <span>{results?.length}</span> */}
 
-                  {!isDisable && (
-                    <button onClick={generateTestAndRedirect}>
-                      {isLoading ? (
-                        <>
-                          <div className={styles.loaderContainer}>
-                            <div className={styles.loader}></div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          Evaluate Yourself{" "}
-                          <Image src="/spark.svg" height={30} width={30} />
-                        </>
-                      )}{" "}
-                    </button>
-                  )}
+                  <span>
+                    {!results?.length
+                      ? 0
+                      : results?.length <= 9
+                      ? `0${results?.length}`
+                      : results?.length}
+                  </span>
                 </div>
-              ) : null}
 
-              <div className={styles.subContainer}>
-                {hasData ? (
-                  results?.map((item) => {
-                    return (
+                {!isDisable && (
+                  <button onClick={generateTestAndRedirect}>
+                    {isLoading ? (
                       <>
-                        <div
-                          onClick={() => {
-                            cardClickHandler(item);
-                          }}
-                          className={styles.reportsCard}
-                        >
-                          {/*top container */}
-                          <div className={styles.topContainer}>
-                            <div className={styles.leftTop}>
-                              <Image
-                                src="/Emoji.svg"
-                                width={iconSize}
-                                height={iconSize}
-                              />
-                              <div className={styles.basicInfo}>
-                                <h4>{name}</h4>
-                                <span>{item?.position}</span>
-                              </div>
-                            </div>
-                            <div className={styles.rightTop}>
-                              <span
-                                style={{
-                                  backgroundColor: getBackgroundColor(
-                                    Math.ceil(item?.result?.technicalRating)
-                                  ),
-                                }}
-                              >
-                                {Math.ceil(item?.result?.technicalRating)}/10
-                              </span>
-                              <span
-                                style={{
-                                  backgroundColor: getBackgroundColor(
-                                    Math.ceil(item?.result?.technicalRating)
-                                  ),
-                                }}
-                              >
-                                {getFilter(
-                                  Math.ceil(item?.result?.technicalRating)
-                                )}
-                                <Image
-                                  src={getStatusSymbol(
-                                    Math.ceil(item?.result?.technicalRating)
-                                  )}
-                                  width={statusSize}
-                                  height={statusSize}
-                                />{" "}
-                              </span>
-                              <Image
-                                src="/rightArrow.svg"
-                                height={iconSize}
-                                width={iconSize}
-                              />
-                            </div>
-                          </div>
-                          {/* techstack Conatiner */}
-
-                          <div className={styles.techStack}>
-                            <ul>
-                              {expertise?.map((skill) => {
-                                return (
-                                  <>
-                                    <li>
-                                      <div className={styles.basic}>
-                                        <Image
-                                          className={styles.django}
-                                          src={getSvg(skill.skill)}
-                                          width={iconSize}
-                                          height={iconSize}
-                                        />
-                                        <span>{skill.skill}</span>
-                                      </div>
-                                    </li>
-                                  </>
-                                );
-                              })}
-                            </ul>
-                          </div>
-
-                          <div className={styles.lowerContainer}>
-                            <h4 className={styles.jobType}>
-                              <Image
-                                src="/JOB_TYPE-active.svg"
-                                width={goToAllIconSize}
-                                height={goToAllIconSize}
-                              />
-                              {appliedThrough}
-                            </h4>
-                            <span>
-                              <h4>Experience:</h4> {experience}
-                            </span>
-                          </div>
+                        <div className={styles.loaderContainer}>
+                          <div className={styles.loader}></div>
                         </div>
                       </>
-                    );
-                  })
-                ) : (
-                  <div className={styles.tempContainer}>
-                    <div>
-                      <h1>Here’s Where Your Journey Begins</h1>
-
-                      <div className={styles.candidateDefault}>
-                        <Image
-                          className={styles.avatar}
-                          src="/avatarDefault.svg"
-                          width={77}
-                          height={100}
-                        />
-                        <h2>Welcome, {name} </h2>
-                        <p>
-                          Are you ready to tackle the AI Assessment to stand out
-                          amongst other candidates?
-                        </p>
-                        {!isDisable && (
-                          <button onClick={generateTestAndRedirect}>
-                            {isLoading ? (
-                              <>
-                                <div className={styles.loaderContainer}>
-                                  <div className={styles.loader}></div>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                Evaluate Yourself{" "}
-                                <Image src="/spark.svg" height={30} width={30} />
-                              </>
-                            )}{" "}
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                    ) : (
+                      <>
+                        Evaluate Yourself{" "}
+                        <Image src="/spark.svg" height={30} width={30} />
+                      </>
+                    )}{" "}
+                  </button>
                 )}
               </div>
+            ) : null}
+
+            <div className={styles.subContainer}>
+              {hasData ? (
+                results?.map((item) => {
+                  return (
+                    <>
+                      <div
+                        onClick={() => {
+                          cardClickHandler(item);
+                        }}
+                        className={styles.reportsCard}
+                      >
+                        {/*top container */}
+                        <div className={styles.topContainer}>
+                          <div className={styles.leftTop}>
+                            <Image
+                              src="/Emoji.svg"
+                              width={iconSize}
+                              height={iconSize}
+                            />
+                            <div className={styles.basicInfo}>
+                              <h4>{name}</h4>
+                              <span>{item?.position}</span>
+                            </div>
+                          </div>
+                          <div className={styles.rightTop}>
+                            <span
+                              style={{
+                                backgroundColor: getBackgroundColor(
+                                  Math.ceil(item?.result?.technicalRating)
+                                ),
+                              }}
+                            >
+                              {Math.ceil(item?.result?.technicalRating)}/10
+                            </span>
+                            <span
+                              style={{
+                                backgroundColor: getBackgroundColor(
+                                  Math.ceil(item?.result?.technicalRating)
+                                ),
+                              }}
+                            >
+                              {getFilter(
+                                Math.ceil(item?.result?.technicalRating)
+                              )}
+                              <Image
+                                src={getStatusSymbol(
+                                  Math.ceil(item?.result?.technicalRating)
+                                )}
+                                width={statusSize}
+                                height={statusSize}
+                              />{" "}
+                            </span>
+                            <Image
+                              src="/rightArrow.svg"
+                              height={iconSize}
+                              width={iconSize}
+                            />
+                          </div>
+                        </div>
+                        {/* techstack Conatiner */}
+
+                        <div className={styles.techStack}>
+                          <ul>
+                            {expertise?.map((skill) => {
+                              return (
+                                <>
+                                  <li>
+                                    <div className={styles.basic}>
+                                      <Image
+                                        className={styles.django}
+                                        src={getSvg(skill.skill)}
+                                        width={iconSize}
+                                        height={iconSize}
+                                      />
+                                      <span>{skill.skill}</span>
+                                    </div>
+                                  </li>
+                                </>
+                              );
+                            })}
+                          </ul>
+                        </div>
+
+                        <div className={styles.lowerContainer}>
+                          <h4 className={styles.jobType}>
+                            <Image
+                              src="/JOB_TYPE-active.svg"
+                              width={goToAllIconSize}
+                              height={goToAllIconSize}
+                            />
+                            {appliedThrough}
+                          </h4>
+                          <span>
+                            <h4>Experience:</h4> {experience}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })
+              ) : (
+                <div className={styles.tempContainer}>
+                  <div>
+                    <h1>Here’s Where Your Journey Begins</h1>
+
+                    <div className={styles.candidateDefault}>
+                      <Image
+                        className={styles.avatar}
+                        src="/avatarDefault.svg"
+                        width={77}
+                        height={100}
+                      />
+                      <h2>Welcome, {name} </h2>
+                      <p>
+                        Are you ready to take the AI Assessment to stand out
+                        amongst other candidates?
+                      </p>
+                      {!isDisable && (
+                        <button onClick={generateTestAndRedirect}>
+                          {isLoading ? (
+                            <>
+                              <div className={styles.loaderContainer}>
+                                <div className={styles.loader}></div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              Evaluate Yourself{" "}
+                              <Image src="/spark.svg" height={30} width={30} />
+                            </>
+                          )}{" "}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          )
-        }
+          </div>
+        )}
       </div>
     </>
   );

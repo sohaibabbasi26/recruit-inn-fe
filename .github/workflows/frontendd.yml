@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - develop
-<<<<<<< HEAD
-=======
-      - main
->>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258
-
 jobs:
   build:
     runs-on: [self-hosted, linux, x64]
@@ -29,9 +24,6 @@ jobs:
       - name: Build
         run: npm run build
 
-<<<<<<< HEAD
-    
-=======
       - name: Manually Trigger Backend Workflow
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,6 +36,5 @@ jobs:
             -d '{"ref":"main"}')
           echo "Workflow dispatched. Response: $response"
 
->>>>>>> 507bf3d064eaa52506263608f2a2869dcfc27258
       - name: Restart Frontend Server
         run: pm2 restart recruit-inn-fe-frontend

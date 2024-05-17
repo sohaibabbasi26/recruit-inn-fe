@@ -85,26 +85,26 @@
 }
 
 .mainContainer ul li {
-  /* margin: 0.5rem; */
+  border-radius: 40px;
   margin-top: 0.3rem;
   width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: 0;
-  padding: 0.5rem 0.8rem;
   cursor: pointer;
   /* try this */
   width: unset;
-  padding-left: 0.4rem;
-  padding-right: 0;
+  padding: 0.4rem 0.4rem 0.4rem 0.5rem;
+}
+
+.mainContainer ul li:hover {
+  background-color: #f7f5ff;
+  color: #6137db;
 }
 
 .listContainer {
-  width: 80%;
-  /* overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-width: none; */
+  width: 86%;
 }
 
 .list {
@@ -142,7 +142,7 @@
 }
 
 .dashboardButton {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   background-color: #f0edfc;
   color: #6137db;
   font-weight: 700;

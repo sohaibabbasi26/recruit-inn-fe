@@ -82,6 +82,51 @@
     justify-content: space-between;
     align-items: center;
 }
+.jobClosedContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.jobClosedBox {
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.jobClosedTitle {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.jobClosedText {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.jobClosedButton {
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.jobClosedButton:hover {
+  background-color: #4c51bf;
+}
+
 
 
 .topContainer img:hover {
