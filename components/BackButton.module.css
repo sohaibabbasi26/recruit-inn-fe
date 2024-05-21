@@ -4,7 +4,7 @@
   border-radius: 3.75rem;
   font-size: 1rem;
   font-weight: 700;
-  padding: 15px 1.5rem;
+  padding: 0.9375rem 2rem 0.9375rem 1.5rem;
 
   display: flex;
   justify-content: center;
@@ -23,8 +23,15 @@
 }
 
 /* 1600px */
-@media screen and (max-width: 100em) {
+/* @media screen and (max-width: 100em) {
   .backButton {
     padding: 8px 1.6rem 8px 1rem;
+  }
+} */
+
+/* 1440 = 90em */
+@media screen and (max-width: 90em) {
+  .backButton {
+    padding: 0.7rem 2rem 0.7rem 1.5rem;
   }
 }

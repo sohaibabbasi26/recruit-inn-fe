@@ -252,21 +252,16 @@ const JobOverlay = ({
             msgText={message}
           />
         )}
-        {/* <div className={styles.btn}>
-          <button onClick={onClose}>
-            <Image src="/shut.svg" width={15} height={15} />
-          </button>
-        </div> */}
 
         <div className={styles.superContainer}>
-          {/* <Image
-            className={styles.topImage}
-            src="/flower1.png"
-            width={800}
-            height={500}
-          /> */}
-
           <div className={styles.coverContainer}>
+            <Image
+              className={styles.jobOverlayBg}
+              src="/flower1.png"
+              height={400}
+              width={800}
+            />
+
             {/*top conatiner */}
             <div className={styles.topContainer}>
               <div className={styles.content}>
@@ -372,15 +367,15 @@ const JobOverlay = ({
                 </ul>
               </div>
             </div>
-          </div>
-          <div className={styles.bottomButtons}>
-            <BackButton onClose={onClose}>Back</BackButton>
-            <button className={styles.nextButton}>
-              All Candidates{" "}
-              <span>
-                <Image src="/Forward.svg" height={15} width={19} />
-              </span>
-            </button>
+            <div className={styles.bottomButtons}>
+              <BackButton onClose={onClose}>Back</BackButton>
+              <button className={styles.nextButton}>
+                All Candidates{" "}
+                <span>
+                  <Image src="/Forward1.svg" height={35} width={35} />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

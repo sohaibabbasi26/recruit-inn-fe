@@ -510,8 +510,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <span>
                     <Image
                       alt="Download icon"
-                      height={40}
-                      width={40}
+                      height={35}
+                      width={35}
                       src="/download.svg"
                     />
                   </span>
