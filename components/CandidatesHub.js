@@ -13,7 +13,6 @@ const CandidatesHub = ({
   setReportOverlay,
   setSelectedCandidate,
 }) => {
-
   // const newData = data?.map()
   console.log("data in candidates Hub:", data);
 
@@ -124,42 +123,52 @@ const CandidatesHub = ({
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                Math.ceil(calculateCumulativeMean(
-                                  item?.results?.technicalRating,
-                                  item?.results?.softskillRating
-                                ))  
+                                Math.ceil(
+                                  calculateCumulativeMean(
+                                    item?.results?.technicalRating,
+                                    item?.results?.softskillRating
+                                  )
+                                )
                               ),
                             }}
                           >
-                            {Math.ceil(calculateCumulativeMean(
+                            {Math.ceil(
+                              calculateCumulativeMean(
                                 item?.results?.technicalRating,
                                 item?.results?.softskillRating
-                              ))}
+                              )
+                            )}
                             /10
                           </span>
 
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                Math.ceil(calculateCumulativeMean(
-                                  item?.results?.technicalRating,
-                                  item?.results?.softskillRating
-                                ))
+                                Math.ceil(
+                                  calculateCumulativeMean(
+                                    item?.results?.technicalRating,
+                                    item?.results?.softskillRating
+                                  )
+                                )
                               ),
                             }}
                           >
                             {getFilter(
-                              Math.ceil(calculateCumulativeMean(
-                                item?.results?.technicalRating,
-                                item?.results?.softskillRating
-                              ))
+                              Math.ceil(
+                                calculateCumulativeMean(
+                                  item?.results?.technicalRating,
+                                  item?.results?.softskillRating
+                                )
+                              )
                             )}
                             <Image
                               src={getStatusSymbol(
-                                Math.ceil(calculateCumulativeMean(
-                                  item?.results?.technicalRating,
-                                  item?.results?.softskillRating
-                                ))
+                                Math.ceil(
+                                  calculateCumulativeMean(
+                                    item?.results?.technicalRating,
+                                    item?.results?.softskillRating
+                                  )
+                                )
                               )}
                               width={statusSize}
                               height={statusSize}
@@ -185,10 +194,21 @@ const CandidatesHub = ({
 
                                     <Image
                                       className={styles.django}
-                                      //   src={skill.img}
                                       src={getSvg(skill.skill)}
-                                      width={iconSize}
-                                      height={iconSize}
+                                      height={
+                                        getSvg(skill.skill) === "/python.svg" ||
+                                        getSvg(skill.skill) === "/html5.svg" ||
+                                        getSvg(skill.skill) === "/css3.svg"
+                                          ? 20
+                                          : iconSize
+                                      }
+                                      width={
+                                        getSvg(skill.skill) === "/python.svg" ||
+                                        getSvg(skill.skill) === "/html5.svg" ||
+                                        getSvg(skill.skill) === "/css3.svg"
+                                          ? 20
+                                          : iconSize
+                                      }
                                     />
                                   </div>
                                 </li>

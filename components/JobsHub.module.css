@@ -2,7 +2,7 @@
 
 .parentContainer {
   height: 85.5vh;
-  background-color: #F8F7FC;
+  background-color: #f8f7fc;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -137,7 +137,8 @@
 }
 
 .TechStack ul li {
-  background-color: #f8f7fc;
+  /* background-color: #f8f7fc; */
+  background-color: #f5f5f5;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   display: flex;

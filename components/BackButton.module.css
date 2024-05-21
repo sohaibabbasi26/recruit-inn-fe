@@ -1,0 +1,30 @@
+.backButton {
+  background-color: none;
+  border: none;
+  border-radius: 3.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 15px 1.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backButton img {
+  display: block;
+}
+
+.backButton {
+  background-color: #f8f7fa;
+  color: #170d23;
+  gap: 1rem;
+  padding-right: 2.1rem;
+}
+
+/* 1600px */
+@media screen and (max-width: 100em) {
+  .backButton {
+    padding: 8px 1.6rem 8px 1rem;
+  }
+}
