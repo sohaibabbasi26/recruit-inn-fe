@@ -37,7 +37,7 @@ const Super = ({
 
   const activeItem = useActiveItem();
   const iconSize = 13;
-  const bellIconSize = 32;
+  const bellIconSize = 30;
   let dataToRender;
   switch (activeItem) {
     case "AllJobs":
@@ -68,10 +68,7 @@ const Super = ({
         <div class="RightComponent_superContainer__1aFKs">
           <div class="RightComponent_masterContainer__Ad_ng">
             <div class="RightComponent_btnsDiv__jJavs">
-              <button
-                className={styles.RightComponent_addJobBtn__PGBvV}
-                onClick={toggleOverlay}
-              >
+              {/* <button onClick={toggleOverlay}>
                 <Image
                   src="/Add.svg"
                   width={iconSize}
@@ -79,7 +76,16 @@ const Super = ({
                   style={{ marginRight: "20px" }}
                 />{" "}
                 Create A Job
+              </button> */}
+
+              <button
+                className={styles.RightComponent_addJobBtn__PGBvV}
+                onClick={toggleOverlay}
+              >
+                <Image src="/Add.svg" width={iconSize} height={iconSize} />{" "}
+                create a job
               </button>
+
               <button className={styles.notificationsBtn}>
                 <Image
                   src="/BellIcon.svg"
