@@ -1,7 +1,8 @@
 .masterContainer {
   background-color: #fff;
   /* width: 19%; */
-  flex: 0 0 14%;
+  /* flex: 0 0 14%; */
+  flex: 0 0 16.25rem;
   max-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -331,9 +332,9 @@
 }
 
 @media screen and (max-width: 1600px) {
-  .masterContainer {
+  /* .masterContainer {
     flex: 0 0 18%;
-  }
+  } */
 }
 
 /* 1366px */
@@ -348,7 +349,7 @@
 @media (max-width: 64em) {
   .masterContainer {
     /* width: 25%; */
-    flex: 0 0 20%;
+    /* flex: 0 0 20%; */
     height: 100%;
   }
 
