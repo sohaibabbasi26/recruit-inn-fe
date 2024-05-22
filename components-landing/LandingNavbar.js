@@ -47,7 +47,7 @@ const LandingNavbar = ({
               </div>
               <div className="w-60p items-center flex justify-end gap-4 max-xl:gap-2">
                 <span className="text-md max-xl:text-sm font-semibold cursor-pointer">
-                  <a href="https://app.recruitinn.ai/candidate-self">
+                  <a href="https://app.recruitinn.ai/">
                     {" "}
                     Apply As A Candidate
                   </a>
@@ -59,7 +59,7 @@ const LandingNavbar = ({
                     Login
                     <ul className={styles.dropdown_menu}>
                       <li>
-                        <a href="https://app.recruitinn.ai/candidate-login">
+                        <a href="https://app.recruitinn.ai/">
                           Login As Candidate
                         </a>
                       </li>
