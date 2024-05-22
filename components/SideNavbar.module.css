@@ -27,15 +27,22 @@
 }
 
 .logoContainer {
-  display: flex;
+  /* display: flex;
   justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 18px;
+  align-items: center; */
+  box-sizing: border-box;
+  padding: 14px 1rem 29px;
+  width: 100%;
 }
 
 .logoContainer h3 {
-  margin: 0.75rem;
-  margin-bottom: 1rem;
+  /* margin: 0.75rem;
+  margin-bottom: 1rem; */
+  font-size: 23px;
+  font-weight: 900;
+
+  margin-bottom: 17px;
+  margin-top: 11px;
 }
 
 .dashboardWrapper {
@@ -58,7 +65,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  align-items: flex-start;
   color: #aca7ba;
   /* try this */
   height: calc(100% - 7rem);
@@ -283,6 +291,14 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 0 !important;
+}
+
+.clientInfo div {
+  margin-bottom: 0 !important;
+}
+
+.clientInfo h4 {
+  white-space: nowrap;
 }
 
 .newprofnameback hr {
