@@ -13,7 +13,6 @@
   gap: 1rem;
 }
 .headingContainer {
-  
   display: flex;
   font-size: small;
   width: 100%;
@@ -30,7 +29,6 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  
 }
 .headingContainer span {
   color: #6137db;
@@ -41,7 +39,6 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-   ;
 }
 .social {
   cursor: pointer;
@@ -54,6 +51,8 @@
   border-radius: 20px;
   margin-top: 24px;
   color: #000;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 .social:hover {
   background-color: #ffffff;
@@ -102,7 +101,6 @@
     flex-direction: column;
     color: #000;
     height: 100%;
-    
   }
   .social {
     height: auto;
@@ -110,10 +108,18 @@
   }
 }
 
+/* 1440px */
+@media screen and (max-widthl: 90em) {
+  #logoImage {
+    height: 30px;
+    width: 30px;
+  }
+}
+
 /* 1280px */
 @media screen and (max-width: 80em) {
   .headingContainer {
-    margin-top:0;
+    margin-top: 0;
   }
 
   .social {
@@ -126,11 +132,10 @@
   }
 
   #logoImage {
-    height: 32px;
-    width: 32px;
+    height: 28px;
+    width: 28px;
   }
 }
-
 
 @media screen and (max-width: 64em) {
   .superConatainer {
@@ -142,7 +147,6 @@
   .headingContainer {
     margin-top: 1rem;
   }
-
 
   .social {
     margin-top: 0;

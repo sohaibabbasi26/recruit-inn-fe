@@ -4,7 +4,14 @@ import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 
-const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, setIsLoading }) => {
+const SideNavbar = ({
+  name,
+  navbarIte,
+  showOverlay1,
+  setShowOverlay,
+  isLoading,
+  setIsLoading,
+}) => {
   const router = useRouter();
   const [showupgrade, setshowupgrade] = useState(false);
   const { activeItem, setActiveItem } = useActiveItem();
@@ -29,12 +36,12 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
 
     const timer = setTimeout(() => {
       try {
-        const savedActiveItem = localStorage.getItem('activeItem');
+        const savedActiveItem = localStorage.getItem("activeItem");
         if (savedActiveItem) {
           setActiveItem(savedActiveItem);
         }
       } catch (err) {
-        console.log('ERROR:', err);
+        console.log("ERROR:", err);
       } finally {
         setIsLoading(false); // Turn off the loader after 2 seconds or when the process is done, whichever is later
       }
@@ -43,7 +50,6 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
     // Cleanup function to clear the timeout if the component unmounts within 2 seconds
     return () => clearTimeout(timer);
   }, [setActiveItem]);
-
 
   const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(true);
   const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] =
@@ -82,7 +88,7 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
   };
 
   useEffect(() => {
-    const savedActiveItem = localStorage.getItem('activeItem');
+    const savedActiveItem = localStorage.getItem("activeItem");
     if (savedActiveItem) {
       setActiveItem(savedActiveItem);
     }
@@ -111,10 +117,17 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
       <div className={styles.masterContainer}>
         <div className={styles.mainContainer}>
           <div className={styles.logoContainer}>
-            <h3>
+            {/* <h3>
               <Image src="/logo (3).png" width={logoSize} height={logoSize} />
               recruitinn.ai
-            </h3>
+            </h3> */}
+
+            <Image
+              src="/recruitinn-logo-light.png"
+              alt="Recruitin Logo"
+              height={26}
+              width={184}
+            />
           </div>
 
           {/* Try */}
@@ -262,7 +275,8 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
           </div>
           {/* End */}
         </div>
-        <div className={`${styles.profnameback} ${styles.focus}`}>
+        {/* old */}
+        {/* <div className={`${styles.profnameback} ${styles.focus}`}>
           {showupgrade && (
             <div>
               <button className={styles.btnup} onClick={openAddJobHandler}>
@@ -271,15 +285,6 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
               </button>
             </div>
           )}
-          {/* {showupgrade && (
-            <div>
-              <button className={styles.btnset} onClick={openAddJobHandler}>
-                Setting{" "}
-                <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" />
-              </button>
-            </div>
-          )} */}
-
           {showupgrade && (
             <div>
               <button className={styles.btnlog} onClick={logoutHandler}>
@@ -312,6 +317,60 @@ const SideNavbar = ({ name, navbarIte, showOverlay1, setShowOverlay, isLoading, 
               height={listItemSize}
               style={{ marginLeft: "-10px", marginRight: "-10px" }}
             />
+          </div>
+
+          
+        </div> */}
+        {/* try this */}
+
+        <div
+          className={`${styles.newprofnameback} ${
+            showupgrade ? styles.open : ""
+          } ${styles.focus}`}
+        >
+          {showupgrade && (
+            <>
+              <div>
+                <button className={styles.btnup} onClick={openAddJobHandler}>
+                  Upgrade{" "}
+                  <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
+                </button>
+              </div>
+              <div>
+                <button className={styles.btnlog} onClick={logoutHandler}>
+                  Logout{" "}
+                  <Image
+                    src="/Vector.png"
+                    alt="Upgrade"
+                    width="18"
+                    height="18"
+                    style={{ color: "#FF0000" }}
+                  />
+                </button>
+              </div>
+
+              <hr />
+            </>
+          )}
+
+          <div className={styles.clientInfo} onClick={upgradeHandler}>
+            <Image
+              src="/Emoji.svg"
+              height={50}
+              width={50}
+              className="profileImage"
+            />
+            <div className={styles.clientName}>
+              <p style={{ color: "#4A525D" }}>Hello</p>
+              <h4>{name}</h4>
+            </div>{" "}
+            <Image
+              src="/rightArrow.svg"
+              width={listItemSize}
+              height={listItemSize}
+              // style={{ marginLeft: "-10px", marginRight: "-10px" }}
+              style={{ marginLeft: "auto" }}
+            />{" "}
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 .masterContainer {
   background-color: #fff;
   /* width: 19%; */
-  flex: 0 0 14%;
+  /* flex: 0 0 14%; */
+  flex: 0 0 16.25rem;
   max-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,15 +28,22 @@
 }
 
 .logoContainer {
-  display: flex;
+  /* display: flex;
   justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 18px;
+  align-items: center; */
+  box-sizing: border-box;
+  padding: 14px 1rem 29px;
+  width: 100%;
 }
 
 .logoContainer h3 {
-  margin: 0.75rem;
-  margin-bottom: 1rem;
+  /* margin: 0.75rem;
+  margin-bottom: 1rem; */
+  font-size: 23px;
+  font-weight: 900;
+
+  margin-bottom: 17px;
+  margin-top: 11px;
 }
 
 .dashboardWrapper {
@@ -58,7 +66,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  align-items: flex-start;
   color: #aca7ba;
   /* try this */
   height: calc(100% - 7rem);
@@ -183,45 +192,35 @@
 
 .btnlog {
   display: flex;
-  top: 12px;
-  padding: 10px 50px 10px 50px;
-  border-radius: 52px;
-  gap: 4px;
   background-color: #fff5f5;
   color: #ff0000;
   border: none;
-  margin-left: 10px;
-  margin-bottom: 5%;
+  border-radius: 2rem;
   font-weight: 600;
   font-size: small;
   cursor: pointer;
-  display: flex;
-  background-color: #fff5f5;
-  color: #ff0000;
+
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  padding: 14px 16px;
+  width: 100%;
 }
 
 .btnup {
-  display: flex;
-  top: 12px;
-  left: 12px;
-  padding: 10px 50px 10px 50px;
-  border-radius: 52px;
-  gap: 4px;
+  border-radius: 2rem;
+  border: none;
   background-color: #f0edfc;
   color: #6137db;
-  border: none;
-  margin-left: 10px;
-  margin-bottom: 5%;
+  cursor: pointer;
   font-weight: 600;
   font-size: small;
-  cursor: pointer;
+  padding: 14px 16px;
+  width: 100%;
+
   display: flex;
-  background-color: #f0edfc;
-  color: #6137db;
   align-items: center;
   justify-content: center;
+  gap: 4px;
 }
 
 .btnset {
@@ -246,7 +245,7 @@
 }
 
 .profnameback {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -256,8 +255,59 @@
   padding-top: 10px;
   padding-bottom: 0px;
   gap: 5px;
+  */
   /* try this */
+}
+
+.newprofnameback {
+  background-color: #f8f7fa;
+  border-radius: 2rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 12px;
   margin-top: auto;
+  width: calc(100% - 30px);
+}
+
+.newprofnameback * {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* first and second child div */
+.newprofnameback.open div:first-child,
+.newprofnameback.open div:nth-child(2) {
+  margin-bottom: 12px;
+}
+
+.newprofnameback.open {
+  border: 1px solid #d3cffc;
+  background-color: #ffffff;
+  /* padding: 12px; */
+}
+
+.newprofnameback .clientInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0 !important;
+}
+
+.clientInfo div {
+  margin-bottom: 0 !important;
+}
+
+.clientInfo h4 {
+  white-space: nowrap;
+}
+
+.newprofnameback hr {
+  width: 90%;
+  height: 0;
+  border: 1px solid #ebebeb;
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }
 
 .btn {
@@ -282,9 +332,9 @@
 }
 
 @media screen and (max-width: 1600px) {
-  .masterContainer {
+  /* .masterContainer {
     flex: 0 0 18%;
-  }
+  } */
 }
 
 /* 1366px */
@@ -299,7 +349,7 @@
 @media (max-width: 64em) {
   .masterContainer {
     /* width: 25%; */
-    flex: 0 0 20%;
+    /* flex: 0 0 20%; */
     height: 100%;
   }
 

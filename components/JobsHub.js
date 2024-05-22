@@ -89,8 +89,20 @@ const JobsHub = ({
                               <Image
                                 id={styles.unique}
                                 src={getSvg(skill.skill)}
-                                width={iconSize}
-                                height={iconSize}
+                                height={
+                                  getSvg(skill.skill) === "/python.svg" ||
+                                  getSvg(skill.skill) === "/html5.svg" ||
+                                  getSvg(skill.skill) === "/css3.svg"
+                                    ? 20
+                                    : iconSize
+                                }
+                                width={
+                                  getSvg(skill.skill) === "/python.svg" ||
+                                  getSvg(skill.skill) === "/html5.svg" ||
+                                  getSvg(skill.skill) === "/css3.svg"
+                                    ? 20
+                                    : iconSize
+                                }
                               />
                               {skill.skill}
                             </li>

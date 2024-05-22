@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import BackButton from "./BackButton";
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
@@ -13,16 +14,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [results, setResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
-
   const [datee, setDatee] = useState();
-
 
   useEffect(() => {
     const date = new Date(selectedCandidate?.date);
     setDatee(date.toDateString());
-  })
+  });
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -46,11 +43,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       setCodingResult(data);
       //
       setIsLoading(false);
-      if (
-        data &&
-        data?.data &&
-        data?.data?.result
-      ) {
+      if (data && data?.data && data?.data?.result) {
         setIsCodingAssessment(true);
       } else {
         setIsCodingAssessment(false);
@@ -238,16 +231,19 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     console.log("Calling pdf download");
     if (contentRef.current) {
       const content = contentRef.current.innerHTML;
-  
+
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ content }),
-        });
-  
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content }),
+          }
+        );
+
         if (response.ok) {
           const pdfBlob = await response.blob();
           const url = window.URL.createObjectURL(pdfBlob);
@@ -269,7 +265,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       }
     }
   };
-  
 
   // const handleDownloadPdf = async () => {
   //     const htmlContent = document.getElementById('content-to-print').innerHTML;
@@ -330,11 +325,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   return (
     <>
       <div ref={overlayRef} className={styles.parent}>
-        <div className={styles.btn}>
+        {/* <div className={styles.btn}>
           <button onClick={onClose}>
             <Image src="/shut.svg" width={15} height={15} />
           </button>
-        </div>
+        </div> */}
 
         <div
           className={`${styles.superContainer} content-to-print`}
@@ -404,11 +399,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
                 <ul>
-                <li>
+                  <li>
                     <span className={styles.bold}>Name</span>
                     <span>{selectedCandidate?.name}</span>
                   </li>
-                  
+
                   <li>
                     <span className={styles.bold}>Phone</span>
                     <span>
@@ -442,7 +437,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     <span className={styles.bold}>Email</span>
                     <span>{selectedCandidate?.email}</span>
                   </li>
-                  
                 </ul>
               </div>
 
@@ -494,7 +488,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             </div>
 
             <div className={styles.selfReportOverlayButtons}>
-              <button className={styles.backButton} onClick={onClose}>
+              {/* <button className={styles.backButton} onClick={onClose}>
                 <span>
                   <Image
                     alt="Back arrow"
@@ -504,7 +498,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   />
                 </span>
                 Back
-              </button>
+              </button> */}
+              <BackButton onClose={onClose}>Back</BackButton>
 
               {!isLoading && (
                 <button
@@ -515,8 +510,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <span>
                     <Image
                       alt="Download icon"
-                      height={40}
-                      width={40}
+                      height={35}
+                      width={35}
                       src="/download.svg"
                     />
                   </span>
