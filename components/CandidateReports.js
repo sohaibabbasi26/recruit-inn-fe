@@ -13,29 +13,27 @@ const CandidateReports = ({
   setIsLoading,
 }) => {
   const calculateCumulativeMean = (val1, val2, val3) => {
-    console.log("val1:", val1, "val2:", val2);
-
     let total = 0;
     let count = 0;
 
     if (val1) {
-      total += Math.ceil(val1);
+      total += Math.round(parseInt(val1));
       count += 1;
     }
 
     if (val2) {
-      total += Math.ceil(val2);
+      total += Math.round(parseInt(val2));
       count += 1;
     }
 
     if (val3) {
-      total += Math.ceil(parseInt(val3));
+      total += Math.round(parseInt(val3));
       count += 1;
     }
 
     if (count === 0) return 0;
 
-    return (total / count).toFixed(1);
+    return Math.round(total / count); // Round the final result to the nearest integer
   };
 
   const iconSize = 25;

@@ -23,17 +23,17 @@ const CandidatesHub = ({
     let count = 0;
 
     if (val1) {
-      total += Math.ceil(val1);
+      total += Math.round(val1);
       count += 1;
     }
 
     if (val2) {
-      total += Math.ceil(val2);
+      total += Math.round(val2);
       count += 1;
     }
 
     if (val3) {
-      total += Math.ceil(parseInt(val3));
+      total += Math.round(parseInt(val3));
       count += 1;
     }
 
@@ -119,11 +119,11 @@ const CandidatesHub = ({
                           </div>
                         </div>
                         <div className={styles.rightTop}>
-                          {/* <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span> */}
+                          {/* <span style={{ backgroundColor: getBackgroundColor(Math.round(item?.results?.technicalRating)) }}>{Math.round(item?.results?.technicalRating)}/10</span> */}
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                Math.ceil(
+                                Math.round(
                                   calculateCumulativeMean(
                                     item?.results?.technicalRating,
                                     item?.results?.softskillRating
@@ -132,7 +132,7 @@ const CandidatesHub = ({
                               ),
                             }}
                           >
-                            {Math.ceil(
+                            {Math.round(
                               calculateCumulativeMean(
                                 item?.results?.technicalRating,
                                 item?.results?.softskillRating
@@ -144,7 +144,7 @@ const CandidatesHub = ({
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                Math.ceil(
+                                Math.round(
                                   calculateCumulativeMean(
                                     item?.results?.technicalRating,
                                     item?.results?.softskillRating
@@ -154,7 +154,7 @@ const CandidatesHub = ({
                             }}
                           >
                             {getFilter(
-                              Math.ceil(
+                              Math.round(
                                 calculateCumulativeMean(
                                   item?.results?.technicalRating,
                                   item?.results?.softskillRating
@@ -163,7 +163,7 @@ const CandidatesHub = ({
                             )}
                             <Image
                               src={getStatusSymbol(
-                                Math.ceil(
+                                Math.round(
                                   calculateCumulativeMean(
                                     item?.results?.technicalRating,
                                     item?.results?.softskillRating

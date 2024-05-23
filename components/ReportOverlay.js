@@ -57,17 +57,17 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //     let count = 0;
 
   //     if (selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment) {
-  //         total += Math.ceil(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment);
+  //         total += Math.round(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment);
   //         count += 1;
   //     }
 
   //     if (selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating) {
-  //         total += Math.ceil(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating);
+  //         total += Math.round(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating);
   //         count += 1;
   //     }
 
   //     if (codingResult?.data?.result?.technicalRating) {
-  //         total += Math.ceil(parseInt(codingResult.data.result.technicalRating));
+  //         total += Math.round(parseInt(codingResult.data.result.technicalRating));
   //         count += 1;
   //     }
 
@@ -81,23 +81,23 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     let count = 0;
 
     if (val1) {
-      total += Math.ceil(parseInt(val1));
+      total += Math.round(parseInt(val1));
       count += 1;
     }
 
     if (val2) {
-      total += Math.ceil(parseInt(val2));
+      total += Math.round(parseInt(val2));
       count += 1;
     }
 
     if (val3) {
-      total += Math.ceil(parseInt(val3));
+      total += Math.round(parseInt(val3));
       count += 1;
     }
 
     if (count === 0) return 0;
 
-    return (total / count).toFixed(2);
+    return Math.round(total / count); // Round the final result to the nearest integer
   };
 
   const overlayRef = useRef(null);
@@ -154,7 +154,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //       const captureHeight = content.clientHeight;
 
   //       // Calculate the number of sections based on height and viewport
-  //       const numSections = Math.ceil(contentHeight / captureHeight);
+  //       const numSections = Math.round(contentHeight / captureHeight);
 
   //       // Create a new PDF instance
   //       const pdf = new jsPDF({
@@ -348,33 +348,33 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   style={{
                     backgroundColor: getBackgroundColor(
                       calculateCumulativeMean(
-                        Math.ceil(
+                        Math.round(
                           selectedCandidate?.results?.technicalRating
-                        ) || Math.ceil(results?.data?.result?.technicalRating),
-                        Math.ceil(
+                        ) || Math.round(results?.data?.result?.technicalRating),
+                        Math.round(
                           selectedCandidate?.results?.softskillRating
-                        ) || Math.ceil(results?.data?.result?.softskillRating)
+                        ) || Math.round(results?.data?.result?.softskillRating)
                       )
                     ),
                   }}
                 >
                   {getFilter(
                     calculateCumulativeMean(
-                      Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                        Math.ceil(results?.data?.result?.technicalRating),
-                      Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                        Math.ceil(results?.data?.result?.softskillRating)
+                      Math.round(selectedCandidate?.results?.technicalRating) ||
+                        Math.round(results?.data?.result?.technicalRating),
+                      Math.round(selectedCandidate?.results?.softskillRating) ||
+                        Math.round(results?.data?.result?.softskillRating)
                     )
                   )}
                   <Image
                     src={getStatusSymbol(
                       calculateCumulativeMean(
-                        Math.ceil(
+                        Math.round(
                           selectedCandidate?.results?.technicalRating
-                        ) || Math.ceil(results?.data?.result?.technicalRating),
-                        Math.ceil(
+                        ) || Math.round(results?.data?.result?.technicalRating),
+                        Math.round(
                           selectedCandidate?.results?.softskillRating
-                        ) || Math.ceil(results?.data?.result?.softskillRating)
+                        ) || Math.round(results?.data?.result?.softskillRating)
                       )
                     )}
                     width={infoSymbolSize}
@@ -386,10 +386,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               <div className={styles.rightContainer}>
                 <span>
                   {calculateCumulativeMean(
-                    Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                      Math.ceil(results?.data?.result?.technicalRating),
-                    Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                      Math.ceil(results?.data?.result?.softskillRating)
+                    Math.round(selectedCandidate?.results?.technicalRating) ||
+                      Math.round(results?.data?.result?.technicalRating),
+                    Math.round(selectedCandidate?.results?.softskillRating) ||
+                      Math.round(results?.data?.result?.softskillRating)
                   )}
                   /10
                 </span>
@@ -449,7 +449,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       selectedCandidate?.results?.technicalAssessment ||
                       results?.data?.result?.technicalAssessment
                     }
-                    score={Math.ceil(
+                    score={Math.round(
                       selectedCandidate?.results?.technicalRating ||
                         results?.data?.result?.technicalRating
                     )}
@@ -460,7 +460,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       selectedCandidate?.results?.softskillAssessment ||
                       results?.data?.result?.softskillAssessment
                     }
-                    score={Math.ceil(
+                    score={Math.round(
                       selectedCandidate?.results?.softskillRating ||
                         results?.data?.result?.softskillRating
                     )}
@@ -471,7 +471,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       <Assessment
                         heading={headingThree}
                         para={codingResult?.data?.result?.technicalSummary}
-                        score={Math.ceil(
+                        score={Math.round(
                           parseInt(codingResult?.data?.result?.technicalRating)
                         )}
                       />

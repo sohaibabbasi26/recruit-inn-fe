@@ -203,8 +203,8 @@ export default function Home({
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates
-      .filter(candidate => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
-      .map(candidate => {
+      .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
+      .map((candidate) => {
         let latestResult = {
           softskillRating: 0,
           technicalRating: 0,
@@ -217,11 +217,12 @@ export default function Home({
         );
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
-        const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
+        const score =
+          (latestResult.softskillRating + latestResult.technicalRating) / 2;
         const formattedDate = latestResult.createdAt
           ? new Date(latestResult.createdAt).toLocaleDateString()
           : "N/A";
-        const expertiseList = candidate?.expertise?.map(exp => ({
+        const expertiseList = candidate?.expertise?.map((exp) => ({
           skill: exp.skill,
           level: exp.level,
         }));
@@ -297,17 +298,19 @@ export default function Home({
         allCandidatesReports.data
       );
       // Filter out candidates who have completed the test
-      const completedCandidates = processedData.filter(candidate => candidate.results);
+      const completedCandidates = processedData.filter(
+        (candidate) => candidate.results
+      );
       setPreprocessedCandidates(completedCandidates);
       console.log("pre processed data:", preprocessedCandidates);
       const filterRecommended = (candidate) =>
-        Math.ceil(candidate?.results?.technicalRating) >= 7 &&
-        Math.ceil(candidate?.results?.technicalRating) <= 10;
+        Math.round(candidate?.results?.technicalRating) >= 7 &&
+        Math.round(candidate?.results?.technicalRating) <= 10;
       const filterQualified = (candidate) =>
-        Math.ceil(candidate?.results?.technicalRating) >= 5 &&
-        Math.ceil(candidate?.results?.technicalRating) < 7;
+        Math.round(candidate?.results?.technicalRating) >= 5 &&
+        Math.round(candidate?.results?.technicalRating) < 7;
       const filterNotEligible = (candidate) =>
-        Math.ceil(candidate?.results?.technicalRating) < 5;
+        Math.round(candidate?.results?.technicalRating) < 5;
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
@@ -465,7 +468,7 @@ export default function Home({
       case "Recommended":
         return (
           <Super
-          setJobOverlay={setJobOverlay}
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -480,7 +483,7 @@ export default function Home({
       case "Qualified":
         return (
           <Super
-          setJobOverlay={setJobOverlay}
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -495,7 +498,7 @@ export default function Home({
       case "NotEligible":
         return (
           <Super
-          setJobOverlay={setJobOverlay}
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -542,7 +545,6 @@ export default function Home({
             stageHeadings={stageHeadings}
           />
         )}
-
       </FormProvider>
       {reportOverlay && (
         <ReportOverlay
