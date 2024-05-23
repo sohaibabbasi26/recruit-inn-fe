@@ -5,12 +5,19 @@
   align-items: center;
   height: 100dvh;
   max-width: 1920px;
+  position: relative;
 }
 
 .errorPage * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.recruitinLogo {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
 }
 
 .errorPage img {
@@ -29,4 +36,11 @@
 .error h1 {
   font-size: 20px;
   font-weight: 600;
+}
+
+/* 1024 */
+@media screen and (max-width: 64em) {
+  .error h1 {
+    font-size: 18px;
+  }
 }

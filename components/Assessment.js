@@ -1,24 +1,22 @@
-import styles from './Assessment.module.css';
+import styles from "./Assessment.module.css";
+import Average from "./Average";
 
-const Assessment = ({heading,para,score}) => {
+const Assessment = ({ heading, para, score }) => {
+  return (
+    <>
+      <div className={styles.assessmentContainer}>
+        <div className={styles.header}>
+          <h2>{heading} Assessment</h2>
+          <Average numbers={[score]} outOf={10} />
+        </div>
 
-    return (
-        <>
-            <div className={styles.assessmentContainer}>
-                <div className={styles.header}>
-                    <h2>{heading} Assessment</h2>
-                    <span>{score}/10</span>
-                </div>
-
-                <div className={styles.summary}>
-                    <h4>{heading} Summary</h4>
-                    <p>
-                        {para}
-                    </p>
-                </div>
-            </div>
-        </>
-    )
-}
+        <div className={styles.summary}>
+          <h4>{heading} Summary</h4>
+          <p>{para}</p>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Assessment;

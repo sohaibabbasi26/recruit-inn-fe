@@ -6,6 +6,7 @@ import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import BackButton from "./BackButton";
+import Average from "./Average";
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
@@ -384,15 +385,15 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               </div>
 
               <div className={styles.rightContainer}>
-                <span>
-                  {calculateCumulativeMean(
-                    Math.round(selectedCandidate?.results?.technicalRating) ||
-                      Math.round(results?.data?.result?.technicalRating),
-                    Math.round(selectedCandidate?.results?.softskillRating) ||
-                      Math.round(results?.data?.result?.softskillRating)
-                  )}
-                  /10
-                </span>
+                <Average
+                  numbers={[
+                    selectedCandidate?.results?.technicalRating ||
+                      results?.data?.result?.technicalRating,
+                    selectedCandidate?.results?.softskillRating ||
+                      results?.data?.result?.softskillRating,
+                  ]}
+                  outOf={10}
+                />
               </div>
             </div>
             {/* candidate test info div */}
@@ -449,10 +450,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       selectedCandidate?.results?.technicalAssessment ||
                       results?.data?.result?.technicalAssessment
                     }
-                    score={Math.round(
+                    score={
                       selectedCandidate?.results?.technicalRating ||
-                        results?.data?.result?.technicalRating
-                    )}
+                      results?.data?.result?.technicalRating
+                    }
                   />
                   <Assessment
                     heading={headingTwo}
@@ -460,10 +461,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       selectedCandidate?.results?.softskillAssessment ||
                       results?.data?.result?.softskillAssessment
                     }
-                    score={Math.round(
+                    score={
                       selectedCandidate?.results?.softskillRating ||
-                        results?.data?.result?.softskillRating
-                    )}
+                      results?.data?.result?.softskillRating
+                    }
                   />
 
                   {isCodingAssessment && (

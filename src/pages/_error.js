@@ -6,6 +6,13 @@ const ErrorPage = ({ statusCode }) => {
   return (
     // For now, we require this UI to be displayed for every HTTP error
     <div className={styles.errorPage}>
+      <Image
+        src="/recruitinn-logo-light.png"
+        alt="Recruitin Logo"
+        height={26}
+        width={184}
+        className={styles.recruitinLogo}
+      />
       <div className={styles.error}>
         <Image
           alt="503 error image"

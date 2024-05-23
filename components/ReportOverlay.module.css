@@ -326,6 +326,11 @@
   margin: auto 0 auto auto !important;
 }
 
+.rightContainer span {
+  padding: 0.25rem 1.5rem;
+  border-radius: 4rem;
+}
+
 .rightContainer button {
   background-color: #f0edfc;
   padding: 0.5rem 1rem;
