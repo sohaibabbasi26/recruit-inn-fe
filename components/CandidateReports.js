@@ -117,15 +117,15 @@ const CandidateReports = ({
                           style={{
                             backgroundColor: getBackgroundColor(
                               calculateCumulativeMean(
-                                item?.results?.technicalRating,
-                                item?.results?.softskillRating
+                                Math.round(item?.results?.technicalRating),
+                                Math.round(item?.results?.softskillRating)
                               )
                             ),
                           }}
                         >
                           {calculateCumulativeMean(
-                            item?.results?.technicalRating,
-                            item?.results?.softskillRating
+                            Math.round(item?.results?.technicalRating),
+                            Math.round(item?.results?.softskillRating)
                           )}
                           /10
                         </span>
