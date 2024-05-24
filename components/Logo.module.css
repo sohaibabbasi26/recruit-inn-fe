@@ -1,0 +1,30 @@
+.logoContainer {
+  /* display: flex;
+    justify-content: flex-start;
+    align-items: center; */
+  box-sizing: border-box;
+  padding: 14px 1rem 29px;
+  width: 100%;
+  text-align: center;
+}
+
+.logoContainer h3 {
+  /* margin: 0.75rem;
+    margin-bottom: 1rem; */
+  font-size: 23px;
+  font-weight: 900;
+
+  margin-bottom: 17px;
+  margin-top: 11px;
+}
+
+@media (max-width: 64em) {
+  .logoContainer {
+    height: 50px;
+  }
+
+  .logoContainer h3 {
+    margin: 1rem;
+    /* margin-bottom: 1rem; */
+  }
+}

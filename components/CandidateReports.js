@@ -19,6 +19,7 @@ const CandidateReports = ({
   console.log("candidate reports:", candidateReps);
 
   const newArray = candidateReps.slice(0, 2);
+  console.log(`Teeest here ${newArray.at(0)}`);
 
   const hasData = newArray && newArray.length > 0;
 

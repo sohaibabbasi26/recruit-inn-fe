@@ -391,6 +391,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       results?.data?.result?.technicalRating,
                     selectedCandidate?.results?.softskillRating ||
                       results?.data?.result?.softskillRating,
+                    parseInt(codingResult?.data?.result?.technicalRating),
                   ]}
                   outOf={10}
                 />

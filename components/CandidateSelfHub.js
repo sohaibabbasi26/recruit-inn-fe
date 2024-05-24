@@ -145,6 +145,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { getSvg } from "@/util/helpers";
+import Average from "./Average";
 
 const CandidatesSelfHub = ({
   contact,
@@ -278,7 +279,7 @@ const CandidatesSelfHub = ({
                             </div>
                           </div>
                           <div className={styles.rightTop}>
-                            <span
+                            {/* <span
                               style={{
                                 backgroundColor: getBackgroundColor(
                                   Math.ceil(item?.result?.technicalRating)
@@ -286,7 +287,12 @@ const CandidatesSelfHub = ({
                               }}
                             >
                               {Math.ceil(item?.result?.technicalRating)}/10
-                            </span>
+                            </span> */}
+
+                            <Average
+                              numbers={[item?.result?.technicalRating]}
+                              outOf={10}
+                            />
                             <span
                               style={{
                                 backgroundColor: getBackgroundColor(
