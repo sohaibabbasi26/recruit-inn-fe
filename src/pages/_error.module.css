@@ -36,6 +36,8 @@
 .error h1 {
   font-size: 20px;
   font-weight: 600;
+  margin-bottom: 1.125rem;
+  color: #170d23;
 }
 
 /* 1024 */
