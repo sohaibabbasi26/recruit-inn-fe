@@ -1,5 +1,5 @@
 .superContainer {
-  width: 60%;
+  width: 80%;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -26,11 +26,11 @@
 }
 
 /* 1680px */
-@media screen and (max-width: 105em) {
+/* @media screen and (max-width: 105em) {
   .superContainer {
     width: 80%;
   }
-}
+} */
 
 /* 1024px */
 @media screen and (max-width: 64em) {

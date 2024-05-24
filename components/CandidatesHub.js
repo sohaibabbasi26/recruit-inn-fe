@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import SearchEmpty from "../public/SearchEmpty.gif";
 import { getSvg } from "@/util/helpers";
+import Average from "./Average";
 
 const CandidatesHub = ({
   heading,
@@ -23,17 +24,17 @@ const CandidatesHub = ({
     let count = 0;
 
     if (val1) {
-      total += Math.ceil(val1);
+      total += Math.round(val1);
       count += 1;
     }
 
     if (val2) {
-      total += Math.ceil(val2);
+      total += Math.round(val2);
       count += 1;
     }
 
     if (val3) {
-      total += Math.ceil(parseInt(val3));
+      total += Math.round(parseInt(val3));
       count += 1;
     }
 
@@ -90,7 +91,16 @@ const CandidatesHub = ({
           <div className={styles.headingContainer}>
             <div className={styles.heading}>
               <h3>{heading}</h3>
-              <span>{data.length}</span>
+              {/* <span>{data.length} test</span> */}
+              <span>
+                <span>
+                  {!data?.length
+                    ? 0
+                    : data?.length <= 9
+                    ? `0${data?.length}`
+                    : data?.length}
+                </span>{" "}
+              </span>
             </div>
           </div>
 
@@ -119,32 +129,18 @@ const CandidatesHub = ({
                           </div>
                         </div>
                         <div className={styles.rightTop}>
-                          {/* <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span> */}
-                          <span
-                            style={{
-                              backgroundColor: getBackgroundColor(
-                                Math.ceil(
-                                  calculateCumulativeMean(
-                                    item?.results?.technicalRating,
-                                    item?.results?.softskillRating
-                                  )
-                                )
-                              ),
-                            }}
-                          >
-                            {Math.ceil(
-                              calculateCumulativeMean(
-                                item?.results?.technicalRating,
-                                item?.results?.softskillRating
-                              )
-                            )}
-                            /10
-                          </span>
+                          <Average
+                            numbers={[
+                              item?.results?.technicalRating,
+                              item?.results?.softskillRating,
+                            ]}
+                            outOf={10}
+                          />
 
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
-                                Math.ceil(
+                                Math.round(
                                   calculateCumulativeMean(
                                     item?.results?.technicalRating,
                                     item?.results?.softskillRating
@@ -154,7 +150,7 @@ const CandidatesHub = ({
                             }}
                           >
                             {getFilter(
-                              Math.ceil(
+                              Math.round(
                                 calculateCumulativeMean(
                                   item?.results?.technicalRating,
                                   item?.results?.softskillRating
@@ -163,7 +159,7 @@ const CandidatesHub = ({
                             )}
                             <Image
                               src={getStatusSymbol(
-                                Math.ceil(
+                                Math.round(
                                   calculateCumulativeMean(
                                     item?.results?.technicalRating,
                                     item?.results?.softskillRating

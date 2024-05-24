@@ -1,0 +1,48 @@
+.errorPage {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  max-width: 1920px;
+  position: relative;
+}
+
+.errorPage * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.recruitinLogo {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+}
+
+.errorPage img {
+  display: block;
+}
+
+.error {
+  max-width: 454px;
+  text-align: center;
+}
+
+.error img {
+  margin: 0 auto 10px;
+}
+
+.error h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1.125rem;
+  color: #170d23;
+}
+
+/* 1024 */
+@media screen and (max-width: 64em) {
+  .error h1 {
+    font-size: 18px;
+  }
+}

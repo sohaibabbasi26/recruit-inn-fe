@@ -1,7 +1,8 @@
 import styles from "./CandidateReports.module.css";
-import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
+import Image from "next/image";
+import Average from "./Average";
 
 const CandidateReports = ({
   selectedCandidate,
@@ -12,32 +13,6 @@ const CandidateReports = ({
   isLoading,
   setIsLoading,
 }) => {
-  const calculateCumulativeMean = (val1, val2, val3) => {
-    console.log("val1:", val1, "val2:", val2);
-
-    let total = 0;
-    let count = 0;
-
-    if (val1) {
-      total += Math.ceil(val1);
-      count += 1;
-    }
-
-    if (val2) {
-      total += Math.ceil(val2);
-      count += 1;
-    }
-
-    if (val3) {
-      total += Math.ceil(parseInt(val3));
-      count += 1;
-    }
-
-    if (count === 0) return 0;
-
-    return (total / count).toFixed(1);
-  };
-
   const iconSize = 25;
   const goToAllIconSize = 15;
   const { setActiveItem } = useActiveItem();
@@ -52,15 +27,15 @@ const CandidateReports = ({
     setReportOverlay(!reportOverlay);
   };
 
-  const getBackgroundColor = (score) => {
-    if (score >= 7 && score <= 10) {
-      return "#E7FFE0";
-    } else if (score >= 5 && score <= 6) {
-      return "#F0F3FF";
-    } else {
-      return "#FFE6E6";
-    }
-  };
+  // const getBackgroundColor = (score) => {
+  //   if (score >= 7 && score <= 10) {
+  //     return "#E7FFE0";
+  //   } else if (score >= 5 && score <= 6) {
+  //     return "#F0F3FF";
+  //   } else {
+  //     return "#FFE6E6";
+  //   }
+  // };
 
   const handleArrowClick = () => {
     setActiveItem("All");
@@ -114,23 +89,13 @@ const CandidateReports = ({
                         </div>
                       </div>
                       <div className={styles.rightTop}>
-                        {/* <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span> */}
-                        <span
-                          style={{
-                            backgroundColor: getBackgroundColor(
-                              calculateCumulativeMean(
-                                item?.results?.technicalRating,
-                                item?.results?.softskillRating
-                              )
-                            ),
-                          }}
-                        >
-                          {calculateCumulativeMean(
+                        <Average
+                          numbers={[
                             item?.results?.technicalRating,
-                            item?.results?.softskillRating
-                          )}
-                          /10
-                        </span>
+                            item?.results?.softskillRating,
+                          ]}
+                          outOf={10}
+                        />
                         <Image />
                       </div>
                     </div>
