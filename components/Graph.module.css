@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 
 .mainContainer {
-  height: 44vh;
+  /* height: 44vh;
   width: 100%;
   height: 50%;
   margin-top: 10px;
@@ -11,35 +11,74 @@
   justify-content: center;
   overflow: hidden;
   font-size: small;
+  font-family: "Poppins", sans-serif; */
+
+  background-color: var(--color-white-purple-shade);
+  border-radius: 2rem;
+  overflow: hidden;
+  font-size: small;
   font-family: "Poppins", sans-serif;
+  padding: 1.5rem;
+}
+
+.mainContainer * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .headingContainer {
-  margin: 1rem 0 0;
   display: flex;
-  width: 100%;
   justify-content: space-between;
+  align-items: center;
+  /* margin: 1rem 0 0; */
+  /* width: 100%; */
+  margin-bottom: 1.5rem;
 }
 
 .headingContainer h3 {
-  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .headingContainer span {
-  color: #6137db;
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .container {
-  width: 94%;
+  /* width: 94%; */
+  width: 100%;
   font-weight: 700;
+  height: 100%;
 }
 
 .graphContainer {
-  height: 80%;
+  /* height: 80%; */
+  height: calc(100% - 22px);
 }
 
 .graph {
   height: 100%;
+}
+
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .headingContainer {
+    margin-bottom: 0.6rem;
+  }
+}
+
+/* 1440px */
+@media screen and (max-width: 90em) {
+  .mainContainer {
+    padding: 1.25rem;
+  }
+
+  .headingContainer {
+    margin-bottom: 0.3rem;
+  }
 }
 
 /* looking at options */

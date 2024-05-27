@@ -3,6 +3,8 @@
 :root {
   --color-primary: #6137db;
   --color-white: #ffffff;
+  --color-neutral-dark: #170d23;
+  --color-white-purple-shade: #f8f7fa;
 }
 
 body {
