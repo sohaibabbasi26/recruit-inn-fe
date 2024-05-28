@@ -5,13 +5,10 @@ import Image from "next/image";
 import Average from "./Average";
 
 const CandidateReports = ({
-  selectedCandidate,
   candidateReps,
   reportOverlay,
   setReportOverlay,
   setSelectedCandidate,
-  isLoading,
-  setIsLoading,
 }) => {
   const iconSize = 25;
   const goToAllIconSize = 15;
