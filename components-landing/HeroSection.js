@@ -39,9 +39,13 @@ const HeroSection = () => {
                   className={`w-100p h-full ${style["blurred-overlay"]} flex relative`}
                 >
                   <div
-                    className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style["background-gradient"]} border-themePurple absolute left-[4rem] top-[39%] rounded-md`}
+                    className={`flex gap-3 items-center z-[1] text-neutral-dark dark:text-white w-[13rem] h-[3rem] border-2 ${
+                      theme === "dark"
+                        ? style["background-gradient"]
+                        : "bg-white"
+                    } border-themePurple absolute left-[4rem] top-[39%] rounded-md`}
                   >
-                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md">
+                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
                     </div>
 
@@ -49,9 +53,13 @@ const HeroSection = () => {
                   </div>
 
                   <div
-                    className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style["background-gradient"]} border-themePurple absolute left-[15rem] top-[17%] rounded-md`}
+                    className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[13rem] h-[3rem] border-2 ${
+                      theme === "dark"
+                        ? style["background-gradient"]
+                        : "bg-white"
+                    } border-themePurple absolute left-[15rem] top-[17%] rounded-md`}
                   >
-                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md">
+                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
                     </div>
 
@@ -59,9 +67,13 @@ const HeroSection = () => {
                   </div>
 
                   <div
-                    className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style["background-gradient"]} border-themePurple left-[10rem] top-[61%] absolute rounded-md`}
+                    className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[13rem] h-[3rem] border-2 ${
+                      theme === "dark"
+                        ? style["background-gradient"]
+                        : "bg-white"
+                    } border-themePurple left-[10rem] top-[61%] absolute rounded-md`}
                   >
-                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md">
+                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
                     </div>
 

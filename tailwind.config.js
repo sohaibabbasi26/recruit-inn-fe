@@ -41,6 +41,8 @@ module.exports = {
       },
       colors: {
         darkPurple: "#241B3E",
+        "neutral-dark": "#170D23",
+        "white-purple-shade": "#F8F7FA",
         steel: "#4A525D",
         btnPurple: "#220772",
         lightPurple: "#6137DB",
