@@ -55,8 +55,7 @@
 }
 
 .graphContainer {
-  /* height: 80%; */
-  height: calc(100% - 22px);
+  height: calc(100% - 54px);
 }
 
 .graph {
@@ -68,6 +67,9 @@
   .headingContainer {
     margin-bottom: 0.6rem;
   }
+  .graphContainer {
+    height: calc(100% - 41px);
+  }
 }
 
 /* 1440px */
@@ -78,6 +80,10 @@
 
   .headingContainer {
     margin-bottom: 0.3rem;
+  }
+  .graphContainer {
+    /* 22px */
+    height: calc(100% - 28px);
   }
 }
 
