@@ -5,7 +5,8 @@ import gsap from "gsap";
 import ErrorIndicator from "./ErrorIndicator";
 import SuccessIndicator from "./SuccessIndicator";
 import { getSvg } from "@/util/helpers";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
+import BackButton from "./BackButton";
 
 const JobOverlay = ({
   showError,
@@ -32,7 +33,7 @@ const JobOverlay = ({
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
   const [assessmentId, setAssessmentId] = useState();
-  const [codeQues,setCodeQues] = useState();
+  const [codeQues, setCodeQues] = useState();
 
   useEffect(() => {
     setTechStack(selectedJob?.expertise);
@@ -67,7 +68,6 @@ const JobOverlay = ({
 
   async function fetchAndCopyAssessmentLink() {
     setIsLoading(true);
-
     try {
       if (techStack) {
         const reqBody = {
@@ -85,30 +85,18 @@ const JobOverlay = ({
           }
         );
         const dataTwo = await response.json();
-// <<<<<<< HEAD
-//         if(dataTwo?.data?.message?.question_id){
-//           setTest(dataTwo);
-//           console.log('Test data:', dataTwo);
-//         }
-//         console.log('Test data:', test);
-//         console.log("selectedJob?.is_test_req === true :", selectedJob?.is_test_req === true)
-//         if(selectedJob?.is_test_req === true){
-// =======
+
         if (dataTwo?.data?.message?.question_id) {
           setTest(dataTwo);
           console.log("Test data:", dataTwo);
         }
-        console.log("Test data:", test);
-        console.log(
-          "selectedJob?.is_test_req === true :",
-          selectedJob?.is_test_req === true
-        );
+
+        const questionId = dataTwo?.data?.message?.question_id;
+
         if (selectedJob?.is_test_req === true) {
-// >>>>>>> d49cedf82b23c054cf4acc90c134dcd1a902c9c1
           try {
-            setIsLoading(true);
             const req = {
-              codingExpertise: selectedJob?.expertise,
+              // codingExpertise: selectedJob?.expertise,
               position_id: selectedJob?.position_id,
             };
 
@@ -125,53 +113,45 @@ const JobOverlay = ({
               }
             );
             const data = await response.json();
-            console.log('data in job overlay about code question:', data?.data?.assessment_id);
+            console.log(
+              "data in job overlay about code question:",
+              data?.data?.assessment_id
+            );
 
             if (data?.data?.assessment_id) {
               setCodeQues(data);
-              setAssessmentId(data?.data?.assessment_id); 
+              setAssessmentId(data?.data?.assessment_id);
               console.log("assessment id:", data?.data?.assessment_id);
               console.log("code question data:", data);
-              
-              const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${dataTwo?.data?.message?.question_id}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-              copyToClipboard(newLink)
-                .then(() => {
-                  setMessage("Your link has been copied");
-                  showSuccess();
-                })
-                .catch((err) => {
-                  console.error("Could not copy text: ", err);
-                });
-        
+
+              const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
+              copyLink(newLink);
             } else {
               console.error("Assessment ID not found in the response.");
             }
-            setIsLoading(false);
-
           } catch (err) {
             console.error("ERROR:", err);
           }
+        } else {
+          // If no candidate or test is not required, still generate the link
+          const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
+          copyLink(newLink);
         }
-
-        // const newQuestionId = data?.data?.message?.question_id;
-        // console.log("test:", test);
-        // setQuestionId(newQuestionId);
-        // const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${newQuestionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-        // console.log("new link:", newLink);
-        // // setLink(newLink);
-        // copyToClipboard(newLink)
-        //   .then(() => {
-        //     setMessage("Your link has been copied");
-        //     showSuccess();
-        //   })
-        //   .catch((err) => {
-        //     console.error("Could not copy text: ", err);
-        //   });
       }
     } catch (err) {
       console.error("error:", err);
     }
     setIsLoading(false);
+  }
+
+  async function copyLink(link) {
+    try {
+      await copyToClipboard(link);
+      setMessage("Your link has been copied");
+      showSuccess();
+    } catch (err) {
+      console.error("Could not copy text: ", err);
+    }
   }
 
   // useEffect(() => {
@@ -272,6 +252,7 @@ const JobOverlay = ({
             msgText={message}
           />
         )}
+
         <div className={styles.btn}>
           <button onClick={onClose}>
             <Image src="/shut.svg" width={15} height={15} />
@@ -279,13 +260,14 @@ const JobOverlay = ({
         </div>
 
         <div className={styles.superContainer}>
-          <Image
-            id={styles.topImage}
-            src="/flower1.png"
-            width={800}
-            height={500}
-          />
           <div className={styles.coverContainer}>
+            <Image
+              className={styles.jobOverlayBg}
+              src="/flower1.png"
+              height={400}
+              width={800}
+            />
+
             {/*top conatiner */}
             <div className={styles.topContainer}>
               <div className={styles.content}>
@@ -341,8 +323,21 @@ const JobOverlay = ({
                 </button>
               )}
             </div>
-            
-            <div className={styles.description}>{selectedJob?.description ? ( parse(selectedJob?.description)) : ('')}</div>
+
+            <div className={styles.description}>
+              <div className={styles.aboutUs}>
+                <h3>About us:</h3>
+                <p>[Write about your company] </p>
+              </div>
+              <div className={styles.jobDescription}>
+                <h3>Job Description</h3>
+                <p>
+                  {selectedJob?.description
+                    ? parse(selectedJob?.description)
+                    : ""}
+                </p>
+              </div>
+            </div>
             {/* skils section */}
 
             <div className={styles.techContainer}>
@@ -356,8 +351,20 @@ const JobOverlay = ({
                           id={styles.unique}
                           //   src={item?.img}
                           src={getSvg(item?.skill)}
-                          width={iconSize}
-                          height={iconSize}
+                          width={
+                            getSvg(item?.skill) === "/python.svg" ||
+                            getSvg(item?.skill) === "/html5.svg" ||
+                            getSvg(item?.skill) === "/css3.svg"
+                              ? 20
+                              : 25
+                          }
+                          height={
+                            getSvg(item?.skill) === "/python.svg" ||
+                            getSvg(item?.skill) === "/html5.svg" ||
+                            getSvg(item?.skill) === "/css3.svg"
+                              ? 20
+                              : 25
+                          }
                         />
                         {item?.skill}
                       </li>
@@ -366,16 +373,20 @@ const JobOverlay = ({
                 </ul>
               </div>
             </div>
+            <div className={styles.bottomButtons}>
+              <BackButton onClose={onClose}>Back</BackButton>
+              <button className={styles.nextButton}>
+                All Candidates{" "}
+                <span>
+                  <Image src="/Forward1.svg" height={35} width={35} />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
-        <Image
-          id={styles.lowerImage}
-          src="/flower2.png"
-          width={700}
-          height={300}
-        />
       </div>
     </>
   );
 };
+
 export default JobOverlay;

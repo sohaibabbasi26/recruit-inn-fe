@@ -117,21 +117,27 @@ const Footer = ({
           </p>
           <div className="flex items-center mr-[2rem] gap-5 max-lg:w-[100%] max-lg:mr-0 max-lg:justify-center">
             <a
-              href="https://twitter.com/recruitinn"
-              target="blank"
-              rel="noopener noreferrer"
-            >
-              <Image src="/x-space.svg" width={40} height={40} />
-            </a>
-            <a href="instagram.com" target="blank" rel="noopener noreferrer">
-              <Image src="/insta.svg" width={40} height={40} />
-            </a>
-            <a
               href="https://www.linkedin.com/company/recruitinn-ai/about"
               target="blank"
               rel="noopener noreferrer"
             >
               <Image src="/LinkedInWhite.svg" width={40} height={40} />
+            </a>
+            <a
+              // href="https://twitter.com/recruitinn"
+              className="rounded-lg bg-white"
+              href="https://www.facebook.com/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              <Image src="/facebook.svg" width={40} height={40} />
+            </a>
+            <a
+              href="https://www.instagram.com/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
+              <Image src="/insta.svg" width={40} height={40} />
             </a>
           </div>
         </div>

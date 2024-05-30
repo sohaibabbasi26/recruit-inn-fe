@@ -5,6 +5,8 @@ import gsap from "gsap";
 import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import BackButton from "./BackButton";
+import Average from "./Average";
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
@@ -13,16 +15,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [results, setResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
-
   const [datee, setDatee] = useState();
-
 
   useEffect(() => {
     const date = new Date(selectedCandidate?.date);
     setDatee(date.toDateString());
-  })
+  });
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -46,11 +44,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       setCodingResult(data);
       //
       setIsLoading(false);
-      if (
-        data &&
-        data?.data &&
-        data?.data?.result
-      ) {
+      if (data && data?.data && data?.data?.result) {
         setIsCodingAssessment(true);
       } else {
         setIsCodingAssessment(false);
@@ -64,17 +58,17 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //     let count = 0;
 
   //     if (selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment) {
-  //         total += Math.ceil(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment);
+  //         total += Math.round(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment);
   //         count += 1;
   //     }
 
   //     if (selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating) {
-  //         total += Math.ceil(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating);
+  //         total += Math.round(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating);
   //         count += 1;
   //     }
 
   //     if (codingResult?.data?.result?.technicalRating) {
-  //         total += Math.ceil(parseInt(codingResult.data.result.technicalRating));
+  //         total += Math.round(parseInt(codingResult.data.result.technicalRating));
   //         count += 1;
   //     }
 
@@ -88,23 +82,23 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     let count = 0;
 
     if (val1) {
-      total += Math.ceil(parseInt(val1));
+      total += Math.round(parseInt(val1));
       count += 1;
     }
 
     if (val2) {
-      total += Math.ceil(parseInt(val2));
+      total += Math.round(parseInt(val2));
       count += 1;
     }
 
     if (val3) {
-      total += Math.ceil(parseInt(val3));
+      total += Math.round(parseInt(val3));
       count += 1;
     }
 
     if (count === 0) return 0;
 
-    return (total / count).toFixed(2);
+    return Math.round(total / count); // Round the final result to the nearest integer
   };
 
   const overlayRef = useRef(null);
@@ -161,7 +155,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //       const captureHeight = content.clientHeight;
 
   //       // Calculate the number of sections based on height and viewport
-  //       const numSections = Math.ceil(contentHeight / captureHeight);
+  //       const numSections = Math.round(contentHeight / captureHeight);
 
   //       // Create a new PDF instance
   //       const pdf = new jsPDF({
@@ -240,13 +234,16 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       const content = contentRef.current.innerHTML;
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ content }),
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content }),
+          }
+        );
 
         if (response.ok) {
           const pdfBlob = await response.blob();
@@ -258,8 +255,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           link.click();
           document.body.removeChild(link);
           window.URL.revokeObjectURL(url);
+          console.log("PDF Downloaded");
         } else {
           console.error("Failed to generate PDF:", response.statusText);
+          const errorText = await response.text(); // Fetching detailed error message from the server
+          console.error("Server response:", errorText);
         }
       } catch (error) {
         console.error("Error downloading PDF:", error);
@@ -336,18 +336,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
-          <div className={styles.coverContainer} >
+          <div className={styles.coverContainer}>
             {/*top container */}
-            
-            {/* candidate test info div */}
-          
-
             <div className={styles.topContainer}>
               <div className={styles.avatarContainer}>
                 <Image src="/avatarDefault.svg" width={65} height={84} />
               </div>
-
-              
               <div className={styles.information}>
                 <h1>{selectedCandidate?.name}</h1>
                 <p className={styles.role}>{selectedCandidate?.position}</p>
@@ -355,33 +349,33 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   style={{
                     backgroundColor: getBackgroundColor(
                       calculateCumulativeMean(
-                        Math.ceil(
+                        Math.round(
                           selectedCandidate?.results?.technicalRating
-                        ) || Math.ceil(results?.data?.result?.technicalRating),
-                        Math.ceil(
+                        ) || Math.round(results?.data?.result?.technicalRating),
+                        Math.round(
                           selectedCandidate?.results?.softskillRating
-                        ) || Math.ceil(results?.data?.result?.softskillRating)
+                        ) || Math.round(results?.data?.result?.softskillRating)
                       )
                     ),
                   }}
                 >
                   {getFilter(
                     calculateCumulativeMean(
-                      Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                      Math.ceil(results?.data?.result?.technicalRating),
-                      Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                      Math.ceil(results?.data?.result?.softskillRating)
+                      Math.round(selectedCandidate?.results?.technicalRating) ||
+                        Math.round(results?.data?.result?.technicalRating),
+                      Math.round(selectedCandidate?.results?.softskillRating) ||
+                        Math.round(results?.data?.result?.softskillRating)
                     )
                   )}
                   <Image
                     src={getStatusSymbol(
                       calculateCumulativeMean(
-                        Math.ceil(
+                        Math.round(
                           selectedCandidate?.results?.technicalRating
-                        ) || Math.ceil(results?.data?.result?.technicalRating),
-                        Math.ceil(
+                        ) || Math.round(results?.data?.result?.technicalRating),
+                        Math.round(
                           selectedCandidate?.results?.softskillRating
-                        ) || Math.ceil(results?.data?.result?.softskillRating)
+                        ) || Math.round(results?.data?.result?.softskillRating)
                       )
                     )}
                     width={infoSymbolSize}
@@ -391,24 +385,29 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               </div>
 
               <div className={styles.rightContainer}>
-                <span>
-                  {calculateCumulativeMean(
-                    Math.ceil(selectedCandidate?.results?.technicalRating) ||
-                    Math.ceil(results?.data?.result?.technicalRating),
-                    Math.ceil(selectedCandidate?.results?.softskillRating) ||
-                    Math.ceil(results?.data?.result?.softskillRating)
-                  )}
-                  /10
-                </span>
+                <Average
+                  numbers={[
+                    selectedCandidate?.results?.technicalRating ||
+                      results?.data?.result?.technicalRating,
+                    selectedCandidate?.results?.softskillRating ||
+                      results?.data?.result?.softskillRating,
+                    parseInt(codingResult?.data?.result?.technicalRating),
+                  ]}
+                  outOf={10}
+                />
               </div>
             </div>
-
-
+            {/* candidate test info div */}
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
                 <ul>
                   <li>
-                    <span className={styles.bold}>Phone: </span>
+                    <span className={styles.bold}>Name</span>
+                    <span>{selectedCandidate?.name}</span>
+                  </li>
+
+                  <li>
+                    <span className={styles.bold}>Phone</span>
                     <span>
                       {selectedCandidate?.contactNo
                         ? selectedCandidate?.contactNo
@@ -416,26 +415,20 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Name: </span>
+                    <span className={styles.bold}>Date</span>
                     <span>
-                      {selectedCandidate?.name}
+                      {selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Date: </span>
-                    <span>
-                      {datee || results?.data?.createdAt}
-                    </span>
-                  </li>
-                  <li>
-                    <span className={styles.bold}>Job Type: </span>
+                    <span className={styles.bold}>Job Type</span>
                     <span>
                       {selectedCandidate?.jobType ||
                         selectedCandidate?.job_type}
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Applied For: </span>
+                    <span className={styles.bold}>Applied For</span>
                     <span>
                       {selectedCandidate?.company
                         ? selectedCandidate?.company?.name
@@ -443,7 +436,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     </span>
                   </li>
                   <li>
-                    <span className={styles.bold}>Email: </span>
+                    <span className={styles.bold}>Email</span>
                     <span>{selectedCandidate?.email}</span>
                   </li>
                 </ul>
@@ -458,10 +451,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       selectedCandidate?.results?.technicalAssessment ||
                       results?.data?.result?.technicalAssessment
                     }
-                    score={Math.ceil(
+                    score={
                       selectedCandidate?.results?.technicalRating ||
                       results?.data?.result?.technicalRating
-                    )}
+                    }
                   />
                   <Assessment
                     heading={headingTwo}
@@ -469,10 +462,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       selectedCandidate?.results?.softskillAssessment ||
                       results?.data?.result?.softskillAssessment
                     }
-                    score={Math.ceil(
+                    score={
                       selectedCandidate?.results?.softskillRating ||
                       results?.data?.result?.softskillRating
-                    )}
+                    }
                   />
 
                   {isCodingAssessment && (
@@ -480,7 +473,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       <Assessment
                         heading={headingThree}
                         para={codingResult?.data?.result?.technicalSummary}
-                        score={Math.ceil(
+                        score={Math.round(
                           parseInt(codingResult?.data?.result?.technicalRating)
                         )}
                       />
@@ -497,7 +490,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             </div>
 
             <div className={styles.selfReportOverlayButtons}>
-              <button className={styles.backButton} onClick={onClose}>
+              {/* <button className={styles.backButton} onClick={onClose}>
                 <span>
                   <Image
                     alt="Back arrow"
@@ -507,7 +500,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   />
                 </span>
                 Back
-              </button>
+              </button> */}
+              <BackButton onClose={onClose}>Back</BackButton>
 
               {!isLoading && (
                 <button
@@ -518,8 +512,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <span>
                     <Image
                       alt="Download icon"
-                      height={40}
-                      width={40}
+                      height={35}
+                      width={35}
                       src="/download.svg"
                     />
                   </span>

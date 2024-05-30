@@ -1,10 +1,11 @@
+import { forwardRef, useState } from "react";
+import { findFlagUrlByCountryName } from "country-flags-svg";
+import PhoneInput from "react-phone-number-input";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
 import Image from "next/image";
-import { forwardRef, useState } from "react";
-import PhoneInput from "react-phone-number-input";
-import styles from "./PersonalInfoself.module.css";
 import ShowPassword from "./ShowPassword";
+import styles from "./PersonalInfoself.module.css";
 
 const PersonalInfoSelf = forwardRef(
   ({
@@ -34,7 +35,7 @@ const PersonalInfoSelf = forwardRef(
     city,
     password,
     confirmPassword,
-    setIsTestRequired
+    setIsTestRequired,
   }) => {
     const handleInputChange = (e, ref) => {
       ref.current.value = e.target.value;
@@ -165,7 +166,7 @@ const PersonalInfoSelf = forwardRef(
                 value={expertise}
                 onChange={(e) => setExpertise(e.target.value)}
               >
-                <option disabled={true} selected  >
+                <option disabled={true} selected>
                   How do you rate yourself
                 </option>
                 <option value="beginner">Beginnner</option>
@@ -183,11 +184,27 @@ const PersonalInfoSelf = forwardRef(
               <div
                 className={`${styles.infoField} ${
                   country ? styles.filled : ""
+                } ${
+                  country &&
+                  findFlagUrlByCountryName(country) &&
+                  styles.countryField
                 }`}
               >
-                <Image src="/earth.svg" alt="Country" width={20} height={20} />
+                {/* <Image src="/earth.svg" alt="Country" width={20} height={20} /> */}
+                <Image
+                  src={
+                    country
+                      ? findFlagUrlByCountryName(country) || "/earth.svg"
+                      : "/earth.svg"
+                  }
+                  width={20}
+                  height={20}
+                />
+
                 <select onChange={(e) => setCountry(e.target.value)}>
-                  <option disabled={true} selected >Select country</option>
+                  <option disabled={true} selected>
+                    Select country
+                  </option>
                   {countryList.map((country) => (
                     <option value={country}> {country} </option>
                   ))}
@@ -205,7 +222,9 @@ const PersonalInfoSelf = forwardRef(
                 disabled={country === null}
                 onChange={(e) => setCity(e.target.value)}
               >
-                <option disabled={true} selected>Select city</option>
+                <option disabled={true} selected>
+                  Select city
+                </option>
                 {getCities(country)?.map((city) => (
                   <option value={city}> {city} </option>
                 ))}

@@ -8,7 +8,7 @@ import CandSelfSkillBtns from "./CandSelfSkillBtn";
 import CandidateVerifyBtns from "./CandVerifyBtns";
 import CandidateVerify from "./CandidateVerify";
 import ErrorIndicator from "./ErrorIndicator";
-import styles from "./InvitationOverlay.module.css";
+import styles from "./SelfOverlay.module.css";
 import PersonalInfoBtns from "./PersonalInfoBtns";
 import PersonalInfoSelf from "./PersonalInfoself";
 import Stages from "./Stages";
@@ -125,21 +125,16 @@ const SelfOverlay = ({
   }, [name, city, contact, password, email, expertise, country, techStack]);
 
   const toggleComponent = async () => {
-
     const skills = [
       { skill: skill1, level: level1 },
       { skill: skill2, level: level2 },
     ];
 
-    const isAnySkillEntered = skills.some(({ skill }) =>
-      skill.trim()
-    );
+    const isAnySkillEntered = skills.some(({ skill }) => skill.trim());
 
-    const areAllLevelsSelected = skills.every(
-      ({ skill, level }) => {
-        return skill.trim() ? level : true;
-      }
-    );
+    const areAllLevelsSelected = skills.every(({ skill, level }) => {
+      return skill.trim() ? level : true;
+    });
 
     if (areAllLevelsSelected) {
       setIsLevelEntered(true);
@@ -162,38 +157,35 @@ const SelfOverlay = ({
       setMessage("Please fill all the fields first");
       showError();
       return;
-    }
-    else if (currentStage === stages.PERSONAL_INFO && checkIfCandidateAlreadyThere() === true) {
-      //   setMessage("Entered email is already registered");
+    } else if (
+      currentStage === stages.PERSONAL_INFO &&
+      checkIfCandidateAlreadyThere() === true
+    ) {
+      // setMessage("Entered email is already registered");
       // showError();
       return;
-    }
-
-    else if (
+    } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateEmailReceiver()
     ) {
       setMessage("Entered email is not valid");
       showError();
       return;
-    }
-    else if (
+    } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateNameReceiver()
     ) {
       setMessage("Entered name is not valid");
       showError();
       return;
-    }
-     else if (
+    } else if (
       currentStage === stages.PERSONAL_INFO &&
       !validateContactReciever()
     ) {
       setMessage("Entered contact is not valid");
       showError();
       return;
-    }
-    else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
+    } else if (currentStage === stages.PERSONAL_INFO && password.length < 8) {
       setMessage("Password must be at least 8 characters long ");
       showError();
       return;
@@ -239,8 +231,7 @@ const SelfOverlay = ({
           if (!checkIfEmailPresent) {
             setCurrentStage(stages.VERIFICATION);
             return;
-          }
-          else if (checkIfEmailPresent === true) {
+          } else if (checkIfEmailPresent === true) {
             setCurrentStage(stages.PERSONAL_INFO);
             return;
           }
@@ -322,12 +313,12 @@ const SelfOverlay = ({
     }
     return true;
   };
-  const validatePasswordReciever = () =>{
-    if(password.length  < 8){
+  const validatePasswordReciever = () => {
+    if (password.length < 8) {
       return false;
     }
     return true;
-  }
+  };
 
   const validateNumber = (contact) => {
     const num = parseInt(contact);
@@ -352,16 +343,16 @@ const SelfOverlay = ({
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
   };
-  const isValidName = (name) =>{
-    const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+  const isValidName = (name) => {
+    const nameRegex = /^[a-zA-Z]+(?:[. ][a-zA-Z]+)*$/;
     return nameRegex.test(name);
-  }
+  };
   const isvalidphone = (phone) => {
     const phoneRegex = /^\+[1-9]\d{6,14}$/;
     return phoneRegex.test(phone);
-  }
+  };
   // const isvalidpassword = (password) => {
-    
+
   // }
   const validatePassword = (password) => {
     if (password && password.length < 8) {
@@ -378,9 +369,9 @@ const SelfOverlay = ({
     try {
       const reqBody = {
         email: email,
-      }
+      };
 
-      console.log('request body:', reqBody);
+      console.log("request body:", reqBody);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate-self`,
         {
@@ -392,11 +383,11 @@ const SelfOverlay = ({
         }
       );
       const data = await response.json();
-      console.log('data:', data);
+      console.log("data:", data);
       if (data?.data?.candidate_id) {
         setCheckIfEmailPresent(true);
         setCurrentStage(stages.PERSONAL_INFO);
-        setMessage('Entered email is already registered');
+        setMessage("Entered email is already registered");
         showError();
       } else {
         // setCurrentStage(stages.VERIFICATION);
@@ -405,13 +396,11 @@ const SelfOverlay = ({
       }
       return checkIfEmailPresent;
     } catch (err) {
-      console.log('ERR:', err);
+      console.log("ERR:", err);
     } finally {
       setIsLoading(false);
     }
-  }
-
-
+  };
 
   const handlePersonalInfo = async () => {
     setIsLoading(true);
@@ -510,7 +499,7 @@ const SelfOverlay = ({
   const verifyCode = async () => {
     const otpCode = otp;
     console.log("generated code:", generatedCode);
-    console.log("entered otp code:", otpCode)
+    console.log("entered otp code:", otpCode);
     if (generatedCode === otpCode) {
       console.log("here in verify code if block");
       setCurrentStage(stages.SKILLS);
@@ -602,7 +591,7 @@ const SelfOverlay = ({
             setAssessmentId(data?.data?.assessment_id);
           }
           console.log("Data is here:", codeQues);
-          console.log('assessment id:', assessmentId);
+          console.log("assessment id:", assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
@@ -614,7 +603,7 @@ const SelfOverlay = ({
           console.error("ERROR:", err);
         }
 
-        try{
+        try {
           const req = {
             is_test_req: isTestRequired,
             candidate_id: candidateId,
@@ -630,20 +619,15 @@ const SelfOverlay = ({
             }
           );
           const data = await response.json();
-          console.log("data is updated perfectly:",data);
-        }
-        catch(err){
-          console.log("ERROR:",err)
+          console.log("data is updated perfectly:", data);
+        } catch (err) {
+          console.log("ERROR:", err);
         }
       }
     } catch (err) {
-
-
       console.log("error:", err);
     }
-
-  }
-
+  };
 
   useEffect(() => {
     console.log("code assessment id:", assessmentId);
@@ -705,16 +689,16 @@ const SelfOverlay = ({
                     setIsTestRequired={setIsTestRequired}
                   />
                   <div className={styles.wrapper}>
-                    <PersonalInfoSelfBtns 
-                    showSuccess={showSuccess}
-                    setMessage={setMessage}
-                    validateEmailReceiver={validateEmailReceiver}
-                    validateNameReceiver = {validateNameReceiver}
-                    validateContactReciever = {validateContactReciever}
-                    validatePasswordReciever ={validatePasswordReciever}
-                    showError={showError}
-                    onContinue={toggleComponent}
-                    onBack={backToggleComponent}
+                    <PersonalInfoSelfBtns
+                      showSuccess={showSuccess}
+                      setMessage={setMessage}
+                      validateEmailReceiver={validateEmailReceiver}
+                      validateNameReceiver={validateNameReceiver}
+                      validateContactReciever={validateContactReciever}
+                      validatePasswordReciever={validatePasswordReciever}
+                      showError={showError}
+                      onContinue={toggleComponent}
+                      onBack={backToggleComponent}
                     />
                   </div>
                 </>

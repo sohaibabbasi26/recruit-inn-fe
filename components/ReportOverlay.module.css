@@ -16,6 +16,8 @@
   opacity: 0;
   transition: none;
   overflow: hidden;
+  left: 0;
+  top: 0;
 }
 
 .btn {
@@ -102,13 +104,13 @@
   align-items: center;
 } */
 
-.coverContainer {
+/* .coverContainer {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr;
 
   height: 100%;
-}
+} */
 
 .topContainer {
   display: flex;
@@ -282,13 +284,7 @@
 }
 
 .infoContainer {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-
-  /* height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll; */
+  margin-bottom: 4.875rem;
 }
 
 .infoDiv {
@@ -332,6 +328,11 @@
   margin: auto 0 auto auto !important;
 }
 
+.rightContainer span {
+  padding: 0.25rem 1.5rem;
+  border-radius: 4rem;
+}
+
 .rightContainer button {
   background-color: #f0edfc;
   padding: 0.5rem 1rem;
@@ -360,7 +361,7 @@
 }
 
 .selfReportOverlayButtons {
-  margin-top: 1rem;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -375,6 +376,7 @@
   font-size: 1rem;
   font-weight: 700;
   padding: 15px 1.5rem;
+  padding: 0.9375rem 1.5rem 0.9375rem 2rem;
 
   display: flex;
   justify-content: center;
@@ -418,15 +420,18 @@
   .avatarContainer {
     padding: 1rem 1.5rem;
   }
-  .backButton,
-  .downloadButton {
-    padding: 8px 1rem;
-  }
-  .backButton {
+  /* .backButton {
     padding-right: 1.6rem;
   }
   .downloadButton {
     padding-left: 1.6rem;
+  } */
+}
+
+/* 1440 */
+@media screen and (max-width: 90em) {
+  .downloadButton {
+    padding: 0.7rem 1.5rem 0.7rem 2rem;
   }
 }
 

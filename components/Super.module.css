@@ -45,18 +45,20 @@
   margin-right: 0px;
   border-radius: 60px;
   color: #fff;
+  letter-spacing: 0.5px;
   display: flex;
   justify-content: center;
   align-items: center;
   letter-spacing: 0.5px;
   font-family: "Poppins", sans-serif;
+  gap: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
 }
 
 .notificationsBtn {
   background-color: #f8f7fc;
-  height: 70px;
+  height: 50px;
   min-width: 25%;
   border-radius: 48px;
   font-weight: 700;

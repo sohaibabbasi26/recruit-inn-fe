@@ -1,19 +1,15 @@
-import { useState } from 'react';
-import styles from './InvitationOverlay.module.css';
-import Image from 'next/image';
-import Stages from './Stages';
-import { useRouter } from 'next/router';
-import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import ErrorIndicator from './ErrorIndicator';
+import styles from './InvitationOverlay.module.css';
 import JobDetails from './JobDetails';
 import JobDetailsBtn from './JobDetailsBtn';
 import PersonalInfo from './PersonalInfo';
 import PersonalInfoBtns from './PersonalInfoBtns';
 import RequiredSkills from './RequiredSkills';
 import RequiredSkillsBtns from './RequiredSkillsBtns';
-import { useExpertiseContext } from '@/contexts/ExpertiseContext';
-import ErrorIndicator from './ErrorIndicator';
-import PhoneInput from 'react-phone-number-input';
+import Stages from './Stages';
 
 const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuccess, showSuccessMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
@@ -154,14 +150,16 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     }, [email]);
 
     useEffect(() => {
-        const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+        const nameRegex = /^[a-zA-Z]+(?:[.\s][a-zA-Z]+)*$/;
         if (name && !nameRegex.test(name)) {
             setValidationErrors(errors => ({ ...errors, name: 'Invalid name' }));
+            console.log("Name regex condition");
         } else {
             const { name, ...rest } = validationErrors;
             setValidationErrors(rest);
         }
     }, [name]);
+    
 
     useEffect(() => {
         const phoneRegex = /^\+[1-9]\d{6,14}$/;
@@ -252,7 +250,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
             errors.name = 'Please enter a name.';
             isValid = false;
         }else{
-            const nameRegex = /^[a-zA-Z]+(?:[.][a-zA-Z]+)*$/;
+            const nameRegex = /^[a-zA-Z]+(?:[. ][a-zA-Z]+)*$/;
             if (!nameRegex.test(name)) {
                 errors.name = 'name is not valid.';
                 isValid = false;
@@ -568,10 +566,16 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
     return (
         <>
         {positionStatus === "Closed" &&
-        <div className={styles.closejobs}>
-            <p >This job is closed </p>
-        </div>
-        }
+           <div className={styles.jobClosedContainer}>
+           <div className={styles.jobClosedBox}>
+               <h1 className={styles.jobClosedTitle}>This Job is Closed</h1>
+               <p className={styles.jobClosedText}>The position you are looking for is no longer available or has been filled.</p>
+               <button className={styles.jobClosedButton} onClick={() => window.location.href = '/'}>
+                   Go to Home
+               </button>
+           </div>
+       </div>
+    }
         {positionStatus !== "Closed" &&
             <div ref={overlayRef} className={styles.parent}>
                 {showSuccessMessage && <ErrorIndicator showErrorMessage={showSuccessMessage} showSuccessMessage={showSuccessMessage} msgText={message} />}

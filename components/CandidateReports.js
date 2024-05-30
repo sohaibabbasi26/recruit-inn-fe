@@ -1,59 +1,39 @@
 import styles from "./CandidateReports.module.css";
-import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
+import Image from "next/image";
+import Average from "./Average";
 
-const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setReportOverlay, setSelectedCandidate, isLoading, setIsLoading }) => {
-
-  const calculateCumulativeMean = (val1, val2, val3) => {
-    console.log("val1:", val1, "val2:", val2);
-
-    let total = 0;
-    let count = 0;
-
-    if (val1) {
-      total += Math.ceil(val1);
-      count += 1;
-    }
-
-    if (val2) {
-      total += Math.ceil(val2);
-      count += 1;
-    }
-
-    if (val3) {
-      total += Math.ceil(parseInt(val3));
-      count += 1;
-    }
-
-    if (count === 0) return 0;
-
-    return (total / count).toFixed(1);
-  };
-
+const CandidateReports = ({
+  candidateReps,
+  reportOverlay,
+  setReportOverlay,
+  setSelectedCandidate,
+}) => {
   const iconSize = 25;
   const goToAllIconSize = 15;
   const { setActiveItem } = useActiveItem();
   console.log("candidate reports:", candidateReps);
 
   const newArray = candidateReps.slice(0, 2);
+  console.log(`Teeest here ${newArray.at(0)}`);
 
   const hasData = newArray && newArray.length > 0;
 
   const cardClickHandler = (candidate) => {
-    setSelectedCandidate(candidate);  
+    setSelectedCandidate(candidate);
     setReportOverlay(!reportOverlay);
   };
-  
-  const getBackgroundColor = (score) => {
-    if (score >= 7 && score <= 10) {
-      return "#E7FFE0";
-    } else if (score >= 5 && score <= 6) {
-      return "#F0F3FF";
-    } else {
-      return "#FFE6E6";
-    }
-  };
+
+  // const getBackgroundColor = (score) => {
+  //   if (score >= 7 && score <= 10) {
+  //     return "#E7FFE0";
+  //   } else if (score >= 5 && score <= 6) {
+  //     return "#F0F3FF";
+  //   } else {
+  //     return "#FFE6E6";
+  //   }
+  // };
 
   const handleArrowClick = () => {
     setActiveItem("All");
@@ -65,7 +45,14 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
         <div className={styles.headingContainer}>
           <div className={styles.heading}>
             <h3>Candidate Reports</h3>
-            <span>{candidateReps.length}</span>
+            {/* <span>{candidateReps.length}</span> */}
+            <span>
+              {!candidateReps?.length
+                ? 0
+                : candidateReps?.length <= 9
+                ? `0${candidateReps?.length}`
+                : candidateReps?.length}
+            </span>
           </div>
           <Image
             src="/goAll.svg"
@@ -100,23 +87,13 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
                         </div>
                       </div>
                       <div className={styles.rightTop}>
-                        {/* <span style={{ backgroundColor: getBackgroundColor(Math.ceil(item?.results?.technicalRating)) }}>{Math.ceil(item?.results?.technicalRating)}/10</span> */}
-                        <span
-                          style={{
-                            backgroundColor: getBackgroundColor(
-                              calculateCumulativeMean(
-                                item?.results?.technicalRating,
-                                item?.results?.softskillRating
-                              )
-                            ),
-                          }}
-                        >
-                          {calculateCumulativeMean(
+                        <Average
+                          numbers={[
                             item?.results?.technicalRating,
-                            item?.results?.softskillRating
-                          )}
-                          /10
-                        </span>
+                            item?.results?.softskillRating,
+                          ]}
+                          outOf={10}
+                        />
                         <Image />
                       </div>
                     </div>
@@ -133,8 +110,20 @@ const CandidateReports = ({selectedCandidate, candidateReps, reportOverlay, setR
                                   <Image
                                     className={styles.django}
                                     src={getSvg(skill.skill)}
-                                    width={iconSize}
-                                    height={iconSize}
+                                    height={
+                                      getSvg(skill.skill) === "/python.svg" ||
+                                      getSvg(skill.skill) === "/html5.svg" ||
+                                      getSvg(skill.skill) === "/css3.svg"
+                                        ? 20
+                                        : iconSize
+                                    }
+                                    width={
+                                      getSvg(skill.skill) === "/python.svg" ||
+                                      getSvg(skill.skill) === "/html5.svg" ||
+                                      getSvg(skill.skill) === "/css3.svg"
+                                        ? 20
+                                        : iconSize
+                                    }
                                   />
                                   <span>{skill.skill}</span>
                                 </div>

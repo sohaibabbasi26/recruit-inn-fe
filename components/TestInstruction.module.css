@@ -12,6 +12,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 1920px;
+  max-height: 1080px;
+  margin: 0 auto;
 }
 
 .instructionsBox {
@@ -28,6 +31,16 @@
 .container {
   width: 90%;
   height: 95%;
+}
+.container h3 {
+  display: block;
+  font-size: 1.17rem;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
 }
 
 .instructionsContainer {

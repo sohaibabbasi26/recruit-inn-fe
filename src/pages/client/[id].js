@@ -203,8 +203,8 @@ export default function Home({
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates
-      .filter(candidate => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
-      .map(candidate => {
+      .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
+      .map((candidate) => {
         let latestResult = {
           softskillRating: 0,
           technicalRating: 0,
@@ -217,11 +217,12 @@ export default function Home({
         );
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
-        const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
+        const score =
+          (latestResult.softskillRating + latestResult.technicalRating) / 2;
         const formattedDate = latestResult.createdAt
           ? new Date(latestResult.createdAt).toLocaleDateString()
           : "N/A";
-        const expertiseList = candidate?.expertise?.map(exp => ({
+        const expertiseList = candidate?.expertise?.map((exp) => ({
           skill: exp.skill,
           level: exp.level,
         }));
@@ -297,21 +298,19 @@ export default function Home({
         allCandidatesReports.data
       );
       // Filter out candidates who have completed the test
-      const completedCandidates = processedData.filter(candidate => candidate.results);
+      const completedCandidates = processedData.filter(
+        (candidate) => candidate.results
+      );
       setPreprocessedCandidates(completedCandidates);
       console.log("pre processed data:", preprocessedCandidates);
-      
       const filterRecommended = (candidate) =>
-        candidate?.results?.technicalRating >= 7 &&
-        candidate?.results?.technicalRating <= 10;
-      
+        Math.round(candidate?.results?.technicalRating) >= 7 &&
+        Math.round(candidate?.results?.technicalRating) <= 10;
       const filterQualified = (candidate) =>
-        candidate?.results?.technicalRating >= 5 &&
-        candidate?.results?.technicalRating < 7;
-      
+        Math.round(candidate?.results?.technicalRating) >= 5 &&
+        Math.round(candidate?.results?.technicalRating) < 7;
       const filterNotEligible = (candidate) =>
-        candidate?.results?.technicalRating < 5;
-      
+        Math.round(candidate?.results?.technicalRating) < 5;
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
@@ -469,7 +468,7 @@ export default function Home({
       case "Recommended":
         return (
           <Super
-          setJobOverlay={setJobOverlay}
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -484,7 +483,7 @@ export default function Home({
       case "Qualified":
         return (
           <Super
-          setJobOverlay={setJobOverlay}
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -499,7 +498,7 @@ export default function Home({
       case "NotEligible":
         return (
           <Super
-          setJobOverlay={setJobOverlay}
+            setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
             setSelectedCandidate={setSelectedCandidate}
@@ -518,69 +517,72 @@ export default function Home({
 
   return (
     <>
-      {showErrorMessage && (
-        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
-      )}
-      {showSuccessMessage && (
-        <SuccessIndicator
-          showSuccessMessage={showSuccessMessage}
-          msgText={message}
-        />
-      )}
-      <FormProvider>
-        {showOverlay && (
-          <Overlay
+      <div className={styles.clientPortal}>
+        {showErrorMessage && (
+          <ErrorIndicator
+            showErrorMessage={showErrorMessage}
+            msgText={message}
+          />
+        )}
+        {showSuccessMessage && (
+          <SuccessIndicator
+            showSuccessMessage={showSuccessMessage}
+            msgText={message}
+          />
+        )}
+        <FormProvider>
+          {showOverlay && (
+            <Overlay
+              isTestRequired={isTestRequired}
+              setIsTestRequired={setIsTestRequired}
+              showError={showError}
+              showErrorMessage={showErrorMessage}
+              showSuccessMessage={showSuccessMessage}
+              setMessage={setMessage}
+              showSuccess={showSuccess}
+              message={message}
+              token={token}
+              set
+              onClose={toggleOverlay}
+              showOverlay={showOverlay}
+              stages={stages}
+              stageHeadings={stageHeadings}
+            />
+          )}
+        </FormProvider>
+        {reportOverlay && (
+          <ReportOverlay
+            showError={showError}
+            showErrorMessage={showErrorMessage}
+            showSuccessMessage={showSuccessMessage}
+            onClose={toggleReportOverlay}
+            reportOverlay={reportOverlay}
+            selectedCandidate={selectedCandidate}
+          />
+        )}
+        {jobOverlay && (
+          <JobOverlay
             isTestRequired={isTestRequired}
             setIsTestRequired={setIsTestRequired}
+            message={message}
             showError={showError}
             showErrorMessage={showErrorMessage}
             showSuccessMessage={showSuccessMessage}
             setMessage={setMessage}
             showSuccess={showSuccess}
-            message={message}
             token={token}
-            set
-            onClose={toggleOverlay}
-            showOverlay={showOverlay}
-            stages={stages}
-            stageHeadings={stageHeadings}
+            onClose={toggleJobOverlay}
+            jobOverlay={jobOverlay}
+            selectedJob={selectedJob}
           />
         )}
-
-      </FormProvider>
-      {reportOverlay && (
-        <ReportOverlay
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          onClose={toggleReportOverlay}
-          reportOverlay={reportOverlay}
-          selectedCandidate={selectedCandidate}
-        />
-      )}
-      {jobOverlay && (
-        <JobOverlay
-          isTestRequired={isTestRequired}
-          setIsTestRequired={setIsTestRequired}
-          message={message}
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          setMessage={setMessage}
-          showSuccess={showSuccess}
-          token={token}
-          onClose={toggleJobOverlay}
-          jobOverlay={jobOverlay}
-          selectedJob={selectedJob}
-        />
-      )}
-      {showPaymentOverlay && (
-        <PaymentOverlay
-          onClose={togglePaymentOverlay}
-          showPaymentOverlay={showPaymentOverlay}
-        />
-      )}
-      <div className={styles.clientPortal}>
+        {showPaymentOverlay && (
+          <PaymentOverlay
+            onClose={togglePaymentOverlay}
+            showPaymentOverlay={showPaymentOverlay}
+          />
+        )}
+        {/* <div className={styles.clientPortal}> */}
         <SideNavbar
           name={allCandidatesReports?.data?.company_name}
           showOverlay={showOverlay}
