@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import { ThemeProvider } from "next-themes";
-=======
->>>>>>> 1696c396933fefa4470b0b12941c0b779165d034
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {

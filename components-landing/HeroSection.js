@@ -48,69 +48,11 @@ const HeroSection = () => {
                     <span className="text-sm">Dwayne Johnson</span>
                   </div>
 
-<<<<<<< HEAD
                   <div
                     className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style["background-gradient"]} border-themePurple absolute left-[15rem] top-[17%] rounded-md`}
                   >
                     <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
-=======
-                                <div className="bg-themePurple h-[5rem] w-[5rem] relative left-[14rem] top-[15rem] rounded-full ">
-                                </div>
-
-                                <div className="bg-themePurple h-[5rem] w-[5rem] relative top-[24rem] left-[13rem] rounded-full">
-                                </div>
-
-                                <div className="bg-themePurple h-[5rem] w-[5rem] relative left-[15rem] top-[6rem] rounded-full">
-                                </div>
-
-                                <div className={`w-100p h-full ${style['blurred-overlay']} flex relative`}>
-
-                                    <div className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style['background-gradient']} border-themePurple absolute left-[4rem] top-[39%] rounded-md`}>
-                                        <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md" >
-                                            <Image src='/Bitmoji.svg' width={20} height={20} />
-                                        </div>
-
-                                        <span className="text-sm" >Dwayne Johnson</span>
-                                    </div>
-
-                                    <div className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style['background-gradient']} border-themePurple absolute left-[15rem] top-[17%] rounded-md`}>
-                                        <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md" >
-                                            <Image src='/Bitmoji.svg' width={20} height={20} />
-                                        </div>
-
-                                        <span className="text-sm">Dwayne Johnson</span>
-                                    </div>
-
-                                    <div className={`flex gap-3 items-center text-white w-[13rem] h-[3rem] border-2 ${style['background-gradient']} border-themePurple left-[10rem] top-[61%] absolute rounded-md`}>
-                                        <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-darkPurple overflow-hidden rounded-md" >
-                                            <Image src='/Bitmoji.svg' width={20} height={20} />
-                                        </div>
-
-                                        <span  className="text-sm" >Dwayne Johnson</span>
-                                    </div>
-
-                                    <div className="w-80p justify-center flex flex-col space-y-8 mb-[6rem] ">
-                                        <div className={style['fade-border-b']}>
-                                        </div>
-                                        <div  className={style['fade-border-b']}>
-                                        </div>
-                                        <div  className={style['fade-border-b']}>
-                                        </div>
-                                        <div  className={style['fade-border-b']}>
-                                        </div>
-                                        <div  className={style['fade-border-b']}>
-                                        </div>
-                                        <div  className={style['fade-border-b']}>
-                                        </div>
-                                        <div  className={style['fade-border-b']}>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
->>>>>>> 1696c396933fefa4470b0b12941c0b779165d034
                     </div>
 
                     <span className="text-sm">Dwayne Johnson</span>
