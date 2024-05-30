@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import styles from "./ThemeSwitch.module.css";
+import Image from "next/image";
 
 function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
@@ -16,11 +18,16 @@ function ThemeSwitch() {
 
   return (
     <>
-      <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-        {/* <option value="system">System</option> */}
+      <div className={styles.themeSwitch}>
+        <Image src="/moon.svg" width={33} height={33} />
+        <Image src="/sun.svg" width={33} height={33} />
+      </div>
+
+      {/* <select value={theme} onChange={(e) => setTheme(e.target.value)}>
         <option value="dark">Dark</option>
         <option value="light">Light</option>
-      </select>
+      </select> */}
+      {/* <option value="system">System</option> */}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./LandingNavbar.module.css";
-import ThemeSwitch from "./ThemeSwitch";
+import ThemeSwitch from "../components/ThemeSwitch";
 
 const LandingNavbar = ({
   scrollToRef,

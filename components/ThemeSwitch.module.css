@@ -1,0 +1,13 @@
+.themeSwitch {
+  border: 1px solid var(--color-light-grey);
+  background-color: var(--color-white-purple-shade);
+  color: var(--color-steel);
+  border-radius: 3rem;
+  padding: 0.6rem 0.9375em;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
