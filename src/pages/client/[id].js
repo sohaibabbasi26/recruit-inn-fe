@@ -517,68 +517,72 @@ export default function Home({
 
   return (
     <>
-      {showErrorMessage && (
-        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
-      )}
-      {showSuccessMessage && (
-        <SuccessIndicator
-          showSuccessMessage={showSuccessMessage}
-          msgText={message}
-        />
-      )}
-      <FormProvider>
-        {showOverlay && (
-          <Overlay
+      <div className={styles.clientPortal}>
+        {showErrorMessage && (
+          <ErrorIndicator
+            showErrorMessage={showErrorMessage}
+            msgText={message}
+          />
+        )}
+        {showSuccessMessage && (
+          <SuccessIndicator
+            showSuccessMessage={showSuccessMessage}
+            msgText={message}
+          />
+        )}
+        <FormProvider>
+          {showOverlay && (
+            <Overlay
+              isTestRequired={isTestRequired}
+              setIsTestRequired={setIsTestRequired}
+              showError={showError}
+              showErrorMessage={showErrorMessage}
+              showSuccessMessage={showSuccessMessage}
+              setMessage={setMessage}
+              showSuccess={showSuccess}
+              message={message}
+              token={token}
+              set
+              onClose={toggleOverlay}
+              showOverlay={showOverlay}
+              stages={stages}
+              stageHeadings={stageHeadings}
+            />
+          )}
+        </FormProvider>
+        {reportOverlay && (
+          <ReportOverlay
+            showError={showError}
+            showErrorMessage={showErrorMessage}
+            showSuccessMessage={showSuccessMessage}
+            onClose={toggleReportOverlay}
+            reportOverlay={reportOverlay}
+            selectedCandidate={selectedCandidate}
+          />
+        )}
+        {jobOverlay && (
+          <JobOverlay
             isTestRequired={isTestRequired}
             setIsTestRequired={setIsTestRequired}
+            message={message}
             showError={showError}
             showErrorMessage={showErrorMessage}
             showSuccessMessage={showSuccessMessage}
             setMessage={setMessage}
             showSuccess={showSuccess}
-            message={message}
             token={token}
-            set
-            onClose={toggleOverlay}
-            showOverlay={showOverlay}
-            stages={stages}
-            stageHeadings={stageHeadings}
+            onClose={toggleJobOverlay}
+            jobOverlay={jobOverlay}
+            selectedJob={selectedJob}
           />
         )}
-      </FormProvider>
-      {reportOverlay && (
-        <ReportOverlay
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          onClose={toggleReportOverlay}
-          reportOverlay={reportOverlay}
-          selectedCandidate={selectedCandidate}
-        />
-      )}
-      {jobOverlay && (
-        <JobOverlay
-          isTestRequired={isTestRequired}
-          setIsTestRequired={setIsTestRequired}
-          message={message}
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          setMessage={setMessage}
-          showSuccess={showSuccess}
-          token={token}
-          onClose={toggleJobOverlay}
-          jobOverlay={jobOverlay}
-          selectedJob={selectedJob}
-        />
-      )}
-      {showPaymentOverlay && (
-        <PaymentOverlay
-          onClose={togglePaymentOverlay}
-          showPaymentOverlay={showPaymentOverlay}
-        />
-      )}
-      <div className={styles.clientPortal}>
+        {showPaymentOverlay && (
+          <PaymentOverlay
+            onClose={togglePaymentOverlay}
+            showPaymentOverlay={showPaymentOverlay}
+          />
+        )}
+        {/* <div className={styles.clientPortal}> */}
         <SideNavbar
           name={allCandidatesReports?.data?.company_name}
           showOverlay={showOverlay}

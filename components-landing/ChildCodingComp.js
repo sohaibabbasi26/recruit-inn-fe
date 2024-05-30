@@ -36,6 +36,33 @@ const CodingChild = ({ formatTime, timeLeft, question, setQuestion, codeSubmitHa
         }
     };
 
+    function handleKeyDown(e) {
+        const { key, target, shiftKey } = e;
+        if (key === 'Tab') {
+            e.preventDefault();
+            const { value, selectionStart, selectionEnd } = target;
+            const tabCharacter = '    '; // Define the indentation. This should match the forward tab.
+            if (shiftKey) {
+                // Handle Shift + Tab for back-indentation
+                const beforeCursor = value.substring(0, selectionStart);
+                const afterCursor = value.substring(selectionEnd);
+                // Check if the text before the cursor ends with a tab character (or spaces if using spaces for tabs)
+                if (beforeCursor.endsWith(tabCharacter)) {
+                    target.value = beforeCursor.slice(0, -tabCharacter.length) + afterCursor;
+                    const newCursorPos = selectionStart - tabCharacter.length;
+                    target.selectionStart = target.selectionEnd = newCursorPos;
+                }
+            } else {
+                // Handle Tab for forward indentation
+                const beforeTab = value.substring(0, selectionStart);
+                const afterTab = value.substring(selectionEnd);
+                target.value = beforeTab + tabCharacter + afterTab;
+                target.selectionStart = target.selectionEnd = selectionStart + tabCharacter.length;
+            }
+            setCode(target.value);
+        }
+    }
+
     useEffect(() => {
 
         async function fetchCodingQues() {

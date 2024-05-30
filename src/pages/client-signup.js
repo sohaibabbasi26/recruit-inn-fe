@@ -257,7 +257,7 @@ const ClientSignup = ({}) => {
   };
 
   return (
-    <>
+    <div className="routes-wrapper">
       {showErrorMessage && (
         <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
       )}
@@ -296,7 +296,7 @@ const ClientSignup = ({}) => {
         />
       )}
       {!isLoading && getActiveComponent()}
-    </>
+    </div>
   );
 };
 

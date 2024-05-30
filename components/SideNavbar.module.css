@@ -6,12 +6,47 @@
   max-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow: hidden;
   /* try this */
   position: relative;
   /* justify-content: flex-start; */
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content 1fr max-content;
+  justify-content: center;
+  align-items: flex-start;
+
+  position: relative;
+  overflow: visible;
+}
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: #aca7ba;
+  /* try this */
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  height: calc(100% - 7rem);
+  height: calc(100% - 10px);
+}
+
+.mainContainer::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: calc(100% + 48px);
+  width: 1px;
+  background-color: #ebebeb;
 }
 
 .mainContainer h3 {
@@ -27,30 +62,11 @@
   margin-right: 0.5rem;
 }
 
-.logoContainer {
-  /* display: flex;
-  justify-content: flex-start;
-  align-items: center; */
-  box-sizing: border-box;
-  padding: 14px 1rem 29px;
-  width: 100%;
-}
-
-.logoContainer h3 {
-  /* margin: 0.75rem;
-  margin-bottom: 1rem; */
-  font-size: 23px;
-  font-weight: 900;
-
-  margin-bottom: 17px;
-  margin-top: 11px;
-}
-
 .dashboardWrapper {
   width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden;
   overflow-y: scroll;
-  scrollbar-width: none;
+  scrollbar-width: none; */
 }
 
 .dashboardWrapper div {
@@ -59,18 +75,6 @@
 
 .dashboardWrapper div:first-child {
   margin-bottom: 1.5rem;
-}
-
-.mainContainer {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  align-items: flex-start;
-  color: #aca7ba;
-  /* try this */
-  height: calc(100% - 7rem);
 }
 
 .mainContainer h4 {
@@ -331,16 +335,10 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 1600px) {
-  /* .masterContainer {
-    flex: 0 0 18%;
-  } */
-}
-
-/* 1366px */
-@media (max-width: 85.375em) {
-  .masterContainer {
-    /* width: 23%; */
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .mainContainer::after {
+    height: calc(100% + 32px);
   }
 }
 
@@ -351,15 +349,6 @@
     /* width: 25%; */
     /* flex: 0 0 20%; */
     height: 100%;
-  }
-
-  .logoContainer {
-    height: 50px;
-  }
-
-  .logoContainer h3 {
-    margin: 1rem;
-    /* margin-bottom: 1rem; */
   }
 
   .dashboardButton {

@@ -3,6 +3,7 @@ import styles from "../components/SideNavbar.module.css";
 import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
+import Logo from "./Logo";
 
 const SideNavbar = ({
   name,
@@ -56,8 +57,8 @@ const SideNavbar = ({
     useState(true);
 
   const upgradeHandler = () => {
-    if (isDropDownJobsToggle) setIsDropDownJobsToggle(false);
-    if (isDropDownCandidatesToggle) setIsDropDownJobsCandidatesToggle(false);
+    // if (isDropDownJobsToggle) setIsDropDownJobsToggle(false);
+    // if (isDropDownCandidatesToggle) setIsDropDownJobsCandidatesToggle(false);
 
     setshowupgrade(!showupgrade);
   };
@@ -76,13 +77,13 @@ const SideNavbar = ({
   };
 
   const handleDropDownJobsToggle = () => {
-    if (setshowupgrade) setshowupgrade(false);
+    // if (setshowupgrade) setshowupgrade(false);
 
     setIsDropDownJobsToggle(!isDropDownJobsToggle);
   };
 
   const handleDropDownCandidatesToggle = () => {
-    if (setshowupgrade) setshowupgrade(false);
+    // if (setshowupgrade) setshowupgrade(false);
 
     setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle);
   };
@@ -115,21 +116,8 @@ const SideNavbar = ({
   return (
     <>
       <div className={styles.masterContainer}>
+        <Logo />
         <div className={styles.mainContainer}>
-          <div className={styles.logoContainer}>
-            {/* <h3>
-              <Image src="/logo (3).png" width={logoSize} height={logoSize} />
-              recruitinn.ai
-            </h3> */}
-
-            <Image
-              src="/recruitinn-logo-light.png"
-              alt="Recruitin Logo"
-              height={26}
-              width={184}
-            />
-          </div>
-
           {/* Try */}
           <div className={styles.dashboardWrapper}>
             <div

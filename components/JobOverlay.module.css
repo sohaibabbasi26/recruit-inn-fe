@@ -18,6 +18,8 @@
   opacity: 0;
   transition: none;
   overflow: hidden;
+  top: 0;
+  left: 0;
 }
 
 .loader {

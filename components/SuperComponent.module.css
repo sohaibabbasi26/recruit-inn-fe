@@ -1,9 +1,15 @@
 .superContainer {
   /* width: 70%; */
-  flex: 1;
+  /* flex: 1;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
+
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  height: 100%;
 }
 
 .temp {

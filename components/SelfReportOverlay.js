@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import Average from "./Average";
 const SelfReportOverlay = ({
   candName,
   onClose,
@@ -21,7 +22,7 @@ const SelfReportOverlay = ({
   const overlayRef = useRef();
   const contentRef = useRef();
   const infoSymbolSize = 10;
-  console.log('selected candidate is:', selectedCandidate)
+  console.log("selected candidate is:", selectedCandidate);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState();
   useEffect(() => {
@@ -101,20 +102,23 @@ const SelfReportOverlay = ({
       pdf.save("download.pdf");
     }
   };
-  
+
   const handleDownloadPdf = async () => {
     console.log("Calling pdf download");
     if (contentRef.current) {
       const content = contentRef.current.innerHTML;
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ content }),
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content }),
+          }
+        );
 
         if (response.ok) {
           const pdfBlob = await response.blob();
@@ -222,9 +226,17 @@ const SelfReportOverlay = ({
                 </h4>
               </div>
               <div className={styles.rightContainer}>
-                <span>
+                {/* <span>
                   {Math.ceil(selectedCandidate?.result?.technicalRating)}/10
-                </span>
+                </span> */}
+                <Average
+                  numbers={[
+                    selectedCandidate?.result?.technicalRating,
+                    selectedCandidate?.result?.softskillRating,
+                    parseInt(codingResult?.data?.result?.technicalRating),
+                  ]}
+                  outOf={10}
+                />
               </div>
             </div>
             {/* candidate test info div */}
@@ -237,7 +249,7 @@ const SelfReportOverlay = ({
                   </li>
                   <li>
                     <span className={styles.bold}>Name: </span>
-                    <span>{selectedCandidate?.name || candName }</span>
+                    <span>{selectedCandidate?.name || candName}</span>
                   </li>
                   <li>
                     <span className={styles.bold}>Date: </span>
@@ -302,7 +314,10 @@ const SelfReportOverlay = ({
                 </span>
                 Back
               </button>
-              <button className={styles.downloadButton} onClick={handleDownloadPdf}>
+              <button
+                className={styles.downloadButton}
+                onClick={handleDownloadPdf}
+              >
                 Download PDF
                 <span>
                   <Image
@@ -318,6 +333,6 @@ const SelfReportOverlay = ({
         </div>
       </div>
     </>
-  );  
+  );
 };
 export default SelfReportOverlay;

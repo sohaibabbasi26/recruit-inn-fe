@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./_error.module.css";
 import Image from "next/image";
+import Button from "../../components/Button";
+import { useRouter } from "next/router";
 
 const ErrorPage = ({ statusCode }) => {
+  const router = useRouter();
   return (
     // For now, we require this UI to be displayed for every HTTP error
     <div className={styles.errorPage}>
@@ -24,6 +27,7 @@ const ErrorPage = ({ statusCode }) => {
           Oops! We're currently undergoing some maintenance. We apologize for
           any inconvenience caused. Thank you for your patience!
         </h1>
+        <Button onClick={() => router.push("/")}> Back to home </Button>
       </div>
     </div>
   );

@@ -1,0 +1,7 @@
+.candidateSelf {
+  max-width: 120em;
+  max-height: 67.5em;
+  height: 100dvh;
+  margin: 0 auto;
+  position: relative;
+}

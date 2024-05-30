@@ -326,11 +326,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   return (
     <>
       <div ref={overlayRef} className={styles.parent}>
-        {/* <div className={styles.btn}>
+        <div className={styles.btn}>
           <button onClick={onClose}>
             <Image src="/shut.svg" width={15} height={15} />
           </button>
-        </div> */}
+        </div>
 
         <div
           className={`${styles.superContainer} content-to-print`}
@@ -391,6 +391,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       results?.data?.result?.technicalRating,
                     selectedCandidate?.results?.softskillRating ||
                       results?.data?.result?.softskillRating,
+                    parseInt(codingResult?.data?.result?.technicalRating),
                   ]}
                   outOf={10}
                 />

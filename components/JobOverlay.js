@@ -253,6 +253,12 @@ const JobOverlay = ({
           />
         )}
 
+        <div className={styles.btn}>
+          <button onClick={onClose}>
+            <Image src="/shut.svg" width={15} height={15} />
+          </button>
+        </div>
+
         <div className={styles.superContainer}>
           <div className={styles.coverContainer}>
             <Image
