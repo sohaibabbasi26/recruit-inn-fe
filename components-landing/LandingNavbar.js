@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./LandingNavbar.module.css";
-import ThemeSwitch from "../components/ThemeSwitch";
+import ThemeSwitch from "./ThemeSwitch";
+import Logo from "../components/Logo";
 
 const LandingNavbar = ({
   scrollToRef,
@@ -103,10 +104,11 @@ const LandingNavbar = ({
           <div className="w-100p h-[2rem] flex flex-col max-sm:justify-between max-sm:items-center  text-white ">
             <div className="flex w-[100%] justify-between items-center">
               <div className="flex items-center gap-3 max-lg:ml-[1.5rem] max-sm:ml-[1rem]">
-                <Image src="/logoo.svg" height={30} width={30} alt="logo" />
+                {/* <Image src="/logoo.svg" height={30} width={30} alt="logo" />
                 <h2 className="text-2xl max-sm:text-xl font-bold font-poppins">
                   recruitinn.ai
-                </h2>
+                </h2> */}
+                <Logo />
               </div>
               <div
                 className="max-lg:flex hidden max-lg:mr-[1.5rem] max-sm:mr-[1rem] text-black dark:text-white"
@@ -149,15 +151,30 @@ const LandingNavbar = ({
 
             {menu && (
               <div className="absolute top-[100%] text-black dark:text-white  z-50  flex flex-col justify-center items-center gap-4 max-lg:flex w-full  left-0 bg-white dark:bg-black py-4">
-                <span className="text-sm font-semibold max-lg:py-2 max-lg:border-b max-lg:border-darkPurple">
-                  Apply As An Engineer
-                </span>
-                <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
-                  Login
-                </button>
-                <button className="px-10 py-3.5 max-lg:py-2 text-sm bg-transparent max-lg:border-b max-lg:border-darkPurple font-semibold max-lg:block hidden">
-                  Recruit A Talent
-                </button>
+                {/* <span className="text-sm font-semibold max-lg:py-2 max-lg:border-b max-lg:border-darkPurple">
+                Apply As An Engineer
+                </span> */}
+                <a href="https://app.recruitinn.ai/candidate-self">
+                  <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
+                    Apply As An Engineer
+                  </button>
+                </a>
+                <a href="https://app.recruitinn.ai/client-signup">
+                  <button className="px-10 py-3.5 max-lg:py-2 text-sm bg-transparent max-lg:border-b max-lg:border-darkPurple font-semibold max-lg:block hidden">
+                    Recruit A Talent
+                  </button>
+                </a>
+                <a href="https://app.recruitinn.ai/client-login">
+                  <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
+                    Login as client
+                  </button>
+                </a>
+                <a href="https://app.recruitinn.ai/candidate-login">
+                  <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
+                    Login as candidate
+                  </button>
+                </a>
+
                 <ul className="flex flex-col items-center gap-4">
                   <li
                     onClick={() => scrollToRef(howItWorksRef)}
@@ -165,7 +182,10 @@ const LandingNavbar = ({
                   >
                     How It Works
                   </li>
-                  <li className="text-sm font-semibold p-2 max-lg:border-b max-lg:border-darkPurple">
+                  <li
+                    onClick={() => scrollToRef(LandingThirdRef)}
+                    className="text-sm font-semibold p-2 max-lg:border-b max-lg:border-darkPurple"
+                  >
                     About Us
                   </li>
                 </ul>

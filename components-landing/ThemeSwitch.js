@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import styles from "./ThemeSwitch.module.css";
 import Image from "next/image";
+import styles from "../components/ThemeSwitch.module.css";
 
 function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
@@ -19,9 +19,7 @@ function ThemeSwitch() {
   return (
     <>
       <div
-        className={`${styles.themeSwitch} ${
-          theme === "light" ? styles.toRight : ""
-        }`}
+        className={`bg-white-purple-shade dark:bg-gray-700 border border-light-grey text-steel rounded-[3rem] py-2 px-3 relative cursor-pointer grid grid-cols-2 grid-rows-1 ml-4`}
       >
         <Image
           src="/moon.svg"
@@ -35,7 +33,12 @@ function ThemeSwitch() {
           height={33}
           onClick={() => setTheme("light")}
         />
-        <div className={`${styles.ball}`}></div>
+        {/* <div className={`${styles.ball}`}></div> */}
+        <div
+          className={`${styles.ball} ${
+            theme === "light" ? styles.toRight : ""
+          } bg-steel w-[2.25rem] h-[2.25rem] rounded-full transition-transform`}
+        ></div>
       </div>
 
       {/* <select value={theme} onChange={(e) => setTheme(e.target.value)}>
