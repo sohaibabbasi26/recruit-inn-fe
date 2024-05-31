@@ -200,6 +200,24 @@ export default function Home({
   //     };
   //   });
   // };
+  const calculateCumulativeMean = (val1, val2) => {
+    let total = 0;
+    let count = 0;
+  
+    if (val1) {
+      total += Math.round(val1);
+      count += 1;
+    }
+  
+    if (val2) {
+      total += Math.round(val2);
+      count += 1;
+    }
+  
+    if (count === 0) return 0;
+  
+    return (total / count).toFixed(1);
+  };
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates
@@ -217,8 +235,9 @@ export default function Home({
         );
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
-        const score =
-          (latestResult.softskillRating + latestResult.technicalRating) / 2;
+        const score = (
+          (latestResult.softskillRating + latestResult.technicalRating) / 2
+        ).toFixed(1);
         const formattedDate = latestResult.createdAt
           ? new Date(latestResult.createdAt).toLocaleDateString()
           : "N/A";
@@ -236,7 +255,7 @@ export default function Home({
           jobType: candidate.job_type,
           name: candidate.name,
           email: candidate.email,
-          score: score.toFixed(1),
+          score: parseFloat(score),
           contactNo: candidate.contact_no,
           date: candidate?.createdAt,
           expertise: expertiseList,
@@ -258,6 +277,7 @@ export default function Home({
         };
       });
   };
+  
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -297,29 +317,34 @@ export default function Home({
         allCandidatesReports.data.candidates,
         allCandidatesReports.data
       );
-      // Filter out candidates who have completed the test
+  
       const completedCandidates = processedData.filter(
         (candidate) => candidate.results
       );
       setPreprocessedCandidates(completedCandidates);
-      console.log("pre processed data:", preprocessedCandidates);
+      console.log("pre processed data:", completedCandidates);
+  
       const filterRecommended = (candidate) =>
-        Math.round(candidate?.results?.technicalRating) >= 7 &&
-        Math.round(candidate?.results?.technicalRating) <= 10;
+        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
       const filterQualified = (candidate) =>
-        Math.round(candidate?.results?.technicalRating) >= 5 &&
-        Math.round(candidate?.results?.technicalRating) < 7;
+        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
       const filterNotEligible = (candidate) =>
-        Math.round(candidate?.results?.technicalRating) < 5;
+        parseFloat(candidate.score) < 5;
+  
+      completedCandidates.forEach((candidate) => {
+        console.log(`Candidate: ${candidate.name}, Score: ${candidate.score}`);
+      });
+  
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-
-      console.log("Recommended Candidate:", recommendedCand);
-      console.log("Qualified Candidate:", qualifiedCand);
-      console.log("Not Eligible Candidate:", notEligibleCand);
+  
+      console.log("Recommended Candidates:", completedCandidates.filter(filterRecommended));
+      console.log("Qualified Candidates:", completedCandidates.filter(filterQualified));
+      console.log("Not Eligible Candidates:", completedCandidates.filter(filterNotEligible));
     }
   }, [allCandidatesReports]);
+  
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
