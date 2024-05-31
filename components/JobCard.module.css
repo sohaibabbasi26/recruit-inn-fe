@@ -50,6 +50,7 @@
   display: flex;
   justify-content: flex-start;
   list-style: none;
+  flex-wrap: wrap;
   gap: 1rem;
 
   margin-bottom: 1.75rem;
