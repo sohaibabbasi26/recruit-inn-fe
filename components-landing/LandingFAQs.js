@@ -51,7 +51,7 @@ const LandingFAQs = () => {
             <ul className="w-[100%] ">
               <li
                 onClick={toggleDropDown}
-                className="py-4  w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className="cursor-pointer py-4  w-[100%] flex flex-col border-b-[1px] border-darkPurple"
               >
                 <div className=" w-[100%] flex justify-between gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
@@ -77,7 +77,7 @@ const LandingFAQs = () => {
               </li>
               <li
                 onClick={toggleSecondDropDown}
-                className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
               >
                 <div className=" w-[100%] flex justify-between">
                   <span className="text-lg tracking-wide font-semibold font-sans">
@@ -103,7 +103,7 @@ const LandingFAQs = () => {
               </li>
               <li
                 onClick={toggleThirdDropDown}
-                className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
               >
                 <div className=" w-[100%] flex justify-between">
                   <span className="text-lg tracking-wide font-semibold font-sans">
@@ -123,7 +123,7 @@ const LandingFAQs = () => {
               </li>
               <li
                 onClick={toggleFourthDropDown}
-                className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
               >
                 <div className=" w-[100%] flex justify-between">
                   <span className="text-lg tracking-wide font-semibold font-sans">
