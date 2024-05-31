@@ -80,26 +80,27 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const calculateCumulativeMean = (val1, val2, val3) => {
     let total = 0;
     let count = 0;
-
+  
     if (val1) {
-      total += Math.round(parseInt(val1));
+      total += parseFloat(val1);
       count += 1;
     }
-
+  
     if (val2) {
-      total += Math.round(parseInt(val2));
+      total += parseFloat(val2);
       count += 1;
     }
-
+  
     if (val3) {
-      total += Math.round(parseInt(val3));
+      total += parseFloat(val3);
       count += 1;
     }
-
+  
     if (count === 0) return 0;
-
-    return Math.round(total / count); // Round the final result to the nearest integer
+  
+    return (total / count).toFixed(1); // Round the final result to one decimal place
   };
+  
 
   const overlayRef = useRef(null);
   const overlayRef1 = useRef(null);
@@ -116,31 +117,33 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {
       return "#E7FFE0";
-    } else if (score >= 5 && score <= 6) {
+    } else if (score >= 5 && score < 7) { // Ensure the range is correct
       return "#F0F3FF";
     } else {
       return "#FFE6E6";
     }
   };
-
+  
   const getFilter = (score) => {
     if (score >= 7 && score <= 10) {
       return "Recommended";
-    } else if (score >= 5 && score <= 6) {
+    } else if (score >= 5 && score < 7) { // Ensure the range is correct
       return "Qualified";
     } else {
       return "Not Eligible";
     }
   };
+  
   const getStatusSymbol = (score) => {
     if (score >= 7 && score <= 10) {
       return "/activeStatus.svg";
-    } else if (score >= 5 && score <= 6) {
+    } else if (score >= 5 && score < 7) { // Ensure the range is correct
       return "/qualified.svg";
     } else {
       return "/noteligible.svg";
     }
   };
+  
 
   // const downloadPDF = async () => {
   //     if (contentRef.current) {
@@ -331,72 +334,76 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             <Image src="/shut.svg" width={15} height={15} />
           </button>
         </div>
-
-        <div
-          className={`${styles.superContainer} content-to-print`}
-          id="content-to-print"
-        >
-          <div className={styles.coverContainer}>
-            {/*top container */}
-            <div className={styles.topContainer}>
-              <div className={styles.avatarContainer}>
-                <Image src="/avatarDefault.svg" width={65} height={84} />
-              </div>
-              <div className={styles.information}>
-                <h1>{selectedCandidate?.name}</h1>
-                <p className={styles.role}>{selectedCandidate?.position}</p>
-                <h4
-                  style={{
-                    backgroundColor: getBackgroundColor(
+      
+        <div className={`${styles.superContainer} content-to-print`} id="content-to-print">
+        <div className={styles.coverContainer}>
+          <div className={styles.topContainer}>
+            <div className={styles.avatarContainer}>
+              <Image src="/avatarDefault.svg" width={65} height={84} />
+            </div>
+            <div className={styles.information}>
+              <h1>{selectedCandidate?.name}</h1>
+              <p className={styles.role}>{selectedCandidate?.position}</p>
+              <h4
+                style={{
+                  backgroundColor: getBackgroundColor(
+                    parseFloat(
                       calculateCumulativeMean(
-                        Math.round(
-                          selectedCandidate?.results?.technicalRating
-                        ) || Math.round(results?.data?.result?.technicalRating),
-                        Math.round(
-                          selectedCandidate?.results?.softskillRating
-                        ) || Math.round(results?.data?.result?.softskillRating)
+                        selectedCandidate?.results?.technicalRating,
+                        selectedCandidate?.results?.softskillRating,
+                        codingResult?.data?.result?.technicalRating
                       )
-                    ),
-                  }}
-                >
-                  {getFilter(
+                    )
+                  ),
+                }}
+              >
+                {getFilter(
+                  parseFloat(
                     calculateCumulativeMean(
-                      Math.round(selectedCandidate?.results?.technicalRating) ||
-                        Math.round(results?.data?.result?.technicalRating),
-                      Math.round(selectedCandidate?.results?.softskillRating) ||
-                        Math.round(results?.data?.result?.softskillRating)
+                      selectedCandidate?.results?.technicalRating,
+                      selectedCandidate?.results?.softskillRating,
+                      codingResult?.data?.result?.technicalRating
+                    )
+                  )
+                )}
+                <Image
+                  src={getStatusSymbol(
+                    parseFloat(
+                      calculateCumulativeMean(
+                        selectedCandidate?.results?.technicalRating,
+                        selectedCandidate?.results?.softskillRating,
+                        codingResult?.data?.result?.technicalRating
+                      )
                     )
                   )}
-                  <Image
-                    src={getStatusSymbol(
-                      calculateCumulativeMean(
-                        Math.round(
-                          selectedCandidate?.results?.technicalRating
-                        ) || Math.round(results?.data?.result?.technicalRating),
-                        Math.round(
-                          selectedCandidate?.results?.softskillRating
-                        ) || Math.round(results?.data?.result?.softskillRating)
-                      )
-                    )}
-                    width={infoSymbolSize}
-                    height={infoSymbolSize}
-                  />
-                </h4>
-              </div>
-
-              <div className={styles.rightContainer}>
-                <Average
-                  numbers={[
-                    selectedCandidate?.results?.technicalRating ||
-                      results?.data?.result?.technicalRating,
-                    selectedCandidate?.results?.softskillRating ||
-                      results?.data?.result?.softskillRating,
-                    parseInt(codingResult?.data?.result?.technicalRating),
-                  ]}
-                  outOf={10}
+                  width={infoSymbolSize}
+                  height={infoSymbolSize}
                 />
-              </div>
+              </h4>
             </div>
+
+            <div className={styles.rightContainer}>
+            <span
+                        style={{ backgroundColor: getBackgroundColor(Math.round(calculateCumulativeMean(
+                          selectedCandidate?.results?.technicalRating,
+                          selectedCandidate?.results?.softskillRating,
+                        ))) }}
+                      >
+                        {Math.round(calculateCumulativeMean(
+                          selectedCandidate?.results?.technicalRating,
+                          selectedCandidate?.results?.softskillRating,
+                        ))}/10
+                      </span>
+              {/* {
+                calculateCumulativeMean(
+                  selectedCandidate?.results?.technicalRating,
+                  selectedCandidate?.results?.softskillRating,
+                  codingResult?.data?.result?.technicalRating
+                )} / 10 */}
+            </div>
+          
+            </div>
+
             {/* candidate test info div */}
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
