@@ -10,6 +10,7 @@ import LandingThird from "../../components-landing/LandingThird";
 import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
+import styles from "../../components-landing/styles.module.css";
 
 import LandingFifth from "../../components-landing/LandingFifth";
 
@@ -35,7 +36,9 @@ const LandingPage = () => {
   return (
     <>
       <ThemeProvider attribute="class">
-        <div className=" bg-white dark:bg-black h-[100%] w-full">
+        <main
+          className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
+        >
           <LandingNavbar
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
@@ -66,7 +69,7 @@ const LandingPage = () => {
             howItWorksRef={howItWorksRef}
             PaymentMethodsRef={PaymentMethodsRef}
           />
-        </div>
+        </main>
       </ThemeProvider>
     </>
   );
