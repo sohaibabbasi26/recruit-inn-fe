@@ -1,3 +1,5 @@
+import { ThemeProvider } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
 import HowItWorks from "../../components-landing/HowItWorks";
@@ -10,8 +12,6 @@ import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 
 import LandingFifth from "../../components-landing/LandingFifth";
-import { useEffect, useRef, useState } from "react";
-import { useTheme } from "next-themes";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -34,38 +34,40 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className=" bg-white dark:bg-black h-[100%] w-full">
-        <LandingNavbar
-          scrollToRef={scrollToRef}
-          HeroRef={HeroRef}
-          LandingThirdRef={LandingThirdRef}
-          howItWorksRef={howItWorksRef}
-        />
-        <div ref={HeroRef}>
-          <HeroSection />
+      <ThemeProvider attribute="class">
+        <div className=" bg-white dark:bg-black h-[100%] w-full">
+          <LandingNavbar
+            scrollToRef={scrollToRef}
+            HeroRef={HeroRef}
+            LandingThirdRef={LandingThirdRef}
+            howItWorksRef={howItWorksRef}
+          />
+          <div ref={HeroRef}>
+            <HeroSection />
+          </div>
+          <LandingVideo />
+          <div ref={LandingThirdRef}>
+            <LandingThird />
+          </div>
+          <LandingFourth />
+          <div ref={howItWorksRef}>
+            <HowItWorks />
+          </div>
+          <div ref={PaymentMethodsRef}>
+            <PaymentMethods />
+          </div>
+          <div ref={FAQRef}>
+            <LandingFAQs />
+          </div>
+          <Footer
+            scrollToRef={scrollToRef}
+            HeroRef={HeroRef}
+            FAQRef={FAQRef}
+            howItWorksRef={howItWorksRef}
+            PaymentMethodsRef={PaymentMethodsRef}
+          />
         </div>
-        <LandingVideo />
-        <div ref={LandingThirdRef}>
-          <LandingThird />
-        </div>
-        <LandingFourth />
-        <div ref={howItWorksRef}>
-          <HowItWorks />
-        </div>
-        <div ref={PaymentMethodsRef}>
-          <PaymentMethods />
-        </div>
-        <div ref={FAQRef}>
-          <LandingFAQs />
-        </div>
-        <Footer
-          scrollToRef={scrollToRef}
-          HeroRef={HeroRef}
-          FAQRef={FAQRef}
-          howItWorksRef={howItWorksRef}
-          PaymentMethodsRef={PaymentMethodsRef}
-        />
-      </div>
+      </ThemeProvider>
     </>
   );
 };

@@ -29,11 +29,11 @@ const HeroSection = () => {
           <div className=" w-50p h-full max-lg:hidden">
             <div className="w-50p h-full ">
               <div className=" absolute h-[80%] w-[50%] flex">
-                <div className="bg-themePurple h-[5rem] w-[5rem] relative left-[14rem] top-[15rem] rounded-full "></div>
+                <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div>
 
-                <div className="bg-themePurple h-[5rem] w-[5rem] relative top-[24rem] left-[13rem] rounded-full"></div>
+                <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative top-[24rem] left-[13rem] rounded-full"></div>
 
-                <div className="bg-themePurple h-[5rem] w-[5rem] relative left-[15rem] top-[6rem] rounded-full"></div>
+                <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15rem] top-[6rem] rounded-full"></div>
 
                 <div
                   className={`w-100p h-full ${style["blurred-overlay"]} flex relative`}
@@ -43,7 +43,7 @@ const HeroSection = () => {
                       theme === "dark"
                         ? style["background-gradient"]
                         : "bg-white"
-                    } border-themePurple absolute left-[4rem] top-[39%] rounded-md`}
+                    } border-primary absolute left-[4rem] top-[39%] rounded-md`}
                   >
                     <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
@@ -57,7 +57,7 @@ const HeroSection = () => {
                       theme === "dark"
                         ? style["background-gradient"]
                         : "bg-white"
-                    } border-themePurple absolute left-[15rem] top-[17%] rounded-md`}
+                    } border-primary absolute left-[15rem] top-[17%] rounded-md`}
                   >
                     <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
@@ -71,7 +71,7 @@ const HeroSection = () => {
                       theme === "dark"
                         ? style["background-gradient"]
                         : "bg-white"
-                    } border-themePurple left-[10rem] top-[61%] absolute rounded-md`}
+                    } border-primary left-[10rem] top-[61%] absolute rounded-md`}
                   >
                     <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                       <Image src="/Bitmoji.svg" width={20} height={20} />
@@ -80,11 +80,8 @@ const HeroSection = () => {
                     <span className="text-sm">Dwayne Johnson</span>
                   </div>
 
-                  <div
-                    className={` ${
-                      theme === "dark" ? "" : style.leftShadow
-                    }  w-80p justify-center flex flex-col space-y-8 mb-[6rem]`}
-                  >
+                  {/* <div className="bg-gradient-to-r from-white to-transparent via-20% via-transparent w-80p justify-center flex flex-col space-y-8 mb-[6rem] "> */}
+                  <div className="w-80p justify-center flex flex-col space-y-8 mb-[6rem] ">
                     <div className={style["fade-border-b"]}></div>
                     <div className={style["fade-border-b"]}></div>
                     <div className={style["fade-border-b"]}></div>

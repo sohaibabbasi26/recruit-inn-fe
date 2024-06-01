@@ -6,7 +6,7 @@ const TrustedCandidates = () => {
   const { theme } = useTheme();
   return (
     <div
-      className={`container max-width:  w-[50%] max-md:w-[100%] bg-primary rounded-lg mb-[3rem]`}
+      className={`container max-width:  w-[50%] max-md:w-[100%] rounded-lg mb-[3rem]`}
     >
       <span className="text-smallText dark:text-steel text-sm">
         Trusted by many companies around the world.

@@ -103,7 +103,11 @@ export default function PaymentMethods() {
           headingColor={"text-lightPurpleText"}
           smallTextColor={"text-lightText"}
           borderColor={theme === "dark" ? "border-somePurple" : "#F0EDFC"}
-          bg={" bg-darkPaymentPurple"}
+          bg={
+            theme === "dark"
+              ? "bg-darkPaymentPurple"
+              : "text-primary bg-light-purple-shade "
+          }
           img={"/included.png"}
           priceColor={style["gradient-text"]}
         />
@@ -112,7 +116,11 @@ export default function PaymentMethods() {
           headingColor={"text-lightPurpleText"}
           smallTextColor={"text-lightText"}
           borderColor={theme === "dark" ? "border-somePurple" : "#F0EDFC"}
-          bg={" bg-darkPaymentPurple"}
+          bg={
+            theme === "dark"
+              ? "bg-darkPaymentPurple"
+              : "text-primary bg-light-purple-shade "
+          }
           img={"/included.png"}
           priceColor={style["gradient-text"]}
         />
@@ -123,7 +131,11 @@ export default function PaymentMethods() {
           headingColor={"text-lightPurpleText"}
           smallTextColor={"text-lightText"}
           borderColor={theme === "dark" ? "border-somePurple" : "border-black"}
-          bg={"bg-darkPaymentPurple"}
+          bg={
+            theme === "dark"
+              ? style["payment-card-pro-button"]
+              : "text-white bg-primary"
+          }
           img={"/included.png"}
           priceColor={style["gradient-text"]}
         />
@@ -134,7 +146,11 @@ export default function PaymentMethods() {
           headingColor={"text-goldenTextColor"}
           smallTextColor={"text-goldenLightText"}
           borderColor={"border-goldenTextColor"}
-          bg={"bg-darkPaymentPurple"}
+          bg={
+            theme === "dark"
+              ? style["btn-golden"]
+              : style["payment-card-pro-button"]
+          }
           img={"/Gold-Include.png"}
           priceColor={style["golden-gradient-text"]}
         />
@@ -147,7 +163,11 @@ export default function PaymentMethods() {
             headingColor={"text-lightPurpleText"}
             smallTextColor={"text-lightText"}
             borderColor={"border-somePurple"}
-            bg={" bg-darkPaymentPurple"}
+            bg={
+              theme === "dark"
+                ? "bg-darkPaymentPurple"
+                : "text-primary bg-light-purple-shade "
+            }
             img={"/included.png"}
             priceColor={style["gradient-text"]}
           />
@@ -158,7 +178,11 @@ export default function PaymentMethods() {
             headingColor={"text-lightPurpleText"}
             smallTextColor={"text-lightText"}
             borderColor={"border-somePurple"}
-            bg={" bg-darkPaymentPurple"}
+            bg={
+              theme === "dark"
+                ? "bg-darkPaymentPurple"
+                : "text-primary bg-light-purple-shade "
+            }
             img={"/included.png"}
             priceColor={style["gradient-text"]}
           />
@@ -171,7 +195,11 @@ export default function PaymentMethods() {
             headingColor={"text-lightPurpleText"}
             smallTextColor={"text-lightText"}
             borderColor={"border-somePurple"}
-            bg={"bg-darkPaymentPurple"}
+            bg={
+              theme === "dark"
+                ? style["payment-card-pro-button"]
+                : "text-white bg-primary"
+            }
             img={"/included.png"}
             priceColor={style["gradient-text"]}
           />
@@ -186,7 +214,12 @@ export default function PaymentMethods() {
             headingColor={"text-goldenTextColor"}
             smallTextColor={"text-goldenLightText"}
             borderColor={"border-goldenTextColor"}
-            bg={"btn-golden"}
+            // bg={"btn-golden"}
+            bg={
+              theme === "dark"
+                ? style["btn-golden"]
+                : style["payment-card-pro-button"]
+            }
             img={"/Gold-Include.png"}
             priceColor={style["golden-gradient-text"]}
           />

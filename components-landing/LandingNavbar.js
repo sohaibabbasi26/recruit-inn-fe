@@ -114,6 +114,8 @@ const LandingNavbar = ({
                 className="max-lg:flex hidden max-lg:mr-[1.5rem] max-sm:mr-[1rem] text-black dark:text-white"
                 onClick={() => setMenu(!menu)}
               >
+                <ThemeSwitch />
+
                 <svg
                   className="w-6 h-6"
                   fill="none"

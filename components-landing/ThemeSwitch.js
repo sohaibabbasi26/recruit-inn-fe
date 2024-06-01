@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import styles from "../components/ThemeSwitch.module.css";
+import styles from "./ThemeSwitch.module.css";
 
 function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
@@ -18,9 +18,7 @@ function ThemeSwitch() {
 
   return (
     <>
-      <div
-        className={`bg-white-purple-shade dark:bg-gray-700 border border-light-grey text-steel rounded-[3rem] py-2 px-3 relative cursor-pointer grid grid-cols-2 grid-rows-1 ml-4`}
-      >
+      <div className="mr-0 ml-4 bg-white-purple-shade dark:bg-[#141414] border border-light-grey dark:border-transparent text-steel rounded-[3rem] px-3 py-2  cursor-pointer grid grid-cols-2 grid-rows-1 max-w-[77px] relative -top-0 max-lg:-top-2 max-lg:mr-4 max-lg:ml-0 max-lg:py-[2px] max-lg:px-2">
         <Image
           src="/moon.svg"
           width={33}
@@ -28,16 +26,16 @@ function ThemeSwitch() {
           onClick={() => setTheme("dark")}
         />
         <Image
-          src="/sun.svg"
+          // src="/sun.svg"
+          src="/sun-white.svg"
           width={33}
           height={33}
           onClick={() => setTheme("light")}
         />
-        {/* <div className={`${styles.ball}`}></div> */}
         <div
           className={`${styles.ball} ${
             theme === "light" ? styles.toRight : ""
-          } bg-steel w-[2.25rem] h-[2.25rem] rounded-full transition-transform`}
+          } bg-gradient-to-r from-[#6137DB] to-[#220772] bg-steel w-[2.25rem] h-[2.25rem] rounded-full transition-transform`}
         ></div>
       </div>
 

@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 // import './styles.css';
 import style from "./styles.module.css";
+import { useTheme } from "next-themes";
 
 // import './landingGlobal.css';
 
@@ -14,6 +15,7 @@ const Footer = ({
   FAQRef,
   HeroRef,
 }) => {
+  const { theme } = useTheme();
   return (
     <footer className=" text-black dark:text-white e p-4 ">
       <div className="px-20 mx-auto max-lg:flex-col flex justify-between items-center ">
@@ -121,7 +123,15 @@ const Footer = ({
               target="blank"
               rel="noopener noreferrer"
             >
-              <Image src="/LinkedInWhite.svg" width={40} height={40} />
+              <Image
+                src={
+                  theme === "light"
+                    ? "linkedin-light.svg"
+                    : "/LinkedInWhite.svg"
+                }
+                width={40}
+                height={40}
+              />
             </a>
             <a
               // href="https://twitter.com/recruitinn"
@@ -137,7 +147,11 @@ const Footer = ({
               target="blank"
               rel="noopener noreferrer"
             >
-              <Image src="/insta.svg" width={40} height={40} />
+              <Image
+                src={theme === "light" ? "/instagram-light.svg" : "/insta.svg"}
+                width={40}
+                height={40}
+              />
             </a>
           </div>
         </div>
