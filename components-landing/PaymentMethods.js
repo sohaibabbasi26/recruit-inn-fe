@@ -22,7 +22,11 @@ export default function PaymentMethods() {
           Our flexible pricing options are tailored to your needs
         </p>
         <div className="text-center ">
-          <div className="inline-block relative w-[55%] py-1 bg-white dark:bg-[#141414] text-black dark:text-white max-md:mb-4 border border[#F0EDFC] dark:border-black rounded-full">
+          <div
+            className={`inline-block relative w-[55%] py-1 bg-white dark:bg-[#141414] text-black dark:text-white max-md:mb-4 border border[#F0EDFC] dark:border-black rounded-full  ${
+              selectedOption === "monthly" ? "text-white" : ""
+            }`}
+          >
             <input
               type="radio"
               name="duration"
@@ -54,11 +58,11 @@ export default function PaymentMethods() {
             />
             <label
               htmlFor="yearly"
-              className={`inline-block font-sans text-sm w-20 h-10 leading-10 cursor-pointer  z-10 ${
+              className={`inline-block font-sans text-sm text-black dark:text-white w-20 h-10 leading-10 cursor-pointer  z-10 ${
                 selectedOption === "yearly"
                   ? "w-50p bg-gradient-to-r from-[#6137DB] to-[#220772] rounded-full"
                   : ""
-              }`}
+              } ${selectedOption === "yearly" ? "text-white" : ""} `}
             >
               Yearly
             </label>
@@ -101,7 +105,8 @@ export default function PaymentMethods() {
         <PaymentCard
           bgColor={theme === "dark" ? "bg-black" : "bg-white"}
           headingColor={"text-lightPurpleText"}
-          smallTextColor={"text-lightText"}
+          // smallTextColor={"text-lightText"}
+          smallTextColor={"text-primary"}
           borderColor={theme === "dark" ? "border-somePurple" : "#F0EDFC"}
           bg={
             theme === "dark"
@@ -109,12 +114,14 @@ export default function PaymentMethods() {
               : "text-primary bg-light-purple-shade "
           }
           img={"/included.png"}
-          priceColor={style["gradient-text"]}
+          // priceColor={style["gradient-text"]}
+          priceColor={theme === "dark" ? "text-white" : "text-black"}
         />
         <PaymentCard
           bgColor={theme === "dark" ? "bg-black" : "bg-white"}
           headingColor={"text-lightPurpleText"}
-          smallTextColor={"text-lightText"}
+          // smallTextColor={"text-lightText"}
+          smallTextColor={"text-primary"}
           borderColor={theme === "dark" ? "border-somePurple" : "#F0EDFC"}
           bg={
             theme === "dark"
@@ -122,14 +129,16 @@ export default function PaymentMethods() {
               : "text-primary bg-light-purple-shade "
           }
           img={"/included.png"}
-          priceColor={style["gradient-text"]}
+          // priceColor={style["gradient-text"]}
+          priceColor={theme === "dark" ? "text-white" : "text-black"}
         />
         <PaymentCard
           bgColor={
             theme === "dark" ? style["payment-pro-gradient"] : "bg-white"
           }
           headingColor={"text-lightPurpleText"}
-          smallTextColor={"text-lightText"}
+          // smallTextColor={"text-lightText"}
+          smallTextColor={"text-primary"}
           borderColor={theme === "dark" ? "border-somePurple" : "border-black"}
           bg={
             theme === "dark"
@@ -137,7 +146,8 @@ export default function PaymentMethods() {
               : "text-white bg-primary"
           }
           img={"/included.png"}
-          priceColor={style["gradient-text"]}
+          // priceColor={style["gradient-text"]}
+          priceColor={theme === "dark" ? "text-white" : "text-black"}
         />
         <PaymentCard
           bgColor={
@@ -152,7 +162,8 @@ export default function PaymentMethods() {
               : style["payment-card-pro-button"]
           }
           img={"/Gold-Include.png"}
-          priceColor={style["golden-gradient-text"]}
+          // priceColor={style["golden-gradient-text"]}
+          priceColor="text-goldenShade"
         />
       </div>
       {/* mobile screnn */}
@@ -161,7 +172,8 @@ export default function PaymentMethods() {
           <PaymentCard
             bgColor={theme === "dark" ? "bg-black" : "bg-white"}
             headingColor={"text-lightPurpleText"}
-            smallTextColor={"text-lightText"}
+            // smallTextColor={"text-lightText"}
+            smallTextColor={"text-primary"}
             borderColor={"border-somePurple"}
             bg={
               theme === "dark"
@@ -169,14 +181,16 @@ export default function PaymentMethods() {
                 : "text-primary bg-light-purple-shade "
             }
             img={"/included.png"}
-            priceColor={style["gradient-text"]}
+            // priceColor={style["gradient-text"]}
+            priceColor={theme === "dark" ? "text-white" : "text-black"}
           />
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
           <PaymentCard
             bgColor={theme === "dark" ? "bg-black" : "bg-white"}
             headingColor={"text-lightPurpleText"}
-            smallTextColor={"text-lightText"}
+            // smallTextColor={"text-lightText"}
+            smallTextColor={"text-primary"}
             borderColor={"border-somePurple"}
             bg={
               theme === "dark"
@@ -184,7 +198,8 @@ export default function PaymentMethods() {
                 : "text-primary bg-light-purple-shade "
             }
             img={"/included.png"}
-            priceColor={style["gradient-text"]}
+            // priceColor={style["gradient-text"]}
+            priceColor={theme === "dark" ? "text-white" : "text-black"}
           />
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
@@ -193,7 +208,8 @@ export default function PaymentMethods() {
               theme === "dark" ? style["payment-pro-gradient"] : "bg-white"
             }
             headingColor={"text-lightPurpleText"}
-            smallTextColor={"text-lightText"}
+            // smallTextColor={"text-lightText"}
+            smallTextColor={"text-primary"}
             borderColor={"border-somePurple"}
             bg={
               theme === "dark"
@@ -201,7 +217,8 @@ export default function PaymentMethods() {
                 : "text-white bg-primary"
             }
             img={"/included.png"}
-            priceColor={style["gradient-text"]}
+            // priceColor={style["gradient-text"]}
+            priceColor={theme === "dark" ? "text-white" : "text-black"}
           />
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
@@ -221,7 +238,8 @@ export default function PaymentMethods() {
                 : style["payment-card-pro-button"]
             }
             img={"/Gold-Include.png"}
-            priceColor={style["golden-gradient-text"]}
+            // priceColor={style["golden-gradient-text"]}
+            priceColor="text-goldenShade"
           />
         </div>
       </div>

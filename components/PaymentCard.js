@@ -23,7 +23,7 @@ const PaymentCard = ({
             >
               Free
             </span>
-            <p className="text-smallText text-sm">
+            <p className="text-steel dark:text-smallText text-sm">
               Everything you need to supercharge your productivity
             </p>
             <div className="flex gradient-text gap-2">
