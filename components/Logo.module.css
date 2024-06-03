@@ -19,9 +19,9 @@
 }
 
 @media (max-width: 64em) {
-  .logoContainer {
+  /* .logoContainer {
     height: 50px;
-  }
+  } */
 
   .logoContainer h3 {
     margin: 1rem;
