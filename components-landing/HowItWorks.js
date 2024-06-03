@@ -14,16 +14,16 @@ const HowItWorks = () => {
   if (theme === "dark") {
     images = [
       "/side-screen.png",
-      "/MiddleContent.png",
+      "/middle-content-1.png",
       "/side-screen.png",
-      "/MiddleContent.png",
+      "/middle-content-1.png",
     ];
   } else if (theme === "light") {
     images = [
-      "/Side-screen-white.png",
-      "/Middle-content-white.png",
-      "/Side-screen-white.png",
-      "/Middle-content-white.png",
+      "/middle-content-light.png",
+      "/middle-content-light-1.png",
+      "/middle-content-light.png",
+      "/middle-content-light-1.png",
     ];
   }
   const items = [
@@ -146,13 +146,14 @@ const HowItWorks = () => {
                                 </ul> */}
                 </div>
                 <div className="w-[70%] h-100p max-md:hidden  flex justify-end items-end">
-                  <div className="w-[100%] h-[45rem] flex justify-end items-end">
+                  <div className="w-[100%] flex justify-end items-end max-h-[36rem]">
                     <img
                       src={images[currentImageIndex]}
                       className="rounded-r-3xl"
                       alt={`Image ${currentImageIndex + 1}`}
                       width={800}
-                      height={100}
+                      // height={100}
+                      fill
                     />
                   </div>
                 </div>

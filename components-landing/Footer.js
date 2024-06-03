@@ -140,7 +140,11 @@ const Footer = ({
               target="blank"
               rel="noopener noreferrer"
             >
-              <Image src="/facebook.svg" width={40} height={40} />
+              <Image
+                src="/facebook.svg"
+                width={theme === "light" ? 45 : 40}
+                height={theme === "light" ? 45 : 40}
+              />
             </a>
             <a
               href="https://www.instagram.com/"
