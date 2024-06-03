@@ -3,6 +3,8 @@ import { useState } from "react";
 // import './landingGlobal.css';
 // import './styles.css';
 import style from "./styles.module.css";
+import ChevronDown from "../components/ChevronDown";
+import { useTheme } from "next-themes";
 
 const LandingFAQs = () => {
   const [dropDownState, setDropDownState] = useState(false);
@@ -12,6 +14,7 @@ const LandingFAQs = () => {
   const [fifthDropDownState, setFifthDropDownState] = useState(false);
   const [sixthDropDownState, setSixthDropDownState] = useState(false);
   const [seventhDropDownState, setSevethDropDownState] = useState(false);
+  const { theme } = useTheme();
 
   const toggleDropDown = () => {
     setDropDownState(!dropDownState);
@@ -53,15 +56,20 @@ const LandingFAQs = () => {
                 onClick={toggleDropDown}
                 className="cursor-pointer py-4  w-[100%] flex flex-col border-b-[1px] border-darkPurple"
               >
-                <div className=" w-[100%] flex justify-between gap-2">
+                <div className=" w-[100%] flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     What is recruitinn?
                   </span>
-                  <Image
+                  {/* <Image
                     onClick={toggleDropDown}
                     src="/dropdown-white.svg"
                     width={15}
                     height={15}
+                  /> */}
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      dropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
                 {dropDownState && (
@@ -83,11 +91,16 @@ const LandingFAQs = () => {
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     How does the Free trial work?
                   </span>
-                  <Image
+                  {/* <Image
                     onClick={toggleSecondDropDown}
                     src="/dropdown-white.svg"
                     width={15}
                     height={15}
+                  /> */}
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      secondDropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
                 {secondDropDownState && (
@@ -109,7 +122,12 @@ const LandingFAQs = () => {
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     How does billing work?
                   </span>
-                  <Image src="/dropdown-white.svg" width={15} height={15} />
+                  {/* <Image src="/dropdown-white.svg" width={15} height={15} /> */}
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      thirdDropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
+                  />
                 </div>
                 {thirdDropDownState && (
                   <p className="text-sm  text-smallText mt-3">
@@ -129,11 +147,16 @@ const LandingFAQs = () => {
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     How are you different?
                   </span>
-                  <Image
+                  {/* <Image
                     onClick={toggleFourthDropDown}
                     src="/dropdown-white.svg"
                     width={15}
                     height={15}
+                  /> */}
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      fourthDropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
                 {fourthDropDownState && (
@@ -156,11 +179,16 @@ const LandingFAQs = () => {
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     How does Recruitinn help you find the best candidate?
                   </span>
-                  <Image
+                  {/* <Image
                     onClick={toggleFifthDropDown}
                     src="/dropdown-white.svg"
                     width={15}
                     height={15}
+                  /> */}
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      fifthDropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
                 {fifthDropDownState && (

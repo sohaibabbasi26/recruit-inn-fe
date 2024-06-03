@@ -18,7 +18,7 @@ function ThemeSwitch() {
 
   return (
     <>
-      <div className="mr-0 ml-4 bg-white-purple-shade dark:bg-[#141414] border border-light-grey dark:border-transparent text-steel rounded-[3rem] px-3 py-2  cursor-pointer grid grid-cols-2 grid-rows-1 max-w-[77px] relative -top-0 max-lg:-top-2 max-lg:mr-4 max-lg:ml-0 max-lg:py-[2px] max-lg:px-2">
+      <div className="mr-0 ml-4 bg-white-purple-shade dark:bg-[#141414] border border-light-grey dark:border-transparent text-steel rounded-[3rem] px-3 py-[0.45rem]  cursor-pointer grid grid-cols-2 grid-rows-1 max-w-[77px] relative -top-0 max-lg:-top-2 max-lg:mr-4 max-lg:ml-auto max-lg:mt-3 max-lg:py-[2px] max-lg:px-2">
         <Image
           src="/moon.svg"
           width={33}
