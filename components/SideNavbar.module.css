@@ -194,36 +194,28 @@
   justify-content: center;
 }
 
-.btnlog {
-  display: flex;
-  background-color: #fff5f5;
-  color: #ff0000;
+.profileBtn {
   border: none;
   border-radius: 2rem;
   font-weight: 600;
   font-size: small;
   cursor: pointer;
-
-  justify-content: space-between;
+  display: flex;
   align-items: center;
+  justify-content: center;
   padding: 14px 16px;
   width: 100%;
 }
 
+.btnlog {
+  background-color: #fff5f5;
+  color: #ff0000;
+  gap: 8px;
+}
+
 .btnup {
-  border-radius: 2rem;
-  border: none;
   background-color: #f0edfc;
   color: #6137db;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: small;
-  padding: 14px 16px;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 4px;
 }
 

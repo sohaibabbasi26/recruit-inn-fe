@@ -319,13 +319,19 @@ const SideNavbar = ({
           {showupgrade && (
             <>
               <div>
-                <button className={styles.btnup} onClick={openAddJobHandler}>
+                <button
+                  className={`${styles.profileBtn} ${styles.btnup}`}
+                  onClick={openAddJobHandler}
+                >
                   Upgrade{" "}
                   <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
                 </button>
               </div>
               <div>
-                <button className={styles.btnlog} onClick={logoutHandler}>
+                <button
+                  className={`${styles.profileBtn} ${styles.btnlog}`}
+                  onClick={logoutHandler}
+                >
                   Logout{" "}
                   <Image
                     src="/Vector.png"
