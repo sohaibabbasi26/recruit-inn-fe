@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 // import './styles.css';
 import style from "./styles.module.css";
+import { useTheme } from "next-themes";
 
 // import './landingGlobal.css';
 
@@ -14,8 +15,9 @@ const Footer = ({
   FAQRef,
   HeroRef,
 }) => {
+  const { theme } = useTheme();
   return (
-    <footer className=" text-white p-4 ">
+    <footer className=" text-black dark:text-white e p-4 ">
       <div className="px-20 mx-auto max-lg:flex-col flex justify-between items-center ">
         <div
           onClick={() => scrollToRef(HeroRef)}
@@ -112,7 +114,7 @@ const Footer = ({
       </div>
       <div className="w-[100%] flex justify-end max-lg:mb-[1rem]">
         <div className="text-center max-lg:w-[100%] w-[60%] flex max-lg:flex-col max-lg:items-center justify-between">
-          <p className="font-dm-sans text-gray-500 text-sm font-light leading-5 py-4">
+          <p className="font-dm-sans text-black dark:text-white  text-sm font-light leading-5 py-4">
             Copyright © 2024 recruitinn. All rights reserved.
           </p>
           <div className="flex items-center mr-[2rem] gap-5 max-lg:w-[100%] max-lg:mr-0 max-lg:justify-center">
@@ -121,7 +123,15 @@ const Footer = ({
               target="blank"
               rel="noopener noreferrer"
             >
-              <Image src="/LinkedInWhite.svg" width={40} height={40} />
+              <Image
+                src={
+                  theme === "light"
+                    ? "linkedin-light.svg"
+                    : "/LinkedInWhite.svg"
+                }
+                width={40}
+                height={40}
+              />
             </a>
             <a
               // href="https://twitter.com/recruitinn"
@@ -130,14 +140,22 @@ const Footer = ({
               target="blank"
               rel="noopener noreferrer"
             >
-              <Image src="/facebook.svg" width={40} height={40} />
+              <Image
+                src="/facebook.svg"
+                width={theme === "light" ? 45 : 40}
+                height={theme === "light" ? 45 : 40}
+              />
             </a>
             <a
               href="https://www.instagram.com/"
               target="blank"
               rel="noopener noreferrer"
             >
-              <Image src="/insta.svg" width={40} height={40} />
+              <Image
+                src={theme === "light" ? "/instagram-light.svg" : "/insta.svg"}
+                width={40}
+                height={40}
+              />
             </a>
           </div>
         </div>

@@ -4,6 +4,7 @@
   --color-primary: #6137db;
   --color-white: #ffffff;
   --color-steel: #4a525d;
+  --color-light-grey: #ebebeb;
   --color-off-white: #f5f5f5;
   --color-neutral-dark: #170d23;
   --color-white-purple-shade: #f8f7fa;
@@ -13,7 +14,6 @@
 body {
   max-width: 120em;
   margin: 0 auto !important;
-
   font-family: "Poppins", sans-serif;
 }
 

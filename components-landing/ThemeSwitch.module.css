@@ -1,0 +1,33 @@
+.themeSwitch {
+  border: 1px solid var(--color-light-grey);
+  background-color: var(--color-white-purple-shade);
+  color: var(--color-steel);
+  border-radius: 3rem;
+  padding: 0.5rem 0.9375em;
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  margin-left: 1rem;
+}
+
+.ball {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* transition: transform 0.2s linear; */
+}
+
+.ball.toRight {
+  top: 50%;
+  transform: translate(100%, -50%);
+}
+
+@media screen and (max-width: 1440px) {
+  .ball.toRight {
+    top: 50%;
+    transform: translate(calc(100% + 8px), -50%);
+  }
+}
