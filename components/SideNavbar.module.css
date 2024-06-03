@@ -221,14 +221,29 @@
 }
 
 .btnlog:hover {
-  background-color: #fff5f5;
-  color: #ff0000;
+  background-color: var(--color-logout-bg);
+  color: var(--color-logout);
 }
 
 .btnup {
-  background-color: #f0edfc;
-  color: #6137db;
+  background-color: var(--color-purple-white-shade);
+  color: var(--color-primary);
+  border: 1px solid transparent;
   gap: 4px;
+}
+
+.btnup:hover {
+  border-color: var(--color-light-purple-graph);
+}
+
+.btnup:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btnup:focus svg {
+  stroke: white;
 }
 
 .btnset {

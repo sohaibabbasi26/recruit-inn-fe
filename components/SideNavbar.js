@@ -5,6 +5,7 @@ import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
 import LogoutSvg from "./LogoutSvg";
+import UpgradeSvg from "./UpgradeSvg";
 
 const SideNavbar = ({
   name,
@@ -325,7 +326,8 @@ const SideNavbar = ({
                   onClick={openAddJobHandler}
                 >
                   Upgrade{" "}
-                  <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
+                  {/* <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" /> */}
+                  <UpgradeSvg />
                 </button>
               </div>
               <div>

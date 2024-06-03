@@ -9,6 +9,10 @@
   --color-neutral-dark: #170d23;
   --color-white-purple-shade: #f8f7fa;
   --color-light-purple-shade: #faf5ff;
+  --color-light-purple-graph: #d3cffc;
+  --color-purple-white-shade: #f7f5ff;
+  --color-logout: #ff0000;
+  --color-logout-bg: #fff5f5;
 }
 
 body {
