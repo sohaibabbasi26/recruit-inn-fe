@@ -35,7 +35,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <ThemeProvider attribute="class">
+      <ThemeProvider attribute="class" defaultTheme="dark">
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
         >
