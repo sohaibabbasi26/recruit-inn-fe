@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
+import LogoutSvg from "./LogoutSvg";
 
 const SideNavbar = ({
   name,
@@ -333,13 +334,14 @@ const SideNavbar = ({
                   onClick={logoutHandler}
                 >
                   Logout{" "}
-                  <Image
+                  {/* <Image
                     src="/Vector.png"
                     alt="Upgrade"
                     width="18"
                     height="18"
                     style={{ color: "#FF0000" }}
-                  />
+                  /> */}
+                  <LogoutSvg />
                 </button>
               </div>
 

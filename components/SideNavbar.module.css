@@ -196,6 +196,8 @@
 
 .profileBtn {
   border: none;
+  background-color: transparent;
+  color: var(--color-steel);
   border-radius: 2rem;
   font-weight: 600;
   font-size: small;
@@ -203,14 +205,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 16px;
+  /* padding: 14px 16px; */
+  padding: 0.875em 1rem;
   width: 100%;
+  transition: all 150ms ease-out;
+}
+
+.profileBtn svg {
+  height: 26px;
+  width: 26px;
 }
 
 .btnlog {
+  gap: 10px;
+}
+
+.btnlog:hover {
   background-color: #fff5f5;
   color: #ff0000;
-  gap: 8px;
 }
 
 .btnup {
