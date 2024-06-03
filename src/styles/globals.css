@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;600;800&family=Poppins:wght@100;200;300;500&display=swap");
 :root {
+  /* colors */
   --color-primary: #6137db;
   --color-white: #ffffff;
   --color-steel: #4a525d;
@@ -13,6 +14,15 @@
   --color-purple-white-shade: #f7f5ff;
   --color-logout: #ff0000;
   --color-logout-bg: #fff5f5;
+
+  --color-scroll-linear-gradient: linear-gradient(
+    180deg,
+    rgba(235, 235, 235, 0) 20%,
+    rgba(235, 235, 235, 1) 25%,
+    rgba(235, 235, 235, 1) 75%,
+    rgba(235, 235, 235, 1) 80%,
+    rgba(235, 235, 235, 0) 100%
+  );
 }
 
 body {

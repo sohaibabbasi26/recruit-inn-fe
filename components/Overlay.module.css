@@ -174,7 +174,7 @@
   position: relative;
   bottom: 3%;
 }
-x .transparentContainer button {
+.transparentContainer button {
   width: 100%;
   height: 30%;
   border-radius: 20px;
