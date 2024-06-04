@@ -8,14 +8,44 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+  /* scrollbar-width: thin; */
+  /* scrollbar-color: transparent transparent; */
+}
+
+.parentContainer::-webkit-scrollbar {
+  width: 8px;
+}
+.parentContainer::-webkit-scrollbar-track {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 32px;
+  background-color: transparent;
+}
+
+.parentContainer::-webkit-scrollbar-track:hover {
+  background-color: transparent;
+}
+
+.parentContainer::-webkit-scrollbar-track:active {
+  background-color: transparent;
+}
+
+.parentContainer::-webkit-scrollbar-thumb {
+  border-radius: 32px;
+  background-color: var(--color-light-grey);
+}
+
+.parentContainer::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-light-grey);
+}
+
+.parentContainer::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-light-grey);
 }
 
 .superContainer {
   width: 96%;
   height: 100%;
-  overflow-y: scroll;
 }
 
 .headingContainer {
