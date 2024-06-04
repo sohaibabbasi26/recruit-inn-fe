@@ -2,7 +2,7 @@
 
 .parentContainer {
   height: 85.5vh;
-  background-color: #f8f7fc;
+  background-color: var(--color-white-purple-shade);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -82,9 +82,11 @@
 }
 
 .headingContainer span {
-  background-color: #f0edfc;
-  padding: 0.25rem 1rem;
-  border-radius: 20px;
+  background-color: var(--color-light-purple-shade);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: 0.1875rem 1rem;
+  border-radius: 4.125rem;
 }
 
 .headingContainer button {
@@ -141,12 +143,6 @@
   align-items: center;
   gap: 1rem;
   justify-content: space-between;
-}
-
-.headingContainer span {
-  background-color: #f0edfc;
-  padding: 0.25rem 1rem;
-  border-radius: 20px;
 }
 
 .candidatesCard {
@@ -272,12 +268,6 @@
   align-items: center;
   gap: 1rem;
   justify-content: space-between;
-}
-
-.headingContainer span {
-  background-color: #f0edfc;
-  padding: 0.25rem 1rem;
-  border-radius: 20px;
 }
 
 .heading {

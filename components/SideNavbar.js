@@ -265,53 +265,6 @@ const SideNavbar = ({
           </div>
           {/* End */}
         </div>
-        {/* old */}
-        {/* <div className={`${styles.profnameback} ${styles.focus}`}>
-          {showupgrade && (
-            <div>
-              <button className={styles.btnup} onClick={openAddJobHandler}>
-                Upgrade{" "}
-                <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
-              </button>
-            </div>
-          )}
-          {showupgrade && (
-            <div>
-              <button className={styles.btnlog} onClick={logoutHandler}>
-                Logout{" "}
-                <Image
-                  src="/Vector.png"
-                  alt="Upgrade"
-                  width="18"
-                  height="18"
-                  style={{ color: "#FF0000" }}
-                />
-              </button>
-            </div>
-          )}
-
-          <div className={styles.profileTab} onClick={upgradeHandler}>
-            <Image
-              src="/Emoji.svg"
-              height={50}
-              width={50}
-              className="profileImage"
-            />
-            <div className={styles.textContent}>
-              <span style={{ color: "#4A525D" }}>Hello</span>
-              <h4>{name}</h4>
-            </div>
-            <Image
-              src="/rightArrow.svg"
-              width={listItemSize}
-              height={listItemSize}
-              style={{ marginLeft: "-10px", marginRight: "-10px" }}
-            />
-          </div>
-
-          
-        </div> */}
-        {/* try this */}
 
         <div
           className={`${styles.newprofnameback} ${
