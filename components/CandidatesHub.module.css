@@ -10,38 +10,6 @@
   overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
-
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-}
-
-.parentContainer::-webkit-scrollbar {
-  width: 10px;
-  margin-right: -20px;
-  position: relative;
-}
-
-.parentContainer::-webkit-scrollbar-track {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: none !important;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-
-.parentContainer::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgb(235, 235, 235);
-  background: linear-gradient(
-    180deg,
-    rgba(235, 235, 235, 0) 20%,
-    rgba(235, 235, 235, 1) 25%,
-    rgba(235, 235, 235, 1) 75%,
-    rgba(235, 235, 235, 1) 80%,
-    rgba(235, 235, 235, 0) 100%
-  );
 }
 
 /* .parentContainer {
@@ -50,11 +18,12 @@
 } */
 
 .parentContainer::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
+  width: 8px;
 }
 .parentContainer::-webkit-scrollbar-track {
-  border-radius: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 32px;
   background-color: transparent;
 }
 
@@ -67,7 +36,7 @@
 }
 
 .parentContainer::-webkit-scrollbar-thumb {
-  border-radius: 5px;
+  border-radius: 32px;
   background-color: var(--color-light-grey);
 }
 
