@@ -47,6 +47,7 @@ module.exports = {
         "light-purple-shade": "#FAF5FF",
         "light-grey": "#ebebeb",
         steel: "#4A525D",
+        danger: "#ff0000",
         btnPurple: "#220772",
         lightPurple: "#6137DB",
         smallText: "#ADA9B8",
