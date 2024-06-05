@@ -352,8 +352,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       parseFloat(
                         calculateCumulativeMean(
                           selectedCandidate?.results?.technicalRating,
-                          selectedCandidate?.results?.softskillRating,
-                          codingResult?.data?.result?.technicalRating
+                          selectedCandidate?.results?.softskillRating
+                          // codingResult?.data?.result?.technicalRating
                         )
                       )
                     ),
@@ -363,8 +363,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     parseFloat(
                       calculateCumulativeMean(
                         selectedCandidate?.results?.technicalRating,
-                        selectedCandidate?.results?.softskillRating,
-                        codingResult?.data?.result?.technicalRating
+                        selectedCandidate?.results?.softskillRating
+                        // codingResult?.data?.result?.technicalRating
                       )
                     )
                   )}
@@ -373,8 +373,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       parseFloat(
                         calculateCumulativeMean(
                           selectedCandidate?.results?.technicalRating,
-                          selectedCandidate?.results?.softskillRating,
-                          codingResult?.data?.result?.technicalRating
+                          selectedCandidate?.results?.softskillRating
+                          // codingResult?.data?.result?.technicalRating
                         )
                       )
                     )}
@@ -435,12 +435,15 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     <span className={styles.bold}>Date</span>
                     <span>
                       {/* {format(new Date(2014, 1, 11), "EEE, yyyy-MM-dd")} */}
-                      {format(
-                        new Date(
-                          selectedCandidate?.date || results?.data?.createdAt
-                        ),
-                        "EEE, MMM dd yyyy"
-                      )}
+                      {selectedCandidate?.date || results?.data?.createdAt
+                        ? format(
+                            new Date(
+                              selectedCandidate?.date ||
+                                results?.data?.createdAt
+                            ),
+                            "EEE, MMM dd yyyy"
+                          )
+                        : selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
@@ -502,12 +505,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       />
                     </>
                   )}
-                  {/* {codingResult ? (
-                                    
-                                ) : (
-                                    <>
-                                    </>
-                                )} */}
                 </div>
               </div>
             </div>
