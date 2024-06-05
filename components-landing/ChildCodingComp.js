@@ -170,11 +170,13 @@ const CodingChild = ({
                     Code
                   </span>
                   <select
-                    autoFocus={true}
+                    // autoFocus={true}
                     ref={selectLanguageRef}
                     onChange={(e) => setLanguage(e.target.value)}
                     className={`bg-[#F0EDFC] py-[0.35rem] px-3 rounded-2xl text-sm font-semibold text-[#4A525D] outline-offset-2 outline-1 focus:outline ${
-                      !isAllowed ? "outline-danger" : "outline-primary"
+                      !isAllowed
+                        ? "outline-danger focus:bg-danger-bg"
+                        : "outline-primary"
                     }`}
                   >
                     <option value="">Select programming language</option>
@@ -203,6 +205,7 @@ const CodingChild = ({
                   onChange={(e) => setCode(e.target.value)}
                   onKeyDown={handleKeyDown}
                   className={`h-[85%] max-h-[90%] w-[100%] resize-none outline-none disabled:cursor-not-allowed ${
+                    // README at the end of the file
                     !isAllowed && "relative -z-10"
                   }`}
                 ></textarea>
@@ -255,3 +258,8 @@ const CodingChild = ({
 };
 
 export default CodingChild;
+
+// README: Adjusting z-index to handle disabled text area clicks
+// We overlap the parent element when the text area is disabled
+// to ensure that clicks are detected on the parent.
+// Commented out the 'autoFocus' feature because the instructions popup would remove focus anyway. This way, when the user tries to type in the code without selecting a language, it will automatically get focused

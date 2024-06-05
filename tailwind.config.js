@@ -48,6 +48,7 @@ module.exports = {
         "light-grey": "#ebebeb",
         steel: "#4A525D",
         danger: "#ff0000",
+        "danger-bg": "#fff5f5",
         btnPurple: "#220772",
         lightPurple: "#6137DB",
         smallText: "#ADA9B8",
