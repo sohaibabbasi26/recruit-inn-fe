@@ -1,69 +1,18 @@
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import styles from "./RightBottomBtns.module.css";
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 
-const PersonalInfoBtns = ({
-  showSuccess,
-  validateEmailReceiver,
-  validateContactReciever,
-  validateNameReceiver,
-  onBack,
-  fillValidity,
-  showError,
-  showErrorMessage,
-  setMessage,
-  onContinue,
-  setCompletedStages,
-  completedStages,
-  onClose,
-}) => {
+const PersonalInfoBtns = ({ onContinue, setCurrentStage, stages }) => {
   const navigationIconSize = 30;
   const forwardIconSize = 20;
-  const router = useRouter();
+  // const router = useRouter();
   const handleContinue = async () => {
-    // if (!fillValidity()) {
-    //     setMessage("Fill all the fields")
-    //     showError()
-    //     console.log("in fill validatity!")
-    //     return
-    // }
-    // if(password.length < 8) {
-    //     console.log("in password length check!")
-    //     setMessage("Password must be at least 8 characters long ");
-    //     showError();
-    //     return
-    // }
-    // if (!validateNameReceiver()) {
-    //     setMessage("Please enter a valid name")
-    //     showError();
-    //     return;
-    // }
-
-    // if (!validateEmailReceiver()) {
-    //     setMessage("Please enter a valid email address")
-    //     showError();
-    //     console.log("in email validatity!")
-    //     return;
-    // }
-
-    // if (!validateContactReciever()) {
-    //     setMessage("Please enter a valid Contact number")
-    //     showError();
-
-    //     return;
-    // }
-
-    // if (password !== confirmPassword) {
-    //     console.log("in password validity!")
-    //     setMessage("Passwords doesn't match");
-    //     showError();
-    //     return;
-    // }
     await onContinue();
   };
   const backHandler = () => {
-    router.push("http://app.recruitinn.ai/");
+    // router.push("http://app.recruitinn.ai/");
+    setCurrentStage(stages.JOB_DETAIL);
   };
   return (
     <>

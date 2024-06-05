@@ -622,7 +622,7 @@ const InvitationOverlay = ({ setShowSuccessMessage, message, setMessage, showSuc
                                     setName={setName}
                                 />
                                 <div className={styles.wrapper}>
-                                    <PersonalInfoBtns showSuccess={showSuccess} onContinue={handleContinue} onBack={backToggleComponent} />
+                                    <PersonalInfoBtns showSuccess={showSuccess} setCurrentStage={setCurrentStage} stages={stages} onContinue={handleContinue} onBack={backToggleComponent} />
                                 </div>
                             </>
                         )}
