@@ -434,13 +434,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <li>
                     <span className={styles.bold}>Date</span>
                     <span>
+                      {/* {format(new Date(2014, 1, 11), "EEE, yyyy-MM-dd")} */}
                       {format(
                         new Date(
                           selectedCandidate?.date || results?.data?.createdAt
                         ),
                         "EEE, MMM dd yyyy"
                       )}
-                      {format}
                     </span>
                   </li>
                   <li>
