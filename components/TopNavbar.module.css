@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
 .searchBar {
-  /* background-color: #fff; */
+  flex: 1;
+
   border: 1px solid transparent;
   background-color: #f8f7fa;
-  width: 100%;
+  /* width: 100%; */
   height: 50px;
   margin-bottom: 24px;
   border-radius: 40px;
@@ -11,6 +12,7 @@
   justify-content: center;
   font-family: "Poppins", sans-serif;
   transition: border 0.3s, box-shadow 0.3s, height 0.3s;
+  padding: 0 0.625rem 0 1rem;
 }
 
 .searchBar:has(.container):has(.searchInput):has(input:focus) {
@@ -23,6 +25,7 @@
   align-items: center;
   font-family: "Poppins", sans-serif;
   gap: 1rem;
+  position: relative;
 }
 .masterContainer button {
   background-color: #f8f7fc;
@@ -37,7 +40,9 @@
 }
 .container {
   height: 100%;
-  width: 90%;
+  /* width: 90%; */
+  flex: 1;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -116,7 +121,46 @@
   max-height: 300px; /* maximum height before scrolling */
   overflow-y: auto; /* allows scrolling */
   top: 10%; /* position right below the search bar */
+
+  position: absolute;
+  right: 0;
+  top: 53px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 33px;
 }
+
+.searchResults::-webkit-scrollbar {
+  width: 8px;
+}
+.searchResults::-webkit-scrollbar-track {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 32px;
+  background-color: var(--color-white-purple-shade);
+}
+
+.searchResults::-webkit-scrollbar-track:hover {
+  background-color: var(--color-white-purple-shade);
+}
+
+.searchResults::-webkit-scrollbar-track:active {
+  background-color: var(--color-white-purple-shade);
+}
+
+.searchResults::-webkit-scrollbar-thumb {
+  border-radius: 32px;
+  background-color: var(--color-light-grey);
+}
+
+.searchResults::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-light-grey);
+}
+
+.searchResults::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-light-grey);
+}
+
 .searchResults ul {
   list-style: none; /* removes bullets from list */
   margin: 0;
@@ -138,13 +182,14 @@
   border: 1px solid transparent;
   background-color: #f8f7fa;
   background-repeat: no-repeat;
-  background-position-x: calc(100% - 11px);
+  background-position-x: calc(100% - 8px);
   background-position-y: 55%;
   background-image: url(/Arrow.svg);
   font-size: 1rem;
   font-family: "Poppins", sans-serif;
   padding-bottom: 5px;
-  padding: 10px 50px 10px 24px;
+  /* padding: 10px 50px 10px 24px; */
+  padding: 10px 3.12rem 10px 1.5rem;
   transition: background-color 0.1s ease-in-out;
 
   cursor: pointer;
@@ -167,9 +212,9 @@
 }
 
 @media screen and (max-width: 64em) {
-  .searchResults {
+  /* .searchResults {
     width: 50.5%;
-  }
+  } */
 
   .searchBar {
     height: 50px;
