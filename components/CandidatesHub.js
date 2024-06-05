@@ -1,21 +1,25 @@
 import styles from "./CandidatesHub.module.css";
-import TopNavbar from "./TopNavbar";
 import Image from "next/image";
 import { useState } from "react";
-
-import SearchEmpty from "../public/SearchEmpty.gif";
 import { getSvg } from "@/util/helpers";
-import Average from "./Average"
+import { average } from "@/util/average";
 
 const CandidatesHub = ({
   heading,
   data,
-  reportOverlay,
   setReportOverlay,
   setSelectedCandidate,
 }) => {
   // const newData = data?.map()
   console.log("data in candidates Hub:", data);
+  // let's not mutate the original array
+  const sortData = [...data];
+  // maybe move this on server side instead of client side
+  const sortedData = sortData.sort(
+    (a, b) =>
+      average([b?.results?.softskillRating, b?.results?.technicalRating]) -
+      average([a?.results?.softskillRating, a?.results?.technicalRating])
+  );
 
   // const calculateCumulativeMean = (val1, val2, val3) => {
   //   console.log("val1:", val1, "val2:", val2);
@@ -54,10 +58,10 @@ const CandidatesHub = ({
       count += 1;
     }
     if (count === 0) return 0;
-  
+
     return (total / count).toFixed(1);
-  };  
-  
+  };
+
   const [recommended, setRecommended] = useState("Recommended");
   const iconSize = 25;
   const goToAllIconSize = 18;
@@ -93,37 +97,38 @@ const CandidatesHub = ({
   //     return "/noteligible.svg";
   //   }
   // };
- const getBackgroundColor = (score) => {
-  if (score >= 7 && score <= 10) {
-    return "#E7FFE0";
-  } else if (score >= 5 && score < 7) { // Fixed the condition to be less than 7
-    return "#F0F3FF";
-  } else {
-    return "#FFE6E6";
-  }
-};
+  const getBackgroundColor = (score) => {
+    if (score >= 7 && score <= 10) {
+      return "#E7FFE0";
+    } else if (score >= 5 && score < 7) {
+      // Fixed the condition to be less than 7
+      return "#F0F3FF";
+    } else {
+      return "#FFE6E6";
+    }
+  };
 
-const getFilter = (score) => {
-  if (score >= 7 && score <= 10) {
-    return "Recommended";
-  } else if (score >= 5 && score < 7) { // Fixed the condition to be less than 7
-    return "Qualified";
-  } else {
-    return "Not Eligible";
-  }
-};
+  const getFilter = (score) => {
+    if (score >= 7 && score <= 10) {
+      return "Recommended";
+    } else if (score >= 5 && score < 7) {
+      // Fixed the condition to be less than 7
+      return "Qualified";
+    } else {
+      return "Not Eligible";
+    }
+  };
 
-const getStatusSymbol = (score) => {
-  if (score >= 7 && score <= 10) {
-    return "/activeStatus.svg";
-  } else if (score >= 5 && score < 7) { // Fixed the condition to be less than 7
-    return "/qualified.svg";
-  } else {
-    return "/noteligible.svg";
-  }
-};
-
-  
+  const getStatusSymbol = (score) => {
+    if (score >= 7 && score <= 10) {
+      return "/activeStatus.svg";
+    } else if (score >= 5 && score < 7) {
+      // Fixed the condition to be less than 7
+      return "/qualified.svg";
+    } else {
+      return "/noteligible.svg";
+    }
+  };
 
   const cardClickHandler = (candidate) => {
     setSelectedCandidate(candidate);
@@ -148,17 +153,17 @@ const getStatusSymbol = (score) => {
               </span>
             </div>
           </div>
-  
+
           <div className={styles.subContainer}>
             {hasData ? (
-              data?.map((item) => {
+              sortedData?.map((item) => {
                 const technicalRating = item?.results?.technicalRating;
                 const softskillRating = item?.results?.softskillRating;
                 const cumulativeMean = calculateCumulativeMean(
                   technicalRating,
                   softskillRating
                 );
-  
+
                 return (
                   <div
                     onClick={() => {
@@ -173,6 +178,7 @@ const getStatusSymbol = (score) => {
                           src="/Emoji.svg"
                           width={iconSize}
                           height={iconSize}
+                          alt="emoji icon"
                         />
                         <div className={styles.basicInfo}>
                           <h4>{item?.name}</h4>
@@ -180,17 +186,21 @@ const getStatusSymbol = (score) => {
                         </div>
                       </div>
                       <div className={styles.rightTop}>
-                      <span
-                        style={{ backgroundColor: getBackgroundColor(Math.round(cumulativeMean)) }}
-                      >
-                        {Math.round(cumulativeMean)}/10
-                      </span>
+                        <span
+                          style={{
+                            backgroundColor: getBackgroundColor(
+                              Math.round(cumulativeMean)
+                            ),
+                          }}
+                        >
+                          {Math.round(cumulativeMean)}/10
+                        </span>
 
                         {/* <Average
                           numbers={[technicalRating, softskillRating]}
                           outOf={10}
                         /> */}
-{/*   
+                        {/*   
                         <span
                           style={{
                             backgroundColor: getBackgroundColor(
@@ -225,6 +235,7 @@ const getStatusSymbol = (score) => {
                           src="/rightArrow.svg"
                           height={iconSize}
                           width={iconSize}
+                          alt="right arrow icon"
                         />
                       </div>
                     </div>
@@ -237,6 +248,7 @@ const getStatusSymbol = (score) => {
                               <Image
                                 className={styles.django}
                                 src={getSvg(skill.skill)}
+                                alt="skill icon"
                                 height={
                                   getSvg(skill.skill) === "/python.svg" ||
                                   getSvg(skill.skill) === "/html5.svg" ||
@@ -284,7 +296,6 @@ const getStatusSymbol = (score) => {
       </div>
     </>
   );
-  
 };
 
 export default CandidatesHub;
