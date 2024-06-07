@@ -1,8 +1,10 @@
+import { useState } from "react";
+import Image from "next/image";
+import { findFlagUrlByCountryName } from "country-flags-svg";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
-import Image from "next/image";
-import { useState } from "react";
 import styles from "./JobInfoFields.module.css";
+
 const JobInfoFields = ({
   position,
   jobType,
@@ -57,8 +59,23 @@ const JobInfoFields = ({
         </div>
       </div>
       <div className={styles.fieldsContainer}>
-        <div className={styles.infoField}>
-          <Image src="/earth.svg" width={20} height={20} />
+        <div
+          className={`${styles.infoField} ${tempCountry ? styles.filled : ""} ${
+            tempCountry &&
+            findFlagUrlByCountryName(tempCountry) &&
+            styles.countryField
+          }`}
+        >
+          {/* <Image src="/earth.svg" width={20} height={20} /> */}
+          <Image
+            src={
+              tempCountry
+                ? findFlagUrlByCountryName(tempCountry) || "/earth.svg"
+                : "/earth.svg"
+            }
+            width={20}
+            height={20}
+          />
           <select
             defaultValue="no-value"
             ref={countryRef}
@@ -74,6 +91,7 @@ const JobInfoFields = ({
         </div>
         <div className={styles.infoField}>
           <Image src="/aim.svg" width={20} height={20} />
+
           <select
             defaultValue="no-value"
             disabled={tempCountry === ""}
