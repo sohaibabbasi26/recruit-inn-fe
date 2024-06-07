@@ -6,6 +6,10 @@ import { useRouter } from "next/router";
 import Logo from "./Logo";
 import LogoutSvg from "./LogoutSvg";
 import UpgradeSvg from "./UpgradeSvg";
+import { DM_Sans } from "next/font/google";
+import FeedSvg from "./FeedSvg";
+
+const dmSans = DM_Sans({ subsets: ["latin"], display: "swap" });
 
 const CandidateSideNavbar = ({
   name,
@@ -62,96 +66,75 @@ const CandidateSideNavbar = ({
   // };
 
   return (
-    <>
-      <div className={styles.masterContainer}>
+    <div className={`${dmSans.className}  ${styles.masterContainer}`}>
+      <div className={styles.sidenavTop}>
         <Logo />
-        <div className={styles.mainContainer}>
-          <div
-            className={
-              activeItem === "Dashboard"
-                ? `${styles.dashboardButton} ${styles.active}`
-                : `${styles.dash}`
-            }
+      </div>
+      <div className={styles.mainContainer}>
+        <div className={styles.dashboardWrapper}>
+          <h2
+            className={`${styles.dashboardHeading} ${
+              activeItem === "Dashboard" ? styles.active : ""
+            } `}
             onClick={() => handleItemClick("Dashboard")}
           >
             Dashboard
-            <Image src="/Feed.svg" width={listItemSize} height={listItemSize} />
-          </div>
+            <FeedSvg />
+          </h2>
 
           <div className={styles.listContainer}>
             <div className={styles.list}></div>
           </div>
         </div>
-        <div
-          className={`${styles.newprofnameback} ${styles.focus} ${
-            showupgrade ? styles.open : ""
-          }`}
-        >
-          {/* {showupgrade &&
+      </div>
+      <div
+        className={`${styles.newprofnameback} ${styles.focus} ${
+          showupgrade ? styles.open : ""
+        }`}
+      >
+        {showupgrade && (
+          <>
+            <div>
+              <button
+                className={`${styles.profileBtn} ${styles.btnup}`}
+                onClick={openAddJobHandler}
+              >
+                Upgrade <UpgradeSvg />
+              </button>
+            </div>
+            <div>
+              <button
+                className={`${styles.profileBtn} ${styles.btnlog}`}
+                onClick={logoutHandler}
+              >
+                Logout <LogoutSvg />
+              </button>
+            </div>
 
-                        <div>
-                            <button className={styles.btnset} onClick={openAddJobHandler}>
-                                Setting <Image src="/Bolt.png" alt="Upgrade" width="24" height="24" />
-                            </button>
-                        </div>} */}
-          {showupgrade && (
-            <>
-              <div>
-                <button
-                  className={`${styles.profileBtn} ${styles.btnup}`}
-                  onClick={openAddJobHandler}
-                >
-                  Upgrade{" "}
-                  {/* <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" /> */}
-                  <UpgradeSvg />
-                </button>
-              </div>
-              <div>
-                <button
-                  className={`${styles.profileBtn} ${styles.btnlog}`}
-                  onClick={logoutHandler}
-                >
-                  Logout{" "}
-                  {/* <Image
-                    src="/Vector.png"
-                    alt="Upgrade"
-                    width="18"
-                    height="18"
-                    style={{ color: "#FF0000" }}
-                  /> */}
-                  <LogoutSvg />
-                </button>
-              </div>
+            <hr />
+          </>
+        )}
 
-              <hr />
-            </>
-          )}
-
-          <div className={styles.clientInfo} onClick={upgradeHandler}>
-            <Image
-              src="/Emoji.svg"
-              height={50}
-              width={50}
-              className="profileImage"
-            />
-            {/* <div className={styles.textContent}>
-              <span style={{ color: "#4A525D" }}>Hello</span>
-              <h4>{name}</h4>
-            </div> */}
-            <div className={styles.clientName}>
-              <p style={{ color: "#4A525D" }}>Hello</p>
-              <h4>{name}</h4>
-            </div>{" "}
-            <Image
-              src="/rightArrow.svg"
-              width={listItemSize}
-              height={listItemSize}
-              style={{ marginLeft: "auto" }}
-            />
-          </div>
+        <div className={styles.clientInfo} onClick={upgradeHandler}>
+          <Image
+            src="/Emoji.svg"
+            height={50}
+            width={50}
+            className="profileImage"
+          />
+          <div className={styles.clientName}>
+            <p style={{ color: "#4A525D" }}>Hello</p>
+            <h4>{name}</h4>
+          </div>{" "}
+          <Image
+            src="/rightArrow.svg"
+            width={listItemSize}
+            height={listItemSize}
+            style={{ marginLeft: "auto" }}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

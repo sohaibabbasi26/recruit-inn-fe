@@ -1,24 +1,20 @@
-import Image from "next/image";
-import styles from "./Logo.module.css";
 import { useTheme } from "next-themes";
+import Image from "next/image";
+import logoDark from "../public/recruitinn-logo-dark.png";
+import logoLight from "../public/recruitinn-logo-light.png";
+import styles from "./Logo.module.css";
 function Logo() {
   const { theme } = useTheme();
+  const logo = theme === "dark" ? logoDark : logoLight;
   return (
     <div className={styles.logoContainer}>
-      {/* <h3>
-              <Image src="/logo (3).png" width={logoSize} height={logoSize} />
-              recruitinn.ai
-            </h3> */}
-
       <Image
-        src={
-          theme === "dark"
-            ? "/recruitinn-logo-dark.png"
-            : "/recruitinn-logo-light.png"
-        }
+        src={logo}
         alt="Recruitin Logo"
-        height={26}
-        width={184}
+        height="25.5"
+        quality={100}
+        width="184"
+        objectFit
       />
     </div>
   );
