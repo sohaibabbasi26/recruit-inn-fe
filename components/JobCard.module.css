@@ -7,7 +7,7 @@
 .jobCard {
   background-color: var(--color-white);
   border-radius: 2rem;
-  padding: 1.5rem;
+  padding: 1.5rem !important;
   transition: box-shadow 150ms ease-in-out;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .heading_wrapper {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 
   display: flex;
   justify-content: flex-start;
@@ -31,7 +31,7 @@
 }
 
 .heading_right {
-  margin-left: auto;
+  margin-left: auto !important;
 
   display: flex;
   justify-content: center;
@@ -53,12 +53,12 @@
   flex-wrap: wrap;
   gap: 1rem;
 
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.75rem !important;
 }
 
 .skills li {
   background-color: #f5f5f5;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 1rem !important;
   border-radius: 20px;
   display: flex;
   gap: 1.2rem;
@@ -81,8 +81,8 @@
 .status {
   background-color: #e7ffe0;
   border-radius: 20px;
-  margin-left: auto;
-  padding: 0.25rem 1rem;
+  margin-left: auto !important;
+  padding: 0.25rem 1rem !important;
 
   display: flex;
   align-items: center;

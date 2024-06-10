@@ -1,8 +1,4 @@
-import AdminCandRep from "./AdminCandRep";
 import styles from "./Body.module.css";
-import CandidateReports from "./CandidateReports";
-import ClientList from "./ClientsList";
-import JobCard from "./JobCard";
 import Jobs from "./Jobs";
 
 const Body = ({
@@ -40,13 +36,6 @@ const Body = ({
           setSelectedJob={setSelectedCandidate}
           isFor="candidates"
         />
-
-        {/* <CandidateReports
-          candidateReps={candidateReps}
-          setReportOverlay={setReportOverlay}
-          setSelectedCandidate={setSelectedCandidate}
-          reportOverlay={reportOverlay}
-        /> */}
       </div>
     </>
   );
