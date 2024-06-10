@@ -3,6 +3,7 @@ import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { forwardRef, useState, useEffect } from "react";
 import { getSvg } from "@/util/helpers";
+import getIcons from "@/util/getIcons";
 
 // useFormContext
 const AddSkillForm = forwardRef(
@@ -28,29 +29,11 @@ const AddSkillForm = forwardRef(
     isTestRequired,
     setIsTestRequired,
   }) => {
-    const handleTestRequirementChange = (event) => {
-      console.log("clicked", event.target.checked);
-      setIsTestRequired(event.target.checked);
-    };
-
-    const iconSize = 25;
-
-    // const [skill1, setSkill1] = useState("");
-    // const [skill2, setSkill2] = useState("");
-    // const [skill3, setSkill3] = useState("");
-    // const [skill4, setSkill4] = useState("");
     const [codingSkill, setCodingSkill] = useState("");
-
-    // // const [level1, setLevel1] = useState();
-    // // const [level2, setLevel2] = useState();
-    // // const [level3, setLevel3] = useState();
-    // // const [level4, setLevel4] = useState();
-
-    // const [level1, setLevel1] = useState("");
-    // const [level2, setLevel2] = useState("");
-    // const [level3, setLevel3] = useState("");
-    // const [level4, setLevel4] = useState("");
     const [codingLevel, setCodingLevel] = useState("beginner");
+    const [queryIcons, setQueryIcons] = useState([]);
+
+    console.log("Icons state", queryIcons);
 
     useEffect(() => {
       const FormSubmissionHandler = (e) => {
@@ -73,9 +56,26 @@ const AddSkillForm = forwardRef(
 
       const filledSkills = skills.filter((skillObj) => skillObj.skill);
       setCodingExpertise(filledSkills);
-
-      // console.log('')
     }, [codingSkill, codingLevel]);
+
+    const handleTestRequirementChange = (event) => {
+      console.log("clicked", event.target.checked);
+      setIsTestRequired(event.target.checked);
+    };
+
+    async function testIcons(query) {
+      if (!query) return;
+      const { data: icons, error } = await getIcons(query);
+
+      if (error) {
+        console.error("TestIcons error", error);
+        return;
+      }
+
+      setQueryIcons(icons);
+    }
+
+    const iconSize = 25;
 
     return (
       <>
@@ -86,7 +86,6 @@ const AddSkillForm = forwardRef(
             <div className={styles.wrapper}>
               <Image
                 className={styles.img}
-                // src="/Award.svg"
                 src={skill1.length > 1 ? getSvg(skill1) : "/Award.svg"}
                 width={iconSize}
                 height={iconSize}
@@ -95,20 +94,13 @@ const AddSkillForm = forwardRef(
                 type="text"
                 value={skill1}
                 placeholder="Add Required Skill"
-                onChange={(e) => setSkill1(e.target.value)}
+                // onChange={(e) => setSkill1(e.target.value)}
+                onChange={(e) => {
+                  setSkill1(e.target.value);
+                  testIcons(e.target.value);
+                }}
               />
             </div>
-
-            {/* <select
-              placeholder="Choose level of difficulty"
-              value={level1}
-              onChange={(e) => setLevel1(e.target.value)}
-            >
-              <option value="beginner">Choose level of difficulty</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="expert">Expert</option>
-            </select> */}
 
             <select
               value={level1 || ""} // Fallback to empty string if level1 is undefined or null
