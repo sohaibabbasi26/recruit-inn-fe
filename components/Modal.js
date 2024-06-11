@@ -2,6 +2,8 @@ import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { useOutsideClick } from "@/util/useOutsideClick";
 import styles from "./Modal.module.css";
+import CrossSvg from "./CrossSvg";
+import Image from "next/image";
 
 const ModalContext = createContext();
 
@@ -33,9 +35,9 @@ function Window({ children, name }) {
   return createPortal(
     <div className={styles.overlay}>
       <div className={styles.modal} ref={ref}>
-        <button className={styles.close} onClick={close}>
-          X
-        </button>
+        {/* <button className={styles.close} onClick={close}>
+          <Image height={32} width={32} src="/cross.svg" />
+        </button> */}
 
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </div>
