@@ -1,137 +1,134 @@
-.fieldsContainer{
-    display: flex;
-    justify-content: space-between;
-    height:13%;
-    margin-bottom: 20px;
+.fieldsContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 13%;
+  margin-bottom: 20px;
 }
 
 .conatiner input {
-    border: none;
-    height: 100%;
-    background-color: #F8F7FC;
-    font-size: 1rem;
-    border-radius: 40px;
-    padding: 0 1.5rem;
-    width: 100%;
+  border: none;
+  height: 100%;
+  background-color: #f8f7fc;
+  font-size: 1rem;
+  border-radius: 40px;
+  padding: 0 1.5rem;
+  width: 100%;
 }
 
 .wrapper {
-    margin-top: 1rem;
-    font-size: 1rem;
-    width: 30%;
-    background-color: #F8F7FC;
-    border-radius: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 0 1rem;
-    height: 13%;
-    width: 45%;
+  margin-top: 1rem;
+  font-size: 1rem;
+  width: 30%;
+  background-color: #f8f7fc;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+  height: 13%;
+  width: 45%;
 }
 .wrapper select:focus {
-    outline: none;
+  outline: none;
 }
 
-.wrapper select{
-    border: none;
-    font-size: 1rem;
-    width: 100%;
-    background-color: #F8F7FC;
-    
+.wrapper select {
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  background-color: #f8f7fc;
 }
 
-.wrapper select option{
-    color: black;
+.wrapper select option {
+  color: black;
 }
 
 .fieldsContainer input:focus {
-    outline: none
+  outline: none;
 }
 
 .fieldsContainer select:focus {
-    outline: none
+  outline: none;
 }
-
 
 .subContainer {
-    width: 90%;
+  width: 90%;
 }
 
-.subContainer input{
-    width: 90%;
+.subContainer input {
+  width: 90%;
 }
 
-.conatiner{
-    display:  flex;
-    justify-content: center;
-    background-color: #F8F7FC;
-    border-radius: 40px;
-    align-items: center;
-    width: 45%;
-    padding: 0 1.25rem;
+.conatiner {
+  display: flex;
+  justify-content: center;
+  background-color: #f8f7fc;
+  border-radius: 40px;
+  align-items: center;
+  width: 45%;
+  padding: 0 1.25rem;
 }
 
-@media only screen and (max-width:600px){
-    .conatiner input {
-        padding: 0 0.25rem;
-        font-size: 0.85rem;
-        width: 100%;
-    }
+@media only screen and (max-width: 600px) {
+  .conatiner input {
+    padding: 0 0.25rem;
+    font-size: 0.85rem;
+    width: 100%;
+  }
 
-    .conatiner{
-        justify-content: space-around;
-        gap:0.25rem;
-    }
+  .conatiner {
+    justify-content: space-around;
+    gap: 0.25rem;
+  }
 
-    .wrapper{
-        width: 91%;
-        /* padding:0 0 */
-    }
+  .wrapper {
+    width: 91%;
+    /* padding:0 0 */
+  }
 }
-
 
 .infoField {
-    width: 45%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #f8f7fa;
-    border-radius: 30px;
-    border: 1px solid #ebebeb;
-    /* max-height: 50%; */
-    font-size: 2rem;
-    padding-left: 10px;
-    display: flex ;
-  }
-  
-  .infoField input {
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    padding: 1rem;
-    font-family: "Poppins", sans-serif;
-    height: 80%;
-  }
-  
-    
-  
-  .infoField input:focus {
-    outline: slateblue;
-  }
-  
-  .infoField select {
-    width: 95%;
-    border: none;
-    background-color: transparent;
-    padding: 1rem;
-    font-family: "Poppins", sans-serif;
-    /* height: 100%; */
-  }
-  
-  .infoField select:focus {
-    outline: none;
-  }
-  
- 
- 
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f8f7fa;
+  border-radius: 30px;
+  border: 1px solid #ebebeb;
+  /* max-height: 50%; */
+  font-size: 2rem;
+  padding-left: 10px;
+  display: flex;
+}
+
+.infoField.countryField img {
+  background-color: #ebebeb;
+  border-radius: 50%;
+}
+
+.infoField input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+  height: 80%;
+}
+
+.infoField input:focus {
+  outline: slateblue;
+}
+
+.infoField select {
+  width: 95%;
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+  /* height: 100%; */
+}
+
+.infoField select:focus {
+  outline: none;
+}

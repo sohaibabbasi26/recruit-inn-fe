@@ -5,6 +5,9 @@ import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import Editor from "@monaco-editor/react"; // This is the correct import for the newer wrapper
+import Modal from "../components/Modal";
+import Button from "../components/Button";
+import ConfirmSubmit from "./ConfirmSubmit";
 
 const CodingChild = ({
   formatTime,
@@ -219,12 +222,19 @@ const CodingChild = ({
                     <Image src="/playBlack.svg" height={15} width={15} />
                     Run
                   </button>
-                  <button
-                    onClick={codeSubmitHandler}
-                    className="flex w-[20%] justify-between items-center gap-3 rounded-3xl py-4 px-4 font-sans font-semibold  text-white bg-[#6137DB]"
-                  >
-                    Submit <Image src="/Tick.svg" height={15} width={15} />
-                  </button>
+                  <Modal>
+                    <Modal.Open opens="confirm-code">
+                      <button
+                        // onClick={codeSubmitHandler}
+                        className="flex w-[20%] justify-between items-center gap-3 rounded-3xl py-4 px-4 font-sans font-semibold  text-white bg-[#6137DB]"
+                      >
+                        Submit <Image src="/Tick.svg" height={15} width={15} />
+                      </button>
+                    </Modal.Open>
+                    <Modal.Window name="confirm-code">
+                      <ConfirmSubmit onSubmit={codeSubmitHandler} />
+                    </Modal.Window>
+                  </Modal>
                 </div>
               </div>
             </div>

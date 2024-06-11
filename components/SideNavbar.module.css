@@ -299,7 +299,6 @@
   background-color: #f8f7fa;
   border-radius: 2rem;
   border: 1px solid transparent;
-  cursor: pointer;
   padding: 10px 12px;
   margin-top: auto;
   width: calc(100% - 30px);
@@ -322,6 +321,7 @@
 }
 
 .newprofnameback .clientInfo {
+  cursor: pointer;
   display: flex;
   justify-content: flex-start;
   align-items: center;
