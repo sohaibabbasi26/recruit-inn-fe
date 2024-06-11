@@ -3,7 +3,6 @@ import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { forwardRef, useState, useEffect } from "react";
 import { getSvg } from "@/util/helpers";
-import getIcons from "@/util/getIcons";
 
 // useFormContext
 const AddSkillForm = forwardRef(
@@ -63,18 +62,6 @@ const AddSkillForm = forwardRef(
       setIsTestRequired(event.target.checked);
     };
 
-    async function testIcons(query) {
-      if (!query) return;
-      const { data: icons, error } = await getIcons(query);
-
-      if (error) {
-        console.error("TestIcons error", error);
-        return;
-      }
-
-      setQueryIcons(icons);
-    }
-
     const iconSize = 25;
 
     return (
@@ -94,11 +81,7 @@ const AddSkillForm = forwardRef(
                 type="text"
                 value={skill1}
                 placeholder="Add Required Skill"
-                // onChange={(e) => setSkill1(e.target.value)}
-                onChange={(e) => {
-                  setSkill1(e.target.value);
-                  testIcons(e.target.value);
-                }}
+                onChange={(e) => setSkill1(e.target.value)}
               />
             </div>
 
