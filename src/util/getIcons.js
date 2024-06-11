@@ -6,7 +6,6 @@ export default async function getIcons(query) {
   controller.abort();
   // Reset controller for the next call
   controller = new AbortController();
-  const signal = controller.signal;
 
   try {
     const response = await fetch(`/api/stack-icons`, {
@@ -15,7 +14,7 @@ export default async function getIcons(query) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query }),
-      signal, // Pass the signal to the fetch request
+      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -25,8 +24,12 @@ export default async function getIcons(query) {
     const data = await response.json();
 
     return { data };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return { error: "Error fetching data" };
+  } catch (err) {
+    console.log("error", err);
+    if (err.name !== "AbortError") {
+      console.error("Error fetching data:", err);
+      return { err: "Error fetching data" };
+    }
   }
+  controller.abort();
 }
