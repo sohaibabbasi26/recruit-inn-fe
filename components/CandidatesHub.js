@@ -147,8 +147,8 @@ const CandidatesHub = ({
                   {!data?.length
                     ? 0
                     : data?.length <= 9
-                    ? `0${data?.length}`
-                    : data?.length}
+                      ? `0${data?.length}`
+                      : data?.length}
                 </span>{" "}
               </span>
             </div>

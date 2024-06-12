@@ -7,7 +7,7 @@ import { useTest } from "@/contexts/QuestionsContent";
 import { useSpeechSynthesis } from "react-speech-kit";
 import ErrorIndicator from "./ErrorIndicator";
 
-const QuestionBox = ({ hasStarted }) => {
+const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   // const { test } = useTest();x
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -21,7 +21,7 @@ const QuestionBox = ({ hasStarted }) => {
   const [answers, setAnswers] = useState([]);
   const { cid, qid, pid, a_id, test_req } = router?.query;
   const [recordingDone, setRecordingDone] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [disableRecordingButton, setDisableRecordingButton] = useState(false);
   const [questions, setQuestions] = useState();
   const { speak, cancel } = useSpeechSynthesis();
@@ -34,53 +34,54 @@ const QuestionBox = ({ hasStarted }) => {
   const [isGeneratingResult, setIsGeneratingResult] = useState(false);
   const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
   const isProcessingRef = useRef();
-  const isLastQuestion = currentQuestion === questions?.length;
+  const isLastQuestion = currentQuestion === newQuestions?.length;
   const [isRecordingPopupVisible, setIsRecordingPopupVisible] = useState(false);
   const minutes = Math.floor(timeLeft / 60);
   const remainingSeconds = timeLeft % 60;
+  const [expertise, setExpertise] = useState();
+  // const [newQuestions,setNewQuestions] = useState();
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     setIsLoading(true);
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      setIsLoading(true);
+  //     const reqBody = {
+  //       question_id: qid,
+  //     };
 
-      const reqBody = {
-        question_id: qid,
-      };
+  //     if (pid) {
+  //       reqBody.position_id = pid;
+  //     }
+  //     const apiEndpoint = pid
+  //       ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
+  //       : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
 
-      if (pid) {
-        reqBody.position_id = pid;
-      }
-      const apiEndpoint = pid
-        ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
-        : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
+  //     console.log("API ENDPOINT CURRENT:", apiEndpoint);
 
-      console.log("API ENDPOINT CURRENT:", apiEndpoint);
+  //     try {
+  //       const response = await fetch(apiEndpoint, {
+  //         method: "POST",
+  //         body: JSON.stringify(reqBody),
+  //         headers: { "Content-type": "application/JSON" },
+  //       });
 
-      try {
-        const response = await fetch(apiEndpoint, {
-          method: "POST",
-          body: JSON.stringify(reqBody),
-          headers: { "Content-type": "application/JSON" },
-        });
+  //       const data = await response.json();
+  //       console.log("questions:", data);
+  //       if (data && data?.code === 200 && data?.data[0] && hasStarted) {
+  //         console.log(hasStarted);
+  //         setQuestions(data?.data[0]?.question);
+  //         console.log("there?", data?.data[0]?.question[0].question);
+  //         speakQuestion(data?.data[0]?.question[0]);
+  //         console.log("questions:", questions);
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching questions:", err);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-        const data = await response.json();
-        console.log("questions:", data);
-        if (data && data?.code === 200 && data?.data[0] && hasStarted) {
-          console.log(hasStarted);
-          setQuestions(data?.data[0]?.question);
-          console.log("there?", data?.data[0]?.question[0].question);
-          speakQuestion(data?.data[0]?.question[0]);
-          console.log("questions:", questions);
-        }
-      } catch (err) {
-        console.error("Error fetching questions:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, [qid, pid, hasStarted]);
+  //   fetchQuestions();
+  // }, [qid, pid, hasStarted]);
 
   const speakQuestion = (questionobj) => {
     const question = questionobj.question;
@@ -89,14 +90,14 @@ const QuestionBox = ({ hasStarted }) => {
     speak({ text: question });
   };
 
-  useEffect(() => {
-    const storedTestData = localStorage.getItem("testData");
-    if (storedTestData) {
-      const testData = JSON.parse(storedTestData);
-      console.log("test", testData);
-      setNewQuestions(testData);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedTestData = localStorage.getItem("testData");
+  //   if (storedTestData) {
+  //     const testData = JSON.parse(storedTestData);
+  //     console.log("test", testData);
+  //     setNewQuestions(testData);
+  //   }
+  // }, []);
 
   useEffect(() => {
     console.log("answers:", answers);
@@ -117,6 +118,171 @@ const QuestionBox = ({ hasStarted }) => {
       { question: questionIndex, answer: answerData },
     ]);
   };
+
+  useEffect(() => {
+    async function getTestQuestions() {
+      if (pid) {
+        try {
+          setIsLoading(true);
+          const reqBody = {
+            position_id: pid
+          }
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-positions`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(reqBody),
+            }
+          );
+          const data = await response.json();
+          console.log("data fetched for a position:", data);
+          setExpertise(data?.data?.expertise);
+          if (data?.data?.expertise) {
+            const requestBody = {
+              expertise: data?.data?.expertise,
+              position_id: pid,
+            };
+            console.log("req body: ", requestBody);
+            try {
+
+              const response = await fetch(
+                `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(requestBody),
+                }
+              );
+              const data = await response.json();
+
+              console.log("response data of a test creation:", data);
+              setNewQuestions(data?.data?.message?.question);
+              console.log("data:", newQuestions);
+              // setQuestionId(data?.data?.message?.question_id);
+              console.log("question id:");
+              setIsLoading(false);
+              setMessage("Successfully created a test for your job!");
+              showSuccess();
+              console.log(data);
+              setIsLoading(false)
+            } catch (error) {
+              console.error("Error submitting form:", error);
+            }
+            finally {
+              setIsLoading(false);
+            }
+          }
+        }
+        catch (err) {
+          console.log("ERROR:", err);
+        }
+      }
+
+      // const requestBody = {
+      //   expertise: techStack,
+      //   position_id: positionId,
+      // };
+      // console.log("req body : ", requestBody);
+      // try {
+      //   setIsLoading(true);
+      //   const response = await fetch(
+      //     `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: `Bearer ${token}`,
+      //       },
+      //       body: JSON.stringify(requestBody),
+      //     }
+      //   );
+      //   const data = await response.json();
+      //   console.log("response data of a test creation:", data);
+      //   setNewQuestions(data.data);
+      //   // setQuestionId(data?.data?.message?.question_id);
+      //   console.log("question id:");
+      //   setIsLoading(false);
+      //   setMessage("Successfully created a test for your job!");
+      //   showSuccess();
+      //   console.log(data);
+      // } catch (error) {
+      //   console.error("Error submitting form:", error);
+      // }
+      // console.log("required:", isTestRequired);
+      // if (isTestRequired === true) {
+      //   try {
+      //     setIsLoading(true);
+      //     const req = {
+      //       codingExpertise: codingExpertise,
+      //       position_id: positionId,
+      //     };
+
+      //     const response = await fetch(
+      //       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+      //       {
+      //         method: "POST",
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: `Bearer ${token}`,
+      //         },
+      //         body: JSON.stringify(req),
+      //       }
+      //     );
+      //     const data = await response.json();
+      //     setCodeQues(data);
+      //     setAssessmentId(data?.data?.assessment_id);
+      //     console.log("assessment id:", assessmentId);
+      //     console.log("code question data:", data);
+      //     setIsLoading(false);
+      //     try {
+      //       const body = {
+      //         position_id: positionId,
+      //         is_test_req: isTestRequired,
+      //       };
+
+      //       console.log("body data sent in setPositionTestReq:", body);
+      //       const response = await fetch(
+      //         `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`,
+      //         {
+      //           method: "POST",
+      //           headers: {
+      //             "Content-Type": "application/json",
+      //             Authorization: `Bearer ${token}`,
+      //           },
+      //           body: JSON.stringify(body),
+      //         }
+      //       );
+      //       const data = await response.json();
+      //       setCodeQues(data);
+      //     } catch (err) {
+      //       console.log("ERROR:", err);
+      //     }
+      //   } catch (err) {
+      //     console.error("ERROR:", err);
+      //   }
+      // }
+    };
+
+    // if (hasStarted) {
+    //   getTestQuestions();
+    // }
+    getTestQuestions();
+  }, [pid])
+
+  useEffect(() => {
+    if (newQuestions && hasStarted) {
+      // console.log(hasStarted);
+      // setQuestions(data?.data[0]?.question);
+      // console.log("there?", data?.data[0]?.question[0].question);
+      speakQuestion(currentQuestion);
+      console.log("questions:", questions);
+    }
+  },[hasStarted])
 
   useEffect(() => {
     navigator.mediaDevices
@@ -338,16 +504,16 @@ const QuestionBox = ({ hasStarted }) => {
             "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
           setAnswers((prevAnswers) => {
             return prevAnswers.some(
-              (ans) => ans.question === questions[currentQuestion - 1]?.question
+              (ans) => ans.question === newQuestions[currentQuestion - 1]?.question
             )
               ? prevAnswers
               : [
-                  ...prevAnswers,
-                  {
-                    question: questions[currentQuestion - 1]?.question,
-                    answer: silentBase64Wav,
-                  },
-                ];
+                ...prevAnswers,
+                {
+                  question: newQuestions[currentQuestion - 1]?.question,
+                  answer: silentBase64Wav,
+                },
+              ];
           });
           console.log("No recording made, adding silent audio blob as answer.");
           showError("No answer was provided, moving on to next question.");
@@ -358,9 +524,9 @@ const QuestionBox = ({ hasStarted }) => {
             ...prevCompleted,
             currentQuestion,
           ]);
-          if (currentQuestionIndex < questions.length - 1) {
+          if (currentQuestionIndex < newQuestions.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            speakQuestion(questions[currentQuestionIndex]);
+            speakQuestion(newQuestions[currentQuestionIndex + 1]);
             setIsLoading(false);
           }
         } else {
@@ -415,7 +581,7 @@ const QuestionBox = ({ hasStarted }) => {
           setAnswers((prev) => [
             ...prev,
             {
-              question: questions[currentQuestion - 1]?.question,
+              question: newQuestions[currentQuestion - 1]?.question,
               answer: finalData.data.transcriptionResult,
             },
           ]);
@@ -427,7 +593,7 @@ const QuestionBox = ({ hasStarted }) => {
           setAnswers((prev) => [
             ...prev,
             {
-              question: questions[currentQuestion - 1]?.question,
+              question: newQuestions[currentQuestion - 1]?.question,
               answer: silentBase64Wav,
             },
           ]);
@@ -466,7 +632,7 @@ const QuestionBox = ({ hasStarted }) => {
         ...prevCompleted,
         currentQuestion,
       ]);
-      if (currentQuestionIndex < questions.length - 1) {
+      if (currentQuestionIndex < newQuestions.length - 1) {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         console.log(
           "currentQuestion State inside if condition:",
@@ -480,7 +646,7 @@ const QuestionBox = ({ hasStarted }) => {
       setAnswers((prev) => [
         ...prev,
         {
-          question: questions[currentQuestion - 1]?.question,
+          question: newQuestions[currentQuestion - 1]?.question,
           answer: data?.data?.transcriptionResult,
         },
       ]);
@@ -505,10 +671,10 @@ const QuestionBox = ({ hasStarted }) => {
   }
 
   useEffect(() => {
-    if (currentQuestionIndex < questions?.length) {
-      speakQuestion(questions[currentQuestionIndex]);
+    if (currentQuestionIndex < newQuestions?.length) {
+      speakQuestion(newQuestions[currentQuestionIndex]);
     }
-  }, [currentQuestionIndex, questions]);
+  }, [currentQuestionIndex, newQuestions]);
 
   const showError = (message) => {
     setMessage(message);
@@ -544,7 +710,7 @@ const QuestionBox = ({ hasStarted }) => {
             <div className={styles.topContainer}>
               <div className={styles.questionNoList}>
                 <ul>
-                  {questions?.map((question, index) => {
+                  {newQuestions?.map((question, index) => {
                     return (
                       <>
                         <li
@@ -587,8 +753,8 @@ const QuestionBox = ({ hasStarted }) => {
             {/* question container */}
 
             <div className={styles.questionContainer}>
-              {questions && questions.length > 0 && (
-                <span>{questions[currentQuestion - 1]?.question}</span>
+              {newQuestions && newQuestions.length > 0 && (
+                <span>{newQuestions[currentQuestion - 1]?.question}</span>
               )}
             </div>
             {/*Record button */}

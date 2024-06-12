@@ -2,6 +2,7 @@ import styles from "./JobsHub.module.css";
 import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { getSvg } from "@/util/helpers";
+import { useEffect, useState } from "react";
 const JobsHub = ({
   heading,
   data,
@@ -11,9 +12,8 @@ const JobsHub = ({
 }) => {
   const activeItem = useActiveItem();
   const iconSize = 25;
-  const goToAllIconSize = 15;
   const statusSize = 10;
-
+  const [newData, setNewData] = useState();
   const hasData = data && data.length > 0;
   console.log("Jobs hub data:", data);
   const getBackgroundColor = (status) => {
@@ -36,6 +36,16 @@ const JobsHub = ({
     setSelectedJob(job);
     setJobOverlay(true);
   };
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const ndata = data?.filter((candidate) => candidate.results && candidate.results.length > 0);
+  //     setNewData(ndata);
+  //   }
+  // }, data)
+
+  // data.filter((candidate) => candidate.results && candidate.results.length > 0)
+
   return (
     <>
       <div className={styles.parentContainer}>
@@ -49,8 +59,8 @@ const JobsHub = ({
                 {!data?.length
                   ? 0
                   : data?.length <= 9
-                  ? `0${data?.length}`
-                  : data?.length}{" "}
+                    ? `0${data?.length}`
+                    : data?.length}{" "}
               </span>
             </div>
           </div>
@@ -71,8 +81,8 @@ const JobsHub = ({
                           {item?.applied_candidates_count === 0
                             ? "No Candidates Yet"
                             : item?.applied_candidates_count === 1
-                            ? item?.applied_candidates_count + " Candidate"
-                            : item?.applied_candidates_count + " Candidates"}
+                              ? item?.applied_candidates_count + " Candidate"
+                              : item?.applied_candidates_count + " Candidates"}
                         </span>
                         <Image
                           src="/rightArrow.svg"
@@ -91,15 +101,15 @@ const JobsHub = ({
                                 src={getSvg(skill.skill)}
                                 height={
                                   getSvg(skill.skill) === "/python.svg" ||
-                                  getSvg(skill.skill) === "/html5.svg" ||
-                                  getSvg(skill.skill) === "/css3.svg"
+                                    getSvg(skill.skill) === "/html5.svg" ||
+                                    getSvg(skill.skill) === "/css3.svg"
                                     ? 20
                                     : iconSize
                                 }
                                 width={
                                   getSvg(skill.skill) === "/python.svg" ||
-                                  getSvg(skill.skill) === "/html5.svg" ||
-                                  getSvg(skill.skill) === "/css3.svg"
+                                    getSvg(skill.skill) === "/html5.svg" ||
+                                    getSvg(skill.skill) === "/css3.svg"
                                     ? 20
                                     : iconSize
                                 }

@@ -7,8 +7,11 @@ import SuccessIndicator from "./SuccessIndicator";
 import { getSvg } from "@/util/helpers";
 import parse from "html-react-parser";
 import BackButton from "./BackButton";
+import { useActiveItem } from "@/contexts/ActiveItemContext";
 
 const JobOverlay = ({
+  getCandidatesByPosition,
+  setPositionIdMain,
   showError,
   message,
   showErrorMessage,
@@ -34,8 +37,38 @@ const JobOverlay = ({
   const [jobStatus, setJobStatus] = useState();
   const [assessmentId, setAssessmentId] = useState();
   const [codeQues, setCodeQues] = useState();
+  const { activeItem, setActiveItem } = useActiveItem();
+  // const { activeItem, setActiveItem } = useActiveItem();
+  const [clickedItem, setClickedItem] = useState("");
+
+  const handleClickAllClient = () => {
+    onClose();
+    // handle
+    setActiveItem('position')
+    // localStorage.setItem("activeItem", 'position');
+    // localStorage.setItem("currentPage", 'position');
+    // setTimeout(() => setClickedItem(""), 200);
+  }
+
+    // const handleItemClick = (itemName) => {
+    //   setActiveItem(itemName);
+    //   setClickedItem(itemName);
+    //   // localStorage.setItem("activeItem", itemName);
+    //   // localStorage.setItem("currentPage", itemName);
+    //   // setTimeout(() => setClickedItem(""), 200);
+    // };
 
   useEffect(() => {
+    if(selectedJob?.position_id){
+      // setPositionIdMain(selectedJob?.position_id);
+      if(selectedJob?.position_id){
+        getCandidatesByPosition(selectedJob?.position_id);
+      }
+    }
+  }, [selectedJob]);
+
+  useEffect(() => {
+    // selectedJob(selectedJob?.position_id);
     setTechStack(selectedJob?.expertise);
   }, [selectedJob?.expertise]);
 
@@ -66,83 +99,86 @@ const JobOverlay = ({
     }
   }
 
-  async function fetchAndCopyAssessmentLink() {
-    setIsLoading(true);
-    try {
-      if (techStack) {
-        const reqBody = {
-          expertise: techStack,
-          position_id: selectedJob?.position_id,
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(reqBody),
-          }
-        );
-        const dataTwo = await response.json();
+  // async function fetchAndCopyAssessmentLink() {
+  //   setIsLoading(true);
+  //   try {
+  //     if (techStack) {
+  //       const reqBody = {
+  //         expertise: techStack,
+  //         position_id: selectedJob?.position_id,
+  //       };
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify(reqBody),
+  //         }
+  //       );
+  //       const dataTwo = await response.json();
 
-        if (dataTwo?.data?.message?.question_id) {
-          setTest(dataTwo);
-          console.log("Test data:", dataTwo);
-        }
+  //       if (dataTwo?.data?.message?.question_id) {
+  //         setTest(dataTwo);
+  //         console.log("Test data:", dataTwo);
+  //       }
 
-        const questionId = dataTwo?.data?.message?.question_id;
+  //       const questionId = dataTwo?.data?.message?.question_id;
 
-        if (selectedJob?.is_test_req === true) {
-          try {
-            const req = {
-              // codingExpertise: selectedJob?.expertise,
-              position_id: selectedJob?.position_id,
-            };
+  //       if (selectedJob?.is_test_req === true) {
+  //         try {
+  //           const req = {
 
-            console.log("request:", req);
+  //             // codingExpertise: selectedJob?.expertise,
+  //             position_id: selectedJob?.position_id,
+  //           };
 
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(req),
-              }
-            );
-            const data = await response.json();
-            console.log(
-              "data in job overlay about code question:",
-              data?.data?.assessment_id
-            );
+  //           console.log("request:", req);
 
-            if (data?.data?.assessment_id) {
-              setCodeQues(data);
-              setAssessmentId(data?.data?.assessment_id);
-              console.log("assessment id:", data?.data?.assessment_id);
-              console.log("code question data:", data);
+  //           const response = await fetch(
+  //             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+  //             {
+  //               method: "POST",
+  //               headers: {
+  //                 "Content-Type": "application/json",
+  //               },
+  //               body: JSON.stringify(req),
+  //             }
+  //           );
+  //           const data = await response.json();
+  //           console.log(
+  //             "data in job overlay about code question:",
+  //             data?.data?.assessment_id
+  //           );
 
-              const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-              copyLink(newLink);
-            } else {
-              console.error("Assessment ID not found in the response.");
-            }
-          } catch (err) {
-            console.error("ERROR:", err);
-          }
-        } else {
-          // If no candidate or test is not required, still generate the link
-          const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
-          copyLink(newLink);
-        }
-      }
-    } catch (err) {
-      console.error("error:", err);
-    }
-    setIsLoading(false);
-  }
+  //           if (data?.data?.assessment_id) {
+  //             setCodeQues(data);
+  //             setAssessmentId(data?.data?.assessment_id);
+  //             console.log("assessment id:", data?.data?.assessment_id);
+  //             console.log("code question data:", data);
+
+  //             const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
+  //             copyLink(newLink);
+  //           } else {
+  //             console.error("Assessment ID not found in the response.");
+  //           }
+  //         } catch (err) {
+  //           console.error("ERROR:", err);
+  //         }
+  //       } else {
+  //         // If no candidate or test is not required, still generate the link
+  //         const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
+  //         copyLink(newLink);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.error("error:", err);
+  //   }
+  //   setIsLoading(false);
+  // }
+
+  
 
   async function copyLink(link) {
     try {
@@ -153,13 +189,6 @@ const JobOverlay = ({
       console.error("Could not copy text: ", err);
     }
   }
-
-  // useEffect(() => {
-  //   if (questionId && assessmentId) {
-  //     const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${test?.data?.message?.question_id}&a_id=${assessmentId}&test_req=${isTestRequired}`;
-  //     setLink(newLink);
-  //   }
-  // }, [questionId, assessmentId]);
 
   function copyToClipboard(text) {
     if ("clipboard" in navigator) {
@@ -183,14 +212,39 @@ const JobOverlay = ({
   }, [link]);
 
   const handleCopyClick = async () => {
-    console.log("link:", link);
-    copyToClipboard(link)
-      .then(() => console.log("copied!"))
-      .catch((err) => console.error("Could not copy text: ", err));
-    setMessage("Your link has been copied");
-    showSuccess();
+    // Ensure questionId is set correctly before creating the link
+    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
+    console.log("Generated link:", newLink);
+    
+    try {
+      await copyToClipboard(newLink);
+      console.log("Link copied!");
+      setMessage("Your link has been copied");
+      showSuccess();
+    } catch (err) {
+      console.error("Could not copy text: ", err);
+    }
   };
+  
+  // Function to copy text to clipboard
+  function copyToClipboard(text) {
+    if ("clipboard" in navigator) {
+      return navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const result = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      return result;
+    }
+  }
 
+  
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -315,7 +369,7 @@ const JobOverlay = ({
                 <button
                   disabled={selectedJob?.status === "Closed"}
                   onClick={async () => {
-                    await fetchAndCopyAssessmentLink();
+                    await handleCopyClick();
                   }}
                 >
                   Copy Assessment Link{" "}
@@ -349,7 +403,6 @@ const JobOverlay = ({
                       <li>
                         <Image
                           id={styles.unique}
-                          //   src={item?.img}
                           src={getSvg(item?.skill)}
                           width={
                             getSvg(item?.skill) === "/python.svg" ||
@@ -375,7 +428,7 @@ const JobOverlay = ({
             </div>
             <div className={styles.bottomButtons}>
               <BackButton onClose={onClose}>Back</BackButton>
-              <button className={styles.nextButton}>
+              <button className={styles.nextButton} onClick={handleClickAllClient}>
                 All Candidates{" "}
                 <span>
                   <Image src="/Forward1.svg" height={35} width={35} />

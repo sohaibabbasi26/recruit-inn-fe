@@ -174,24 +174,7 @@ const Overlay = React.memo(
       return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
     };
     
-    // const validateJobDescription = () => {
-    //     console.log('Handling text change:', content);
-    //     const text = editor.getText();
-    //     const words = text.split(/\s+/).filter(word => word.length > 0);
-
-    //     if (description.length <= 300) {
-    //         setValue(content);
-    //         setDescription(content);  // Optionally convert to plain text or other format
-    //     } else {
-    //         alert("You cannot write more than 300 words.");
-    //         const trimmedContent = words.slice(0, 300).join(' ') + ' ';
-    //         setValue(trimmedContent);
-    //         setDescription(trimmedContent);  // Optionally convert to plain text
-    //     }
-    // };
     
-    //   return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
-    // };
     
 
     const toggleComponent = async () => {

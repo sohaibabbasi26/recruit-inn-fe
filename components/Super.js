@@ -6,6 +6,7 @@ import styles from "./Super.module.css";
 import TopNavbar from "./TopNavbar";
 
 const Super = ({
+  positionCandidates,
   selectedCandidate,
   companyId,
   activeJobsData,
@@ -168,6 +169,20 @@ const Super = ({
           setSelectedCandidate={setSelectedCandidate}
         />
       )}
+
+      {positionCandidates && (
+        <CandidatesHub
+          heading="Selected Position's Candidates"
+          setJobOverlay={setJobOverlay}
+          data={positionCandidates}
+          reportOverlay={reportOverlay}
+          setReportOverlay={setReportOverlay}
+          setSelectedCandidate={setSelectedCandidate}
+        />
+      )}
+
+      {/* positionCandidates */}
+
     </div>
   );
 };

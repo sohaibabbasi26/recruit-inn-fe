@@ -15,6 +15,7 @@ import SuccessIndicator from "../../../components/SuccessIndicator";
 import Super from "../../../components/Super";
 import SuperComponent from "../../../components/SuperComponent";
 import { useActiveItem } from "../../contexts/ActiveItemContext";
+import CandPassSetOverlay from "../../../components/CandPassSetOverlay";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,11 +42,14 @@ export default function Home({
   const [allJobData, setAllJobData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
+  const [positionIdMain, setPositionIdMain] = useState();
+  const [positionCandidates, setPositionCandidates] = useState();
+  const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
+
   const [showOverlay1, setShowOverlay1] = useState();
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-
     if (!isLoggedIn) {
       router.push("/client-login");
     }
@@ -85,14 +89,11 @@ export default function Home({
       const filterClosed = (job) => job?.status === "Closed";
       const filterall = (job) =>
         job?.status === "Active" || job?.status === "Closed";
-
       setAllJobData(finalData.filter(filterall));
       console.log("all jobs data is ... ", finalData.filter(filterall));
-
       setActiveJobsData(finalData.filter(filterActive));
       console.log("Active jobs data ... ", finalData.filter(filterActive));
       setClosedJobsData(finalData.filter(filterClosed));
-
       console.log("active jobs", finalData.filter(filterActive));
     } else {
       console.log("finalData is not an array:", finalData);
@@ -218,6 +219,18 @@ export default function Home({
   
     return (total / count).toFixed(1);
   };
+
+  useEffect(() => {
+    try {
+      if (positionCandidates && positionCandidates?.data) {
+        const candidates = preprocessCandidatesData(positionCandidates?.data, allCandidatesReports?.data);
+        setPreprocessedPositionCands(candidates);
+        console.log('preprocessed candidates of a particular position:', candidates);
+      }
+    } catch (err) {
+      console.log('error in preprocessing:', err);
+    }
+  }, [positionCandidates])
 
   const preprocessCandidatesData = (candidates, company) => {
     return candidates
@@ -346,6 +359,31 @@ export default function Home({
   }, [allCandidatesReports]);
   
 
+  async function getCandidatesByPosition(position_id) {
+    try {
+      const reqBody = {
+        position_id: position_id,
+      }
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        }
+      );
+      const data = await response.json();
+      console.log('response about candidates:', data);
+      
+      setPositionCandidates(data?.data?.filter((candidate) => candidate.results && candidate.results.length > 0));
+      // positionCandidates?
+    } catch (err) {
+      console.log("error:", err);
+    }
+  };
+
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
   const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
@@ -357,6 +395,7 @@ export default function Home({
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const { isTestRequired, setIsTestRequired } = useTestState();
+
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -507,6 +546,7 @@ export default function Home({
         );
       case "Qualified":
         return (
+                
           <Super
             setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
@@ -532,6 +572,22 @@ export default function Home({
             setReportOverlay={setReportOverlay}
             reportOverlay={reportOverlay}
             notEligibleCandidates={notEligibleCand}
+            toggleOverlay={toggleOverlay}
+          />
+        );
+
+      case "position":
+        return (
+          <Super
+            setJobOverlay={setJobOverlay}
+            selectedCandidate={selectedCandidate}
+            companyId={id}
+            setSelectedCandidate={setSelectedCandidate}
+            setSelectedJob={setSelectedJob}
+            selectedJob={selectedJob}
+            setReportOverlay={setReportOverlay}
+            reportOverlay={reportOverlay}
+            positionCandidates={positionCandidates}
             toggleOverlay={toggleOverlay}
           />
         );
@@ -588,6 +644,7 @@ export default function Home({
         
         {jobOverlay && (
           <JobOverlay
+            getCandidatesByPosition={getCandidatesByPosition}
             isTestRequired={isTestRequired}
             setIsTestRequired={setIsTestRequired}
             message={message}
