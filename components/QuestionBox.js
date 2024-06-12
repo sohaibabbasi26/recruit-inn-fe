@@ -39,49 +39,9 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   const minutes = Math.floor(timeLeft / 60);
   const remainingSeconds = timeLeft % 60;
   const [expertise, setExpertise] = useState();
-  // const [newQuestions,setNewQuestions] = useState();
-  // useEffect(() => {
-  //   const fetchQuestions = async () => {
-  //     setIsLoading(true);
-
-  //     const reqBody = {
-  //       question_id: qid,
-  //     };
-
-  //     if (pid) {
-  //       reqBody.position_id = pid;
-  //     }
-  //     const apiEndpoint = pid
-  //       ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
-  //       : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
-
-  //     console.log("API ENDPOINT CURRENT:", apiEndpoint);
-
-  //     try {
-  //       const response = await fetch(apiEndpoint, {
-  //         method: "POST",
-  //         body: JSON.stringify(reqBody),
-  //         headers: { "Content-type": "application/JSON" },
-  //       });
-
-  //       const data = await response.json();
-  //       console.log("questions:", data);
-  //       if (data && data?.code === 200 && data?.data[0] && hasStarted) {
-  //         console.log(hasStarted);
-  //         setQuestions(data?.data[0]?.question);
-  //         console.log("there?", data?.data[0]?.question[0].question);
-  //         speakQuestion(data?.data[0]?.question[0]);
-  //         console.log("questions:", questions);
-  //       }
-  //     } catch (err) {
-  //       console.error("Error fetching questions:", err);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchQuestions();
-  // }, [qid, pid, hasStarted]);
+  const [isTestRequired, setIsTestRequired] = useState();
+  const [assessmentId,setAssessmentId] = useState();
+  const [codeQues, setCodeQues] = useState();
 
   const speakQuestion = (questionobj) => {
     const question = questionobj.question;
@@ -89,15 +49,6 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     cancel();
     speak({ text: question });
   };
-
-  // useEffect(() => {
-  //   const storedTestData = localStorage.getItem("testData");
-  //   if (storedTestData) {
-  //     const testData = JSON.parse(storedTestData);
-  //     console.log("test", testData);
-  //     setNewQuestions(testData);
-  //   }
-  // }, []);
 
   useEffect(() => {
     console.log("answers:", answers);
@@ -126,7 +77,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           setIsLoading(true);
           const reqBody = {
             position_id: pid
-          }
+          };
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-positions`,
             {
@@ -138,7 +89,8 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             }
           );
           const data = await response.json();
-          console.log("data fetched for a position:", data);
+          console.log("data fetched for a position:", data?.data?.is_test_req);
+
           setExpertise(data?.data?.expertise);
           if (data?.data?.expertise) {
             const requestBody = {
@@ -147,7 +99,6 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             };
             console.log("req body: ", requestBody);
             try {
-
               const response = await fetch(
                 `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
                 {
@@ -158,131 +109,70 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
                   body: JSON.stringify(requestBody),
                 }
               );
-              const data = await response.json();
-
-              console.log("response data of a test creation:", data);
-              setNewQuestions(data?.data?.message?.question);
+              const dataOne = await response.json();
+              console.log("response data of a test creation:", dataOne);
+              setNewQuestions(dataOne?.data?.message?.question);
               console.log("data:", newQuestions);
-              // setQuestionId(data?.data?.message?.question_id);
-              console.log("question id:");
               setIsLoading(false);
-              setMessage("Successfully created a test for your job!");
-              showSuccess();
-              console.log(data);
-              setIsLoading(false)
+
+              console.log(dataOne);
+              setIsLoading(false);
+  
+              console.log("required:", isTestRequired);
+              console.log("test is required:",test_req === 'true')
+              if (test_req === 'true') {
+
+                console.log("hey i am in test req")
+                try {
+                  setIsLoading(true);
+                  const req = {
+                    codingExpertise: dataOne?.data?.expertise,
+                    position_id: pid,
+                  };
+  
+                  console.log("hey i am in test req try block")
+                  const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(req),
+                    }
+                  );
+                  console.log("data fetched")
+                  const data = await response.json();
+                  setCodeQues(data);
+                  console.log('data for coding assessment:', data )
+                  setAssessmentId(data?.data?.assessment_id);
+                  console.log("assessment id:", assessmentId);
+                  console.log("code question data:", data);
+                  setIsLoading(false);
+                } catch (err) {
+                  console.error("ERROR:", err);
+                }
+              }
             } catch (error) {
               console.error("Error submitting form:", error);
-            }
-            finally {
+            } finally {
               setIsLoading(false);
             }
           }
-        }
-        catch (err) {
+        } catch (err) {
           console.log("ERROR:", err);
         }
       }
-
-      // const requestBody = {
-      //   expertise: techStack,
-      //   position_id: positionId,
-      // };
-      // console.log("req body : ", requestBody);
-      // try {
-      //   setIsLoading(true);
-      //   const response = await fetch(
-      //     `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Bearer ${token}`,
-      //       },
-      //       body: JSON.stringify(requestBody),
-      //     }
-      //   );
-      //   const data = await response.json();
-      //   console.log("response data of a test creation:", data);
-      //   setNewQuestions(data.data);
-      //   // setQuestionId(data?.data?.message?.question_id);
-      //   console.log("question id:");
-      //   setIsLoading(false);
-      //   setMessage("Successfully created a test for your job!");
-      //   showSuccess();
-      //   console.log(data);
-      // } catch (error) {
-      //   console.error("Error submitting form:", error);
-      // }
-      // console.log("required:", isTestRequired);
-      // if (isTestRequired === true) {
-      //   try {
-      //     setIsLoading(true);
-      //     const req = {
-      //       codingExpertise: codingExpertise,
-      //       position_id: positionId,
-      //     };
-
-      //     const response = await fetch(
-      //       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-      //       {
-      //         method: "POST",
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //           Authorization: `Bearer ${token}`,
-      //         },
-      //         body: JSON.stringify(req),
-      //       }
-      //     );
-      //     const data = await response.json();
-      //     setCodeQues(data);
-      //     setAssessmentId(data?.data?.assessment_id);
-      //     console.log("assessment id:", assessmentId);
-      //     console.log("code question data:", data);
-      //     setIsLoading(false);
-      //     try {
-      //       const body = {
-      //         position_id: positionId,
-      //         is_test_req: isTestRequired,
-      //       };
-
-      //       console.log("body data sent in setPositionTestReq:", body);
-      //       const response = await fetch(
-      //         `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`,
-      //         {
-      //           method: "POST",
-      //           headers: {
-      //             "Content-Type": "application/json",
-      //             Authorization: `Bearer ${token}`,
-      //           },
-      //           body: JSON.stringify(body),
-      //         }
-      //       );
-      //       const data = await response.json();
-      //       setCodeQues(data);
-      //     } catch (err) {
-      //       console.log("ERROR:", err);
-      //     }
-      //   } catch (err) {
-      //     console.error("ERROR:", err);
-      //   }
-      // }
-    };
-
-    // if (hasStarted) {
-    //   getTestQuestions();
-    // }
+    }
     getTestQuestions();
-  }, [pid])
+  }, [pid]);
 
   useEffect(() => {
     if (newQuestions && hasStarted) {
-      // console.log(hasStarted);
-      // setQuestions(data?.data[0]?.question);
-      // console.log("there?", data?.data[0]?.question[0].question);
       speakQuestion(currentQuestion);
       console.log("questions:", questions);
     }
-  },[hasStarted])
+  }, [hasStarted])
 
   useEffect(() => {
     navigator.mediaDevices
@@ -326,7 +216,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       setIsRecording(true);
       setRecordingDone(true);
       currentRecordingQuestionIndexRef.current = currentQuestion;
-      setIsRecordingPopupVisible(true); // Show recording popup
+      setIsRecordingPopupVisible(true); 
       console.log("Recording started");
     }
   };
@@ -336,31 +226,30 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       mediaRecorderRef.current &&
       mediaRecorderRef.current.state !== "inactive"
     ) {
-      mediaRecorderRef.current.stop(); // This asynchronously triggers the onstop event
-      setIsRecordingPopupVisible(false); // Hide recording popup
+      mediaRecorderRef.current.stop(); 
+      setIsRecordingPopupVisible(false); 
     }
   };
   useEffect(() => {
     let timeoutId;
 
     if (isRecording) {
-      setIsRecordingPopupVisible(true); // Show the popup when recording starts
-      // Set a timeout to hide the popup after 5 seconds
+      setIsRecordingPopupVisible(true); 
+      
       timeoutId = setTimeout(() => {
         if (isRecording) {
-          // Check if still recording before hiding the popup
           setIsRecordingPopupVisible(false);
         }
       }, 5000);
     } else {
-      setIsRecordingPopupVisible(false); // Hide the popup immediately when recording stops
-      clearTimeout(timeoutId); // Clear the timeout when recording stops to prevent it from firing
+      setIsRecordingPopupVisible(false); 
+      clearTimeout(timeoutId); 
     }
 
     return () => {
-      clearTimeout(timeoutId); // Ensure the timeout is cleared when the component unmounts or the effect re-runs
+      clearTimeout(timeoutId);
     };
-  }, [isRecording]); // This useEffect runs whenever the isRecording state changes
+  }, [isRecording]); 
 
   useEffect(() => {
     if (!hasStarted || isTestCompleted) {
@@ -403,26 +292,31 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     };
   }, []);
   useEffect(() => {
-    // Check if user is logged in
     const testcomplete = localStorage.getItem("testcompleted");
-    if (testcomplete) {
+    if (testcomplete && assessmentId) {
       router.push(`/test-submit-completion/${cid}`);
+
     }
   }, [router]);
 
+  useEffect(() => {
+    console.log("Assessment ID:", assessmentId);
+  }, [assessmentId]);
+  
   const submitTestHandler = async () => {
+    console.log("Submit test handler called. Assessment ID:", assessmentId);
     localStorage.setItem("testcompleted", "true");
     if (isSubmitted) return;
     setIsSubmitted(true);
     setIsGeneratingResult(true);
     setIsLoading(true);
     setIsTestCompleted(true);
-
+  
     const requestBody = {
       candidate_id: cid,
       question_answer: answers,
     };
-
+  
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/take-test`,
@@ -459,7 +353,12 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         } catch (err) {
           console.log("err:", err);
         }
-        router.push(`/coding-excercise?a_id=${a_id}&pid=${pid}&cid=${cid}`);
+        if (assessmentId) {
+          console.log("Routing to coding exercise with assessment ID:", assessmentId);
+          router.push(`/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}`);
+        } else {
+          console.error("Assessment ID is not available.");
+        }
       } else {
         const rBody = {
           position_id: pid,
@@ -491,7 +390,9 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       }, 7000);
     }
   };
-
+  
+  
+  
   const toggleComponent = async () => {
     setIsLoading(true);
 
@@ -561,7 +462,6 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         blob = new Blob(recordedChunksRef.current, { type: "audio/wav" });
         const newAudioURL = URL.createObjectURL(blob);
         console.log("new audio url:", newAudioURL);
-        // Clear the recorded chunks immediately after creating the blob
         recordedChunksRef.current = [];
         const base64Data = await blobToBase64(blob);
         console.log(
@@ -577,7 +477,6 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         }
 
         if (currentRecordingQuestionIndexRef.current === currentQuestion) {
-          // setAudioURLs(prevURLs => ({ ...prevURLs, [currentQuestion]: newAudioURL }));
           setAnswers((prev) => [
             ...prev,
             {

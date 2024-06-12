@@ -19,11 +19,6 @@ const test = () => {
   questions.`,
   ];
 
-  // const closePopup = () => {
-  //   setInstructionsPopup(false);
-  //   questionBoxRef.current.speakFirstQuestion();
-  // };
-
   return (
     <>
       {instructionsPopup && (
