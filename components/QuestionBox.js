@@ -275,7 +275,8 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   }, [pid])
 
   useEffect(() => {
-    if (newQuestions && hasStarted) {
+    if (newQuestions) {
+      console.log("value of has started" ,  hasStarted);
       // console.log(hasStarted);
       // setQuestions(data?.data[0]?.question);
       // console.log("there?", data?.data[0]?.question[0].question);
@@ -524,7 +525,14 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             ...prevCompleted,
             currentQuestion,
           ]);
-          if (currentQuestionIndex < newQuestions.length - 1) {
+          // if (data && data?.code === 200 && data?.data[0] && hasStarted) {
+          //   //         console.log(hasStarted);
+          //   //         setQuestions(data?.data[0]?.question);
+          //   //         console.log("there?", data?.data[0]?.question[0].question);
+          //   //         speakQuestion(data?.data[0]?.question[0]);
+          //   //         console.log("questions:", questions);
+          //   //       }
+          if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             speakQuestion(newQuestions[currentQuestionIndex + 1]);
             setIsLoading(false);
@@ -671,10 +679,10 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   }
 
   useEffect(() => {
-    if (currentQuestionIndex < newQuestions?.length) {
+    if (currentQuestionIndex < newQuestions?.length && hasStarted) {
       speakQuestion(newQuestions[currentQuestionIndex]);
     }
-  }, [currentQuestionIndex, newQuestions]);
+  }, [currentQuestionIndex, newQuestions , hasStarted]);
 
   const showError = (message) => {
     setMessage(message);
