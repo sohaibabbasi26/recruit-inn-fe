@@ -97,8 +97,8 @@ const CandidatesHub = ({
                   {!data?.length
                     ? 0
                     : data?.length <= 9
-                    ? `0${data?.length}`
-                    : data?.length}
+                      ? `0${data?.length}`
+                      : data?.length}
                 </span>{" "}
               </span>
             </div>
@@ -129,31 +129,60 @@ const CandidatesHub = ({
                           </div>
                         </div>
                         <div className={styles.rightTop}>
-                          <Average
+                          {/* <Average
                             numbers={[
-                              item?.results?.technicalRating,
-                              item?.results?.softskillRating,
+                              item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                              item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
                             ]}
                             outOf={10}
                           />
+                          {
+
+                            Math.round(
+                              calculateCumulativeMean(
+                                item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                                item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
+                              )
+                            )
+
+                          } */}
+
+                          <span
+                            style={{
+                              backgroundColor: getBackgroundColor(
+                                Math.ceil(calculateCumulativeMean(
+                                  item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                                  item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
+                                ))
+                              ),
+                            }}
+                          >
+                            {Math.ceil(calculateCumulativeMean(
+                              item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                              item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
+                            ))}
+                            /10
+                          </span>
+
 
                           <span
                             style={{
                               backgroundColor: getBackgroundColor(
                                 Math.round(
                                   calculateCumulativeMean(
-                                    item?.results?.technicalRating,
-                                    item?.results?.softskillRating
+                                    item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                                    item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
                                   )
                                 )
-                              ),
-                            }}
+                              )
+                            }
+                            }
                           >
                             {getFilter(
                               Math.round(
                                 calculateCumulativeMean(
-                                  item?.results?.technicalRating,
-                                  item?.results?.softskillRating
+                                  item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                                  item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
                                 )
                               )
                             )}
@@ -161,8 +190,8 @@ const CandidatesHub = ({
                               src={getStatusSymbol(
                                 Math.round(
                                   calculateCumulativeMean(
-                                    item?.results?.technicalRating,
-                                    item?.results?.softskillRating
+                                    item?.results?.technicalRating || item?.results[0]?.result?.technicalRating,
+                                    item?.results?.softskillRating || item?.results[0]?.result?.softskillRating
                                   )
                                 )
                               )}
@@ -193,15 +222,15 @@ const CandidatesHub = ({
                                       src={getSvg(skill.skill)}
                                       height={
                                         getSvg(skill.skill) === "/python.svg" ||
-                                        getSvg(skill.skill) === "/html5.svg" ||
-                                        getSvg(skill.skill) === "/css3.svg"
+                                          getSvg(skill.skill) === "/html5.svg" ||
+                                          getSvg(skill.skill) === "/css3.svg"
                                           ? 20
                                           : iconSize
                                       }
                                       width={
                                         getSvg(skill.skill) === "/python.svg" ||
-                                        getSvg(skill.skill) === "/html5.svg" ||
-                                        getSvg(skill.skill) === "/css3.svg"
+                                          getSvg(skill.skill) === "/html5.svg" ||
+                                          getSvg(skill.skill) === "/css3.svg"
                                           ? 20
                                           : iconSize
                                       }
@@ -221,10 +250,10 @@ const CandidatesHub = ({
                             width={goToAllIconSize}
                             height={goToAllIconSize}
                           />{" "}
-                          {item?.jobType}
+                          {item?.jobType || item?.job_type}
                         </h4>
                         <span>
-                          <h4>Experience:</h4> {item?.overAllExperience}
+                          <h4>Experience:</h4> {item?.overAllExperience || item?.over_all_exp}
                         </span>
                       </div>
                     </div>
