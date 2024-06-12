@@ -16,6 +16,8 @@
   opacity: 0;
   transition: none;
   overflow: hidden;
+  left: 0;
+  top: 0;
 }
 
 .loader {

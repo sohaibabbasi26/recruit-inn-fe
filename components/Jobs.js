@@ -1,18 +1,17 @@
 import styles from "./Jobs.module.css";
 import Image from "next/image";
-import { useState } from "react";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
-import { getSvg } from "@/util/helpers";
+import JobCard from "./JobCard";
+import CandidateCard from "./CandidateCard";
 
 const Jobs = ({
+  heading = "Posted Jobs",
   data,
-  jobsOverlay,
-  setJobOverlay,
+  setSelectedOverlay,
   setSelectedJob,
-  isLoading,
-  setIsLoading,
+  isFor,
 }) => {
-  console.log("datta in jobs component:", data);
+  console.log(`"datta in ${isFor} component:", ${data}`);
   const { setActiveItem } = useActiveItem();
   const iconSize = 25;
   const goToAllIconSize = 15;
@@ -21,13 +20,14 @@ const Jobs = ({
 
   const cardClickHandler = (job) => {
     setSelectedJob(job);
-    setJobOverlay(true);
+    setSelectedOverlay((prevValue) => !prevValue);
   };
 
   const hasData = newArray && newArray.length > 0;
 
   const handleArrowClick = () => {
-    setActiveItem("AllJobs");
+    if (isFor === "jobs") setActiveItem("AllJobs");
+    if (isFor === "candidates") setActiveItem("All");
   };
 
   const getBackgroundColor = (status) => {
@@ -51,9 +51,8 @@ const Jobs = ({
       <div className={styles.superContainer}>
         <div className={styles.headingContainer}>
           <div className={styles.heading}>
-            <h3>Posted Jobs</h3>
+            <h3>{heading}</h3>
             <span>
-              {/* {data?.length || 0} */}
               {!data?.length
                 ? 0
                 : data?.length <= 9
@@ -71,75 +70,23 @@ const Jobs = ({
 
         {hasData ? (
           <div className={styles.jobsContainer}>
-            {newArray.map((item) => (
-              <div
-                className={styles.jobsCard}
-                onClick={() => cardClickHandler(item)}
-              >
-                <div className={styles.topContainer}>
-                  <h3>{item?.position}</h3>
-                  <div className={styles.rightTopBtns}>
-                    {/* <span>{}</span> */}
-                    <span>
-                      {item?.applied_candidates_count === 0
-                        ? "No Candidates Yet"
-                        : item?.applied_candidates_count === 1
-                        ? item?.applied_candidates_count + " Candidate"
-                        : item?.applied_candidates_count + " Candidates"}
-                    </span>
-
-                    <Image
-                      src="/rightArrow.svg"
-                      height={iconSize}
-                      width={iconSize}
-                    />
-                  </div>
-                </div>
-                <div className={styles.TechStack}>
-                  <ul>
-                    {item?.expertise?.map((skill) => (
-                      <li>
-                        <Image
-                          id={styles.unique}
-                          src={getSvg(skill.skill)}
-                          width={
-                            getSvg(skill.skill) === "/python.svg" ||
-                            getSvg(skill.skill) === "/html5.svg" ||
-                            getSvg(skill.skill) === "/css3.svg"
-                              ? 20
-                              : iconSize
-                          }
-                          height={
-                            getSvg(skill.skill) === "/python.svg" ||
-                            getSvg(skill.skill) === "/html5.svg" ||
-                            getSvg(skill.skill) === "/css3.svg"
-                              ? 20
-                              : iconSize
-                          }
-                        />
-                        {skill.skill}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={styles.lowerContainer}>
-                  <h4 className={styles?.location}>{item?.location}</h4>
-                  <h4
-                    className={styles.status}
-                    style={{
-                      backgroundColor: getBackgroundColor(item?.status),
-                    }}
-                  >
-                    {item?.status}
-                    <Image
-                      src={getStatusSymbol(item?.status)}
-                      width={statusSize}
-                      height={statusSize}
-                    />
-                  </h4>
-                </div>
-              </div>
-            ))}
+            {newArray.map((item) =>
+              isFor === "jobs" ? (
+                <JobCard
+                  key={item?.position_id}
+                  data={item}
+                  onClick={() => cardClickHandler(item)}
+                  isFor={isFor}
+                />
+              ) : (
+                <CandidateCard
+                  key={item?.position_id}
+                  data={item}
+                  onClick={() => cardClickHandler(item)}
+                  isFor={isFor}
+                />
+              )
+            )}
           </div>
         ) : (
           <div className={styles.tempContainer}>

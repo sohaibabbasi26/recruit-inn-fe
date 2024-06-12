@@ -1,14 +1,35 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;600;800&family=Poppins:wght@100;200;300;500&display=swap");
 :root {
+  /* colors */
   --color-primary: #6137db;
   --color-white: #ffffff;
+  --color-steel: #4a525d;
+  --color-light-grey: #ebebeb;
+  --color-disabled: #d6d3d1;
+  --color-text-light-grey: #aca7ba;
+  --color-off-white: #f5f5f5;
+  --color-neutral-dark: #170d23;
+  --color-white-purple-shade: #f8f7fa;
+  --color-light-purple-shade: #faf5ff;
+  --color-light-purple-graph: #d3cffc;
+  --color-purple-white-shade: #f7f5ff;
+  --color-logout: #ff0000;
+  --color-logout-bg: #fff5f5;
+
+  --color-scroll-linear-gradient: linear-gradient(
+    180deg,
+    rgba(235, 235, 235, 0) 20%,
+    rgba(235, 235, 235, 1) 25%,
+    rgba(235, 235, 235, 1) 75%,
+    rgba(235, 235, 235, 1) 80%,
+    rgba(235, 235, 235, 0) 100%
+  );
 }
 
 body {
-  max-width: 1920px;
-  margin: 0 auto;
-
+  max-width: 120em;
+  margin: 0 auto !important;
   font-family: "Poppins", sans-serif;
 }
 
@@ -19,6 +40,11 @@ body {
 button {
   cursor: pointer;
 }
+
+.routes-wrapper {
+  position: relative;
+}
+
 .PhoneInputCountryIcon {
   height: 100%;
 
@@ -50,6 +76,42 @@ button {
 
 .PhoneInputInput {
   margin-left: 1.5rem;
+}
+
+.scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll::-webkit-scrollbar-track {
+  margin-top: 2rem;
+  margin-bottom: 10px;
+  border-radius: 32px;
+  background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-track:hover {
+  background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-track:active {
+  background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 32px;
+  background-color: var(--color-light-grey);
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-light-grey);
+}
+
+.scroll::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-light-grey);
 }
 
 /* 1440 = 90em */

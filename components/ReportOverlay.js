@@ -3,10 +3,8 @@ import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import Assessment from "./Assessment";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import BackButton from "./BackButton";
-import Average from "./Average";
+import { format } from "date-fns";
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
@@ -15,12 +13,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [results, setResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [datee, setDatee] = useState();
+  // const [datee, setDatee] = useState();
 
-  useEffect(() => {
-    const date = new Date(selectedCandidate?.date);
-    setDatee(date.toDateString());
-  });
+  // useEffect(() => {
+  //   const date = new Date(selectedCandidate?.date);
+  //   setDatee(date.toDateString());
+  // });
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -82,23 +80,23 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     let count = 0;
 
     if (val1) {
-      total += Math.round(parseInt(val1));
+      total += parseFloat(val1);
       count += 1;
     }
 
     if (val2) {
-      total += Math.round(parseInt(val2));
+      total += parseFloat(val2);
       count += 1;
     }
 
     if (val3) {
-      total += Math.round(parseInt(val3));
+      total += parseFloat(val3);
       count += 1;
     }
 
     if (count === 0) return 0;
 
-    return Math.round(total / count); // Round the final result to the nearest integer
+    return (total / count).toFixed(1); // Round the final result to one decimal place
   };
 
   const overlayRef = useRef(null);
@@ -116,7 +114,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {
       return "#E7FFE0";
-    } else if (score >= 5 && score <= 6) {
+    } else if (score >= 5 && score < 7) {
+      // Ensure the range is correct
       return "#F0F3FF";
     } else {
       return "#FFE6E6";
@@ -126,16 +125,19 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const getFilter = (score) => {
     if (score >= 7 && score <= 10) {
       return "Recommended";
-    } else if (score >= 5 && score <= 6) {
+    } else if (score >= 5 && score < 7) {
+      // Ensure the range is correct
       return "Qualified";
     } else {
       return "Not Eligible";
     }
   };
+
   const getStatusSymbol = (score) => {
     if (score >= 7 && score <= 10) {
       return "/activeStatus.svg";
-    } else if (score >= 5 && score <= 6) {
+    } else if (score >= 5 && score < 7) {
+      // Ensure the range is correct
       return "/qualified.svg";
     } else {
       return "/noteligible.svg";
@@ -337,7 +339,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           id="content-to-print"
         >
           <div className={styles.coverContainer}>
-            {/*top container */}
             <div className={styles.topContainer}>
               <div className={styles.avatarContainer}>
                 <Image src="/avatarDefault.svg" width={65} height={84} />
@@ -348,34 +349,33 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <h4
                   style={{
                     backgroundColor: getBackgroundColor(
-                      calculateCumulativeMean(
-                        Math.round(
-                          selectedCandidate?.results?.technicalRating
-                        ) || Math.round(results?.data?.result?.technicalRating),
-                        Math.round(
+                      parseFloat(
+                        calculateCumulativeMean(
+                          selectedCandidate?.results?.technicalRating,
                           selectedCandidate?.results?.softskillRating
-                        ) || Math.round(results?.data?.result?.softskillRating)
+                          // codingResult?.data?.result?.technicalRating
+                        )
                       )
                     ),
                   }}
                 >
                   {getFilter(
-                    calculateCumulativeMean(
-                      Math.round(selectedCandidate?.results?.technicalRating) ||
-                        Math.round(results?.data?.result?.technicalRating),
-                      Math.round(selectedCandidate?.results?.softskillRating) ||
-                        Math.round(results?.data?.result?.softskillRating)
+                    parseFloat(
+                      calculateCumulativeMean(
+                        selectedCandidate?.results?.technicalRating,
+                        selectedCandidate?.results?.softskillRating
+                        // codingResult?.data?.result?.technicalRating
+                      )
                     )
                   )}
                   <Image
                     src={getStatusSymbol(
-                      calculateCumulativeMean(
-                        Math.round(
-                          selectedCandidate?.results?.technicalRating
-                        ) || Math.round(results?.data?.result?.technicalRating),
-                        Math.round(
+                      parseFloat(
+                        calculateCumulativeMean(
+                          selectedCandidate?.results?.technicalRating,
                           selectedCandidate?.results?.softskillRating
-                        ) || Math.round(results?.data?.result?.softskillRating)
+                          // codingResult?.data?.result?.technicalRating
+                        )
                       )
                     )}
                     width={infoSymbolSize}
@@ -385,17 +385,35 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               </div>
 
               <div className={styles.rightContainer}>
-                <Average
-                  numbers={[
-                    selectedCandidate?.results?.technicalRating ||
-                      results?.data?.result?.technicalRating,
-                    selectedCandidate?.results?.softskillRating ||
-                      results?.data?.result?.softskillRating,
-                  ]}
-                  outOf={10}
-                />
+                <span
+                  style={{
+                    backgroundColor: getBackgroundColor(
+                      Math.round(
+                        calculateCumulativeMean(
+                          selectedCandidate?.results?.technicalRating,
+                          selectedCandidate?.results?.softskillRating
+                        )
+                      )
+                    ),
+                  }}
+                >
+                  {Math.round(
+                    calculateCumulativeMean(
+                      selectedCandidate?.results?.technicalRating,
+                      selectedCandidate?.results?.softskillRating
+                    )
+                  )}
+                  /10
+                </span>
+                {/* {
+                calculateCumulativeMean(
+                  selectedCandidate?.results?.technicalRating,
+                  selectedCandidate?.results?.softskillRating,
+                  codingResult?.data?.result?.technicalRating
+                )} / 10 */}
               </div>
             </div>
+
             {/* candidate test info div */}
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
@@ -416,7 +434,16 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <li>
                     <span className={styles.bold}>Date</span>
                     <span>
-                      {selectedCandidate?.date || results?.data?.createdAt}
+                      {/* {format(new Date(2014, 1, 11), "EEE, yyyy-MM-dd")} */}
+                      {selectedCandidate?.date || results?.data?.createdAt
+                        ? format(
+                            new Date(
+                              selectedCandidate?.date ||
+                                results?.data?.createdAt
+                            ),
+                            "EEE, MMM dd yyyy"
+                          )
+                        : selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
@@ -478,12 +505,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       />
                     </>
                   )}
-                  {/* {codingResult ? (
-                                    
-                                ) : (
-                                    <>
-                                    </>
-                                )} */}
                 </div>
               </div>
             </div>

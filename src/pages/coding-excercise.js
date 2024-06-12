@@ -5,6 +5,7 @@ import CodingChild from "../../components-landing/ChildCodingComp";
 import { useRouter } from "next/router";
 import ErrorIndicator from "../../components/ErrorIndicator";
 import TestInstruction from "../../components/TestInstruction";
+import styles from "./coding-excercise.module.css";
 
 const CodingExcersice = () => {
   const [Code, setCode] = useState(null);
@@ -124,7 +125,7 @@ const CodingExcersice = () => {
   ];
 
   return (
-    <>
+    <div className={styles.codingExcercise}>
       {showErrorMessage && (
         <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
       )}
@@ -153,7 +154,7 @@ const CodingExcersice = () => {
         setCode={setCode}
         setLanguage={setLanguage}
       />
-    </>
+    </div>
   );
 };
 export default CodingExcersice;

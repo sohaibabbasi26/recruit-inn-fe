@@ -15,6 +15,8 @@
   background-color: rgba(0, 0, 0, 0.11);
   opacity: 0;
   transition: none;
+  left: 0;
+  top: 0;
 }
 
 .btn {
@@ -67,7 +69,7 @@
   width: 100%;
   background-color: #fff;
   backdrop-filter: none;
-  border-radius: 50px 50px 0 0;
+  border-radius: 2rem 2rem 0 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,6 +83,37 @@
 /* .superContainer div:first-child {
   width: 100%;
 } */
+
+.superContainer::-webkit-scrollbar {
+  width: 8px;
+}
+.superContainer::-webkit-scrollbar-track {
+  margin-top: 2rem;
+  margin-bottom: 10px;
+  border-radius: 32px;
+  background-color: transparent;
+}
+
+.superContainer::-webkit-scrollbar-track:hover {
+  background-color: transparent;
+}
+
+.superContainer::-webkit-scrollbar-track:active {
+  background-color: transparent;
+}
+
+.superContainer::-webkit-scrollbar-thumb {
+  border-radius: 32px;
+  background-color: var(--color-light-grey);
+}
+
+.superContainer::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-light-grey);
+}
+
+.superContainer::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-light-grey);
+}
 
 .topContainer {
   width: 60%;

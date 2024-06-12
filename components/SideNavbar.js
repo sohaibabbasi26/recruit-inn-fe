@@ -1,8 +1,22 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useActiveItem } from "../src/contexts/ActiveItemContext";
+import { DM_Sans } from "next/font/google";
 import styles from "../components/SideNavbar.module.css";
 import Image from "next/image";
-import { useActiveItem } from "../src/contexts/ActiveItemContext";
-import { useRouter } from "next/router";
+import Logo from "./Logo";
+import LogoutSvg from "./LogoutSvg";
+import UpgradeSvg from "./UpgradeSvg";
+import FeedSvg from "./FeedSvg";
+import DownArrowSvg from "./DownArrowSvg";
+import AppsSvg from "./AppsSvg";
+import StarSvg from "./StarSvg";
+import LikeSvg from "./LikeSvg";
+import RestrictSvg from "./RestrictSvg";
+import CheckSvg from "./CheckSvg";
+import CrossSvg from "./CrossSvg";
+
+const dmSans = DM_Sans({ subsets: ["latin"], display: "swap" });
 
 const SideNavbar = ({
   name,
@@ -16,20 +30,9 @@ const SideNavbar = ({
   const [showupgrade, setshowupgrade] = useState(false);
   const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
-
-  // useEffect(() => {
-  //   setIsLoading(true)
-  //   try {
-  //     const savedActiveItem = localStorage.getItem('activeItem');
-  //     if (savedActiveItem) {
-  //       setActiveItem(savedActiveItem);
-  //     }
-  //   } catch (err) {
-  //     console.log('ERROR:',err);
-  //   }finally {
-  //     setIsLoading(false)
-  //   }
-  // }, [setActiveItem]);
+  const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(true);
+  const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] =
+    useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,14 +54,7 @@ const SideNavbar = ({
     return () => clearTimeout(timer);
   }, [setActiveItem]);
 
-  const [isDropDownJobsToggle, setIsDropDownJobsToggle] = useState(true);
-  const [isDropDownCandidatesToggle, setIsDropDownJobsCandidatesToggle] =
-    useState(true);
-
   const upgradeHandler = () => {
-    if (isDropDownJobsToggle) setIsDropDownJobsToggle(false);
-    if (isDropDownCandidatesToggle) setIsDropDownJobsCandidatesToggle(false);
-
     setshowupgrade(!showupgrade);
   };
 
@@ -76,14 +72,10 @@ const SideNavbar = ({
   };
 
   const handleDropDownJobsToggle = () => {
-    if (setshowupgrade) setshowupgrade(false);
-
     setIsDropDownJobsToggle(!isDropDownJobsToggle);
   };
 
   const handleDropDownCandidatesToggle = () => {
-    if (setshowupgrade) setshowupgrade(false);
-
     setIsDropDownJobsCandidatesToggle(!isDropDownCandidatesToggle);
   };
 
@@ -93,13 +85,6 @@ const SideNavbar = ({
       setActiveItem(savedActiveItem);
     }
   }, [setActiveItem]);
-
-  // // Handle item click
-  // const handleItemClick = (itemName) => {
-  //   setActiveItem(itemName);
-  //   localStorage.setItem("activeItem", itemName); // Save active item to localStorage
-  //   // Perform actions based on the item clicked, such as opening overlays or other logic
-  // };
 
   const logoutHandler = () => {
     localStorage.removeItem("client-token");
@@ -114,160 +99,109 @@ const SideNavbar = ({
 
   return (
     <>
-      <div className={styles.masterContainer}>
+      <div className={`${dmSans.className}  ${styles.masterContainer}`}>
+        <div className={styles.sidenavTop}>
+          <Logo />
+        </div>
         <div className={styles.mainContainer}>
-          <div className={styles.logoContainer}>
-            {/* <h3>
-              <Image src="/logo (3).png" width={logoSize} height={logoSize} />
-              recruitinn.ai
-            </h3> */}
-
-            <Image
-              src="/recruitinn-logo-light.png"
-              alt="Recruitin Logo"
-              height={26}
-              width={184}
-            />
-          </div>
-
           {/* Try */}
           <div className={styles.dashboardWrapper}>
-            <div
-              className={
-                activeItem === "Dashboard"
-                  ? `${styles.dashboardButton} ${styles.active}`
-                  : `${styles.dash}`
-              }
+            <h2
+              className={`${styles.dashboardHeading} ${
+                activeItem === "Dashboard" ? styles.active : ""
+              } `}
               onClick={() => handleItemClick("Dashboard")}
             >
               Dashboard
-              <Image
-                src="/Feed.svg"
-                width={listItemSize}
-                height={listItemSize}
-              />
-            </div>
+              <FeedSvg />
+            </h2>
 
             <div className={styles.listContainer}>
               <div className={styles.list}>
-                <h4 onClick={handleDropDownJobsToggle}>
-                  Jobs <Image src="/dropdown.svg" width={15} height={15} />
-                </h4>
+                <h3
+                  onClick={handleDropDownJobsToggle}
+                  className={`${styles.dashboardHeading} ${styles.dropdownHeading} `}
+                >
+                  Jobs
+                  <DownArrowSvg />
+                  {/* <Image src="/dropdown.svg" width={15} height={15}  */}
+                </h3>
                 {isDropDownJobsToggle && (
                   <ul>
                     <li
-                      className={
-                        activeItem === "AllJobs"
-                          ? `${styles.dashboardButton} ${styles.active}`
-                          : ""
-                      }
+                      className={`${styles.dropdownList} ${
+                        activeItem === "AllJobs" ? styles.active : ""
+                      }`}
                       onClick={() => handleItemClick("AllJobs")}
                     >
-                      All{" "}
-                      <Image
-                        src="/Apps.svg"
-                        width={listItemSize}
-                        height={listItemSize}
-                      />
+                      All <AppsSvg />
                     </li>
                     <li
-                      className={
-                        activeItem === "Active"
-                          ? `${styles.dashboardButton} ${styles.active}`
-                          : ""
-                      }
+                      className={`${styles.dropdownList} ${
+                        activeItem === "Active" ? styles.active : ""
+                      }`}
                       onClick={() => handleItemClick("Active")}
                     >
                       Active
-                      <Image
-                        src="/CheckAlt.svg"
-                        width={listItemSize}
-                        height={listItemSize}
-                      />
+                      <CheckSvg />
                     </li>
                     <li
-                      className={
-                        activeItem === "Closed"
-                          ? `${styles.dashboardButton} ${styles.active}`
-                          : ""
-                      }
+                      className={`${styles.dropdownList} ${
+                        activeItem === "Closed" ? styles.active : ""
+                      }`}
                       onClick={() => handleItemClick("Closed")}
                     >
                       Closed
-                      <Image
-                        src="/crossAlt.svg"
-                        width={listItemSize}
-                        height={listItemSize}
-                      />
+                      <CrossSvg />
                     </li>
                   </ul>
                 )}
               </div>
 
-              <h4 onClick={handleDropDownCandidatesToggle}>
-                Candidates <Image src="/dropdown.svg" width={15} height={15} />
-              </h4>
+              <h3
+                onClick={handleDropDownCandidatesToggle}
+                className={` ${styles.dashboardHeading} ${styles.dropdownHeading} `}
+              >
+                Candidates
+                <DownArrowSvg />
+              </h3>
               {isDropDownCandidatesToggle && (
                 <ul>
                   <li
-                    className={
-                      activeItem === "All"
-                        ? `${styles.dashboardButton} ${styles.active}`
-                        : ""
-                    }
+                    className={`${styles.dropdownList} ${
+                      activeItem === "All" ? styles.active : ""
+                    }`}
                     onClick={() => handleItemClick("All")}
                   >
                     All
-                    <Image
-                      src="/Apps.svg"
-                      width={listItemSize}
-                      height={listItemSize}
-                    />
+                    <AppsSvg />
                   </li>
                   <li
-                    className={
-                      activeItem === "Recommended"
-                        ? `${styles.dashboardButton} ${styles.active}`
-                        : ""
-                    }
+                    className={`${styles.dropdownList} ${
+                      activeItem === "Recommended" ? styles.active : ""
+                    }`}
                     onClick={() => handleItemClick("Recommended")}
                   >
                     Recommended
-                    <Image
-                      src="/Star.svg"
-                      width={listItemSize}
-                      height={listItemSize}
-                    />
+                    <StarSvg />
                   </li>
                   <li
-                    className={
-                      activeItem === "Qualified"
-                        ? `${styles.dashboardButton} ${styles.active}`
-                        : ""
-                    }
+                    className={`${styles.dropdownList} ${
+                      activeItem === "Qualified" ? styles.active : ""
+                    }`}
                     onClick={() => handleItemClick("Qualified")}
                   >
                     Qualified
-                    <Image
-                      src="/Like.svg"
-                      width={listItemSize}
-                      height={listItemSize}
-                    />
+                    <LikeSvg />
                   </li>
                   <li
-                    className={
-                      activeItem === "NotEligible"
-                        ? `${styles.dashboardButton} ${styles.active}`
-                        : ""
-                    }
+                    className={`${styles.dropdownList} ${
+                      activeItem === "NotEligible" ? styles.active : ""
+                    }`}
                     onClick={() => handleItemClick("NotEligible")}
                   >
                     Not Eligible
-                    <Image
-                      src="/Restrict.svg"
-                      width={listItemSize}
-                      height={listItemSize}
-                    />
+                    <RestrictSvg />
                   </li>
                 </ul>
               )}
@@ -275,53 +209,6 @@ const SideNavbar = ({
           </div>
           {/* End */}
         </div>
-        {/* old */}
-        {/* <div className={`${styles.profnameback} ${styles.focus}`}>
-          {showupgrade && (
-            <div>
-              <button className={styles.btnup} onClick={openAddJobHandler}>
-                Upgrade{" "}
-                <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
-              </button>
-            </div>
-          )}
-          {showupgrade && (
-            <div>
-              <button className={styles.btnlog} onClick={logoutHandler}>
-                Logout{" "}
-                <Image
-                  src="/Vector.png"
-                  alt="Upgrade"
-                  width="18"
-                  height="18"
-                  style={{ color: "#FF0000" }}
-                />
-              </button>
-            </div>
-          )}
-
-          <div className={styles.profileTab} onClick={upgradeHandler}>
-            <Image
-              src="/Emoji.svg"
-              height={50}
-              width={50}
-              className="profileImage"
-            />
-            <div className={styles.textContent}>
-              <span style={{ color: "#4A525D" }}>Hello</span>
-              <h4>{name}</h4>
-            </div>
-            <Image
-              src="/rightArrow.svg"
-              width={listItemSize}
-              height={listItemSize}
-              style={{ marginLeft: "-10px", marginRight: "-10px" }}
-            />
-          </div>
-
-          
-        </div> */}
-        {/* try this */}
 
         <div
           className={`${styles.newprofnameback} ${
@@ -331,21 +218,21 @@ const SideNavbar = ({
           {showupgrade && (
             <>
               <div>
-                <button className={styles.btnup} onClick={openAddJobHandler}>
+                <button
+                  className={`${styles.profileBtn} ${styles.btnup}`}
+                  onClick={openAddJobHandler}
+                >
                   Upgrade{" "}
-                  <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" />
+                  {/* <Image src="/Bolt.png" alt="Upgrade" width="24" height="22" /> */}
+                  <UpgradeSvg />
                 </button>
               </div>
               <div>
-                <button className={styles.btnlog} onClick={logoutHandler}>
-                  Logout{" "}
-                  <Image
-                    src="/Vector.png"
-                    alt="Upgrade"
-                    width="18"
-                    height="18"
-                    style={{ color: "#FF0000" }}
-                  />
+                <button
+                  className={`${styles.profileBtn} ${styles.btnlog}`}
+                  onClick={logoutHandler}
+                >
+                  Logout <LogoutSvg />
                 </button>
               </div>
 
@@ -368,7 +255,6 @@ const SideNavbar = ({
               src="/rightArrow.svg"
               width={listItemSize}
               height={listItemSize}
-              // style={{ marginLeft: "-10px", marginRight: "-10px" }}
               style={{ marginLeft: "auto" }}
             />{" "}
           </div>

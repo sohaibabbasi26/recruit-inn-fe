@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const test = () => {
   const [instructionsPopup, setInstructionsPopup] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   const closePopup = () => {
     setInstructionsPopup(false);
   };
@@ -19,13 +19,18 @@ const test = () => {
   questions.`,
   ];
 
+  // const closePopup = () => {
+  //   setInstructionsPopup(false);
+  //   questionBoxRef.current.speakFirstQuestion();
+  // };
+
   return (
     <>
       {instructionsPopup && (
-        <TestInstruction onClose={closePopup} options={instructions} />
+        <TestInstruction isLoading={isLoading} setIsLoading={setIsLoading} onClose={closePopup} options={instructions} />
       )}
       <div className={styles.superContainer}>
-        <QuestionBox hasStarted={!instructionsPopup} />
+        <QuestionBox isLoading={isLoading} setIsLoading={setIsLoading} hasStarted={!instructionsPopup} />
       </div>
     </>
   );

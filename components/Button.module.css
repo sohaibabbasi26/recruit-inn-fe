@@ -1,10 +1,26 @@
 .btn {
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: 3.75rem;
-  color: var(--color-white);
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 1.25rem 4.875rem;
+  background-color: var(--color-primary) !important;
+  border: none !important;
+  border-radius: 3.75rem !important;
+  color: var(--color-white) !important;
+  cursor: pointer !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  padding: 1.25rem 4.875rem !important;
+}
+
+.next {
+  font-weight: 700 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 3.5rem;
+  padding: 1.3rem 1.52rem !important;
+}
+
+@media screen and (max-width: 1400px) {
+  .next {
+    font-size: 0.8rem;
+    padding: 1.15rem 1.5rem !important;
+  }
 }

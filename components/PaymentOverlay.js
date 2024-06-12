@@ -76,7 +76,7 @@ const PaymentOverlay = React.memo(
             </button>
           </div>
 
-          <div className={`${styles.superContainer} ${styles.priceScroll}`}>
+          <div className={styles.superContainer}>
             {isLoading ? (
               <div className={styles.loader}></div>
             ) : (

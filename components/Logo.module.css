@@ -1,0 +1,9 @@
+.logoContainer {
+  box-sizing: border-box;
+  /* padding: 14px 1rem 29px; */
+  text-align: center;
+  position: relative;
+}
+
+@media (max-width: 64em) {
+}

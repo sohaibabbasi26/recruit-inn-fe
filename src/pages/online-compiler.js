@@ -65,7 +65,7 @@ const OnlineCompiler = () => {
                                 <button onClick={codeExecutionHandler}>Execute</button>
                             </div>
                         </div>
-
+                        
                         <textarea spellCheck={false} onChange={(e) => {
                             setCode(e.target.value)
                         }} className={styles.textEditor}>

@@ -63,7 +63,7 @@ const Login = () => {
   const showOverlay = true;
 
   return (
-    <>
+    <div className="routes-wrapper">
       <LoginOverlay
         showErrorMessage={showErrorMessage}
         showSuccessMessage={showSuccessMessage}
@@ -73,7 +73,7 @@ const Login = () => {
         stages={stages}
         showOverlay={showOverlay}
       />
-    </>
+    </div>
   );
 };
 export default Login;

@@ -201,6 +201,24 @@ export default function Home({
   //     };
   //   });
   // };
+  const calculateCumulativeMean = (val1, val2) => {
+    let total = 0;
+    let count = 0;
+  
+    if (val1) {
+      total += Math.round(val1);
+      count += 1;
+    }
+  
+    if (val2) {
+      total += Math.round(val2);
+      count += 1;
+    }
+  
+    if (count === 0) return 0;
+  
+    return (total / count).toFixed(1);
+  };
 
   useEffect(() => {
     try {
@@ -230,8 +248,9 @@ export default function Home({
         );
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
-        const score =
-          (latestResult.softskillRating + latestResult.technicalRating) / 2;
+        const score = (
+          (latestResult.softskillRating + latestResult.technicalRating) / 2
+        ).toFixed(1);
         const formattedDate = latestResult.createdAt
           ? new Date(latestResult.createdAt).toLocaleDateString()
           : "N/A";
@@ -249,7 +268,7 @@ export default function Home({
           jobType: candidate.job_type,
           name: candidate.name,
           email: candidate.email,
-          score: score.toFixed(1),
+          score: parseFloat(score),
           contactNo: candidate.contact_no,
           date: candidate?.createdAt,
           expertise: expertiseList,
@@ -271,6 +290,7 @@ export default function Home({
         };
       });
   };
+  
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -310,29 +330,34 @@ export default function Home({
         allCandidatesReports.data.candidates,
         allCandidatesReports.data
       );
-      // Filter out candidates who have completed the test
+  
       const completedCandidates = processedData.filter(
         (candidate) => candidate.results
       );
       setPreprocessedCandidates(completedCandidates);
-      console.log("pre processed data:", preprocessedCandidates);
+      console.log("pre processed data:", completedCandidates);
+  
       const filterRecommended = (candidate) =>
-        Math.round(candidate?.results?.technicalRating) >= 7 &&
-        Math.round(candidate?.results?.technicalRating) <= 10;
+        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
       const filterQualified = (candidate) =>
-        Math.round(candidate?.results?.technicalRating) >= 5 &&
-        Math.round(candidate?.results?.technicalRating) < 7;
+        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
       const filterNotEligible = (candidate) =>
-        Math.round(candidate?.results?.technicalRating) < 5;
+        parseFloat(candidate.score) < 5;
+  
+      completedCandidates.forEach((candidate) => {
+        console.log(`Candidate: ${candidate.name}, Score: ${candidate.score}`);
+      });
+  
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-
-      console.log("Recommended Candidate:", recommendedCand);
-      console.log("Qualified Candidate:", qualifiedCand);
-      console.log("Not Eligible Candidate:", notEligibleCand);
+  
+      console.log("Recommended Candidates:", completedCandidates.filter(filterRecommended));
+      console.log("Qualified Candidates:", completedCandidates.filter(filterQualified));
+      console.log("Not Eligible Candidates:", completedCandidates.filter(filterNotEligible));
     }
   }, [allCandidatesReports]);
+  
 
   async function getCandidatesByPosition(position_id) {
     try {
@@ -573,70 +598,73 @@ export default function Home({
 
   return (
     <>
-      {showErrorMessage && (
-        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
-      )}
-      {showSuccessMessage && (
-        <SuccessIndicator
-          showSuccessMessage={showSuccessMessage}
-          msgText={message}
-        />
-      )}
-      <FormProvider>
-        {showOverlay && (
-          <Overlay
+      <div className={styles.clientPortal}>
+        {showErrorMessage && (
+          <ErrorIndicator
+            showErrorMessage={showErrorMessage}
+            msgText={message}
+          />
+        )}
+        {showSuccessMessage && (
+          <SuccessIndicator
+            showSuccessMessage={showSuccessMessage}
+            msgText={message}
+          />
+        )}
+        <FormProvider>
+          {showOverlay && (
+            <Overlay
+              isTestRequired={isTestRequired}
+              setIsTestRequired={setIsTestRequired}
+              showError={showError}
+              showErrorMessage={showErrorMessage}
+              showSuccessMessage={showSuccessMessage}
+              setMessage={setMessage}
+              showSuccess={showSuccess}
+              message={message}
+              token={token}
+              set
+              onClose={toggleOverlay}
+              showOverlay={showOverlay}
+              stages={stages}
+              stageHeadings={stageHeadings}
+            />
+          )}
+        </FormProvider>
+        {reportOverlay && (
+          <ReportOverlay
+            showError={showError}
+            showErrorMessage={showErrorMessage}
+            showSuccessMessage={showSuccessMessage}
+            onClose={toggleReportOverlay}
+            reportOverlay={reportOverlay}
+            selectedCandidate={selectedCandidate}
+          />
+        )}
+        {jobOverlay && (
+          <JobOverlay
+            getCandidatesByPosition={getCandidatesByPosition}
             isTestRequired={isTestRequired}
             setIsTestRequired={setIsTestRequired}
+            message={message}
             showError={showError}
             showErrorMessage={showErrorMessage}
             showSuccessMessage={showSuccessMessage}
             setMessage={setMessage}
             showSuccess={showSuccess}
-            message={message}
             token={token}
-            set
-            onClose={toggleOverlay}
-            showOverlay={showOverlay}
-            stages={stages}
-            stageHeadings={stageHeadings}
+            onClose={toggleJobOverlay}
+            jobOverlay={jobOverlay}
+            selectedJob={selectedJob}
           />
         )}
-      </FormProvider>
-      {reportOverlay && (
-        <ReportOverlay
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          onClose={toggleReportOverlay}
-          reportOverlay={reportOverlay}
-          selectedCandidate={selectedCandidate}
-        />
-      )}
-      {jobOverlay && (
-        <JobOverlay
-          getCandidatesByPosition={getCandidatesByPosition}
-          setPositionIdMain={setPositionIdMain}
-          isTestRequired={isTestRequired}
-          setIsTestRequired={setIsTestRequired}
-          message={message}
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          setMessage={setMessage}
-          showSuccess={showSuccess}
-          token={token}
-          onClose={toggleJobOverlay}
-          jobOverlay={jobOverlay}
-          selectedJob={selectedJob}
-        />
-      )}
-      {showPaymentOverlay && (
-        <PaymentOverlay
-          onClose={togglePaymentOverlay}
-          showPaymentOverlay={showPaymentOverlay}
-        />
-      )}
-      <div className={styles.clientPortal}>
+        {showPaymentOverlay && (
+          <PaymentOverlay
+            onClose={togglePaymentOverlay}
+            showPaymentOverlay={showPaymentOverlay}
+          />
+        )}
+        {/* <div className={styles.clientPortal}> */}
         <SideNavbar
           name={allCandidatesReports?.data?.company_name}
           showOverlay={showOverlay}

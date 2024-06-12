@@ -45,7 +45,7 @@ export default function Candidate({
   const [expertise, setExpertise] = useState();
   const [questionId, setQuestionId] = useState();
   const [results, setResults] = useState([]);
-  const [testReq,setTestReq] = useState();
+  const [testReq, setTestReq] = useState();
   const [candidateId, setCandidateId] = useState();
   const [codeQues, setCodeQues] = useState();
   const [assessmentId, setAssessmentId] = useState();
@@ -168,12 +168,12 @@ export default function Candidate({
       console.log("data in test preparation:", data);
       setIsLoading(false);
 
-      if(testReq === true){
+      if (testReq === true) {
         try {
           setIsLoading(true);
           const req = {
             codingExpertise: expertise,
-            candidate_id: candidateId ,
+            candidate_id: candidateId,
           };
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
@@ -192,22 +192,26 @@ export default function Candidate({
             setAssessmentId(dataTwo?.data?.assessment_id);
           }
           console.log("Data is here:", codeQues);
-          console.log('assessment id:', assessmentId);
+          console.log("assessment id:", assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
 
           console.log("assessment id:", assessmentId);
           console.log("code question data:", data);
-          
-          if(dataTwo?.data?.assessment_id){
-            console.log(`/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`)
-            router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`);
+
+          if (dataTwo?.data?.assessment_id) {
+            console.log(
+              `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
+            );
+            router.push(
+              `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
+            );
           }
         } catch (err) {
           console.error("ERROR:", err);
         }
-      }else{
+      } else {
         router.push(`/test?cid=${id}&qid=${data?.data?.message?.question_id}`);
       }
     } catch (err) {
@@ -216,7 +220,7 @@ export default function Candidate({
     } finally {
       setTimeout(() => {
         setIsLoading(false);
-    }, 7000);
+      }, 7000);
     }
   };
 
@@ -327,71 +331,74 @@ export default function Candidate({
 
   return (
     <>
-      {showErrorMessage && (
-        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
-      )}
-      {showSuccessMessage && (
-        <SuccessIndicator
-          showSuccessMessage={showSuccessMessage}
-          msgText={message}
-        />
-      )}
-      <FormProvider>
-        {showOverlay && (
-          <Overlay
+      <div className={styles.clientPortal}>
+        {showErrorMessage && (
+          <ErrorIndicator
+            showErrorMessage={showErrorMessage}
+            msgText={message}
+          />
+        )}
+        {showSuccessMessage && (
+          <SuccessIndicator
+            showSuccessMessage={showSuccessMessage}
+            msgText={message}
+          />
+        )}
+        <FormProvider>
+          {showOverlay && (
+            <Overlay
+              showError={showError}
+              showErrorMessage={showErrorMessage}
+              showSuccessMessage={showSuccessMessage}
+              setMessage={setMessage}
+              showSuccess={showSuccess}
+              message={message}
+              token={token}
+              set
+              onClose={toggleOverlay}
+              showOverlay={showOverlay}
+              stages={stages}
+              stageHeadings={stageHeadings}
+            />
+          )}
+        </FormProvider>
+        {reportOverlay && (
+          <SelfReportOverlay
+            contact={contact}
+            jobType={jobtype}
+            experience={experience}
+            candName={candName}
+            email={email}
+            jobtype={jobtype}
+            date={date}
+            showError={showError}
+            showErrorMessage={showErrorMessage}
+            showSuccessMessage={showSuccessMessage}
+            onClose={toggleReportOverlay}
+            reportOverlay={reportOverlay}
+            selectedCandidate={selectedCandidate}
+          />
+        )}
+        {jobOverlay && (
+          <JobOverlay
+            message={message}
             showError={showError}
             showErrorMessage={showErrorMessage}
             showSuccessMessage={showSuccessMessage}
             setMessage={setMessage}
             showSuccess={showSuccess}
-            message={message}
             token={token}
-            set
-            onClose={toggleOverlay}
-            showOverlay={showOverlay}
-            stages={stages}
-            stageHeadings={stageHeadings}
+            onClose={toggleJobOverlay}
+            jobOverlay={jobOverlay}
+            selectedJob={selectedJob}
           />
         )}
-      </FormProvider>
-      {reportOverlay && (
-        <SelfReportOverlay
-          contact={contact}
-          jobType={jobtype}
-          experience={experience}
-          candName={candName}
-          email={email}
-          jobtype={jobtype}
-          date={date}
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          onClose={toggleReportOverlay}
-          reportOverlay={reportOverlay}
-          selectedCandidate={selectedCandidate}
-        />
-      )}
-      {jobOverlay && (
-        <JobOverlay
-          message={message}
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          showSuccessMessage={showSuccessMessage}
-          setMessage={setMessage}
-          showSuccess={showSuccess}
-          token={token}
-          onClose={toggleJobOverlay}
-          jobOverlay={jobOverlay}
-          selectedJob={selectedJob}
-        />
-      )}
-      {showPaymentOverlay && (
-        <PaymentOverlay
-          onClose={togglePaymentOverlay}
-          showPaymentOverlay={showPaymentOverlay}
-        />
-      )}
-      <div className={styles.clientPortal}>
+        {showPaymentOverlay && (
+          <PaymentOverlay
+            onClose={togglePaymentOverlay}
+            showPaymentOverlay={showPaymentOverlay}
+          />
+        )}
         <CandidateSideNavbar
           name={candName}
           showOverlay={showOverlay}

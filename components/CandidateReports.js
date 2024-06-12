@@ -5,13 +5,10 @@ import Image from "next/image";
 import Average from "./Average";
 
 const CandidateReports = ({
-  selectedCandidate,
   candidateReps,
   reportOverlay,
   setReportOverlay,
   setSelectedCandidate,
-  isLoading,
-  setIsLoading,
 }) => {
   const iconSize = 25;
   const goToAllIconSize = 15;
@@ -19,6 +16,7 @@ const CandidateReports = ({
   console.log("candidate reports:", candidateReps);
 
   const newArray = candidateReps.slice(0, 2);
+  console.log(`Teeest here ${newArray.at(0)}`);
 
   const hasData = newArray && newArray.length > 0;
 

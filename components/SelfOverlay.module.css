@@ -1,0 +1,244 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap");
+
+.parent {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: absolute;
+  z-index: 1;
+  backdrop-filter: blur(45px);
+  font-family: "Poppins", sans-serif;
+  transform: translate3d(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.11);
+  opacity: 0;
+  transition: none;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #6137db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn {
+  position: relative;
+  bottom: 90%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 1px;
+}
+
+.btn button {
+  height: 100%;
+  width: 90%;
+  border: none;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn button:focus {
+  outline: none;
+}
+
+.superContainer {
+  height: 88%;
+  width: 100%;
+  background-color: #fff;
+  backdrop-filter: none;
+  border-radius: 50px 50px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+.topContainer {
+  width: 80%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.jobClosedContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.jobClosedBox {
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.jobClosedTitle {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.jobClosedText {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.jobClosedButton {
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.jobClosedButton:hover {
+  background-color: #4c51bf;
+}
+
+.topContainer img:hover {
+  border-radius: 20px;
+}
+
+.topContainer span {
+  display: flex;
+  cursor: pointer;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 100%;
+  text-align: center;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background-color: #f0edfc;
+  padding: 0.2rem 0.2rem;
+  border-radius: 20px;
+}
+
+.topContainer span:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.wrapper {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparentContainer {
+  height: 5%;
+  width: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: transparent;
+  backdrop-filter: blur(45px);
+  position: relative;
+  bottom: 3%;
+}
+x .transparentContainer button {
+  width: 100%;
+  height: 30%;
+  border-radius: 20px;
+  bottom: 100%;
+  border: none;
+  background-color: #fff;
+}
+
+.coverContainer {
+  width: 100%;
+  height: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 1.5rem;
+}
+
+.errorsContainer {
+  width: 60%;
+  height: 5%;
+  border: 1px solid red;
+  border-radius: 20px;
+  background-color: rgb(246, 211, 211);
+  display: flex;
+
+  gap: 1rem;
+}
+.closejobs {
+  text-align: center;
+  color: red;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+/* 1680px */
+@media screen and (max-width: 105em) {
+  .wrapper {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .headingjob {
+    font-size: larger;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .headingjob {
+    font-size: medium;
+  }
+}
+
+/* 1024px */
+@media (max-width: 64em) {
+  .wrapper {
+    width: auto;
+    width: 80%;
+    display: block;
+  }
+}

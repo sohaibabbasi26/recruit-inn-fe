@@ -1,9 +1,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import "tailwindcss/tailwind.css";
+// import styles from './components-landing/styles.module.css';
+import styles from "../components-landing/styles.module.css";
+import { useTheme } from "next-themes";
 
 const CardDiv = ({ className }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { theme } = useTheme();
 
   return (
     <div
@@ -20,16 +24,26 @@ const CardDiv = ({ className }) => {
         width={50}
         height={50}
       />
-      <h3 className="max-xl:text-[1rem]  max-md:font-semibold text-3xl max-sm:text-sm whitespace-normal">
+      <h3 className="max-xl:text-[1rem] text-black dark:text-white  max-md:font-semibold text-3xl max-sm:text-sm whitespace-normal">
         Dwayne Johnson
       </h3>
       <span className="text-xl text-lightPurpleText max-md:text-[1rem] max-md:font-semibold">
         Backend-Engineer
       </span>
 
-      <div className="flex max-sm:flex-col  gap-2 mt-2">
-        <span className="px-4 py-0.5 flex  gap-2 items-center  bg-zinc-900 rounded-2xl max-md:text-[0.8rem] max-md:font-semibold">
-          Recommended <Image src="/greenstar.svg" width={10} height={10} />
+      <div
+        className={` ${
+          theme === "dark" ? "" : styles.bgcolor
+        } flex max-sm:flex-col  rounded-lg gap-2 mt-2`}
+      >
+        <span className=" px-4 py-0.5 flex  gap-2 items-center bg-zinc-900  rounded-2xl max-md:text-[0.8rem] max-md:font-semibold">
+          Recommended{" "}
+          <Image
+            // src={theme === "dark" ? "/greenstar.svg" : "/greenstardark.png"}
+            src="/greenstar.svg"
+            width={10}
+            height={10}
+          />
         </span>
         <span className="px-4 py-0.5 max-xl:flex max-xl:justify-center max-md:flex max-md:justify-center bg-zinc-900 rounded-2xl">
           9/10

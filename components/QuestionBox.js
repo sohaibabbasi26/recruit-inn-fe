@@ -7,7 +7,7 @@ import { useTest } from "@/contexts/QuestionsContent";
 import { useSpeechSynthesis } from "react-speech-kit";
 import ErrorIndicator from "./ErrorIndicator";
 
-const QuestionBox = ({ hasStarted }) => {
+const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   // const { test } = useTest();x
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -21,7 +21,7 @@ const QuestionBox = ({ hasStarted }) => {
   const [answers, setAnswers] = useState([]);
   const { cid, qid, pid, a_id, test_req } = router?.query;
   const [recordingDone, setRecordingDone] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [disableRecordingButton, setDisableRecordingButton] = useState(false);
   const [questions, setQuestions] = useState();
   const { speak, cancel } = useSpeechSynthesis();
@@ -40,50 +40,48 @@ const QuestionBox = ({ hasStarted }) => {
   const remainingSeconds = timeLeft % 60;
   const [expertise, setExpertise] = useState();
   // const [newQuestions,setNewQuestions] = useState();
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     setIsLoading(true);
 
+  //     const reqBody = {
+  //       question_id: qid,
+  //     };
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      setIsLoading(true);
+  //     if (pid) {
+  //       reqBody.position_id = pid;
+  //     }
+  //     const apiEndpoint = pid
+  //       ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
+  //       : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
 
-      const reqBody = {
-        question_id: qid,
-      };
+  //     console.log("API ENDPOINT CURRENT:", apiEndpoint);
 
-      if (pid) {
-        reqBody.position_id = pid;
-      }
-      const apiEndpoint = pid
-        ? `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-q-from-position`
-        : `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-question-generated`;
+  //     try {
+  //       const response = await fetch(apiEndpoint, {
+  //         method: "POST",
+  //         body: JSON.stringify(reqBody),
+  //         headers: { "Content-type": "application/JSON" },
+  //       });
 
-      console.log("API ENDPOINT CURRENT:", apiEndpoint);
+  //       const data = await response.json();
+  //       console.log("questions:", data);
+  //       if (data && data?.code === 200 && data?.data[0] && hasStarted) {
+  //         console.log(hasStarted);
+  //         setQuestions(data?.data[0]?.question);
+  //         console.log("there?", data?.data[0]?.question[0].question);
+  //         speakQuestion(data?.data[0]?.question[0]);
+  //         console.log("questions:", questions);
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching questions:", err);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
 
-      try {
-        const response = await fetch(apiEndpoint, {
-          method: "POST",
-          body: JSON.stringify(reqBody),
-          headers: { "Content-type": "application/JSON" },
-        });
-
-        const data = await response.json();
-        console.log("questions:", data);
-        if (data && data?.code === 200 && data?.data[0] && hasStarted) {
-          console.log(hasStarted);
-          setQuestions(data?.data[0]?.question);
-          console.log("there?", data?.data[0]?.question[0].question);
-          speakQuestion(data?.data[0]?.question[0]);
-          console.log("questions:", questions);
-        }
-      } catch (err) {
-        console.error("Error fetching questions:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, [qid, pid, hasStarted]);
+  //   fetchQuestions();
+  // }, [qid, pid, hasStarted]);
 
   const speakQuestion = (questionobj) => {
     const question = questionobj.question;
@@ -149,7 +147,7 @@ const QuestionBox = ({ hasStarted }) => {
             };
             console.log("req body: ", requestBody);
             try {
-              
+
               const response = await fetch(
                 `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
                 {
@@ -161,8 +159,10 @@ const QuestionBox = ({ hasStarted }) => {
                 }
               );
               const data = await response.json();
+
               console.log("response data of a test creation:", data);
               setNewQuestions(data?.data?.message?.question);
+              console.log("data:", newQuestions);
               // setQuestionId(data?.data?.message?.question_id);
               console.log("question id:");
               setIsLoading(false);
@@ -172,6 +172,9 @@ const QuestionBox = ({ hasStarted }) => {
               setIsLoading(false)
             } catch (error) {
               console.error("Error submitting form:", error);
+            }
+            finally {
+              setIsLoading(false);
             }
           }
         }
@@ -265,8 +268,21 @@ const QuestionBox = ({ hasStarted }) => {
       // }
     };
 
+    // if (hasStarted) {
+    //   getTestQuestions();
+    // }
     getTestQuestions();
   }, [pid])
+
+  useEffect(() => {
+    if (newQuestions && hasStarted) {
+      // console.log(hasStarted);
+      // setQuestions(data?.data[0]?.question);
+      // console.log("there?", data?.data[0]?.question[0].question);
+      speakQuestion(currentQuestion);
+      console.log("questions:", questions);
+    }
+  },[hasStarted])
 
   useEffect(() => {
     navigator.mediaDevices
@@ -510,7 +526,7 @@ const QuestionBox = ({ hasStarted }) => {
           ]);
           if (currentQuestionIndex < newQuestions.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            speakQuestion(newQuestions[currentQuestionIndex]);
+            speakQuestion(newQuestions[currentQuestionIndex + 1]);
             setIsLoading(false);
           }
         } else {
@@ -658,7 +674,7 @@ const QuestionBox = ({ hasStarted }) => {
     if (currentQuestionIndex < newQuestions?.length) {
       speakQuestion(newQuestions[currentQuestionIndex]);
     }
-  }, [currentQuestionIndex, questions]);
+  }, [currentQuestionIndex, newQuestions]);
 
   const showError = (message) => {
     setMessage(message);
@@ -737,8 +753,8 @@ const QuestionBox = ({ hasStarted }) => {
             {/* question container */}
 
             <div className={styles.questionContainer}>
-              {questions && questions.length > 0 && (
-                <span>{questions[currentQuestion - 1]?.question}</span>
+              {newQuestions && newQuestions.length > 0 && (
+                <span>{newQuestions[currentQuestion - 1]?.question}</span>
               )}
             </div>
             {/*Record button */}
