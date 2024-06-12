@@ -3,11 +3,7 @@ import JobInfoFields from './JobInfoFields';
 import styles from './JobType.module.css';
 import { useFormContext } from '@/contexts/FormContext';
 
-const JobType = ({position,country, jobType, description, location,positionRef,jobTypeRef, descriptionRef, cityRef, countryRef ,setPosition,setCity,setCountry, setJobtype,setDescription}) => {
-
-
-
-    
+const JobType = ({position,country, jobType, description, location,positionRef,jobTypeRef, descriptionRef, cityRef, countryRef ,setPosition,setCity,setCountry, setJobtype,setDescription}) => {    
     return(
         <>
             <div className={styles.jobTypeContainer}>

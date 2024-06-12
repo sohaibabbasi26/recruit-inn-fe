@@ -641,6 +641,7 @@ export default function Home({
             selectedCandidate={selectedCandidate}
           />
         )}
+        
         {jobOverlay && (
           <JobOverlay
             getCandidatesByPosition={getCandidatesByPosition}

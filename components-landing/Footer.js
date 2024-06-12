@@ -61,20 +61,25 @@ const Footer = ({
             </div>
           </div>
           <div className="px-4 max-lg:mt-[1rem] max-lg:w-[100%] max-lg:flex max-lg:flex-col items-center">
-            <p className="font-poppins max-lg:text-xl font-sans text-base font-semibold leading-8">
+            <p
+            className="font-poppins max-lg:text-xl font-sans text-base font-semibold leading-8">
               Company
             </p>
             <div className="max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center text-gray-500 text-sm font-light leading-5 py-4">
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+              <p 
+              onClick={() => scrollToRef(HeroRef)}
+              className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 Careers
               </p>
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+              {/* <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 Contact
               </p>
               <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 Privacy Policy
-              </p>
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+              </p> */}
+              <p
+              onClick={() => scrollToRef(howItWorksRef)}
+              className="py-1 cursor-pointer max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 Terms of Services
               </p>
             </div>
@@ -84,9 +89,9 @@ const Footer = ({
               Community
             </p>
             <div className="max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center  text-gray-500 text-sm font-light leading-5 py-4">
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+              {/* <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 Community Stories
-              </p>
+              </p> */}
               <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 <a
                   href="https://twitter.com/recruitinn"
@@ -105,9 +110,9 @@ const Footer = ({
                   Linkedin
                 </a>
               </p>
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+              {/* <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
                 YouTube
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
