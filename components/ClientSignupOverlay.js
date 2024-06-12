@@ -538,59 +538,79 @@ const ClientSignUpOverlay = ({
   };
 
   const handleFormSubmit = async () => {
-    try {
-      setIsLoading(true);
-      const requestBody = {
-        company_name: companyname,
-        company_location: city,
-        email: email,
-        password: password,
-        account_user_name: actManager,
-        contact_no: phoneNo,
-      };
-
-      const check = await checkClient();
-
-      if (check?.data?.message !== null) {
-        setMessage(
-          "Email you are registering with is already in use, try another one!"
-        );
+    // Start by checking if all required fields are filled
+    if (!companyname || !city || !email || !password || !actManager || !phoneNo) {
+        setMessage("Please fill in all required fields.");
         showError();
         setIsLoading(false);
         return;
-      } else if (check?.data?.message === null) {
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                // Authorization: `Bearer ${adminToken}`,
-              },
-              body: JSON.stringify(requestBody),
-            }
-          );
-          const data = await response.json();
-          console.log("login response:", data?.data?.data?.company_id);
-          setCompanyId(data?.data?.data?.company_id);
-          await sendMail(data?.data?.data?.company_id);
-          setMessage("A client account for you has been created!");
-          showSuccess();
-          setIsLoading(false);
-          // getActiveComponent();
-          router.push("/client-login");
-        } catch (error) {
-          console.error("Error submitting form:", error);
-          setMessage("Failed to process form submission.");
-          showError();
-          setIsLoading(false);
-        }
-      }
-    } catch (err) {
-      console.log("ERR:", err);
     }
-  };
+
+    try {
+        setIsLoading(true);
+        const requestBody = {
+            company_name: companyname,
+            company_location: city,
+            email: email,
+            password: password,
+            account_user_name: actManager,
+            contact_no: phoneNo,
+        };
+
+        const check = await checkClient();
+
+        if (check?.data?.message !== null) {
+            setMessage("Email you are registering with is already in use, try another one!");
+            showError();
+            // Clear only the email field here
+            setEmail(''); // Assuming you have a setEmail function to update email state
+            setCompanyname('');
+            setPassword('');
+            setConfirmPassword('');
+            setPhoneNo('');
+            setActManager('');
+            setClientname('');
+            setCompanySize('');
+            setCountry('');
+            setCity('');
+            setIsLoading(false);
+            return;
+        } else if (check?.data?.message === null) {
+            try {
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-sign-up-admin`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            // Authorization: `Bearer ${adminToken}`,
+                        },
+                        body: JSON.stringify(requestBody),
+                    }
+                );
+                const data = await response.json();
+                console.log("login response:", data?.data?.data?.company_id);
+                setCompanyId(data?.data?.data?.company_id);
+                // await sendMail(data?.data?.data?.company_id);
+                setMessage("A client account for you has been created!");
+                showSuccess();
+                setIsLoading(false);
+                // getActiveComponent();
+                router.push("/client-login");
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                setMessage("Failed to process form submission.");
+                showError();
+                setIsLoading(false);
+            }
+        }
+    } catch (err) {
+        console.log("ERR:", err);
+        setMessage("An unexpected error occurred.");
+        showError();
+        setIsLoading(false);
+    }
+};
 
   const sendMail = async (companyId) => {
     const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;

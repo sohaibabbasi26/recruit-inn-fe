@@ -45,8 +45,6 @@ const ClientSignUpOverlayBtn = ({password ,confirmPassword,validatephoneReceiver
             showError();
             return;
         }
-
-        
         console.log("butonnnif")
 
         await handleFormSubmit();

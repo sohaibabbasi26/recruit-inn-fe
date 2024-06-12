@@ -86,13 +86,13 @@ const Super = ({
                 create a job
               </button>
 
-              <button className={styles.notificationsBtn}>
+              {/* <button className={styles.notificationsBtn}>
                 <Image
                   src="/BellIcon.svg"
                   width={bellIconSize}
                   height={bellIconSize}
                 />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

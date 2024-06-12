@@ -23,6 +23,8 @@ const CandSelfAssessmentBtns = ({testReq, assessmentId, isTestRequired, setIsLoa
     }
 
     const redirectToCandidateDashB = () => {
+        localStorage.setItem("isLoggedInCandidate", "true");
+        localStorage.setItem("candidateId", candidateId);
         router.push(`/candidate/${candidateId}`);
     }
 
