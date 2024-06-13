@@ -19,9 +19,6 @@ const CodingLeftComponent = ({ question }) => {
                             <h2 className="text-xl font-semibold font-sans">
                                 Group Anagrams
                             </h2>
-                            <span className="bg-[#F0F3FF] py-1 px-3 rounded-2xl text-[#6137DB] text-sm font-semibold ">
-                                Easy
-                            </span>
                         </div>
                         <p>
                             {question?.codingQuestion}

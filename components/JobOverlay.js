@@ -44,7 +44,7 @@ const JobOverlay = ({
   const handleClickAllClient = () => {
     onClose();
     // handle
-    setActiveItem('position')
+    setActiveItem('position');
     // localStorage.setItem("activeItem", 'position');
     // localStorage.setItem("currentPage", 'position');
     // setTimeout(() => setClickedItem(""), 200);
@@ -58,14 +58,12 @@ const JobOverlay = ({
     //   // setTimeout(() => setClickedItem(""), 200);
     // };
 
-  useEffect(() => {
-    if(selectedJob?.position_id){
-      // setPositionIdMain(selectedJob?.position_id);
-      if(selectedJob?.position_id){
-        getCandidatesByPosition(selectedJob?.position_id);
+    useEffect(() => {
+      if (selectedJob?.position_id) {
+          getCandidatesByPosition(selectedJob?.position_id);
       }
-    }
-  }, [selectedJob]);
+  }, [selectedJob]);  
+  
 
   useEffect(() => {
     // selectedJob(selectedJob?.position_id);

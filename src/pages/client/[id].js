@@ -361,28 +361,29 @@ export default function Home({
 
   async function getCandidatesByPosition(position_id) {
     try {
-      const reqBody = {
-        position_id: position_id,
-      }
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reqBody),
-        }
-      );
-      const data = await response.json();
-      console.log('response about candidates:', data);
-      
-      setPositionCandidates(data?.data?.filter((candidate) => candidate.results && candidate.results.length > 0));
-      // positionCandidates?
+        const reqBody = { position_id };
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(reqBody),
+            }
+        );
+        const data = await response.json();
+        console.log('response about candidates:', data);
+
+        // Filter candidates to ensure they have results
+        const filteredCandidates = data?.data?.filter(candidate => candidate.results && candidate.results.length > 0);
+        setPositionCandidates(filteredCandidates);
     } catch (err) {
-      console.log("error:", err);
+        console.log("error:", err);
     }
-  };
+};
+
+
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
