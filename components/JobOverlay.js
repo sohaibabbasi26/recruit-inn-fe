@@ -44,26 +44,16 @@ const JobOverlay = ({
   const handleClickAllClient = () => {
     onClose();
     // handle
+    console.log("Testingggggg");
     setActiveItem('position');
-    // localStorage.setItem("activeItem", 'position');
-    // localStorage.setItem("currentPage", 'position');
-    // setTimeout(() => setClickedItem(""), 200);
-  }
+}
 
-    // const handleItemClick = (itemName) => {
-    //   setActiveItem(itemName);
-    //   setClickedItem(itemName);
-    //   // localStorage.setItem("activeItem", itemName);
-    //   // localStorage.setItem("currentPage", itemName);
-    //   // setTimeout(() => setClickedItem(""), 200);
-    // };
-
-    useEffect(() => {
-      if (selectedJob?.position_id) {
-          getCandidatesByPosition(selectedJob?.position_id);
-      }
-  }, [selectedJob]);  
-  
+useEffect(() => {
+    if (selectedJob?.position_id) {
+        console.log("Fetching candidates for position ID:", selectedJob.position_id); // Debugging
+        getCandidatesByPosition(selectedJob.position_id);
+    }
+}, [selectedJob]);
 
   useEffect(() => {
     // selectedJob(selectedJob?.position_id);
