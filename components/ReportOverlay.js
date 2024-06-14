@@ -51,29 +51,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     fetchCandidatesCodingResult();
   }, [selectedCandidate]);
 
-  // const calculateCumulativeMean = (val1,val2,val3) => {
-  //     let total = 0;
-  //     let count = 0;
-
-  //     if (selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment) {
-  //         total += Math.round(selectedCandidate?.results?.technicalRating || results?.data?.result?.technicalAssessment);
-  //         count += 1;
-  //     }
-
-  //     if (selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating) {
-  //         total += Math.round(selectedCandidate?.results?.softskillRating || results?.data?.result?.softskillRating);
-  //         count += 1;
-  //     }
-
-  //     if (codingResult?.data?.result?.technicalRating) {
-  //         total += Math.round(parseInt(codingResult.data.result.technicalRating));
-  //         count += 1;
-  //     }
-
-  //     if (count === 0) return 0;
-
-  //     return (total / count).toFixed(2);
-  // }
 
   const calculateCumulativeMean = (val1, val2, val3) => {
     let total = 0;
@@ -144,63 +121,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     }
   };
 
-  // const downloadPDF = async () => {
-  //     if (contentRef.current) {
-  //       const content = contentRef.current;
-
-  //       // Get the total height and width of the content
-  //       const contentHeight = content.scrollHeight;
-  //       const contentWidth = content.scrollWidth;
-
-  //       // Define the dimensions for capturing
-  //       const captureWidth = contentWidth;
-  //       const captureHeight = content.clientHeight;
-
-  //       // Calculate the number of sections based on height and viewport
-  //       const numSections = Math.round(contentHeight / captureHeight);
-
-  //       // Create a new PDF instance
-  //       const pdf = new jsPDF({
-  //         orientation: 'landscape', // or 'landscape'
-  //       });
-
-  //       // Loop through each section and capture it
-  //       for (let i = 0; i < numSections; i++) {
-  //         // Scroll to the next section
-  //         content.scrollTo(0, i * captureHeight);
-
-  //         // Wait for a brief moment to allow content to render
-  //         await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust delay as needed
-
-  //         // Capture the current section as an image using html2canvas
-  //         const canvas = await html2canvas(content, {
-  //           width: captureWidth,
-  //           height: captureHeight,
-  //           scrollY: -window.scrollY, // Capture scrolled content
-  //           useCORS: true, // Enable CORS
-  //         });
-
-  //         // Add the captured image to the PDF
-  //         if (i > 0) {
-  //           pdf.addPage();
-  //         }
-  //         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
-
-  //         // Reset scroll position
-  //         content.scrollTo(0, 0);
-  //       }
-
-  //       // Save the PDF
-  //       pdf.save('overlay.pdf');
-  //     }
-  //   };
-  // const downloadPDF = async () => {
-  //     if (contentRef.current) {
-  //         const canvas = await html2canvas(contentRef.current);
-  //         const imgData = canvas.toDataURL('image/png');
-  //         const pdf = new jsPDF({
-  //             orientation: 'portrait',
-  //         });
 
   useEffect(() => {
     async function fetchAllCandidateReports() {
@@ -269,31 +189,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     }
   };
 
-  // const handleDownloadPdf = async () => {
-  //     const htmlContent = document.getElementById('content-to-print').innerHTML;
-  //     if (htmlContent) {
-  //         const response = await fetch('/api/generate-pdf', {
-  //             method: 'POST',
-  //             body: JSON.stringify({ htmlContent }),
-  //             headers: {
-  //                 'Content-Type': 'application/json',
-  //             },
-  //         });
-
-  //         if (response.ok) {
-  //             const blob = await response.blob();
-  //             const url = window.URL.createObjectURL(blob);
-  //             const link = document.createElement('a');
-  //             link.href = url;
-  //             link.setAttribute('download', 'report.pdf');
-  //             document.body.appendChild(link);
-  //             link.click();
-  //             link.parentNode.removeChild(link);
-  //         } else {
-  //             console.error('Failed to load PDF document.');
-  //         }
-  //     }
-  // };
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -508,7 +403,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 </div>
               </div>
             </div>
-
             <div className={styles.selfReportOverlayButtons}>
               {/* <button className={styles.backButton} onClick={onClose}>
                 <span>

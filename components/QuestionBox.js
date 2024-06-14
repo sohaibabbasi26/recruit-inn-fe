@@ -619,7 +619,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             )}
             <div className={styles.topContainer}>
               <div className={styles.questionNoList}>
-                <ul>
+              <ul>
                   {newQuestions?.map((question, index) => {
                     return (
                       <>

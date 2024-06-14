@@ -93,10 +93,26 @@ const TopNavbar = ({
 
   // setSelectedCandidate
 
-  const cardClickHandler = (candidate) => {
-    setSelectedCandidate(candidate);
+  const cardClickHandler = async (candidate) => {
+    // Fetch full candidate details including results
+    const requestBody = { candidate_id: candidate.candidate_id };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      }
+    );
+  
+    const fullCandidateData = await response.json();
+  
+    // Set the fetched candidate data as the selected candidate
+    setSelectedCandidate({ ...candidate, results: fullCandidateData.data.result });
+    console.log("HIIII FROM SEARCH");
     setReportOverlay(!reportOverlay);
   };
+  
 
   // result-by-cand-id
 
@@ -193,45 +209,45 @@ const TopNavbar = ({
           </div>
         </div>
         {searchResults && searchResults?.data && searchResults?.data?.data && (
-          <div className={styles.searchResults} ref={searchResultsRef}>
-            <ul>
-              {searchResults?.data?.data?.map((result) => (
-                <li
-                  key={result?.position_id}
-                  onClick={() => {
-                    console.log(
-                      "fetched result for selected candidate:",
-                      result
-                    );
-                    searchType === "Jobs"
-                      ? onJobSelect(result)
-                      : searchType === "Candidates"
-                      ? cardClickHandler(result)
-                      : "";
-                    setSearchResults(null);
-                  }}
-                >
-                  {searchType === "Jobs"
-                    ? result?.position
+        <div className={styles.searchResults} ref={searchResultsRef}>
+          <ul>
+            {searchResults?.data?.data?.map((result) => (
+              <li
+                key={result?.position_id}
+                onClick={() => {
+                  console.log(
+                    "fetched result for selected candidate:",
+                    result
+                  );
+                  searchType === "Jobs"
+                    ? onJobSelect(result)
                     : searchType === "Candidates"
-                    ? result?.name
-                    : ""}
-                  {searchType === "Candidates" ? (
-                    <span>
-                      {" "}
-                      Tech stack:{" "}
-                      {result?.expertise
-                        ?.map((expertise) => expertise?.skill)
-                        .join(", ")}{" "}
-                    </span>
-                  ) : (
-                    <></>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+                    ? cardClickHandler(result)
+                    : "";
+                  setSearchResults(null);
+                }}
+              >
+                {searchType === "Jobs"
+                  ? result?.position
+                  : searchType === "Candidates"
+                  ? result?.name
+                  : ""}
+                {searchType === "Candidates" ? (
+                  <span>
+                    {" "}
+                    Tech stack:{" "}
+                    {result?.expertise
+                      ?.map((expertise) => expertise?.skill)
+                      .join(", ")}{" "}
+                  </span>
+                ) : (
+                  <></>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       </div>
     </>
   );
