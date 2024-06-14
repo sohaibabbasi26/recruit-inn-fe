@@ -4,9 +4,18 @@ import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
-import { format } from "date-fns";
+import { format , parseISO  } from "date-fns";
+
+const isValidDate = (date) => {
+  const parsedDate = Date.parse(date);
+  return !isNaN(parsedDate);
+};
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
+  // const isValidDate = (date) => {
+  //   const parsedDate = Date.parse(date);
+  //   return !isNaN(parsedDate);
+  // };
   console.log("selected candidate is:", selectedCandidate);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
@@ -19,6 +28,14 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //   const date = new Date(selectedCandidate?.date);
   //   setDatee(date.toDateString());
   // });
+  const candidateDate = selectedCandidate?.date;
+  const resultDate = results?.data?.createdAt;
+
+  const displayDate = isValidDate(candidateDate)
+  ? candidateDate
+  : isValidDate(resultDate)
+  ? resultDate
+  : null;
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -51,6 +68,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     fetchCandidatesCodingResult();
   }, [selectedCandidate]);
 
+  
 
   const calculateCumulativeMean = (val1, val2, val3) => {
     let total = 0;
@@ -330,14 +348,18 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     <span className={styles.bold}>Date</span>
                     <span>
                       {/* {format(new Date(2014, 1, 11), "EEE, yyyy-MM-dd")} */}
+                      
                       {selectedCandidate?.date || results?.data?.createdAt
-                        ? format(
-                            new Date(
-                              selectedCandidate?.date ||
-                                results?.data?.createdAt
-                            ),
-                            "EEE, MMM dd yyyy"
-                          )
+                        ? 
+                        // format(
+                          // displayDate
+                          selectedCandidate?.date || results?.data?.createdAt
+                            // new Date(
+                            //   selectedCandidate?.date ||
+                            //     results?.data?.createdAt
+                            // ),
+                            // "EEE, MMM dd yyyy"
+                          // )
                         : selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>

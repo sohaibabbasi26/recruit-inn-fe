@@ -40,8 +40,11 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   const remainingSeconds = timeLeft % 60;
   const [expertise, setExpertise] = useState();
   const [isTestRequired, setIsTestRequired] = useState();
-  const [assessmentId,setAssessmentId] = useState();
+  const [assessmentId, setAssessmentId] = useState();
   const [codeQues, setCodeQues] = useState();
+  const [isFirstQues, setIsFirstQues] = useState(true);
+
+  // const [isFirstQues, setIsFirstQues] = useState(0);
 
   const speakQuestion = (questionobj) => {
     const question = questionobj.question;
@@ -76,7 +79,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         try {
           setIsLoading(true);
           const reqBody = {
-            position_id: pid
+            position_id: pid,
           };
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-positions`,
@@ -111,26 +114,37 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
               );
               const dataOne = await response.json();
               console.log("response data of a test creation:", dataOne);
+              // setNewQuestions(dataOne?.data?.message?.question);
+              // const processedQuestions = dataOne?.data?.message?.question.map(
+              //   (q) => ({
+              //     ...q,
+              //     question: removeNumericPrefix(q.question),
+              //   })
+              // );
+
+              // if(processedQuestions){
               setNewQuestions(dataOne?.data?.message?.question);
-              console.log("data:", newQuestions);
+              // }
+
+              console.log("processed questions:", newQuestions);
+              setIsLoading(false);
               setIsLoading(false);
 
               console.log(dataOne);
               setIsLoading(false);
-  
-              console.log("required:", isTestRequired);
-              console.log("test is required:",test_req === 'true')
-              if (test_req === 'true') {
 
-                console.log("hey i am in test req")
+              console.log("required:", isTestRequired);
+              console.log("test is required:", test_req === "true");
+              if (test_req === "true") {
+                console.log("hey i am in test req");
                 try {
                   setIsLoading(true);
                   const req = {
                     codingExpertise: dataOne?.data?.expertise,
                     position_id: pid,
                   };
-  
-                  console.log("hey i am in test req try block")
+
+                  console.log("hey i am in test req try block");
                   const response = await fetch(
                     `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
                     {
@@ -141,10 +155,10 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
                       body: JSON.stringify(req),
                     }
                   );
-                  console.log("data fetched")
+                  console.log("data fetched");
                   const data = await response.json();
                   setCodeQues(data);
-                  console.log('data for coding assessment:', data )
+                  console.log("data for coding assessment:", data);
                   setAssessmentId(data?.data?.assessment_id);
                   console.log("assessment id:", assessmentId);
                   console.log("code question data:", data);
@@ -169,14 +183,15 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
   useEffect(() => {
     if (newQuestions) {
-      console.log("value of has started" ,  hasStarted);
+      console.log("value of has started", hasStarted);
+      setIsFirstQues(true);
       // console.log(hasStarted);
       // setQuestions(data?.data[0]?.question);
       // console.log("there?", data?.data[0]?.question[0].question);
       speakQuestion(currentQuestion);
       console.log("questions:", questions);
     }
-  }, [hasStarted])
+  }, [hasStarted]);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -220,7 +235,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       setIsRecording(true);
       setRecordingDone(true);
       currentRecordingQuestionIndexRef.current = currentQuestion;
-      setIsRecordingPopupVisible(true); 
+      setIsRecordingPopupVisible(true);
       console.log("Recording started");
     }
   };
@@ -230,30 +245,30 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       mediaRecorderRef.current &&
       mediaRecorderRef.current.state !== "inactive"
     ) {
-      mediaRecorderRef.current.stop(); 
-      setIsRecordingPopupVisible(false); 
+      mediaRecorderRef.current.stop();
+      setIsRecordingPopupVisible(false);
     }
   };
   useEffect(() => {
     let timeoutId;
 
     if (isRecording) {
-      setIsRecordingPopupVisible(true); 
-      
+      setIsRecordingPopupVisible(true);
+
       timeoutId = setTimeout(() => {
         if (isRecording) {
           setIsRecordingPopupVisible(false);
         }
       }, 5000);
     } else {
-      setIsRecordingPopupVisible(false); 
-      clearTimeout(timeoutId); 
+      setIsRecordingPopupVisible(false);
+      clearTimeout(timeoutId);
     }
 
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [isRecording]); 
+  }, [isRecording]);
 
   useEffect(() => {
     if (!hasStarted || isTestCompleted) {
@@ -299,14 +314,13 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     const testcomplete = localStorage.getItem("testcompleted");
     if (testcomplete && assessmentId) {
       router.push(`/test-submit-completion/${cid}`);
-
     }
   }, [router]);
 
   useEffect(() => {
     console.log("Assessment ID:", assessmentId);
   }, [assessmentId]);
-  
+
   const submitTestHandler = async () => {
     console.log("Submit test handler called. Assessment ID:", assessmentId);
     localStorage.setItem("testcompleted", "true");
@@ -315,12 +329,12 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     setIsGeneratingResult(true);
     setIsLoading(true);
     setIsTestCompleted(true);
-  
+
     const requestBody = {
       candidate_id: cid,
       question_answer: answers,
     };
-  
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/take-test`,
@@ -358,8 +372,13 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           console.log("err:", err);
         }
         if (assessmentId) {
-          console.log("Routing to coding exercise with assessment ID:", assessmentId);
-          router.push(`/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}`);
+          console.log(
+            "Routing to coding exercise with assessment ID:",
+            assessmentId
+          );
+          router.push(
+            `/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}`
+          );
         } else {
           console.error("Assessment ID is not available.");
         }
@@ -394,15 +413,13 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       }, 7000);
     }
   };
-  
-  
-  
+
   const toggleComponent = async () => {
     setIsLoading(true);
-
+  
     try {
       if (isLastQuestion) return;
-
+  
       if (!isLastQuestion) {
         if (!recordingDone && recordedChunksRef.current.length === 0) {
           const silentBase64Wav =
@@ -429,16 +446,10 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             ...prevCompleted,
             currentQuestion,
           ]);
-          // if (data && data?.code === 200 && data?.data[0] && hasStarted) {
-          //   //         console.log(hasStarted);
-          //   //         setQuestions(data?.data[0]?.question);
-          //   //         console.log("there?", data?.data[0]?.question[0].question);
-          //   //         speakQuestion(data?.data[0]?.question[0]);
-          //   //         console.log("questions:", questions);
-          //   //       }
           if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             speakQuestion(newQuestions[currentQuestionIndex + 1]);
+            setIsFirstQues(false);  
             setIsLoading(false);
           }
         } else {
@@ -447,11 +458,13 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         console.log("completed questions:", completedQuestions);
         console.log("current questions:", currentQuestion);
       }
+      setIsFirstQues(false);
     } catch (err) {
       console.log("ERR:", err);
     } finally {
     }
   };
+  
 
   useEffect(() => {
     speakQuestion(currentQuestion);
@@ -584,7 +597,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     if (currentQuestionIndex < newQuestions?.length && hasStarted) {
       speakQuestion(newQuestions[currentQuestionIndex]);
     }
-  }, [currentQuestionIndex, newQuestions , hasStarted]);
+  }, [currentQuestionIndex, newQuestions, hasStarted]);
 
   const showError = (message) => {
     setMessage(message);
@@ -593,6 +606,10 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     setTimeout(() => {
       setShowErrorMessage(false);
     }, 3000);
+  };
+
+  const removeNumericPrefix = (question) => {
+    return question.substring(2);
   };
 
   return (
@@ -619,7 +636,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             )}
             <div className={styles.topContainer}>
               <div className={styles.questionNoList}>
-              <ul>
+                <ul>
                   {newQuestions?.map((question, index) => {
                     return (
                       <>
@@ -664,7 +681,13 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
             <div className={styles.questionContainer}>
               {newQuestions && newQuestions.length > 0 && (
-                <span>{newQuestions[currentQuestion - 1]?.question}</span>
+                <span>
+                  {isFirstQues
+                    ? removeNumericPrefix(
+                        newQuestions[currentQuestion - 1]?.question
+                      )
+                    : newQuestions[currentQuestion - 1]?.question}
+                </span>
               )}
             </div>
             {/*Record button */}

@@ -270,9 +270,9 @@ export default function Home({
           email: candidate.email,
           score: parseFloat(score),
           contactNo: candidate.contact_no,
-          date: candidate?.createdAt,
+          date: formattedDate,
           expertise: expertiseList,
-          position: inferredPosition,
+          inferredPosition: inferredPosition,
           overAllExperience: candidate.over_all_exp || "N/A",
           results: {
             softskillRating: latestResult.softskillRating,
@@ -281,15 +281,16 @@ export default function Home({
             technicalAssessment: latestResult.technicalAssessment,
           },
           company: {
-            name: company.company_name,
-            location: company.company_location,
-            email: company.email,
-            contactNo: company.contact_no,
-            status: company.status,
+            name: company?.company_name || "N/A",
+            location: company?.company_location || "N/A",
+            email: company?.email || "N/A",
+            contactNo: company?.contact_no || "N/A",
+            status: company?.status || "N/A",
           },
         };
       });
   };
+  
   
 
   useEffect(() => {
@@ -326,27 +327,15 @@ export default function Home({
 
   useEffect(() => {
     if (allCandidatesReports?.data?.candidates && allCandidatesReports?.data) {
-      const processedData = preprocessCandidatesData(
+      const completedCandidates = preprocessCandidatesData(
         allCandidatesReports.data.candidates,
         allCandidatesReports.data
       );
-  
-      const completedCandidates = processedData.filter(
-        (candidate) => candidate.results
-      );
       setPreprocessedCandidates(completedCandidates);
-      console.log("pre processed data:", completedCandidates);
   
-      const filterRecommended = (candidate) =>
-        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
-      const filterQualified = (candidate) =>
-        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
-      const filterNotEligible = (candidate) =>
-        parseFloat(candidate.score) < 5;
-  
-      completedCandidates.forEach((candidate) => {
-        console.log(`Candidate: ${candidate.name}, Score: ${candidate.score}`);
-      });
+      const filterRecommended = candidate => parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = candidate => parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = candidate => parseFloat(candidate.score) < 5;
   
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
@@ -358,32 +347,47 @@ export default function Home({
     }
   }, [allCandidatesReports]);
   
+  
 
   async function getCandidatesByPosition(position_id) {
     try {
-        const reqBody = { position_id };
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(reqBody),
-            }
-        );
-        const data = await response.json();
-        console.log('response about candidates:', data);
-
-        // Filter candidates to ensure they have results
-        const filteredCandidates = data?.data?.filter(candidate => candidate.results && candidate.results.length > 0);
-        setPositionCandidates(filteredCandidates);
+      const reqBody = { position_id };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        }
+      );
+  
+      const data = await response.json();
+      console.log('API response for candidates:', data);
+  
+      if (!data || !data.data) {
+        console.log("Unexpected response format:", data);
+        return;
+      }
+  
+      const completedCandidates = preprocessCandidatesData(data.data, data.company);
+      setPositionCandidates(completedCandidates);
+  
+      const filterRecommended = candidate => parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = candidate => parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = candidate => parseFloat(candidate.score) < 5;
+  
+      setRecommendedCand(completedCandidates.filter(filterRecommended));
+      setQualifiedCand(completedCandidates.filter(filterQualified));
+      setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+  
+      console.log('Filtered candidates:', completedCandidates);
     } catch (err) {
-        console.log("error:", err);
+      console.log("Error fetching candidates:", err);
     }
-};
-
-
+  }
+  
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
@@ -518,6 +522,7 @@ export default function Home({
       case "All":
         return (
           <Super
+            
             setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
