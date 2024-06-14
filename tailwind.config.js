@@ -83,6 +83,7 @@ module.exports = {
       "max-md": { max: "767px" },
       "max-lg": { max: "1023px" },
       "max-xl": { max: "1279px" },
+      "max-2xl": { max: "1440px" },
       "min-md-max-lg": { min: "768px", max: "1023px" },
     },
   },

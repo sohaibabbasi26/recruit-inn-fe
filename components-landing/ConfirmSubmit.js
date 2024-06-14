@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function ConfirmSubmit({ onCloseModal, onSubmit }) {
   return (
-    <div className="text-lg w-120">
+    <div className="text-lg">
       <h3 className="text-2xl font-semibold text-black mb-6">Confirm</h3>
       <div className="bg-white-purple-shade border border-light-grey rounded-3xl text-start p-6 mb-6">
         <p className="text-sm font-medium">

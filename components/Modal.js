@@ -1,6 +1,6 @@
 import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
-import { useOutsideClick } from "@/util/useOutsideClick";
+// import { useOutsideClick } from "@/util/useOutsideClick";
 import styles from "./Modal.module.css";
 import CrossSvg from "./CrossSvg";
 import Image from "next/image";
@@ -26,20 +26,23 @@ function Open({ children, opens: opensWindowName }) {
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-function Window({ children, name }) {
+function Window({ children, name, classes }) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useOutsideClick(close);
+  // const ref = useOutsideClick(close);
 
   if (name !== openName) return null;
 
   return createPortal(
     <div className={styles.overlay}>
-      <div className={styles.modal} ref={ref}>
+      {/* <div className={styles.modal} ref={ref}> */}
+      <div className={styles.modal}>
         {/* <button className={styles.close} onClick={close}>
           <Image height={32} width={32} src="/cross.svg" />
         </button> */}
 
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <div className={classes}>
+          {cloneElement(children, { onCloseModal: close })}
+        </div>
       </div>
     </div>,
     document.body
