@@ -405,9 +405,9 @@ const PersonalInfo = forwardRef(
                       </option>
                     ))}
                 </select>
-                {validationErrors?.country && (
+                {validationErrors?.city && (
                   <div className={styles.errorMessage}>
-                    {validationErrors.country}
+                    {validationErrors.city}
                   </div>
                 )}
               </div>
