@@ -232,65 +232,127 @@ export default function Home({
     }
   }, [positionCandidates])
 
+// <<<<<<< HEAD
   
-const preprocessCandidatesData = (candidates, company) => {
-  return candidates
-    .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
-    .map((candidate) => {
-      let latestResult = {
-        softskillRating: 0,
-        technicalRating: 0,
-        softskillAssessment: "",
-        technicalAssessment: "",
-        createdAt: null,
-      };
-      const sortedResults = candidate.results.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-      latestResult = sortedResults[0].result || latestResult;
-      latestResult.createdAt = sortedResults[0].createdAt;
-      const score = (
-        (latestResult.softskillRating + latestResult.technicalRating) / 2
-      ).toFixed(1);
-      const formattedDate = latestResult.createdAt
-        ? new Date(latestResult.createdAt).toLocaleDateString()
-        : "N/A";
-      const expertiseList = candidate?.expertise?.map((exp) => ({
-        skill: exp.skill,
-        level: exp.level,
-      }));
-      const inferredPosition =
-        candidate?.expertise?.length > 0
-          ? candidate?.expertise[0]?.skill
-          : "N/A"; // Inferred position from the first skill
-      return {
-        candidate_id: candidate.candidate_id,
-        position: candidate.position,
-        jobType: candidate.job_type,
-        name: candidate.name,
-        email: candidate.email,
-        score: parseFloat(score),
-        contactNo: candidate.contact_no,
-        date: candidate?.createdAt,
-        expertise: expertiseList,
-        position: inferredPosition,
-        overAllExperience: candidate.over_all_exp || "N/A",
-        results: {
-          softskillRating: latestResult.softskillRating,
-          technicalRating: latestResult.technicalRating,
-          softskillAssessment: latestResult.softskillAssessment,
-          technicalAssessment: latestResult.technicalAssessment,
-        },
-        company: {
-          name: company.company_name,
-          location: company.company_location,
-          email: company.email,
-          contactNo: company.contact_no,
-          status: company.status,
-        },
-      };
-    });
-};
+// const preprocessCandidatesData = (candidates, company) => {
+//   return candidates
+//     .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
+//     .map((candidate) => {
+//       let latestResult = {
+//         softskillRating: 0,
+//         technicalRating: 0,
+//         softskillAssessment: "",
+//         technicalAssessment: "",
+//         createdAt: null,
+//       };
+//       const sortedResults = candidate.results.sort(
+//         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+//       );
+//       latestResult = sortedResults[0].result || latestResult;
+//       latestResult.createdAt = sortedResults[0].createdAt;
+//       const score = (
+//         (latestResult.softskillRating + latestResult.technicalRating) / 2
+//       ).toFixed(1);
+//       const formattedDate = latestResult.createdAt
+//         ? new Date(latestResult.createdAt).toLocaleDateString()
+//         : "N/A";
+//       const expertiseList = candidate?.expertise?.map((exp) => ({
+//         skill: exp.skill,
+//         level: exp.level,
+//       }));
+//       const inferredPosition =
+//         candidate?.expertise?.length > 0
+//           ? candidate?.expertise[0]?.skill
+//           : "N/A"; // Inferred position from the first skill
+//       return {
+//         candidate_id: candidate.candidate_id,
+//         position: candidate.position,
+//         jobType: candidate.job_type,
+//         name: candidate.name,
+//         email: candidate.email,
+//         score: parseFloat(score),
+//         contactNo: candidate.contact_no,
+//         date: candidate?.createdAt,
+//         expertise: expertiseList,
+//         position: inferredPosition,
+//         overAllExperience: candidate.over_all_exp || "N/A",
+//         results: {
+//           softskillRating: latestResult.softskillRating,
+//           technicalRating: latestResult.technicalRating,
+//           softskillAssessment: latestResult.softskillAssessment,
+//           technicalAssessment: latestResult.technicalAssessment,
+//         },
+//         company: {
+//           name: company.company_name,
+//           location: company.company_location,
+//           email: company.email,
+//           contactNo: company.contact_no,
+//           status: company.status,
+//         },
+//       };
+//     });
+// };
+// =======
+  const preprocessCandidatesData = (candidates, company) => {
+    return candidates
+      .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
+      .map((candidate) => {
+        let latestResult = {
+          softskillRating: 0,
+          technicalRating: 0,
+          softskillAssessment: "",
+          technicalAssessment: "",
+          createdAt: null,
+        };
+        const sortedResults = candidate.results.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        latestResult = sortedResults[0].result || latestResult;
+        latestResult.createdAt = sortedResults[0].createdAt;
+        const score = (
+          (latestResult.softskillRating + latestResult.technicalRating) / 2
+        ).toFixed(1);
+        const formattedDate = latestResult.createdAt
+          ? new Date(latestResult.createdAt).toLocaleDateString()
+          : "N/A";
+        const expertiseList = candidate?.expertise?.map((exp) => ({
+          skill: exp.skill,
+          level: exp.level,
+        }));
+        const inferredPosition =
+          candidate?.expertise?.length > 0
+            ? candidate?.expertise[0]?.skill
+            : "N/A"; // Inferred position from the first skill
+        return {
+          candidate_id: candidate.candidate_id,
+          position: candidate.position,
+          jobType: candidate.job_type,
+          name: candidate.name,
+          email: candidate.email,
+          score: parseFloat(score),
+          contactNo: candidate.contact_no,
+          date: formattedDate,
+          expertise: expertiseList,
+          inferredPosition: inferredPosition,
+          overAllExperience: candidate.over_all_exp || "N/A",
+          results: {
+            softskillRating: latestResult.softskillRating,
+            technicalRating: latestResult.technicalRating,
+            softskillAssessment: latestResult.softskillAssessment,
+            technicalAssessment: latestResult.technicalAssessment,
+          },
+          company: {
+            name: company?.company_name || "N/A",
+            location: company?.company_location || "N/A",
+            email: company?.email || "N/A",
+            contactNo: company?.contact_no || "N/A",
+            status: company?.status || "N/A",
+          },
+        };
+      });
+  };
+// >>>>>>> 7cdaafbd79a00397a478d95e9181f3143d3b234c
+  
   
 
   useEffect(() => {
@@ -327,16 +389,13 @@ const preprocessCandidatesData = (candidates, company) => {
 
   useEffect(() => {
     if (allCandidatesReports?.data?.candidates && allCandidatesReports?.data) {
-      const processedData = preprocessCandidatesData(
+      const completedCandidates = preprocessCandidatesData(
         allCandidatesReports.data.candidates,
         allCandidatesReports.data
       );
-  
-      const completedCandidates = processedData.filter(
-        (candidate) => candidate.results
-      );
       setPreprocessedCandidates(completedCandidates);
   
+// <<<<<<< HEAD
       const filterRecommended = (candidate) => {
         const roundedScore = Math.round(parseFloat(candidate.score));
         return roundedScore >= 7 && roundedScore <= 10;
@@ -349,6 +408,11 @@ const preprocessCandidatesData = (candidates, company) => {
         const roundedScore = Math.round(parseFloat(candidate.score));
         return roundedScore < 5;
       };
+// =======
+//       const filterRecommended = candidate => parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+//       const filterQualified = candidate => parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+//       const filterNotEligible = candidate => parseFloat(candidate.score) < 5;
+// >>>>>>> 7cdaafbd79a00397a478d95e9181f3143d3b234c
   
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
@@ -360,29 +424,43 @@ const preprocessCandidatesData = (candidates, company) => {
 
   async function getCandidatesByPosition(position_id) {
     try {
-        const reqBody = { position_id };
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(reqBody),
-            }
-        );
-        const data = await response.json();
-        console.log('response about candidates:', data);
-
-        // Filter candidates to ensure they have results
-        const filteredCandidates = data?.data?.filter(candidate => candidate.results && candidate.results.length > 0);
-        setPositionCandidates(filteredCandidates);
+      const reqBody = { position_id };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        }
+      );
+  
+      const data = await response.json();
+      console.log('API response for candidates:', data);
+  
+      if (!data || !data.data) {
+        console.log("Unexpected response format:", data);
+        return;
+      }
+  
+      const completedCandidates = preprocessCandidatesData(data.data, data.company);
+      setPositionCandidates(completedCandidates);
+  
+      const filterRecommended = candidate => parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = candidate => parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = candidate => parseFloat(candidate.score) < 5;
+  
+      setRecommendedCand(completedCandidates.filter(filterRecommended));
+      setQualifiedCand(completedCandidates.filter(filterQualified));
+      setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+  
+      console.log('Filtered candidates:', completedCandidates);
     } catch (err) {
-        console.log("error:", err);
+      console.log("Error fetching candidates:", err);
     }
-};
-
-
+  }
+  
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
@@ -517,6 +595,7 @@ const preprocessCandidatesData = (candidates, company) => {
       case "All":
         return (
           <Super
+            
             setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
