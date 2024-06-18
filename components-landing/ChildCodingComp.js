@@ -224,15 +224,21 @@ const CodingChild = ({
                   </button>
                   <Modal>
                     <Modal.Open opens="confirm-code">
-                      <button
-                        // onClick={codeSubmitHandler}
-                        className="flex w-[20%] justify-between items-center gap-3 rounded-3xl py-4 px-4 font-sans font-semibold  text-white bg-[#6137DB]"
-                      >
+                      <button className="flex w-[20%] justify-between items-center gap-3 rounded-3xl py-4 px-4 font-sans font-semibold  text-white bg-[#6137DB]">
                         Submit <Image src="/Tick.svg" height={15} width={15} />
                       </button>
                     </Modal.Open>
-                    <Modal.Window name="confirm-code">
-                      <ConfirmSubmit onSubmit={codeSubmitHandler} />
+                    <Modal.Window
+                      name="confirm-code"
+                      classes="min-w-[35.5rem] min-h-[15.6rem]"
+                    >
+                      {isLoading ? (
+                        <div className="w-full h-full min-w-[35.5rem] min-h-[15.6rem] flex justify-center items-center">
+                          <div className={styles.loader}></div>
+                        </div>
+                      ) : (
+                        <ConfirmSubmit onSubmit={codeSubmitHandler} />
+                      )}
                     </Modal.Window>
                   </Modal>
                 </div>
@@ -249,7 +255,7 @@ const CodingChild = ({
               </div>
 
               <div className="ml-[1.2rem] w-[100%] h-[80%] ">
-                {isLoading ? (
+                {/* {isLoading ? (
                   <>
                     <div className="w-[100%] h-[100%] flex justify-center items-center">
                       <div className={styles.loader}></div>
@@ -257,7 +263,8 @@ const CodingChild = ({
                   </>
                 ) : (
                   <>{output}</>
-                )}
+                )} */}
+                <>{output}</>
               </div>
             </div>
           </div>

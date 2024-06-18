@@ -16,8 +16,8 @@ const RightComponent = ({ preprocessedCandidates, setShowOverlay }) => {
         <div className={styles.masterContainer}>
           <div className={styles.btnsDiv}>
             <button className={styles.addJobBtn} onClick={openAddJobHandler}>
-              <Image src="/Add.svg" width={iconSize} height={iconSize} /> create
-              a job
+              <Image src="/Add.svg" width={iconSize} height={iconSize} /> Create
+              a Job
             </button>
             {/* <button className={styles.notificationsBtn}>
               <Image

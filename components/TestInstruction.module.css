@@ -22,7 +22,7 @@
   justify-content: center;
   align-items: center;
   color: #6137db;
-  text-align: center;
+  text-align: left;
 }
 
 .backDropContainer::-webkit-scrollbar {
