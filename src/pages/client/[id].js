@@ -539,6 +539,7 @@ export default function Home({
               reportOverlay={reportOverlay}
               setSelectedCandidate={setSelectedCandidate}
               setSelectedJob={setSelectedJob}
+              positionCandidates={positionCandidates}
             />
             <RightComponent
               preprocessedCandidates={preprocessedCandidates}

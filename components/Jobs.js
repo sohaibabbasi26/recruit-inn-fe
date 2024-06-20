@@ -5,6 +5,7 @@ import JobCard from "./JobCard";
 import CandidateCard from "./CandidateCard";
 
 const Jobs = ({
+  positionCandidates,
   heading = "Posted Jobs",
   data,
   setSelectedOverlay,
@@ -73,6 +74,7 @@ const Jobs = ({
             {newArray.map((item) =>
               isFor === "jobs" ? (
                 <JobCard
+                  positionCandidates={positionCandidates}
                   key={item?.position_id}
                   data={item}
                   onClick={() => cardClickHandler(item)}

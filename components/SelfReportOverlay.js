@@ -46,14 +46,15 @@ const SelfReportOverlay = ({
       if (
         data &&
         data?.data &&
-        data?.data?.result &&
-        data?.data?.result?.technicalRating
+        data?.data?.result 
       ) {
         setIsCodingAssessment(true);
       } else {
         setIsCodingAssessment(false);
       }
     }
+
+    console.log("is coding assessmeent:", isCodingAssessment);
     fetchCandidatesCodingResult();
   }, [selectedCandidate]);
   const headingOne = "Technical";

@@ -43,6 +43,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   const [assessmentId, setAssessmentId] = useState();
   const [codeQues, setCodeQues] = useState();
   const [isFirstQues, setIsFirstQues] = useState(true);
+  const [candidateExpertise, setCandidateExpertise] = useState();
 
   // const [isFirstQues, setIsFirstQues] = useState(0);
 
@@ -74,8 +75,122 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   };
 
   useEffect(() => {
+    const reqBody = {
+      candidate_id: cid
+    }
+    const fetchCandidateExpertise = async () => {
+      if(cid){
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-candidate-self`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(reqBody),
+            }
+          );
+          const data = await response.json();
+          console.log("data from fetching a candidate:", data);
+          setCandidateExpertise(data?.data?.expertise);
+        } catch (err) {
+          console.log("ERROR WHILE FETCHING:", err);
+        }
+      }
+    }
+    fetchCandidateExpertise();
+  }, [router?.isReady])
+
+  useEffect(() => {
+    async function getTestForCandidate(){
+      if (candidateExpertise) {
+        console.log('heyy from the if condition');
+        const requestBody = {
+          expertise:  candidateExpertise,
+          position_id: pid,
+        };
+        console.log("req body: ", requestBody);
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestBody),
+            }
+          );
+          const dataOne = await response.json();
+          console.log("response data of a test creation:", dataOne);
+          // setNewQuestions(dataOne?.data?.message?.question);
+          // const processedQuestions = dataOne?.data?.message?.question.map(
+          //   (q) => ({
+          //     ...q,
+          //     question: removeNumericPrefix(q.question),
+          //   })
+          // );
+
+          // if(processedQuestions){
+          setNewQuestions(dataOne?.data?.message?.question);
+          // }
+
+          console.log("processed questions:", newQuestions);
+          setIsLoading(false);
+          setIsLoading(false);
+
+          console.log(dataOne);
+          setIsLoading(false);
+
+          console.log("required:", isTestRequired);
+          console.log("test is required:", test_req === "true");
+          if (test_req === "true") {
+            console.log("hey i am in test req");
+            try {
+              setIsLoading(true);
+              const req = {
+                codingExpertise: dataOne?.data?.expertise,
+                position_id: pid,
+              };
+
+              console.log("hey i am in test req try block");
+              const response = await fetch(
+                `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(req),
+                }
+              );
+              console.log("data fetched");
+              const data = await response.json();
+              setCodeQues(data);
+              console.log("data for coding assessment:", data);
+              setAssessmentId(data?.data?.assessment_id);
+              console.log("assessment id:", assessmentId);
+              console.log("code question data:", data);
+              setIsLoading(false);
+            } catch (err) {
+              console.error("ERROR:", err);
+            }
+          }
+        } catch (error) {
+          console.error("Error submitting form:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    }
+    getTestForCandidate();
+  },[candidateExpertise]);
+
+
+  useEffect(() => {
     async function getTestQuestions() {
-      if (pid) {
+      // if (pid) {
         try {
           setIsLoading(true);
           const reqBody = {
@@ -94,10 +209,12 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           const data = await response.json();
           console.log("data fetched for a position:", data?.data?.is_test_req);
 
-          setExpertise(data?.data?.expertise);
-          if (data?.data?.expertise) {
+          console.log('candidate expertise:',candidateExpertise);
+          setExpertise(data?.data?.expertise || candidateExpertise);
+          if (data?.data?.expertise || candidateExpertise) {
+            console.log('heyy from the if condition');
             const requestBody = {
-              expertise: data?.data?.expertise,
+              expertise: data?.data?.expertise || candidateExpertise,
               position_id: pid,
             };
             console.log("req body: ", requestBody);
@@ -177,7 +294,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           console.log("ERROR:", err);
         }
       }
-    }
+    // }
     getTestQuestions();
   }, [pid]);
 
@@ -333,6 +450,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     const requestBody = {
       candidate_id: cid,
       question_answer: answers,
+      position_id: pid
     };
 
     try {
@@ -351,26 +469,12 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       console.log("value in test_req state:", test_req);
       console.log("test_req state = ", test_req === "true");
       console.log("a_ID:", a_id);
+
+      const rBody = {
+        position_id: pid,
+      };
+
       if (test_req === "true" && a_id) {
-        const rBody = {
-          position_id: pid,
-        };
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(rBody),
-            }
-          );
-          const data = await response.json();
-          console.log("data fetched after setting the candidate count:", data);
-        } catch (err) {
-          console.log("err:", err);
-        }
         if (assessmentId) {
           console.log(
             "Routing to coding exercise with assessment ID:",
@@ -386,19 +490,22 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         const rBody = {
           position_id: pid,
         };
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(rBody),
-            }
-          );
-          const data = await response.json();
-          console.log("data fetched after setting the candidate count:", data);
+        try { 
+          // if(response?.ok){
+          //   const response = await fetch(
+          //     `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`,
+          //     {
+          //       method: "POST",
+          //       headers: {
+          //         "Content-Type": "application/json",
+  
+          //       },
+          //       body: JSON.stringify(rBody),
+          //     }
+          //   );
+          //   const data = await response.json();
+          //   console.log("data fetched after setting the candidate count:", data);
+          // }
         } catch (err) {
           console.log("err:", err);
         }
@@ -416,10 +523,10 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
   const toggleComponent = async () => {
     setIsLoading(true);
-  
+
     try {
       if (isLastQuestion) return;
-  
+
       if (!isLastQuestion) {
         if (!recordingDone && recordedChunksRef.current.length === 0) {
           const silentBase64Wav =
@@ -449,7 +556,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             speakQuestion(newQuestions[currentQuestionIndex + 1]);
-            setIsFirstQues(false);  
+            setIsFirstQues(false);
             setIsLoading(false);
           }
         } else {
@@ -464,7 +571,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     } finally {
     }
   };
-  
+
 
   useEffect(() => {
     speakQuestion(currentQuestion);
@@ -684,8 +791,8 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
                 <span>
                   {isFirstQues
                     ? removeNumericPrefix(
-                        newQuestions[currentQuestion - 1]?.question
-                      )
+                      newQuestions[currentQuestion - 1]?.question
+                    )
                     : newQuestions[currentQuestion - 1]?.question}
                 </span>
               )}
