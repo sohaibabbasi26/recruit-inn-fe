@@ -64,7 +64,7 @@ const CodingExcersice = () => {
     // Check if user is logged in
     const testcomplete = localStorage.getItem("codingtestcompleted");
     if (testcomplete) {
-      router.push("/test-submit-completion");
+      router.push(`/test-submit-completion/${cid}`);
     }
   }, [router]);
 
