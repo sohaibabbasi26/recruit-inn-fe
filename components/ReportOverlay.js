@@ -1,10 +1,10 @@
-import styles from "./ReportOverlay.module.css";
-import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { format, isValid, parseISO } from "date-fns";
 import gsap from "gsap";
+import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
-import { format , parseISO  } from "date-fns";
+import styles from "./ReportOverlay.module.css";
 
 const isValidDate = (date) => {
   const parsedDate = Date.parse(date);
@@ -12,10 +12,6 @@ const isValidDate = (date) => {
 };
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
-  // const isValidDate = (date) => {
-  //   const parsedDate = Date.parse(date);
-  //   return !isNaN(parsedDate);
-  // };
   console.log("selected candidate is:", selectedCandidate);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
@@ -23,21 +19,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [error, setError] = useState(false);
-
-  // const [datee, setDatee] = useState();
-
-  // useEffect(() => {
-  //   const date = new Date(selectedCandidate?.date);
-  //   setDatee(date.toDateString());
-  // });
   const candidateDate = selectedCandidate?.date;
   const resultDate = results?.data?.createdAt;
 
-  const displayDate = isValidDate(candidateDate)
-  ? candidateDate
-  : isValidDate(resultDate)
-  ? resultDate
-  : null;
+  console.log("IIIDDD:", selectedCandidate?.candidate_id);
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -223,6 +208,20 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //   }
   // };
 
+  function formatDate(dateString) {
+    if (!dateString) {
+      return "Undefined or empty date";
+    }
+
+    const parsedDate = parseISO(dateString);
+    if (!isValid(parsedDate)) {
+      return "Unable to parse date";
+    }
+
+    const formattedDate = format(parsedDate, "MM/dd/yyyy");
+    return formattedDate;
+  }
+
   async function generatePDF() {
     console.log("generating pdf");
     if (contentRef.current) {
@@ -390,12 +389,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   )}
                   /10
                 </span>
-                {/* {
-                calculateCumulativeMean(
-                  selectedCandidate?.results?.technicalRating,
-                  selectedCandidate?.results?.softskillRating,
-                  codingResult?.data?.result?.technicalRating
-                )} / 10 */}
               </div>
             </div>
 
@@ -411,28 +404,26 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <li>
                     <span className={styles.bold}>Phone: </span>
                     <span>
-                      {selectedCandidate?.contactNo
-                        ? selectedCandidate?.contactNo
-                        : "03122597173"}
+                      {selectedCandidate?.contactNo ||
+                      selectedCandidate?.contact_no
+                        ? selectedCandidate?.contactNo ||
+                          selectedCandidate?.contact_no
+                        : "+92 333 3333333"}
                     </span>
                   </li>
                   <li>
                     <span className={styles.bold}>Date: </span>
-                    <span>
-                      {/* {format(new Date(2014, 1, 11), "EEE, yyyy-MM-dd")} */}
-                      
+                    {/* <span>
                       {selectedCandidate?.date || results?.data?.createdAt
-                        ? 
-                        // format(
-                          // displayDate
-                          selectedCandidate?.date || results?.data?.createdAt
-                            // new Date(
-                            //   selectedCandidate?.date ||
-                            //     results?.data?.createdAt
-                            // ),
-                            // "EEE, MMM dd yyyy"
-                          // )
+                        ? selectedCandidate?.date || results?.data?.createdAt
                         : selectedCandidate?.date || results?.data?.createdAt}
+                    </span> */}
+                    <span>
+                      {selectedCandidate?.date || results?.data?.createdAt
+                        ? selectedCandidate?.date ||
+                          formatDate(results?.data?.createdAt)
+                        : selectedCandidate?.date ||
+                          formatDate(results?.data?.createdAt)}
                     </span>
                   </li>
                   <li>
