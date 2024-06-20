@@ -2,6 +2,7 @@ import styles from "./Body.module.css";
 import Jobs from "./Jobs";
 
 const Body = ({
+  positionCandidates,
   setIsLoading,
   isLoading,
   data,
@@ -22,6 +23,7 @@ const Body = ({
     <>
       <div className={styles.body}>
         <Jobs
+          positionCandidates={positionCandidates}
           heading="Posted Jobs"
           data={data}
           setSelectedOverlay={setJobOverlay}

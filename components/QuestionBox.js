@@ -450,6 +450,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     const requestBody = {
       candidate_id: cid,
       question_answer: answers,
+      position_id: pid
     };
 
     try {
@@ -468,26 +469,12 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       console.log("value in test_req state:", test_req);
       console.log("test_req state = ", test_req === "true");
       console.log("a_ID:", a_id);
+
+      const rBody = {
+        position_id: pid,
+      };
+
       if (test_req === "true" && a_id) {
-        const rBody = {
-          position_id: pid,
-        };
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(rBody),
-            }
-          );
-          const data = await response.json();
-          console.log("data fetched after setting the candidate count:", data);
-        } catch (err) {
-          console.log("err:", err);
-        }
         if (assessmentId) {
           console.log(
             "Routing to coding exercise with assessment ID:",
@@ -503,19 +490,22 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         const rBody = {
           position_id: pid,
         };
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(rBody),
-            }
-          );
-          const data = await response.json();
-          console.log("data fetched after setting the candidate count:", data);
+        try { 
+          // if(response?.ok){
+          //   const response = await fetch(
+          //     `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-candidate-count`,
+          //     {
+          //       method: "POST",
+          //       headers: {
+          //         "Content-Type": "application/json",
+  
+          //       },
+          //       body: JSON.stringify(rBody),
+          //     }
+          //   );
+          //   const data = await response.json();
+          //   console.log("data fetched after setting the candidate count:", data);
+          // }
         } catch (err) {
           console.log("err:", err);
         }
