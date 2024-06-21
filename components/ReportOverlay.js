@@ -5,6 +5,7 @@ import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
 import styles from "./ReportOverlay.module.css";
+import ErrorIndicator from "./ErrorIndicator";
 
 const isValidDate = (date) => {
   const parsedDate = Date.parse(date);
@@ -227,15 +228,20 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     if (contentRef.current) {
       setIsPdfLoading(true);
       const content = contentRef.current.innerHTML;
+      console.log("Content:", content);
 
       try {
-        const response = await fetch(`/api/generate-pdf`, {
-          method: "POST", // Change method to POST
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ content }), // Send content in the request body
-        });
+        const response = await fetch(
+          // `/api/generate-pdf`,
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`,
+          {
+            method: "POST", // Change method to POST
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ content }), // Send content in the request body
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to generate PDF");
