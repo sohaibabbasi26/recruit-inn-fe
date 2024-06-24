@@ -64,7 +64,7 @@ const CodingExcersice = () => {
     // Check if user is logged in
     const testcomplete = localStorage.getItem("codingtestcompleted");
     if (testcomplete) {
-      router.push("/test-submit-completion");
+      router.push(`/test-submit-completion/${cid}`);
     }
   }, [router]);
 
@@ -89,9 +89,9 @@ const CodingExcersice = () => {
     );
 
     const data = await response.json();
+    router.push(`/test-submit-completion/${cid}`);
     console.log("response: ", data);
     setIsLoading(false);
-    router.push(`/test-submit-completion/${cid}`);
   }
 
   const formatTime = (timeLeft) => {

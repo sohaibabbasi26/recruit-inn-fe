@@ -4,7 +4,7 @@ import styles from './SuperComponent.module.css';
 import TopNavbar from './TopNavbar';
 import { useState } from 'react';
 
-const SuperComponent = ({selectedCandidate, companyId, setIsLoading,isLoading, data, candidateReps, jobOverlay, setJobOverlay, reportOverlay, selectedJob, setReportOverlay, setSelectedJob, setSelectedCandidate
+const SuperComponent = ({ positionCandidates, selectedCandidate, companyId, setIsLoading,isLoading, data, candidateReps, jobOverlay, setJobOverlay, reportOverlay, selectedJob, setReportOverlay, setSelectedJob, setSelectedCandidate
  }) => {
 
         // const [jobOverlayVisible, setJobOverlayVisible] = useState(false);
@@ -25,6 +25,7 @@ const SuperComponent = ({selectedCandidate, companyId, setIsLoading,isLoading, d
             <div className={styles.superContainer} >
                 <TopNavbar selectedCandidate={selectedCandidate} reportOverlay={reportOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} onJobSelect={showJobOverlay} onCandidateSelect={showCandidateOverlay} companyId={companyId} />
                 <Body
+                    positionCandidates={positionCandidates}
                     setIsLoading={setIsLoading}
                     isLoading
                     selectedCandidate={selectedCandidate}

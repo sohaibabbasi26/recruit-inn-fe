@@ -12,9 +12,18 @@ const CandidatesHub = ({
 }) => {
   console.log("data in candidates Hub:", data);
 
-  const sortData = [...data];
+  console.log(data[0]?.results);
+  console.log(data[0]?.score);
+
+  const sortData = data;
+  // const sortedData = sortData.sort(
+  //   (a, b) => parseFloat(b.score) - parseFloat(a.score)
+  // );
+
   const sortedData = sortData.sort(
-    (a, b) => parseFloat(b.score) - parseFloat(a.score)
+    (a, b) =>
+      (isNaN(parseFloat(b.score)) ? 0 : parseFloat(b.score)) -
+      (isNaN(parseFloat(a.score)) ? 0 : parseFloat(a.score))
   );
 
   const iconSize = 25;

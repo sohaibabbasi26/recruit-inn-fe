@@ -69,22 +69,12 @@ const Super = ({
         <div class="RightComponent_superContainer__1aFKs">
           <div class="RightComponent_masterContainer__Ad_ng">
             <div class="RightComponent_btnsDiv__jJavs">
-              {/* <button onClick={toggleOverlay}>
-                <Image
-                  src="/Add.svg"
-                  width={iconSize}
-                  height={iconSize}
-                  style={{ marginRight: "20px" }}
-                />{" "}
-                Create A Job
-              </button> */}
-
               <button
                 className={styles.RightComponent_addJobBtn__PGBvV}
                 onClick={toggleOverlay}
               >
                 <Image src="/Add.svg" width={iconSize} height={iconSize} />{" "}
-                create a job
+                Create a Job
               </button>
 
               {/* <button className={styles.notificationsBtn}>
@@ -182,7 +172,6 @@ const Super = ({
       )}
 
       {/* positionCandidates */}
-
     </div>
   );
 };

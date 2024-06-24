@@ -20,7 +20,7 @@ const getStatusSymbol = (status) => {
 
 const iconSize = 20;
 const statusSize = 10;
-function JobCard({ data: job = {}, onClick, isFor }) {
+function JobCard({ data: job = {}, onClick, isFor , positionCandidates}) {
   return (
     <div className={styles.jobCard} onClick={() => onClick(job)}>
       <div className={styles.heading_wrapper}>

@@ -301,6 +301,7 @@ const PersonalInfo = forwardRef(
                 />
                 <select
                   defaultValue="no-value"
+                  value={country}
                   onChange={(e) => setCountry(e.target.value)}
                 >
                   <option disabled value="no-value">
@@ -393,6 +394,7 @@ const PersonalInfo = forwardRef(
                 <Image src="/aim.svg" width={20} height={20} alt="Aim" />
                 <select
                   defaultValue="no-value"
+                  value={city}
                   onChange={(e) => setCity(e.target.value)}
                 >
                   <option disabled value="no-value">
@@ -405,9 +407,9 @@ const PersonalInfo = forwardRef(
                       </option>
                     ))}
                 </select>
-                {validationErrors?.country && (
+                {validationErrors?.city && (
                   <div className={styles.errorMessage}>
-                    {validationErrors.country}
+                    {validationErrors.city}
                   </div>
                 )}
               </div>

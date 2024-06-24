@@ -82,7 +82,7 @@ const Overlay = React.memo(
     const [city, setCity] = useState(null);
     const [country, setCountry] = useState(null);
     const [jobtype, setJobtype] = useState(null);
-    const [description, setDescription] = useState(null);
+    const [description, setDescription] = useState("");
     const [emailReceiver, setEmailReceiver] = useState(null);
     const [subject, setSubject] = useState(null);
     const [text, setText] = useState(null);
@@ -138,7 +138,8 @@ const Overlay = React.memo(
       setCity(cityRef?.current?.value);
       setCountry(countryRef?.current?.value);
       setJobtype(jobTypeRef?.current?.value);
-      setDescription(descriptionRef?.current?.value);
+      // we set this in TopContainer.js for it to work for now...
+      // setDescription(descriptionRef?.current?.value);
     }, [
       positionRef?.current?.value,
       expertiseRef?.current?.value,
@@ -165,17 +166,23 @@ const Overlay = React.memo(
 
     const validateJobType = () => {
       // Check each ref and value to ensure they are not null before accessing .trim()
-      const positionValid = positionRef.current && positionRef.current.value.trim() !== "";
+      const positionValid =
+        positionRef.current && positionRef.current.value.trim() !== "";
       const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
-      const countryValid = countryRef.current && countryRef.current.value.trim() !== "";
-      const jobTypeValid = jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
+      const countryValid =
+        countryRef.current && countryRef.current.value.trim() !== "";
+      const jobTypeValid =
+        jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
       const descriptionValid = description && description.trim() !== "";
-      
-      return positionValid && cityValid && countryValid && jobTypeValid && descriptionValid;
+
+      return (
+        positionValid &&
+        cityValid &&
+        countryValid &&
+        jobTypeValid &&
+        descriptionValid
+      );
     };
-    
-    
-    
 
     const toggleComponent = async () => {
       const skillsWithLevels = [
@@ -221,17 +228,15 @@ const Overlay = React.memo(
           break;
         case stages.JOB_TYPE:
           isValid = validateJobType();
-          if (!isValid){
+          if (!isValid) {
             setMessage("Please fill all the fields.");
             showError();
             return;
+          } else if (description.length > 3000) {
+            setMessage("Maximum 3000 words limit");
+            showError();
+            return;
           }
-           else if(description.length > 3000) {
-              setMessage("Maximum 3000 words limit");
-              showError();
-              return;
-           }
-
 
           setCurrentStage(stages.AI_ASSESSMENT);
           setMessage("Job has been created successfully!");

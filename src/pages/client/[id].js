@@ -238,6 +238,67 @@ export default function Home({
     }
   }, [positionCandidates]);
 
+// <<<<<<< HEAD
+  
+// const preprocessCandidatesData = (candidates, company) => {
+//   return candidates
+//     .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
+//     .map((candidate) => {
+//       let latestResult = {
+//         softskillRating: 0,
+//         technicalRating: 0,
+//         softskillAssessment: "",
+//         technicalAssessment: "",
+//         createdAt: null,
+//       };
+//       const sortedResults = candidate.results.sort(
+//         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+//       );
+//       latestResult = sortedResults[0].result || latestResult;
+//       latestResult.createdAt = sortedResults[0].createdAt;
+//       const score = (
+//         (latestResult.softskillRating + latestResult.technicalRating) / 2
+//       ).toFixed(1);
+//       const formattedDate = latestResult.createdAt
+//         ? new Date(latestResult.createdAt).toLocaleDateString()
+//         : "N/A";
+//       const expertiseList = candidate?.expertise?.map((exp) => ({
+//         skill: exp.skill,
+//         level: exp.level,
+//       }));
+//       const inferredPosition =
+//         candidate?.expertise?.length > 0
+//           ? candidate?.expertise[0]?.skill
+//           : "N/A"; // Inferred position from the first skill
+//       return {
+//         candidate_id: candidate.candidate_id,
+//         position: candidate.position,
+//         jobType: candidate.job_type,
+//         name: candidate.name,
+//         email: candidate.email,
+//         score: parseFloat(score),
+//         contactNo: candidate.contact_no,
+//         date: candidate?.createdAt,
+//         expertise: expertiseList,
+//         position: inferredPosition,
+//         overAllExperience: candidate.over_all_exp || "N/A",
+//         results: {
+//           softskillRating: latestResult.softskillRating,
+//           technicalRating: latestResult.technicalRating,
+//           softskillAssessment: latestResult.softskillAssessment,
+//           technicalAssessment: latestResult.technicalAssessment,
+//         },
+//         company: {
+//           name: company.company_name,
+//           location: company.company_location,
+//           email: company.email,
+//           contactNo: company.contact_no,
+//           status: company.status,
+//         },
+//       };
+//     });
+// };
+// =======
   const preprocessCandidatesData = (candidates, company) => {
     return candidates
       .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
@@ -297,6 +358,8 @@ export default function Home({
         };
       });
   };
+  
+  
 
   useEffect(() => {
     async function fetchClientInfo() {
@@ -483,6 +546,7 @@ export default function Home({
               reportOverlay={reportOverlay}
               setSelectedCandidate={setSelectedCandidate}
               setSelectedJob={setSelectedJob}
+              positionCandidates={positionCandidates}
             />
             <RightComponent
               preprocessedCandidates={preprocessedCandidates}
