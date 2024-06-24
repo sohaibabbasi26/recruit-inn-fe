@@ -4,7 +4,6 @@ import gsap from "gsap";
 import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
-import { format, parseISO } from "date-fns";
 import ErrorIndicator from "./ErrorIndicator";
 
 const isValidDate = (date) => {
