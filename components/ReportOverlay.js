@@ -4,11 +4,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
-<<<<<<< HEAD
 import { format, parseISO } from "date-fns";
-=======
-import styles from "./ReportOverlay.module.css";
->>>>>>> 4f77332c9f5e247da84cf963542f4c6746d182dd
 import ErrorIndicator from "./ErrorIndicator";
 
 const isValidDate = (date) => {
@@ -24,7 +20,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [error, setError] = useState(false);
-<<<<<<< HEAD
 
   // const [datee, setDatee] = useState();
 
@@ -41,11 +36,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     ? resultDate
     : null;
 
-=======
-  const candidateDate = selectedCandidate?.date;
-  const resultDate = results?.data?.createdAt;
-
->>>>>>> 4f77332c9f5e247da84cf963542f4c6746d182dd
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       setIsLoading(true);
@@ -77,16 +67,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     fetchCandidatesCodingResult();
   }, [selectedCandidate]);
 
-<<<<<<< HEAD
-=======
-  const showError = (message) => {
-    setError(true);
-    setTimeout(() => {
-      setError(false);
-    }, 3000);
-  };
-
->>>>>>> 4f77332c9f5e247da84cf963542f4c6746d182dd
   const calculateCumulativeMean = (val1, val2, val3) => {
     let total = 0;
     let count = 0;
