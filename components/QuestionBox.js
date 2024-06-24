@@ -533,16 +533,17 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
             "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
           setAnswers((prevAnswers) => {
             return prevAnswers.some(
-              (ans) => ans.question === newQuestions[currentQuestion - 1]?.question
+              (ans) =>
+                ans.question === newQuestions[currentQuestion - 1]?.question
             )
               ? prevAnswers
               : [
-                ...prevAnswers,
-                {
-                  question: newQuestions[currentQuestion - 1]?.question,
-                  answer: silentBase64Wav,
-                },
-              ];
+                  ...prevAnswers,
+                  {
+                    question: newQuestions[currentQuestion - 1]?.question,
+                    answer: silentBase64Wav,
+                  },
+                ];
           });
           console.log("No recording made, adding silent audio blob as answer.");
           showError("No answer was provided, moving on to next question.");
@@ -571,7 +572,6 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     } finally {
     }
   };
-
 
   useEffect(() => {
     speakQuestion(currentQuestion);

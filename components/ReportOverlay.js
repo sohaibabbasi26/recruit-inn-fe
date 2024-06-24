@@ -4,7 +4,11 @@ import gsap from "gsap";
 import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
+<<<<<<< HEAD
+import { format, parseISO } from "date-fns";
+=======
 import styles from "./ReportOverlay.module.css";
+>>>>>>> 4f77332c9f5e247da84cf963542f4c6746d182dd
 import ErrorIndicator from "./ErrorIndicator";
 
 const isValidDate = (date) => {
@@ -20,9 +24,28 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [error, setError] = useState(false);
+<<<<<<< HEAD
+
+  // const [datee, setDatee] = useState();
+
+  // useEffect(() => {
+  //   const date = new Date(selectedCandidate?.date);
+  //   setDatee(date.toDateString());
+  // });
   const candidateDate = selectedCandidate?.date;
   const resultDate = results?.data?.createdAt;
 
+  const displayDate = isValidDate(candidateDate)
+    ? candidateDate
+    : isValidDate(resultDate)
+    ? resultDate
+    : null;
+
+=======
+  const candidateDate = selectedCandidate?.date;
+  const resultDate = results?.data?.createdAt;
+
+>>>>>>> 4f77332c9f5e247da84cf963542f4c6746d182dd
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       setIsLoading(true);
@@ -54,6 +77,8 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     fetchCandidatesCodingResult();
   }, [selectedCandidate]);
 
+<<<<<<< HEAD
+=======
   const showError = (message) => {
     setError(true);
     setTimeout(() => {
@@ -61,6 +86,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     }, 3000);
   };
 
+>>>>>>> 4f77332c9f5e247da84cf963542f4c6746d182dd
   const calculateCumulativeMean = (val1, val2, val3) => {
     let total = 0;
     let count = 0;
@@ -162,7 +188,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //   console.log("Calling pdf download");
   //   if (contentRef.current) {
   //     const content = contentRef.current.innerHTML;
-  //     console.log("Content", content);
 
   //     try {
   //       const response = await fetch(
@@ -175,17 +200,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //           body: JSON.stringify({ content }),
   //         }
   //       );
-
   //       if (response.ok) {
-  //         console.log("res", response);
   //         const pdfBlob = await response.blob();
   //         const url = window.URL.createObjectURL(pdfBlob);
   //         const link = document.createElement("a");
   //         link.href = url;
-  //         // link.download = "overlay.pdf";
-  //         link.download = selectedCandidate
-  //           ? `${selectedCandidate.name}'s-report.pdf`
-  //           : "overlay.pdf";
+  //         link.download = "overlay.pdf";
   //         document.body.appendChild(link);
   //         link.click();
   //         document.body.removeChild(link);
@@ -197,29 +217,16 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //         console.error("Server response:", errorText);
   //       }
   //     } catch (error) {
-  //       console.error("Error generating PDF:", error);
-  //       showError();
-  //       console.log(error);
-  //       // Handle error
-  //     } finally {
-  //       setIsPdfLoading(false);
+  //       console.error("Error downloading PDF:", error);
   //     }
   //   }
   // };
-
-  function formatDate(dateString) {
-    if (!dateString) {
-      return "Undefined or empty date";
-    }
-
-    const parsedDate = parseISO(dateString);
-    if (!isValid(parsedDate)) {
-      return "Unable to parse date";
-    }
-
-    const formattedDate = format(parsedDate, "MM/dd/yyyy");
-    return formattedDate;
-  }
+  const showError = (message) => {
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
+  };
 
   async function generatePDF() {
     console.log("generating pdf");
@@ -227,7 +234,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       setIsPdfLoading(true);
       const content = contentRef.current.innerHTML;
       console.log("Content:", content);
-
       try {
         const response = await fetch(
           // `/api/generate-pdf`,
@@ -240,29 +246,22 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             body: JSON.stringify({ content }), // Send content in the request body
           }
         );
-
         if (!response.ok) {
           throw new Error("Failed to generate PDF");
         }
-
         // Assuming the response is a PDF file
         const pdfBlob = await response.blob();
-
         // Create a temporary anchor element
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(pdfBlob);
-
         // Set the download attribute with desired filename
         link.download = selectedCandidate
           ? `${selectedCandidate.name}'s-report.pdf`
           : "overlay.pdf";
-
         // Append the anchor element to the document body
         document.body.appendChild(link);
-
         // Trigger a click event on the anchor element
         link.click();
-
         // Remove the anchor element from the document body
         document.body.removeChild(link);
         setIsPdfLoading(false);
@@ -321,7 +320,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
             <Image src="/shut.svg" width={15} height={15} />
           </button>
         </div>
-
         <div
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
@@ -371,7 +369,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   />
                 </h4>
               </div>
-
               <div className={styles.rightContainer}>
                 <span
                   style={{
@@ -395,7 +392,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 </span>
               </div>
             </div>
-
             {/* candidate test info div */}
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
@@ -404,7 +400,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     <span className={styles.bold}>Name: </span>
                     <span>{selectedCandidate?.name}</span>
                   </li>
-
                   <li>
                     <span className={styles.bold}>Phone: </span>
                     <span>
@@ -451,7 +446,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   </li>
                 </ul>
               </div>
-
               {/*assessment components */}
               <div className={styles.cont}>
                 <div className={styles.auto}>
@@ -477,7 +471,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       results?.data?.result?.softskillRating
                     }
                   />
-
                   {isCodingAssessment && (
                     <>
                       <Assessment
@@ -505,7 +498,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 Back
               </button> */}
               <BackButton onClose={onClose}>Back</BackButton>
-
               {!isLoading && (
                 <button
                   className={styles.downloadButton}

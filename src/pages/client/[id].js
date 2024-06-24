@@ -204,33 +204,39 @@ export default function Home({
   const calculateCumulativeMean = (val1, val2) => {
     let total = 0;
     let count = 0;
-  
+
     if (val1) {
       total += Math.round(val1);
       count += 1;
     }
-  
+
     if (val2) {
       total += Math.round(val2);
       count += 1;
     }
-  
+
     if (count === 0) return 0;
-  
+
     return (total / count).toFixed(1);
   };
 
   useEffect(() => {
     try {
       if (positionCandidates && positionCandidates?.data) {
-        const candidates = preprocessCandidatesData(positionCandidates?.data, allCandidatesReports?.data);
+        const candidates = preprocessCandidatesData(
+          positionCandidates?.data,
+          allCandidatesReports?.data
+        );
         setPreprocessedPositionCands(candidates);
-        console.log('preprocessed candidates of a particular position:', candidates);
+        console.log(
+          "preprocessed candidates of a particular position:",
+          candidates
+        );
       }
     } catch (err) {
-      console.log('error in preprocessing:', err);
+      console.log("error in preprocessing:", err);
     }
-  }, [positionCandidates])
+  }, [positionCandidates]);
 
 // <<<<<<< HEAD
   
@@ -310,7 +316,8 @@ export default function Home({
         latestResult = sortedResults[0].result || latestResult;
         latestResult.createdAt = sortedResults[0].createdAt;
         const score = (
-          (latestResult.softskillRating + latestResult.technicalRating) / 2
+          (latestResult.softskillRating + latestResult.technicalRating) /
+          2
         ).toFixed(1);
         const formattedDate = latestResult.createdAt
           ? new Date(latestResult.createdAt).toLocaleDateString()
@@ -351,7 +358,6 @@ export default function Home({
         };
       });
   };
-// >>>>>>> 7cdaafbd79a00397a478d95e9181f3143d3b234c
   
   
 
@@ -394,33 +400,31 @@ export default function Home({
         allCandidatesReports.data
       );
       setPreprocessedCandidates(completedCandidates);
-  
-// <<<<<<< HEAD
-      const filterRecommended = (candidate) => {
-        const roundedScore = Math.round(parseFloat(candidate.score));
-        return roundedScore >= 7 && roundedScore <= 10;
-      };
-      const filterQualified = (candidate) => {
-        const roundedScore = Math.round(parseFloat(candidate.score));
-        return roundedScore >= 5 && roundedScore < 7;
-      };
-      const filterNotEligible = (candidate) => {
-        const roundedScore = Math.round(parseFloat(candidate.score));
-        return roundedScore < 5;
-      };
-// =======
-//       const filterRecommended = candidate => parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
-//       const filterQualified = candidate => parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
-//       const filterNotEligible = candidate => parseFloat(candidate.score) < 5;
-// >>>>>>> 7cdaafbd79a00397a478d95e9181f3143d3b234c
-  
+
+      const filterRecommended = (candidate) =>
+        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = (candidate) =>
+        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
+
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+
+      console.log(
+        "Recommended Candidates:",
+        completedCandidates.filter(filterRecommended)
+      );
+      console.log(
+        "Qualified Candidates:",
+        completedCandidates.filter(filterQualified)
+      );
+      console.log(
+        "Not Eligible Candidates:",
+        completedCandidates.filter(filterNotEligible)
+      );
     }
   }, [allCandidatesReports]);
-  
-  
 
   async function getCandidatesByPosition(position_id) {
     try {
@@ -435,32 +439,36 @@ export default function Home({
           body: JSON.stringify(reqBody),
         }
       );
-  
+
       const data = await response.json();
-      console.log('API response for candidates:', data);
-  
+      console.log("API response for candidates:", data);
+
       if (!data || !data.data) {
         console.log("Unexpected response format:", data);
         return;
       }
-  
-      const completedCandidates = preprocessCandidatesData(data.data, data.company);
+
+      const completedCandidates = preprocessCandidatesData(
+        data.data,
+        data.company
+      );
       setPositionCandidates(completedCandidates);
-  
-      const filterRecommended = candidate => parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
-      const filterQualified = candidate => parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
-      const filterNotEligible = candidate => parseFloat(candidate.score) < 5;
-  
+
+      const filterRecommended = (candidate) =>
+        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = (candidate) =>
+        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
+
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-  
-      console.log('Filtered candidates:', completedCandidates);
+
+      console.log("Filtered candidates:", completedCandidates);
     } catch (err) {
       console.log("Error fetching candidates:", err);
     }
   }
-  
 
   const { activeItem } = useActiveItem();
   const [showOverlay, setShowOverlay] = useState(false);
@@ -473,7 +481,6 @@ export default function Home({
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const { isTestRequired, setIsTestRequired } = useTestState();
-
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -596,7 +603,6 @@ export default function Home({
       case "All":
         return (
           <Super
-            
             setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
             companyId={id}
@@ -626,7 +632,6 @@ export default function Home({
         );
       case "Qualified":
         return (
-                
           <Super
             setJobOverlay={setJobOverlay}
             selectedCandidate={selectedCandidate}
@@ -721,7 +726,7 @@ export default function Home({
             selectedCandidate={selectedCandidate}
           />
         )}
-        
+
         {jobOverlay && (
           <JobOverlay
             getCandidatesByPosition={getCandidatesByPosition}
