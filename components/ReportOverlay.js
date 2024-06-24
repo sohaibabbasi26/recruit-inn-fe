@@ -5,6 +5,7 @@ import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
 import ErrorIndicator from "./ErrorIndicator";
+import styles from "./ReportOverlay.module.css";
 
 const isValidDate = (date) => {
   const parsedDate = Date.parse(date);
