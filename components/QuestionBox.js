@@ -416,26 +416,27 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
   const toggleComponent = async () => {
     setIsLoading(true);
-  
+
     try {
       if (isLastQuestion) return;
-  
+
       if (!isLastQuestion) {
         if (!recordingDone && recordedChunksRef.current.length === 0) {
           const silentBase64Wav =
             "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
           setAnswers((prevAnswers) => {
             return prevAnswers.some(
-              (ans) => ans.question === newQuestions[currentQuestion - 1]?.question
+              (ans) =>
+                ans.question === newQuestions[currentQuestion - 1]?.question
             )
               ? prevAnswers
               : [
-                ...prevAnswers,
-                {
-                  question: newQuestions[currentQuestion - 1]?.question,
-                  answer: silentBase64Wav,
-                },
-              ];
+                  ...prevAnswers,
+                  {
+                    question: newQuestions[currentQuestion - 1]?.question,
+                    answer: silentBase64Wav,
+                  },
+                ];
           });
           console.log("No recording made, adding silent audio blob as answer.");
           showError("No answer was provided, moving on to next question.");
@@ -449,7 +450,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             speakQuestion(newQuestions[currentQuestionIndex + 1]);
-            setIsFirstQues(false);  
+            setIsFirstQues(false);
             setIsLoading(false);
           }
         } else {
@@ -464,7 +465,6 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     } finally {
     }
   };
-  
 
   useEffect(() => {
     speakQuestion(currentQuestion);
