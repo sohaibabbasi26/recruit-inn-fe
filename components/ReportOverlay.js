@@ -5,6 +5,7 @@ import Image from "next/image";
 import Assessment from "./Assessment";
 import BackButton from "./BackButton";
 import ErrorIndicator from "./ErrorIndicator";
+import styles from "./ReportOverlay.module.css";
 
 const isValidDate = (date) => {
   const parsedDate = Date.parse(date);
@@ -397,11 +398,19 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                         : selectedCandidate?.date || results?.data?.createdAt}
                     </span> */}
                     <span>
+                      {/* {format(new Date(2014, 1, 11), "EEE, yyyy-MM-dd")} */}
+
                       {selectedCandidate?.date || results?.data?.createdAt
-                        ? selectedCandidate?.date ||
-                          formatDate(results?.data?.createdAt)
-                        : selectedCandidate?.date ||
-                          formatDate(results?.data?.createdAt)}
+                        ? // format(
+                          // displayDate
+                          selectedCandidate?.date || results?.data?.createdAt
+                        : // new Date(
+                          //   selectedCandidate?.date ||
+                          //     results?.data?.createdAt
+                          // ),
+                          // "EEE, MMM dd yyyy"
+                          // )
+                          selectedCandidate?.date || results?.data?.createdAt}
                     </span>
                   </li>
                   <li>
