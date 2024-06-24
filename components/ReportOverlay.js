@@ -23,8 +23,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const candidateDate = selectedCandidate?.date;
   const resultDate = results?.data?.createdAt;
 
-  console.log("IIIDDD:", selectedCandidate?.candidate_id);
-
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       setIsLoading(true);
