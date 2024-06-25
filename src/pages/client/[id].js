@@ -400,10 +400,13 @@ export default function Home({
       setPreprocessedCandidates(completedCandidates);
 
       const filterRecommended = (candidate) =>
-        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+        Math.round(parseFloat(candidate.score)) >= 7 &&
+        Math.round(parseFloat(candidate.score)) <= 10;
       const filterQualified = (candidate) =>
-        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
-      const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
+        Math.round(parseFloat(candidate.score)) >= 5 &&
+        Math.round(parseFloat(candidate.score)) < 7;
+      const filterNotEligible = (candidate) =>
+        Math.round(parseFloat(candidate.score)) < 5;
 
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
