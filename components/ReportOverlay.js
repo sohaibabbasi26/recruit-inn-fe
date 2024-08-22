@@ -104,9 +104,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   const paraTwo = `Welcome to HyperTech Solutions Unlimited, where we transcend the boundaries of reality to pioneer groundbreaking solutions in quantum software engineering. As a Quantum Code Wizard, you'll be part of a dynamic team of multidimensional thinkers who harness the power of quarks, warp drives, and a touch of magic to push the boundaries of technology.`;
 
   const getBackgroundColor = (score) => {
-    if (score >= 7 && score <= 10) {
+    const roundedScore = Math.round(score);
+    if (roundedScore >= 7 && roundedScore <= 10) {
       return "#E7FFE0";
-    } else if (score >= 5 && score < 7) {
+    } else if (roundedScore >= 5 && roundedScore < 7) {
       // Ensure the range is correct
       return "#F0F3FF";
     } else {
@@ -115,9 +116,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   };
 
   const getFilter = (score) => {
-    if (score >= 7 && score <= 10) {
+    const roundedScore = Math.round(score);
+
+    if (roundedScore >= 7 && roundedScore <= 10) {
       return "Recommended";
-    } else if (score >= 5 && score < 7) {
+    } else if (roundedScore >= 5 && roundedScore < 7) {
       // Ensure the range is correct
       return "Qualified";
     } else {
@@ -126,9 +129,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   };
 
   const getStatusSymbol = (score) => {
-    if (score >= 7 && score <= 10) {
+    const roundedScore = Math.round(score);
+
+    if (roundedScore >= 7 && roundedScore <= 10) {
       return "/activeStatus.svg";
-    } else if (score >= 5 && score < 7) {
+    } else if (roundedScore >= 5 && roundedScore < 7) {
       // Ensure the range is correct
       return "/qualified.svg";
     } else {

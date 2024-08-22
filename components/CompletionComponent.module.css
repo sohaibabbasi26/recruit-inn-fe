@@ -41,12 +41,43 @@
   background-color: transparent;
   border: none;
   padding: 1.5rem;
-  overflow-y: scroll;
+  overflow-y: visible;
   font-family: "Poppins", sans-serif;
 }
 
 .feedbackContainer textarea:focus {
   outline: none;
+}
+
+.feedbackContainer textarea::-webkit-scrollbar {
+  width: 7px;
+}
+.feedbackContainer textarea::-webkit-scrollbar-track {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 32px;
+  background-color: transparent;
+}
+
+.feedbackContainer textarea::-webkit-scrollbar-track:hover {
+  background-color: transparent;
+}
+
+.feedbackContainer textarea::-webkit-scrollbar-track:active {
+  background-color: transparent;
+}
+
+.feedbackContainer textarea::-webkit-scrollbar-thumb {
+  border-radius: 32px;
+  background-color: var(--color-text-light-grey);
+}
+
+.feedbackContainer textarea::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-light-grey);
+}
+
+.feedbackContainer textarea::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-text-light-grey);
 }
 
 .lowerContainer {
