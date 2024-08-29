@@ -747,7 +747,6 @@ const SelfOverlay = ({
                     setTestRequirement={setTestRequirement}
                     testRequirement={testRequirement}
                   />
-
                   <div className={styles.wrapper}>
                     <CandSelfSkillBtns
                       handleTestPreparation={handleTestPreparation}
