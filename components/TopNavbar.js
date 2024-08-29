@@ -106,9 +106,10 @@ const TopNavbar = ({
     );
   
     const fullCandidateData = await response.json();
+    console.log("///////////////////////////",fullCandidateData)
   
     // Set the fetched candidate data as the selected candidate
-    setSelectedCandidate({ ...candidate, results: fullCandidateData.data.result });
+    setSelectedCandidate({ ...candidate, results: fullCandidateData?.data?.result });
     console.log("HIIII FROM SEARCH");
     setReportOverlay(!reportOverlay);
   };
