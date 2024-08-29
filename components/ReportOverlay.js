@@ -18,6 +18,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     "selected candidate is this:",
     selectedCandidate?.results?.softskillRating
   );
+  console.log("//////////////////////////", selectedCandidate?.results);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
   const [results, setResults] = useState(false);
