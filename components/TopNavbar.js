@@ -104,16 +104,17 @@ const TopNavbar = ({
         body: JSON.stringify(requestBody),
       }
     );
-  
     const fullCandidateData = await response.json();
-    console.log("///////////////////////////",fullCandidateData)
-  
+    console.log("///////////////////////////", fullCandidateData);
+
     // Set the fetched candidate data as the selected candidate
-    setSelectedCandidate({ ...candidate, results: fullCandidateData?.data?.result });
+    setSelectedCandidate({
+      ...candidate,
+      results: fullCandidateData?.data?.result,
+    });
     console.log("HIIII FROM SEARCH");
     setReportOverlay(!reportOverlay);
   };
-  
 
   // result-by-cand-id
 
@@ -210,45 +211,45 @@ const TopNavbar = ({
           </div>
         </div>
         {searchResults && searchResults?.data && searchResults?.data?.data && (
-        <div className={styles.searchResults} ref={searchResultsRef}>
-          <ul>
-            {searchResults?.data?.data?.map((result) => (
-              <li
-                key={result?.position_id}
-                onClick={() => {
-                  console.log(
-                    "fetched result for selected candidate:",
-                    result
-                  );
-                  searchType === "Jobs"
-                    ? onJobSelect(result)
+          <div className={styles.searchResults} ref={searchResultsRef}>
+            <ul>
+              {searchResults?.data?.data?.map((result) => (
+                <li
+                  key={result?.position_id}
+                  onClick={() => {
+                    console.log(
+                      "fetched result for selected candidate:",
+                      result
+                    );
+                    searchType === "Jobs"
+                      ? onJobSelect(result)
+                      : searchType === "Candidates"
+                      ? cardClickHandler(result)
+                      : "";
+                    setSearchResults(null);
+                  }}
+                >
+                  {searchType === "Jobs"
+                    ? result?.position
                     : searchType === "Candidates"
-                    ? cardClickHandler(result)
-                    : "";
-                  setSearchResults(null);
-                }}
-              >
-                {searchType === "Jobs"
-                  ? result?.position
-                  : searchType === "Candidates"
-                  ? result?.name
-                  : ""}
-                {searchType === "Candidates" ? (
-                  <span>
-                    {" "}
-                    Tech stack:{" "}
-                    {result?.expertise
-                      ?.map((expertise) => expertise?.skill)
-                      .join(", ")}{" "}
-                  </span>
-                ) : (
-                  <></>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                    ? result?.name
+                    : ""}
+                  {searchType === "Candidates" ? (
+                    <span>
+                      {" "}
+                      Tech stack:{" "}
+                      {result?.expertise
+                        ?.map((expertise) => expertise?.skill)
+                        .join(", ")}{" "}
+                    </span>
+                  ) : (
+                    <></>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </>
   );

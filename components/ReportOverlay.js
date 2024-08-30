@@ -16,7 +16,11 @@ const isValidDate = (date) => {
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
-  console.log("//////////////////////////",selectedCandidate?.results);
+  console.log(
+    "selected candidate is this:",
+    selectedCandidate?.results?.softskillRating
+  );
+  console.log("//////////////////////////", selectedCandidate?.results);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
   const [results, setResults] = useState(false);
@@ -524,11 +528,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <Assessment
                     heading={headingTwo}
                     para={
-                      selectedCandidate?.results?.softskillAssessment.toString() ||
+                      selectedCandidate?.results?.softskillAssessment ||
                       results?.data?.result?.softskillAssessment
                     }
                     score={
-                      selectedCandidate?.results?.softskillRating  ||
+                      selectedCandidate?.results?.softskillRating.toString() ||
                       results?.data?.result?.softskillRating
                     }
                   />
