@@ -8,6 +8,7 @@ import ErrorIndicator from "./ErrorIndicator";
 import styles from "./ReportOverlay.module.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import generatePDF from "@/util/generatePDF";
 
 const isValidDate = (date) => {
   const parsedDate = Date.parse(date);
@@ -289,42 +290,42 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //   }
   // }
 
-  async function generatePDF() {
-    console.log("generating pdf");
-    if (contentRef.current) {
-      try {
-        setIsPdfLoading(true);
-        const pdf = new jsPDF('landscape', 'mm', 'a4');  // Use A4 size in millimeters
-        const contentWidth = 210;  // A4 page width in mm
-        const contentHeight = 297; // A4 page height in mm
+  // async function generatePDF() {
+  //   console.log("generating pdf");
+  //   if (contentRef.current) {
+  //     try {
+  //       setIsPdfLoading(true);
+  //       const pdf = new jsPDF('landscape', 'mm', 'a4');  // Use A4 size in millimeters
+  //       const contentWidth = 210;  // A4 page width in mm
+  //       const contentHeight = 297; // A4 page height in mm
         
-        // Use the actual DOM element and apply scaling
-        pdf.html(contentRef.current, {
-          callback: function (pdf) {
-            pdf.save(selectedCandidate ? `${selectedCandidate.name}'s-report.pdf` : 'overlay.pdf');
-          },
-          x: 10,  // Left margin
-          y: 10,  // Top margin
-          html2canvas: {
-            scale: 0.16  // Adjust the scale to fit the content on one page
-          },
-          width: contentWidth - 20,  // Set content width to fit within the page margins
-          windowWidth: contentRef.current.scrollWidth  // Use the scroll width of the content for scaling
-        });
+  //       // Use the actual DOM element and apply scaling
+  //       pdf.html(contentRef.current, {
+  //         callback: function (pdf) {
+  //           pdf.save(selectedCandidate ? `${selectedCandidate.name}'s-report.pdf` : 'overlay.pdf');
+  //         },
+  //         x: 10,  // Left margin
+  //         y: 10,  // Top margin
+  //         html2canvas: {
+  //           scale: 0.16  // Adjust the scale to fit the content on one page
+  //         },
+  //         width: contentWidth - 20,  // Set content width to fit within the page margins
+  //         windowWidth: contentRef.current.scrollWidth  // Use the scroll width of the content for scaling
+  //       });
   
-        setIsPdfLoading(false);
-      } catch (error) {
-        console.error("Error generating PDF:", error);
-        showError();
-        console.log(error);
-        // Handle error
-      } finally {
-        
-      }
-    }
-    setIsPdfLoading(false);
+  //       setIsPdfLoading(false);
+  //     } catch (error) {
+  //       console.error("Error generating PDF:", error);
+  //       showError();
+  //       console.log(error);
+  //       // Handle error
+  //     } finally {
+  //       setIsPdfLoading(false);
+  //     }
+  //   }
+  //   setIsPdfLoading(false);
 
-  }
+  // }
   
   
   
@@ -563,7 +564,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <button
                   className={styles.downloadButton}
                   // onClick={handleDownloadPdf}
-                  onClick={() => generatePDF()}
+                  onClick={() => generatePDF({
+                    setIsPdfLoading,
+                    contentRef,
+                    selectedCandidate
+                  })}
                   disabled={isPdfLoading}
                 >
                   {isPdfLoading ? "Downloading..." : "Download PDF"}
