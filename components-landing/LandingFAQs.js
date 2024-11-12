@@ -202,30 +202,6 @@ const LandingFAQs = () => {
                   </p>
                 )}
               </li>
-              {/* <li
-                onClick={toggleSixthDropDown}
-                className="py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
-              >
-                <div className=" w-[100%] flex justify-between">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    What technologies do recruitinn developers know?
-                  </span>
-                  <Image
-                    onClick={toggleSixthDropDown}
-                    src="/dropdown-white.svg"
-                    width={15}
-                    height={15}
-                  />
-                </div>
-                {sixthDropDownState && (
-                  <p className="text-sm  text-smallText mt-3">
-                    We help companies hire world-class engineers through our
-                    talent pool of vetted engineers, micro1 Talent, and our
-                    software development agency, microLab. We're also building
-                    gpt-vetting, an AI tool for vetting top talent.
-                  </p>
-                )}
-              </li> */}
             </ul>
           </div>
         </div>

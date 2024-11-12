@@ -26,7 +26,7 @@ const InvitationOverlay = ({
     console.log("data saved successfully");
     try {
       const savedFormData =
-        JSON.parse(localStorage.getItem("invitationFormData")) || {};
+      JSON.parse(localStorage.getItem("invitationFormData")) || {};
       console.log(savedFormData.name);
       nameRef.current.value = savedFormData.name || "";
       emailRef.current.value = savedFormData.email || "";

@@ -6,6 +6,7 @@ import Assessment from "./Assessment";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Average from "./Average";
+import generatePDF from "@/util/generatePDF";
 const SelfReportOverlay = ({
   candName,
   onClose,
@@ -24,6 +25,7 @@ const SelfReportOverlay = ({
   const infoSymbolSize = 10;
   console.log("selected candidate is:", selectedCandidate);
   const [codingResult, setCodingResult] = useState();
+  const [isPdfLoading,setIsPdfLoading]= useState(false);
   const [isCodingAssessment, setIsCodingAssessment] = useState();
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -317,7 +319,13 @@ const SelfReportOverlay = ({
               </button>
               <button
                 className={styles.downloadButton}
-                onClick={handleDownloadPdf}
+                onClick={() => generatePDF({
+                  setIsPdfLoading,
+                  contentRef,
+                  selectedCandidate: {
+                    name: candName
+                  }
+                })}
               >
                 Download PDF
                 <span>

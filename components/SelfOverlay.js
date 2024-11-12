@@ -434,7 +434,7 @@ const SelfOverlay = ({
       console.log("candidate:", data);
 
       if (data?.data?.data) {
-        setCandidateId(data.data.data.candidate_id || data.data.data.candidate_self_id);
+        setCandidateId(data.data.data.candidate_self_id);
         setCandidate(data.data.data);
         await sendEmail(email);
         setIsLoading(false);
@@ -454,6 +454,10 @@ const SelfOverlay = ({
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log("candidate id is : ", candidateId);
+  }, [candidateId]);
 
   useEffect(() => {
     console.log("current check if email present:,", checkIfEmailPresent);
@@ -608,6 +612,7 @@ const SelfOverlay = ({
             is_test_req: isTestRequired,
             candidate_id: candidateId,
           };
+          console.log("test required ? : ", isTestRequired);
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-cand-test-req`,
             {
@@ -742,7 +747,6 @@ const SelfOverlay = ({
                     setTestRequirement={setTestRequirement}
                     testRequirement={testRequirement}
                   />
-
                   <div className={styles.wrapper}>
                     <CandSelfSkillBtns
                       handleTestPreparation={handleTestPreparation}
