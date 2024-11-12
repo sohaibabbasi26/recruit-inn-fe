@@ -434,7 +434,7 @@ const SelfOverlay = ({
       console.log("candidate:", data);
 
       if (data?.data?.data) {
-        setCandidateId(data.data.data.candidate_id);
+        setCandidateId(data.data.data.candidate_id || data.data.data.candidate_self_id);
         setCandidate(data.data.data);
         await sendEmail(email);
         setIsLoading(false);
