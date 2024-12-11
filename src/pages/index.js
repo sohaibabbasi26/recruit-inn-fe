@@ -57,6 +57,20 @@ const LandingPage = () => {
           property="og:image"
           content="https://app.recruitinn.ai/og-image.png"
         />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta
+          property="og:image"
+          content="https://app.recruitinn.ai/og-image.png"
+        />
+
+        <meta
+          property="og:image:alt"
+          content="Recruitinn - AI-Powered Recruitment Platform"
+        />
+        <meta property="og:image:type" content="image/png" />
+
         <meta property="og:url" content="https://app.recruitinn.ai/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
