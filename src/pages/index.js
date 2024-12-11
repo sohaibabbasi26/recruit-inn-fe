@@ -55,10 +55,11 @@ const LandingPage = () => {
         />
         <meta
           property="og:image"
-          content="https://app.recruitinn.ai/public/hero2.png"
+          content="https://app.recruitinn.ai/og-image.png"
         />
         <meta property="og:url" content="https://app.recruitinn.ai/" />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon2.ico" />
       </Head>
 
