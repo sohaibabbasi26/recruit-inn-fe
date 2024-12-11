@@ -42,7 +42,7 @@ const LandingPage = () => {
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
         >
-          <h1>
+          <h1 className="hidden">
             Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
           </h1>
           <LandingNavbar
