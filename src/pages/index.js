@@ -53,7 +53,10 @@ const LandingPage = () => {
           property="og:description"
           content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
         />
-        <meta property="og:image" content="/hero2.png" />
+        <meta
+          property="og:image"
+          content="https://app.recruitinn.ai/public/hero2.png"
+        />
         <meta property="og:url" content="https://app.recruitinn.ai/" />
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon2.ico" />
