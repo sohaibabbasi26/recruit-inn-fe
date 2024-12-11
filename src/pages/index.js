@@ -67,7 +67,9 @@ const LandingPage = () => {
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
         >
-          <h1 className="hidden">Welcome Back, Fill below fields</h1>
+          <h1 className="hidden">
+            Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+          </h1>
           <LandingNavbar
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
