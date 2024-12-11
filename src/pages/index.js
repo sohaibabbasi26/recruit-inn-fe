@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components-landing/Footer";
@@ -11,7 +12,6 @@ import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
-
 import LandingFifth from "../../components-landing/LandingFifth";
 
 const LandingPage = () => {
@@ -19,6 +19,7 @@ const LandingPage = () => {
   const LandingThirdRef = useRef(null);
   const howItWorksRef = useRef(null);
   const PaymentMethodsRef = useRef(null);
+
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
 
@@ -35,6 +36,29 @@ const LandingPage = () => {
 
   return (
     <>
+      {/* Add SEO metadata */}
+      <Head>
+        <title>
+          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+        </title>
+        <meta
+          name="description"
+          content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+        />
+        <meta
+          property="og:title"
+          content="Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions"
+        />
+        <meta
+          property="og:description"
+          content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+        />
+        <meta property="og:image" content="/hero2.png" />
+        <meta property="og:url" content="https://app.recruitinn.ai/" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon2.ico" />
+      </Head>
+
       <ThemeProvider attribute="class" defaultTheme="light">
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
@@ -56,9 +80,10 @@ const LandingPage = () => {
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>
-          <div ref={PaymentMethodsRef}>
+          <div ref={PaymentMethodsRef} className="pt-4">
             <PaymentMethods />
           </div>
+
           <div ref={FAQRef}>
             <LandingFAQs />
           </div>
