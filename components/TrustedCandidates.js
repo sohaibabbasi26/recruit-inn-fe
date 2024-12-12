@@ -37,7 +37,7 @@ const TrustedCandidates = () => {
           <Image
             src="/company4.png"
             alt="client"
-            width={120}
+            width={130}
             height={80}
             className={styles.img}
           />
@@ -58,14 +58,14 @@ const TrustedCandidates = () => {
           <Image
             src="/company7.png"
             alt="client"
-            width={120}
+            width={140}
             height={80}
             className={styles.img}
           />
           <Image
             src="/company8.png"
             alt="client"
-            width={120}
+            width={150}
             height={80}
             className={styles.img}
           />

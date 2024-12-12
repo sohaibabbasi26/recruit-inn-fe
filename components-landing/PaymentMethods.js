@@ -15,7 +15,7 @@ export default function PaymentMethods() {
   return (
     <div className="w-[100%] h-[100%] flex flex-col items-center max-md:text-center">
       <div className="w-9/10 max-md:w-[90%] h-1/2 mb-4">
-        <h1 className="text-4xl font-bold text-center text-black dark:text-white mb-4">
+        <h1 className="text-4xl font-bold text-center text-black dark:text-white  mt-12 mb-4">
           Packages
         </h1>
         <p className="text-base text-gray-500 mb-8 max-lg:mb-4">
