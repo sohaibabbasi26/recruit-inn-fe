@@ -1,4 +1,5 @@
-import Head from "next/head";
+// import Head from "next/head";
+import { Head } from "next/document";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components-landing/Footer";

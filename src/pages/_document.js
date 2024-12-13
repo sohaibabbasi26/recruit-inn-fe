@@ -4,9 +4,9 @@ export default function Document() {
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
-        <title>
+        {/* <title>
           Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
-        </title>
+        </title> */}
         <meta
           name="description"
           content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
@@ -42,11 +42,8 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon2.ico" />
       </Head>
-      {/* <title>RecruitInn Ai</title> */}
-      {/* <meta
-        name="description"
-        content="Recruin in description here"
-      /> */}
+      {/* <title>RecruitInn Ai</title>
+      <meta name="description" content="Recruin in description here" /> */}
       <link rel="icon" href="/favicon2.ico" sizes="any" />
       <body>
         <Main />
