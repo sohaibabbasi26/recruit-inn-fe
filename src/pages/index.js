@@ -13,6 +13,7 @@ import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
+import Head from "next/head";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -36,10 +37,17 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* Add SEO metadata */}
+      <Head>
+        <title>
+          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+        </title>
+        <meta
+          name="description"
+          content="Discover how Recruitinn helps you find the best candidates with AI-powered recruitment tools. Learn about our free trial, billing, and unique features."
+        />
+      </Head>
 
       <ThemeProvider attribute="class" defaultTheme="light">
-        
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
         >
@@ -55,7 +63,7 @@ const LandingPage = () => {
           <div ref={HeroRef}>
             <HeroSection />
           </div>
-          
+
           <LandingVideo />
           <div ref={LandingThirdRef}>
             <LandingThird />
