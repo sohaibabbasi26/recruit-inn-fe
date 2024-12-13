@@ -6,11 +6,10 @@ import { useTheme } from "next-themes";
 const TechstackOne = () => {
   const { theme } = useTheme();
   const images = [
-   "/graphql.svg",
+    "/graphql.svg",
     "/c++.svg",
     "/reactjs.svg",
-    "/typeScript.svg",
-    
+    "/typescript.svg",
   ];
   const [currentImages, setCurrentImages] = useState(images);
   return (
@@ -38,36 +37,39 @@ const TechstackOne = () => {
           {/* Render each image twice for visual continuity in the loop */}
           {images.map((src, index) => (
             <div
-            className={`${styles.imageWrapper}  border-2 border-solid    ${
-              theme === "dark" ? "border-themePurple bg-smallDiv" : "border-themePurple bg-white"
-            }`}
-          >
-            <Image
-              key={index}
-              src={src}
-              alt="Tech Logo"
-              width={240}
-              height={240}
-              className={styles.img}
-            />
+              className={`${styles.imageWrapper}  border-2 border-solid    ${
+                theme === "dark"
+                  ? "border-themePurple bg-smallDiv"
+                  : "border-themePurple bg-white"
+              }`}
+            >
+              <Image
+                key={index}
+                src={src}
+                alt="Tech Logo"
+                width={240}
+                height={240}
+                className={styles.img}
+              />
             </div>
           ))}
           {images.map((src, index) => (
-              <div
+            <div
               className={`${styles.imageWrapper}  border-2 border-solid    ${
-                theme === "dark" ? "border-themePurple bg-smallDiv" : "border-themePurple bg-white"
+                theme === "dark"
+                  ? "border-themePurple bg-smallDiv"
+                  : "border-themePurple bg-white"
               }`}
             >
-             
-            <Image
-              key={`duplicate-${index}`}
-              src={src}
-              alt="Tech Logo"
-              width={240}
-              height={240}
-              className={styles.img}
-            />
-             </div>
+              <Image
+                key={`duplicate-${index}`}
+                src={src}
+                alt="Tech Logo"
+                width={240}
+                height={240}
+                className={styles.img}
+              />
+            </div>
           ))}
         </div>
       </div>
