@@ -32,7 +32,7 @@ const SelfOverlay = ({
   const expertiseRef = useRef();
   const countryRef = useRef();
   const cityRef = useRef();
-  const generatedCodeRef = useRef();
+  //const generatedCodeRef = useRef();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -100,6 +100,7 @@ const SelfOverlay = ({
   const [level1, setLevel1] = useState("");
   const [level2, setLevel2] = useState("");
   const [isLevelEntered, setIsLevelEntered] = useState();
+  const [otpId,setOtpId]= useState("")
   // const [testRequirement, setIsTestRequirement] = useState(false);
 
   const [testRequirement, setTestRequirement] = useState(false);
@@ -414,6 +415,8 @@ const SelfOverlay = ({
         country: country,
         applied_through: "Self",
         password: password,
+        otpId,
+        otp
       };
 
       console.log("Request body:", requestBody);
@@ -469,21 +472,21 @@ const SelfOverlay = ({
   }, [generatedCode]);
 
   async function sendEmail(email) {
-    const otpCode = generateRandomCode();
-    setGeneratedCode(otpCode);
-    console.log("otp:", otpCode);
+    // const otpCode = generateRandomCode();
+    // setGeneratedCode(otpCode);
+    // console.log("otp:", otpCode);
     try {
       const requestBody = {
         to: email,
-        subject: "RECRUITINN: Verify your account!",
-        text: `
-          Your verification code is : ${otpCode}
-        `,
+        // subject: "RECRUITINN: Verify your account!",
+        // text: `
+        //   Your verification code is : ${otpCode}
+        // `,
       };
       console.log("request body: ", requestBody);
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`,
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/send-otp`,
         {
           method: "POST",
           headers: {
@@ -495,6 +498,7 @@ const SelfOverlay = ({
 
       const data = await response.json();
       console.log("data in Self overlay:", data);
+      setOtpId(data?.data?.otp_id);
     } catch (err) {
       console.log("ERRROR:", err);
     }
@@ -502,9 +506,26 @@ const SelfOverlay = ({
 
   const verifyCode = async () => {
     const otpCode = otp;
-    console.log("generated code:", generatedCode);
-    console.log("entered otp code:", otpCode);
-    if (generatedCode === otpCode) {
+
+    const requestBody={
+      otp_id: otpId,
+      otp_code: otpCode
+    }
+    console.log(requestBody)
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REMOTE_URL}/verify-otp`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
+    const data = await response.json();
+
+    if (data?.data?.status===200) {
       console.log("here in verify code if block");
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
@@ -517,6 +538,23 @@ const SelfOverlay = ({
       setIsCodeInvalid(true);
       console.error("its invalid");
     }
+
+    // console.log("generated code:", generatedCode);
+    // console.log("entered otp code:", otpCode);
+
+    // if (generatedCode === otpCode) {
+    //   console.log("here in verify code if block");
+    //   setCurrentStage(stages.SKILLS);
+    //   setMessage("Success!");
+    //   showSuccess();
+    //   const result = await handlePersonalInfo();
+    //   console.log("result ====", result);
+    // } else {
+    //   setMessage("Invalid code entered, please try again");
+    //   showError();
+    //   setIsCodeInvalid(true);
+    //   console.error("its invalid");
+    // }
   };
 
   const handleSetExpertise = async () => {
