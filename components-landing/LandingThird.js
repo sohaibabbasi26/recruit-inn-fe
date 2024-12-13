@@ -6,8 +6,9 @@ import { useTheme } from "next-themes";
 // import './styles.css';
 import style from "./styles.module.css";
 import "tailwindcss/tailwind.css";
+import Image from "next/image";
 
-const   LandingThird = () => {
+const LandingThird = () => {
   const { theme } = useTheme();
   return (
     <>
@@ -17,22 +18,78 @@ const   LandingThird = () => {
             className={`${
               theme === "dark"
                 ? style["right-dv-gradient"]
-                : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40  "
-            } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center`}
+                : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
+            } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p  max-xl:h-[70vh] flex justify-center items-center relative">
-              {/* <CardDiv className='top-[10rem]  max-xl:left-0 bg-elementGradOne border-[1px] border-themePurple max-md:left-[0rem] max-md:right-[10rem] max-md:top-[8rem] right-[8rem]' hoverEffect={false} /> */}
-              {/* <CardDiv className='top-[3rem]  max-xl:right-0 bg-elementGradOne border-[1px] max-md:top-[10rem] max-md:left-[10rem] border-themePurple left-[16rem]' hoverEffect={true} /> */}
-              <CardDiv
-                className="     sm:left-[25%]  max-sm:w-[100%] sm:translate-x-[-25%] top-[25%] bg-white dark:bg-elementGradOne border-[1px] border-themePurple  "
-                hoverEffect={false}
-              />
-              <CardDiv
-                className="left-[50%] translate-x-[-25%] top-[10%] bg-white dark:bg-elementGradOne border-[1px]  border-themePurple max-sm:hidden  "
-                hoverEffect={true}
-              />
+            <div className="w-80p h-50p max-xl:h-[70vh] flex justify-center items-center relative">
+              <div className="relative flex items-center justify-center h-screen w-screen">
+                {/* Central Logo */}
+                <div className="absolute">
+                  <Image
+                    src="/recruitlogo.png"
+                    alt="Central Logo"
+                    width={50}
+                    height={50}
+                  />
+                </div>
+
+                {/* Dotted Circles */}
+                <div className="absolute w-[150px] h-[150px] border-dashed border-2 border-gray-300 rounded-full"></div>
+                <div className="absolute w-[250px] h-[250px] border-dashed border-2 border-gray-300 rounded-full"></div>
+                <div className="absolute w-[350px] h-[350px] border-dashed border-2 border-gray-300 rounded-full"></div>
+
+                {/* Avatars */}
+                <div className="absolute top-[33%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
+                  <Image
+                    src="/avatar1.png"
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="absolute top-[40%] left-[75%] transform -translate-x-1/2 -translate-y-1/2">
+                  <Image
+                    src="/avatar2.png"
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="absolute bottom-[50%] left-[35%] transform -translate-x-1/2 translate-y-1/2">
+                  <Image
+                    src="/avatar3.png"
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="absolute top-[55%] left-[65%] transform -translate-x-1/2 -translate-y-1/2">
+                  <Image
+                    src="/avatar4.png"
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="absolute top-[62%] right-[70%] transform -translate-x-1/2 -translate-y-1/2">
+                  <Image
+                    src="/avatar5.png"
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <div className="absolute top-[68%] right-[42%] transform -translate-x-1/2 -translate-y-1/2">
+                  <Image
+                    src="/avatar6.png"
+                    alt="Avatar"
+                    width={40}
+                    height={40}
+                  />
+                </div>
+              </div>
             </div>
- 
+
             <div className="w-80p h-50p flex flex-col justify-center">
               <span className="text-lightPurpleText font-semibold text-lg">
                 TALENTS
