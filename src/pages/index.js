@@ -1,5 +1,4 @@
 // import Head from "next/head";
-import { Head } from "next/document";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components-landing/Footer";
@@ -37,7 +36,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>
           Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
         </title>
@@ -45,7 +44,7 @@ const LandingPage = () => {
           name="description"
           content="Discover how Recruitinn helps you find the best candidates with AI-powered recruitment tools. Learn about our free trial, billing, and unique features."
         />
-      </Head>
+      </Head> */}
 
       <ThemeProvider attribute="class" defaultTheme="light">
         <main
