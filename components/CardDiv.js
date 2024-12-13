@@ -11,13 +11,13 @@ const CardDiv = ({ className }) => {
 
   return (
     <div
-      className={`border-[2px] border-lightPurpleText  bg-smallDiv w-[60%] max-sm:w-[80%]  max-sm:h-[45%] h-70p rounded-3xl text-white font-sans flex flex-col items-center max-md:justify-center justify-center absolute transition-transform ease-in-out duration-300 transform      ${className}`}
+      className={`border-[2px] border-lightPurpleText  bg-smallDiv w-[60%] max-sm:w-[100%]  max-sm:h-[45%] h-70p rounded-3xl text-white font-sans flex flex-col items-center max-md:justify-center justify-center absolute transition-transform ease-in-out duration-300 transform      ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
         zIndex: isHovered ? 30 : 10,
       }}
-    >1
+    >
       <Image
         className="max-sm:h-[1rem] max-xl:h-[2rem]"
         src="/Bitmoji.svg"

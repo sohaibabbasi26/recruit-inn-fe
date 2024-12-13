@@ -39,6 +39,7 @@ const LandingPage = () => {
       {/* Add SEO metadata */}
 
       <ThemeProvider attribute="class" defaultTheme="light">
+        
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
         >
@@ -54,6 +55,7 @@ const LandingPage = () => {
           <div ref={HeroRef}>
             <HeroSection />
           </div>
+          
           <LandingVideo />
           <div ref={LandingThirdRef}>
             <LandingThird />

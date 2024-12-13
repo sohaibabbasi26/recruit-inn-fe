@@ -4,10 +4,11 @@ import { useTheme } from "next-themes";
 const TechstackTwo = () => {
   const { theme } = useTheme();
   const images = [
-    "/rust.svg",
-    "/nextjs.svg",
+    "/rails.svg",
     "/swift.svg",
+    "/nextii.png",
     "/ruby.svg",
+    
     
    
   ];
