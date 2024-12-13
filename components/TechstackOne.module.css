@@ -1,20 +1,18 @@
 
 .img {
-    height: 100px;
+    height: 90px;
     margin: 0 20px;
     border-radius: 12px;
    
   }
   .imageWrapper {
-    height: 160px; /* Adjust as needed */
-    width: 160px; /* Adjust as needed */
+    height: 130px; /* Adjust as needed */
+    width: 130px; /* Adjust as needed */
     padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    border: 2px solid indigo;
-    background-color: white;
   }
   .logos {
     display: flex;

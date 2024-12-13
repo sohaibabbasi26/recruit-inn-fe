@@ -1,13 +1,16 @@
 import styles from "./TechstackOne.module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 const TechstackOne = () => {
+  const { theme } = useTheme();
   const images = [
    "/graphql.svg",
     "/c++.svg",
     "/reactjs.svg",
     "/TypeScript.svg",
+    
   ];
   const [currentImages, setCurrentImages] = useState(images);
   return (
@@ -15,7 +18,7 @@ const TechstackOne = () => {
       className={`container h-[50%] w-[100%]  rounded-lg mb-[0.5rem] flex justify-center`}
     >
       <div className={`${styles.logos} h-[16rem] w-80p flex justify-center `}>
-        <div className={`${styles["logos-slide"]} h-[100%] gap-10`}>
+        <div className={`${styles["logos-slide"]} h-[100%] gap-10  `}>
           {/* <Image src='/cplusplus.png' alt="client" width={1240} height={1240} className={styles.img} />
                     <Image src='/python.png' alt="client" width={240} height={240} className={styles.img} />
                     <Image src='/cplusplus.png' alt="client" width={240} height={240} className={styles.img} />
@@ -34,9 +37,11 @@ const TechstackOne = () => {
                     ))} */}
           {/* Render each image twice for visual continuity in the loop */}
           {images.map((src, index) => (
-             <div
-             className={`${styles.imageWrapper} bg-white `}
-             >
+            <div
+            className={`${styles.imageWrapper}  border-2 border-solid    ${
+              theme === "dark" ? "border-themePurple bg-smallDiv" : "border-themePurple bg-white"
+            }`}
+          >
             <Image
               key={index}
               src={src}
@@ -49,8 +54,11 @@ const TechstackOne = () => {
           ))}
           {images.map((src, index) => (
               <div
-              className={`${styles.imageWrapper} bg-white `}
-              >
+              className={`${styles.imageWrapper}  border-2 border-solid    ${
+                theme === "dark" ? "border-themePurple bg-smallDiv" : "border-themePurple bg-white"
+              }`}
+            >
+             
             <Image
               key={`duplicate-${index}`}
               src={src}

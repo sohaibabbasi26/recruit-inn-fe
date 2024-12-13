@@ -1,7 +1,8 @@
 import styles from "./TechstackTwo.module.css";
 import Image from "next/image";
-
+import { useTheme } from "next-themes";
 const TechstackTwo = () => {
+  const { theme } = useTheme();
   const images = [
     "/rust.svg",
     "/nextjs.svg",
@@ -31,9 +32,10 @@ const TechstackTwo = () => {
                     <Image src='/python.png' alt="client" width={240} height={240} className={styles.img} /> */}
 
           {images.map((src, index) => (
-            <div
-            className={`${styles.imageWrapper} bg-white `}
-           
+             <div
+             className={`${styles.imageWrapper}  border-2 border-solid    ${
+               theme === "dark" ? "border-themePurple bg-smallDiv" : "border-themePurple bg-white"
+             }`}
             >
             <Image
              key={index}
@@ -47,8 +49,10 @@ const TechstackTwo = () => {
           ))}
           {images.map((src, index) => (
              <div
-                className={`${styles.imageWrapper} bg-white `}
-                >
+             className={`${styles.imageWrapper}  border-2 border-solid    ${
+               theme === "dark" ? "border-themePurple bg-smallDiv" : "border-themePurple bg-white"
+             }`}
+            >
             <Image
               key={`duplicate-${index}`}
               src={src}

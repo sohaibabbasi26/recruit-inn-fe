@@ -17,7 +17,7 @@ const CardDiv = ({ className }) => {
       style={{
         zIndex: isHovered ? 30 : 10,
       }}
-    >
+    >1
       <Image
         className="max-sm:h-[1rem] max-xl:h-[2rem]"
         src="/Bitmoji.svg"
