@@ -13,7 +13,6 @@ import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
-import Head from "next/head";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
