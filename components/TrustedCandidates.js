@@ -14,84 +14,70 @@ const TrustedCandidates = () => {
       <div className={styles.logos}>
         <div className={styles["logos-slide"]}>
           <Image
-            src={theme === "dark" ? "/companyOne.svg" : "/companyOneDark.svg"}
+            src="/company1.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyTwo.svg" : "/companyTwoDark.svg"}
+            src="/company2.png"
+            alt="client"
+            width={120}
+            height={80}
+            className={styles.img}
+          />
+          {/* <Image
+            // src="/company3.png"
+            alt="client"
+            width={120}
+            height={80}
+            className={styles.img}
+          /> */}
+          <Image
+            src="/company4.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyOne.svg" : "/companyOneDark.svg"}
+            src="/company5.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyTwo.svg" : "/companyTwoDark.svg"}
+            src="/company6.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyOne.svg" : "/companyOneDark.svg"}
+            src="/company7.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyTwo.svg" : "/companyTwoDark.svg"}
+            src="/company8.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyOne.svg" : "/companyOneDark.svg"}
+            src="/company9.png"
             alt="client"
             width={120}
             height={80}
             className={styles.img}
           />
           <Image
-            src={theme === "dark" ? "/companyTwo.svg" : "/companyTwoDark.svg"}
-            alt="client"
-            width={120}
-            height={80}
-            className={styles.img}
-          />
-          <Image
-            src={theme === "dark" ? "/companyOne.svg" : "/companyOneDark.svg"}
-            alt="client"
-            width={120}
-            height={80}
-            className={styles.img}
-          />
-          <Image
-            src={theme === "dark" ? "/companyTwo.svg" : "/companyTwoDark.svg"}
-            alt="client"
-            width={120}
-            height={80}
-            className={styles.img}
-          />
-          <Image
-            src={theme === "dark" ? "/companyOne.svg" : "/companyOneDark.svg"}
-            alt="client"
-            width={120}
-            height={80}
-            className={styles.img}
-          />
-          <Image
-            src={theme === "dark" ? "/companyTwo.svg" : "/companyTwoDark.svg"}
+            src="/company10.png"
             alt="client"
             width={120}
             height={80}
