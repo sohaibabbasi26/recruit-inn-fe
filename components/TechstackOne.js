@@ -9,7 +9,7 @@ const TechstackOne = () => {
    "/graphql.svg",
     "/c++.svg",
     "/reactjs.svg",
-    "/TypeScript.svg",
+    "/typeScript.svg",
     
   ];
   const [currentImages, setCurrentImages] = useState(images);
