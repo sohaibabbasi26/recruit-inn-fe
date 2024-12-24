@@ -1,3 +1,4 @@
+// import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components-landing/Footer";
@@ -11,7 +12,6 @@ import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
-
 import LandingFifth from "../../components-landing/LandingFifth";
 
 const LandingPage = () => {
@@ -19,6 +19,7 @@ const LandingPage = () => {
   const LandingThirdRef = useRef(null);
   const howItWorksRef = useRef(null);
   const PaymentMethodsRef = useRef(null);
+
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
 
@@ -35,10 +36,23 @@ const LandingPage = () => {
 
   return (
     <>
+      {/* <Head>
+        <title>
+          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+        </title>
+        <meta
+          name="description"
+          content="Discover how Recruitinn helps you find the best candidates with AI-powered recruitment tools. Learn about our free trial, billing, and unique features."
+        />
+      </Head> */}
+
       <ThemeProvider attribute="class" defaultTheme="light">
         <main
           className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
         >
+          <h1 className="hidden">
+            Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+          </h1>
           <LandingNavbar
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
@@ -48,6 +62,7 @@ const LandingPage = () => {
           <div ref={HeroRef}>
             <HeroSection />
           </div>
+
           <LandingVideo />
           <div ref={LandingThirdRef}>
             <LandingThird />
@@ -56,9 +71,10 @@ const LandingPage = () => {
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>
-          <div ref={PaymentMethodsRef}>
+          <div ref={PaymentMethodsRef} className="pt-4">
             <PaymentMethods />
           </div>
+
           <div ref={FAQRef}>
             <LandingFAQs />
           </div>

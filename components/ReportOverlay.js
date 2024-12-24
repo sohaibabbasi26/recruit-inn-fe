@@ -6,6 +6,9 @@ import Assessment from "./Assessment";
 import BackButton from "./BackButton";
 import ErrorIndicator from "./ErrorIndicator";
 import styles from "./ReportOverlay.module.css";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import generatePDF from "@/util/generatePDF";
 
 const isValidDate = (date) => {
   const parsedDate = Date.parse(date);
@@ -14,6 +17,11 @@ const isValidDate = (date) => {
 
 const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   console.log("selected candidate is:", selectedCandidate);
+  console.log(
+    "selected candidate is this:",
+    selectedCandidate?.results?.softskillRating
+  );
+  console.log("//////////////////////////", selectedCandidate?.results);
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
   const [results, setResults] = useState(false);
@@ -213,53 +221,118 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     }, 3000);
   };
 
-  async function generatePDF() {
-    console.log("generating pdf");
-    if (contentRef.current) {
-      setIsPdfLoading(true);
-      const content = contentRef.current.innerHTML;
-      console.log("Content:", content);
-      try {
-        const response = await fetch(
-          // `/api/generate-pdf`,
-          `${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`,
-          {
-            method: "POST", // Change method to POST
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ content }), // Send content in the request body
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to generate PDF");
-        }
-        // Assuming the response is a PDF file
-        const pdfBlob = await response.blob();
-        // Create a temporary anchor element
-        const link = document.createElement("a");
-        link.href = window.URL.createObjectURL(pdfBlob);
-        // Set the download attribute with desired filename
-        link.download = selectedCandidate
-          ? `${selectedCandidate.name}'s-report.pdf`
-          : "overlay.pdf";
-        // Append the anchor element to the document body
-        document.body.appendChild(link);
-        // Trigger a click event on the anchor element
-        link.click();
-        // Remove the anchor element from the document body
-        document.body.removeChild(link);
-        setIsPdfLoading(false);
-      } catch (error) {
-        console.error("Error generating PDF:", error);
-        showError();
-        console.log(error);
-        // Handle error
-      } finally {
-        setIsPdfLoading(false);
-      }
-    }
-  }
+  // async function getPDFprinted(){
+  //   try{
+  //     const response = await fetch (`http://api.screenshotlayer.com/api/capture?access_key=15a203bb25ab19766195cc09ef37f675&url=https://app.recruitinn.ai/client/fc0fb150-f118-4716-8a3f-7ea3ae99cd6b&`)
+  //   } catch (err) {
+
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   try{
+
+  //   }
+  // })
+
+  // async function generatePDF() {
+  //   console.log("generating pdf");
+  //   if (contentRef.current) {
+  //     setIsPdfLoading(true);
+  //     const content = contentRef.current.innerHTML;
+  //     console.log("Content:", content);
+  //     try {
+  //       // const response = await fetch(
+  //       //   // `/api/generate-pdf`,
+  //       //   `${process.env.NEXT_PUBLIC_REMOTE_URL}/downloadpdf`,
+  //       //   {
+  //       //     method: "POST", // Change method to POST
+  //       //     headers: {
+  //       //       "Content-Type": "application/json",
+  //       //     },
+  //       //     body: JSON.stringify({ content }), // Send content in the request body
+  //       //   }
+  //       // );
+  //       // if (!response.ok) {
+  //       //   throw new Error("Failed to generate PDF");
+  //       // }
+  //       // // Assuming the response is a PDF file
+  //       // const pdfBlob = await response.blob();
+  //       // // Create a temporary anchor element
+  //       // const link = document.createElement("a");
+  //       // link.href = window.URL.createObjectURL(pdfBlob);
+  //       // // Set the download attribute with desired filename
+  //       // link.download = selectedCandidate
+  //       //   ? `${selectedCandidate.name}'s-report.pdf`
+  //       //   : "overlay.pdf";
+  //       // // Append the anchor element to the document body
+  //       // document.body.appendChild(link);
+  //       // // Trigger a click event on the anchor element
+  //       // link.click();
+  //       // // Remove the anchor element from the document body
+  //       // document.body.removeChild(link);
+
+
+
+  //       //my code
+  //       html2canvas(contentRef.current).then(canvas => {
+  //         const imgData = canvas.toDataURL('image/png');
+  //         const pdf = new jsPDF('portrait');
+  //         pdf.html(content)
+  //         //pdf.add(imgData, 'PNG', 0, 0, 297, 210); // Adjust width and height for landscape
+  //         pdf.save(`${selectedCandidate.name}'s-report.pdf`);
+  //       });
+  //       setIsPdfLoading(false);
+  //     } catch (error) {
+  //       console.error("Error generating PDF:", error);
+  //       showError();
+  //       console.log(error);
+  //       // Handle error
+  //     } finally {
+  //       setIsPdfLoading(false);
+  //     }
+  //   }
+  // }
+
+  // async function generatePDF() {
+  //   console.log("generating pdf");
+  //   if (contentRef.current) {
+  //     try {
+  //       setIsPdfLoading(true);
+  //       const pdf = new jsPDF('landscape', 'mm', 'a4');  // Use A4 size in millimeters
+  //       const contentWidth = 210;  // A4 page width in mm
+  //       const contentHeight = 297; // A4 page height in mm
+        
+  //       // Use the actual DOM element and apply scaling
+  //       pdf.html(contentRef.current, {
+  //         callback: function (pdf) {
+  //           pdf.save(selectedCandidate ? `${selectedCandidate.name}'s-report.pdf` : 'overlay.pdf');
+  //         },
+  //         x: 10,  // Left margin
+  //         y: 10,  // Top margin
+  //         html2canvas: {
+  //           scale: 0.16  // Adjust the scale to fit the content on one page
+  //         },
+  //         width: contentWidth - 20,  // Set content width to fit within the page margins
+  //         windowWidth: contentRef.current.scrollWidth  // Use the scroll width of the content for scaling
+  //       });
+  
+  //       setIsPdfLoading(false);
+  //     } catch (error) {
+  //       console.error("Error generating PDF:", error);
+  //       showError();
+  //       console.log(error);
+  //       // Handle error
+  //     } finally {
+  //       setIsPdfLoading(false);
+  //     }
+  //   }
+  //   setIsPdfLoading(false);
+
+  // }
+  
+  
+  
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -449,7 +522,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       results?.data?.result?.technicalAssessment
                     }
                     score={
-                      selectedCandidate?.results?.technicalRating ||
+                      selectedCandidate?.results?.technicalRating.toString() ||
                       results?.data?.result?.technicalRating
                     }
                   />
@@ -460,7 +533,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                       results?.data?.result?.softskillAssessment
                     }
                     score={
-                      selectedCandidate?.results?.softskillRating ||
+                      selectedCandidate?.results?.softskillRating.toString() ||
                       results?.data?.result?.softskillRating
                     }
                   />
@@ -495,7 +568,11 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <button
                   className={styles.downloadButton}
                   // onClick={handleDownloadPdf}
-                  onClick={() => generatePDF()}
+                  onClick={() => generatePDF({
+                    setIsPdfLoading,
+                    contentRef,
+                    selectedCandidate
+                  })}
                   disabled={isPdfLoading}
                 >
                   {isPdfLoading ? "Downloading..." : "Download PDF"}
