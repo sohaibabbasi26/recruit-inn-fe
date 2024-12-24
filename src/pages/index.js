@@ -1,6 +1,7 @@
 // import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
+import FeaturesSection from "../../components-landing/FeaturesSection";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
 import HowItWorks from "../../components-landing/HowItWorks";
@@ -8,12 +9,9 @@ import LandingFAQs from "../../components-landing/LandingFAQs";
 import LandingFourth from "../../components-landing/LandingFourth";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
-import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
-import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
-import LandingFifth from "../../components-landing/LandingFifth";
-import TestimonialsSection from "../../components-landing/TestimonialsSection";
+import LandingVideo from "../../components/LandingVideo";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -72,6 +70,10 @@ const LandingPage = () => {
             <LandingThird />
           </div>
           <LandingFourth />
+          {/* Features */}
+          <div ref={featuresRef}>
+            <FeaturesSection />
+          </div>
           <div ref={featuresRef}>
             <HowItWorks />
           </div>
