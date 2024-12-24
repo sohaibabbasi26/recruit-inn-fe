@@ -24,10 +24,10 @@ const LandingNavbar = ({
               <div className="flex w-50p gap-20 items-center">
                 <h2
                   onClick={() => scrollToRef(HeroRef)}
-                  className="max-lg:text-sm max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer"
+                  className="max-lg:text-sm  items-center justify-center max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer"
                 >
                   <Image src="/logo (3).png" height={30} width={30} />
-                  recruitinn.ai
+                  Recruitinn.ai
                 </h2>
 
                 <ul className="flex text-steel dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
