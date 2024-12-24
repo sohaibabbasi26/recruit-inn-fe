@@ -71,6 +71,7 @@ const LandingPage = () => {
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>
+
           <div ref={PaymentMethodsRef} className="pt-4">
             <PaymentMethods />
           </div>
