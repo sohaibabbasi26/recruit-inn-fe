@@ -1,12 +1,14 @@
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
+import Logo from "../components/Logo";
 import styles from "./LandingNavbar.module.css";
 import ThemeSwitch from "./ThemeSwitch";
-import Logo from "../components/Logo";
 
 const LandingNavbar = ({
   scrollToRef,
-  howItWorksRef,
+  featuresRef,
+  pricingRef,
+  testimonialsRef,
   LandingThirdRef,
   HeroRef,
 }) => {
@@ -30,16 +32,22 @@ const LandingNavbar = ({
 
                 <ul className="flex text-steel dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
                   <li
-                    onClick={() => scrollToRef(howItWorksRef)}
+                    onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    How It Works
+                    Features
                   </li>
                   <li
-                    onClick={() => scrollToRef(LandingThirdRef)}
+                    onClick={() => scrollToRef(pricingRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    About Us
+                    Pricing
+                  </li>
+                  <li
+                    onClick={() => scrollToRef(testimonialsRef)}
+                    className="text-md font-semibold max-xl:text-sm cursor-pointer "
+                  >
+                    Testimonials
                   </li>
                 </ul>
               </div>
@@ -178,16 +186,22 @@ const LandingNavbar = ({
 
                 <ul className="flex flex-col items-center gap-4">
                   <li
-                    onClick={() => scrollToRef(howItWorksRef)}
+                    onClick={() => scrollToRef(featuresRef)}
                     className="text-sm font-semibold    p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    How It Works
+                    Features
                   </li>
                   <li
-                    onClick={() => scrollToRef(LandingThirdRef)}
+                    onClick={() => scrollToRef(pricingRef)}
                     className="text-sm font-semibold p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    About Us
+                    Pricing
+                  </li>
+                  <li
+                    onClick={() => scrollToRef(testimonialsRef)}
+                    className="text-sm font-semibold p-2 max-lg:border-b max-lg:border-darkPurple"
+                  >
+                    Testimonials
                   </li>
                 </ul>
               </div>

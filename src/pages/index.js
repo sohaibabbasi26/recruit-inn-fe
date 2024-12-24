@@ -13,12 +13,14 @@ import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
+import TestimonialsSection from "../../components-landing/TestimonialsSection";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
   const LandingThirdRef = useRef(null);
-  const howItWorksRef = useRef(null);
-  const PaymentMethodsRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const featuresRef = useRef(null);
+  const pricingRef = useRef(null);
 
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
@@ -56,8 +58,10 @@ const LandingPage = () => {
           <LandingNavbar
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
+            pricingRef={pricingRef}
             LandingThirdRef={LandingThirdRef}
-            howItWorksRef={howItWorksRef}
+            testimonialsRef={testimonialsRef}
+            featuresRef={featuresRef}
           />
           <div ref={HeroRef}>
             <HeroSection />
@@ -68,10 +72,13 @@ const LandingPage = () => {
             <LandingThird />
           </div>
           <LandingFourth />
-          <div ref={howItWorksRef}>
+          <div ref={featuresRef}>
             <HowItWorks />
           </div>
-          <div ref={PaymentMethodsRef} className="pt-4">
+          <div ref={testimonialsRef}>
+            <TestimonialsSection />
+          </div>
+          <div ref={pricingRef} className="pt-4">
             <PaymentMethods />
           </div>
 
@@ -82,8 +89,8 @@ const LandingPage = () => {
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
             FAQRef={FAQRef}
-            howItWorksRef={howItWorksRef}
-            PaymentMethodsRef={PaymentMethodsRef}
+            featuresRef={featuresRef}
+            pricingRef={pricingRef}
           />
         </main>
       </ThemeProvider>

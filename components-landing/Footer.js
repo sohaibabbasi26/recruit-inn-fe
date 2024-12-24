@@ -10,7 +10,7 @@ import { useTheme } from "next-themes";
 
 const Footer = ({
   scrollToRef,
-  PaymentMethodsRef,
+  pricingRef,
   howItWorksRef,
   FAQRef,
   HeroRef,
@@ -35,7 +35,7 @@ const Footer = ({
             </p>
             <div className=" max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center text-gray-500 text-sm font-light leading-5 py-4">
               <p
-                onClick={() => scrollToRef(PaymentMethodsRef)}
+                onClick={() => scrollToRef(pricingRef)}
                 className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
               >
                 Packages
