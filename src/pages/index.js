@@ -1,6 +1,7 @@
 // import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
+import FeaturesSection from "../../components-landing/FeaturesSection";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
 import HowItWorks from "../../components-landing/HowItWorks";
@@ -8,17 +9,18 @@ import LandingFAQs from "../../components-landing/LandingFAQs";
 import LandingFourth from "../../components-landing/LandingFourth";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
-import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
-import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
+import Testimonials from "../../components-landing/Testimonials";
+import LandingVideo from "../../components/LandingVideo";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
   const LandingThirdRef = useRef(null);
-  const howItWorksRef = useRef(null);
-  const PaymentMethodsRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const featuresRef = useRef(null);
+  const pricingRef = useRef(null);
 
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
@@ -56,8 +58,10 @@ const LandingPage = () => {
           <LandingNavbar
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
+            pricingRef={pricingRef}
             LandingThirdRef={LandingThirdRef}
-            howItWorksRef={howItWorksRef}
+            testimonialsRef={testimonialsRef}
+            featuresRef={featuresRef}
           />
           <div ref={HeroRef}>
             <HeroSection />
@@ -68,10 +72,17 @@ const LandingPage = () => {
             <LandingThird />
           </div>
           <LandingFourth />
-          <div ref={howItWorksRef}>
-            <HowItWorks />
+          {/* Features */}
+          <div ref={featuresRef}>
+            <FeaturesSection />
           </div>
-          <div ref={PaymentMethodsRef} className="pt-4">
+          {/* <div ref={featuresRef}>
+            <HowItWorks />
+          </div> */}
+          <div>
+            <Testimonials />
+          </div>
+          <div ref={pricingRef} className="pt-4">
             <PaymentMethods />
           </div>
 
@@ -82,8 +93,9 @@ const LandingPage = () => {
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
             FAQRef={FAQRef}
-            howItWorksRef={howItWorksRef}
-            PaymentMethodsRef={PaymentMethodsRef}
+            featuresRef={featuresRef}
+            pricingRef={pricingRef}
+            howItWorksRef={featuresRef}
           />
         </main>
       </ThemeProvider>
