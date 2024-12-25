@@ -177,7 +177,36 @@ const content = [
 
 function FeaturesSection() {
   const [current, setCurrent] = useState(0);
+  const [isHeadingsVisible, setIsHeadingsVisible] = useState(false);
+  const headingsRef = useRef(null);
   const featuresRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeadingsVisible(entry?.isIntersecting);
+        // setIsHeadingsVisible(true);
+      },
+      {
+        root: null,
+        // rootMargin: "-30% 0px -30%", // Focus observer area around the middle of the screen
+        rootMargin: "0px",
+        // threshold: 0.5, // Trigger when the element is 49%, 50%, or 51% visible
+        threshold: 1,
+      }
+    );
+
+    if (headingsRef.current) {
+      observer.observe(headingsRef.current);
+    }
+
+    // Clean up the observer
+    return () => {
+      if (headingsRef.current) {
+        observer.unobserve(headingsRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -217,8 +246,13 @@ function FeaturesSection() {
           <br /> to meet your needs and exceed your expectations
         </p>
       </div>
-      <div className="w-90p max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]">
-        <div className="titles pb-12">
+      <div className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]">
+        <div
+          className={`${
+            isHeadingsVisible && "sticky inset-0 bg-red-500"
+          } titles h-max`}
+          ref={headingsRef}
+        >
           {content.map((c, i) => (
             <AccordianItem
               current={current}
@@ -231,40 +265,32 @@ function FeaturesSection() {
           ))}
         </div>
         <div className="images max-xl:hidden relative overflow-hidden pl-3 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
-          <div className="relative w-full h-full">
+          <div className="relative w-full h-full space-y-32">
             <Image
               src={createAJob}
-              className={`absolute inset-0 transition-all duration-1000 ${
-                current === 0 ? "opacity-100 visible" : "opacity-0 invisible"
-              }`}
+              className={`h-[35rem] block`}
               alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
             <Image
               src={generateAiAssessment}
-              className={`absolute inset-0 transition-all duration-1000 ${
-                current === 1 ? "opacity-100 visible" : "opacity-0 invisible"
-              }`}
-              alt="Generate AI Assessment placeholder image"
+              className={`h-[35rem] block`}
+              alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
             <Image
               src={takeAssessment}
-              className={`absolute inset-0 transition-all duration-1000 ${
-                current === 2 ? "opacity-100 visible" : "opacity-0 invisible"
-              }`}
-              alt="Take Assessment placeholder image"
+              className={`h-[35rem] block`}
+              alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
             <Image
               src={bestTalents}
-              className={`absolute inset-0 transition-all duration-1000 ${
-                current === 3 ? "opacity-100 visible" : "opacity-0 invisible"
-              }`}
-              alt="Best Talents placeholder image"
+              className={`h-[35rem] block`}
+              alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
