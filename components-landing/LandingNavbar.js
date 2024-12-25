@@ -1,12 +1,13 @@
-import { useState } from "react";
 import Image from "next/image";
-import styles from "./LandingNavbar.module.css";
-import ThemeSwitch from "./ThemeSwitch";
+import { useState } from "react";
 import Logo from "../components/Logo";
+import styles from "./LandingNavbar.module.css";
 
 const LandingNavbar = ({
   scrollToRef,
-  howItWorksRef,
+  featuresRef,
+  pricingRef,
+  testimonialsRef,
   LandingThirdRef,
   HeroRef,
 }) => {
@@ -22,60 +23,55 @@ const LandingNavbar = ({
               <div className="flex w-50p gap-20 items-center">
                 <h2
                   onClick={() => scrollToRef(HeroRef)}
-                  className="max-lg:text-sm max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer"
+                  className="max-lg:text-sm  items-center justify-center max-xl:text-xl  text-3xl font-bold font-poppins flex gap-3 cursor-pointer"
                 >
                   <Image src="/logo (3).png" height={30} width={30} />
-                  recruitinn.ai
+                  Recruitinn.ai
                 </h2>
 
                 <ul className="flex text-steel dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
                   <li
-                    onClick={() => scrollToRef(howItWorksRef)}
+                    onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    How It Works
+                    Features
                   </li>
                   <li
-                    onClick={() => scrollToRef(LandingThirdRef)}
+                    onClick={() => scrollToRef(pricingRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    About Us
+                    Pricing
+                  </li>
+                  <li
+                    onClick={() => scrollToRef(testimonialsRef)}
+                    className="text-md font-semibold max-xl:text-sm cursor-pointer "
+                  >
+                    Testimonials
                   </li>
                 </ul>
               </div>
-              <div className="w-60p items-center flex justify-end gap-4 max-xl:gap-2">
-                <span className="text-steel dark:text-white text-md max-xl:text-sm font-semibold cursor-pointer">
+              <div className="w-60p items-center flex justify-end gap-6 max-xl:gap-2">
+                <span className="px-10 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold">
                   <a href="https://app.recruitinn.ai/candidate-self">
                     {" "}
-                    Apply As A Candidate
+                    Apply for jobs
                   </a>
                 </span>
-                <div className="flex gap-8 max-xl:gap-2">
-                  <div
-                    className={`${styles.dropdown}  text-white px-10 py-3.5 text-mnmd max-xl:text-sm bg-darkPurple rounded-3xl fnt-semibold`}
+                <div className="flex gap-2 max-xl:gap-2">
+                  <a
+                    href="https://app.recruitinn.ai/client-signup"
+                    className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold"
                   >
-                    Login
-                    <ul className={styles.dropdown_menu}>
-                      <li>
-                        <a href="https://app.recruitinn.ai/candidate-login">
-                          Login As Candidate
-                        </a>
-                      </li>
-                      <li>
-                        <a href="https://app.recruitinn.ai/client-login">
-                          Login As Client
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <a href="https://app.recruitinn.ai/client-signup">
+                    Recruit A Talent
+                  </a>
+                  {/* <a href="https://app.recruitinn.ai/client-signup">
                     <button
                       className="px-10 py-3.5 text-steel dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold"
                       style={{
                         transition: "background-color 0.3s, color 0.3s", // Add transition for smooth hover effect
-                        backgroundColor: "#6137db", // Default background color hello
-                        color: "#fff", // Default text color
-                        border: "none", // Remove default button border
+                        backgroundColor: "#6137db",
+                        color: "#fff",
+                        border: "none",
                       }}
                       onMouseEnter={(e) => {
                         e.target.style.backgroundColor = "#D3CFFC"; // Change background color on hover
@@ -89,11 +85,45 @@ const LandingNavbar = ({
                     >
                       Recruit A Talent
                     </button>
-                  </a>{" "}
+                  </a> */}
+                  {/* <div
+                    className={`${styles.dropdown}  text-[white] px-10 py-3.5 text-mnmd max-xl:text-sm bg-darkPurple rounded-3xl fnt-semibold`}
+                  >
+                    Login
+                    <ul className={styles.dropdown_menu}>
+                      <li>
+                        <a href="https://app.recruitinn.ai/candidate-login">
+                          Candidate
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://app.recruitinn.ai/client-login">
+                          Client
+                        </a>
+                      </li>
+                    </ul>
+                  </div> */}
+                  <div
+                    className={`${styles.dropdown}  text-[#170D23] font-bold  px-10 py-3.5 text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
+                  >
+                    Login
+                    <ul className={styles.dropdown_menu}>
+                      <li>
+                        <a href="https://app.recruitinn.ai/client-login">
+                          Client
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://app.recruitinn.ai/candidate-login">
+                          Candidate
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
-              <ThemeSwitch />
+              {/* <ThemeSwitch /> */}
             </div>
           </div>
         </div>
@@ -110,7 +140,7 @@ const LandingNavbar = ({
                 </h2> */}
                 <Logo />
               </div>
-              <ThemeSwitch />
+              {/* <ThemeSwitch /> */}
               <div
                 className="max-lg:flex hidden max-lg:mr-[1.5rem] max-sm:mr-[1rem] text-black dark:text-white"
                 onClick={() => setMenu(!menu)}
@@ -178,16 +208,22 @@ const LandingNavbar = ({
 
                 <ul className="flex flex-col items-center gap-4">
                   <li
-                    onClick={() => scrollToRef(howItWorksRef)}
-                    className="text-sm font-semibold    p-2 max-lg:border-b max-lg:border-darkPurple"
+                    onClick={() => scrollToRef(featuresRef)}
+                    className="text-sm font-semibold    cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    How It Works
+                    Features
                   </li>
                   <li
-                    onClick={() => scrollToRef(LandingThirdRef)}
-                    className="text-sm font-semibold p-2 max-lg:border-b max-lg:border-darkPurple"
+                    onClick={() => scrollToRef(pricingRef)}
+                    className="text-sm font-semibold cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    About Us
+                    Pricing
+                  </li>
+                  <li
+                    onClick={() => scrollToRef(testimonialsRef)}
+                    className="text-sm font-semibold cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
+                  >
+                    Testimonials
                   </li>
                 </ul>
               </div>
