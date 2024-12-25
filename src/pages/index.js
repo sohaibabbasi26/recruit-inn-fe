@@ -13,6 +13,7 @@ import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
+import Testimonials from "../../components-landing/Testimonials";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -71,7 +72,9 @@ const LandingPage = () => {
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>
-
+          <div>
+            <Testimonials />
+          </div>
           <div ref={PaymentMethodsRef} className="pt-4">
             <PaymentMethods />
           </div>

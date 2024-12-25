@@ -4,9 +4,9 @@ export default function Document() {
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
-        <title>
+        {/* <title>
           Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
-        </title>
+        </title> */}
         <meta
           name="description"
           content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
