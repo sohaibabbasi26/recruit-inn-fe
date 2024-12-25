@@ -11,6 +11,8 @@ import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
 import PaymentMethods from "../../components-landing/PaymentMethods";
 import styles from "../../components-landing/styles.module.css";
+import LandingFifth from "../../components-landing/LandingFifth";
+import Testimonials from "../../components-landing/Testimonials";
 import LandingVideo from "../../components/LandingVideo";
 
 const LandingPage = () => {
@@ -77,10 +79,9 @@ const LandingPage = () => {
           {/* <div ref={featuresRef}>
             <HowItWorks />
           </div> */}
-          {/* commented for now */}
-          {/* <div ref={testimonialsRef}>
-            <TestimonialsSection />
-          </div> */}
+          <div>
+            <Testimonials />
+          </div>
           <div ref={pricingRef} className="pt-4">
             <PaymentMethods />
           </div>
@@ -94,6 +95,7 @@ const LandingPage = () => {
             FAQRef={FAQRef}
             featuresRef={featuresRef}
             pricingRef={pricingRef}
+            howItWorksRef={featuresRef}
           />
         </main>
       </ThemeProvider>
