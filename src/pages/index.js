@@ -71,7 +71,7 @@ const LandingPage = () => {
           <div ref={LandingThirdRef}>
             <LandingThird />
           </div>
-          <LandingFourth />
+          {/* <LandingFourth /> */}
           {/* Features */}
           <div ref={featuresRef}>
             <FeaturesSection />

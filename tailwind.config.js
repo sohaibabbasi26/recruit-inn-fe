@@ -43,6 +43,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        dmSans: ["DM Sans", "sans-serif"],
       },
       colors: {
         darkPurple: "#241B3E",
@@ -62,7 +63,8 @@ module.exports = {
         elementGradOne: "#0A0A0A",
         elementGradTwo: "#1E143A",
         smallDiv: "#0E0A18",
-        lightPurpleText: "#9A79F7",
+        // lightPurpleText: "#9A79F7",
+        lightPurpleText: "#6135DF",
         spanBg: "#16161C",
         lightText: "#AC90FB",
         verySmallText: "#716690",

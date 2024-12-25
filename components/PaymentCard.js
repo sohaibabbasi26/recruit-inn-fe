@@ -10,6 +10,8 @@ const PaymentCard = ({
   bg,
   img,
   priceColor,
+  packageType,
+  price,
 }) => {
   return (
     <>
@@ -21,16 +23,16 @@ const PaymentCard = ({
             <span
               className={`${smallTextColor} text-lg font-semibold ${headingColor}`}
             >
-              Free
+              {packageType}
             </span>
-            <p className="text-steel dark:text-smallText text-sm">
+            <p className="text-steel dark:text-smallText text-sm font-semibold">
               Everything you need to supercharge your productivity
             </p>
             <div className="flex gradient-text gap-2">
               <h2
-                className={`text-3xl font-sans font-semibold gradient-text ${priceColor}`}
+                className={`text-3xl font-sans font-bold gradient-text font-dmSans ${priceColor}`}
               >
-                $0
+                ${price}
               </h2>
               <span className={`gradient-text mt-3 ${priceColor}`}>/month</span>
             </div>
@@ -41,7 +43,7 @@ const PaymentCard = ({
             style={{ boxSizing: "border-box", paddingTop: "1rem" }}
           >
             <div className="max-lg:hidden">
-              <span className={`${headingColor}`}>What’s included</span>
+              <span className="text-gray-500 text-sm">What’s included</span>
               <ul>
                 <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                   <Image src={`${img}`} width={20} height={20} />4 Reports of
