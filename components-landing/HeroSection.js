@@ -12,8 +12,6 @@ const HeroSection = () => {
     <>
       <div className="w-full h-[87svh] flex flex-col items-center">
         <div className="w-100p h-[60%] flex justify-center mt-20">
-          
-          
           <div className="w-100p h-full  max-lg:hidden">
             <div className=" h-[100%] w-[100%] flex ">
               {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
@@ -54,11 +52,11 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center gap-5 max-lg:w-[100%] max-lg:text-center max-lg:items-center">
-            <h1 className="text-dark min-w-fit dark:text-white text-center  text-5xl font-[1000] w-[100%]">
+          <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
+            <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
               Agile recruitment for today’s world of work
             </h1>
-            <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md ">
+            <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
               {" "}
               Revolutionize the way you recruit by leveraging our innovative
               solutions designed to make your hiring more efficient and
