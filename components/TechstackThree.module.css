@@ -1,10 +1,10 @@
 
-  .img {
+.img {
     height: 80px;
     margin: 0 20px;
     border-radius: 12px;
+   
   }
-  
   .imageWrapper {
     height: 120px; /* Adjust as needed */
     width: 120px; /* Adjust as needed */
@@ -13,29 +13,37 @@
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    border-color: #6E48D5;
+
   }
-  
   .logos {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding-top: 20px;
+    /* padding: 40px 0; */
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    width: 100%; /* Ensure full container width */
+  }
+  .logos:before,
+  .logos:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    /* width: 250px; Adjust based on your design */
+    
+    z-index: 2;
   }
   
   .logos-slide {
     display: flex;
-    animation: slide 25s linear infinite;
+    animation: 25s slide infinite linear;
   }
-  
   @keyframes slide {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%); /* Shift left by half (one set of images) */
+      transform: translateX(-50%);
     }
   }
-  

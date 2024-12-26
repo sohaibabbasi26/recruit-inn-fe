@@ -57,6 +57,7 @@ module.exports = {
         "danger-bg": "#fff5f5",
         btnPurple: "#220772",
         lightPurple: "#6137DB",
+        darkPurple: "#E5E1F0",
         smallText: "#ADA9B8",
         themePurple: "#6E48D5",
         somePurple: "#2E2547",
@@ -75,6 +76,7 @@ module.exports = {
         darkPaymentPurple: "#3F3855",
         goldenTextColor: "#FFC27B",
         goldenLightText: "#C3A38B",
+        indigo: "#7A64F6",
       },
       spacing: {
         8: "3rem",

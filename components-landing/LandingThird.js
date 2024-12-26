@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import style from "./styles.module.css";
 import "tailwindcss/tailwind.css";
 import Image from "next/image";
+import TechstackThree from "../components/TechstackThree";
 
 const LandingThird = () => {
   const { theme } = useTheme();
@@ -21,7 +22,7 @@ const LandingThird = () => {
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
             } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh] flex justify-center items-center relative">
+            <div className="w-80p h-50p max-xl:h-[70vh] mt-[58px] flex justify-center items-center relative">
               <div className="relative flex items-center justify-center h-screen w-screen">
                 {/* Central Logo */}
                 <div className="absolute">
@@ -34,12 +35,12 @@ const LandingThird = () => {
                 </div>
 
                 {/* Dotted Circles */}
-                <div className="absolute w-[150px] h-[150px] border-dashed border-2 border-gray-300 rounded-full"></div>
-                <div className="absolute w-[250px] h-[250px] border-dashed border-2 border-gray-300 rounded-full"></div>
-                <div className="absolute w-[350px] h-[350px] border-dashed border-2 border-gray-300 rounded-full"></div>
+                <div className="absolute w-[267px] h-[267px] border-dashed border-2 border-gray-300 rounded-full"></div>
+                <div className="absolute w-[327px] h-[327px] border-dashed border-2 border-gray-300 rounded-full"></div>
+                <div className="absolute w-[387px] h-[387px] border-dashed border-2 border-gray-300 rounded-full"></div>
 
                 {/* Avatars */}
-                <div className="absolute top-[33%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute  top-[25%] left-[50%] md:top-[15%] transform -translate-x-1/2 -translate-y-1/2">
                   <Image
                     src="/avatar1.png"
                     alt="Avatar"
@@ -47,7 +48,7 @@ const LandingThird = () => {
                     height={40}
                   />
                 </div>
-                <div className="absolute top-[40%] left-[75%] transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-[35%] left-[85%] transform -translate-x-1/2 -translate-y-1/2">
                   <Image
                     src="/avatar2.png"
                     alt="Avatar"
@@ -55,7 +56,7 @@ const LandingThird = () => {
                     height={40}
                   />
                 </div>
-                <div className="absolute bottom-[50%] left-[35%] transform -translate-x-1/2 translate-y-1/2">
+                <div className="absolute bottom-[59%] left-[25%] transform -translate-x-1/2 translate-y-1/2">
                   <Image
                     src="/avatar3.png"
                     alt="Avatar"
@@ -63,7 +64,7 @@ const LandingThird = () => {
                     height={40}
                   />
                 </div>
-                <div className="absolute top-[55%] left-[65%] transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-[60%] left-[73%] transform -translate-x-1/2 -translate-y-1/2">
                   <Image
                     src="/avatar4.png"
                     alt="Avatar"
@@ -71,7 +72,7 @@ const LandingThird = () => {
                     height={40}
                   />
                 </div>
-                <div className="absolute top-[62%] right-[70%] transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-[62%] right-[80%] transform -translate-x-1/2 -translate-y-1/2">
                   <Image
                     src="/avatar5.png"
                     alt="Avatar"
@@ -79,7 +80,7 @@ const LandingThird = () => {
                     height={40}
                   />
                 </div>
-                <div className="absolute top-[68%] right-[42%] transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-[75%] right-[42%] transform -translate-x-1/2 -translate-y-1/2">
                   <Image
                     src="/avatar6.png"
                     alt="Avatar"
@@ -111,11 +112,16 @@ const LandingThird = () => {
               theme === "dark"
                 ? ""
                 : "border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40 "
-            } w-[50%] max-lg:mb-[1rem] max-lg:w-[100%] max-lg:h-[100%] h-100p bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
+            } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%] h-100p bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
-            <div className="w-[100%] h-50p flex flex-col justify-center items-center relative mb-[1.5rem]">
-              <TechstackOne />
-              <TechstackTwo />
+            <div className="w-[100%] h-50p overflow-hidden flex flex-col justify-center items-center relative mb-[1.5rem]">
+              <div className="mt-50" > <TechstackOne /></div>
+              <div> <TechstackTwo /></div>
+              <div className="" > <TechstackThree /></div>
+              <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl " ></div>
+              <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl " ></div>
+
+
             </div>
 
             <div className="w-80p h-50p flex flex-col justify-center">
