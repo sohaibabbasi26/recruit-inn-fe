@@ -12,6 +12,15 @@ module.exports = {
 
   theme: {
     extend: {
+      animation: {
+        fadeIn: "fadeIn 0.5s ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
       boxShadow: {
         "xl-purple":
           "0 20px 25px -5px rgba(102, 51, 153, 0.5), 0 10px 10px -5px rgba(102, 51, 153, 0.3)", // Purple shadow

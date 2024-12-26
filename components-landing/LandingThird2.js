@@ -8,15 +8,12 @@ const LandingThird2 = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="h-[950px] max-lg:h-100p w-full flex justify-center mb-[2rem]  ">
+    <div className="h-[1000px] max-lg:h-100p w-full flex justify-center mb-[2rem]  ">
       <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] bg-light-purple-shade rounded-2xl border-2 ">
-        
-       
-          <MainCard />
+        <MainCard />
 
-          {/* Top Level */}
-          <div>
-
+        {/* Top Level */}
+        <div>
           <div className="flex justify-center items-center gap-8  overflow-hidden ">
             <div className="flex justify-center flex-col overflow-hidden relative bottom-6  ">
               <NodeCard
@@ -40,7 +37,7 @@ const LandingThird2 = () => {
                 name="Mia Turner"
                 title="Lead Data Scientist"
                 avatar="/avt3.png"
-                 className="opacity-20 border-b-[2px] border-solid border-themePurple"
+                className="opacity-20 border-b-[2px] border-solid border-themePurple"
               />
 
               <div className="flex justify-center">
@@ -57,7 +54,7 @@ const LandingThird2 = () => {
                 name="Ava Mitchell"
                 title=" Full-Stack Developer"
                 avatar="/avt2.png"
-                 className="opacity-20 border-b-[2px] border-solid border-themePurple"
+                className="opacity-20 border-b-[2px] border-solid border-themePurple"
               />
 
               <div className="flex justify-center">
@@ -74,7 +71,7 @@ const LandingThird2 = () => {
                 name="Lucas Bailey"
                 title="Lead AI Researcher"
                 avatar="/avt4.png"
-                 className="opacity-20 border-b-[2px] border-solid border-themePurple"
+                className="opacity-20 border-b-[2px] border-solid border-themePurple"
               />
 
               <div className="flex justify-center">
@@ -115,24 +112,21 @@ const LandingThird2 = () => {
               className="border-[2px] border-black-300"
             />
           </div>
-        
 
-
-           <div className="items-center mt-16 flex justify-center">
-  {/* Outer div with gradient border */}
-  <div className="flex justify-center items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl p-[2px]">
-    {/* Inner div for the white background and image */}
-    <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
-      <Image
-        src="/recruitlogo.png"
-        alt="Central Logo"
-        width={50}
-        height={50}
-      />
-    </div>
-  </div>
-</div>
-
+          <div className="items-center mt-16 flex justify-center">
+            {/* Outer div with gradient border */}
+            <div className="flex justify-center items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl p-[2px]">
+              {/* Inner div for the white background and image */}
+              <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
+                <Image
+                  src="/recruitlogo.png"
+                  alt="Central Logo"
+                  width={50}
+                  height={50}
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="flex justify-center">
             <Image src="/union.png" alt="Central Logo" width={15} height={15} />
@@ -166,50 +160,44 @@ const LandingThird2 = () => {
 
           {/* Third Level */}
           <div className="flex justify-center items-center relative bottom-8">
-
-             <div className="flex gap-3 p-4 bg-white  rounded-xl w-auto ">
-                  <div className="">
-                    <Image
-                      src="/avt5.png"
-                      alt="Central Logo"
-                      width={40}
-                      height={40}
-                      
-                    />
-                  </div>
-                  <div className="mt-[18px]">
-                    <Image
-                      src="/avt6.png"
-                      alt="Central Logo"
-                      width={20}
-                      height={20}
-                      
-                    />
-                  </div>
-                  <div className="">
-                    <Image
-                      src="/avt3.png"
-                      alt="Central Logo"
-                      width={40}
-                      height={40}
-                      
-                    />
-                  </div>
-                  <div>
-                  <h4 className="text-sm font-semibold text-gray-800 dark:text-white">
+            <div className="flex gap-3 p-4 bg-white  rounded-xl w-auto ">
+              <div className="">
+                <Image
+                  src="/avt5.png"
+                  alt="Central Logo"
+                  width={40}
+                  height={40}
+                />
+              </div>
+              <div className="mt-[18px]">
+                <Image
+                  src="/avt6.png"
+                  alt="Central Logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <div className="">
+                <Image
+                  src="/avt3.png"
+                  alt="Central Logo"
+                  width={40}
+                  height={40}
+                />
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-gray-800 dark:text-white">
                   Mia Turner
-                  </h4>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Lead Data Scientist</p>
-                  </div>
-                </div>
-             
-           
+                </h4>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Lead Data Scientist
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        </div>
       </div>
-    
-    
+    </div>
   );
 };
 
