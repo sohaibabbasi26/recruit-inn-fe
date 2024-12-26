@@ -237,7 +237,8 @@ function FeaturesSection() {
         ref={container}
         className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
       >
-        <div className="line absolute -top-[1.5px] left-1/2 -translate-x-1/2 h-[1.5px] w-2/3 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-[50%_100%] shadow-[0px_-20px_29px_2px_rgba(97,55,219,0.65)]"></div>
+        <div className="line absolute -top-[3px] left-1/2 -translate-x-1/2 h-4 w-2/3 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-[50%_100%] z-[3] shadow-[0px_-30px_70px_1px_rgba(97,55,219,0.65)]"></div>
+        <div className="try absolute top-0 w-90p left-1/2 -translate-x-1/2 h-[40px] bg-white z-[4] border-t-primary"></div>
         <div className={`titles h-max`}>
           {content.map((c, i) => (
             <AccordianItem
