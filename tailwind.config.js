@@ -43,6 +43,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        dmSans: ["DM Sans", "sans-serif"],
       },
       colors: {
         darkPurple: "#241B3E",
@@ -56,13 +57,15 @@ module.exports = {
         "danger-bg": "#fff5f5",
         btnPurple: "#220772",
         lightPurple: "#6137DB",
+        darkPurple: "#E5E1F0",
         smallText: "#ADA9B8",
         themePurple: "#6E48D5",
         somePurple: "#2E2547",
         elementGradOne: "#0A0A0A",
         elementGradTwo: "#1E143A",
         smallDiv: "#0E0A18",
-        lightPurpleText: "#9A79F7",
+        // lightPurpleText: "#9A79F7",
+        lightPurpleText: "#6135DF",
         spanBg: "#16161C",
         lightText: "#AC90FB",
         verySmallText: "#716690",
@@ -73,6 +76,7 @@ module.exports = {
         darkPaymentPurple: "#3F3855",
         goldenTextColor: "#FFC27B",
         goldenLightText: "#C3A38B",
+        indigo: "#7A64F6",
       },
       spacing: {
         8: "3rem",

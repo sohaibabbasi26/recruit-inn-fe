@@ -7,6 +7,7 @@ export default function Document() {
         {/* <title>
           Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
         </title> */}
+
         <meta
           name="description"
           content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
@@ -40,6 +41,12 @@ export default function Document() {
         <meta property="og:url" content="https://app.recruitinn.ai/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+
         <link rel="icon" href="/favicon2.ico" />
       </Head>
       {/* <title>RecruitInn Ai</title> */}
