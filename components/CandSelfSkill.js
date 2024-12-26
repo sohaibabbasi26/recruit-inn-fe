@@ -3,7 +3,7 @@ import styles from "./AddSkillForm.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const CandSelfSkill = ({skill1,setTestRequirement, testRequirement, skill2, setSkill1,setSkill2, level1,level2, setLevel1, setLevel2, setTechStack, isTestRequired, setIsTestRequired }) => {
+const CandSelfSkill = ({skill1,isArabicLanguage, setIsArabicLanguage, skill2, setSkill1,setSkill2, level1,level2, setLevel1, setLevel2, setTechStack, isTestRequired, setIsTestRequired }) => {
   const iconSize = 25;
 
   console.log("Is test Required:", isTestRequired);
@@ -21,6 +21,11 @@ const CandSelfSkill = ({skill1,setTestRequirement, testRequirement, skill2, setS
     setTechStack(filledSkills);
   }, [skill1, skill2, level1, level2]);
 
+  const handleLanguageChange = (event) => {
+    setIsArabicLanguage(event.target.checked);
+    //console.log(isArabicLanguage)
+  }
+
   const handleTestRequirementChange = (event) => {
     console.log("clicked", event.target.checked);
     setIsTestRequired(event.target.checked);
@@ -28,8 +33,12 @@ const CandSelfSkill = ({skill1,setTestRequirement, testRequirement, skill2, setS
   };
 
   useEffect(() => {
-    console.log("is test req from use effect:",isTestRequired);
-  },[isTestRequired])
+    console.log("is arabic language:",isArabicLanguage);
+  },[isArabicLanguage])
+
+  // useEffect(() => {
+  //   console.log("is test req from use effect:",isTestRequired);
+  // },[isTestRequired])
 
   return (
     <>
@@ -108,6 +117,15 @@ const CandSelfSkill = ({skill1,setTestRequirement, testRequirement, skill2, setS
             type="checkbox"
             checked={isTestRequired}
             onChange={handleTestRequirementChange}
+          />
+        </div>
+
+        <div>
+          <label>Would you like to give test in Arabic language?</label>
+          <input
+            type="checkbox"
+            checked={isArabicLanguage}
+            onChange={handleLanguageChange}
           />
         </div>
       </form>

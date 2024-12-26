@@ -100,7 +100,8 @@ const SelfOverlay = ({
   const [level1, setLevel1] = useState("");
   const [level2, setLevel2] = useState("");
   const [isLevelEntered, setIsLevelEntered] = useState();
-  const [otpId,setOtpId]= useState("")
+  const [otpId, setOtpId] = useState("");
+  const [isArabicLanguage, setIsArabicLanguage] = useState(false);
   // const [testRequirement, setIsTestRequirement] = useState(false);
 
   const [testRequirement, setTestRequirement] = useState(false);
@@ -119,11 +120,12 @@ const SelfOverlay = ({
 
     const reqtwo = {
       expertise: techStack,
+      isArabic: isArabicLanguage,
     };
 
     setReq(reqtwo);
     setReqBody(reqBody);
-  }, [name, city, contact, password, email, expertise, country, techStack]);
+  }, [name, city, contact, password, email, expertise, country, techStack, isArabicLanguage]);
 
   const toggleComponent = async () => {
     const skills = [
@@ -416,7 +418,7 @@ const SelfOverlay = ({
         applied_through: "Self",
         password: password,
         otpId,
-        otp
+        otp,
       };
 
       console.log("Request body:", requestBody);
@@ -507,11 +509,11 @@ const SelfOverlay = ({
   const verifyCode = async () => {
     const otpCode = otp;
 
-    const requestBody={
+    const requestBody = {
       otp_id: otpId,
-      otp_code: otpCode
-    }
-    console.log(requestBody)
+      otp_code: otpCode,
+    };
+    console.log(requestBody);
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/verify-otp`,
@@ -525,7 +527,7 @@ const SelfOverlay = ({
     );
     const data = await response.json();
 
-    if (data?.data?.status===200) {
+    if (data?.data?.status === 200) {
       console.log("here in verify code if block");
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
@@ -770,6 +772,8 @@ const SelfOverlay = ({
               {currentStage === stages.SKILLS && (
                 <>
                   <CandSelfSkill
+                    isArabicLanguage={isArabicLanguage}
+                    setIsArabicLanguage={setIsArabicLanguage}
                     skill1={skill1}
                     skill2={skill2}
                     setSkill1={setSkill1}
@@ -782,8 +786,8 @@ const SelfOverlay = ({
                     setIsTestRequired={setIsTestRequired}
                     handleTestPreparation={handleTestPreparation}
                     setTechStack={setTechStack}
-                    setTestRequirement={setTestRequirement}
-                    testRequirement={testRequirement}
+                    // setTestRequirement={setTestRequirement}
+                    // testRequirement={testRequirement}
                   />
                   <div className={styles.wrapper}>
                     <CandSelfSkillBtns

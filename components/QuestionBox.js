@@ -6,13 +6,19 @@ import { useRouter } from "next/router";
 import { useTest } from "@/contexts/QuestionsContent";
 import { useSpeechSynthesis } from "react-speech-kit";
 import ErrorIndicator from "./ErrorIndicator";
+import Script from "next/script";
 
-const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
+const QuestionBox = ({
+  hasStarted,
+  setIsLoading,
+  isLoading,
+  selectedLanguage = "ar-SA",
+}) => {
   // const { test } = useTest();x
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [completedQuestions, setCompletedQuestions] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(130);
+  const [timeLeft, setTimeLeft] = useState(20);
   const [newQuestions, setNewQuestions] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [audioURLs, setAudioURLs] = useState({});
@@ -24,7 +30,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   // const [isLoading, setIsLoading] = useState(false);
   const [disableRecordingButton, setDisableRecordingButton] = useState(false);
   const [questions, setQuestions] = useState();
-  const { speak, cancel } = useSpeechSynthesis();
+  const { speak, cancel, voices } = useSpeechSynthesis();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
@@ -44,14 +50,59 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   const [codeQues, setCodeQues] = useState();
   const [isFirstQues, setIsFirstQues] = useState(true);
   const [candidateExpertise, setCandidateExpertise] = useState();
+  const [audioUrl, setAudioUrl] = useState();
 
   // const [isFirstQues, setIsFirstQues] = useState(0);
 
-  const speakQuestion = (questionobj) => {
+  //const arabicVoice = voices.find((voice) => voice.lang === selectedLanguage);
+
+  const generateAndPlayAudio = async (question) => {
+    console.log(question)
+    try {
+      const response = await fetch("/api/generate-audio",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: question }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        // Set the audio file URL
+        const url = `/audio/${data?.uuid}.mp3`;
+        setAudioUrl(url);
+
+        // Create an audio element and play it
+        const audio = new Audio(url);
+        audio.play();
+
+        //delete the file of audio
+        audio.onended = async() => {
+          await fetch(`/api/delete-audio/${data?.uuid}`, {
+            method: "DELETE",
+          });
+          console.log("audio deleted");
+        }
+      } else {
+        console.error(data.error);
+        //alert("Failed to generate audio");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      //setLoading(false);
+    }
+  };
+
+  const speakQuestion = async(questionobj) => {
     const question = questionobj.question;
-    console.log(question);
-    cancel();
-    speak({ text: question });
+    // console.log(question);
+    // console.log(voices);
+    // cancel();
+    // speak({ text: question, voices: "ar-SA", lang: "ar-SA" });
+
+    await generateAndPlayAudio(question);
   };
 
   useEffect(() => {
@@ -307,6 +358,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
       // setQuestions(data?.data[0]?.question);
       // console.log("there?", data?.data[0]?.question[0].question);
       speakQuestion(currentQuestion);
+      console.log("line 360: speakQuestion called");
       console.log("questions:", questions);
     }
   }, [hasStarted]);
@@ -538,7 +590,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
   const toggleComponent = async () => {
     setIsLoading(true);
-
+  
     try {
       if (isLastQuestion) return;
 
@@ -571,26 +623,29 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           ]);
           if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            speakQuestion(newQuestions[currentQuestionIndex + 1]);
+            await speakQuestion(newQuestions[currentQuestionIndex + 1]);
+            console.log("line 628: speakQuestion called");
             setIsFirstQues(false);
             setIsLoading(false);
           }
         } else {
           await stopAndHandleRecording();
         }
-        console.log("completed questions:", completedQuestions);
-        console.log("current questions:", currentQuestion);
+        console.log("Completed questions:", completedQuestions);
+        console.log("Current question:", currentQuestion);
       }
       setIsFirstQues(false);
     } catch (err) {
       console.log("ERR:", err);
-    } finally {
     }
   };
+  
 
   useEffect(() => {
     speakQuestion(currentQuestion);
-    setTimeLeft(130);
+    console.log("line 647: speakQuestion called");
+
+    setTimeLeft(20);
   }, [currentQuestion]);
 
   const stopAndHandleRecording = async () => {
@@ -718,6 +773,8 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   useEffect(() => {
     if (currentQuestionIndex < newQuestions?.length && hasStarted) {
       speakQuestion(newQuestions[currentQuestionIndex]);
+      console.log("line 777: speakQuestion called");
+
     }
   }, [currentQuestionIndex, newQuestions, hasStarted]);
 
@@ -736,6 +793,11 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
   return (
     <>
+      <Script
+        src="https://code.responsivevoice.org/responsivevoice.js"
+        strategy="afterInteractive"
+        onLoad={() => console.log("ResponsiveVoice script loaded.")}
+      />
       <div className={styles.container}>
         {/*top container*/}
         {isLoading ? (

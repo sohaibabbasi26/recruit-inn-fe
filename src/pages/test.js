@@ -22,10 +22,19 @@ const test = () => {
   return (
     <>
       {instructionsPopup && (
-        <TestInstruction isLoading={isLoading} setIsLoading={setIsLoading} onClose={closePopup} options={instructions} />
+        <TestInstruction
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          onClose={closePopup}
+          options={instructions}
+        />
       )}
       <div className={styles.superContainer}>
-        <QuestionBox isLoading={isLoading} setIsLoading={setIsLoading} hasStarted={!instructionsPopup} />
+        <QuestionBox
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          hasStarted={!instructionsPopup}
+        />
       </div>
     </>
   );
