@@ -8,11 +8,13 @@ import LandingFAQs from "../../components-landing/LandingFAQs";
 import LandingFourth from "../../components-landing/LandingFourth";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
+import LandingThird2 from "../../components-landing/LandingThird2";
 import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
 import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
+
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -67,6 +69,7 @@ const LandingPage = () => {
           <div ref={LandingThirdRef}>
             <LandingThird />
           </div>
+          <LandingThird2 />
           <LandingFourth />
           <div ref={howItWorksRef}>
             <HowItWorks />
