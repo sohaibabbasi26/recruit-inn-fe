@@ -16,7 +16,6 @@ import styles from "../../components-landing/styles.module.css";
 import LandingFifth from "../../components-landing/LandingFifth";
 import Testimonials from "../../components-landing/Testimonials";
 
-
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
   const LandingThirdRef = useRef(null);
@@ -74,6 +73,7 @@ const LandingPage = () => {
             <LandingThird />
           </div>
           <LandingThird2 />
+          <LandingFourth />
           <div ref={featuresRef}>
             <FeaturesSection />
           </div>
