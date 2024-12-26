@@ -19,22 +19,22 @@ function LandingFourth() {
     },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = sectionRefs.current.indexOf(entry.target);
-          if (entry.isIntersecting && index !== -1) {
-            setActiveIndex(index);
-          }
-        });
-      },
-      { threshold: 0.25 } // Adjust threshold to control sensitivity
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         const index = sectionRefs.current.indexOf(entry.target);
+  //         if (entry.isIntersecting && index !== -1) {
+  //           setActiveIndex(index);
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.25 } // Adjust threshold to control sensitivity
+  //   );
 
-    sectionRefs.current.forEach((ref) => ref && observer.observe(ref));
-    return () => observer.disconnect();
-  }, []);
+  //   sectionRefs.current.forEach((ref) => ref && observer.observe(ref));
+  //   return () => observer.disconnect();
+  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +43,6 @@ function LandingFourth() {
       );
       const windowHeight = window.innerHeight;
 
-      // Adjust threshold to trigger changes earlier
       const newIndex = offsets.findIndex(
         (offset) => offset >= -windowHeight / 4 && offset <= windowHeight / 2
       );
@@ -59,7 +58,7 @@ function LandingFourth() {
 
   return (
     <div className="relative">
-      {/* Fixed text container */}
+
       <div className="sticky top-1/4 left-10 transform -translate-y-1/2 flex flex-col items-center justify-center h-screen">
         {sections.map((section, index) => (
           <p
@@ -73,7 +72,7 @@ function LandingFourth() {
         ))}
       </div>
 
-      {/* Fixed image container */}
+
       <div className="sticky top-[70%] transform -translate-y-1/2 h-screen flex items-center justify-center">
         <img
           src={sections[activeIndex]?.image}
@@ -82,7 +81,6 @@ function LandingFourth() {
         />
       </div>
 
-      {/* Scrollable placeholder container */}
       <div className="relative h-[300vh]">
         {sections.map((_, index) => (
           <div
