@@ -148,6 +148,7 @@
 //   );
 // }
 
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
@@ -157,7 +158,6 @@ import bestTalents from "../public/best-talents.png";
 import createAJob from "../public/create-a-job.png";
 import generateAiAssessment from "../public/generate-ai-assessment.png";
 import takeAssessment from "../public/take-assessment.png";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -187,7 +187,6 @@ function FeaturesSection() {
 
   useGSAP(
     () => {
-        
       const images = gsap.utils.toArray(".images img");
       const titles = gsap.utils.toArray(".titles .title");
 
@@ -224,8 +223,8 @@ function FeaturesSection() {
   );
 
   return (
-    <section className="my-12 mx-auto w-full features text-center">
-      <div className="w-90p mx-auto space-y-4 mb-12 heading">
+    <section className="my-12 mx-auto w-full features text-center ">
+      <div className="w-90p mx-auto space-y-4 mb-16 heading">
         <h2 className="text-neutral-dark text-4xl font-bold">
           Recruitinn’s Way
         </h2>
@@ -238,6 +237,7 @@ function FeaturesSection() {
         ref={container}
         className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
       >
+        <div className="line absolute -top-[1.5px] left-1/2 -translate-x-1/2 h-[1.5px] w-2/3 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-[50%_100%] shadow-[0px_-20px_29px_2px_rgba(97,55,219,0.65)]"></div>
         <div className={`titles h-max`}>
           {content.map((c, i) => (
             <AccordianItem
@@ -250,7 +250,7 @@ function FeaturesSection() {
             />
           ))}
         </div>
-        <div className="images max-xl:hidden relative overflow-hidden pl-3 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
+        <div className="images relative max-xl:hidden overflow-hidden pl-3 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
           <div className="relative w-full h-full space-y-24">
             <Image
               src={createAJob}
