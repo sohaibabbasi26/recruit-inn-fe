@@ -148,13 +148,18 @@
 //   );
 // }
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CheckIconSvg from "../components/CheckIconSvg";
 import bestTalents from "../public/best-talents.png";
 import createAJob from "../public/create-a-job.png";
 import generateAiAssessment from "../public/generate-ai-assessment.png";
 import takeAssessment from "../public/take-assessment.png";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const content = [
   {
@@ -177,66 +182,49 @@ const content = [
 
 function FeaturesSection() {
   const [current, setCurrent] = useState(0);
-  const [isHeadingsVisible, setIsHeadingsVisible] = useState(false);
-  const headingsRef = useRef(null);
-  const featuresRef = useRef(null);
+  const container = useRef(null);
+  console.log("Current", current);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsHeadingsVisible(entry?.isIntersecting);
-        // setIsHeadingsVisible(true);
-      },
-      {
-        root: null,
-        // rootMargin: "-30% 0px -30%", // Focus observer area around the middle of the screen
-        rootMargin: "0px",
-        // threshold: 0.5, // Trigger when the element is 49%, 50%, or 51% visible
-        threshold: 1,
-      }
-    );
+  useGSAP(
+    () => {
+        
+      const images = gsap.utils.toArray(".images img");
+      const titles = gsap.utils.toArray(".titles .title");
 
-    if (headingsRef.current) {
-      observer.observe(headingsRef.current);
-    }
-
-    // Clean up the observer
-    return () => {
-      if (headingsRef.current) {
-        observer.unobserve(headingsRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = featuresRef.current;
-      if (!section) return;
-
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const scrollPos = window.scrollY + window.innerHeight / 2;
-
-      content.forEach((_, index) => {
-        const triggerPoint =
-          sectionTop + (sectionHeight / content.length) * index;
-        if (scrollPos >= triggerPoint) {
-          setCurrent(index);
-        }
+      images.forEach((img, i) => {
+        ScrollTrigger.create({
+          trigger: img,
+          start: "top 55%",
+          end: "bottom 55%",
+          // Set to false on production
+          //   markers: true,
+          onEnter: () => setCurrent(i),
+          onEnterBack: ({ progress, direction, isActive }) => {
+            setCurrent(i);
+          },
+          // For ref
+          onLeave: ({ progress, direction, isActive }) => {},
+          onLeaveBack: () => setCurrent(i),
+        });
       });
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      ScrollTrigger.create({
+        trigger: ".titles",
+        start: "center center",
+        endTrigger: "#end",
+        end: "center center",
+        pin: true,
+        scrub: true,
+        // set to false on production
+        // markers: true,
+        // animation: tl,
+      });
+    },
+    { dependencies: current, scope: container }
+  );
 
   return (
-    <section
-      ref={featuresRef}
-      className="my-12 mx-auto w-full features text-center"
-    >
+    <section className="my-12 mx-auto w-full features text-center">
       <div className="w-90p mx-auto space-y-4 mb-12 heading">
         <h2 className="text-neutral-dark text-4xl font-bold">
           Recruitinn’s Way
@@ -246,13 +234,11 @@ function FeaturesSection() {
           <br /> to meet your needs and exceed your expectations
         </p>
       </div>
-      <div className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]">
-        <div
-          className={`${
-            isHeadingsVisible && "sticky inset-0 bg-red-500"
-          } titles h-max`}
-          ref={headingsRef}
-        >
+      <div
+        ref={container}
+        className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
+      >
+        <div className={`titles h-max`}>
           {content.map((c, i) => (
             <AccordianItem
               current={current}
@@ -265,31 +251,32 @@ function FeaturesSection() {
           ))}
         </div>
         <div className="images max-xl:hidden relative overflow-hidden pl-3 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
-          <div className="relative w-full h-full space-y-32">
+          <div className="relative w-full h-full space-y-24">
             <Image
               src={createAJob}
-              className={`h-[35rem] block`}
+              className={`h-[29.5rem] block`}
               alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
             <Image
               src={generateAiAssessment}
-              className={`h-[35rem] block`}
+              className={`h-[29.5rem] block`}
               alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
             <Image
               src={takeAssessment}
-              className={`h-[35rem] block`}
+              className={`h-[29.5rem] block`}
               alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
             />
             <Image
+              id="end"
               src={bestTalents}
-              className={`h-[35rem] block`}
+              className={`h-[29.5rem] block`}
               alt="Create a job placeholder image"
               placeholder="blur"
               quality={80}
