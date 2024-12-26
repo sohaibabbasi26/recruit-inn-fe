@@ -40,7 +40,7 @@ const LandingThird = () => {
                 <div className="absolute w-[387px] h-[387px] border-dashed border-2 border-gray-300 rounded-full"></div>
 
                 {/* Avatars */}
-                <div className="absolute  top-[25%] left-[50%] md:top-[15%] transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute  sm:top-[25%] top-[25%] left-[50%]  transform -translate-x-1/2 -translate-y-1/2">
                   <Image
                     src="/avatar1.png"
                     alt="Avatar"
@@ -115,9 +115,9 @@ const LandingThird = () => {
             } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%] h-100p bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
             <div className="w-[100%] h-50p overflow-hidden flex flex-col justify-center items-center relative mb-[1.5rem]">
-              <div className="mt-50" > <TechstackOne /></div>
+              <div className=" mt-20" > <TechstackOne /></div>
               <div> <TechstackTwo /></div>
-              <div className="" > <TechstackThree /></div>
+              <div className="hidden" > <TechstackThree /></div>
               <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl " ></div>
               <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl " ></div>
 

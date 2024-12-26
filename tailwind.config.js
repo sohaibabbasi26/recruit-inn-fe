@@ -26,6 +26,7 @@ module.exports = {
           "0 20px 25px -5px rgba(102, 51, 153, 0.5), 0 10px 10px -5px rgba(102, 51, 153, 0.3)", // Purple shadow
         "2xl-purple": "0 25px 50px -12px rgba(102, 51, 153, 0.6)", // Extra large purple shadow
       },
+      
       height: {
         "10p": "10%",
         "20p": "20%",

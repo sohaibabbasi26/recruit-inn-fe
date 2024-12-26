@@ -25,13 +25,12 @@ const MainCard = () => {
       </h4>
 
       {/* Subtitle */}
-      <div className="w-100p flex justify-center  mt-10">
-        {" "}
-        <span className=" text-center w-40p">
-          Revolutionize the way you recruit by leveraging our innovative
-          solutions designed to make your hiring more efficient and effective{" "}
-        </span>
-      </div>
+      <div className="w-100p flex justify-center  mt-10" >    <span className=" text-center max-xsm:w-90p xsm:w-90p sm:w-70p md:w-60p lg:w-40p " >  
+         Revolutionize the way you recruit by leveraging our innovative solutions  
+         designed to make your hiring more efficient and effective </span>
+    
+                        </div>
+      
 
       {/* Bottom Padding */}
       <div className="py-8"></div>
