@@ -2,12 +2,12 @@ import CardDiv from "../components/CardDiv";
 import TechstackOne from "../components/TechstackOne";
 import TechstackTwo from "../components/TechstackTwo";
 import { useTheme } from "next-themes";
-// import './landingGlobal.css';
-// import './styles.css';
+
 import style from "./styles.module.css";
 import "tailwindcss/tailwind.css";
 import Image from "next/image";
 import TechstackThree from "../components/TechstackThree";
+import styles from "./LandingThird.module.css";
 
 const LandingThird = () => {
   const { theme } = useTheme();
@@ -23,71 +23,116 @@ const LandingThird = () => {
             } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
             <div className="w-80p h-50p max-xl:h-[70vh] mt-[58px] flex justify-center items-center relative">
-              <div className="relative flex items-center justify-center h-screen w-screen">
-                {/* Central Logo */}
-                <div className="absolute">
-                  <Image
-                    src="/recruitlogo.png"
-                    alt="Central Logo"
-                    width={50}
-                    height={50}
-                  />
-                </div>
+              {/* Central Logo */}
+              <div className="absolute">
+                <Image
+                  src="/recruitlogo.png"
+                  alt="Central Logo"
+                  width={50}
+                  height={50}
+                />
+              </div>
 
-                {/* Dotted Circles */}
-                <div className="absolute w-[267px] h-[267px] border-dashed border-2 border-gray-300 rounded-full"></div>
-                <div className="absolute w-[327px] h-[327px] border-dashed border-2 border-gray-300 rounded-full"></div>
-                <div className="absolute w-[387px] h-[387px] border-dashed border-2 border-gray-300 rounded-full"></div>
+              {/* Circles */}
+              <div className="absolute w-[267px] h-[267px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[327px] h-[327px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[387px] h-[387px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
 
-                {/* Avatars */}
-                <div className="absolute  sm:top-[25%] top-[25%] left-[50%]  transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar1.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[35%] left-[85%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar2.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute bottom-[59%] left-[25%] transform -translate-x-1/2 translate-y-1/2">
-                  <Image
-                    src="/avatar3.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[60%] left-[73%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar4.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[62%] right-[80%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar5.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[75%] right-[42%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar6.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
+              {/* Avatars */}
+              {/* Avatar 1 */}
+              <div
+                className={`absolute ${styles.rotate_center}`}
+                style={{
+                  transform: "rotate(0deg) translate(150px) rotate(0deg)", // Top center
+                  zIndex: 1, // Ensuring it stays on top
+                }}
+              >
+                <Image
+                  src="/avatar1.png"
+                  alt="Avatar 1"
+                  width={40}
+                  height={40}
+                />
+              </div>
+
+              {/* Avatar 2 */}
+              <div
+                className={`absolute ${styles.rotate_center}`}
+                style={{
+                  transform: "rotate(60deg) translate(150px) rotate(-60deg)", // Top right
+                  zIndex: 1, // Ensuring it stays on top
+                }}
+              >
+                <Image
+                  src="/avatar2.png"
+                  alt="Avatar 2"
+                  width={40}
+                  height={40}
+                />
+              </div>
+
+              {/* Avatar 3 */}
+              <div
+                className={`absolute ${styles.rotate_center}`}
+                style={{
+                  transform: "rotate(120deg) translate(150px) rotate(-120deg)", // Bottom right
+                  zIndex: 1, // Ensuring it stays on top
+                }}
+              >
+                <Image
+                  src="/avatar3.png"
+                  alt="Avatar 3"
+                  width={40}
+                  height={40}
+                />
+              </div>
+
+              {/* Avatar 4 */}
+              <div
+                className={`absolute ${styles.rotate_center}`}
+                style={{
+                  transform: "rotate(180deg) translate(150px) rotate(-180deg)", // Bottom center
+                  zIndex: 1, // Ensuring it stays on top
+                }}
+              >
+                <Image
+                  src="/avatar4.png"
+                  alt="Avatar 4"
+                  width={40}
+                  height={40}
+                />
+              </div>
+
+              {/* Avatar 5 */}
+              <div
+                className={`absolute ${styles.rotate_center}`}
+                style={{
+                  transform: "rotate(240deg) translate(150px) rotate(-240deg)", // Bottom left
+                  zIndex: 1, // Ensuring it stays on top
+                }}
+              >
+                <Image
+                  src="/avatar5.png"
+                  alt="Avatar 5"
+                  width={40}
+                  height={40}
+                />
+              </div>
+
+              {/* Avatar 6 */}
+              <div
+                className={`absolute ${styles.rotate_center}`}
+                style={{
+                  transform: "rotate(300deg) translate(150px) rotate(-300deg)", // Top left
+                  zIndex: 1, // Ensuring it stays on top
+                }}
+              >
+                <Image
+                  src="/avatar6.png"
+                  alt="Avatar 6"
+                  width={40}
+                  height={40}
+                />
               </div>
             </div>
 
@@ -115,13 +160,20 @@ const LandingThird = () => {
             } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%] h-100p bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
             <div className="w-[100%] h-50p overflow-hidden flex flex-col justify-center items-center relative mb-[1.5rem]">
-              <div className=" mt-20" > <TechstackOne /></div>
-              <div> <TechstackTwo /></div>
-              <div className="hidden" > <TechstackThree /></div>
-              <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl " ></div>
-              <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl " ></div>
-
-
+              <div className=" mt-20">
+                {" "}
+                <TechstackOne />
+              </div>
+              <div>
+                {" "}
+                <TechstackTwo />
+              </div>
+              <div className="opacity-30 max-md:hidden">
+                {" "}
+                <TechstackThree />
+              </div>
+              <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
+              <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
             </div>
 
             <div className="w-80p h-50p flex flex-col justify-center">

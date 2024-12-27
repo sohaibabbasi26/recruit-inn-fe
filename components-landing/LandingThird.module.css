@@ -1,0 +1,15 @@
+@keyframes orbit {
+    0% {
+      transform: rotate(0deg) translate(150px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translate(150px) rotate(-360deg);
+    }
+  }
+  
+  .rotate_center {
+    position: absolute;
+    animation: orbit 10s linear infinite;
+    transform-origin: center;
+  }
+  

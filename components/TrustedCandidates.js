@@ -5,7 +5,6 @@ import Image from "next/image";
 const TrustedCandidates = () => {
   const { theme } = useTheme();
 
-  // List of logos for easy duplication
   const logos = [
     "/company1.svg",
     "/company2.svg",
@@ -16,13 +15,12 @@ const TrustedCandidates = () => {
   ];
 
   return (
-    <div className="relative flex flex-col w-[80%] max-md:w-[100%] rounded-lg mb-[3rem] justify-center items-center">
+    <div className="relative flex flex-col w-[90%] max-w-[100%] overflow-hidden rounded-lg mb-[3rem] justify-center items-center">
       <span className="text-smallText dark:text-steel text-md text-center">
         Used by
       </span>
       <div className={styles.logos}>
         <div className={styles["logos-slide"]}>
-          {/* Original and duplicate logos for smooth animation */}
           {[...logos, ...logos].map((logo, index) => (
             <Image
               key={index}
