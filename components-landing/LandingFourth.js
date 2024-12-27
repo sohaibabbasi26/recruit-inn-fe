@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 function LandingFourth() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -57,9 +58,9 @@ function LandingFourth() {
   }, [activeIndex]);
 
   return (
-    <div className="relative">
-
-      <div className="sticky top-1/4 left-10 transform -translate-y-1/2 flex flex-col items-center justify-center h-screen">
+    <div className="relative mt-16 w-90p mx-auto">
+      {/* <div className="sticky top-1/4 left-10 transform -translate-y-1/2 flex flex-col items-center justify-center h-screen"> */}
+      <div className="flex flex-col mb-8 items-center justify-center ">
         {sections.map((section, index) => (
           <p
             key={index}
@@ -72,13 +73,22 @@ function LandingFourth() {
         ))}
       </div>
 
-
-      <div className="sticky top-[70%] transform -translate-y-1/2 h-screen flex items-center justify-center">
-        <img
+      {/* <div className="sticky top-[70%] transform -translate-y-1/2 h-screen flex items-center justify-center"> */}
+      <div className="sticky top-0 h-[64rem] flex items-center justify-center">
+        {/* <img
           src={sections[activeIndex]?.image}
           alt={`Section ${activeIndex + 1}`}
-          className="w-3/4 transition-opacity duration-1000"
-        />
+          className="w-3/4 transition-opacity duration-1000 object-cover h-auto"
+        /> */}
+        <div className="relative size-full">
+          <Image
+            src={sections[activeIndex]?.image}
+            fill
+            className="w-3/4 transition-opacity duration-1000 object-cover size-full"
+            alt={`Section ${activeIndex + 1}`}
+            quality={80}
+          />
+        </div>
       </div>
 
       <div className="relative h-[300vh]">

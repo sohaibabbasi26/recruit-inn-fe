@@ -4,17 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import FeaturesSection from "../../components-landing/FeaturesSection";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
-import HowItWorks from "../../components-landing/HowItWorks";
 import LandingFAQs from "../../components-landing/LandingFAQs";
-import LandingFourth from "../../components-landing/LandingFourth";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
 import LandingThird2 from "../../components-landing/LandingThird2";
-import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
 import styles from "../../components-landing/styles.module.css";
-import LandingFifth from "../../components-landing/LandingFifth";
 import Testimonials from "../../components-landing/Testimonials";
+import RecruitInnProcess from "../../components-landing/RecruitInnProcess";
+import LandingVideo from "../../components/LandingVideo";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -73,7 +71,11 @@ const LandingPage = () => {
             <LandingThird />
           </div>
           <LandingThird2 />
-          <LandingFourth />
+          {/* Try this */}
+          {/* <LandingFourth /> */}
+          <div className="4th">
+            <RecruitInnProcess />
+          </div>
           <div ref={featuresRef}>
             <FeaturesSection />
           </div>
