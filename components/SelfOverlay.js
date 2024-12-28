@@ -101,7 +101,7 @@ const SelfOverlay = ({
   const [level2, setLevel2] = useState("");
   const [isLevelEntered, setIsLevelEntered] = useState();
   const [otpId, setOtpId] = useState("");
-  const [isArabicLanguage, setIsArabicLanguage] = useState(false);
+  //const [isArabicLanguage, setIsArabicLanguage] = useState(false);
   // const [testRequirement, setIsTestRequirement] = useState(false);
 
   const [testRequirement, setTestRequirement] = useState(false);
@@ -120,12 +120,12 @@ const SelfOverlay = ({
 
     const reqtwo = {
       expertise: techStack,
-      isArabic: isArabicLanguage,
+      isArabic: false,
     };
 
     setReq(reqtwo);
     setReqBody(reqBody);
-  }, [name, city, contact, password, email, expertise, country, techStack, isArabicLanguage]);
+  }, [name, city, contact, password, email, expertise, country, techStack]);
 
   const toggleComponent = async () => {
     const skills = [
@@ -772,8 +772,6 @@ const SelfOverlay = ({
               {currentStage === stages.SKILLS && (
                 <>
                   <CandSelfSkill
-                    isArabicLanguage={isArabicLanguage}
-                    setIsArabicLanguage={setIsArabicLanguage}
                     skill1={skill1}
                     skill2={skill2}
                     setSkill1={setSkill1}

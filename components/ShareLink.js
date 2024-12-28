@@ -16,6 +16,7 @@ const ShareLink = ({
   setName,
   assessmentId,
   isTestRequired,
+  language,
   emailReceivers,
   setEmailReceivers,
   handleEmailChange,
@@ -50,7 +51,7 @@ const ShareLink = ({
       assessmentId ||
       isTestRequired
     ) {
-      const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`;
+      const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${language}`;
       setLink(demolink);
     }
   }, [questionId, isTestRequired, assessmentId]);

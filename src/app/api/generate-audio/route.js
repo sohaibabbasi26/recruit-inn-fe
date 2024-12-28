@@ -7,6 +7,7 @@ export const POST = async (req) => {
   try {
     const body = await req.json(); // Parse the JSON body
     const text = body?.text; // Safely access 'text'
+    const language = body?.language; // Safely access 'language'
 
     // Validate 'text'
     if (!text || typeof text !== "string" || text.trim().length === 0) {
@@ -19,7 +20,7 @@ export const POST = async (req) => {
       );
     }
 
-    const lang = "ar";
+    const lang = language==="Arabic"?"ar":"en";
 
     // Generate the MP3 buffer
     const tts = new googleTTS();
