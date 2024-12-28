@@ -12,6 +12,21 @@ module.exports = {
 
   theme: {
     extend: {
+      animation: {
+        fadeIn: "fadeIn 0.5s ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+      boxShadow: {
+        "xl-purple":
+          "0 20px 25px -5px rgba(102, 51, 153, 0.5), 0 10px 10px -5px rgba(102, 51, 153, 0.3)", // Purple shadow
+        "2xl-purple": "0 25px 50px -12px rgba(102, 51, 153, 0.6)", // Extra large purple shadow
+      },
+      
       height: {
         "10p": "10%",
         "20p": "20%",
@@ -38,6 +53,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        dmSans: ["DM Sans", "sans-serif"],
       },
       colors: {
         darkPurple: "#241B3E",
@@ -51,13 +67,15 @@ module.exports = {
         "danger-bg": "#fff5f5",
         btnPurple: "#220772",
         lightPurple: "#6137DB",
+        darkPurple: "#E5E1F0",
         smallText: "#ADA9B8",
         themePurple: "#6E48D5",
         somePurple: "#2E2547",
         elementGradOne: "#0A0A0A",
         elementGradTwo: "#1E143A",
         smallDiv: "#0E0A18",
-        lightPurpleText: "#9A79F7",
+        // lightPurpleText: "#9A79F7",
+        lightPurpleText: "#6135DF",
         spanBg: "#16161C",
         lightText: "#AC90FB",
         verySmallText: "#716690",
@@ -68,6 +86,7 @@ module.exports = {
         darkPaymentPurple: "#3F3855",
         goldenTextColor: "#FFC27B",
         goldenLightText: "#C3A38B",
+        indigo: "#7A64F6",
       },
       spacing: {
         8: "3rem",
@@ -78,6 +97,12 @@ module.exports = {
       },
     },
     screens: {
+      xsm: "400px", // Add your custom breakpoints if needed
+      sm: "640px", // Default Tailwind minimum width breakpoints
+      md: "768px", // Restores `md:grid-cols-*`
+      lg: "1024px", // Restores `lg:grid-cols-*`
+      xl: "1280px",
+      "2xl": "1440px",
       "max-xsm": { max: "400px" },
       "max-sm": { max: "639px" },
       "max-md": { max: "767px" },

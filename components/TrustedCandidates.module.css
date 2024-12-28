@@ -1,39 +1,64 @@
+.logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.logos:before,
+.logos:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100px;
+  /* Adjust width to control fade effect size */
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  /* Ensure fade areas don't block interactions */
+}
+
+.logos:before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.logos:after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.dark .logos:before {
+  background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.dark .logos:after {
+  background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
 
 .img {
-    height: 40px;
-    margin: 0 20px; /* Adjust margin as needed */
+  height: 24px;
+  margin: 0 30px;
+  /* Adjust margin as needed */
+}
+
+.logos-slide {
+  display: flex;
+  animation: 25s slide infinite linear;
+}
+
+.logos:hover .logos-slide {
+  animation-play-state: paused;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
   }
-  .logos {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
-    /* padding: 40px 0; */
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
+  100% {
+    transform: translateX(-100%);
   }
-  .logos:before,
-  .logos:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 250px; /* Adjust based on your design */
-    height: 100%;
-    z-index: 2;
-  }
-  .logos:hover .logos-slide {
-    animation-play-state: paused;
-  }
-  .logos-slide {
-    display: flex;
-    animation: 25s slide infinite linear;
-  }
-  @keyframes slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
+}

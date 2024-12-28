@@ -1,24 +1,25 @@
-import Head from "next/head";
+// import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
+import FeaturesSection from "../../components-landing/FeaturesSection";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
-import HowItWorks from "../../components-landing/HowItWorks";
 import LandingFAQs from "../../components-landing/LandingFAQs";
-import LandingFourth from "../../components-landing/LandingFourth";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
-import LandingVideo from "../../components/LandingVideo";
+import LandingThird2 from "../../components-landing/LandingThird2";
 import PaymentMethods from "../../components-landing/PaymentMethods";
-import RecruitinnsWay from "../../components/RecruitinnsWay";
 import styles from "../../components-landing/styles.module.css";
-import LandingFifth from "../../components-landing/LandingFifth";
+import Testimonials from "../../components-landing/Testimonials";
+import RecruitInnProcess from "../../components-landing/RecruitInnProcess";
+import LandingVideo from "../../components/LandingVideo";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
   const LandingThirdRef = useRef(null);
-  const howItWorksRef = useRef(null);
-  const PaymentMethodsRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const featuresRef = useRef(null);
+  const pricingRef = useRef(null);
 
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
@@ -36,7 +37,15 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* Add SEO metadata */}
+      {/* <Head>
+        <title>
+          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+        </title>
+        <meta
+          name="description"
+          content="Discover how Recruitinn helps you find the best candidates with AI-powered recruitment tools. Learn about our free trial, billing, and unique features."
+        />
+      </Head> */}
 
       <ThemeProvider attribute="class" defaultTheme="light">
         <main
@@ -48,21 +57,36 @@ const LandingPage = () => {
           <LandingNavbar
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
+            pricingRef={pricingRef}
             LandingThirdRef={LandingThirdRef}
-            howItWorksRef={howItWorksRef}
+            testimonialsRef={testimonialsRef}
+            featuresRef={featuresRef}
           />
           <div ref={HeroRef}>
             <HeroSection />
           </div>
+
           <LandingVideo />
           <div ref={LandingThirdRef}>
             <LandingThird />
           </div>
-          <LandingFourth />
+          <LandingThird2 />
+          {/* Try this */}
+          {/* <LandingFourth /> */}
+          <div className="4th">
+            <RecruitInnProcess />
+          </div>
+          <div ref={featuresRef}>
+            <FeaturesSection />
+          </div>
+          {/* <LandingFourth />
           <div ref={howItWorksRef}>
             <HowItWorks />
+          </div>  */}
+          <div>
+            <Testimonials />
           </div>
-          <div ref={PaymentMethodsRef} className="pt-4">
+          <div ref={pricingRef} className="pt-4">
             <PaymentMethods />
           </div>
 
@@ -73,8 +97,9 @@ const LandingPage = () => {
             scrollToRef={scrollToRef}
             HeroRef={HeroRef}
             FAQRef={FAQRef}
-            howItWorksRef={howItWorksRef}
-            PaymentMethodsRef={PaymentMethodsRef}
+            featuresRef={featuresRef}
+            pricingRef={pricingRef}
+            howItWorksRef={featuresRef}
           />
         </main>
       </ThemeProvider>

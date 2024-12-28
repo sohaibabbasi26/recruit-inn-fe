@@ -1,8 +1,21 @@
 
 .img {
-    height: 140px;
+    height: 80px;
     margin: 0 20px; /* Adjust margin as needed */
+    
   }
+
+.imageWrapper {
+  height: 120px; 
+  width: 120px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border-color: #6E48D5;
+  margin-bottom: 20px;
+}
+
   .logos {
     display: flex;
     justify-content: space-between;
@@ -22,20 +35,20 @@
     
     z-index: 2;
   }
-  .logos:hover .logos-slide {
-    animation-play-state: paused;
-  }
+ 
   /* .logos-slide {
     display: flex;
     animation: 25s slide infinite linear;
   } */
   /* TechstackTwo.module.css */
+
+  
 @keyframes slideRight {
-  from {
-      transform: translateX(-100%);
+  0% {
+    transform: translateX(-50%); /* Start halfway left */
   }
-  to {
-      transform: translateX(0);
+  100% {
+    transform: translateX(0); /* End at original position */
   }
 }
 
@@ -43,3 +56,4 @@
   display: flex;
   animation: 25s slideRight infinite linear;
 }
+
