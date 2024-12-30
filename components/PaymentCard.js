@@ -2,20 +2,24 @@ import Image from "next/image";
 import { checkout } from "@/util/Checkout";
 import "tailwindcss/tailwind.css";
 
-const PaymentCard = ({
+const  PaymentCard = ({
   bgColor,
   headingColor,
   smallTextColor,
   borderColor,
   bg,
-  img,
   priceColor,
   packageType,
   price,
 }) => {
+
+   const img1="/checkAI.png"
+   const  img2="/crossAI.png"
+ 
+
   return (
     <>
-      <div className="w-[90%] max-md:w-[100%] h-[100%] flex justify-center items-center mb-5">
+      <div className="w-[90%] max-md:w-[100%] h-[100%] flex justify-center items-center mb-5 ">
         <div
           className={`w-[90%] py-4 px-4 max-md:w-[100%] h-[100%] text-white border-[1px]  ${borderColor} rounded-3xl ${bgColor}`}
         >
@@ -45,42 +49,108 @@ const PaymentCard = ({
             <div className="max-lg:hidden">
               <span className="text-gray-500 text-sm">What’s included</span>
               <ul>
+                
+                
                 <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />4 Reports of
-                  candidate
-                </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />
+                  <Image src={`${img1}`} width={20} height={20} />
                   Add up to 4 skills
                 </li>
                 <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />4 Reports of
-                  candidate
-                </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />
-                  Add up to 4 skills
-                </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />
+                  <Image src={`${img1}`} width={20} height={20} />
                   Post up to 10 jobs
                 </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />4 Reports of
-                  candidate
+
+                {price == 0  ? (
+                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
+                   4 Reports of  candidate
+                    </li>
+               
+               ) : (
+            
+                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
+                4 Reports of  candidate
+              </li>
+              )}
+                {price == 0  ? (
+                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
+                   Post up to 10 jobs
+                    </li>
+               
+               ) : (
+            
+                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
+                Post up to 10 jobs
+              </li>
+              )}
+                {price == 0 ? (
+                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
+                     Add up to 4 skills
+                    </li>
+               
+               ) : (
+            
+                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
+               Add up to 4 skills
+              </li>
+              )}
+                {price == 0 || price == 49 ? (
+                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
+                   Post up to 10 jobs
+                    </li>
+               
+               ) : (
+            
+                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
+                Post up to 10 jobs
+              </li>
+              )}
+                {price == 0 || price == 49 ? (
+                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
+                     Add up to 4 skills
+                    </li>
+               
+               ) : (
+            
+                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
+               Add up to 4 skills
+              </li>
+              )}
+                {price == 149 ? (
+                 <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                 <Image src={`${img1}`} width={20} height={20} />
+                 4 Reports of candidate
+                 </li> 
+              
+                 ) : (
+                <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                <Image src={`${img2}`} width={20} height={20} />
+                4 Reports of candidate
                 </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />
-                  Add up to 4 skills
-                </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />4 Reports of
-                  candidate
-                </li>
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img}`} width={20} height={20} />
+                )}
+                {price == 149 ? (
+                 <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
+                 <Image src={`${img1}`} width={20} height={20} />
                   Post up to 10 jobs
+                 </li> 
+              
+                 ) : (
+                <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                <Image src={`${img2}`} width={20} height={20} />
+                Post up to 10 jobs
                 </li>
+                )}
+
+                
               </ul>
             </div>
 

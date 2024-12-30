@@ -22,7 +22,7 @@ const LandingThird = () => {
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
             } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh] mt-[58px] flex justify-center items-center relative">
+            <div className="w-80p h-50p max-xl:h-[70vh] mt-[56px] flex justify-center items-center relative">
               {/* Central Logo */}
               <div className="absolute">
                 <Image
@@ -36,7 +36,7 @@ const LandingThird = () => {
               {/* Circles */}
               <div className="absolute w-[267px] h-[267px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
               <div className="absolute w-[327px] h-[327px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
-              <div className="absolute w-[387px] h-[387px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[380px] h-[380px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
 
               {/* Avatars */}
               {/* Avatar 1 */}
@@ -57,7 +57,7 @@ const LandingThird = () => {
 
               {/* Avatar 2 */}
               <div
-                className={`absolute ${styles.rotate_center}`}
+                className={`absolute ${styles.rotate_center1}`}
                 style={{
                   transform: "rotate(60deg) translate(150px) rotate(-60deg)", // Top right
                   zIndex: 1, // Ensuring it stays on top
@@ -73,7 +73,7 @@ const LandingThird = () => {
 
               {/* Avatar 3 */}
               <div
-                className={`absolute ${styles.rotate_center}`}
+                className={`absolute ${styles.rotate_center2}`}
                 style={{
                   transform: "rotate(120deg) translate(150px) rotate(-120deg)", // Bottom right
                   zIndex: 1, // Ensuring it stays on top
@@ -105,9 +105,9 @@ const LandingThird = () => {
 
               {/* Avatar 5 */}
               <div
-                className={`absolute ${styles.rotate_center}`}
+                className={`absolute ${styles.rotate_center2}`}
                 style={{
-                  transform: "rotate(240deg) translate(150px) rotate(-240deg)", // Bottom left
+                  transform: "rotate(300deg) translate(150px) rotate(-deg)", // Bottom left
                   zIndex: 1, // Ensuring it stays on top
                 }}
               >
@@ -121,11 +121,11 @@ const LandingThird = () => {
 
               {/* Avatar 6 */}
               <div
-                className={`absolute ${styles.rotate_center}`}
-                style={{
-                  transform: "rotate(300deg) translate(150px) rotate(-300deg)", // Top left
-                  zIndex: 1, // Ensuring it stays on top
-                }}
+                className={`absolute ${styles.rotate_center1}`}
+                   style={{
+                    transform: "rotate(300deg) translate(150px) rotate(-300deg)", // Top left
+                     zIndex: 1, // Ensuring it stays on top
+                 }}
               >
                 <Image
                   src="/avatar6.png"
@@ -136,7 +136,7 @@ const LandingThird = () => {
               </div>
             </div>
 
-            <div className="w-80p h-50p flex flex-col justify-center">
+            <div className="w-80p h-50p flex flex-col justify-center mt-5">
               <span className="text-lightPurpleText font-semibold text-lg">
                 TALENTS
               </span>

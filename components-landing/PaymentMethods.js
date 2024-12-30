@@ -21,9 +21,9 @@ export default function PaymentMethods() {
         <p className="text-center text-md text-gray-500 mt-2">
           Our flexible pricing options are tailored to your needs
         </p>
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 p-7">
           <div
-            className={`inline-block relative w-[55%] py-1 bg-white dark:bg-[#141414] text-black dark:text-white max-md:mb-4 border border[#F0EDFC] dark:border-black rounded-full  ${
+            className={`inline-block relative w-[50%] py-1 bg-white dark:bg-[#141414] text-black dark:text-white max-md:mb-4 border border[#F0EDFC] dark:border-black rounded-full  ${
               selectedOption === "monthly" ? "text-white" : ""
             }`}
           >
@@ -113,7 +113,7 @@ export default function PaymentMethods() {
               ? "bg-darkPaymentPurple"
               : "text-primary bg-light-purple-shade "
           }
-          img={"/included.png"}
+        
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
           packageType="Free"
@@ -124,13 +124,14 @@ export default function PaymentMethods() {
           headingColor={"text-lightPurpleText"}
           // smallTextColor={"text-lightText"}
           smallTextColor={"text-primary"}
+        
           borderColor={theme === "dark" ? "border-somePurple" : "#F0EDFC"}
           bg={
             theme === "dark"
               ? "bg-darkPaymentPurple"
               : "text-primary bg-light-purple-shade "
           }
-          img={"/included.png"}
+         
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
           packageType="Standard"
@@ -149,12 +150,13 @@ export default function PaymentMethods() {
               ? style["payment-card-pro-button"]
               : "text-white bg-primary"
           }
-          img={"/included.png"}
+         
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
           packageType="Pro"
           price="99"
         />
+       
         <PaymentCard
           bgColor={
             theme === "dark" ? style["payment-enterprise-gradient"] : "bg-white"
@@ -167,11 +169,12 @@ export default function PaymentMethods() {
               ? style["btn-golden"]
               : style["payment-card-pro-button"]
           }
-          img={"/Gold-Include.png"}
+         
           // priceColor={style["golden-gradient-text"]}
           priceColor="text-lightPurpleText"
           packageType="Enterprise"
           price="149"
+          
         />
       </div>
       {/* mobile screnn */}
