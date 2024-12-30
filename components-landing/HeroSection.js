@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import style from "./styles.module.css";
 
 const HeroSection = () => {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   return (
     <>
       <div className="w-full h-[87svh] flex flex-col items-center">
@@ -26,9 +26,8 @@ const HeroSection = () => {
                 className={`w-100p h-[100%] ${style["blurred-overlay"]} flex relative`}
               >
                 <div
-                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 ${
-                    theme === "dark" ? style["background-gradient"] : "bg-white"
-                  } border-[#FF0000] left-[10rem] top-[61%]  rounded-2xl self-end mb-28`}
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 bg-white
+                             border-[#FF0000] left-[10rem] top-[61%]  rounded-2xl self-end mb-28`}
                 >
                   <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                     <Image src="/Bitmoji.svg" width={20} height={20} />
@@ -42,7 +41,7 @@ const HeroSection = () => {
                   <div>
                     <p className="text-xs bg-[#FFE6E6] dark:ring-red-900 p-2 px-3 rounded-full flex gap-2 font-medium">
                       Unqualified{" "}
-                      <Image src="/Ellipse-red.svg" width={6} height={6} />
+                      <Image src="/Ellipse_red.svg" width={6} height={6} />
                     </p>
                   </div>
                 </div>
@@ -90,12 +89,11 @@ const HeroSection = () => {
                   </div> */}
 
                 <div
-                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[23rem] h-[4rem] border-2 ${
-                    theme === "dark" ? style["background-gradient"] : "bg-white"
-                  } border-[#31CDBA] rounded-2xl mt-20`}
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[23rem] h-[4rem] border-2 bg-white
+                   border-[#31CDBA] rounded-2xl mt-20`}
                 >
                   <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-[#E7FFE0] dark:bg-darkPurple overflow-hidden rounded-md">
-                    <Image src="/Bitmoji-female.svg" width={20} height={20} />
+                    <Image src="/Bitmoji_female.svg" width={20} height={20} />
                   </div>
 
                   <div className="flex flex-col me-5">
@@ -106,7 +104,7 @@ const HeroSection = () => {
                   <div>
                     <p className="text-xs bg-[#E7FFE0] dark:bg-green-900 p-2 rounded-full flex gap-2 font-medium">
                       Recommended{" "}
-                      <Image src="/Ellipse-green.svg" width={6} height={6} />
+                      <Image src="/Ellipse_green.svg" width={6} height={6} />
                     </p>
                   </div>
                 </div>
