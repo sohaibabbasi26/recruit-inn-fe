@@ -90,7 +90,7 @@ const HeroSection = () => {
                   className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[23rem] h-[4rem] bg-white border-2 border-[#31CDBA] rounded-2xl mt-20`}
                 >
                   <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-[#E7FFE0] dark:bg-darkPurple overflow-hidden rounded-md">
-                    <Image src="/Bitmoji-female.svg" width={20} height={20} />
+                    <Image src="/bitmoji-female.svg" width={20} height={20} />
                   </div>
 
                   <div className="flex flex-col me-5">
