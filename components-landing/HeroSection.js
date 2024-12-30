@@ -1,10 +1,9 @@
-import TrustedCandidates from "../components/TrustedCandidates";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
+import TrustedCandidates from "../components/TrustedCandidates";
 // import './landingGlobal.css';
 // import './styles.css';
-import style from "./styles.module.css";
 
 const HeroSection = () => {
   // const { theme } = useTheme();
@@ -23,11 +22,10 @@ const HeroSection = () => {
               <div className="bg-gradient-to-br from-[#FF0000] h-[3rem] w-[5rem] relative left-[10rem] top-[11rem] rounded-full"></div>
 
               <div
-                className={`w-100p h-[100%] ${style["blurred-overlay"]} flex relative`}
+                className={`w-100p h-[100%] relative bg-transparent flex backdrop-blur-[40px]`}
               >
                 <div
-                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 bg-white
-                             border-[#FF0000] left-[10rem] top-[61%]  rounded-2xl self-end mb-28`}
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 bg-white border-[#FF0000] left-[10rem] top-[61%]  rounded-2xl self-end mb-28`}
                 >
                   <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                     <Image src="/Bitmoji.svg" width={20} height={20} />
@@ -72,7 +70,7 @@ const HeroSection = () => {
 
               <div className="bg-gradient-to-br from-[#31CDBA] h-[5rem] w-[5rem] relative left-[-18rem] top-[5rem] rounded-full"></div>
               <div
-                className={`w-100p h-[100%] ${style["blurred-overlay"]} flex relative`}
+                className={`w-100p h-[100%] relative bg-transparent flex backdrop-blur-[40px]`}
               >
                 {/* <div
                     className={`flex gap-3 items-center z-[1] text-neutral-dark dark:text-white w-[13rem] h-[3rem] border-2 ${
@@ -89,8 +87,7 @@ const HeroSection = () => {
                   </div> */}
 
                 <div
-                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[23rem] h-[4rem] border-2 bg-white
-                   border-[#31CDBA] rounded-2xl mt-20`}
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[23rem] h-[4rem] bg-white border-2 border-[#31CDBA] rounded-2xl mt-20`}
                 >
                   <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-[#E7FFE0] dark:bg-darkPurple overflow-hidden rounded-md">
                     <Image src="/Bitmoji_female.svg" width={20} height={20} />
@@ -133,7 +130,7 @@ const HeroSection = () => {
         <TrustedCandidates />
         <Link href="https://app.recruitinn.ai/client-signup">
           <button
-            className={`max-md:mx-auto px-3 py-2.5 text-md ${style["btn-gradient"]} rounded-3xl font-semibold w-[15rem] text-white`}
+            className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
           >
             Get Started today
           </button>
