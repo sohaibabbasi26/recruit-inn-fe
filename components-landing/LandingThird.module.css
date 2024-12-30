@@ -1,9 +1,9 @@
 @keyframes orbit {
     0% {
-      transform: rotate(0deg) translate(150px) rotate(0deg);
+      transform: rotate(0deg) translate(120px) rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translate(150px) rotate(-360deg);
+      transform: rotate(360deg) translate(120px) rotate(-360deg);
     }
   }
   
@@ -11,5 +11,35 @@
     position: absolute;
     animation: orbit 10s linear infinite;
     transform-origin: center;
+   
+  }
+@keyframes orbit1 {
+    0% {
+      transform: rotate(360deg) translate(160px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(160px) rotate(0deg);
+    }
   }
   
+  .rotate_center1 {
+    position: absolute;
+    animation: orbit1 12s linear infinite;
+    transform-origin: center;
+  }
+  
+@keyframes orbit2 {
+    0% {
+      transform: rotate(0deg) translateX(190px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(190px) rotate(-360deg);
+    }
+  }
+  
+  .rotate_center2 {
+    position: absolute;
+    animation: orbit2 15s linear infinite;
+     transform-origin: center; 
+    
+  }
