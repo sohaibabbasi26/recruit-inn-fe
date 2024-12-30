@@ -18,7 +18,7 @@ const QuestionBox = ({
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [completedQuestions, setCompletedQuestions] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(130);
   const [newQuestions, setNewQuestions] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [audioURLs, setAudioURLs] = useState({});
@@ -115,7 +115,10 @@ const QuestionBox = ({
 
   const deleteAudio = async () => {
     try {
-      const response = await fetch(`/api/delete-audio/${audioUUID}`, {
+      const response = await fetch(`/api/delete-audio`, {
+        body: JSON.stringify({
+          uuid: audioUUID?.toString(),
+        }),
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -680,6 +683,7 @@ const QuestionBox = ({
         console.log(
           console.log("state of currentQuestionIndex:", currentQuestionIndex)
         );
+        // deleteAudio();
       //}
       } else {
         await stopAndHandleRecording();
@@ -698,7 +702,7 @@ const QuestionBox = ({
     generateAudio(currentQuestion);
     console.log("line 688: speakQuestion called");
 
-    setTimeLeft(30);
+    setTimeLeft(130);
   }, [currentQuestion]);
 
   const stopAndHandleRecording = async () => {
@@ -923,7 +927,7 @@ const QuestionBox = ({
 
             {/* question container */}
 
-            <div className={styles.questionContainer}>
+            <div dir={language==="Arabic"?"rtl":"ltr"}className={styles.questionContainer}>
               {newQuestions && newQuestions.length > 0 && (
                 <span>
                   {isFirstQues
