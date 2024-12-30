@@ -47,62 +47,58 @@ const LandingPage = () => {
         />
       </Head> */}
 
-      <ThemeProvider attribute="class" defaultTheme="light">
-        <main
-          className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
-        >
-          <h1 className="hidden">
-            Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
-          </h1>
-          <LandingNavbar
-            scrollToRef={scrollToRef}
-            HeroRef={HeroRef}
-            pricingRef={pricingRef}
-            LandingThirdRef={LandingThirdRef}
-            testimonialsRef={testimonialsRef}
-            featuresRef={featuresRef}
-          />
-          <div ref={HeroRef}>
-            <HeroSection />
-          </div>
+      <main className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}>
+        <h1 className="hidden">
+          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+        </h1>
+        <LandingNavbar
+          scrollToRef={scrollToRef}
+          HeroRef={HeroRef}
+          pricingRef={pricingRef}
+          LandingThirdRef={LandingThirdRef}
+          testimonialsRef={testimonialsRef}
+          featuresRef={featuresRef}
+        />
+        <div ref={HeroRef}>
+          <HeroSection />
+        </div>
 
-          <LandingVideo />
-          <div ref={LandingThirdRef}>
-            <LandingThird />
-          </div>
-          <LandingThird2 />
-          {/* Try this */}
-          {/* <LandingFourth /> */}
-          <div className="4th">
-            <RecruitInnProcess />
-          </div>
-          <div ref={featuresRef}>
-            <FeaturesSection />
-          </div>
-          {/* <LandingFourth />
+        <LandingVideo />
+        <div ref={LandingThirdRef}>
+          <LandingThird />
+        </div>
+        <LandingThird2 />
+        {/* Try this */}
+        {/* <LandingFourth /> */}
+        <div className="4th">
+          <RecruitInnProcess />
+        </div>
+        <div ref={featuresRef}>
+          <FeaturesSection />
+        </div>
+        {/* <LandingFourth />
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>  */}
-          <div>
-            <Testimonials />
-          </div>
-          <div ref={pricingRef} className="pt-4">
-            <PaymentMethods />
-          </div>
+        <div>
+          <Testimonials />
+        </div>
+        <div ref={pricingRef} className="pt-4">
+          <PaymentMethods />
+        </div>
 
-          <div ref={FAQRef}>
-            <LandingFAQs />
-          </div>
-          <Footer
-            scrollToRef={scrollToRef}
-            HeroRef={HeroRef}
-            FAQRef={FAQRef}
-            featuresRef={featuresRef}
-            pricingRef={pricingRef}
-            howItWorksRef={featuresRef}
-          />
-        </main>
-      </ThemeProvider>
+        <div ref={FAQRef}>
+          <LandingFAQs />
+        </div>
+        <Footer
+          scrollToRef={scrollToRef}
+          HeroRef={HeroRef}
+          FAQRef={FAQRef}
+          featuresRef={featuresRef}
+          pricingRef={pricingRef}
+          howItWorksRef={featuresRef}
+        />
+      </main>
     </>
   );
 };
