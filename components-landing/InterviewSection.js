@@ -1,10 +1,9 @@
-import Image from "next/image";
-import style from "./styles.module.css";
-import "tailwindcss/tailwind.css";
-import NodeCard from "./NodeCard";
-import MainCard from "./MainCard";
 import { useTheme } from "next-themes";
-const LandingThird2 = () => {
+import Image from "next/image";
+import "tailwindcss/tailwind.css";
+import MainCard from "./MainCard";
+import NodeCard from "./NodeCard";
+const InterviewSection = () => {
   const { theme } = useTheme();
 
   return (
@@ -204,4 +203,4 @@ const LandingThird2 = () => {
   );
 };
 
-export default LandingThird2;
+export default InterviewSection;
