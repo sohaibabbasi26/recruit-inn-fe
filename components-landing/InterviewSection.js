@@ -7,8 +7,10 @@ const InterviewSection = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="h-[1000px] max-lg:h-100p w-full flex justify-center mb-[2rem]  ">
-      <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] bg-light-purple-shade rounded-2xl border-2 ">
+    // <div className="h-[1000px] max-lg:h-100p w-full flex justify-center mb-[2rem]  ">
+    <div className="w-full interview-section">
+      <div className="w-90p mx-auto bg-[#FBFBFC] rounded-3xl border border-darkPurple">
+        {/* <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] bg-light-purple-shade rounded-2xl border-2 "> */}
         <MainCard />
 
         <div className="flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8   overflow-hidden ">
