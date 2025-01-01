@@ -1,29 +1,38 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import LeftLineLgSvg from "../components/leftLineLgSvg";
+import LeftLineMdSvg from "../components/leftLineMdSvg";
+import RightLineMdSvg from "../components/RightLineMdSvg";
+import RightLineLgSvg from "../components/RightLineLgSvg";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import { useRef } from "react";
+import Image from "next/image";
 import "tailwindcss/tailwind.css";
 
 import MainCard from "./MainCard";
 import NodeCard from "./NodeCard";
 gsap.registerPlugin(ScrollTrigger);
 
-const getElementCenter = (element) => {
-  const rect = element.getBoundingClientRect();
-  console.log("Rect", rect);
+const getElementCenters = (elements) => {
+  if (!Array.isArray(elements)) {
+    elements = [elements];
+  }
 
-  // Calculate the element's center
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  const adjustedX = centerX - window.innerWidth * 0.05;
+  return elements.map((element, i) => {
+    const rect = element.getBoundingClientRect();
+    console.log("Rect:", i, rect);
 
-  return {
-    x: adjustedX,
-    y: centerY,
-  };
+    // Calculate the element's center from the left
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const adjustedX = centerX - window.innerWidth * 0.05;
+
+    return {
+      x: adjustedX,
+      y: centerY,
+    };
+  });
 };
 
 const InterviewSection = () => {
@@ -41,20 +50,59 @@ const InterviewSection = () => {
       const nodeCards = gsap.utils.toArray(
         ".animate-cards-wrapper .animate-card"
       );
-      const lineSvgs = gsap.utils.toArray(".connect-lines svg");
-      const cardOne = getElementCenter(nodeCards[0]);
-      const svgOne = getElementCenter(lineSvgs[0]);
-      const svgOnePath = lineSvgs[0].querySelector("path");
-      const svgOnePathLength = svgOnePath.getTotalLength();
-      console.log(svgOnePath, svgOnePathLength);
 
-      tl.addLabel("setLines", 0);
-      tl.set(".line-one", { x: getElementCenter(nodeCards[0]).x }, "setLines");
+      const [cardOneCenter, cardTwoCenter, cardThreeCenter, cardFourCenter] =
+        getElementCenters(nodeCards);
+
+      const lineSvgs = gsap.utils.toArray(".connect-lines svg");
+      const svgPaths = lineSvgs.map((svg) => svg.querySelector("path"));
+      const svgPathLengths = svgPaths.map((path) => path.getTotalLength());
+      const [svgOnePath, svgTwoPath, svgThreePath, svgFourPath] = svgPaths;
+      const [
+        svgOnePathLength,
+        svgTwoPathLength,
+        svgThreePathLength,
+        svgFourPathLength,
+      ] = svgPathLengths;
+
+      tl.addLabel("setLines");
+      tl.set(".left-line-lg", { x: cardOneCenter.x }, "setLines");
+      tl.set(".left-line-md", { x: cardTwoCenter.x }, "setLines");
       tl.set(
-        svgOnePath,
+        ".right-line-md",
+        {
+          x: cardThreeCenter.x - lineSvgs[2].getBoundingClientRect().width,
+        },
+        "setLines"
+      );
+      tl.set(
+        ".right-line-lg",
+        {
+          x: cardFourCenter.x - lineSvgs[3].getBoundingClientRect().width,
+        },
+        "setLines"
+      );
+      tl.set(
+        [svgOnePath, svgTwoPath],
         {
           strokeDasharray: svgOnePathLength + " " + svgOnePathLength,
           strokeDashoffset: svgOnePathLength,
+        },
+        "setLines"
+      );
+      tl.set(
+        svgThreePath,
+        {
+          strokeDasharray: svgThreePathLength + " " + svgThreePathLength,
+          strokeDashoffset: svgThreePathLength,
+        },
+        "setLines"
+      );
+      tl.set(
+        svgFourPath,
+        {
+          strokeDasharray: svgFourPathLength + " " + svgFourPathLength,
+          strokeDashoffset: svgFourPathLength,
         },
         "setLines"
       );
@@ -67,6 +115,33 @@ const InterviewSection = () => {
           strokeDashoffset: svgOnePathLength,
         },
         { strokeDashoffset: 0, duration: 1.5, ease: "power3.out" },
+        "animateLines"
+      );
+      tl.fromTo(
+        svgTwoPath,
+        {
+          strokeDasharray: svgTwoPathLength,
+          strokeDashoffset: svgTwoPathLength,
+        },
+        { strokeDashoffset: 0, duration: 1.05, ease: "power3.out" },
+        "animateLines"
+      );
+      tl.fromTo(
+        svgThreePath,
+        {
+          strokeDasharray: svgThreePathLength,
+          strokeDashoffset: svgThreePathLength,
+        },
+        { strokeDashoffset: 0, duration: 1.05, ease: "power3.out" },
+        "animateLines"
+      );
+      tl.fromTo(
+        svgFourPath,
+        {
+          strokeDasharray: svgFourPathLength,
+          strokeDashoffset: svgFourPathLength,
+        },
+        { strokeDashoffset: 0, duration: 2, ease: "power3.out" },
         "animateLines"
       );
 
@@ -116,23 +191,6 @@ const InterviewSection = () => {
           </div>
           <div className="flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
-              name="Mia Turner"
-              title="Lead Data Scientist"
-              avatar="/avt3.png"
-              className="opacity-20 border-b-[2px] border-solid border-themePurple"
-            />
-
-            <div className="flex justify-center">
-              <Image
-                src="/Union.png"
-                alt="Central Logo"
-                width={10}
-                height={10}
-              />
-            </div>
-          </div>
-          <div className="flex justify-center flex-col overflow-hidden relative  ">
-            <NodeCard
               name="Ava Mitchell"
               title=" Full-Stack Developer"
               avatar="/avt2.png"
@@ -148,6 +206,24 @@ const InterviewSection = () => {
               />
             </div>
           </div>
+          <div className="flex justify-center flex-col overflow-hidden relative  ">
+            <NodeCard
+              name="Mia Turner"
+              title="Lead Data Scientist"
+              avatar="/avt3.png"
+              className="opacity-20 border-b-[2px] border-solid border-themePurple"
+            />
+
+            <div className="flex justify-center">
+              <Image
+                src="/Union.png"
+                alt="Central Logo"
+                width={10}
+                height={10}
+              />
+            </div>
+          </div>
+
           <div className="sm:hidden max-xsm:hidden xsm:hidden md:block flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
               name="Lucas Bailey"
@@ -177,17 +253,16 @@ const InterviewSection = () => {
             avatar="/avt1.png"
             className="border-[2px] border-black-300 animate-card"
           />
-
-          <NodeCard
-            name="Mia Turner"
-            title="Lead Data Scientist"
-            avatar="/avt3.png"
-            className="border-[2px] border-black-300 animate-card"
-          />
           <NodeCard
             name="Ava Mitchell"
             title=" Full-Stack Developer"
             avatar="/avt2.png"
+            className="border-[2px] border-black-300 animate-card"
+          />
+          <NodeCard
+            name="Mia Turner"
+            title="Lead Data Scientist"
+            avatar="/avt3.png"
             className="border-[2px] border-black-300 animate-card"
           />
 
@@ -201,8 +276,11 @@ const InterviewSection = () => {
           </div>
         </div>
 
-        <div className="connect-lines h-14">
-          <LeftLineLgSvg />
+        <div className="connect-lines relative h-14">
+          <LeftLineLgSvg className="size-full left-line-lg w-max absolute inset-0" />
+          <LeftLineMdSvg className="size-full left-line-md w-max absolute inset-0" />
+          <RightLineMdSvg className="size-full right-line-md w-max absolute inset-0" />
+          <RightLineLgSvg className="size-full right-line-lg w-max absolute inset-0" />
         </div>
 
         <div className="flex items-center justify-center relative">
