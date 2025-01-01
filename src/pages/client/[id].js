@@ -42,6 +42,7 @@ export default function Home({
   const [allJobData, setAllJobData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
+  const [companyEmail, setCompanyEmail] = useState(null)
   const [positionIdMain, setPositionIdMain] = useState();
   const [positionCandidates, setPositionCandidates] = useState();
   const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
@@ -376,6 +377,7 @@ export default function Home({
         );
         const data = await response.json();
         setCompanyName(data?.data?.company_name);
+        setCompanyEmail(data?.data?.email);
         localStorage.setItem("clientName", companyName);
         console.log("company self data:", data);
       } catch (err) {
@@ -743,6 +745,7 @@ export default function Home({
           <PaymentOverlay
             onClose={togglePaymentOverlay}
             showPaymentOverlay={showPaymentOverlay}
+            companyEmail={companyEmail}
           />
         )}
         {/* <div className={styles.clientPortal}> */}

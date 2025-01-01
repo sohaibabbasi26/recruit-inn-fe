@@ -133,8 +133,8 @@ export default function PaymentMethods() {
           img={"/included.png"}
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          packageType="Standard"
-          price="49"
+          packageType="Starter"
+          price="75"
         />
         <PaymentCard
           bgColor={
@@ -152,8 +152,8 @@ export default function PaymentMethods() {
           img={"/included.png"}
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          packageType="Pro"
-          price="99"
+          packageType="Growth"
+          price="250"
         />
         <PaymentCard
           bgColor={
@@ -171,7 +171,7 @@ export default function PaymentMethods() {
           // priceColor={style["golden-gradient-text"]}
           priceColor="text-lightPurpleText"
           packageType="Enterprise"
-          price="149"
+          price="500"
         />
       </div>
       {/* mobile screnn */}
