@@ -1,41 +1,24 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import LeftLineLgSvg from "../components/leftLineLgSvg";
-import LeftLineMdSvg from "../components/leftLineMdSvg";
-import RightLineMdSvg from "../components/RightLineMdSvg";
-import RightLineLgSvg from "../components/RightLineLgSvg";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useTheme } from "next-themes";
-import { useRef } from "react";
 import Image from "next/image";
+import { useRef } from "react";
 import "tailwindcss/tailwind.css";
+import LeftLineLgSvg from "../components/leftLineLgSvg";
+import LeftLineMdSvg from "../components/leftLineMdSvg";
+import RightLineLgSvg from "../components/RightLineLgSvg";
+import RightLineMdSvg from "../components/RightLineMdSvg";
 
+import {
+  calculateCenterDistance,
+  getElementCenters,
+} from "@/util/domCalculations";
 import MainCard from "./MainCard";
 import NodeCard from "./NodeCard";
 gsap.registerPlugin(ScrollTrigger);
 
-const getElementCenters = (elements) => {
-  if (!Array.isArray(elements)) {
-    elements = [elements];
-  }
-
-  return elements.map((element, i) => {
-    const rect = element.getBoundingClientRect();
-    console.log("Rect:", i, rect);
-
-    // Calculate the element's center from the left
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const adjustedX = centerX - window.innerWidth * 0.05;
-
-    return {
-      x: adjustedX,
-      y: centerY,
-    };
-  });
-};
-
-const InterviewSection = () => {
+function InterviewSection() {
   const { theme } = useTheme();
   const interviewSectionRef = useRef(null);
   const lineAnimationsRef = useRef(null);
@@ -46,7 +29,7 @@ const InterviewSection = () => {
         duration: 1,
         ease: "power3.out",
       });
-
+      const logo = document.querySelector(".logo");
       const nodeCards = gsap.utils.toArray(
         ".animate-cards-wrapper .animate-card"
       );
@@ -64,6 +47,9 @@ const InterviewSection = () => {
         svgThreePathLength,
         svgFourPathLength,
       ] = svgPathLengths;
+
+      const howFar = calculateCenterDistance(nodeCards[0], logo);
+      console.log("How far", howFar);
 
       tl.addLabel("setLines");
       tl.set(".left-line-lg", { x: cardOneCenter.x }, "setLines");
@@ -283,9 +269,9 @@ const InterviewSection = () => {
           <RightLineLgSvg className="size-full right-line-lg w-max absolute inset-0" />
         </div>
 
-        <div className="flex items-center justify-center relative">
+        <div className=" flex items-center justify-center relative">
           {/* Gradient shadow under the box */}
-          <div className="absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
+          <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
 
           {/* Outer div with gradient border */}
           <div className="flex justify-center items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl p-[2px] relative">
@@ -371,6 +357,6 @@ const InterviewSection = () => {
       </div>
     </div>
   );
-};
+}
 
 export default InterviewSection;
