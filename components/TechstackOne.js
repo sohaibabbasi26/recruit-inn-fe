@@ -1,5 +1,4 @@
 
-
 import styles from "./TechstackOne.module.css";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -11,21 +10,48 @@ const TechstackOne = () => {
     "/c++.svg",
     "/reactjs.svg",
     "/typescript.svg",
-    
   ];
-  
+
   return (
     <div
-      className={`container h-[50%] w-[100%] rounded-lg flex justify-center overflow-hidden`}
+      className={`${styles.container} h-[50%] w-[100%] rounded-lg mb-[0.5rem] flex justify-center`}
     >
-      <div className={`${styles.logos}`}>
-        <div className={`${styles["logos-slide"]} gap-10`}>
-          {/* Render images twice for seamless scrolling */}
-          {[...images, ...images].map((src, index) => (
+      <div
+        className={`${styles.logos} h-[16rem] w-80p flex justify-center`}
+      >
+        <div
+          className={`${styles["logos-slide"]} h-[100%] gap-10`}
+        >
+          {images.map((src, index) => (
             <div
               key={index}
-              className={`${styles.imageWrapper} border-2 border-solid ${
-                theme === "dark" ? "bg-smallDiv" : "bg-white"
+              className={`${
+                styles.imageWrapper
+              } border-2 border-solid ${
+                theme === "dark"
+                  ? "border-themePurple bg-smallDiv"
+                  : "border-themePurple bg-white"
+              }`}
+            >
+              <Image
+                src={src}
+                alt="Tech Logo"
+                width={240}
+                height={240}
+                className={styles.img}
+              />
+            </div>
+          ))}
+          {/* Duplicate logos */}
+          {images.map((src, index) => (
+            <div
+              key={`duplicate-${index}`}
+              className={`${
+                styles.imageWrapper
+              } border-2 border-solid ${
+                theme === "dark"
+                  ? "border-themePurple bg-smallDiv"
+                  : "border-themePurple bg-white"
               }`}
             >
               <Image

@@ -7,10 +7,12 @@ const  PaymentCard = ({
   headingColor,
   smallTextColor,
   borderColor,
+  shadowColor,
   bg,
   priceColor,
   packageType,
   price,
+  duration,
 }) => {
 
    const img1="/checkAI.png"
@@ -21,7 +23,7 @@ const  PaymentCard = ({
     <>
       <div className="w-[90%] max-md:w-[100%] h-[100%] flex justify-center items-center mb-5 ">
         <div
-          className={`w-[90%] py-4 px-4 max-md:w-[100%] h-[100%] text-white border-[1px]  ${borderColor} rounded-3xl ${bgColor}`}
+          className={`w-[90%] py-4 px-4 max-md:w-[100%] h-[100%] text-white border-[1px]  ${borderColor} ${shadowColor} rounded-3xl ${bgColor}`}
         >
           <div className={`border-b-[1px] py-3 ${borderColor}`}>
             <span
@@ -38,7 +40,7 @@ const  PaymentCard = ({
               >
                 ${price}
               </h2>
-              <span className={`gradient-text mt-3 ${priceColor}`}>/month</span>
+              <span className={`gradient-text mt-3 ${priceColor}`}>{duration}</span>
             </div>
           </div>
 
