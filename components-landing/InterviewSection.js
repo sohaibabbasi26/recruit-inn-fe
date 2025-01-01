@@ -1,20 +1,103 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import LeftLineLgSvg from "../components/leftLineLgSvg";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useRef } from "react";
 import "tailwindcss/tailwind.css";
+
 import MainCard from "./MainCard";
 import NodeCard from "./NodeCard";
+gsap.registerPlugin(ScrollTrigger);
+
+const getElementCenter = (element) => {
+  const rect = element.getBoundingClientRect();
+  console.log("Rect", rect);
+
+  // Calculate the element's center
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const adjustedX = centerX - window.innerWidth * 0.05;
+
+  return {
+    x: adjustedX,
+    y: centerY,
+  };
+};
+
 const InterviewSection = () => {
   const { theme } = useTheme();
+  const interviewSectionRef = useRef(null);
+  const lineAnimationsRef = useRef(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      const nodeCards = gsap.utils.toArray(
+        ".animate-cards-wrapper .animate-card"
+      );
+      const lineSvgs = gsap.utils.toArray(".connect-lines svg");
+      const cardOne = getElementCenter(nodeCards[0]);
+      const svgOne = getElementCenter(lineSvgs[0]);
+      const svgOnePath = lineSvgs[0].querySelector("path");
+      const svgOnePathLength = svgOnePath.getTotalLength();
+      console.log(svgOnePath, svgOnePathLength);
+
+      tl.addLabel("setLines", 0);
+      tl.set(".line-one", { x: getElementCenter(nodeCards[0]).x }, "setLines");
+      tl.set(
+        svgOnePath,
+        {
+          strokeDasharray: svgOnePathLength + " " + svgOnePathLength,
+          strokeDashoffset: svgOnePathLength,
+        },
+        "setLines"
+      );
+
+      tl.addLabel("animateLines");
+      tl.fromTo(
+        svgOnePath,
+        {
+          strokeDasharray: svgOnePathLength,
+          strokeDashoffset: svgOnePathLength,
+        },
+        { strokeDashoffset: 0, duration: 1.5, ease: "power3.out" },
+        "animateLines"
+      );
+
+      tl.pause();
+
+      ScrollTrigger.create({
+        trigger: interviewSectionRef.current,
+        start: "top center",
+        onEnter: () => {
+          console.log("Restart the timeline");
+          tl.restart();
+        },
+        once: true,
+        markers: true,
+      });
+    },
+    { scope: interviewSectionRef }
+  );
 
   return (
     // <div className="h-[1000px] max-lg:h-100p w-full flex justify-center mb-[2rem]  ">
     <div className="w-full interview-section">
-      <div className="w-90p mx-auto bg-[#FBFBFC] rounded-3xl border border-darkPurple">
+      <div
+        ref={interviewSectionRef}
+        className="w-90p mx-auto bg-[#FBFBFC] rounded-3xl border border-darkPurple"
+      >
         {/* <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] bg-light-purple-shade rounded-2xl border-2 "> */}
         <MainCard />
 
         <div className="flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8   overflow-hidden ">
-          <div className="flex justify-center flex-col overflow-hidden relative bottom-6  ">
+          <div className="flex justify-center flex-col overflow-hidden relative   ">
             <NodeCard
               name="Ethan Clarke"
               title=" Product Manager"
@@ -31,7 +114,7 @@ const InterviewSection = () => {
               />
             </div>
           </div>
-          <div className="flex justify-center flex-col overflow-hidden relative bottom-6 ">
+          <div className="flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
               name="Mia Turner"
               title="Lead Data Scientist"
@@ -48,7 +131,7 @@ const InterviewSection = () => {
               />
             </div>
           </div>
-          <div className="flex justify-center flex-col overflow-hidden relative bottom-6 ">
+          <div className="flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
               name="Ava Mitchell"
               title=" Full-Stack Developer"
@@ -65,7 +148,7 @@ const InterviewSection = () => {
               />
             </div>
           </div>
-          <div className="sm:hidden max-xsm:hidden xsm:hidden md:block flex justify-center flex-col overflow-hidden relative bottom-6 ">
+          <div className="sm:hidden max-xsm:hidden xsm:hidden md:block flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
               name="Lucas Bailey"
               title="Lead AI Researcher"
@@ -84,25 +167,28 @@ const InterviewSection = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8 relative bottom-5 ">
+        <div
+          ref={lineAnimationsRef}
+          className="animate-cards-wrapper flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8 relative"
+        >
           <NodeCard
             name="Ethan Clarke"
             title=" Product Manager"
             avatar="/avt1.png"
-            className="border-[2px] border-black-300"
+            className="border-[2px] border-black-300 animate-card"
           />
 
           <NodeCard
             name="Mia Turner"
             title="Lead Data Scientist"
             avatar="/avt3.png"
-            className="border-[2px] border-black-300"
+            className="border-[2px] border-black-300 animate-card"
           />
           <NodeCard
             name="Ava Mitchell"
             title=" Full-Stack Developer"
             avatar="/avt2.png"
-            className="border-[2px] border-black-300"
+            className="border-[2px] border-black-300 animate-card"
           />
 
           <div className=" max-xsm:hidden xsm:hidden sm:hidden md:block">
@@ -110,12 +196,16 @@ const InterviewSection = () => {
               name="Lucas Bailey"
               title="Lead AI Researcher"
               avatar="/avt4.png"
-              className="border-[2px] border-black-300"
+              className="border-[2px] border-black-300 animate-card"
             />
           </div>
         </div>
 
-        <div className="items-center mt-16 flex justify-center relative">
+        <div className="connect-lines h-14">
+          <LeftLineLgSvg />
+        </div>
+
+        <div className="flex items-center justify-center relative">
           {/* Gradient shadow under the box */}
           <div className="absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
 
