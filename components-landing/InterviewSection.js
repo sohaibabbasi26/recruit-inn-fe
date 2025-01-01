@@ -274,7 +274,7 @@ function InterviewSection() {
           <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
 
           {/* Outer div with gradient border */}
-          <div className="flex justify-center items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl p-[2px] relative">
+          <div className="flex justify-center items-center bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[162px] w-[162px] rounded-2xl p-[2px] relative">
             {/* Inner div for the white background and image */}
             <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
               <Image

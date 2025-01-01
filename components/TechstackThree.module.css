@@ -6,8 +6,8 @@
    
   }
   .imageWrapper {
-    height: 120px; /* Adjust as needed */
-    width: 120px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    width: 100px; /* Adjust as needed */
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -44,6 +44,6 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-30%);
     }
   }
