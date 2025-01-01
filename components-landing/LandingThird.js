@@ -13,7 +13,7 @@ const LandingThird = () => {
   const { theme } = useTheme();
   return (
     <>
-      <div className="h-[100vh] max-lg:h-100p w-full flex justify-center mb-[2rem]">
+      <div className="h-[800px] max-lg:h-100p w-full flex justify-center mb-[2rem]">
         <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] flex justify-between items-center gap-5 ">
           <div
             className={`${
@@ -22,7 +22,7 @@ const LandingThird = () => {
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
             } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh] mt-[56px] flex justify-center items-center relative">
+            <div className="w-80p h-50p max-xl:h-[70vh] mt-[58px] flex justify-center items-center relative">
               {/* Central Logo */}
               <div className="absolute">
                 <Image
@@ -34,104 +34,87 @@ const LandingThird = () => {
               </div>
 
               {/* Circles */}
-              <div className="absolute w-[267px] h-[267px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
-              <div className="absolute w-[327px] h-[327px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
-              <div className="absolute w-[380px] h-[380px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[267px] h-[267px] max-sm:h-[200px] max-sm:w-[200px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[327px] h-[327px] max-sm:h-[250px] max-sm:w-[250px]  border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[380px] h-[385px] max-sm:h-[300px] max-sm:w-[300px]  border-dashed border-2 border-gray-300 rounded-full z-0"></div>
 
               {/* Avatars */}
               {/* Avatar 1 */}
               <div
-                className={`absolute ${styles.rotate_center}`}
-                style={{
-                  transform: "rotate(0deg) translate(150px) rotate(0deg)", // Top center
-                  zIndex: 1, // Ensuring it stays on top
-                }}
+                className={`absolute ${styles.rotate_center} `}
+               
               >
                 <Image
                   src="/avatar1.png"
                   alt="Avatar 1"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
+                  className=""
                 />
               </div>
 
               {/* Avatar 2 */}
               <div
                 className={`absolute ${styles.rotate_center1}`}
-                style={{
-                  transform: "rotate(60deg) translate(150px) rotate(-60deg)", // Top right
-                  zIndex: 1, // Ensuring it stays on top
-                }}
+               
               >
                 <Image
                   src="/avatar2.png"
                   alt="Avatar 2"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                 />
               </div>
 
               {/* Avatar 3 */}
               <div
                 className={`absolute ${styles.rotate_center2}`}
-                style={{
-                  transform: "rotate(120deg) translate(150px) rotate(-120deg)", // Bottom right
-                  zIndex: 1, // Ensuring it stays on top
-                }}
+                
               >
                 <Image
                   src="/avatar3.png"
                   alt="Avatar 3"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                 />
               </div>
 
               {/* Avatar 4 */}
               <div
-                className={`absolute ${styles.rotate_center}`}
-                style={{
-                  transform: "rotate(180deg) translate(150px) rotate(-180deg)", // Bottom center
-                  zIndex: 1, // Ensuring it stays on top
-                }}
+                className={`absolute ${styles.rotate_center3}`}
+              
               >
                 <Image
                   src="/avatar4.png"
                   alt="Avatar 4"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                 />
               </div>
 
               {/* Avatar 5 */}
               <div
-                className={`absolute ${styles.rotate_center2}`}
-                style={{
-                  transform: "rotate(300deg) translate(150px) rotate(-deg)", // Bottom left
-                  zIndex: 1, // Ensuring it stays on top
-                }}
+                className={`absolute ${styles.rotate_center4}`}
+              
               >
                 <Image
                   src="/avatar5.png"
                   alt="Avatar 5"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                 />
               </div>
 
               {/* Avatar 6 */}
               <div
-                className={`absolute ${styles.rotate_center1}`}
-                   style={{
-                    transform: "rotate(300deg) translate(150px) rotate(-300deg)", // Top left
-                     zIndex: 1, // Ensuring it stays on top
-                 }}
+                className={`absolute ${styles.rotate_center5}`}
+                  
               >
                 <Image
                   src="/avatar6.png"
                   alt="Avatar 6"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                 />
               </div>
             </div>
@@ -157,10 +140,10 @@ const LandingThird = () => {
               theme === "dark"
                 ? ""
                 : "border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40 "
-            } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%] h-100p bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
+            } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%] h-[100%]  bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
-            <div className="w-[100%] h-50p overflow-hidden flex flex-col justify-center items-center relative mb-[1.5rem]">
-              <div className=" mt-20">
+            <div className="w-[100%] max-h-[320px] overflow-hidden flex flex-col justify-center items-center relative mb-[1.5rem]">
+              <div className=" max-md:mt-[100px] mt-[150px]">
                 {" "}
                 <TechstackOne />
               </div>
@@ -168,15 +151,15 @@ const LandingThird = () => {
                 {" "}
                 <TechstackTwo />
               </div>
-              <div className="opacity-30 max-md:hidden">
+               <div className="opacity-30  max-md:hidden">
                 {" "}
                 <TechstackThree />
               </div>
               <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
               <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
             </div>
-
-            <div className="w-80p h-50p flex flex-col justify-center">
+        
+            <div className="w-80p h-50p mt-[100px]  flex flex-col justify-center">
               <span className="text-lightPurpleText font-semibold text-lg">
                 SKILLS
               </span>
