@@ -53,6 +53,7 @@ const QuestionBox = ({
   const [audioUUID, setAudioUUID] = useState(null);
   const [audioURL, setAudioURL] = useState(null);
   const [hasAudioEnded, setHasAudioEnded] = useState(false);
+  const audioRef= useRef(null);
 
   // console.log("audio UUID: ",audioUUID);
   // console.log("audio URL: ",audioURL);
@@ -66,7 +67,8 @@ const QuestionBox = ({
     const question = ques?.question;
     if (question) {
       try {
-        const response = await fetch("/api/generate-audio", {
+        //console.log(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -74,10 +76,12 @@ const QuestionBox = ({
           body: JSON.stringify({ text: question, language }),
         });
         const data = await response.json();
+        console.log(data)
   
         if (response.ok) {
-          const url = `/audio/${data?.uuid}.mp3`;
-          setAudioUUID(data?.uuid);
+          const url = `${process.env.NEXT_PUBLIC_REMOTE_URL}/audio?uuid=${data?.data?.uuid}`;
+          console.log(url)
+          setAudioUUID(data?.data?.uuid);
           setAudioURL(url);
         } else {
           console.error(data.error);
@@ -96,8 +100,9 @@ const QuestionBox = ({
   
   const playAudio = async () => {
     const audio = new Audio(audioURL);
-    audio.play();
-    audio.onended=()=>{
+    audioRef.current=audio;
+    audioRef.current.play();
+    audioRef.current.onended=()=>{
       setHasAudioEnded(true);
     }
     // if(audio.ended){
@@ -115,7 +120,7 @@ const QuestionBox = ({
 
   const deleteAudio = async () => {
     try {
-      const response = await fetch(`/api/delete-audio`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/delete-audio`, {
         body: JSON.stringify({
           uuid: audioUUID?.toString(),
         }),
