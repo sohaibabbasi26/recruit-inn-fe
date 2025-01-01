@@ -1,4 +1,5 @@
 import { calculateCenterDistance } from "@/util/domCalculations";
+import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { useEffect, useRef, useState } from "react";
 
@@ -6,34 +7,37 @@ function LeftLineLgSvg({ className, id }) {
   const [xValue, setXValue] = useState(367);
   const svgRef = useRef(null);
 
-  useEffect(() => {
-    const updatePath = () => {
-      const logo = document.querySelector(".logo");
-      const cardOne = document.querySelectorAll(
-        ".animate-cards-wrapper .animate-card"
-      )[0];
-      if (!logo || !cardOne) return;
+  useGSAP(
+    () => {
+      const updatePath = () => {
+        const logo = document.querySelector(".logo");
+        const cardOne = document.querySelectorAll(
+          ".animate-cards-wrapper .animate-card"
+        )[0];
+        if (!logo || !cardOne) return;
 
-      const distance = calculateCenterDistance(cardOne, logo);
-      setXValue(distance);
+        const distance = calculateCenterDistance(cardOne, logo) + 30; // add 30 for now, should be calculated
+        setXValue(distance);
 
-      const path = svgRef.current.querySelector("path");
-      gsap.to(path, {
-        attr: {
-          d: `M1 0V21C1 29.8366 8.16345 37 17 37H${distance}C${
-            distance + 4.418
-          } 37 ${distance + 8} 40.5817 ${distance + 8} 45V62`,
-        },
-      });
-    };
+        const path = svgRef.current.querySelector("path");
+        gsap.to(path, {
+          attr: {
+            d: `M1 0V21C1 29.8366 8.16345 37 17 37H${distance}C${
+              distance + 4.418
+            } 37 ${distance + 8} 40.5817 ${distance + 8} 45V62`,
+          },
+        });
+      };
+      updatePath();
 
-    updatePath();
-    window.addEventListener("resize", updatePath);
-
-    return () => {
-      window.removeEventListener("resize", updatePath);
-    };
-  }, []);
+      window.addEventListener("resize", updatePath);
+      // useGsap cleans event listeners on unmount i think, adding a cleanup function for now to be sure
+      return () => {
+        window.removeEventListener("resize", updatePath);
+      };
+    },
+    { scope: svgRef.current }
+  );
 
   const pathData = `M1 0V21C1 29.8366 8.16345 37 17 37H${xValue}C${
     xValue + 4.418
