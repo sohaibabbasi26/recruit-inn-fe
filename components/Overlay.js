@@ -21,6 +21,8 @@ import SuccessIndicator from "./SuccessIndicator";
 const Overlay = React.memo(
   ({
     setIsTestRequired,
+    isArabicChosen,
+    setIsArabicChosen,
     isTestRequired,
     showError,
     showErrorMessage,
@@ -290,6 +292,7 @@ const Overlay = React.memo(
         location: cityRef.current.value + ", " + countryRef.current.value,
         // country: ,
         is_test_required: isTestRequired,
+        language: isArabicChosen ? "Arabic" : "English",
       };
 
       console.log("request body:", requestBody);
@@ -302,6 +305,7 @@ const Overlay = React.memo(
           jobtype: jobtype,
           position: position,
           isTestRequired: isTestRequired,
+          language: isArabicChosen ? "Arabic" : "English",
         })
       );
 
@@ -348,6 +352,7 @@ const Overlay = React.memo(
       const requestBody = {
         expertise: techStack,
         position_id: positionId,
+        isArabic: isArabicChosen,
       };
       console.log("req body : ", requestBody);
       try {
@@ -629,6 +634,8 @@ const Overlay = React.memo(
                 {currentStage === stages.ADD_SKILL && (
                   <>
                     <AddSkillForm
+                      isArabicChosen={isArabicChosen}
+                      setIsArabicChosen={setIsArabicChosen}
                       skill1={skill1}
                       setSkill1={setSkill1}
                       skill2={skill2}
@@ -715,6 +722,7 @@ const Overlay = React.memo(
                 {currentStage === stages.SHARE_LINK && (
                   <>
                     <ShareLink
+                      language={isArabicChosen ? "Arabic" : "English"}
                       receivers={receivers}
                       removeReceiver={removeReceiver}
                       setReceivers={setReceivers}

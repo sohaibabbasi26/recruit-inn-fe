@@ -201,7 +201,7 @@ useEffect(() => {
 
   const handleCopyClick = async () => {
     // Ensure questionId is set correctly before creating the link
-    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
+    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`;
     console.log("Generated link:", newLink);
     
     try {

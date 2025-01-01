@@ -46,6 +46,7 @@ const InvitationOverlay = ({
   const { q_id } = router.query;
   const { test_req } = router.query;
   const { a_id } = router.query;
+  const {language} = router.query;
 
   console.log("client_id:", client_id);
   console.log("position_id is :", position_id);
@@ -597,10 +598,10 @@ const InvitationOverlay = ({
     if (candidateId) {
       console.log("REDIRECTING TO:");
       console.log(
-        `/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}`
+        `/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
       );
       router.push(
-        `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}`
+        `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}&language=${language}`
       );
     }
   };
