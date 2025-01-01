@@ -23,7 +23,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center ">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -40,7 +40,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -57,7 +57,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -74,7 +74,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -133,7 +133,7 @@ const LandingThird2 = () => {
         </div>
 
         <div className="flex justify-center">
-          <Image src="/union.png" alt="Central Logo" width={15} height={15} />
+          <Image src="/Union.png" alt="Central Logo" width={15} height={15} />
         </div>
 
         {/* Second Level */}
@@ -153,7 +153,7 @@ const LandingThird2 = () => {
             </div>
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={15}
                 height={15}

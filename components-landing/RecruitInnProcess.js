@@ -49,8 +49,8 @@ function RecruitInnProcess() {
           "img1Start"
         )
         .addLabel("img2Start", secondAnimationStart)
-        .to(".image-1-text", { opacity: 0.3 }, "img2Start")
-        .to(".image-2-text", { opacity: 1 }, "img2Start")
+        .to(".image-1-text", { opacity: 0.2, scale: 0.9 }, "img2Start")
+        .to(".image-2-text", { opacity: 1, scale: 1 }, "img2Start")
         .fromTo(
           ".img2",
           { scale: 0.95, opacity: 0, autoAlpha: 0 },
@@ -69,8 +69,8 @@ function RecruitInnProcess() {
           { scale: 0.95, opacity: 0, autoAlpha: 0, duration: 0.2 },
           "img3Start"
         )
-        .to(".image-2-text", { opacity: 0.3 }, "img3Start")
-        .to(".image-3-text", { opacity: 1 }, "img3Start")
+        .to(".image-2-text", { opacity: 0.2, scale: 0.9 }, "img3Start")
+        .to(".image-3-text", { opacity: 1, scale: 1 }, "img3Start")
         .fromTo(
           ".img3",
           { scale: 0.95, opacity: 0, autoAlpha: 0 },
