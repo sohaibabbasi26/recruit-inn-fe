@@ -6,7 +6,7 @@ import TrustedCandidates from "../components/TrustedCandidates";
 // import './styles.css';
 
 const HeroSection = () => {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   return (
     <>
       <div className="w-full h-[87svh] flex flex-col items-center">
@@ -39,7 +39,7 @@ const HeroSection = () => {
                   <div>
                     <p className="text-xs bg-[#FFE6E6] dark:ring-red-900 p-2 px-3 rounded-full flex gap-2 font-medium">
                       Unqualified{" "}
-                      <Image src="/Ellipse-red.svg" width={6} height={6} />
+                      <Image src="/Ellipse_red.svg" width={6} height={6} />
                     </p>
                   </div>
                 </div>
@@ -101,7 +101,7 @@ const HeroSection = () => {
                   <div>
                     <p className="text-xs bg-[#E7FFE0] dark:bg-green-900 p-2 rounded-full flex gap-2 font-medium">
                       Recommended{" "}
-                      <Image src="/Ellipse-green.svg" width={6} height={6} />
+                      <Image src="/Ellipse_green.svg" width={6} height={6} />
                     </p>
                   </div>
                 </div>
