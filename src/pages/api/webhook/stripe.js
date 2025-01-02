@@ -91,7 +91,11 @@ export default async function handler(req, res) {
   
           break;
   
-        //   case "invoice.paid":
+        case "customer.subscription.updated":
+
+          const subscription_updated = event.data.object;
+          console.log("Subscription Updated Ran: ", subscription_updated);
+
 
         //   let paidPackageType;
         //   const invoice = event.data.object;
