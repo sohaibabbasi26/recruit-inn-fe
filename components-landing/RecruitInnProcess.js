@@ -21,7 +21,7 @@ function RecruitInnProcess() {
         scrollTrigger: {
           trigger: container2.current,
           pin: true,
-          start: "top 75",
+          start: "top 100",
           end: "+=1500",
           scrub: 1,
           delay: 0,
@@ -96,7 +96,7 @@ function RecruitInnProcess() {
       ref={container2}
       className="section4 relative space-y-8 mt-16 w-90p mx-auto"
     >
-      <h2 className="heading text-3xl font-bold text-center transition-opacity duration-500">
+      <h2 className="heading text-3xl font-bold text-center block leading-[unset] transition-opacity duration-500">
         {" "}
         <span className="image-1-text">
           Real-time interviews, instant evaluations, seamless scheduling and all
