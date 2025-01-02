@@ -141,7 +141,7 @@ function InterviewSection() {
           tl.restart();
         },
         once: true,
-        markers: true,
+        // markers: true,
       });
     },
     { scope: interviewSectionRef }

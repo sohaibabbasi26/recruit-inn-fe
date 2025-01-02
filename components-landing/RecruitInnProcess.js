@@ -21,12 +21,12 @@ function RecruitInnProcess() {
         scrollTrigger: {
           trigger: container2.current,
           pin: true,
-          start: "top 12%",
+          start: "top 75",
           end: "+=1500",
           scrub: 1,
           delay: 0,
           // Set to false on production
-          //   markers: true,
+          markers: true,
         },
       });
 
