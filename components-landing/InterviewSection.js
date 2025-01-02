@@ -145,9 +145,45 @@ function InterviewSection() {
         { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" }
       );
       tl.addLabel("animateBottomCards");
-      tl.fromTo(".bottom-card-one", {}, {});
+      const bottomCardsAnimationDuration = 1;
+      const secondAnimationDelay = bottomCardsAnimationDuration * 0.9;
+      tl.fromTo(
+        ".bottom-cards-gradiant-border",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1 },
+        "animateBottomCards"
+      );
+      tl.fromTo(
+        ".bottom-cards-gradiant-border",
+        { scaleY: 0.3, transformOrigin: "top" },
+        {
+          scaleY: 1,
+          duration: 0.9,
+          ease: "power3.out",
+        },
+        `animateBottomCards+=0.7`
+      );
+      tl.fromTo(
+        [".bottom-card-one div", ".bottom-card-two div"],
+        { y: -5, scale: 0.9, autoAlpha: 0 },
+        { y: 0, scale: 1, autoAlpha: 1, duration: 0.7 },
+        "animateBottomCards"
+      );
+      tl.fromTo(
+        [".bottom-card-one", ".bottom-card-two"],
+        { opacity: 0 },
+        { opacity: 1, duration: 1 },
+        "animateBottomCards"
+      );
+      tl.addLabel("aniPointer2");
+      tl.fromTo(
+        ".pointer-two",
+        { y: -10, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" },
+        "aniPointer2"
+      );
 
-      tl.pause();
+      // tl.pause();
 
       ScrollTrigger.create({
         trigger: interviewSectionRef.current,
@@ -311,7 +347,7 @@ function InterviewSection() {
         <div className="bottom-cards-wrapper relative flex">
           <div className="w-max relative mx-auto">
             <div
-              className="gradiant-border block absolute -inset-[1px] !-top-[1.5px] z-[1] rounded-3xl bg-gradient-to-b from-primary to-light-grey"
+              className="bottom-cards-gradiant-border block absolute -inset-[1px] !-top-[1.5px] z-[1] rounded-3xl bg-gradient-to-b from-[#C0BBFA] to-light-grey"
               aria-hidden="true"
             ></div>
             <div className="mx-auto relative flex gap-5 p-2.5 rounded-3xl z-[1] bg-[#FBFBFC]">
