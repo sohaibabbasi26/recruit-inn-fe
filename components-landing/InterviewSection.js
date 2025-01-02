@@ -182,8 +182,21 @@ function InterviewSection() {
         { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" },
         "aniPointer2"
       );
+      tl.addLabel("animateBottomLastCards");
+      tl.fromTo(
+        ".bottom-last-cards",
+        { y: -5, scale: 0.9, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" },
+        "animateBottomLastCards"
+      );
+      tl.fromTo(
+        ".bottom-last-cards div",
+        { y: -7 },
+        { y: 0, duration: 1, ease: "power3.out" },
+        "animateBottomLastCards"
+      );
 
-      // tl.pause();
+      tl.pause();
 
       ScrollTrigger.create({
         trigger: interviewSectionRef.current,
@@ -193,7 +206,8 @@ function InterviewSection() {
           tl.restart();
         },
         once: true,
-        markers: true,
+        // Disable on Production
+        // markers: true,
       });
     },
     { scope: interviewSectionRef }
@@ -371,7 +385,7 @@ function InterviewSection() {
 
         {/* Third Level */}
         <div className="flex justify-center items-center relative">
-          <div className="flex gap-3 p-4 bg-white  rounded-xl w-auto ">
+          <div className="bottom-last-cards flex gap-3 p-4 bg-white  rounded-xl w-auto ">
             <div className="">
               <Image
                 src="/avt5.png"
