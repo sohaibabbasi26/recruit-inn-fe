@@ -16,6 +16,7 @@ import {
 } from "@/util/domCalculations";
 import MainCard from "./MainCard";
 import NodeCard from "./NodeCard";
+import PointerDownSvg from "../components/PointerDownSvg";
 gsap.registerPlugin(ScrollTrigger);
 
 function InterviewSection() {
@@ -49,8 +50,6 @@ function InterviewSection() {
       ] = svgPathLengths;
 
       const howFar = calculateCenterDistance(nodeCards[0], logo);
-      console.log("How far", howFar);
-
       tl.addLabel("setLines");
       tl.set(".left-line-lg", { x: cardOneCenter.x }, "setLines");
       tl.set(".left-line-md", { x: cardTwoCenter.x }, "setLines");
@@ -130,6 +129,23 @@ function InterviewSection() {
         { strokeDashoffset: 0, duration: 2, ease: "power3.out" },
         "animateLines"
       );
+      const animateLinesDuration = 2;
+      const animateLogoOffset = -0.5;
+      tl.addLabel("animateLogo", `animateLines+=1`);
+      tl.fromTo(
+        ".logo-selector",
+        { y: -10, scale: 0.9, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out" },
+        "animateLogo"
+      );
+      tl.addLabel("aniPointer1", `animateLogo+=0.1`);
+      tl.fromTo(
+        ".pointer-one",
+        { y: -10, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" }
+      );
+      tl.addLabel("animateBottomCards");
+      tl.fromTo(".bottom-card-one", {}, {});
 
       tl.pause();
 
@@ -271,54 +287,54 @@ function InterviewSection() {
 
         <div className="flex items-center justify-center relative">
           {/* Gradient shadow under the box */}
-          <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
+          <div className="logo-selector z-10">
+            <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
 
-          {/* Outer div with gradient border */}
-          <div className="flex justify-center items-center bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[162px] w-[162px] rounded-2xl p-[2px] relative">
-            {/* Inner div for the white background and image */}
-            <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
-              <Image
-                src="/recruitlogo.png"
-                alt="Central Logo"
-                width={50}
-                height={50}
-              />
+            {/* Outer div with gradient border */}
+            <div className="flex justify-center items-center bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[162px] w-[162px] rounded-2xl p-[2px] relative">
+              {/* Inner div for the white background and image */}
+              <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
+                <Image
+                  src="/recruitlogo.png"
+                  alt="Central Logo"
+                  width={50}
+                  height={50}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-center">
-          <Image src="/Union.png" alt="Central Logo" width={15} height={15} />
-        </div>
+        <PointerDownSvg className="pointer-one mx-auto" />
 
         {/* Second Level */}
-        <div className="flex  justify-center  mb-8">
-          <div className="flex justify-center flex-col">
-            <div className="flex  justify-center gap-5 p-4 border-t-[2px]  border-b-[1px] border-x-[2px] border-black-300 rounded-3xl">
+        <div className="bottom-cards-wrapper relative flex">
+          <div className="w-max relative mx-auto">
+            <div
+              className="gradiant-border block absolute -inset-[1px] !-top-[1.5px] z-[1] rounded-3xl bg-gradient-to-b from-primary to-light-grey"
+              aria-hidden="true"
+            ></div>
+            <div className="mx-auto relative flex gap-5 p-2.5 rounded-3xl z-[1] bg-[#FBFBFC]">
               <NodeCard
+                className="bottom-card-one"
                 name="Mia Turner"
                 title="Lead Data Scientist"
                 avatar="/avt3.png"
               />
               <NodeCard
+                className="bottom-card-two"
                 name="Lucas Bailey"
                 title="Lead AI Researcher"
                 avatar="/avt4.png"
               />
             </div>
-            <div className="flex justify-center">
-              <Image
-                src="/Union.png"
-                alt="Central Logo"
-                width={15}
-                height={15}
-              />
-            </div>
           </div>
         </div>
 
+        <PointerDownSvg className="pointer-two mx-auto" />
+
         {/* Third Level */}
-        <div className="flex justify-center items-center relative bottom-8">
+        <div className="flex justify-center items-center relative">
           <div className="flex gap-3 p-4 bg-white  rounded-xl w-auto ">
             <div className="">
               <Image
