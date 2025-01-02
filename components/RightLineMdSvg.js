@@ -16,7 +16,7 @@ function RightLineMdSvg({ className, id }) {
         )[2];
         if (!logo || !cardThree) return;
 
-        const distance = calculateCenterDistance(cardThree, logo);
+        const distance = calculateCenterDistance(logo, cardThree);
         setXValue(distance);
         const aD = distance - 10;
 
