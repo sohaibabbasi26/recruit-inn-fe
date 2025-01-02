@@ -20,9 +20,13 @@ export function getElementCenters(elements) {
 export function calculateCenterDistance(elementA, elementB) {
   const rectA = elementA.getBoundingClientRect();
   const rectB = elementB.getBoundingClientRect();
+  const cenA = rectA.width / 2;
+  const cenB = rectB.width / 2;
 
-  const centerA = rectA.left + rectA.width / 2;
-  const centerB = rectB.left + rectB.width / 2;
+  const centerA = rectA.left + cenA;
+  const centerB = rectB.left + cenB;
+
+  console.log("centerB", centerB);
 
   const distance = Math.abs(centerA - centerB);
 

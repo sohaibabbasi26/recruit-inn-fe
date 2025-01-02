@@ -1,7 +1,7 @@
 import { calculateCenterDistance } from "@/util/domCalculations";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 function LeftLineLgSvg({ className, id }) {
   const [xValue, setXValue] = useState(367);
@@ -16,15 +16,16 @@ function LeftLineLgSvg({ className, id }) {
         )[0];
         if (!logo || !cardOne) return;
 
-        const distance = calculateCenterDistance(cardOne, logo) + 30; // add 30 for now, should be calculated
+        const distance = calculateCenterDistance(cardOne, logo); // add 30 for now, should be calculated
         setXValue(distance);
+        const aD = distance + 40;
 
         const path = svgRef.current.querySelector("path");
         gsap.to(path, {
           attr: {
-            d: `M1 0V21C1 29.8366 8.16345 37 17 37H${distance}C${
-              distance + 4.418
-            } 37 ${distance + 8} 40.5817 ${distance + 8} 45V62`,
+            d: `M1 0V21C1 29.8366 8.16345 37 17 37H${aD}C${aD + 4.418} 37 ${
+              aD + 8
+            } 40.5817 ${aD + 8} 45V62`,
           },
         });
       };

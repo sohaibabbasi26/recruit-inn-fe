@@ -141,7 +141,7 @@ function InterviewSection() {
           tl.restart();
         },
         once: true,
-        // markers: true,
+        markers: true,
       });
     },
     { scope: interviewSectionRef }
@@ -157,8 +157,8 @@ function InterviewSection() {
         {/* <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] bg-light-purple-shade rounded-2xl border-2 "> */}
         <MainCard />
 
-        <div className="flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8   overflow-hidden ">
-          <div className="flex justify-center flex-col overflow-hidden relative   ">
+        <div className="flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8 overflow-hidden ">
+          <div className="flex justify-center flex-col overflow-hidden relative">
             <NodeCard
               name="Ethan Clarke"
               title=" Product Manager"
@@ -269,7 +269,7 @@ function InterviewSection() {
           <RightLineLgSvg className="size-full right-line-lg w-max absolute inset-0" />
         </div>
 
-        <div className=" flex items-center justify-center relative">
+        <div className="flex items-center justify-center relative">
           {/* Gradient shadow under the box */}
           <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
 

@@ -26,7 +26,7 @@ function RecruitInnProcess() {
           scrub: 1,
           delay: 0,
           // Set to false on production
-          markers: true,
+          // markers: true,
         },
       });
 
