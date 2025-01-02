@@ -2,12 +2,12 @@
   .img {
     height: 80px;
     margin: 0 20px;
-    border-radius: 12px;
+    border-radius: 15px;
   }
   
   .imageWrapper {
-    height: 120px; /* Adjust as needed */
-    width: 120px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    width: 100px; /* Adjust as needed */
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@
   
   .logos-slide {
     display: flex;
-    animation: slide 25s linear infinite;
+    animation: slide 15s linear infinite;
   }
   
   @keyframes slide {
@@ -35,7 +35,7 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%); /* Shift left by half (one set of images) */
+      transform: translateX(-30%); /* Shift left by half (one set of images) */
     }
   }
   

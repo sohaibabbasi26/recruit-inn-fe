@@ -1,15 +1,152 @@
-@keyframes orbit {
+
+
+ 
+
+    /* Common styles for all rotate_center classes */
+.rotate_center, .rotate_center1, .rotate_center2, .rotate_center3, .rotate_center4, .rotate_center5 {
+  position: absolute;
+  transform-origin: center;
+}
+
+/* Media Queries */
+@media (max-width: 639px) {
+  @keyframes orbit-small {
     0% {
-      transform: rotate(0deg) translate(150px) rotate(0deg);
+      transform: rotate(0deg) translate(100px) rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translate(150px) rotate(-360deg);
+      transform: rotate(360deg) translate(100px) rotate(-360deg);
     }
   }
-  
-  .rotate_center {
-    position: absolute;
-    animation: orbit 10s linear infinite;
-    transform-origin: center;
+  @keyframes orbit-small-1 {
+    0% {
+      transform: rotate(0deg) translate(100px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translate(100px) rotate(-360deg);
+    }
   }
-  
+  @keyframes orbit-small-2 {
+    0% {
+      transform: rotate(360deg) translate(125px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(125px) rotate(0deg);
+    }
+  }
+  @keyframes orbit-small-3 {
+    0% {
+      transform: rotate(360deg) translate(125px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(125px) rotate(0deg);
+    }
+  }
+  @keyframes orbit-small-4 {
+    0% {
+      transform: rotate(360deg) translate(150px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(150px) rotate(0deg);
+    }
+  }
+  @keyframes orbit-small-5 {
+    0% {
+      transform: rotate(360deg) translate(150px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(150px) rotate(0deg);
+    }
+  }
+
+  /* Apply animations */
+  .rotate_center {
+    animation: orbit-small 10s linear infinite;
+  }
+  .rotate_center1 {
+    animation: orbit-small-1 14s linear infinite;
+  }
+  .rotate_center2 {
+    animation: orbit-small-2 12s linear infinite;
+  }
+  .rotate_center3 {
+    animation: orbit-small-3 16s linear infinite;
+  }
+  .rotate_center4 {
+    animation: orbit-small-4 15s linear infinite;
+  }
+  .rotate_center5 {
+    animation: orbit-small-5 22s linear infinite;
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes orbit-large {
+    0% {
+      transform: rotate(0deg) translate(130px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translate(130px) rotate(-360deg);
+    }
+  }
+  @keyframes orbit-large-1 {
+    0% {
+      transform: rotate(0deg) translate(130px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translate(130px) rotate(-360deg);
+    }
+  }
+  @keyframes orbit-large-2 {
+    0% {
+      transform: rotate(360deg) translate(160px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(160px) rotate(0deg);
+    }
+  }
+  @keyframes orbit-large-3 {
+    0% {
+      transform: rotate(360deg) translate(160px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(160px) rotate(0deg);
+    }
+  }
+  @keyframes orbit-large-4 {
+    0% {
+      transform: rotate(360deg) translate(190px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(190px) rotate(0deg);
+    }
+  }
+  @keyframes orbit-large-5 {
+    0% {
+      transform: rotate(360deg) translate(190px) rotate(-360deg);
+    }
+    100% {
+      transform: rotate(0deg) translate(190px) rotate(0deg);
+    }
+  }
+
+  /* Apply animations */
+  .rotate_center {
+    animation: orbit-large 10s linear infinite;
+  }
+  .rotate_center1 {
+    animation: orbit-large-1 14s linear infinite;
+  }
+  .rotate_center2 {
+    animation: orbit-large-2 12s linear infinite;
+  }
+  .rotate_center3 {
+    animation: orbit-large-3 16s linear infinite;
+  }
+  .rotate_center4 {
+    animation: orbit-large-4 15s linear infinite;
+  }
+  .rotate_center5 {
+    animation: orbit-large-5 22s linear infinite;
+  }
+}

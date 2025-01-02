@@ -1,13 +1,19 @@
 import styles from "./QuestionBox.module.css";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { dummyQuestions } from "@/data/dummyQuestions";
 import { useRouter } from "next/router";
 import { useTest } from "@/contexts/QuestionsContent";
 import { useSpeechSynthesis } from "react-speech-kit";
 import ErrorIndicator from "./ErrorIndicator";
+import Script from "next/script";
 
-const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
+const QuestionBox = ({
+  hasStarted,
+  setIsLoading,
+  isLoading,
+  selectedLanguage = "ar-SA",
+}) => {
   // const { test } = useTest();x
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -19,12 +25,12 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
   const [answers, setAnswers] = useState([]);
-  const { cid, qid, pid, a_id, test_req } = router?.query;
+  const { cid, qid, pid, a_id, test_req, language } = router?.query;
   const [recordingDone, setRecordingDone] = useState(false);
   // const [isLoading, setIsLoading] = useState(false);
   const [disableRecordingButton, setDisableRecordingButton] = useState(false);
   const [questions, setQuestions] = useState();
-  const { speak, cancel } = useSpeechSynthesis();
+  const { speak, cancel, voices } = useSpeechSynthesis();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
@@ -44,15 +50,110 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   const [codeQues, setCodeQues] = useState();
   const [isFirstQues, setIsFirstQues] = useState(true);
   const [candidateExpertise, setCandidateExpertise] = useState();
+  const [audioUUID, setAudioUUID] = useState(null);
+  const [audioURL, setAudioURL] = useState(null);
+  const [hasAudioEnded, setHasAudioEnded] = useState(false);
+  const audioRef= useRef(null);
+
+  // console.log("audio UUID: ",audioUUID);
+  // console.log("audio URL: ",audioURL);
 
   // const [isFirstQues, setIsFirstQues] = useState(0);
 
-  const speakQuestion = (questionobj) => {
-    const question = questionobj.question;
-    console.log(question);
-    cancel();
-    speak({ text: question });
+  //const arabicVoice = voices.find((voice) => voice.lang === selectedLanguage);
+
+  
+  const generateAudio = async (ques) => {
+    const question = ques?.question;
+    if (question) {
+      try {
+        //console.log(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: question, language }),
+        });
+        const data = await response.json();
+        console.log(data)
+  
+        if (response.ok) {
+          const url = `${process.env.NEXT_PUBLIC_REMOTE_URL}/audio?uuid=${data?.data?.uuid}`;
+          console.log(url)
+          setAudioUUID(data?.data?.uuid);
+          setAudioURL(url);
+        } else {
+          console.error(data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
   };
+
+  useEffect(() => {
+    if(hasAudioEnded){
+      deleteAudio();
+    }
+  },[hasAudioEnded])
+  
+  const playAudio = async () => {
+    const audio = new Audio(audioURL);
+    audioRef.current=audio;
+    audioRef.current.play();
+    audioRef.current.onended=()=>{
+      setHasAudioEnded(true);
+    }
+    // if(audio.ended){
+    //   setHasAudioEnded(true);
+    //   // await deleteAudio()
+    //   // setAudioUUID(null)
+    // }
+  }
+  
+  useEffect(() => {
+    if(audioUUID){
+      playAudio();
+    }
+  },[audioUUID])
+
+  const deleteAudio = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/delete-audio`, {
+        body: JSON.stringify({
+          uuid: audioUUID?.toString(),
+        }),
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log("audio deleted successfully");
+        setAudioUUID(null);
+        setAudioURL(null);
+      } else {
+        console.error(data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  // const speakQuestion = async(questionobj) => {
+  //   const question = questionobj.question;
+  //   // console.log(question);
+  //   // console.log(voices);
+  //   // cancel();
+  //   // speak({ text: question, voices: "ar-SA", lang: "ar-SA" });
+
+  //   await generateAudio(question);
+  //   if(audioUUID){
+  //     playAudio();
+  //   }
+  // };
 
   useEffect(() => {
     console.log("answers:", answers);
@@ -111,6 +212,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         const requestBody = {
           expertise: candidateExpertise,
           position_id: pid,
+          isArabic: language === "Arabic" ? true : false,
         };
         console.log("req body: ", requestBody);
         try {
@@ -217,6 +319,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           const requestBody = {
             expertise: data?.data?.expertise || candidateExpertise,
             position_id: pid,
+            isArabic: language === "Arabic" ? true : false,
           };
           console.log("req body: ", requestBody);
           try {
@@ -300,13 +403,15 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   }, [pid]);
 
   useEffect(() => {
-    if (newQuestions) {
+    if (newQuestions && hasStarted) {
       console.log("value of has started", hasStarted);
       setIsFirstQues(true);
       // console.log(hasStarted);
       // setQuestions(data?.data[0]?.question);
       // console.log("there?", data?.data[0]?.question[0].question);
-      speakQuestion(currentQuestion);
+      generateAudio(currentQuestion);
+      //speakQuestion(currentQuestion);
+      console.log("line 360: speakQuestion called");
       console.log("questions:", questions);
     }
   }, [hasStarted]);
@@ -536,60 +641,72 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
     }
   };
 
-  const toggleComponent = async () => {
+  const toggleComponent = useCallback( async () => {
     setIsLoading(true);
-
     try {
       if (isLastQuestion) return;
+  
+      if (!recordingDone && recordedChunksRef.current.length === 0) {
+        const silentBase64Wav =
+          "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+        setAnswers((prevAnswers) =>
+          prevAnswers.some(
+            (ans) =>
+              ans.question === newQuestions[currentQuestion - 1]?.question
+          )
+            ? prevAnswers
+            : [
+                ...prevAnswers,
+                {
+                  question: newQuestions[currentQuestion - 1]?.question,
+                  answer: silentBase64Wav,
+                },
+              ]
+        );
+        console.log("No recording made, adding silent audio blob as answer.");
+        showError("No answer was provided, moving on to next question.");
+        setCurrentQuestion((prevCurrent) => prevCurrent + 1);
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setCompletedQuestions((prevCompleted) => [
+          ...prevCompleted,
+          currentQuestion,
+        ]);
 
-      if (!isLastQuestion) {
-        if (!recordingDone && recordedChunksRef.current.length === 0) {
-          const silentBase64Wav =
-            "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-          setAnswers((prevAnswers) => {
-            return prevAnswers.some(
-              (ans) =>
-                ans.question === newQuestions[currentQuestion - 1]?.question
-            )
-              ? prevAnswers
-              : [
-                  ...prevAnswers,
-                  {
-                    question: newQuestions[currentQuestion - 1]?.question,
-                    answer: silentBase64Wav,
-                  },
-                ];
-          });
-          console.log("No recording made, adding silent audio blob as answer.");
-          showError("No answer was provided, moving on to next question.");
-          setCurrentQuestion((prevCurrent) => prevCurrent + 1);
-          setIsRecording(false);
-          setRecordingDone(false);
-          setCompletedQuestions((prevCompleted) => [
-            ...prevCompleted,
-            currentQuestion,
-          ]);
-          if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            speakQuestion(newQuestions[currentQuestionIndex + 1]);
-            setIsFirstQues(false);
-            setIsLoading(false);
-          }
-        } else {
-          await stopAndHandleRecording();
-        }
-        console.log("completed questions:", completedQuestions);
-        console.log("current questions:", currentQuestion);
+        //setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        
+        // if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
+        //   setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        //   console.log("currentQuestionIndex (toggle component k andar wala):", currentQuestionIndex);
+        // }
+      //if (currentQuestionIndex < newQuestions.length - 1) {
+        console.log("currentQuestionIndex (toggle component k andar wala):", currentQuestionIndex);
+        //
+        console.log(
+          "currentQuestion State inside if condition:",
+          currentQuestion
+        );
+        console.log(
+          console.log("state of currentQuestionIndex:", currentQuestionIndex)
+        );
+        // deleteAudio();
+      //}
+      } else {
+        await stopAndHandleRecording();
       }
-      setIsFirstQues(false);
     } catch (err) {
-      console.log("ERR:", err);
+      console.error("Error:", err);
     } finally {
+      setIsFirstQues(false);
+      setIsLoading(false);
     }
-  };
+  },[currentQuestion, newQuestions, recordingDone]);
+  
 
   useEffect(() => {
-    speakQuestion(currentQuestion);
+    //speakQuestion(currentQuestion);
+    generateAudio(currentQuestion);
+    console.log("line 688: speakQuestion called");
+
     setTimeLeft(130);
   }, [currentQuestion]);
 
@@ -663,7 +780,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ audio: base64Data }),
+          body: JSON.stringify({ audio: base64Data, language }),
         }
       );
       const data = await response.json();
@@ -678,6 +795,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
         currentQuestion,
       ]);
       if (currentQuestionIndex < newQuestions.length - 1) {
+        console.log("currentQuestionIndex (sending audio to server wala):", currentQuestionIndex);
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         console.log(
           "currentQuestion State inside if condition:",
@@ -716,10 +834,18 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
   }
 
   useEffect(() => {
+    console.log("useeffect wala currentQuestionIndex: ",currentQuestionIndex)
     if (currentQuestionIndex < newQuestions?.length && hasStarted) {
-      speakQuestion(newQuestions[currentQuestionIndex]);
+      generateAudio(newQuestions[currentQuestionIndex]);
+      //speakQuestion(newQuestions[currentQuestionIndex]);
+      console.log("line 806: generateAudio called");
     }
-  }, [currentQuestionIndex, newQuestions, hasStarted]);
+    // if(currentQuestionIndex <= newQuestions?.length+1 && hasStarted && currentQuestionIndex > 0){
+    //   generateAudio(newQuestions[currentQuestionIndex-1]);
+    //   //speakQuestion(newQuestions[currentQuestionIndex]);
+    //   console.log("line 811: generateAudio called");
+    // }
+  }, [currentQuestionIndex, hasStarted]);
 
   const showError = (message) => {
     setMessage(message);
@@ -736,6 +862,11 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
   return (
     <>
+      <Script
+        src="https://code.responsivevoice.org/responsivevoice.js"
+        strategy="afterInteractive"
+        onLoad={() => console.log("ResponsiveVoice script loaded.")}
+      />
       <div className={styles.container}>
         {/*top container*/}
         {isLoading ? (
@@ -801,7 +932,7 @@ const QuestionBox = ({ hasStarted, setIsLoading, isLoading }) => {
 
             {/* question container */}
 
-            <div className={styles.questionContainer}>
+            <div dir={language==="Arabic"?"rtl":"ltr"}className={styles.questionContainer}>
               {newQuestions && newQuestions.length > 0 && (
                 <span>
                   {isFirstQues

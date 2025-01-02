@@ -477,7 +477,12 @@ export default function Home({
   const [message, setMessage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const { isTestRequired, setIsTestRequired } = useTestState();
+  const {
+    isTestRequired,
+    setIsTestRequired,
+    isArabicChosen,
+    setIsArabicChosen,
+  } = useTestState();
 
   const showError = () => {
     setShowErrorMessage(true);
@@ -696,6 +701,8 @@ export default function Home({
         <FormProvider>
           {showOverlay && (
             <Overlay
+              isArabicChosen={isArabicChosen}
+              setIsArabicChosen={setIsArabicChosen}
               isTestRequired={isTestRequired}
               setIsTestRequired={setIsTestRequired}
               showError={showError}

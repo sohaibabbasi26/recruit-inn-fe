@@ -68,6 +68,7 @@ module.exports = {
         btnPurple: "#220772",
         lightPurple: "#6137DB",
         darkPurple: "#E5E1F0",
+        darkOrenge: "#FFB384",
         smallText: "#ADA9B8",
         themePurple: "#6E48D5",
         somePurple: "#2E2547",

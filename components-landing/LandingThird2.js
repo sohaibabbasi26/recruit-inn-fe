@@ -23,7 +23,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center ">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -40,7 +40,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -57,7 +57,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -74,7 +74,7 @@ const LandingThird2 = () => {
 
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={10}
                 height={10}
@@ -116,10 +116,10 @@ const LandingThird2 = () => {
 
         <div className="items-center mt-16 flex justify-center relative">
           {/* Gradient shadow under the box */}
-          <div className="absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
+          <div className="absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[162px] w-[162px] rounded-2xl blur-md "></div>
 
           {/* Outer div with gradient border */}
-          <div className="flex justify-center items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl p-[2px] relative">
+          <div className="flex justify-center items-center bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[162px] w-[162px] rounded-2xl p-[2px] relative">
             {/* Inner div for the white background and image */}
             <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
               <Image
@@ -133,7 +133,7 @@ const LandingThird2 = () => {
         </div>
 
         <div className="flex justify-center">
-          <Image src="/union.png" alt="Central Logo" width={15} height={15} />
+          <Image src="/Union.png" alt="Central Logo" width={15} height={15} />
         </div>
 
         {/* Second Level */}
@@ -153,7 +153,7 @@ const LandingThird2 = () => {
             </div>
             <div className="flex justify-center">
               <Image
-                src="/union.png"
+                src="/Union.png"
                 alt="Central Logo"
                 width={15}
                 height={15}

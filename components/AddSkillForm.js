@@ -7,6 +7,8 @@ import { getSvg } from "@/util/helpers";
 // useFormContext
 const AddSkillForm = forwardRef(
   ({
+    isArabicChosen,
+    setIsArabicChosen,
     skill1,
     setSkill1,
     skill2,
@@ -60,6 +62,11 @@ const AddSkillForm = forwardRef(
     const handleTestRequirementChange = (event) => {
       console.log("clicked", event.target.checked);
       setIsTestRequired(event.target.checked);
+    };
+
+    const handleArabicChooseChange = (event) => {
+      console.log("clicked", event.target.checked);
+      setIsArabicChosen(event.target.checked);
     };
 
     const iconSize = 25;
@@ -207,6 +214,19 @@ const AddSkillForm = forwardRef(
             />
             <label htmlFor="code-assignment">
               Do you want to include coding assignment to this assessment?{" "}
+            </label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              className={styles.codeAssignment}
+              id="code-assignment"
+              checked={isArabicChosen}
+              onChange={handleArabicChooseChange}
+            />
+            <label htmlFor="code-assignment">
+              Do you want the questions to be in Arabic?{" "}
             </label>
           </div>
         </form>
