@@ -1,26 +1,21 @@
 import styles from './ClientList.module.css';
 import Image from 'next/image';
-
-const ClientList = () => {
-
-    const data = [
-        {
-            company_name: 'Warren Brothers',
-            account_user: 'Jacob Jones',
-            location: 'Karachi, Pakistan',
-            phone_no: '+92 342 1224162',
-            email: 'jacob.jones@gmail.com'
-        },
-        {
-            company_name: 'Warren Brothers',
-            account_user: 'Jacob Jones',
-            location: 'Karachi, Pakistan',
-            phone_no: '+92 342 1224162',
-            email: 'jacob.jones@gmail.com'
-        },
-    ]
-
+import { useActiveItem } from "../src/contexts/ActiveItemContext";
+import { useState} from "react";
+const ClientList = ({ allClients }) => {
+//ans
+const { activeItem, setActiveItem } = useActiveItem();
+  const [clickedItem, setClickedItem] = useState("");
+  
+  const handleItemClick = (itemName) => {
+    setActiveItem(itemName);
+    setClickedItem(itemName);
+    localStorage.setItem("activeItem", itemName);
+    setTimeout(() => setClickedItem(""), 200);
+  };
     const goToAllIconSize = 15;
+    const data = allClients?.slice(0, 2);
+    console.log(data)
 
     return (
         <>
@@ -29,35 +24,42 @@ const ClientList = () => {
                 <div className={styles.headingContainer}>
                     <div className={styles.heading} >
                         <h3>Client Requests</h3>
-                        <span>1000</span>
+                        <span>{allClients?.length}</span>
                     </div>
-
-                    <Image src="/goAll.svg" width={goToAllIconSize} height={goToAllIconSize} />
+                    <div className={`${styles.dropdownList} ${
+                    activeItem === "AllClients" ? styles.active : ""
+                  }`}
+                  onClick={() => handleItemClick("AllClients")}>
+                   <Image src="/goAll.svg" width={goToAllIconSize} height={goToAllIconSize} />
+                  </div>
+                   
                 </div>
 
-                {data.map((item) => {
+                {data?.map((item) => {
                     return (
                         <>
                             <div className={styles.clientReq}>
 
                                 <div className={styles.topContainer}>
                                     <div className={styles.leftDiv}>
-                                        <Image src='/company.svg' width={30} height={30} />
+                                         <Image src='/company.svg' width={30} height={30} />
+                                      
+                                       
                                         <div className={styles.companyName}>
                                             <h2>{item?.company_name}</h2>
                                             <span>{item?.account_user}</span>
                                         </div>
                                     </div>
 
-                                    <div className={styles.btnsDiv}>
+                                    {/* <div className={styles.btnsDiv}>
                                         <button id={styles.reject} >Reject</button>
                                         <button id={styles.accept}>Accept</button>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className={styles.lowerContainer}>
-                                    <span>{item?.location}</span>
-                                    <span className={styles.dot}>{item?.phone_no}</span>
+                                    <span>{item?.company_location}</span>
+                                    <span className={styles.dot}>{item?.contact_no}</span>
                                     <span className={styles.dot}>{item?.email}</span>
                                 </div>
                             </div>
