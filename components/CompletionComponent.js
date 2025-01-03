@@ -13,6 +13,9 @@ const CompletionComponent = ({ getActiveComponent }) => {
   const iconSize = 20;
   const router = useRouter();
 
+  const [clientId, setClientId] = useState(null);
+
+
   // trying this weird way to get candidate name [not recommended]
   useEffect(function () {
     setCandidateNameTemp(localStorage.getItem("candidateNameForNow"));
@@ -26,11 +29,42 @@ const CompletionComponent = ({ getActiveComponent }) => {
   //     router.push(getActiveComponent());
   // }
 
-  const finishTestHandler = () => {
+  useEffect(() => {
+    if (router.query.client_id) {
+      console.log("client id1: ", router.query.client_id);
+      setClientId(router.query.client_id);
+    }
+  }, [router.query.client_id]);
+
+
+  async function decrementTest() {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/decrement-test`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ client_id:clientId }),
+        }
+      );
+      const data = await response.json();
+      console.log("decrement test response:", data);
+      
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  }
+
+
+  const finishTestHandler = async () => {
     localStorage.removeItem("testcompleted");
     localStorage.removeItem("codingtestcompleted");
+   
     const route = getActiveComponent();
-    if (route) {
+    if (route && clientId) {
+      await decrementTest();
       router.push(route);
     } else {
       console.error("Undefined route from getActiveComponent");

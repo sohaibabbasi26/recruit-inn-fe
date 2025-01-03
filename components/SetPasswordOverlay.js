@@ -10,6 +10,7 @@ import SuccessIndicator from './SuccessIndicator';
 import ErrorIndicator from './ErrorIndicator';
 
 
+
 const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => {
 
     const overlayRef = useRef(null);
@@ -196,12 +197,14 @@ const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => 
                     <div className={styles.coverContainer}>
                         <div className={styles.topContainer}>
                             <h2>{stageHeadings[currentStage] ? stageHeadings[currentStage] : 'Default Heading'}</h2>
+                          
                         </div>
-
+                        
                         <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
-
+                    
                         {currentStage === stages.SET_PASSWORD && (
                             <>
+                              
                                 <PasswordConfirm confirmPassword={confirmPassword} setPass={setPass} pass={pass} setConfirmPassword={setConfirmPassword} error={error} password={password} setPassword={setPassword} handlePasswordChange={handlePasswordChange} handleConfirmPasswordChange={handleConfirmPasswordChange} />
                                 <div className={styles.wrapper}>
                                     <PasswordBtns handleFormSubmit={handleFormSubmit} />
