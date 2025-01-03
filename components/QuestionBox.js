@@ -12,7 +12,8 @@ const QuestionBox = ({
   hasStarted,
   setIsLoading,
   isLoading,
-  selectedLanguage = "ar-SA",
+  // selectedLanguage = "ar-SA",
+  client_id,
 }) => {
   // const { test } = useTest();x
   const router = useRouter();
@@ -536,7 +537,7 @@ const QuestionBox = ({
   useEffect(() => {
     const testcomplete = localStorage.getItem("testcompleted");
     if (testcomplete && assessmentId) {
-      router.push(`/test-submit-completion/${cid}`);
+      router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
     }
   }, [router]);
 
@@ -602,7 +603,7 @@ const QuestionBox = ({
             assessmentId
           );
           router.push(
-            `/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}`
+            `/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}&client_id=${client_id}`
           );
         } else {
           console.error("Assessment ID is not available.");
@@ -629,7 +630,7 @@ const QuestionBox = ({
         } catch (err) {
           console.log("err:", err);
         }
-        router.push(`/test-submit-completion/${cid}`);
+        router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
         setIsLoading(false);
       }
     } catch (err) {
