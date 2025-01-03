@@ -1,10 +1,22 @@
 import styles from './AdminCandRep.module.css';
 import Image from 'next/image';
+import { useActiveItem } from "../src/contexts/ActiveItemContext";
+import { useState} from "react";
+
 
 const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates }) => {
     const iconSize = 25;
     const goToAllIconSize = 15;
     const statusSize = 10;
+   const { activeItem, setActiveItem } = useActiveItem();
+     const [clickedItem, setClickedItem] = useState("");
+     
+     const handleItemClick = (itemName) => {
+       setActiveItem(itemName);
+       setClickedItem(itemName);
+       localStorage.setItem("activeItem", itemName);
+       setTimeout(() => setClickedItem(""), 200);
+     };
 
     console.log("admin cand rep :", allCandidates);
 
@@ -32,10 +44,15 @@ const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates })
                 <div className={styles.headingContainer}>
                     <div className={styles.heading} >
                         <h3>Candidate Reports</h3>
-                        <span>1000</span>
+                        <span>{allCandidates?.length}</span>
                     </div>
-
-                    <Image src="/goAll.svg" width={goToAllIconSize} height={goToAllIconSize} />
+                    <div className={`${styles.dropdownList} ${
+                    activeItem === "All" ? styles.active : ""
+                  }`}
+                  onClick={() => handleItemClick("All")}>
+                   <Image src="/goAll.svg" width={goToAllIconSize} height={goToAllIconSize} />
+                  </div>
+                    
                 </div>
 
                 <div className={styles.reportsCardContainer}>

@@ -1,8 +1,10 @@
 import styles from "./PasswordConfirm.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import ShowPassword from "./ShowPassword";
 
-const PasswordConfirm = ({
+
+const   PasswordConfirm = ({
   error,
   setPassword,
   password,
@@ -26,7 +28,7 @@ const PasswordConfirm = ({
   //     setConfirmPassword(e.target.value);
   //     setError('');
   //   };
-
+  const [showPassword, setShowPassword] = useState(false);
   useEffect(() => {
     const checkPassword = () => {
       if (pass === confirmPassword) {
@@ -56,17 +58,20 @@ const PasswordConfirm = ({
             <Image src="/password.svg" width={25} height={25} />
             <input
               placeholder="Set Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               onChange={handlePasswordChange}
             />
+            <ShowPassword pass={showPassword} setPass={setShowPassword} />
           </div>
           <div className={styles.inputField}>
             <Image src="/password.svg" width={25} height={25} />
             <input
               placeholder="Confirm Password"
-              type="password"
               onChange={handleConfirmPasswordChange}
+              type={showPassword ? "text" : "password"}
             />
+          
+            <ShowPassword pass={showPassword} setPass={setShowPassword} />
           </div>
         </div>
         {error ? (
