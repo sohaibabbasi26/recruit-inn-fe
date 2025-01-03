@@ -105,6 +105,7 @@ const QuestionBox = ({
     audioRef.current.onended=()=>{
       setHasAudioEnded(true);
     }
+    
     // if(audio.ended){
     //   setHasAudioEnded(true);
     //   // await deleteAudio()
@@ -453,7 +454,9 @@ const QuestionBox = ({
 
   const startRecording = () => {
     if (mediaRecorderRef.current) {
-      cancel();
+      //cancel();
+      audioRef.current.pause();
+      setHasAudioEnded(true);
       mediaRecorderRef.current.start();
       setIsRecording(true);
       setRecordingDone(true);
@@ -571,6 +574,7 @@ const QuestionBox = ({
         candidate_id: cid,
         question_answer: answers,
         position_id: pid,
+        language
       };
     }
 
@@ -641,7 +645,7 @@ const QuestionBox = ({
     }
   };
 
-  const toggleComponent = useCallback( async () => {
+  const toggleComponent = async () => {
     setIsLoading(true);
     try {
       if (isLastQuestion) return;
@@ -671,25 +675,7 @@ const QuestionBox = ({
           ...prevCompleted,
           currentQuestion,
         ]);
-
-        //setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        
-        // if (currentQuestionIndex < newQuestions.length - 1 && hasStarted) {
-        //   setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        //   console.log("currentQuestionIndex (toggle component k andar wala):", currentQuestionIndex);
-        // }
-      //if (currentQuestionIndex < newQuestions.length - 1) {
-        console.log("currentQuestionIndex (toggle component k andar wala):", currentQuestionIndex);
-        //
-        console.log(
-          "currentQuestion State inside if condition:",
-          currentQuestion
-        );
-        console.log(
-          console.log("state of currentQuestionIndex:", currentQuestionIndex)
-        );
-        // deleteAudio();
-      //}
+        setIsLoading(false);
       } else {
         await stopAndHandleRecording();
       }
@@ -697,9 +683,9 @@ const QuestionBox = ({
       console.error("Error:", err);
     } finally {
       setIsFirstQues(false);
-      setIsLoading(false);
+      //setIsLoading(false);
     }
-  },[currentQuestion, newQuestions, recordingDone]);
+  }//,[currentQuestion, newQuestions, recordingDone]);
   
 
   useEffect(() => {
@@ -761,7 +747,7 @@ const QuestionBox = ({
           ]);
         }
       }
-      setIsLoading(false);
+      //setIsLoading(false);
     } else {
       console.error("Recorder not active or already stopped.");
     }
@@ -795,7 +781,6 @@ const QuestionBox = ({
         currentQuestion,
       ]);
       if (currentQuestionIndex < newQuestions.length - 1) {
-        console.log("currentQuestionIndex (sending audio to server wala):", currentQuestionIndex);
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         console.log(
           "currentQuestion State inside if condition:",
@@ -862,11 +847,6 @@ const QuestionBox = ({
 
   return (
     <>
-      <Script
-        src="https://code.responsivevoice.org/responsivevoice.js"
-        strategy="afterInteractive"
-        onLoad={() => console.log("ResponsiveVoice script loaded.")}
-      />
       <div className={styles.container}>
         {/*top container*/}
         {isLoading ? (
