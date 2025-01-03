@@ -95,6 +95,7 @@ export default async function handler(req, res) {
 
           const subscription_updated = event.data.object;
           console.log("Subscription Updated Ran: ", subscription_updated);
+          break;
 
 
         //   let paidPackageType;
