@@ -7,18 +7,11 @@
 // };
 // export default candidate;
 
-import Head from "next/head";
-import Image from "next/image";
 import { Finlandica, Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import SideNavbar from "../../../components/SideNavbar";
-import SuperComponent from "../../../components/SuperComponent";
-import RightComponent from "../../../components/RightComponent";
 import { useState, useEffect } from "react";
 import Overlay from "../../../components/Overlay";
 import { useActiveItem } from "../../contexts/ActiveItemContext";
-import Super from "../../../components/Super";
-import ReportOverlay from "../../../components/ReportOverlay";
 import JobOverlay from "../../../components/JobOverlay";
 import { useRouter } from "next/router";
 import SuccessIndicator from "../../../components/SuccessIndicator";
@@ -30,17 +23,9 @@ import CandidateSuper from "../../../components/CandidateSuper";
 import { useActiveFlow } from "@/contexts/ActiveFlowContext";
 import SelfReportOverlay from "../../../components/SelfReportOverlay";
 
-const inter = Inter({ subsets: ["latin"] });
-export default function Candidate({
-  allJobsData,
-  allActiveJobsData,
-  allClosedJobsData,
-}) {
+export default function Candidate() {
   const router = useRouter();
   const { id } = router?.query;
-
-  const [finalData, setFinalData] = useState(null);
-  const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
   const [token, setToken] = useState(null);
   const [expertise, setExpertise] = useState();
   const [questionId, setQuestionId] = useState();
