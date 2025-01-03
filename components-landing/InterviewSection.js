@@ -205,7 +205,7 @@ function InterviewSection() {
         },
         once: true,
         // Disable on Production
-        markers: true,
+        // markers: true,
       });
     },
     { scope: interviewSectionRef }
@@ -382,7 +382,7 @@ function InterviewSection() {
         <PointerDownSvg className="pointer-two mx-auto" />
 
         {/* Third Level */}
-        <div className="flex justify-center items-center relative">
+        <div className="flex justify-center items-center relative mb-8">
           <div className="bottom-last-cards flex gap-3 p-4 bg-white  rounded-xl w-auto ">
             <div className="">
               <Image
