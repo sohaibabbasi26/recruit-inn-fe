@@ -137,9 +137,8 @@ export default function PaymentMethods() {
          
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          duration={selectedOption === "monthly" ? "/month" : "/year"}
-          packageType="Standard"
-          price={selectedOption === "monthly" ? "49" : "/490"}
+          packageType="Starter"
+          price="75"
         />
         <PaymentCard
           bgColor={
@@ -157,9 +156,8 @@ export default function PaymentMethods() {
          
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          duration={selectedOption === "monthly" ? "/month" : "/year"}
-          packageType="Pro"
-          price={selectedOption === "monthly" ? "99" : "/990"}
+          packageType="Growth"
+          price="250"
         />
        
         <PaymentCard
@@ -180,9 +178,7 @@ export default function PaymentMethods() {
           // priceColor={style["golden-gradient-text"]}
           priceColor="text-lightPurpleText"
           packageType="Enterprise"
-          price={selectedOption === "monthly" ? "149" : "1049"}
-
-          
+          price="500"
         />
       </div>
       {/* mobile screnn */}

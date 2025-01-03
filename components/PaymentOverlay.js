@@ -19,6 +19,7 @@ const PaymentOverlay = React.memo(
     message,
     setMessage,
     showSuccess,
+    companyEmail,
   }) => {
     showErrorMessage;
     const overlayRef = useRef(null);
@@ -133,7 +134,7 @@ const PaymentOverlay = React.memo(
                 </div>
 
                 {/* packages */}
-                <PackagesCards />
+                <PackagesCards companyEmail={companyEmail}/>
 
                 {/* <div>
                   <div className={styles.pricing_section}>
