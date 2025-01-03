@@ -99,7 +99,7 @@ function InterviewSection() {
           strokeDasharray: svgOnePathLength,
           strokeDashoffset: svgOnePathLength,
         },
-        { strokeDashoffset: 0, duration: 1.5, ease: "power3.out" },
+        { strokeDashoffset: 0, duration: 1.2, ease: "power3.out" },
         "animateLines"
       );
       tl.fromTo(
@@ -108,7 +108,7 @@ function InterviewSection() {
           strokeDasharray: svgTwoPathLength,
           strokeDashoffset: svgTwoPathLength,
         },
-        { strokeDashoffset: 0, duration: 1.05, ease: "power3.out" },
+        { strokeDashoffset: 0, duration: 1, ease: "power3.out" },
         "animateLines"
       );
       tl.fromTo(
@@ -117,7 +117,7 @@ function InterviewSection() {
           strokeDasharray: svgThreePathLength,
           strokeDashoffset: svgThreePathLength,
         },
-        { strokeDashoffset: 0, duration: 1.05, ease: "power3.out" },
+        { strokeDashoffset: 0, duration: 1, ease: "power3.out" },
         "animateLines"
       );
       tl.fromTo(
@@ -126,26 +126,24 @@ function InterviewSection() {
           strokeDasharray: svgFourPathLength,
           strokeDashoffset: svgFourPathLength,
         },
-        { strokeDashoffset: 0, duration: 2, ease: "power3.out" },
+        { strokeDashoffset: 0, duration: 1.2, ease: "power3.out" },
         "animateLines"
       );
-      const animateLinesDuration = 2;
-      const animateLogoOffset = -0.5;
-      tl.addLabel("animateLogo", `animateLines+=1`);
+      tl.addLabel("animateLogo", `animateLines+=0.4`);
       tl.fromTo(
         ".logo-selector",
         { y: -10, scale: 0.9, opacity: 0 },
-        { y: 0, scale: 1, opacity: 1, duration: 1.5, ease: "power3.out" },
+        { y: 0, scale: 1, opacity: 1, duration: 1.2, ease: "power3.out" },
         "animateLogo"
       );
-      tl.addLabel("aniPointer1", `animateLogo+=0.1`);
+      tl.addLabel("aniPointer1", `animateLogo+=0.8`);
       tl.fromTo(
         ".pointer-one",
         { y: -10, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" }
+        { y: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out" }
       );
       tl.addLabel("animateBottomCards");
-      const bottomCardsAnimationDuration = 1;
+      const bottomCardsAnimationDuration = 0.7;
       const secondAnimationDelay = bottomCardsAnimationDuration * 0.9;
       tl.fromTo(
         ".bottom-cards-gradiant-border",
@@ -172,14 +170,14 @@ function InterviewSection() {
       tl.fromTo(
         [".bottom-card-one", ".bottom-card-two"],
         { opacity: 0 },
-        { opacity: 1, duration: 1 },
+        { opacity: 1, duration: 0.8 },
         "animateBottomCards"
       );
       tl.addLabel("aniPointer2");
       tl.fromTo(
         ".pointer-two",
         { y: -10, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out" },
+        { y: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out" },
         "aniPointer2"
       );
       tl.addLabel("animateBottomLastCards");
@@ -192,7 +190,7 @@ function InterviewSection() {
       tl.fromTo(
         ".bottom-last-cards div",
         { y: -7 },
-        { y: 0, duration: 1, ease: "power3.out" },
+        { y: 0, duration: 0.8, ease: "power3.out" },
         "animateBottomLastCards"
       );
 
@@ -200,14 +198,14 @@ function InterviewSection() {
 
       ScrollTrigger.create({
         trigger: interviewSectionRef.current,
-        start: "top center",
+        start: "-100px center",
         onEnter: () => {
           console.log("Restart the timeline");
           tl.restart();
         },
         once: true,
         // Disable on Production
-        // markers: true,
+        markers: true,
       });
     },
     { scope: interviewSectionRef }
