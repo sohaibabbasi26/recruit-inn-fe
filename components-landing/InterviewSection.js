@@ -205,7 +205,7 @@ function InterviewSection() {
         },
         once: true,
         // Disable on Production
-        markers: true,
+        // markers: true,
       });
     },
     { scope: interviewSectionRef }
