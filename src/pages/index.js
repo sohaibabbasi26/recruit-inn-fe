@@ -1,17 +1,16 @@
 // import Head from "next/head";
-import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import FeaturesSection from "../../components-landing/FeaturesSection";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
+import InterviewSection from "../../components-landing/InterviewSection";
 import LandingFAQs from "../../components-landing/LandingFAQs";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
-import LandingThird2 from "../../components-landing/LandingThird2";
 import PaymentMethods from "../../components-landing/PaymentMethods";
+import RecruitInnProcess from "../../components-landing/RecruitInnProcess";
 import styles from "../../components-landing/styles.module.css";
 import Testimonials from "../../components-landing/Testimonials";
-import RecruitInnProcess from "../../components-landing/RecruitInnProcess";
 import LandingVideo from "../../components/LandingVideo";
 
 const LandingPage = () => {
@@ -67,7 +66,7 @@ const LandingPage = () => {
         <div ref={LandingThirdRef}>
           <LandingThird />
         </div>
-        <LandingThird2 />
+        <InterviewSection />
         {/* Try this */}
         {/* <LandingFourth /> */}
         <div className="4th">

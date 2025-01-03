@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { checkout } from "@/util/Checkout";
 import "tailwindcss/tailwind.css";
+import { useRouter } from "next/router";
 
 const  PaymentCard = ({
   bgColor,
@@ -18,6 +19,8 @@ const  PaymentCard = ({
    const img1="/checkAI.png"
    const  img2="/crossAI.png"
  
+
+   const router = useRouter();
 
   return (
     <>
@@ -159,11 +162,15 @@ const  PaymentCard = ({
             <button
               className={`${bg} mt-[4rem] w-[100%] py-2 rounded-3xl text-sm font-semibold font-sans`}
               onClick={() => {
-                checkout({
-                  lineItems: [
-                    { price: "price_1OhvfyCtLGKA7fQG61J3932Q", quantity: 1 },
-                  ],
-                });
+                // checkout({
+                //   lineItems: [
+                //     { price: "price_1QaDZmCtLGKA7fQGcVUeXm7i", quantity: 1 },
+                //   ],
+                // }
+                
+                // );
+
+                router.push(`${process.env.NEXT_PUBLIC_URL}/client-login`)
               }}
             >
               Get Started
