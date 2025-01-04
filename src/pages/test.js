@@ -21,6 +21,7 @@ const test = () => {
   questions.`,
   ];
 
+  const router = useRouter();
   return (
     <>
       {instructionsPopup && (
@@ -36,6 +37,7 @@ const test = () => {
           isLoading={isLoading}
           setIsLoading={setIsLoading}
           hasStarted={!instructionsPopup}
+          client_id={router.query.client_id}
         />
       </div>
     </>

@@ -11,6 +11,7 @@ const testSumitCompletion = () => {
   const [candidateName, setCandidateName] = useState();
   const router = useRouter();
   const id = router?.id;
+  const client_id = router?.query?.client_id
   console.log("candidate:");
 
   useEffect(() => {
@@ -52,6 +53,7 @@ const testSumitCompletion = () => {
 
   const getActiveComponent = () => {
     const activeFlow = localStorage.getItem("activeFlow");
+    console.log("client_id iss:", client_id);
     console.log("Current active flow:", activeFlow);
     switch (activeFlow) {
       case "Candidate_self":

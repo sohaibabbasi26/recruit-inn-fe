@@ -601,7 +601,7 @@ const InvitationOverlay = ({
         `/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
       );
       router.push(
-        `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}&language=${language}`
+        `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}&language=${language}&client_id=${client_id}`
       );
     }
   };

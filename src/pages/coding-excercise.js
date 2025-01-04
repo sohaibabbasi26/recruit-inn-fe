@@ -20,6 +20,8 @@ const CodingExcersice = () => {
   const [message, setMessage] = useState(false);
   const [instructionsPopup, setInstructionsPopup] = useState(true);
   const { cid } = router?.query;
+  const { client_id } = router?.query;
+
 
   const closePopup = () => {
     setInstructionsPopup(false);
@@ -64,7 +66,7 @@ const CodingExcersice = () => {
     // Check if user is logged in
     const testcomplete = localStorage.getItem("codingtestcompleted");
     if (testcomplete) {
-      router.push(`/test-submit-completion/${cid}`);
+      router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
     }
   }, [router]);
 
@@ -89,7 +91,7 @@ const CodingExcersice = () => {
     );
 
     const data = await response.json();
-    router.push(`/test-submit-completion/${cid}`);
+    router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
     console.log("response: ", data);
     setIsLoading(false);
   }
