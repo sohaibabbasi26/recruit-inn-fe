@@ -2,9 +2,6 @@
   background-color: #fff;
   flex: 0 0 16.25rem;
   max-height: 100vh;
-  /* try this */
-  position: relative;
-
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 75px 1fr max-content;
@@ -403,14 +400,24 @@
   .profnameback {
     display: block;
   }
-
   .profileTab {
     margin-left: 8px;
     margin-right: 8px;
     width: 90%;
-  }
+    position: absolute;
+    bottom: 16px; /* Adjust spacing from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Correct for centering */
+    
+  margin-bottom: 0 !important;
+}
+
+ 
 
   .profileTab h4 {
     white-space: nowrap;
   }
+}
+.space {
+  margin-left: 30px;
 }

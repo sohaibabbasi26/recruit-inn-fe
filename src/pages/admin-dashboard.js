@@ -203,7 +203,7 @@ const Admin = ({ }) => {
         switch (activeItem) {
             case 'Dashboard':
                 return <>
-                    <AdminSuperComponent setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess} allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
+                    <AdminSuperComponent setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess} allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} allClients={allClients?.data} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
                     <AdminRightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
                 </>;
             case 'AllClients':

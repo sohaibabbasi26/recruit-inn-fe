@@ -1,17 +1,20 @@
 import styles from "./ClientInfo.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
+import { findFlagUrlByCountryName } from "country-flags-svg";
+//ans
 
 const AdminClientInfo = ({
   email,
   phoneNo,
   setActManager,
   setCity,
+  city,
   setClientname,
   setEmail,
   setPhoneNo,
@@ -30,6 +33,23 @@ const AdminClientInfo = ({
     setIsValid(isValidPhoneNumber(value, country));
   };
   console.log(getCities(country));
+
+  const [cities, setCities] = useState([]); // Maintain local state for cities
+
+  // Update cities whenever country changes
+  useEffect(() => {
+    if (country) {
+      const fetchedCities = getCities(country);
+      if (fetchedCities) {
+        setCities(fetchedCities);
+      } else {
+        setCities([]); // Reset cities if no match
+      }
+    } else {
+      setCities([]); // Reset cities when country is null
+    }
+  }, [country]);
+
   return (
     <>
       <div className={styles.superContainer}>
@@ -106,30 +126,58 @@ const AdminClientInfo = ({
             <option>0-15</option>
           </select>
         </div>
-        <div className={styles.inputField}>
-          <Image src="/earth.svg" width={iconSize} height={iconSize} />
+       {/* Country Selection */}
+        {/* <div className={`${styles.inputField} ${country ? styles.filled : ""}`}> */}
+        <div
+          className={`${styles.inputField} ${country ? styles.filled : ""} ${
+            country && findFlagUrlByCountryName(country) && styles.countryField
+          }`}
+        >
+          {/* <Image
+            src="/earth.svg"
+            width={iconSize}
+            height={iconSize}
+            alt="Earth"
+          /> */}
+          <Image
+            src={
+              country
+                ? findFlagUrlByCountryName(country) || "/earth.svg"
+                : "/earth.svg"
+            }
+            width={20}
+            height={20}
+          />
+
           <select onChange={(e) => setCountry(e.target.value)}>
             <option>Select country</option>
-            {countryList.map((country) => (
-              <option value={country}> {country} </option>
+            {countryList.map((country, index) => (
+              <option key={index} value={country}>
+                {" "}
+                {country}{" "}
+              </option>
             ))}
           </select>
         </div>
-        <div className={styles.inputField}>
-          <Image src="/aim.svg" width={iconSize} height={iconSize} />
-          <select
-            disabled={country === null}
-            onChange={(e) => setCity(e.target.value)}
-          >
+
+        {/* City Selection */}
+        <div className={`${styles.inputField} ${city ? styles.filled : ""}`}>
+          <Image src="/aim.svg" width={iconSize} height={iconSize} alt="Aim" />
+          <select disabled={!country} onChange={(e) => setCity(e.target.value)}>
             <option>Select city</option>
-            {getCities(country)?.map((city) => (
-              <option value={city}> {city} </option>
-            ))}
+            {country &&
+              getCities(country)?.map((city, index) => (
+                <option key={index} value={city}>
+                  {city}
+                </option>
+              ))}
           </select>
         </div>
+       
       </div>
     </>
   );
 };
 
 export default AdminClientInfo;
+
