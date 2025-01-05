@@ -4,12 +4,12 @@ import CandidateReports from './CandidateReports';
 import ClientList from './ClientsList';
 import Jobs from './Jobs';
 
-const AdminBody = ({setSelectedCandidate,selectedCandidate,setReportOverlay,allCandidates, allClients}) => {
+const AdminBody = ({setSelectedCandidate,selectedCandidate,setReportOverlay,allCandidates, allClients ,onOpen ,data , setData, showError,adminToken}) => {
 
     return (
         <>
             <div className={styles.body}>
-                <ClientList  allClients={allClients} />
+                <ClientList  allClients={allClients} onOpen={onOpen} data={data} setData={setData}  showError={showError} adminToken={adminToken} />
                 <AdminCandRep allCandidates={allCandidates} setSelectedCandidate={setSelectedCandidate} setReportOverlay={setReportOverlay} />
             </div>
         </>
