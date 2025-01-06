@@ -27,7 +27,10 @@ export default function Token() {
   const [candidateId, setCandidateId] = useState(null);
   const [results, setResults] = useState([]);
   const [recommendedCourse,setRecommendedCourse]= useState(null);
-  const [weakSkill,setWeakSkill]= useState('node js');
+  const [weakSkill,setWeakSkill]= useState('react js');
+  const [codingResult, setCodingResult] = useState();
+  const [isCodingAssessment, setIsCodingAssessment] = useState(false);
+
 
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
 
@@ -72,7 +75,37 @@ export default function Token() {
     }
   },[recommendedCourse, weakSkill])
 
-  console.log(recommendedCourse);
+  useEffect(() => {
+    async function fetchCandidatesCodingResult() {
+      //setIsLoading(true);
+      const requestBody = {
+        candidate_id: candidateId,
+      };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      const data = await response.json();
+      console.log("data response:", data);
+      setCodingResult(data);
+      //
+      //setIsLoading(false);
+      if (data && data?.data && data?.data?.result) {
+        setIsCodingAssessment(true);
+      } else {
+        setIsCodingAssessment(false);
+      }
+    }
+    fetchCandidatesCodingResult();
+  }, [candidateId]);
+
 
   useEffect(() => {
     async function fetchResults() {
@@ -106,13 +139,13 @@ export default function Token() {
     fetchResults();
   }, [router?.isReady, candidateId]);
 
-  // if (!isReportTokenValid) {
-  //   return (
-  //     <div>
-  //       <h1>Invalid Token</h1>
-  //     </div>
-  //   );
-  // }
+  if (!isReportTokenValid) {
+    return (
+      <div>
+        <h1>Invalid Token</h1>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.reportTokenContainer}>
