@@ -4,6 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./token.module.css";
 import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
+import CourseLevelSvg from "../../../components/CourseLevelSvg";
+
+const students = [
+  { image: "/recommended_course.png" },
+  { image: "/recommended_course.png" },
+  { image: "/recommended_course.png" },
+];
 
 const details = [
   { key: "phone", value: "+92 304 2324115" },
@@ -119,7 +126,7 @@ export default function Token() {
             <Item key={i} keyy={it.key} value={it.value} />
           ))}{" "}
         </div>
-        <button className={styles.download_report_button}>
+        <button className={`${styles.download_report_button} ${styles.button}`}>
           <svg
             width="35"
             height="36"
@@ -231,6 +238,168 @@ export default function Token() {
                 Offer Professional career guidance to help the candidate
                 navigate challenges and strategize for improvement
               </p>
+              <div className={styles.career_counseling_content_details}>
+                <p>
+                  By <span>Aahil Alwani</span>
+                </p>
+                <p>Premium</p>
+              </div>
+              <div className={styles.career_counseling_description}>
+                <p>
+                  {" "}
+                  View description{" "}
+                  <svg
+                    width="24"
+                    height="18"
+                    viewBox="0 0 24 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.04012 10.9939L1.37781 11.5267L2.04012 10.9939ZM2.04012 7.00608L1.37781 6.4733L2.04012 7.00608ZM21.2932 10.9939L21.9555 11.5267L21.2932 10.9939ZM21.2932 7.00608L21.9555 6.4733L21.2932 7.00608ZM22.3333 9L23.1833 9L22.3333 9ZM20.6309 10.4611C19.7034 11.6142 18.3808 13.0537 16.8107 14.1987C15.2346 15.348 13.4789 16.15 11.6667 16.15V17.85C13.9779 17.85 16.0824 16.8337 17.8123 15.5723C19.548 14.3066 20.977 12.7431 21.9555 11.5267L20.6309 10.4611ZM11.6667 16.15C9.85442 16.15 8.09871 15.348 6.52268 14.1987C4.95249 13.0537 3.62994 11.6142 2.70243 10.4611L1.37781 11.5267C2.35635 12.7431 3.78535 14.3066 5.52106 15.5723C7.25093 16.8337 9.35547 17.85 11.6667 17.85V16.15ZM2.70243 7.53885C3.62994 6.38584 4.95249 4.94628 6.52268 3.80129C8.09871 2.65204 9.85442 1.85 11.6667 1.85V0.15C9.35547 0.15 7.25093 1.16627 5.52106 2.4277C3.78535 3.69339 2.35635 5.25686 1.37781 6.4733L2.70243 7.53885ZM11.6667 1.85C13.4789 1.85 15.2346 2.65204 16.8107 3.80129C18.3808 4.94628 19.7034 6.38584 20.6309 7.53885L21.9555 6.4733C20.977 5.25686 19.548 3.69339 17.8123 2.4277C16.0824 1.16627 13.9779 0.15 11.6667 0.15V1.85ZM2.70243 10.4611C1.96022 9.53849 1.85 9.34666 1.85 9H0.15C0.15 10.0552 0.733196 10.7254 1.37781 11.5267L2.70243 10.4611ZM1.37781 6.4733C0.733196 7.27464 0.15 7.94481 0.15 9H1.85C1.85 8.65334 1.96022 8.46151 2.70243 7.53885L1.37781 6.4733ZM21.9555 11.5267C22.6001 10.7254 23.1833 10.0552 23.1833 9L21.4833 9C21.4833 9.34666 21.3731 9.53849 20.6309 10.4611L21.9555 11.5267ZM20.6309 7.53885C21.3731 8.46151 21.4833 8.65334 21.4833 9L23.1833 9C23.1833 7.94481 22.6001 7.27464 21.9555 6.4733L20.6309 7.53885ZM13.8368 9C13.8368 10.1821 12.8705 11.15 11.6667 11.15V12.85C13.7987 12.85 15.5368 11.1316 15.5368 9H13.8368ZM11.6667 11.15C10.4628 11.15 9.49657 10.1821 9.49657 9H7.79657C7.79657 11.1316 9.53463 12.85 11.6667 12.85V11.15ZM9.49657 9C9.49657 7.81793 10.4628 6.85 11.6667 6.85V5.15C9.53463 5.15 7.79657 6.86836 7.79657 9H9.49657ZM11.6667 6.85C12.8705 6.85 13.8368 7.81793 13.8368 9H15.5368C15.5368 6.86836 13.7987 5.15 11.6667 5.15V6.85Z"
+                      fill="#1b003c"
+                    />
+                  </svg>
+                </p>
+              </div>
+              <div className={styles.career_counseling_students}>
+                <p>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.63411 9.05964C7.55078 9.0513 7.45078 9.0513 7.35911 9.05964C5.37578 8.99297 3.80078 7.36797 3.80078 5.36797C3.80078 3.3263 5.45078 1.66797 7.50078 1.66797C9.54245 1.66797 11.2008 3.3263 11.2008 5.36797C11.1924 7.36797 9.61745 8.99297 7.63411 9.05964Z"
+                      stroke="#1b003c"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.6747 3.33203C15.2914 3.33203 16.5914 4.64036 16.5914 6.2487C16.5914 7.8237 15.3414 9.10703 13.7831 9.16536C13.7164 9.15703 13.6414 9.15703 13.5664 9.16536"
+                      stroke="#1b003c"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M3.46758 12.132C1.45091 13.482 1.45091 15.682 3.46758 17.0237C5.75924 18.557 9.51758 18.557 11.8092 17.0237C13.8259 15.6737 13.8259 13.4737 11.8092 12.132C9.52591 10.607 5.76758 10.607 3.46758 12.132Z"
+                      stroke="#1b003c"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M15.2832 16.668C15.8832 16.543 16.4499 16.3013 16.9165 15.943C18.2165 14.968 18.2165 13.3596 16.9165 12.3846C16.4582 12.0346 15.8999 11.8013 15.3082 11.668"
+                      stroke="#1b003c"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  112 Watching
+                </p>
+              </div>
+
+              <button
+                className={`${styles.career_counseling_cta} ${styles.button}`}
+              >
+                Book a Career Counseling Session with SkillBuilder.
+                {/* ICON */}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.91602 18.334H17.0827"
+                    stroke="white"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15.834 2.91797L4.16732 14.5846"
+                    stroke="white"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15.834 11.4763V2.91797H7.27565"
+                    stroke="white"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </ReportSection>
+
+        {/* course recommendations */}
+        <ReportSection
+          headerClassName="second_color"
+          heading="Skill-Specific Courses"
+        >
+          <div className={styles.career_counseling}>
+            <div className={styles.course_recommendation_card}>
+              <div className={styles.course_recommendation_card_image}>
+                <Image
+                  height={261.06}
+                  width={421.85}
+                  src="/recommended_course.png"
+                  alt="Career Counseling Image"
+                />
+              </div>
+              <div className={styles.course_recommendation_card_content}>
+                <h3>Lorem ipsum dolor sit amet consectetur.</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloremque aliquam cum fugit.
+                </p>
+                <p
+                  className={
+                    styles.course_recommendation_card_content_instructor
+                  }
+                >
+                  By <span>Lorem, ipsum.</span>
+                </p>
+                <p className={styles.course_recommendation_card_content_level}>
+                  <CourseLevelSvg />
+                  Level: <span>beginner</span>
+                </p>
+                <p className={styles.course_recommendation_card_content_price}>
+                  <span>$69:00 </span>
+                  <span>&#45;</span>
+                  <span> $49:00</span>
+                </p>
+
+                <div
+                  className={styles.course_recommendation_card_content_enrolled}
+                >
+                  {/* students */}
+                  {students.map((student, i) => (
+                    <EnrolledImage key={i} student={student} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className={styles.course_recommendation_content}>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
+                nihil distinctio omnis assumenda facere voluptates officia iure
+                neque id libero!
+              </p>
             </div>
           </div>
         </ReportSection>
@@ -258,6 +427,15 @@ function ReportSection({ headerClassName, heading, children }) {
       </div>
 
       <div className={styles.report_content}>{children}</div>
+    </div>
+  );
+}
+
+function EnrolledImage({ student }) {
+  const imageSrc = student?.image || "/.avatar3";
+  return (
+    <div className={styles.enrolled_image}>
+      <Image src={imageSrc} height={36.5} width={36.5} />
     </div>
   );
 }
