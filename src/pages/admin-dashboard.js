@@ -131,6 +131,7 @@ const Admin = ({}) => {
         }
 
         return {
+          candidate_id: candidate.candidate_id,
           name: candidate.name,
           email: candidate.email,
           position: position,
@@ -145,6 +146,8 @@ const Admin = ({}) => {
           company: candidate.company || null,
           appliedThrough: candidate?.company?.company_name || "Self",
           companyId: candidate?.company?.company_id,
+          position: candidate?.position,
+          job_type: candidate?.job_type,
         };
       });
     } catch (err) {

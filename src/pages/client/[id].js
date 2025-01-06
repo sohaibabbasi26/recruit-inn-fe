@@ -368,8 +368,8 @@ async function fetchClientSubscription() {
             : "N/A"; // Inferred position from the first skill
         return {
           candidate_id: candidate.candidate_id,
-          position: candidate.position,
-          jobType: candidate.job_type,
+          position: candidate?.position,
+          jobType: candidate?.job_type,
           name: candidate.name,
           email: candidate.email,
           score: parseFloat(score),
