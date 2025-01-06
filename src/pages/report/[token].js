@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styles from "./token.module.css";
 import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
 import CourseLevelSvg from "../../../components/CourseLevelSvg";
+import InvitedCandidateProgressSvg from "../../../components/InvitedCandidateProgressSvg";
 
 const students = [
   { image: "/recommended_course.png" },
@@ -99,6 +100,8 @@ export default function Token() {
       <div className={styles.report_header}>
         <div className={styles.report_header_inner}>
           <div className={styles.report_header_image}>
+            {/* Progress */}
+            {/* <InvitedCandidateProgressSvg className={"yoyo"} /> */}
             <div className={styles.report_header_candidate_image}>
               <Image src={"/report-self-avatar.png"} height={84} width={65} />
             </div>
