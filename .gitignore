@@ -27,7 +27,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env
 .env*.local
 
 # vercel
@@ -42,4 +41,5 @@ dummy-candidate.js
 dummy-candidate.module.css
 
 public/audio
+/.env
 

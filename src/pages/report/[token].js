@@ -34,6 +34,7 @@ export default function Token() {
   const [weakSkill, setWeakSkill] = useState("react js");
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
+  const [candidateInfo, setCandidateInfo] = useState(null);
 
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
 
@@ -59,6 +60,7 @@ export default function Token() {
         const data = await response.json();
         if (data?.data?.statusCode === 200) {
           setCandidateId(data?.data?.candidate_id);
+          setCandidateInfo(data?.data?.candidate_info);
           setIsReportTokenValid(true);
         }
       } catch (err) {
@@ -178,10 +180,16 @@ export default function Token() {
             </div>
           </div>
           <div className={styles.report_header_title}>
-            <h2>Jacob Jones</h2>
+            <h2>{candidateInfo?.name}</h2>
             <p>Front-end developer</p>
             <div className={styles.report_header_score}>
-              <span>Recommended</span>
+              <span>
+                {overallRating >= 7
+                  ? "Recommended"
+                  : overallRating >= 5 && overallRating < 7
+                  ? "Qualified"
+                  : "Not Eligible"}
+              </span>
               <span className="dot"></span>
             </div>
           </div>
