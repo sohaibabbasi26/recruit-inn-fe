@@ -148,13 +148,13 @@ export default function Token() {
     fetchCandidatesCodingResult();
   }, [candidateId]);
 
-  if (!isReportTokenValid) {
-    return (
-      <div>
-        <h1>Invalid Token</h1>
-      </div>
-    );
-  }
+  // if (!isReportTokenValid) {
+  //   return (
+  //     <div>
+  //       <h1>Invalid Token</h1>
+  //     </div>
+  //   );
+  // }
 
   console.log("candidate result data", results);
   console.log("candidate coding", codingResult);
@@ -238,6 +238,7 @@ export default function Token() {
           </>
         </ReportSection>
         <ReportSection
+          variant="two"
           headerClassName="second_color"
           heading="Our AI Interviewer has identified areas where your skills can be enhanced."
         >
@@ -258,6 +259,7 @@ export default function Token() {
           </div>
         </ReportSection>
         <ReportSection
+          variant="two"
           headerClassName="second_color"
           heading="Career Counseling and Skillbuilder Recommendations."
         >
@@ -386,6 +388,7 @@ export default function Token() {
 
         {/* course recommendations */}
         <ReportSection
+          variant="two"
           headerClassName="second_color"
           heading="Skill-Specific Courses"
         >
@@ -460,13 +463,19 @@ function Item({ keyy, value }) {
   );
 }
 
-function ReportSection({ headerClassName, heading, children }) {
+function ReportSection({
+  headerClassName,
+  heading,
+  children,
+  variant = "one",
+}) {
   return (
     <div className={styles.overall_report}>
       <div
         className={`${styles.overall_report_header} ${styles[headerClassName]}`}
       >
         <h2>{heading}</h2>
+        {variant === "one" ? <Scores /> : null}
       </div>
 
       <div className={styles.report_content}>{children}</div>
@@ -479,6 +488,28 @@ function EnrolledImage({ student }) {
   return (
     <div className={styles.enrolled_image}>
       <Image src={imageSrc} height={36.5} width={36.5} />
+    </div>
+  );
+}
+
+function Scores({ score = 6, maxScore = 10, maxStars = 6 }) {
+  const filledStars = Math.round((score / maxScore) * maxStars);
+
+  return (
+    <div className={styles.scores}>
+      <p>
+        Overall Score - {score} / {maxScore}
+      </p>
+      <div className={styles.stars}>
+        {Array.from({ length: maxStars }).map((_, index) => (
+          <div
+            key={index}
+            className={`${styles.point} ${
+              index < filledStars ? styles.filled : ""
+            }`}
+          ></div>
+        ))}
+      </div>
     </div>
   );
 }
