@@ -45,34 +45,42 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     : null;
 
   useEffect(() => {
-    async function fetchCandidatesCodingResult() {
-      setIsLoading(true);
-      const requestBody = {
-        candidate_id: selectedCandidate?.candidate_id,
-      };
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
 
-      const data = await response.json();
-      console.log("data response:", data);
-      setCodingResult(data);
-      //
-      setIsLoading(false);
-      if (data && data?.data && data?.data?.result) {
-        setIsCodingAssessment(true);
-      } else {
-        setIsCodingAssessment(false);
+    console.log("SELECTED CANDIDATE ISS :", selectedCandidate);
+
+    if(selectedCandidate){
+      async function fetchCandidatesCodingResult() {
+        setIsLoading(true);
+        // const requestBody = {
+        //   candidate_id: selectedCandidate?.candidate_id,
+        // };
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              candidate_id: selectedCandidate?.candidate_id,
+            }),
+          }
+        );
+
+        const data = await response.json();
+        console.log("data response123132:", data);
+        setCodingResult(data);
+        //
+        setIsLoading(false);
+        if (data && data?.data && data?.data?.result) {
+          setIsCodingAssessment(true);
+        } else {
+          setIsCodingAssessment(false);
+        }
       }
+      fetchCandidatesCodingResult();
     }
-    fetchCandidatesCodingResult();
+    
   }, [selectedCandidate]);
 
   const calculateCumulativeMean = (val1, val2, val3) => {
@@ -272,8 +280,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //       // // Remove the anchor element from the document body
   //       // document.body.removeChild(link);
 
-
-
   //       //my code
   //       html2canvas(contentRef.current).then(canvas => {
   //         const imgData = canvas.toDataURL('image/png');
@@ -302,7 +308,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //       const pdf = new jsPDF('landscape', 'mm', 'a4');  // Use A4 size in millimeters
   //       const contentWidth = 210;  // A4 page width in mm
   //       const contentHeight = 297; // A4 page height in mm
-        
+
   //       // Use the actual DOM element and apply scaling
   //       pdf.html(contentRef.current, {
   //         callback: function (pdf) {
@@ -316,7 +322,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //         width: contentWidth - 20,  // Set content width to fit within the page margins
   //         windowWidth: contentRef.current.scrollWidth  // Use the scroll width of the content for scaling
   //       });
-  
+
   //       setIsPdfLoading(false);
   //     } catch (error) {
   //       console.error("Error generating PDF:", error);
@@ -330,9 +336,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //   setIsPdfLoading(false);
 
   // }
-  
-  
-  
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -494,15 +497,16 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                   <li>
                     <span className={styles.bold}>Job Type: </span>
                     <span>
-                      {selectedCandidate?.jobType ||
-                        selectedCandidate?.job_type}
+                      {selectedCandidate?.job_type ||
+                        results?.data?.job_type ||
+                        selectedCandidate.jobType}
                     </span>
                   </li>
                   <li>
                     <span className={styles.bold}>Applied For: </span>
                     <span>
-                      {selectedCandidate?.company
-                        ? selectedCandidate?.company?.name
+                      {selectedCandidate?.appliedFor
+                        ? selectedCandidate?.appliedFor
                         : "Self"}
                     </span>
                   </li>
@@ -568,11 +572,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <button
                   className={styles.downloadButton}
                   // onClick={handleDownloadPdf}
-                  onClick={() => generatePDF({
-                    setIsPdfLoading,
-                    contentRef,
-                    selectedCandidate
-                  })}
+                  onClick={() =>
+                    generatePDF({
+                      setIsPdfLoading,
+                      contentRef,
+                      selectedCandidate,
+                    })
+                  }
                   disabled={isPdfLoading}
                 >
                   {isPdfLoading ? "Downloading..." : "Download PDF"}

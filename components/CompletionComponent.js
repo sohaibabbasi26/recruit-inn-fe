@@ -8,13 +8,15 @@ import NameContext from "@/contexts/NameContext";
 const CompletionComponent = ({ getActiveComponent }) => {
   const [candidateNameTemp, setCandidateNameTemp] = useState(undefined);
   const [jobCandidateName, setJobCandidateName] = useState(undefined);
+  const [interviewCount, setInterviewCount] = useState(null);
   // const { name } = useContext(NameContext);
   const imagsSize = 130;
   const iconSize = 20;
   const router = useRouter();
 
   const [clientId, setClientId] = useState(null);
-
+  const [companyEmail, setCompanyEmail] = useState(null);
+  const [companyName, setCompanyName] = useState(null);
 
   // trying this weird way to get candidate name [not recommended]
   useEffect(function () {
@@ -30,7 +32,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
   // }
 
   useEffect(() => {
-    if (router.query.client_id) {
+    if (router.query.client_id!==undefined) {
       console.log("client id1: ", router.query.client_id);
       setClientId(router.query.client_id);
     }
@@ -46,7 +48,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ client_id:clientId }),
+          body: JSON.stringify({ client_id: clientId }),
         }
       );
       const data = await response.json();
@@ -57,6 +59,83 @@ const CompletionComponent = ({ getActiveComponent }) => {
     }
   }
 
+  async function fetchClientSubscription() {
+    if(clientId === undefined){
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${clientId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setInterviewCount(data?.data?.test_count);
+    }
+  }
+
+  async function getCompanyDetails() {
+
+    if(interviewCount === 0 && interviewCount !== null){
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-company`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: clientId,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("company details response:", data?.data?.email);
+      setCompanyEmail(data?.data?.email);
+      setCompanyName(data?.data?.company_name);
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  }
+  }
+
+    async function sendEmailtoClient() {
+      if(companyEmail && companyName){
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              to: companyEmail,
+              subject: "Your Interview Limit Ended",
+              text: `Dear ${companyName}, Your interview limit has ended. Candidates will not be able to take the test until the subscription is renewed.`,
+            }),
+          }
+        );
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
+      }
+    }
+
+    useEffect(() => {
+      if (interviewCount === 0 && clientId) {
+        getCompanyDetails();
+      }
+    }, [interviewCount, clientId]);
+     useEffect(() => {
+       if (interviewCount === 0 && clientId) {
+         sendEmailtoClient();
+       }
+     }, [companyName, companyEmail]);
 
   const finishTestHandler = async () => {
     localStorage.removeItem("testcompleted");
@@ -65,6 +144,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
     const route = getActiveComponent();
     if (route && clientId) {
       await decrementTest();
+      await fetchClientSubscription();
       router.push(route);
     } else {
       console.error("Undefined route from getActiveComponent");

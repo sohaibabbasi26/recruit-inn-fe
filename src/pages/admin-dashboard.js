@@ -15,8 +15,9 @@ import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
 import ErrorIndicator from '../../components/ErrorIndicator';
 import ClientSignup from './client-signup';
+import { useTestState } from "@/contexts/TestRequirementContext";
 
-const Admin = ({ }) => {
+const Admin = ({}) => {
 
     const [activeClientsData, setActiveClientsData] = useState(null);
     const [inActiveClientsData, setInActiveClientsData] = useState(null);
@@ -30,256 +31,603 @@ const Admin = ({ }) => {
     const [adminnToken, setAdminToken] = useState('');
     const [allClients, setAllClients] = useState();
     const [allResults, setAllResults] = useState();
+     const {
+        isTestRequired,
+        setIsTestRequired,
+        isArabicChosen,
+        setIsArabicChosen,
+      } = useTestState();
 
-    useEffect(() => {
-        localStorage.setItem('activeFlow', 'Admin');
-    }, []);
+  const showError = (message) => {
+    setMessage(message);
+    setShowErrorMessage(true);
 
-    const showError = (message) => {
-        setMessage(message);
-        setShowErrorMessage(true);
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 3000);
+  };
 
-        setTimeout(() => {
-            setShowErrorMessage(false);
-        }, 3000);
-    };
+  const showSuccess = (message) => {
+    setMessage(message);
+    setShowSuccessMessage(true);
 
-    const showSuccess = (message) => {
-        setMessage(message);
-        setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
 
-        setTimeout(() => {
-            setShowSuccessMessage(false);
-        }, 3000);
-    };
+  useEffect(() => {
+    const adminToken = localStorage.getItem("admin-token");
+    setAdminToken(adminToken);
+  });
 
-    useEffect(() => {
-        const adminToken = localStorage.getItem('admin-token');
-        setAdminToken(adminToken);
-    })
+  useEffect(() => {
+    if (Array.isArray(allClients?.data)) {
+      const filterRequestsData = (client) => client?.status === "Request";
+      const filterActiveData = (client) => client?.status === "Active";
+      const filterInActiveData = (client) => client?.status === "In-Active";
 
-    useEffect(() => {
-        if (Array.isArray(allClients?.data)) {
-            const filterRequestsData = (client) => client?.status === 'Request';
-            const filterActiveData = (client) => client?.status === 'Active';
-            const filterInActiveData = (client) => client?.status === 'In-Active'
+      setActiveClientsData(allClients?.data?.filter(filterActiveData));
+      setInActiveClientsData(allClients?.data?.filter(filterInActiveData));
+      setRequestedClientsData(allClients?.data?.filter(filterRequestsData));
+    } else {
+      console.log("allClients is not an array:", allClients);
+    }
+  }, [allClients]);
 
-            setActiveClientsData(allClients?.data?.filter(filterActiveData));
-            setInActiveClientsData(allClients?.data?.filter(filterInActiveData))
-            setRequestedClientsData(allClients?.data?.filter(filterRequestsData));
-        } else {
-            console.log('allClients is not an array:', allClients);
+
+
+
+  async function getCandidatesByPosition(position_id) {
+    try {
+      const reqBody = { position_id };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
         }
-    }, [allClients]);
+      );
+      const data = await response.json();
+      console.log("API response for candidates:", data);
+      if (!data || !data.data) {
+        console.log("Unexpected response format:", data);
+        return;
+      }
+      const completedCandidates = preprocessCandidatesData(
+        data.data,
+        data.company
+      );
+      setPositionCandidates(completedCandidates);
+      const filterRecommended = (candidate) =>
+        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = (candidate) =>
+        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
+      setRecommendedCand(completedCandidates.filter(filterRecommended));
+      setQualifiedCand(completedCandidates.filter(filterQualified));
+      setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+      console.log("Filtered candidates:", completedCandidates);
+    } catch (err) {
+      console.log("Error fetching candidates:", err);
+    }
+  }
 
-    const preprocessCandidatesData = (candidates) => {
-        try{
-            if (!candidates) {
-                console.error("Candidates is undefined or null:", candidates);
-                // handle the error or return a default value
-                return [];
-            }
-    
-            console.log("in pre processing method:",candidates)
-            return candidates?.map(candidate => {
-                let latestResult = {
-                    softskillRating: 0,
-                    technicalRating: 0,
-                    softskillAssessment: "",
-                    technicalAssessment: "",
-                    createdAt: null
-                };
-    
-                if (candidate.results && candidate.results.length > 0) {
-                    const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                    latestResult = sortedResults[0].result || latestResult;
-                    latestResult.createdAt = sortedResults[0].createdAt;
-                }
-    
-                const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
-                const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-    
-                let expertiseTechStack = [];
-                let jobType = 'N/A';
-                let position = 'N/A';
-                if (Array.isArray(candidate.expertise)) {
-                    expertiseTechStack = candidate.expertise.map(e => ({
-                        skill: e.skill,
-                        level: e.level
-                    }));
-                } else if (candidate.expertise && typeof candidate.expertise === 'object') {
-                    expertiseTechStack = candidate.expertise.techStack || [];
-                    jobType = candidate.expertise.jobtype || 'N/A';
-                    position = candidate.expertise.position || 'N/A';
-                }
-    
-                return {
-                    name: candidate.name,
-                    email: candidate.email,
-                    position: position,
-                    score: score.toFixed(1),
-                    contactNo: candidate.contact_no,
-                    date: formattedDate,
-                    expertise: expertiseTechStack,
-                    jobType: jobType,
-                    position: position,
-                    overAllExperience: candidate.over_all_exp || 'N/A',
-                    results: latestResult,
-                    company: candidate.company || null,
-                    appliedThrough: candidate?.company?.company_name || 'Self',
-                    companyId: candidate?.company?.company_id
-                };
-            })
+
+  const preprocessCandidatesData = (candidates) => {
+    try {
+      if (!candidates) {
+        console.error("Candidates is undefined or null:", candidates);
+        // handle the error or return a default value
+        return [];
+      }
+      console.log("in pre processing method:", candidates);
+      return candidates?.map((candidate) => {
+        let latestResult = {
+          softskillRating: 0,
+          technicalRating: 0,
+          softskillAssessment: "",
+          technicalAssessment: "",
+          createdAt: null,
+        };
+        if (candidate.results && candidate.results.length > 0) {
+          const sortedResults = candidate.results.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          latestResult = sortedResults[0].result || latestResult;
+          latestResult.createdAt = sortedResults[0].createdAt;
         }
-        catch(err){
-            console.log("ERROR:",err)
+        const score =
+          (latestResult.softskillRating + latestResult.technicalRating) / 2;
+        const formattedDate = latestResult.createdAt
+          ? new Date(latestResult.createdAt).toLocaleDateString()
+          : "N/A";
+        let expertiseTechStack = [];
+        let jobType = "N/A";
+        let position = "N/A";
+        if (Array.isArray(candidate.expertise)) {
+          expertiseTechStack = candidate.expertise.map((e) => ({
+            skill: e.skill,
+            level: e.level,
+          }));
+        } else if (
+          candidate.expertise &&
+          typeof candidate.expertise === "object"
+        ) {
+          expertiseTechStack = candidate.expertise.techStack || [];
+          jobType = candidate.expertise.jobtype || "N/A";
+          position = candidate.expertise.position || "N/A";
         }
-    };
+        return {
+          candidate_id: candidate.candidate_id,
+          name: candidate.name,
+          email: candidate.email,
+          position: position,
+          score: score.toFixed(1),
+          contactNo: candidate.contact_no,
+          date: formattedDate,
+          expertise: expertiseTechStack,
+          jobType: jobType,
+          position: position,
+          overAllExperience: candidate.over_all_exp || "N/A",
+          results: latestResult,
+          company: candidate.company || null,
+          appliedThrough: candidate?.company?.company_name || "Self",
+          companyId: candidate?.company?.company_id,
+          position: candidate?.position,
+          job_type: candidate?.job_type,
+        };
+      });
+    } catch (err) {
+      console.log("ERROR:", err);
+    }
+  };
 
-
-    console.log('checking:', allResults?.data?.candidates)
-
-    useEffect(() => {
-        if (allResults?.data) {
-            const processedData = preprocessCandidatesData(allResults?.data, allResults?.data);
-            setPreprocessedCandidates(processedData);
-            console.log('pre processed data:', processedData)
-
-            const filterRecommended = (candidate) => Math.ceil(candidate?.results?.technicalRating) >= 7 && Math.ceil(candidate?.results?.technicalRating) <= 10;
-            const filterQualified = (candidate) => Math.ceil(candidate?.results?.technicalRating) >= 5 && Math.ceil(candidate?.results?.technicalRating) < 7;
-            const filterNotEligible = (candidate) => Math.ceil(candidate?.results?.technicalRating) < 5;
-
-            setRecommendedCand(processedData?.filter(filterRecommended));
-            setQualifiedCand(processedData?.filter(filterQualified));
-            setNotEligibleCand(processedData?.filter(filterNotEligible));
-        }
-    }, [allResults]);
+  
+   
+      
+ 
+  console.log("checking:", allResults?.data?.candidates);
     
-    useEffect(() => {
-        console.log('Recommended Candidate:', recommendedCand);
-        console.log('Qualified Candidate:', qualifiedCand);
-        console.log('Not Eligible Candidate:', notEligibleCand);
-    }, [recommendedCand, qualifiedCand, notEligibleCand]);
+  useEffect(() => {
+    if (allResults?.data) {
+      const processedData = preprocessCandidatesData(
+        allResults?.data,
+        allResults?.data
+      );
+      setPreprocessedCandidates(processedData);
+      console.log("pre processed data:", processedData);
 
+      const filterRecommended = (candidate) =>
+        Math.ceil(candidate?.results?.technicalRating) >= 7 &&
+        Math.ceil(candidate?.results?.technicalRating) <= 10;
+      const filterQualified = (candidate) =>
+        Math.ceil(candidate?.results?.technicalRating) >= 5 &&
+        Math.ceil(candidate?.results?.technicalRating) < 7;
+      const filterNotEligible = (candidate) =>
+        Math.ceil(candidate?.results?.technicalRating) < 5;
 
-    useEffect(() => {
-        console.log('pre processed data:', preprocessedCandidates);
-    }, [preprocessedCandidates]);
+      setRecommendedCand(processedData?.filter(filterRecommended));
+      setQualifiedCand(processedData?.filter(filterQualified));
+      setNotEligibleCand(processedData?.filter(filterNotEligible));
+    }
+  }, [allResults]);
 
-    console.log('all clients :', allClients);
-    console.log('all results :', allResults);
+  useEffect(() => {
+    console.log("Recommended Candidate:", recommendedCand);
+    console.log("Qualified Candidate:", qualifiedCand);
+    console.log("Not Eligible Candidate:", notEligibleCand);
+  }, [recommendedCand, qualifiedCand, notEligibleCand]);
 
-    const [reportOverlay, setReportOverlay] = useState(false);
-    const [selectedJob, setSelectedJob] = useState(null);
-    const [showOverlay, setShowOverlay] = useState(false);
-    const [selectedCandidate, setSelectedCandidate] = useState(null);
-    const [viewListing, setViewListing] = useState(false)
-    const { activeItem } = useActiveItem();
-    const [jobOverlay, setJobOverlay] = useState(false);
-    const [data, setData] = useState(null);
-    const [message , setMessage] = useState(null);
+  useEffect(() => {
+    console.log("pre processed data:", preprocessedCandidates);
+  }, [preprocessedCandidates]);
 
-    const stages = {
-        CLIENT_INFO: 'CLIENT_INFO',
+  console.log("all clients :", allClients);
+  console.log("all results :", allResults);
+
+  const [reportOverlay, setReportOverlay] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [viewListing, setViewListing] = useState(false);
+  const { activeItem } = useActiveItem();
+  const [jobOverlay, setJobOverlay] = useState(false);
+  const [data, setData] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  const stages = {
+    CLIENT_INFO: "CLIENT_INFO",
+  };
+
+  const stageHeadings = {
+    CLIENT_INFO: "Adding A Client",
+  };
+
+  const toggleJobList = () => {
+    setViewListing(!viewListing);
+  };
+
+  const toggleJobOverlay = () => {
+    setJobOverlay(!jobOverlay);
+  };
+
+  useEffect(() => {
+    console.log("show success msg state:", showSuccessMessage);
+  }, [showSuccessMessage]);
+
+  const getActiveComponent = () => {
+    switch (activeItem) {
+      case "Dashboard":
+        return (
+          <>
+            <AdminSuperComponent
+              setMessage={setMessage}
+              showSuccessMessage={showSuccessMessage}
+              showSuccess={showSuccess}
+              adminToken={adminnToken}
+              data={data}
+              setData={setData}
+              setShowOverlay={setShowOverlay}
+              showError={showError}
+              allCandidates={preprocessedCandidates}
+              setSelectedCandidate={setSelectedCandidate}
+              allClients={allClients?.data}
+              setReportOverlay={setReportOverlay}
+              reportOverlay={reportOverlay}
+              onOpen={toggleJobList}
+              selectedCandidate={selectedCandidate}
+            />
+            <AdminRightComponent
+              setShowOverlay={setShowOverlay}
+              showOverlay={showOverlay}
+            />
+          </>
+        );
+      case "AllClients":
+        return (
+          <AdminSuper
+            showError={showError}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            data={data}
+            setData={setData}
+            setShowOverlay={setShowOverlay}
+            onOpen={toggleJobList}
+            allClients={allClients?.data}
+          />
+        );
+      case "Request":
+        return (
+          <AdminSuper
+            showError={showError}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            data={data}
+            setData={setData}
+            setShowOverlay={setShowOverlay}
+            onOpen={toggleJobList}
+            reqData={requestedClientsData}
+          />
+        );
+      case "Active":
+        return (
+          <AdminSuper
+            showError={showError}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            data={data}
+            setData={setData}
+            setShowOverlay={setShowOverlay}
+            onOpen={toggleJobList}
+            activeClientsData={activeClientsData}
+          />
+        );
+      case "In-Active":
+        return (
+          <AdminSuper
+            showError={showError}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            data={data}
+            setData={setData}
+            setShowOverlay={setShowOverlay}
+            onOpen={toggleJobList}
+            inActiveClientsData={inActiveClientsData}
+          />
+        );
+      case "All":
+        return (
+          <AdminSuper
+            showError={showError}
+            selectedCandidate={selectedCandidate}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            setShowOverlay={setShowOverlay}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            setSelectedCandidate={setSelectedCandidate}
+            allCandidates={preprocessedCandidates}
+          />
+        );
+      case "Recommended":
+        return (
+          <AdminSuper
+            showError={showError}
+            selectedCandidate={selectedCandidate}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            setShowOverlay={setShowOverlay}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            setSelectedCandidate={setSelectedCandidate}
+            recommendedCandidates={recommendedCand}
+          />
+        );
+      case "Qualified":
+        return (
+          <AdminSuper
+            showError={showError}
+            selectedCandidate={selectedCandidate}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            setShowOverlay={setShowOverlay}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            setSelectedCandidate={setSelectedCandidate}
+            qualifiedCandidates={qualifiedCand}
+          />
+        );
+      case "NotEligible":
+        return (
+          <AdminSuper
+            showError={showError}
+            selectedCandidate={selectedCandidate}
+            showSuccess={showSuccess}
+            setShowOverlay={setShowOverlay}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            setSelectedCandidate={setSelectedCandidate}
+            notEligibleCandidates={notEligibleCand}
+          />
+        );
+      case "viewJobListing":
+        return (
+          <AdminSuper
+            showError={showError}
+            selectedCandidate={selectedCandidate}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            data={data}
+            setData={setData}
+            setShowOverlay={setShowOverlay}
+            onOpen={toggleJobList}
+            setSelectedJob={setSelectedJob}
+            setJobOverlay={setJobOverlay}
+            jobOverlay={jobOverlay}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+  //   const getActiveComponent = () => {
+  //     switch (activeItem) {
+  //       case "Dashboard":
+  //         return (
+  //           <>
+  //             <AdminSuperComponent
+  //               setMessage={setMessage}
+  //               showSuccessMessage={showSuccessMessage}
+  //               showSuccess={showSuccess}
+  //               allCandidates={preprocessedCandidates}
+  //               allClients={allClients?.data}
+  //               reportOverlay={reportOverlay}
+  //               setReportOverlay={setReportOverlay}
+  //               setSelectedCandidate={setSelectedCandidate}
+  //               selectedCandidate={selectedCandidate}
+  //             />
+  //             <AdminRightComponent
+  //               setShowOverlay={setShowOverlay}
+  //               showOverlay={showOverlay}
+  //             />
+  //           </>
+  //         );
+  //       case "AllClients":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             data={data}
+  //             setData={setData}
+  //             setShowOverlay={setShowOverlay}
+  //             onOpen={toggleJobList}
+  //             allClients={allClients?.data}
+  //           />
+  //         );
+  //       case "Request":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             data={data}
+  //             setData={setData}
+  //             setShowOverlay={setShowOverlay}
+  //             onOpen={toggleJobList}
+  //             reqData={requestedClientsData}
+  //           />
+  //         );
+  //       case "Active":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             data={data}
+  //             setData={setData}
+  //             setShowOverlay={setShowOverlay}
+  //             onOpen={toggleJobList}
+  //             activeClientsData={activeClientsData}
+  //           />
+  //         );
+  //       case "In-Active":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             data={data}
+  //             setData={setData}
+  //             setShowOverlay={setShowOverlay}
+  //             onOpen={toggleJobList}
+  //             inActiveClientsData={inActiveClientsData}
+  //           />
+  //         );
+  //       case "All":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             setShowOverlay={setShowOverlay}
+  //             reportOverlay={reportOverlay}
+  //             setReportOverlay={setReportOverlay}
+  //             setSelectedCandidate={setSelectedCandidate}
+  //             allCandidates={preprocessedCandidates}
+  //             selectedCandidate={selectedCandidate}
+  //           />
+  //         );
+  //       case "Recommended":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             setShowOverlay={setShowOverlay}
+  //             reportOverlay={reportOverlay}
+  //             setReportOverlay={setReportOverlay}
+  //             setSelectedCandidate={setSelectedCandidate}
+  //             recommendedCandidates={recommendedCand}
+  //             selectedCandidate={selectedCandidate}
+  //           />
+  //         );
+  //       case "Qualified":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             setShowOverlay={setShowOverlay}
+  //             reportOverlay={reportOverlay}
+  //             setReportOverlay={setReportOverlay}
+  //             setSelectedCandidate={setSelectedCandidate}
+  //             qualifiedCandidates={qualifiedCand}
+  //             selectedCandidate={selectedCandidate}
+  //           />
+  //         );
+  //       case "NotEligible":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             setShowOverlay={setShowOverlay}
+  //             reportOverlay={reportOverlay}
+  //             setReportOverlay={setReportOverlay}
+  //             setSelectedCandidate={setSelectedCandidate}
+  //             notEligibleCandidates={notEligibleCand}
+  //             selectedCandidate={selectedCandidate}
+  //           />
+  //         );
+  //       case "viewJobListing":
+  //         return (
+  //           <AdminSuper
+  //             showError={showError}
+  //             showSuccess={showSuccess}
+  //             adminToken={adminnToken}
+  //             data={data}
+  //             setData={setData}
+  //             setShowOverlay={setShowOverlay}
+  //             onOpen={toggleJobList}
+  //             setSelectedJob={setSelectedJob}
+  //             setJobOverlay={setJobOverlay}
+  //             jobOverlay={jobOverlay}
+  //           />
+  //         );
+  //       default:
+  //         return null;
+  //     }
+  //   };
+
+  const toggleReportOverlay = () => {
+    setReportOverlay(!reportOverlay);
+  };
+
+  const toggleOverlay = () => {
+    setShowOverlay(!showOverlay);
+  };
+
+  useEffect(() => {
+    async function clientDataFetch() {
+      const adminToken = localStorage.getItem("admin-token");
+      setAdminToken(adminToken);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-companies`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log("companies fetched:", data);
+      setAllClients(data);
     }
 
-    const stageHeadings = {
-        CLIENT_INFO: 'Adding A Client',
-    };
+    clientDataFetch();
+  }, []);
 
-    const toggleJobList = () => {
-        setViewListing(!viewListing);
-    }
-
-    const toggleJobOverlay = () => {
-        setJobOverlay(!jobOverlay);
-    }
-
-    useEffect(() => {
-        console.log("show success msg state:", showSuccessMessage)
-    }, [showSuccessMessage])
-
-    const getActiveComponent = () => {
-        switch (activeItem) {
-            case 'Dashboard':
-                return <>
-                    <AdminSuperComponent setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess} allCandidates={preprocessedCandidates} setSelectedCandidate={setSelectedCandidate} allClients={allClients?.data} setReportOverlay={setReportOverlay} selectedCandidate={selectedCandidate} />
-                    <AdminRightComponent setShowOverlay={setShowOverlay} showOverlay={showOverlay} />
-                </>;
-            case 'AllClients':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} allClients={allClients?.data} />
-            case 'Request':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} reqData={requestedClientsData} />
-            case 'Active':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} activeClientsData={activeClientsData} />
-            case 'In-Active':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} inActiveClientsData={inActiveClientsData} />
-            case 'All':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} allCandidates={preprocessedCandidates} />
-            case 'Recommended':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} recommendedCandidates={recommendedCand} />
-            case 'Qualified':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} qualifiedCandidates={qualifiedCand} />
-            case 'NotEligible':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} setShowOverlay={setShowOverlay} setReportOverlay={setReportOverlay} setSelectedCandidate={setSelectedCandidate} notEligibleCandidates={notEligibleCand} />
-            case 'viewJobListing':
-                return <AdminSuper showError={showError} showSuccess={showSuccess} adminToken={adminnToken} data={data} setData={setData} setShowOverlay={setShowOverlay} onOpen={toggleJobList} setSelectedJob={setSelectedJob} setJobOverlay={setJobOverlay} jobOverlay={jobOverlay} />
-            default:
-                return null;
+  useEffect(() => {
+    async function reportDataFetch() {
+      const adminToken = localStorage.getItem("admin-token");
+      setAdminToken(adminToken);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-results`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
         }
-    };
-
-    const toggleReportOverlay = () => {
-        setReportOverlay(!reportOverlay);
+      );
+      const data = await response.json();
+      console.log("companies fetched:", data);
+      setAllResults(data);
     }
+    reportDataFetch();
+  }, []);
 
-    const toggleOverlay = () => {
-        setShowOverlay(!showOverlay);
-    }
+  //     useEffect(() => {
+  //         console.log("show success msg state:", showSuccessMessage)
+  //     }, [showSuccessMessage])
 
-    
+  //       const data = await response.json();
+  //       console.log("companies fetched:", data);
+  //       setAllResults(data);
+  //     }
 
-    useEffect(()=>{
-        async function clientDataFetch(){
+  //     reportDataFetch();
+  //   }, []);
 
-            const adminToken = localStorage.getItem('admin-token');
-            setAdminToken(adminToken);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-companies`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${adminToken}` 
-                }
-            });
 
-            const data = await response.json();
-            console.log("companies fetched:",data);
-            setAllClients(data);
-        }
 
-        clientDataFetch();
-    },[])
-
-    useEffect(()=>{
-        async function reportDataFetch(){
-
-            const adminToken = localStorage.getItem('admin-token');
-            setAdminToken(adminToken);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-results`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${adminToken}` 
-                }
-            });
-
-            const data = await response.json();
-            console.log("companies fetched:",data);
-            setAllResults(data);
-        }
-
-        reportDataFetch();
-    },[])
+  
 
     console.log('active clients data:', activeClientsData);
     console.log('in active clients data:', inActiveClientsData);    
@@ -290,7 +638,24 @@ const Admin = ({ }) => {
             {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
             {showOverlay && <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
-            {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
+            {/* {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />} */}
+            {jobOverlay && (
+          <JobOverlay
+            getCandidatesByPosition={getCandidatesByPosition}
+            isTestRequired={isTestRequired}
+            setIsTestRequired={setIsTestRequired}
+            message={message}
+            showError={showError}
+            showErrorMessage={showErrorMessage}
+            showSuccessMessage={showSuccessMessage}
+            setMessage={setMessage}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            onClose={toggleJobOverlay}
+            jobOverlay={jobOverlay}
+            selectedJob={selectedJob}
+          />
+        )}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
             <div className={styles.adminPortal}>
                 <AdminSideNavbar />
@@ -300,57 +665,56 @@ const Admin = ({ }) => {
     )
 }
 
+
 export default Admin;
 
 export const getServerSideProps = async () => {
+  try {
+    const adminToken = localStorage.getItem("admin-token");
+    console.log("************** ADMIND TOKEN *****************");
+    console.log(adminToken);
 
-
-    try {
-
-        const adminToken = localStorage.getItem('admin-token');
-        console.log("************** ADMIND TOKEN *****************");
-        console.log(adminToken);
-        
-        const response = await fetch('http://localhost:3002/v1/get-companies',
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${adminToken}` 
-                }
-            });
-        console.log('response: ', response);
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('jsonified response: ', data);
-
-        const responseTwo = await fetch('http://localhost:3002/v1/get-all-results',
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${adminToken}` 
-                }
-            });
-        console.log('response: ', response);
-        if (!responseTwo.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
-        const dataTwo = await responseTwo.json();
-        console.log('jsonified response: ', dataTwo);
-        return {
-            props: {
-                allClients: data,
-                allResults: dataTwo
-            },
-        };
-    } catch (error) {
-        console.error("Failed to fetch companies:", error);
-        return {
-            props: {
-                error: "Failed to fetch data",
-            },
-        };
+    const response = await fetch("http://localhost:3002/v1/get-companies", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${adminToken}`,
+      },
+    });
+    console.log("response: ", response);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
     }
-};  
+
+    const data = await response.json();
+    console.log("jsonified response: ", data);
+
+    const responseTwo = await fetch(
+      "http://localhost:3002/v1/get-all-results",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${adminToken}`,
+        },
+      }
+    );
+    console.log("response: ", response);
+    if (!responseTwo.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    const dataTwo = await responseTwo.json();
+    console.log("jsonified response: ", dataTwo);
+    return {
+      props: {
+        allClients: data,
+        allResults: dataTwo,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch companies:", error);
+    return {
+      props: {
+        error: "Failed to fetch data",
+      },
+    };
+  }
+};
