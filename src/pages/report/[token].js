@@ -6,6 +6,7 @@ import styles from "./token.module.css";
 import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
 import CourseLevelSvg from "../../../components/CourseLevelSvg";
 import InvitedCandidateProgressSvg from "../../../components/InvitedCandidateProgressSvg";
+import SelfReportScores from "../../../components/SelfReportScores";
 
 const students = [
   { image: "/recommended_course.png" },
@@ -25,10 +26,9 @@ export default function Token() {
   const router = useRouter();
   const { token } = router?.query;
   // const [candidateId, setCandidateId] = useState(null);
-  // const [candidateId, setCandidateId] = useState(
-  //   "bfe05265-e08a-49fb-8495-938c6088984b"
-  // );
-  const [candidateId, setCandidateId] = useState(null);
+  const [candidateId, setCandidateId] = useState(
+    "bfe05265-e08a-49fb-8495-938c6088984b"
+  );
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [weakSkill, setWeakSkill] = useState("react js");
@@ -36,6 +36,12 @@ export default function Token() {
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
 
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
+
+  // Scores
+  const softSkillRating = results?.result?.softskillRating || 0;
+  const technicalRating = results?.result?.technicalRating || 0;
+  const overallRating = Math.round((softSkillRating + technicalRating) / 2);
+  const codeRating = codingResult?.result?.technicalRating || 0;
 
   useEffect(() => {
     async function checkToken() {
@@ -212,18 +218,21 @@ export default function Token() {
       </div>
 
       <div className={styles.overall_report_wrapper}>
-        <ReportSection heading="Overall Report">
+        <ReportSection score={overallRating || 0} heading="Overall Report">
           <p>{results?.result?.overallAssessment}</p>
         </ReportSection>
 
-        <ReportSection heading="Technical">
+        <ReportSection score={technicalRating || 0} heading="Technical">
           <>
             <h3>Technical Summary</h3>
             <p>{results?.result?.technicalAssessment}</p>
           </>
         </ReportSection>
         {codingResult ? (
-          <ReportSection heading="Coding Assessment">
+          <ReportSection
+            score={codeRating ? codeRating : 0}
+            heading="Coding Assessment"
+          >
             <>
               <h3>Coding Summary</h3>
               <p>{codingResult?.result?.technicalSummary}</p>
@@ -231,7 +240,7 @@ export default function Token() {
           </ReportSection>
         ) : null}
 
-        <ReportSection heading="Soft Skill">
+        <ReportSection score={softSkillRating || 0} heading="Soft Skill">
           <>
             <h3>Soft Skill Summary</h3>
             <p>{results?.result?.softskillAssessment}</p>
@@ -464,6 +473,7 @@ function Item({ keyy, value }) {
 }
 
 function ReportSection({
+  score,
   headerClassName,
   heading,
   children,
@@ -475,7 +485,9 @@ function ReportSection({
         className={`${styles.overall_report_header} ${styles[headerClassName]}`}
       >
         <h2>{heading}</h2>
-        {variant === "one" ? <Scores /> : null}
+        {variant === "one" ? (
+          <SelfReportScores score={score ? score : 0} />
+        ) : null}
       </div>
 
       <div className={styles.report_content}>{children}</div>
@@ -488,28 +500,6 @@ function EnrolledImage({ student }) {
   return (
     <div className={styles.enrolled_image}>
       <Image src={imageSrc} height={36.5} width={36.5} />
-    </div>
-  );
-}
-
-function Scores({ score = 6, maxScore = 10, maxStars = 6 }) {
-  const filledStars = Math.round((score / maxScore) * maxStars);
-
-  return (
-    <div className={styles.scores}>
-      <p>
-        Overall Score - {score} / {maxScore}
-      </p>
-      <div className={styles.stars}>
-        {Array.from({ length: maxStars }).map((_, index) => (
-          <div
-            key={index}
-            className={`${styles.point} ${
-              index < filledStars ? styles.filled : ""
-            }`}
-          ></div>
-        ))}
-      </div>
     </div>
   );
 }
