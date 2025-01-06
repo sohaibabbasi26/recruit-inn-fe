@@ -42,10 +42,12 @@ export default function Home({
   const [allJobData, setAllJobData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
-  const [companyEmail, setCompanyEmail] = useState(null)
+  const [companyEmail, setCompanyEmail] = useState(null);
   const [positionIdMain, setPositionIdMain] = useState();
   const [positionCandidates, setPositionCandidates] = useState();
   const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
+  const[currentPackage, setCurrentPackage] = useState(null);
+  const [interviewCount, setInterviewCount] = useState(null);
 
   const [showOverlay1, setShowOverlay1] = useState();
 
@@ -138,6 +140,39 @@ export default function Home({
     return () => {
       isMounted = false;
     };
+  }, [id]);
+
+
+useEffect(() => {
+
+async function fetchClientSubscription() {
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+
+      setCurrentPackage(data?.data?.package_type);
+      setInterviewCount(data?.data?.test_count);
+
+  }
+
+  
+  if (id) {
+    fetchClientSubscription();
+    if (localStorage.getItem("clickedPackage") === "true") {
+      setShowPaymentOverlay(true);
+      localStorage.removeItem("clickedPackage");
+    }
+  }
+
+
   }, [id]);
 
   // const preprocessCandidatesData = (candidates, company) => {
@@ -554,6 +589,7 @@ export default function Home({
               preprocessedCandidates={preprocessedCandidates}
               setShowOverlay={setShowOverlay}
               showOverlay={showOverlay}
+              interviewCount={interviewCount}
             />
           </>
         );
@@ -730,7 +766,6 @@ export default function Home({
             selectedCandidate={selectedCandidate}
           />
         )}
-
         {jobOverlay && (
           <JobOverlay
             getCandidatesByPosition={getCandidatesByPosition}
@@ -753,6 +788,7 @@ export default function Home({
             onClose={togglePaymentOverlay}
             showPaymentOverlay={showPaymentOverlay}
             companyEmail={companyEmail}
+            currentPackage={currentPackage}
           />
         )}
         {/* <div className={styles.clientPortal}> */}

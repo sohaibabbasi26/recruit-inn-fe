@@ -272,8 +272,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //       // // Remove the anchor element from the document body
   //       // document.body.removeChild(link);
 
-
-
   //       //my code
   //       html2canvas(contentRef.current).then(canvas => {
   //         const imgData = canvas.toDataURL('image/png');
@@ -302,7 +300,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //       const pdf = new jsPDF('landscape', 'mm', 'a4');  // Use A4 size in millimeters
   //       const contentWidth = 210;  // A4 page width in mm
   //       const contentHeight = 297; // A4 page height in mm
-        
+
   //       // Use the actual DOM element and apply scaling
   //       pdf.html(contentRef.current, {
   //         callback: function (pdf) {
@@ -316,7 +314,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //         width: contentWidth - 20,  // Set content width to fit within the page margins
   //         windowWidth: contentRef.current.scrollWidth  // Use the scroll width of the content for scaling
   //       });
-  
+
   //       setIsPdfLoading(false);
   //     } catch (error) {
   //       console.error("Error generating PDF:", error);
@@ -330,9 +328,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
   //   setIsPdfLoading(false);
 
   // }
-  
-  
-  
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -568,11 +563,13 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 <button
                   className={styles.downloadButton}
                   // onClick={handleDownloadPdf}
-                  onClick={() => generatePDF({
-                    setIsPdfLoading,
-                    contentRef,
-                    selectedCandidate
-                  })}
+                  onClick={() =>
+                    generatePDF({
+                      setIsPdfLoading,
+                      contentRef,
+                      selectedCandidate,
+                    })
+                  }
                   disabled={isPdfLoading}
                 >
                   {isPdfLoading ? "Downloading..." : "Download PDF"}
