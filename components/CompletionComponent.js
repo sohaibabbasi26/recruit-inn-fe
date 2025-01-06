@@ -32,7 +32,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
   // }
 
   useEffect(() => {
-    if (router.query.client_id) {
+    if (router.query.client_id!==undefined) {
       console.log("client id1: ", router.query.client_id);
       setClientId(router.query.client_id);
     }
@@ -60,17 +60,19 @@ const CompletionComponent = ({ getActiveComponent }) => {
   }
 
   async function fetchClientSubscription() {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${clientId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setInterviewCount(data?.data?.test_count);
+    if(clientId === undefined){
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${clientId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setInterviewCount(data?.data?.test_count);
+    }
   }
 
   async function getCompanyDetails() {
