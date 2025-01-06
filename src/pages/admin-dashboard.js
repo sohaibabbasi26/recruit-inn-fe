@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import AdminSideNavbar from '../../components/AdminSideNavbar';
 import AdminSuperComponent from '../../components/AdminSuperComponent';
 import RightComponent from '../../components/RightComponent';
@@ -17,51 +16,9 @@ import SuccessIndicator from '../../components/SuccessIndicator';
 import ErrorIndicator from '../../components/ErrorIndicator';
 import ClientSignup from './client-signup';
 import { useTestState } from "@/contexts/TestRequirementContext";
-=======
-import AdminSideNavbar from "../../components/AdminSideNavbar";
-import AdminSuperComponent from "../../components/AdminSuperComponent";
-import RightComponent from "../../components/RightComponent";
-import styles from "./admin-dashboard.module.css";
-import { useActiveItem } from "../contexts/ActiveItemContext";
-import AdminSuper from "../../components/AdminSuper";
-import {
-  reqdata,
-  allClientsData,
-  activeClientsData,
-  inActiveClientsData,
-} from "@/data/dummyClientReq";
-import {
-  allCandidates,
-  notEligibleCandidates,
-  recommendedCandidates,
-  qualifiedCandidates,
-} from "@/data/candDummyData";
-import { useState, useEffect } from "react";
-import ReportOverlay from "../../components/ReportOverlay";
-import { individualData } from "@/data/jobsDummyData";
-import JobOverlay from "../../components/JobOverlay";
-import AdminOverlay from "../../components/AdminOverlay";
-import AdminRightComponent from "../../components/AdminRightComponent";
-import SuccessIndicator from "../../components/SuccessIndicator";
-import ErrorIndicator from "../../components/ErrorIndicator";
-import ClientSignup from "./client-signup";
->>>>>>> 3dddaa14ca92baf8fd9c610a06dee6be9888fae7
 
 const Admin = ({}) => {
-  const [activeClientsData, setActiveClientsData] = useState(null);
-  const [inActiveClientsData, setInActiveClientsData] = useState(null);
-  const [requestedClientsData, setRequestedClientsData] = useState(null);
-  const [preprocessedCandidates, setPreprocessedCandidates] = useState(null);
-  const [recommendedCand, setRecommendedCand] = useState([]);
-  const [qualifiedCand, setQualifiedCand] = useState([]);
-  const [notEligibleCand, setNotEligibleCand] = useState([]);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [adminnToken, setAdminToken] = useState("");
-  const [allClients, setAllClients] = useState();
-  const [allResults, setAllResults] = useState();
 
-<<<<<<< HEAD
     const [activeClientsData, setActiveClientsData] = useState(null);
     const [inActiveClientsData, setInActiveClientsData] = useState(null);
     const [requestedClientsData, setRequestedClientsData] = useState(null);
@@ -80,11 +37,6 @@ const Admin = ({}) => {
         isArabicChosen,
         setIsArabicChosen,
       } = useTestState();
-=======
-  useEffect(() => {
-    localStorage.setItem("activeFlow", "Admin");
-  }, []);
->>>>>>> 3dddaa14ca92baf8fd9c610a06dee6be9888fae7
 
   const showError = (message) => {
     setMessage(message);
@@ -123,6 +75,48 @@ const Admin = ({}) => {
     }
   }, [allClients]);
 
+
+
+
+  async function getCandidatesByPosition(position_id) {
+    try {
+      const reqBody = { position_id };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        }
+      );
+      const data = await response.json();
+      console.log("API response for candidates:", data);
+      if (!data || !data.data) {
+        console.log("Unexpected response format:", data);
+        return;
+      }
+      const completedCandidates = preprocessCandidatesData(
+        data.data,
+        data.company
+      );
+      setPositionCandidates(completedCandidates);
+      const filterRecommended = (candidate) =>
+        parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+      const filterQualified = (candidate) =>
+        parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+      const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
+      setRecommendedCand(completedCandidates.filter(filterRecommended));
+      setQualifiedCand(completedCandidates.filter(filterQualified));
+      setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+      console.log("Filtered candidates:", completedCandidates);
+    } catch (err) {
+      console.log("Error fetching candidates:", err);
+    }
+  }
+
+
   const preprocessCandidatesData = (candidates) => {
     try {
       if (!candidates) {
@@ -130,7 +124,6 @@ const Admin = ({}) => {
         // handle the error or return a default value
         return [];
       }
-
       console.log("in pre processing method:", candidates);
       return candidates?.map((candidate) => {
         let latestResult = {
@@ -140,7 +133,6 @@ const Admin = ({}) => {
           technicalAssessment: "",
           createdAt: null,
         };
-
         if (candidate.results && candidate.results.length > 0) {
           const sortedResults = candidate.results.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -148,113 +140,11 @@ const Admin = ({}) => {
           latestResult = sortedResults[0].result || latestResult;
           latestResult.createdAt = sortedResults[0].createdAt;
         }
-
-<<<<<<< HEAD
-
-    async function getCandidatesByPosition(position_id) {
-        try {
-          const reqBody = { position_id };
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(reqBody),
-            }
-          );
-          const data = await response.json();
-          console.log("API response for candidates:", data);
-          if (!data || !data.data) {
-            console.log("Unexpected response format:", data);
-            return;
-          }
-          const completedCandidates = preprocessCandidatesData(
-            data.data,
-            data.company
-          );
-          setPositionCandidates(completedCandidates);
-          const filterRecommended = (candidate) =>
-            parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
-          const filterQualified = (candidate) =>
-            parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
-          const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
-          setRecommendedCand(completedCandidates.filter(filterRecommended));
-          setQualifiedCand(completedCandidates.filter(filterQualified));
-          setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-          console.log("Filtered candidates:", completedCandidates);
-        } catch (err) {
-          console.log("Error fetching candidates:", err);
-        }
-      }
-    
-
-    const preprocessCandidatesData = (candidates) => {
-        try{
-            if (!candidates) {
-                console.error("Candidates is undefined or null:", candidates);
-                // handle the error or return a default value
-                return [];
-            }
-    
-            console.log("in pre processing method:",candidates)
-            return candidates?.map(candidate => {
-                let latestResult = {
-                    softskillRating: 0,
-                    technicalRating: 0,
-                    softskillAssessment: "",
-                    technicalAssessment: "",
-                    createdAt: null
-                };
-    
-                if (candidate.results && candidate.results.length > 0) {
-                    const sortedResults = candidate.results.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                    latestResult = sortedResults[0].result || latestResult;
-                    latestResult.createdAt = sortedResults[0].createdAt;
-                }
-    
-                const score = (latestResult.softskillRating + latestResult.technicalRating) / 2;
-                const formattedDate = latestResult.createdAt ? new Date(latestResult.createdAt).toLocaleDateString() : 'N/A';
-    
-                let expertiseTechStack = [];
-                let jobType = 'N/A';
-                let position = 'N/A';
-                if (Array.isArray(candidate.expertise)) {
-                    expertiseTechStack = candidate.expertise.map(e => ({
-                        skill: e.skill,
-                        level: e.level
-                    }));
-                } else if (candidate.expertise && typeof candidate.expertise === 'object') {
-                    expertiseTechStack = candidate.expertise.techStack || [];
-                    jobType = candidate.expertise.jobtype || 'N/A';
-                    position = candidate.expertise.position || 'N/A';
-                }
-    
-                return {
-                    name: candidate.name,
-                    email: candidate.email,
-                    position: position,
-                    score: score.toFixed(1),
-                    contactNo: candidate.contact_no,
-                    date: formattedDate,
-                    expertise: expertiseTechStack,
-                    jobType: jobType,
-                    position: position,
-                    overAllExperience: candidate.over_all_exp || 'N/A',
-                    results: latestResult,
-                    company: candidate.company || null,
-                    appliedThrough: candidate?.company?.company_name || 'Self',
-                    companyId: candidate?.company?.company_id
-                };
-            })
-=======
         const score =
           (latestResult.softskillRating + latestResult.technicalRating) / 2;
         const formattedDate = latestResult.createdAt
           ? new Date(latestResult.createdAt).toLocaleDateString()
           : "N/A";
-
         let expertiseTechStack = [];
         let jobType = "N/A";
         let position = "N/A";
@@ -270,10 +160,9 @@ const Admin = ({}) => {
           expertiseTechStack = candidate.expertise.techStack || [];
           jobType = candidate.expertise.jobtype || "N/A";
           position = candidate.expertise.position || "N/A";
->>>>>>> 3dddaa14ca92baf8fd9c610a06dee6be9888fae7
         }
-
         return {
+          candidate_id: candidate.candidate_id,
           name: candidate.name,
           email: candidate.email,
           position: position,
@@ -288,6 +177,8 @@ const Admin = ({}) => {
           company: candidate.company || null,
           appliedThrough: candidate?.company?.company_name || "Self",
           companyId: candidate?.company?.company_id,
+          position: candidate?.position,
+          job_type: candidate?.job_type,
         };
       });
     } catch (err) {
@@ -295,8 +186,12 @@ const Admin = ({}) => {
     }
   };
 
+  
+   
+      
+ 
   console.log("checking:", allResults?.data?.candidates);
-
+    
   useEffect(() => {
     if (allResults?.data) {
       const processedData = preprocessCandidatesData(
@@ -730,39 +625,9 @@ const Admin = ({}) => {
   //     reportDataFetch();
   //   }, []);
 
-  console.log("active clients data:", activeClientsData);
-  console.log("in active clients data:", inActiveClientsData);
-  console.log("requetsed Clients data", requestedClientsData);
 
-<<<<<<< HEAD
-            const data = await response.json();
-            console.log("companies fetched:",data);
-            setAllClients(data);
-        }
 
-        clientDataFetch();
-    },[])
-
-    useEffect(()=>{
-        async function reportDataFetch(){
-
-            const adminToken = localStorage.getItem('admin-token');
-            setAdminToken(adminToken);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-results`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${adminToken}` 
-                }
-            });
-
-            const data = await response.json();
-            console.log("companies fetched:",data);
-            setAllResults(data);
-        }
-
-        reportDataFetch();
-    },[])
+  
 
     console.log('active clients data:', activeClientsData);
     console.log('in active clients data:', inActiveClientsData);    
@@ -799,55 +664,7 @@ const Admin = ({}) => {
         </>
     )
 }
-=======
-  return (
-    <>
-      {showErrorMessage && (
-        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
-      )}
-      {showSuccessMessage && (
-        <SuccessIndicator
-          showSuccessMessage={showSuccessMessage}
-          msgText={message}
-        />
-      )}
-      {showOverlay && (
-        <AdminOverlay
-          adminToken={adminnToken}
-          showError={showError}
-          showErrorMessage={showErrorMessage}
-          message={message}
-          setMessage={setMessage}
-          showSuccessMessage={showSuccessMessage}
-          showSuccess={showSuccess}
-          showOverlay={showOverlay}
-          onClose={toggleOverlay}
-          stages={stages}
-          stageHeadings={stageHeadings}
-        />
-      )}
-      {jobOverlay && (
-        <JobOverlay
-          onClose={toggleJobOverlay}
-          jobOverlay={jobOverlay}
-          selectedJob={selectedJob}
-        />
-      )}
-      {reportOverlay && (
-        <ReportOverlay
-          onClose={toggleReportOverlay}
-          reportOverlay={reportOverlay}
-          selectedCandidate={selectedCandidate}
-        />
-      )}
-      <div className={styles.adminPortal}>
-        <AdminSideNavbar />
-        {getActiveComponent()}
-      </div>
-    </>
-  );
-};
->>>>>>> 3dddaa14ca92baf8fd9c610a06dee6be9888fae7
+
 
 export default Admin;
 
