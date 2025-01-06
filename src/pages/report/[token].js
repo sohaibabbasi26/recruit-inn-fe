@@ -24,13 +24,16 @@ const details = [
 export default function Token() {
   const router = useRouter();
   const { token } = router?.query;
+  // const [candidateId, setCandidateId] = useState(null);
+  // const [candidateId, setCandidateId] = useState(
+  //   "bfe05265-e08a-49fb-8495-938c6088984b"
+  // );
   const [candidateId, setCandidateId] = useState(null);
   const [results, setResults] = useState([]);
-  const [recommendedCourse,setRecommendedCourse]= useState(null);
-  const [weakSkill,setWeakSkill]= useState('react js');
+  const [recommendedCourse, setRecommendedCourse] = useState(null);
+  const [weakSkill, setWeakSkill] = useState("react js");
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
-
 
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
 
@@ -59,21 +62,60 @@ export default function Token() {
     checkToken();
   }, [token]);
 
-  const fetchRecommendedCourses= useCallback(async()=>{
-    const response= await fetch(`${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`);
-    const data= await response.json();
+  const fetchRecommendedCourses = useCallback(async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`
+    );
+    const data = await response.json();
 
-    if(data?.status===200){
+    if (data?.status === 200) {
       setRecommendedCourse(data?.data);
     }
-  },[recommendedCourse, weakSkill])
+  }, [recommendedCourse, weakSkill]);
 
   //useeffect for showing recommended courses
-  useEffect(()=>{
-    if(weakSkill && !recommendedCourse){
+  useEffect(() => {
+    if (weakSkill && !recommendedCourse) {
       fetchRecommendedCourses();
     }
-  },[recommendedCourse, weakSkill])
+  }, [recommendedCourse, weakSkill]);
+
+  useEffect(() => {
+    async function fetchResults() {
+      const reqBody = {
+        // candidate_id: candidateId,
+        candidate_id: candidateId,
+      };
+      try {
+        if (candidateId) {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(reqBody),
+            }
+          );
+          const data = await response.json();
+
+          if (data?.data) {
+            setResults(data?.data);
+            if (data?.data?.result?.weakSkill) {
+              setWeakSkill(data?.data?.result?.weakSkill);
+            }
+            console.log("one candidate result details: ", results);
+          }
+          console.log("Expertise in fetch company details:", expertise);
+        }
+      } catch (err) {
+        console.log("err:", err);
+      }
+    }
+    //setIsLoading(true);
+    fetchResults();
+  }, [router?.isReady, candidateId]);
 
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
@@ -94,7 +136,7 @@ export default function Token() {
 
       const data = await response.json();
       console.log("data response:", data);
-      setCodingResult(data);
+      setCodingResult(data?.data);
       //
       //setIsLoading(false);
       if (data && data?.data && data?.data?.result) {
@@ -106,39 +148,6 @@ export default function Token() {
     fetchCandidatesCodingResult();
   }, [candidateId]);
 
-
-  useEffect(() => {
-    async function fetchResults() {
-      const reqBody = {
-        candidate_id: candidateId,
-      };
-      try {
-        if (id) {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id-self`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(reqBody),
-            }
-          );
-          const data = await response.json();
-          if (data?.data) {
-            setResults([data?.data]);
-            console.log("one candidate result details: ", results);
-          }
-          console.log("Expertise in fetch company details:", expertise);
-        }
-      } catch (err) {
-        console.log("err:", err);
-      }
-    }
-    //setIsLoading(true);
-    fetchResults();
-  }, [router?.isReady, candidateId]);
-
   if (!isReportTokenValid) {
     return (
       <div>
@@ -146,6 +155,9 @@ export default function Token() {
       </div>
     );
   }
+
+  console.log("candidate result data", results);
+  console.log("candidate coding", codingResult);
 
   return (
     <div className={styles.reportTokenContainer}>
@@ -201,58 +213,28 @@ export default function Token() {
 
       <div className={styles.overall_report_wrapper}>
         <ReportSection heading="Overall Report">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-            dolorum illum soluta maxime veritatis consectetur laborum ducimus.
-            Non dolore saepe optio, fugit voluptatibus enim sit a, recusandae
-            iusto reprehenderit dolorem nulla quisquam, veniam corrupti nihil
-            nostrum sunt. Exercitationem commodi quo distinctio! Eos, nemo.
-            Ducimus aliquam, odit cupiditate vel nisi eaque, ab blanditiis ad
-            veritatis eum sapiente repellendus perferendis. Velit libero
-            consectetur non dolorem fugit provident. Perferendis, ex? Unde
-            voluptatibus laudantium corporis natus tempora provident quisquam
-            quae suscipit inventore, vel error hic repellendus eum saepe
-            asperiores impedit ratione? Consectetur, unde. Impedit minima
-            repellat esse quisquam voluptatem pariatur hic temporibus incidunt
-            nemo.
-          </p>
+          <p>{results?.result?.overallAssessment}</p>
         </ReportSection>
 
         <ReportSection heading="Technical">
           <>
             <h3>Technical Summary</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              iusto magnam ullam sed quod sint dignissimos qui nulla incidunt
-              aperiam rerum consequatur quos illum totam necessitatibus vero,
-              provident at distinctio. Nesciunt maiores nobis, error cumque
-              labore tempora architecto porro, nisi in vitae, fugiat vero. Ut,
-              ipsa! Quis velit optio voluptates.
-            </p>
+            <p>{results?.result?.technicalAssessment}</p>
           </>
         </ReportSection>
-        <ReportSection heading="Coding Assessment">
-          <>
-            <h3>Coding Summary</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error in
-              ab tenetur voluptates! Officiis ex ipsa sunt aspernatur fugiat
-              dolore corrupti voluptates. Dolorum, accusamus illum eum
-              recusandae dolore sequi laudantium.
-            </p>
-          </>
-        </ReportSection>
+        {codingResult ? (
+          <ReportSection heading="Coding Assessment">
+            <>
+              <h3>Coding Summary</h3>
+              <p>{codingResult?.result?.technicalSummary}</p>
+            </>
+          </ReportSection>
+        ) : null}
+
         <ReportSection heading="Soft Skill">
           <>
             <h3>Soft Skill Summary</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
-              autem error, cumque quis minima veniam vero officia consectetur
-              officiis dolorem, repellendus saepe at atque dolor ullam ducimus
-              excepturi fugit illo. Incidunt modi inventore tempore sequi!
-              Explicabo distinctio accusantium neque. Rem culpa vero sequi illo
-              incidunt?
-            </p>
+            <p>{results?.result?.softskillAssessment}</p>
           </>
         </ReportSection>
         <ReportSection
@@ -429,7 +411,8 @@ export default function Token() {
                     styles.course_recommendation_card_content_instructor
                   }
                 >
-                  By <span>{recommendedCourse?.instructor?.user?.first_name}</span>
+                  By{" "}
+                  <span>{recommendedCourse?.instructor?.user?.first_name}</span>
                 </p>
                 <p className={styles.course_recommendation_card_content_level}>
                   <CourseLevelSvg />
@@ -438,7 +421,10 @@ export default function Token() {
                 <p className={styles.course_recommendation_card_content_price}>
                   <span>${recommendedCourse?.amount} </span>
                   <span>&#45;</span>
-                  <span> ${recommendedCourse?.amount- recommendedCourse?.discount}</span>
+                  <span>
+                    {" "}
+                    ${recommendedCourse?.amount - recommendedCourse?.discount}
+                  </span>
                 </p>
 
                 <div
