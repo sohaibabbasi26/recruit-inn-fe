@@ -169,7 +169,7 @@ const  PaymentCard = ({
                 // }
                 
                 // );
-
+                localStorage.setItem("clickedPackage", true);
                 router.push(`${process.env.NEXT_PUBLIC_URL}/client-login`)
               }}
             >

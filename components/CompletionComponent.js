@@ -46,7 +46,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ client_id:clientId }),
+          body: JSON.stringify({ client_id: clientId }),
         }
       );
       const data = await response.json();
@@ -65,6 +65,10 @@ const CompletionComponent = ({ getActiveComponent }) => {
     const route = getActiveComponent();
     if (route && clientId) {
       await decrementTest();
+
+      
+
+
       router.push(route);
     } else {
       console.error("Undefined route from getActiveComponent");

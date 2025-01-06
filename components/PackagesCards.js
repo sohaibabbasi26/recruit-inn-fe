@@ -156,7 +156,8 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
           </ul>
           <button
             onClick={() => handleCheckout(pack)}
-            className={styles.packageBtn}
+            className={`${styles.packageBtn} `}
+            disabled = {currentPackage === pack.name}
           >
             {currentPackage === pack.name ? "Current Package" : pack.buttonText}
           </button>

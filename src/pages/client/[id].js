@@ -166,6 +166,10 @@ async function fetchClientSubscription() {
   
   if (id) {
     fetchClientSubscription();
+    if (localStorage.getItem("clickedPackage") === "true") {
+      setShowPaymentOverlay(true);
+      localStorage.removeItem("clickedPackage");
+    }
   }
 
 
