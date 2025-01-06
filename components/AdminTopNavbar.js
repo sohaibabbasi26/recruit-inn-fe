@@ -4,7 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect, useRef } from "react";
 import debounce from "lodash.debounce";
 
-const AdminTopNavbar = ({ setMessage, showSuccess }) => {
+const AdminTopNavbar = ({
+  reportOverlay,
+  setReportOverlay,
+  setMessage,
+  showSuccess,
+  selectedCandidate,
+  setSelectedCandidate,
+}) => {
   const searchLogoSize = 20;
   const iconSize = 15;
   const [query, setQuery] = useState("");
@@ -12,13 +19,30 @@ const AdminTopNavbar = ({ setMessage, showSuccess }) => {
   const [searchResults, setSearchResults] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const searchInputRef = useRef(null);
+  const searchResultsRef = useRef(null);
+  const [results, setResults] = useState(false);
+
+  const handleClickOutside = (event) => {
+    if (
+      searchResultsRef.current &&
+      !searchResultsRef.current.contains(event.target) &&
+      !searchInputRef.current.contains(event.target)
+    ) {
+      setSearchResults(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const searchApiCall = debounce(async (query, type) => {
     setSearchResults(null);
     if (!query) return;
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=${companyId}`
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=e03fef44-34b7-4833-93a4-1ef439866712`
       );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -89,6 +113,70 @@ const AdminTopNavbar = ({ setMessage, showSuccess }) => {
     setMessage("Your link has been copied");
     showSuccess();
   }
+
+  const cardClickHandler = async (candidate) => {
+    // Fetch full candidate details including results
+    const requestBody = { candidate_id: candidate.candidate_id };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      }
+    );
+    const fullCandidateData = await response.json();
+    console.log("///////////////////////////", fullCandidateData);
+
+    // Set the fetched candidate data as the selected candidate
+    setSelectedCandidate({
+      ...candidate,
+      results: fullCandidateData?.data?.result,
+    });
+    console.log("HIIII FROM SEARCH");
+    setReportOverlay(!reportOverlay);
+  };
+  useEffect(() => {
+    // let isMounted = true;
+    // console.log('client_id:', id)
+    // localStorage.setItem('clientId', id);
+    // const token = localStorage.getItem('client-token');
+    // setToken(token)
+    async function fetchAllCandidateReports() {
+      const requestBody = {
+        candidate_id: selectedCandidate?.candidate_id,
+      };
+      //   setIsLoading(true)
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //   'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      console.log("response: ", response);
+      if (!response.ok) {
+        console.log(`Error: ${response.status}`);
+      }
+      const allData = await response.json();
+      //   if (isMounted) {
+      // setAllCandidateReports(allData);
+      setResults(allData);
+      // setIsLoading(false);
+      //   }
+      console.log("jsonified candidates response: ", allData);
+    }
+    fetchAllCandidateReports();
+    // return () => {
+    //   isMounted = false;
+    // };
+  }, []);
 
   return (
     <>

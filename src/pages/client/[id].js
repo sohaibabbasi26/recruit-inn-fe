@@ -42,7 +42,7 @@ export default function Home({
   const [allJobData, setAllJobData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
-  const [companyEmail, setCompanyEmail] = useState(null)
+  const [companyEmail, setCompanyEmail] = useState(null);
   const [positionIdMain, setPositionIdMain] = useState();
   const [positionCandidates, setPositionCandidates] = useState();
   const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
@@ -730,7 +730,6 @@ export default function Home({
             selectedCandidate={selectedCandidate}
           />
         )}
-
         {jobOverlay && (
           <JobOverlay
             getCandidatesByPosition={getCandidatesByPosition}
