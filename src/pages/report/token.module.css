@@ -440,6 +440,10 @@
     grid-template-columns: none;
     grid-template-rows: 25rem 1fr;
   }
+  .career_counseling.course {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 @media (max-width: 768px) {
