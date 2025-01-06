@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./token.module.css";
 import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
@@ -26,6 +26,8 @@ export default function Token() {
   const { token } = router?.query;
   const [candidateId, setCandidateId] = useState(null);
   const [results, setResults] = useState([]);
+  const [recommendedCourse,setRecommendedCourse]= useState(null);
+  const [weakSkill,setWeakSkill]= useState('node js');
 
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
 
@@ -53,6 +55,24 @@ export default function Token() {
     }
     checkToken();
   }, [token]);
+
+  const fetchRecommendedCourses= useCallback(async()=>{
+    const response= await fetch(`${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`);
+    const data= await response.json();
+
+    if(data?.status===200){
+      setRecommendedCourse(data?.data);
+    }
+  },[recommendedCourse, weakSkill])
+
+  //useeffect for showing recommended courses
+  useEffect(()=>{
+    if(weakSkill && !recommendedCourse){
+      fetchRecommendedCourses();
+    }
+  },[recommendedCourse, weakSkill])
+
+  console.log(recommendedCourse);
 
   useEffect(() => {
     async function fetchResults() {
@@ -360,31 +380,32 @@ export default function Token() {
                 <Image
                   height={261.06}
                   width={421.85}
-                  src="/recommended_course.png"
+                  src={`${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
                   alt="Career Counseling Image"
                 />
               </div>
               <div className={styles.course_recommendation_card_content}>
-                <h3>Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3>{recommendedCourse?.title}</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque aliquam cum fugit.
+                  {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloremque aliquam cum fugit. */}
+                  {recommendedCourse?.learning_outcomes}
                 </p>
                 <p
                   className={
                     styles.course_recommendation_card_content_instructor
                   }
                 >
-                  By <span>Lorem, ipsum.</span>
+                  By <span>{recommendedCourse?.instructor?.user?.first_name}</span>
                 </p>
                 <p className={styles.course_recommendation_card_content_level}>
                   <CourseLevelSvg />
                   Level: <span>beginner</span>
                 </p>
                 <p className={styles.course_recommendation_card_content_price}>
-                  <span>$69:00 </span>
+                  <span>${recommendedCourse?.amount} </span>
                   <span>&#45;</span>
-                  <span> $49:00</span>
+                  <span> ${recommendedCourse?.amount- recommendedCourse?.discount}</span>
                 </p>
 
                 <div
