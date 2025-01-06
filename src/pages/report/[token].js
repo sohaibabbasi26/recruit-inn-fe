@@ -351,7 +351,7 @@ export default function Token() {
           headerClassName="second_color"
           heading="Skill-Specific Courses"
         >
-          <div className={styles.career_counseling}>
+          <div className={`${styles.career_counseling} ${styles.course}`}>
             <div className={styles.course_recommendation_card}>
               <div className={styles.course_recommendation_card_image}>
                 <Image
