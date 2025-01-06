@@ -6,6 +6,7 @@ import styles from "./token.module.css";
 import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
 import CourseLevelSvg from "../../../components/CourseLevelSvg";
 import InvitedCandidateProgressSvg from "../../../components/InvitedCandidateProgressSvg";
+import SelfReportScores from "../../../components/SelfReportScores";
 
 const students = [
   { image: "/recommended_course.png" },
@@ -25,10 +26,9 @@ export default function Token() {
   const router = useRouter();
   const { token } = router?.query;
   // const [candidateId, setCandidateId] = useState(null);
-  // const [candidateId, setCandidateId] = useState(
-  //   "bfe05265-e08a-49fb-8495-938c6088984b"
-  // );
-  const [candidateId, setCandidateId] = useState(null);
+  const [candidateId, setCandidateId] = useState(
+    "bfe05265-e08a-49fb-8495-938c6088984b"
+  );
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [weakSkill, setWeakSkill] = useState("react js");
@@ -36,6 +36,12 @@ export default function Token() {
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
 
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
+
+  // Scores
+  const softSkillRating = results?.result?.softskillRating || 0;
+  const technicalRating = results?.result?.technicalRating || 0;
+  const overallRating = Math.round((softSkillRating + technicalRating) / 2);
+  const codeRating = codingResult?.result?.technicalRating || 0;
 
   useEffect(() => {
     async function checkToken() {
@@ -148,13 +154,13 @@ export default function Token() {
     fetchCandidatesCodingResult();
   }, [candidateId]);
 
-  if (!isReportTokenValid) {
-    return (
-      <div>
-        <h1>Invalid Token</h1>
-      </div>
-    );
-  }
+  // if (!isReportTokenValid) {
+  //   return (
+  //     <div>
+  //       <h1>Invalid Token</h1>
+  //     </div>
+  //   );
+  // }
 
   console.log("candidate result data", results);
   console.log("candidate coding", codingResult);
@@ -212,18 +218,21 @@ export default function Token() {
       </div>
 
       <div className={styles.overall_report_wrapper}>
-        <ReportSection heading="Overall Report">
+        <ReportSection score={overallRating || 0} heading="Overall Report">
           <p>{results?.result?.overallAssessment}</p>
         </ReportSection>
 
-        <ReportSection heading="Technical">
+        <ReportSection score={technicalRating || 0} heading="Technical">
           <>
             <h3>Technical Summary</h3>
             <p>{results?.result?.technicalAssessment}</p>
           </>
         </ReportSection>
         {codingResult ? (
-          <ReportSection heading="Coding Assessment">
+          <ReportSection
+            score={codeRating ? codeRating : 0}
+            heading="Coding Assessment"
+          >
             <>
               <h3>Coding Summary</h3>
               <p>{codingResult?.result?.technicalSummary}</p>
@@ -231,13 +240,14 @@ export default function Token() {
           </ReportSection>
         ) : null}
 
-        <ReportSection heading="Soft Skill">
+        <ReportSection score={softSkillRating || 0} heading="Soft Skill">
           <>
             <h3>Soft Skill Summary</h3>
             <p>{results?.result?.softskillAssessment}</p>
           </>
         </ReportSection>
         <ReportSection
+          variant="two"
           headerClassName="second_color"
           heading="Our AI Interviewer has identified areas where your skills can be enhanced."
         >
@@ -258,6 +268,7 @@ export default function Token() {
           </div>
         </ReportSection>
         <ReportSection
+          variant="two"
           headerClassName="second_color"
           heading="Career Counseling and Skillbuilder Recommendations."
         >
@@ -386,6 +397,7 @@ export default function Token() {
 
         {/* course recommendations */}
         <ReportSection
+          variant="two"
           headerClassName="second_color"
           heading="Skill-Specific Courses"
         >
@@ -460,13 +472,22 @@ function Item({ keyy, value }) {
   );
 }
 
-function ReportSection({ headerClassName, heading, children }) {
+function ReportSection({
+  score,
+  headerClassName,
+  heading,
+  children,
+  variant = "one",
+}) {
   return (
     <div className={styles.overall_report}>
       <div
         className={`${styles.overall_report_header} ${styles[headerClassName]}`}
       >
         <h2>{heading}</h2>
+        {variant === "one" ? (
+          <SelfReportScores score={score ? score : 0} />
+        ) : null}
       </div>
 
       <div className={styles.report_content}>{children}</div>
