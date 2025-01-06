@@ -25,10 +25,10 @@ const details = [
 export default function Token() {
   const router = useRouter();
   const { token } = router?.query;
-  // const [candidateId, setCandidateId] = useState(null);
-  const [candidateId, setCandidateId] = useState(
-    "bfe05265-e08a-49fb-8495-938c6088984b"
-  );
+  const [candidateId, setCandidateId] = useState(null);
+  // const [candidateId, setCandidateId] = useState(
+  //   "bfe05265-e08a-49fb-8495-938c6088984b"
+  // );
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [weakSkill, setWeakSkill] = useState("react js");
@@ -154,13 +154,13 @@ export default function Token() {
     fetchCandidatesCodingResult();
   }, [candidateId]);
 
-  // if (!isReportTokenValid) {
-  //   return (
-  //     <div>
-  //       <h1>Invalid Token</h1>
-  //     </div>
-  //   );
-  // }
+  if (!isReportTokenValid) {
+    return (
+      <div>
+        <h1>Invalid Token</h1>
+      </div>
+    );
+  }
 
   console.log("candidate result data", results);
   console.log("candidate coding", codingResult);
