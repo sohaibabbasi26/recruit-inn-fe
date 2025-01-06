@@ -23,7 +23,30 @@
   grid-template-columns: 1fr;
   grid-template-rows: 75px 1fr min-content;
   width: 100%;
+  overflow-y: auto;
   height: 100%;
+}
+
+/* Scrollbar styles */
+.masterContainer::-webkit-scrollbar {
+ width: 8px;
+}
+
+.masterContainer::-webkit-scrollbar-thumb {
+ border-radius: 32px;
+  background-color: var(--color-light-grey);
+}
+
+
+.countContainer{
+  background-color: #f8f7fa;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  font-size:1.125rem;
+  line-height: 1.75rem;
+  font-weight: bold;
 }
 
 .btnsDiv {

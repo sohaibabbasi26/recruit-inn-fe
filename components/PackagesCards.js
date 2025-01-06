@@ -14,7 +14,7 @@ const packages = {
   ],
   availablePackages: [
     {
-      buttonText: "selected package",
+      buttonText: "select",
       name: "free",
       price: "0",
       options: ["4 Reports of candidates", "Add upto 4 skills"],
@@ -98,7 +98,7 @@ const packages = {
   ],
 };
 
-export default function PackagesCards({ companyEmail }) {
+export default function PackagesCards({ companyEmail, currentPackage}) {
 
    const router = useRouter();
    const { id } = router?.query;
@@ -156,9 +156,10 @@ export default function PackagesCards({ companyEmail }) {
           </ul>
           <button
             onClick={() => handleCheckout(pack)}
-            className={styles.packageBtn}
+            className={`${styles.packageBtn} `}
+            disabled = {currentPackage === pack.name}
           >
-            {pack.buttonText}
+            {currentPackage === pack.name ? "Current Package" : pack.buttonText}
           </button>
         </div>
       ))}

@@ -2,8 +2,13 @@ import styles from "./RightComponent.module.css";
 import Image from "next/image";
 import Socials from "./Socials";
 import dynamic from "next/dynamic";
+
 const Graph = dynamic(() => import("../components/Graph"), { ssr: false });
-const RightComponent = ({ preprocessedCandidates, setShowOverlay }) => {
+const RightComponent = ({
+  preprocessedCandidates,
+  setShowOverlay,
+  interviewCount,
+}) => {
   const iconSize = 13;
   // const bellIconSize = 30;
   const openAddJobHandler = () => {
@@ -12,7 +17,7 @@ const RightComponent = ({ preprocessedCandidates, setShowOverlay }) => {
 
   return (
     <>
-      <div className={styles.superContainer}>
+      <div className={` ${styles.superContainer}`}>
         <div className={styles.masterContainer}>
           <div className={styles.btnsDiv}>
             <button className={styles.addJobBtn} onClick={openAddJobHandler}>
@@ -26,6 +31,11 @@ const RightComponent = ({ preprocessedCandidates, setShowOverlay }) => {
                 height={bellIconSize}
               />
             </button> */}
+          </div>
+          <div>
+            <div className={styles.countContainer}>
+              Interviews Remaining: {interviewCount}
+            </div>
           </div>
           <Graph preprocessedCandidates={preprocessedCandidates} />
           <Socials />
