@@ -15,6 +15,7 @@ import AdminRightComponent from '../../components/AdminRightComponent';
 import SuccessIndicator from '../../components/SuccessIndicator';
 import ErrorIndicator from '../../components/ErrorIndicator';
 import ClientSignup from './client-signup';
+import { useTestState } from "@/contexts/TestRequirementContext";
 
 const Admin = ({ }) => {
 
@@ -30,6 +31,12 @@ const Admin = ({ }) => {
     const [adminnToken, setAdminToken] = useState('');
     const [allClients, setAllClients] = useState();
     const [allResults, setAllResults] = useState();
+     const {
+        isTestRequired,
+        setIsTestRequired,
+        isArabicChosen,
+        setIsArabicChosen,
+      } = useTestState();
 
     useEffect(() => {
         localStorage.setItem('activeFlow', 'Admin');
@@ -71,6 +78,46 @@ const Admin = ({ }) => {
             console.log('allClients is not an array:', allClients);
         }
     }, [allClients]);
+
+
+    async function getCandidatesByPosition(position_id) {
+        try {
+          const reqBody = { position_id };
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(reqBody),
+            }
+          );
+          const data = await response.json();
+          console.log("API response for candidates:", data);
+          if (!data || !data.data) {
+            console.log("Unexpected response format:", data);
+            return;
+          }
+          const completedCandidates = preprocessCandidatesData(
+            data.data,
+            data.company
+          );
+          setPositionCandidates(completedCandidates);
+          const filterRecommended = (candidate) =>
+            parseFloat(candidate.score) >= 7 && parseFloat(candidate.score) <= 10;
+          const filterQualified = (candidate) =>
+            parseFloat(candidate.score) >= 5 && parseFloat(candidate.score) < 7;
+          const filterNotEligible = (candidate) => parseFloat(candidate.score) < 5;
+          setRecommendedCand(completedCandidates.filter(filterRecommended));
+          setQualifiedCand(completedCandidates.filter(filterQualified));
+          setNotEligibleCand(completedCandidates.filter(filterNotEligible));
+          console.log("Filtered candidates:", completedCandidates);
+        } catch (err) {
+          console.log("Error fetching candidates:", err);
+        }
+      }
+    
 
     const preprocessCandidatesData = (candidates) => {
         try{
@@ -290,7 +337,24 @@ const Admin = ({ }) => {
             {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
             {showOverlay && <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
-            {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />}
+            {/* {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />} */}
+            {jobOverlay && (
+          <JobOverlay
+            getCandidatesByPosition={getCandidatesByPosition}
+            isTestRequired={isTestRequired}
+            setIsTestRequired={setIsTestRequired}
+            message={message}
+            showError={showError}
+            showErrorMessage={showErrorMessage}
+            showSuccessMessage={showSuccessMessage}
+            setMessage={setMessage}
+            showSuccess={showSuccess}
+            adminToken={adminnToken}
+            onClose={toggleJobOverlay}
+            jobOverlay={jobOverlay}
+            selectedJob={selectedJob}
+          />
+        )}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
             <div className={styles.adminPortal}>
                 <AdminSideNavbar />
