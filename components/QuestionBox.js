@@ -456,7 +456,7 @@ const QuestionBox = ({
   const startRecording = () => {
     if (mediaRecorderRef.current) {
       //cancel();
-      audioRef.current.pause();
+      audioRef?.current?.pause();
       setHasAudioEnded(true);
       mediaRecorderRef.current.start();
       setIsRecording(true);
