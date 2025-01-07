@@ -35,6 +35,7 @@ const Overlay = React.memo(
     message,
     setMessage,
     showSuccess,
+    interviewCount,
   }) => {
     const overlayRef = useRef(null);
     // const { test, setTest } = useTest();
@@ -753,6 +754,7 @@ const Overlay = React.memo(
                       setMessage={setMessage}
                       removeEmailReceiver={removeEmailReceiver}
                       positionName={positionName}
+                      interviewCount={interviewCount}
                     />
                     <div className={styles.wrapper}>
                       <ShareLinkBtns
@@ -764,6 +766,7 @@ const Overlay = React.memo(
                         onContinue={toggleComponent}
                         onBack={backToggleComponent}
                         onClose={onClose}
+                        interviewCount={interviewCount}
                       />
                     </div>
                   </>

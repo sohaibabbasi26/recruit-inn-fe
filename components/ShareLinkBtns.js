@@ -1,7 +1,7 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const ShareLinkBtns = ({showError, onContinue , onBack , onClose, setCompletedStages, completedStages, handleEmailInvite, setMessage, showSuccess }) => {
+const ShareLinkBtns = ({showError, onContinue , onBack , onClose, setCompletedStages, completedStages, handleEmailInvite, setMessage, showSuccess, interviewCount }) => {
 
     const navigationIconSize = 20;
 
@@ -15,15 +15,34 @@ const ShareLinkBtns = ({showError, onContinue , onBack , onClose, setCompletedSt
         //   setMessage("Validation failed");
         //   showError()
         // }
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
 
     return (
-        <>
-            <div className={styles.btnsContainer} >
-                <button id={styles.backBtn} onClick={onClose} >Skip Invitation</button>
-                <button id={styles.forwardBtn} onClick={handleSendInvite} >Send Invite<Image src='/send.svg' width={navigationIconSize} height={navigationIconSize}  /></button>
-            </div>
-        </>
-    )
+      <>
+        <div className={styles.btnsContainer}>
+          <button id={styles.backBtn} onClick={onClose}>
+            Skip Invitation
+          </button>
+          <button
+            id={styles.forwardBtn}
+            onClick={handleSendInvite}
+            disabled={interviewCount === 0}
+            style={{
+              backgroundColor: interviewCount === 0 ? "grey" : "#6137DB",
+            }}
+          >
+            Send Invite
+            <Image
+              src="/send.svg"
+              width={navigationIconSize}
+              height={navigationIconSize}
+            />
+          </button>
+        </div>
+      </>
+    );
 }
 export default ShareLinkBtns;
