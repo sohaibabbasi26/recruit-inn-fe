@@ -25,6 +25,7 @@ const AdminSuperComponent = ({
   activeData,
   closedData,
   reportOverlay,
+  getCandidatesByPosition,
 }) => {
   return (
     <>
@@ -87,6 +88,7 @@ const AdminSuperComponent = ({
           setReportOverlay={setReportOverlay}
           data={data}
           setData={setData}
+          getCandidatesByPosition={getCandidatesByPosition}
         />
       </div>
     </>

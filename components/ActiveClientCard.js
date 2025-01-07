@@ -13,34 +13,7 @@ const ActiveClientCard = ({ showError, showSuccess, adminToken, setData, dataToB
     const [error, setError] = useState(false);
     console.log("set data method:", setData);
 
-    // const handleFetchCompanyJobListing = async () => {
-    //     const id = item?.company_id
-    //     const requestBody = { company_id: id };
-
-    //     try {
-    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${adminToken}`,
-    //             },
-    //             body: JSON.stringify(requestBody),
-    //         });
-
-    //         const data = await response.json();
-    //         console.log('the fetched data is:', data);
-
-    //         if (data && data?.length > 0) { 
-    //             setData(data);
-    //             handleItemClick('viewJobListing');
-    //         } else {
-    //             showError('There are no jobs created for the requested client!');
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //         showError('There was an error fetching the job listings!');
-    //     }
-    // }
+   
 
     const handleFetchCompanyJobListing = async () => {
         const id = item?.company_id;
@@ -75,33 +48,7 @@ const ActiveClientCard = ({ showError, showSuccess, adminToken, setData, dataToB
     
 
 
-    // const handleFetchCompanyJobListing = async () => {
-
-    //     const id = item?.company_id
-    //     const requestBody = {
-    //         company_id: id
-    //     }
-    //     try {
-    //         // setError(false)
-    //         const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`,
-    //             {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${adminToken}`,
-    //                 },
-    //                 body: JSON.stringify(requestBody),
-    //             });
-
-    //         const data = await response.json();
-    //         console.log('the fetched data is:', data);
-    //         setData(data);
-    //     } catch (err) {
-    //         setError(true);
-    //         showError('There are no jobs created for the requested client!');
-    //     }
-    // }
-
+  
     const getBgColor = (status) => {
         switch (status) {
             case 'Active':
