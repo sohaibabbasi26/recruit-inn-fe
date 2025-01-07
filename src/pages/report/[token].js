@@ -22,6 +22,7 @@ export default function Token() {
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [codingResult, setCodingResult] = useState();
+  const [candidateInfo, setCandidateInfo] = useState(null);
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
 
