@@ -21,11 +21,11 @@ export default function Token() {
   const [candidateId, setCandidateId] = useState(null);
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
-  const [weakSkill, setWeakSkill] = useState("react js");
   const [codingResult, setCodingResult] = useState();
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
-
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
+
+  const weakSkill = results?.result?.weakSkill || null;
 
   // Scores
   const softSkillRating = results?.result?.softskillRating || 0;
@@ -57,7 +57,7 @@ export default function Token() {
     },
 
     { key: "job type", value: results?.candidate_info?.job_type || "remote" },
-    { key: "applied for", value: "self" }, // results?.candidate_info?.applied_through
+    { key: "applied for", value: "self" },
     {
       key: "email",
       value: results?.candidate_info?.email || "bruce.wayne@gmail.com",
@@ -65,6 +65,7 @@ export default function Token() {
   ];
 
   useEffect(() => {
+    console.log("inside E 1");
     async function checkToken() {
       try {
         const response = await fetch(
@@ -90,6 +91,8 @@ export default function Token() {
   }, [token]);
 
   useEffect(() => {
+    console.log("inside E 2");
+
     async function fetchResults() {
       const reqBody = {
         candidate_id: candidateId,
@@ -110,9 +113,6 @@ export default function Token() {
 
           if (data?.data) {
             setResults(data?.data);
-            if (data?.data?.result?.weakSkill) {
-              setWeakSkill(data?.data?.result?.weakSkill);
-            }
             console.log("one candidate result details: ", results);
           }
           console.log("Expertise in fetch company details:", expertise);
@@ -126,6 +126,8 @@ export default function Token() {
   }, [router?.isReady, candidateId]);
 
   useEffect(() => {
+    console.log("inside E 3");
+
     async function fetchCandidatesCodingResult() {
       //setIsLoading(true);
       const requestBody = {
@@ -162,12 +164,17 @@ export default function Token() {
     );
     const data = await response.json();
 
-    if (data?.status === 200) {
-      setRecommendedCourse(data?.data);
+    if (data?.status !== 200) {
+      setRecommendedCourse(null);
     }
-  }, [recommendedCourse, weakSkill]);
+    setRecommendedCourse(data?.data);
+  }, [recommendedCourse]);
+
+  console.log("outside e");
+  console.log("course", recommendedCourse);
 
   useEffect(() => {
+    console.log("inside e 4");
     if (weakSkill && !recommendedCourse) {
       fetchRecommendedCourses();
     }
@@ -194,8 +201,8 @@ export default function Token() {
             </div>
           </div>
           <div className={styles.report_header_title}>
-            <h2> </h2>
-            <p> {results?.candidate_info?.name || "Dev"} </p>
+            <h2> {results?.candidate_info?.name || "John"} </h2>
+            <p> {results?.candidate_info?.position || "Dev"} </p>
             <div
               className={`${styles.report_header_score} ${styles[candidateStatusClass]}`}
             >
@@ -416,68 +423,78 @@ export default function Token() {
         </ReportSection>
 
         {/* course recommendations */}
-        <ReportSection
-          variant="two"
-          headerClassName="second_color"
-          heading="Skill-Specific Courses"
-        >
-          <div className={`${styles.career_counseling} ${styles.course}`}>
-            <div className={styles.course_recommendation_card}>
-              <div className={styles.course_recommendation_card_image}>
-                <Image
-                  height={261.06}
-                  width={421.85}
-                  src={`/${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
-                  alt="Recommended Course Image"
-                />
-              </div>
-              <div className={styles.course_recommendation_card_content}>
-                <h3>{recommendedCourse?.title}</h3>
-                <p>
-                  {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        {recommendedCourse?.title ? (
+          <ReportSection
+            variant="two"
+            headerClassName="second_color"
+            heading="Skill-Specific Courses"
+          >
+            <div className={`${styles.career_counseling} ${styles.course}`}>
+              <div className={styles.course_recommendation_card}>
+                <div className={styles.course_recommendation_card_image}>
+                  <Image
+                    height={261.06}
+                    width={421.85}
+                    src={`/${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
+                    alt="Recommended Course Image"
+                  />
+                </div>
+                <div className={styles.course_recommendation_card_content}>
+                  <h3>{recommendedCourse?.title}</h3>
+                  <p>
+                    {/* Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque aliquam cum fugit. */}
-                  {recommendedCourse?.learning_outcomes}
-                </p>
-                <p
-                  className={
-                    styles.course_recommendation_card_content_instructor
-                  }
-                >
-                  By{" "}
-                  <span>{recommendedCourse?.instructor?.user?.first_name}</span>
-                </p>
-                <p className={styles.course_recommendation_card_content_level}>
-                  <CourseLevelSvg />
-                  Level: <span>beginner</span>
-                </p>
-                <p className={styles.course_recommendation_card_content_price}>
-                  <span>${recommendedCourse?.amount} </span>
-                  <span>&#45;</span>
-                  <span>
-                    {" "}
-                    ${recommendedCourse?.amount - recommendedCourse?.discount}
-                  </span>
-                </p>
+                    {recommendedCourse?.learning_outcomes}
+                  </p>
+                  <p
+                    className={
+                      styles.course_recommendation_card_content_instructor
+                    }
+                  >
+                    By{" "}
+                    <span>
+                      {recommendedCourse?.instructor?.user?.first_name}
+                    </span>
+                  </p>
+                  <p
+                    className={styles.course_recommendation_card_content_level}
+                  >
+                    <CourseLevelSvg />
+                    Level: <span>beginner</span>
+                  </p>
+                  <p
+                    className={styles.course_recommendation_card_content_price}
+                  >
+                    <span>${recommendedCourse?.amount} </span>
+                    <span>&#45;</span>
+                    <span>
+                      {" "}
+                      ${recommendedCourse?.amount - recommendedCourse?.discount}
+                    </span>
+                  </p>
 
-                <div
-                  className={styles.course_recommendation_card_content_enrolled}
-                >
-                  {/* students */}
-                  {students.map((student, i) => (
-                    <EnrolledImage key={i} student={student} />
-                  ))}
+                  <div
+                    className={
+                      styles.course_recommendation_card_content_enrolled
+                    }
+                  >
+                    {/* students */}
+                    {students.map((student, i) => (
+                      <EnrolledImage key={i} student={student} />
+                    ))}
+                  </div>
                 </div>
               </div>
+              <div className={styles.course_recommendation_content}>
+                <p>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
+                  nihil distinctio omnis assumenda facere voluptates officia
+                  iure neque id libero!
+                </p>
+              </div>
             </div>
-            <div className={styles.course_recommendation_content}>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-                nihil distinctio omnis assumenda facere voluptates officia iure
-                neque id libero!
-              </p>
-            </div>
-          </div>
-        </ReportSection>
+          </ReportSection>
+        ) : null}
       </div>
     </div>
   );
