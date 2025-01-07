@@ -46,7 +46,7 @@ export default function Home({
   const [positionIdMain, setPositionIdMain] = useState();
   const [positionCandidates, setPositionCandidates] = useState();
   const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
-  const[currentPackage, setCurrentPackage] = useState(null);
+  const [currentPackage, setCurrentPackage] = useState(null);
   const [interviewCount, setInterviewCount] = useState(null);
 
   const [showOverlay1, setShowOverlay1] = useState();
@@ -142,11 +142,8 @@ export default function Home({
     };
   }, [id]);
 
-
-useEffect(() => {
-
-async function fetchClientSubscription() {
-
+  useEffect(() => {
+    async function fetchClientSubscription() {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${id}`,
         {
@@ -160,19 +157,15 @@ async function fetchClientSubscription() {
 
       setCurrentPackage(data?.data?.package_type);
       setInterviewCount(data?.data?.test_count);
-
-  }
-
-  
-  if (id) {
-    fetchClientSubscription();
-    if (localStorage.getItem("clickedPackage") === "true") {
-      setShowPaymentOverlay(true);
-      localStorage.removeItem("clickedPackage");
     }
-  }
 
-
+    if (id) {
+      fetchClientSubscription();
+      if (localStorage.getItem("clickedPackage") === "true") {
+        setShowPaymentOverlay(true);
+        localStorage.removeItem("clickedPackage");
+      }
+    }
   }, [id]);
 
   // const preprocessCandidatesData = (candidates, company) => {

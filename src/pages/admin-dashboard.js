@@ -31,6 +31,7 @@ const Admin = ({}) => {
     const [adminnToken, setAdminToken] = useState('');
     const [allClients, setAllClients] = useState();
     const [allResults, setAllResults] = useState();
+    const [positionCandidates, setPositionCandidates] = useState([]);
      const {
         isTestRequired,
         setIsTestRequired,
@@ -76,7 +77,40 @@ const Admin = ({}) => {
   }, [allClients]);
 
 
-
+ 
+  
+  
+  // async function getCandidatesByPosition(position_id) {
+  //   try {
+  //     const reqBody = { position_id };
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-candidate-by-postion`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${adminnToken}`,
+  //         },
+  //         body: JSON.stringify(reqBody),
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     console.log("API response for candidates:", data);
+  
+  //     if (data?.data) {
+  //       setPositionCandidates(data.data);
+  //     } else {
+  //       setPositionCandidates([]);
+  //       showError("No candidates found for this position.");
+  //     }
+  //   } catch (err) {
+  //     console.log("Error fetching candidates:", err);
+  //     showError("Failed to fetch candidates.");
+  //   }
+  // }
+  
+ 
+  
 
   async function getCandidatesByPosition(position_id) {
     try {
@@ -87,6 +121,7 @@ const Admin = ({}) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${adminnToken}`,
           },
           body: JSON.stringify(reqBody),
         }
@@ -280,6 +315,7 @@ const Admin = ({}) => {
               reportOverlay={reportOverlay}
               onOpen={toggleJobList}
               selectedCandidate={selectedCandidate}
+              getCandidatesByPosition={getCandidatesByPosition}
             />
             <AdminRightComponent
               setShowOverlay={setShowOverlay}
@@ -298,6 +334,7 @@ const Admin = ({}) => {
             setShowOverlay={setShowOverlay}
             onOpen={toggleJobList}
             allClients={allClients?.data}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
         );
       case "Request":
@@ -311,6 +348,7 @@ const Admin = ({}) => {
             setShowOverlay={setShowOverlay}
             onOpen={toggleJobList}
             reqData={requestedClientsData}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
         );
       case "Active":
@@ -324,6 +362,7 @@ const Admin = ({}) => {
             setShowOverlay={setShowOverlay}
             onOpen={toggleJobList}
             activeClientsData={activeClientsData}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
         );
       case "In-Active":
@@ -337,7 +376,9 @@ const Admin = ({}) => {
             setShowOverlay={setShowOverlay}
             onOpen={toggleJobList}
             inActiveClientsData={inActiveClientsData}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
+          
         );
       case "All":
         return (
@@ -351,6 +392,7 @@ const Admin = ({}) => {
             setReportOverlay={setReportOverlay}
             setSelectedCandidate={setSelectedCandidate}
             allCandidates={preprocessedCandidates}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
         );
       case "Recommended":
@@ -365,6 +407,7 @@ const Admin = ({}) => {
             setReportOverlay={setReportOverlay}
             setSelectedCandidate={setSelectedCandidate}
             recommendedCandidates={recommendedCand}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
         );
       case "Qualified":
@@ -379,6 +422,7 @@ const Admin = ({}) => {
             setReportOverlay={setReportOverlay}
             setSelectedCandidate={setSelectedCandidate}
             qualifiedCandidates={qualifiedCand}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
         );
       case "NotEligible":
@@ -408,160 +452,29 @@ const Admin = ({}) => {
             setSelectedJob={setSelectedJob}
             setJobOverlay={setJobOverlay}
             jobOverlay={jobOverlay}
+            getCandidatesByPosition={getCandidatesByPosition}
           />
-        );
+        ); case "position":
+        return (
+          <AdminSuper
+          showError={showError}
+          selectedCandidate={selectedCandidate}
+          showSuccess={showSuccess}
+          adminToken={adminnToken}
+          setShowOverlay={setShowOverlay}
+          reportOverlay={reportOverlay}
+          setReportOverlay={setReportOverlay}
+          setSelectedCandidate={setSelectedCandidate}
+          allCandidates={preprocessedCandidates}
+          getCandidatesByPosition={getCandidatesByPosition}
+        />
+      );
+         
       default:
         return null;
     }
   };
-  //   const getActiveComponent = () => {
-  //     switch (activeItem) {
-  //       case "Dashboard":
-  //         return (
-  //           <>
-  //             <AdminSuperComponent
-  //               setMessage={setMessage}
-  //               showSuccessMessage={showSuccessMessage}
-  //               showSuccess={showSuccess}
-  //               allCandidates={preprocessedCandidates}
-  //               allClients={allClients?.data}
-  //               reportOverlay={reportOverlay}
-  //               setReportOverlay={setReportOverlay}
-  //               setSelectedCandidate={setSelectedCandidate}
-  //               selectedCandidate={selectedCandidate}
-  //             />
-  //             <AdminRightComponent
-  //               setShowOverlay={setShowOverlay}
-  //               showOverlay={showOverlay}
-  //             />
-  //           </>
-  //         );
-  //       case "AllClients":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             data={data}
-  //             setData={setData}
-  //             setShowOverlay={setShowOverlay}
-  //             onOpen={toggleJobList}
-  //             allClients={allClients?.data}
-  //           />
-  //         );
-  //       case "Request":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             data={data}
-  //             setData={setData}
-  //             setShowOverlay={setShowOverlay}
-  //             onOpen={toggleJobList}
-  //             reqData={requestedClientsData}
-  //           />
-  //         );
-  //       case "Active":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             data={data}
-  //             setData={setData}
-  //             setShowOverlay={setShowOverlay}
-  //             onOpen={toggleJobList}
-  //             activeClientsData={activeClientsData}
-  //           />
-  //         );
-  //       case "In-Active":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             data={data}
-  //             setData={setData}
-  //             setShowOverlay={setShowOverlay}
-  //             onOpen={toggleJobList}
-  //             inActiveClientsData={inActiveClientsData}
-  //           />
-  //         );
-  //       case "All":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             setShowOverlay={setShowOverlay}
-  //             reportOverlay={reportOverlay}
-  //             setReportOverlay={setReportOverlay}
-  //             setSelectedCandidate={setSelectedCandidate}
-  //             allCandidates={preprocessedCandidates}
-  //             selectedCandidate={selectedCandidate}
-  //           />
-  //         );
-  //       case "Recommended":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             setShowOverlay={setShowOverlay}
-  //             reportOverlay={reportOverlay}
-  //             setReportOverlay={setReportOverlay}
-  //             setSelectedCandidate={setSelectedCandidate}
-  //             recommendedCandidates={recommendedCand}
-  //             selectedCandidate={selectedCandidate}
-  //           />
-  //         );
-  //       case "Qualified":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             setShowOverlay={setShowOverlay}
-  //             reportOverlay={reportOverlay}
-  //             setReportOverlay={setReportOverlay}
-  //             setSelectedCandidate={setSelectedCandidate}
-  //             qualifiedCandidates={qualifiedCand}
-  //             selectedCandidate={selectedCandidate}
-  //           />
-  //         );
-  //       case "NotEligible":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             setShowOverlay={setShowOverlay}
-  //             reportOverlay={reportOverlay}
-  //             setReportOverlay={setReportOverlay}
-  //             setSelectedCandidate={setSelectedCandidate}
-  //             notEligibleCandidates={notEligibleCand}
-  //             selectedCandidate={selectedCandidate}
-  //           />
-  //         );
-  //       case "viewJobListing":
-  //         return (
-  //           <AdminSuper
-  //             showError={showError}
-  //             showSuccess={showSuccess}
-  //             adminToken={adminnToken}
-  //             data={data}
-  //             setData={setData}
-  //             setShowOverlay={setShowOverlay}
-  //             onOpen={toggleJobList}
-  //             setSelectedJob={setSelectedJob}
-  //             setJobOverlay={setJobOverlay}
-  //             jobOverlay={jobOverlay}
-  //           />
-  //         );
-  //       default:
-  //         return null;
-  //     }
-  //   };
+ 
 
   const toggleReportOverlay = () => {
     setReportOverlay(!reportOverlay);
@@ -639,6 +552,8 @@ const Admin = ({}) => {
             {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
             {showOverlay && <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
             {/* {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />} */}
+           
+           
             {jobOverlay && (
           <JobOverlay
             getCandidatesByPosition={getCandidatesByPosition}
@@ -654,6 +569,7 @@ const Admin = ({}) => {
             onClose={toggleJobOverlay}
             jobOverlay={jobOverlay}
             selectedJob={selectedJob}
+            positionCandidates={positionCandidates}
           />
         )}
             {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}

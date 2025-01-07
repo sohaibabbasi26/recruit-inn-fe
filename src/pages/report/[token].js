@@ -80,6 +80,7 @@ export default function Token() {
         const data = await response.json();
         if (data?.data?.statusCode === 200) {
           setCandidateId(data?.data?.candidate_id);
+          setCandidateInfo(data?.data?.candidate_info);
           setIsReportTokenValid(true);
         }
       } catch (err) {
