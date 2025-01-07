@@ -1,12 +1,3 @@
-// const candidate = () =>{
-//     return(
-//         <div>
-//             <h1>Candidate dashboard</h1>
-//         </div>
-//     )
-// };
-// export default candidate;
-
 import { Finlandica, Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
@@ -36,6 +27,25 @@ export default function Candidate() {
   const [assessmentId, setAssessmentId] = useState();
   // const [contact, setContact] = useState()
   const [isLoading, setIsLoading] = useState(false);
+  const { activeItem } = useActiveItem();
+  const { setActiveFlow, activeFlow } = useActiveFlow();
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
+  const [reportOverlay, setReportOverlay] = useState(false);
+  const [jobOverlay, setJobOverlay] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [candName, setCandName] = useState();
+  const [experience, setExperience] = useState();
+  const [appliedThrough, setAppliedThrough] = useState();
+  const [contact, setContact] = useState();
+  const [date, setDate] = useState();
+  const [jobtype, setJobType] = useState();
+  const [email, setEmail] = useState();
+  const [isDisable, setIsDisable] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("activeFlow", "Candidate_self");
@@ -135,6 +145,7 @@ export default function Candidate() {
     console.log("generate test and redirect:", reqBody);
 
     try {
+      console.log("running test");
       setIsLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
@@ -146,9 +157,11 @@ export default function Candidate() {
           body: JSON.stringify(reqBody),
         }
       );
+      console.log("after test");
       const data = await response.json();
       localStorage.setItem("testData", JSON.stringify(data));
       setQuestionId(data?.data?.message?.question_id);
+      console.log("question id", data?.data?.message?.question_id);
       console.log("question id:", questionId);
       console.log("data in test preparation:", data);
       setIsLoading(false);
@@ -186,6 +199,7 @@ export default function Candidate() {
           console.log("code question data:", data);
 
           if (dataTwo?.data?.assessment_id) {
+            console.log("inside redirect logic");
             console.log(
               `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
             );
@@ -208,26 +222,6 @@ export default function Candidate() {
       }, 7000);
     }
   };
-
-  const { activeItem } = useActiveItem();
-  const { setActiveFlow, activeFlow } = useActiveFlow();
-  const [showOverlay, setShowOverlay] = useState(false);
-  const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
-  const [reportOverlay, setReportOverlay] = useState(false);
-  const [jobOverlay, setJobOverlay] = useState(false);
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [candName, setCandName] = useState();
-  const [experience, setExperience] = useState();
-  const [appliedThrough, setAppliedThrough] = useState();
-  const [contact, setContact] = useState();
-  const [date, setDate] = useState();
-  const [jobtype, setJobType] = useState();
-  const [email, setEmail] = useState();
-  const [isDisable, setIsDisable] = useState(false);
 
   // trying this weird way to get candidate name [not recommended]
   useEffect(
