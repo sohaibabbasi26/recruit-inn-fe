@@ -52,7 +52,7 @@
 }
 
 .report_header_image {
-  /* border: 4px solid theme(colors.white-purple-shade); */
+  border: 4px solid theme(colors.white-purple-shade);
   /* border: 4px solid green; */
   border-radius: 999px;
   position: relative;
