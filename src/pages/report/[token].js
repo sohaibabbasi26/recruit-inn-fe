@@ -65,7 +65,6 @@ export default function Token() {
   ];
 
   useEffect(() => {
-    console.log("inside E 1");
     async function checkToken() {
       try {
         const response = await fetch(
@@ -91,8 +90,6 @@ export default function Token() {
   }, [token]);
 
   useEffect(() => {
-    console.log("inside E 2");
-
     async function fetchResults() {
       const reqBody = {
         candidate_id: candidateId,
@@ -113,9 +110,7 @@ export default function Token() {
 
           if (data?.data) {
             setResults(data?.data);
-            console.log("one candidate result details: ", results);
           }
-          console.log("Expertise in fetch company details:", expertise);
         }
       } catch (err) {
         console.log("err:", err);
@@ -126,8 +121,6 @@ export default function Token() {
   }, [router?.isReady, candidateId]);
 
   useEffect(() => {
-    console.log("inside E 3");
-
     async function fetchCandidatesCodingResult() {
       //setIsLoading(true);
       const requestBody = {
@@ -170,11 +163,7 @@ export default function Token() {
     setRecommendedCourse(data?.data);
   }, [recommendedCourse]);
 
-  console.log("outside e");
-  console.log("course", recommendedCourse);
-
   useEffect(() => {
-    console.log("inside e 4");
     if (weakSkill && !recommendedCourse) {
       fetchRecommendedCourses();
     }
