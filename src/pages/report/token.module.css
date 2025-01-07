@@ -88,23 +88,45 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: theme(colors.neutral-dark);
-  background-color: #e7ffe0;
   width: max-content;
   padding: 0.3rem 2.7rem 0.3rem 1rem;
   border-radius: 4rem;
   position: relative;
 }
 
-.report_header_score span:nth-of-type(2) {
+.report_header_score.not_eligible {
+  background-color: #ffe6e6;
+}
+.report_header_score.qualified {
+  background-color: #f0f3ff;
+}
+.report_header_score.recommended {
+  background-color: #e7ffe0;
+}
+
+.report_header_score span:nth-of-type(1) {
+  text-transform: capitalize;
+}
+
+.report_header_score .dot {
   height: 8px;
   width: 8px;
-  background-color: #50cd31;
   border-radius: 999px;
   display: block;
   position: absolute;
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.report_header_score .dot.not_eligible {
+  background-color: #ff0000;
+}
+.report_header_score .dot.qualified {
+  background-color: #0038ff;
+}
+.report_header_score .dot.recommended {
+  background-color: #50cd31;
 }
 
 .how_we {

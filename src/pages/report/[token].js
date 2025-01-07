@@ -7,6 +7,7 @@ import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
 import CourseLevelSvg from "../../../components/CourseLevelSvg";
 import InvitedCandidateProgressSvg from "../../../components/InvitedCandidateProgressSvg";
 import SelfReportScores from "../../../components/SelfReportScores";
+import { formatDate } from "@/util/formatDate";
 
 const students = [
   { image: "/recommended_course.png" },
@@ -14,21 +15,10 @@ const students = [
   { image: "/recommended_course.png" },
 ];
 
-const details = [
-  { key: "phone", value: "+92 304 2324115" },
-  { key: "date", value: "15 Dec 2023" },
-  { key: "job type", value: "remote" },
-  { key: "applied for", value: "self" },
-  { key: "email", value: "bruce.wayne@gmail.com" },
-];
-
 export default function Token() {
   const router = useRouter();
   const { token } = router?.query;
   const [candidateId, setCandidateId] = useState(null);
-  // const [candidateId, setCandidateId] = useState(
-  //   "bfe05265-e08a-49fb-8495-938c6088984b"
-  // );
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [weakSkill, setWeakSkill] = useState("react js");
@@ -42,6 +32,37 @@ export default function Token() {
   const technicalRating = results?.result?.technicalRating || 0;
   const overallRating = Math.round((softSkillRating + technicalRating) / 2);
   const codeRating = codingResult?.result?.technicalRating || 0;
+  const candidateStatus =
+    overallRating < 5
+      ? "not eligible"
+      : overallRating < 7
+      ? "qualified"
+      : "recommended";
+  const candidateStatusClass =
+    overallRating < 5
+      ? "not_eligible"
+      : overallRating < 7
+      ? "qualified"
+      : "recommended";
+  const details = [
+    {
+      key: "phone",
+      value: results?.candidate_info?.contact_no || "+92 304 2324115",
+    },
+    {
+      key: "date",
+      value: formatDate(
+        new Date(results?.candidate_info?.createdAt) || new Date()
+      ),
+    },
+
+    { key: "job type", value: results?.candidate_info?.job_type || "remote" },
+    { key: "applied for", value: "self" }, // results?.candidate_info?.applied_through
+    {
+      key: "email",
+      value: results?.candidate_info?.email || "bruce.wayne@gmail.com",
+    },
+  ];
 
   useEffect(() => {
     async function checkToken() {
@@ -68,28 +89,9 @@ export default function Token() {
     checkToken();
   }, [token]);
 
-  const fetchRecommendedCourses = useCallback(async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`
-    );
-    const data = await response.json();
-
-    if (data?.status === 200) {
-      setRecommendedCourse(data?.data);
-    }
-  }, [recommendedCourse, weakSkill]);
-
-  //useeffect for showing recommended courses
-  useEffect(() => {
-    if (weakSkill && !recommendedCourse) {
-      fetchRecommendedCourses();
-    }
-  }, [recommendedCourse, weakSkill]);
-
   useEffect(() => {
     async function fetchResults() {
       const reqBody = {
-        // candidate_id: candidateId,
         candidate_id: candidateId,
       };
       try {
@@ -154,6 +156,23 @@ export default function Token() {
     fetchCandidatesCodingResult();
   }, [candidateId]);
 
+  const fetchRecommendedCourses = useCallback(async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`
+    );
+    const data = await response.json();
+
+    if (data?.status === 200) {
+      setRecommendedCourse(data?.data);
+    }
+  }, [recommendedCourse, weakSkill]);
+
+  useEffect(() => {
+    if (weakSkill && !recommendedCourse) {
+      fetchRecommendedCourses();
+    }
+  }, [recommendedCourse, weakSkill]);
+
   if (!isReportTokenValid) {
     return (
       <div>
@@ -161,9 +180,6 @@ export default function Token() {
       </div>
     );
   }
-
-  console.log("candidate result data", results);
-  console.log("candidate coding", codingResult);
 
   return (
     <div className={styles.reportTokenContainer}>
@@ -178,11 +194,15 @@ export default function Token() {
             </div>
           </div>
           <div className={styles.report_header_title}>
-            <h2>Jacob Jones</h2>
-            <p>Front-end developer</p>
-            <div className={styles.report_header_score}>
-              <span>Recommended</span>
-              <span className="dot"></span>
+            <h2> </h2>
+            <p> {results?.candidate_info?.name || "Dev"} </p>
+            <div
+              className={`${styles.report_header_score} ${styles[candidateStatusClass]}`}
+            >
+              <span>{candidateStatus}</span>
+              <span
+                className={`${styles.dot} ${styles[candidateStatusClass]}`}
+              ></span>
             </div>
           </div>
         </div>
@@ -407,8 +427,8 @@ export default function Token() {
                 <Image
                   height={261.06}
                   width={421.85}
-                  src={`${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
-                  alt="Career Counseling Image"
+                  src={`/${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
+                  alt="Recommended Course Image"
                 />
               </div>
               <div className={styles.course_recommendation_card_content}>
