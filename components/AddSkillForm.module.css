@@ -108,11 +108,13 @@
 }
 
 .codeAssignment {
+  margin-top:3px ;
   margin-right: 0.625rem;
 }
 
 .codeAssignment + label {
   cursor: pointer;
+  margin-top:-3px
 }
 
 /* 1680px */
