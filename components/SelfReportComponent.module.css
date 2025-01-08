@@ -21,7 +21,7 @@
 
 .reportImageBg {
   background-color: antiquewhite;
-  background-image: url("../../../public/ReportBgCandidateSelf.png");
+  background-image: url("../public/ReportBgCandidateSelf.png");
   height: 25rem;
   position: relative;
   width: calc(100% + 12rem);

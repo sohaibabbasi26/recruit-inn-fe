@@ -134,7 +134,7 @@ const LoginOverlay = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          email: email.toLowerCase(),
           password: password,
         }),
       }

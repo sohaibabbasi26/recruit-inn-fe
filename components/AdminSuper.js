@@ -36,6 +36,7 @@ const AdminSuper = ({
   showError,
   showSuccess,
   selectedCandidate,
+  positionCandidates,
 }) => {
   const iconSize = 15;
   const bellIconSize = 20;
@@ -202,7 +203,16 @@ const AdminSuper = ({
             setJobOverlay={setJobOverlay}
             jobOverlay={jobOverlay}
           />
-        ) : (
+        ) :positionCandidates ? (
+          <CandRepHub
+            heading="Candidates for Position"
+            data={positionCandidates}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            selectedCandidate={selectedCandidate}
+            setSelectedCandidate={setSelectedCandidate}
+          />
+        ) :  (
           ""
         )}
       </div>
