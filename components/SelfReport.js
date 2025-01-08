@@ -1,175 +1,21 @@
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import styles from "./token.module.css";
-import reportShowcaseImage from "../../../public/ReportBgCandidateSelf.png";
-import CourseLevelSvg from "../../../components/CourseLevelSvg";
-import InvitedCandidateProgressSvg from "../../../components/InvitedCandidateProgressSvg";
-import SelfReportScores from "../../../components/SelfReportScores";
+import React from "react";
+import styles from "./SelfReport.module.css";
 import generatePDF from "@/util/generatePDF";
 
 const students = [
-  { image: "/recommended_course.png" },
-  { image: "/recommended_course.png" },
-  { image: "/recommended_course.png" },
-];
+    { image: "/recommended_course.png" },
+    { image: "/recommended_course.png" },
+    { image: "/recommended_course.png" },
+  ];
 
-const details = [
-  { key: "phone", value: "+92 304 2324115" },
-  { key: "date", value: "15 Dec 2023" },
-  { key: "job type", value: "remote" },
-  { key: "applied for", value: "self" },
-  { key: "email", value: "bruce.wayne@gmail.com" },
-];
-
-export default function Token() {
-  const router = useRouter();
-  const { token } = router?.query;
-  const [candidateId, setCandidateId] = useState(null);
-  // const [candidateId, setCandidateId] = useState(
-  //   "bfe05265-e08a-49fb-8495-938c6088984b"
-  // );
-  const [results, setResults] = useState([]);
-  const [recommendedCourse, setRecommendedCourse] = useState(null);
-  const [weakSkill, setWeakSkill] = useState("react js");
-  const [codingResult, setCodingResult] = useState();
-  const [isCodingAssessment, setIsCodingAssessment] = useState(false);
-  const [candidateInfo, setCandidateInfo] = useState(null);
-  const [candidateDetails,setDetails]= useState([]);
-  const [isPdfLoading,setIsPdfLoading]= useState(false);
-  const contentRef = useRef(null);
-  const [isReportTokenValid, setIsReportTokenValid] = useState(false);
-
-  // Scores
-  const softSkillRating = results?.result?.softskillRating || 0;
-  const technicalRating = results?.result?.technicalRating || 0;
-  const overallRating = Math.round((softSkillRating + technicalRating) / 2);
-  const codeRating = codingResult?.result?.technicalRating || 0;
-
-  useEffect(() => {
-    async function checkToken() {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_REMOTE_URL}/verify-report-token`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token: token }),
-          }
-        );
-        const data = await response.json();
-        if (data?.data?.statusCode === 200) {
-          setCandidateId(data?.data?.candidate_id);
-          setCandidateInfo(data?.data?.candidate_info);
-          setIsReportTokenValid(true);
-        }
-      } catch (err) {
-        console.log("err:", err);
-      }
-    }
-    checkToken();
-  }, [token]);
-
-  const fetchRecommendedCourses = useCallback(async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`
-    );
-    const data = await response.json();
-
-    if (data?.status === 200) {
-      setRecommendedCourse(data?.data);
-    }
-  }, [recommendedCourse, weakSkill]);
-
-  //useeffect for showing recommended courses
-  useEffect(() => {
-    if (weakSkill && !recommendedCourse) {
-      fetchRecommendedCourses();
-    }
-  }, [recommendedCourse, weakSkill]);
-
-  useEffect(() => {
-    async function fetchResults() {
-      const reqBody = {
-        // candidate_id: candidateId,
-        candidate_id: candidateId,
-      };
-      try {
-        if (candidateId) {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(reqBody),
-            }
-          );
-          const data = await response.json();
-
-          if (data?.data) {
-            setResults(data?.data);
-            if (data?.data?.result?.weakSkill) {
-              setWeakSkill(data?.data?.result?.weakSkill);
-            }
-            console.log("one candidate result details: ", results);
-          }
-          console.log("Expertise in fetch company details:", expertise);
-        }
-      } catch (err) {
-        console.log("err:", err);
-      }
-    }
-    //setIsLoading(true);
-    fetchResults();
-  }, [router?.isReady, candidateId]);
-
-  useEffect(() => {
-    async function fetchCandidatesCodingResult() {
-      //setIsLoading(true);
-      const requestBody = {
-        candidate_id: candidateId,
-      };
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-code-analysis-candidate`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
-
-      const data = await response.json();
-      console.log("data response:", data);
-      setCodingResult(data?.data);
-      //
-      //setIsLoading(false);
-      if (data && data?.data && data?.data?.result) {
-        setIsCodingAssessment(true);
-      } else {
-        setIsCodingAssessment(false);
-      }
-    }
-    fetchCandidatesCodingResult();
-  }, [candidateId]);
-
-  if (!isReportTokenValid) {
-    return (
-      <div>
-        <h1>Invalid Token</h1>
-      </div>
-    );
-  }
-
-  console.log("candidate result data", results);
-  console.log("candidate coding", codingResult);
-
+function SelfReport({
+  candidateInfo,
+  results,
+  recommendedCourse,
+  setIsPdfLoading,
+  contentRef,
+  overallRating
+}) {
   return (
     <div className={styles.reportTokenContainer} ref={contentRef}>
       <div className={styles.reportImageBg}></div>
@@ -211,15 +57,16 @@ export default function Token() {
             <Item key={i} keyy={it.key} value={it.value} />
           ))}{" "}
         </div>
-        <button 
-        onClick={async()=>{
-          await generatePDF({
-            setIsPdfLoading,
-            contentRef,
-            selectedCandidate: candidateInfo
-          })
-        }}
-        className={`${styles.download_report_button} ${styles.button}`}>
+        <button
+          onClick={async () => {
+            await generatePDF({
+              setIsPdfLoading,
+              contentRef,
+              selectedCandidate: candidateInfo,
+            });
+          }}
+          className={`${styles.download_report_button} ${styles.button}`}
+        >
           <svg
             width="35"
             height="36"
@@ -522,3 +369,5 @@ function EnrolledImage({ student }) {
     </div>
   );
 }
+
+export default SelfReport;
