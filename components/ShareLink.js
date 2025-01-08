@@ -40,6 +40,7 @@ const ShareLink = ({
   const iconSize = 20;
   const clipSize = 30;
   const [link, setLink] = useState();
+  const [showSuccessMessage, setShowSuccessMessage] = useState("");
 
   // const [emailReceivers, setEmailReceivers] = useState([{ email: '' }]);
 
@@ -114,13 +115,25 @@ const ShareLink = ({
             <div>
       <div className={styles.form}>
         <div className={styles.topBar}>
+          
           <button
             style={{
               color: receivers.length >= 3 ? "grey" : "#6137DB",
             }}
-            onClick={addEmailReceiver}
-            disabled={receivers.length >= 3}
+         
+            onClick={() => {
+              if (receivers.length >= 3) {
+               
+                setShowSuccessMessage("You can copy the link assessment and share with other candidates");
+              } 
+              else {
+                addEmailReceiver();
+                setShowSuccessMessage("")
+              }
+            }}
+           
           >
+          
             Add another candidate
           </button>
           <Image src="/Plus.svg" width={plusSize} height={plusSize} />
@@ -149,28 +162,36 @@ const ShareLink = ({
               />
               {receivers.length > 1 && (
                 <Image
-                  onClick={() => removeReceiver(index)}
-                  src="/trash-bin.svg"
-                  width={30}
-                  height={30}
-                />
+                onClick={() => {
+                  removeReceiver(index);
+                  setShowSuccessMessage("");
+                }}
+                src="/trash-bin.svg"
+                width={30}
+                height={30}
+              />
+              
+                
               )}
             </div>
           </div>
         ))}
       </div>
     </div>
-
+    <p  className={styles.message} >{showSuccessMessage}</p>
             <div className={styles.linkContainer}>
               <div className={styles.wrapper}>
                 <Image src="/Chain.svg" height={clipSize} width={clipSize} />
                 <input value={link} readOnly />
+
               </div>
+             
               <button onClick={handleCopyClick}>
                 Copy Assessment Link
                 <Image src="/Copy.svg" width={iconSize} height={iconSize} />
               </button>
             </div>
+           
           </div>
         </div>
       </div>

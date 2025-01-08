@@ -221,11 +221,11 @@ const AddSkillForm = forwardRef(
             <input
               type="checkbox"
               className={styles.codeAssignment}
-              id="code-assignment"
+              id="code-assignment1"
               checked={isArabicChosen}
               onChange={handleArabicChooseChange}
             />
-            <label htmlFor="code-assignment">
+            <label htmlFor="code-assignment1">
               Do you want the questions to be in Arabic?{" "}
             </label>
           </div>

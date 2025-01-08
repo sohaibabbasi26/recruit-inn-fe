@@ -2,7 +2,6 @@ import styles from "./Overlay.module.css";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import Stages from "./Stages";
 import { useRouter } from "next/router";
 import LoginComp from "./Login";
 import LoginBtns from "./LoginBtns";
@@ -251,11 +250,7 @@ const LoginOverlay = ({
                 <h2>{stageHeadings[currentStage]}</h2>
               </div>
 
-              <Stages
-                currentStage={currentStage}
-                stages={stages}
-                completedStages={completedStages}
-              />
+            
 
               {viewMode === "login" ? (
                 <>
