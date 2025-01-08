@@ -313,7 +313,7 @@ function SelfReportComponent({
         </ReportSection>
 
         {/* course recommendations */}
-        {weakSkill ? (
+        {recommendedCourse ? (
           <ReportSection
             variant="two"
             headerClassName="second_color"
