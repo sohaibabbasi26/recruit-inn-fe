@@ -4,9 +4,12 @@ import { useState } from "react";
 
 import { getSvg } from "@/util/helpers";
 import Average from "./Average";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter as nextRouter } from "next/router";
 
 const CandidatesSelfHub = ({
   contact,
+  candidateId,
   isDisable,
   name,
   expertise,
@@ -23,6 +26,7 @@ const CandidatesSelfHub = ({
   console.log("data in candidates Hub:", results);
 
   const [recommended, setRecommended] = useState("Recommended");
+  const navigationRouter = useRouter();
   const [data, setData] = useState([]);
   const iconSize = 25;
   const goToAllIconSize = 18;
@@ -62,7 +66,7 @@ const CandidatesSelfHub = ({
 
   const cardClickHandler = (candidate) => {
     setSelectedCandidate(candidate);
-    setReportOverlay(true);
+    navigationRouter?.push(`report/${candidateId}`);
   };
 
   async function getRedirected() {

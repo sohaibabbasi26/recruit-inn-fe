@@ -252,9 +252,7 @@
   display: inline-block;
 }
 
-.leftContainer h3 {
-  margin: 0;
-}
+
 
 .leftContainer h4 {
   display: flex;
@@ -323,6 +321,7 @@
 .bold {
   font-weight: 700;
   font-size: smaller;
+  margin-top: 2px;
 }
 
 .rightContainer {

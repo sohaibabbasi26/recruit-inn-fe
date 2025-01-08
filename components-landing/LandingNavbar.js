@@ -51,16 +51,17 @@ const LandingNavbar = ({
                 </ul>
               </div>
               <div className="w-60p items-center flex justify-end gap-6 max-xl:gap-2">
-                <span className="px-10 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold">
+              
+                <span className="px-10 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
                   <a href="https://app.recruitinn.ai/candidate-self">
                     {" "}
                     Apply for jobs
-                  </a>
+                  </a> 
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
                     href="https://app.recruitinn.ai/client-signup"
-                    className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold"
+                    className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
                     Recruit A Talent
                   </a>

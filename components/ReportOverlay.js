@@ -453,12 +453,12 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                 </span>
               </div>
             </div>
-            {/* candidate test info div */}
+            {/* candidate test info div  upperList */}
             <div className={styles.infoContainer} ref={contentRef}>
               <div className={styles.infoDiv}>
                 <ul>
                   <li>
-                    <span className={styles.bold}>Name: </span>
+                    <span className={styles.bold}  >Name: </span>
                     <span>{selectedCandidate?.name}</span>
                   </li>
                   <li>
@@ -507,7 +507,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
                     <span>
                       {selectedCandidate?.appliedFor
                         ? selectedCandidate?.appliedFor
-                        : "Self"}
+                        : "Self-Evaluation"}
                     </span>
                   </li>
                   <li>

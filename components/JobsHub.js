@@ -81,7 +81,7 @@ const JobsHub = ({
                       <div className={styles.rightTopBtns}>
                         <span>
                           {item?.applied_candidates_count === 0
-                            ? "No Candidates Yet"
+                            ? "No Candidates"
                             : item?.applied_candidates_count === 1
                             ? item?.applied_candidates_count + " Candidate"
                             : item?.applied_candidates_count + " Candidates"}

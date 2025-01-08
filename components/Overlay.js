@@ -168,24 +168,47 @@ const Overlay = React.memo(
     }, [description]);
 
     const validateJobType = () => {
-      // Check each ref and value to ensure they are not null before accessing .trim()
       const positionValid =
         positionRef.current && positionRef.current.value.trim() !== "";
-      const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
-      const countryValid =
-        countryRef.current && countryRef.current.value.trim() !== "";
       const jobTypeValid =
         jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
       const descriptionValid = description && description.trim() !== "";
-
-      return (
-        positionValid &&
-        cityValid &&
-        countryValid &&
-        jobTypeValid &&
-        descriptionValid
-      );
+    
+      // Validate city and country only for On-site and Hybrid job types
+      const jobType = jobTypeRef.current?.value;
+      console.warn(jobType,"////////")
+      const cityValid =
+        (jobType == "On-site" || jobType == "Hybrid")
+          ? cityRef.current && cityRef.current.value.trim() !== ""
+          : true;
+      const countryValid =
+        (jobType === "On-site" || jobType === "Hybrid")
+          ? countryRef.current && countryRef.current.value.trim() !== ""
+          : true;
+    
+      return positionValid && jobTypeValid && descriptionValid && cityValid && countryValid;
     };
+    
+
+    // const validateJobType = () => {
+    //   // Check each ref and value to ensure they are not null before accessing .trim()
+    //   const positionValid =
+    //     positionRef.current && positionRef.current.value.trim() !== "";
+    //   const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
+    //   const countryValid =
+    //     countryRef.current && countryRef.current.value.trim() !== "";
+    //   const jobTypeValid =
+    //     jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
+    //   const descriptionValid = description && description.trim() !== "";
+
+    //   return (
+    //     positionValid &&
+    //     cityValid &&
+    //     countryValid &&
+    //     jobTypeValid &&
+    //     descriptionValid
+    //   );
+    // };
 
     const toggleComponent = async () => {
       const skillsWithLevels = [
@@ -284,18 +307,22 @@ const Overlay = React.memo(
     };
 
     const handleFormSubmit = async () => {
+      const jobType = jobTypeRef.current.value;
+    
       const requestBody = {
         position: positionRef.current.value,
         company_id: id,
         expertise: techStack,
-        job_type: jobTypeRef.current.value,
+        job_type: jobType,
         description: description,
-        location: cityRef.current.value + ", " + countryRef.current.value,
-        // country: ,
+        location:
+          jobType === "On-site" || jobType === "Hybrid"
+            ? `${cityRef.current.value}, ${countryRef.current.value}`
+            : "",
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
       };
-
+    
       console.log("request body:", requestBody);
 
       localStorage.setItem(

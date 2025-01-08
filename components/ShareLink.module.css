@@ -171,6 +171,9 @@
   gap: 1rem;
   width: 60%;
 }
+.message{
+  color: red;
+}
 
 @media screen and (max-width: 1600px) {
   .topBar {

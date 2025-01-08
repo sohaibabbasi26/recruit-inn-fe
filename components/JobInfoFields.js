@@ -1,3 +1,117 @@
+// import { useState } from "react";
+// import Image from "next/image";
+// import { findFlagUrlByCountryName } from "country-flags-svg";
+// import { countryList } from "@/util/cities";
+// import { getCities } from "@/util/helpers";
+// import styles from "./JobInfoFields.module.css";
+
+// const JobInfoFields = ({
+//   position,
+//   jobType,
+//   description,
+//   city,
+//   country,
+//   positionRef,
+//   jobTypeRef,
+//   locationRef,
+//   setPosition,
+//   validationErrors,
+//   setCity,
+//   setCountry,
+//   setJobtype,
+//   countryRef,
+//   cityRef,
+//   showSuccessMessage,
+// }) => {
+//   // illusion
+//   // Create a temporary country state to keep track of country changes as references do not trigger a re-render, and we need one here.
+//   const [tempCountry, setTempCountry] = useState("");
+//   const iconSize = 20;
+//   const handleInputChange = (setter) => (event) => {
+//     setter(event.target.value);
+//   };
+//   // useEffect(() => {
+//   //   countryRef.current.value = country;
+//   //   cityRef.current.value = city;
+//   // },[city, country])
+//   return (
+//     <>
+//       <div className={styles.fieldsContainer}>
+//         <div className={styles.infoField}>
+//           <Image src="/smiley.svg" width={iconSize} height={iconSize} />
+//           <input
+//             type="text"
+//             placeholder="Add Job Title"
+//             value={position}
+//             ref={positionRef}
+//           />
+//         </div>
+//         <div className={styles.infoField}>
+//           <Image src="/suitcase.svg" width={iconSize} height={iconSize} />
+//           <select ref={jobTypeRef}>
+//             <option value="" selected disable>
+//               Select Job Type
+//             </option>
+//             <option value="On-site">On-site</option>
+//             <option value="Remote">Remote</option>
+//             <option value="Hybrid">Hybrid</option>
+//           </select>
+//         </div>
+//       </div>
+//       <div className={styles.fieldsContainer}>
+//         <div
+//           className={`${styles.infoField} ${tempCountry ? styles.filled : ""} ${
+//             tempCountry &&
+//             findFlagUrlByCountryName(tempCountry) &&
+//             styles.countryField
+//           }`}
+//         >
+//           {/* <Image src="/earth.svg" width={20} height={20} /> */}
+//           <Image
+//             src={
+//               tempCountry
+//                 ? findFlagUrlByCountryName(tempCountry) || "/earth.svg"
+//                 : "/earth.svg"
+//             }
+//             width={20}
+//             height={20}
+//           />
+//           <select
+//             defaultValue="no-value"
+//             ref={countryRef}
+//             onChange={(e) => setTempCountry(e.target.value)}
+//           >
+//             <option disabled value="no-value">
+//               Select country
+//             </option>
+//             {countryList.map((country) => (
+//               <option value={country}> {country} </option>
+//             ))}
+//           </select>
+//         </div>
+//         <div className={styles.infoField}>
+//           <Image src="/aim.svg" width={20} height={20} />
+
+//           <select
+//             defaultValue="no-value"
+//             disabled={tempCountry === ""}
+//             ref={cityRef}
+//           >
+//             <option disabled value="no-value">
+//               Select city
+//             </option>
+//             {getCities(tempCountry)?.map((city) => (
+//               <option value={city}> {city} </option>
+//             ))}
+//           </select>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+// export default JobInfoFields;
+
+
 import { useState } from "react";
 import Image from "next/image";
 import { findFlagUrlByCountryName } from "country-flags-svg";
@@ -23,20 +137,21 @@ const JobInfoFields = ({
   cityRef,
   showSuccessMessage,
 }) => {
-  // illusion
-  // Create a temporary country state to keep track of country changes as references do not trigger a re-render, and we need one here.
   const [tempCountry, setTempCountry] = useState("");
+  const [selectedJobType, setSelectedJobType] = useState("");
+
   const iconSize = 20;
-  const handleInputChange = (setter) => (event) => {
-    setter(event.target.value);
+
+  const handleJobTypeChange = (e) => {
+    const jobType = e.target.value;
+    setSelectedJobType(jobType);
+    setJobtype(jobType);
   };
-  // useEffect(() => {
-  //   countryRef.current.value = country;
-  //   cityRef.current.value = city;
-  // },[city, country])
+
   return (
     <>
       <div className={styles.fieldsContainer}>
+        {/* Job Title Field */}
         <div className={styles.infoField}>
           <Image src="/smiley.svg" width={iconSize} height={iconSize} />
           <input
@@ -46,10 +161,12 @@ const JobInfoFields = ({
             ref={positionRef}
           />
         </div>
+
+        {/* Job Type Field */}
         <div className={styles.infoField}>
           <Image src="/suitcase.svg" width={iconSize} height={iconSize} />
-          <select ref={jobTypeRef}>
-            <option value="" selected disable>
+          <select ref={jobTypeRef} onChange={handleJobTypeChange}>
+            <option value="" selected disabled>
               Select Job Type
             </option>
             <option value="On-site">On-site</option>
@@ -58,55 +175,63 @@ const JobInfoFields = ({
           </select>
         </div>
       </div>
-      <div className={styles.fieldsContainer}>
-        <div
-          className={`${styles.infoField} ${tempCountry ? styles.filled : ""} ${
-            tempCountry &&
-            findFlagUrlByCountryName(tempCountry) &&
-            styles.countryField
-          }`}
-        >
-          {/* <Image src="/earth.svg" width={20} height={20} /> */}
-          <Image
-            src={
-              tempCountry
-                ? findFlagUrlByCountryName(tempCountry) || "/earth.svg"
-                : "/earth.svg"
-            }
-            width={20}
-            height={20}
-          />
-          <select
-            defaultValue="no-value"
-            ref={countryRef}
-            onChange={(e) => setTempCountry(e.target.value)}
-          >
-            <option disabled value="no-value">
-              Select country
-            </option>
-            {countryList.map((country) => (
-              <option value={country}> {country} </option>
-            ))}
-          </select>
-        </div>
-        <div className={styles.infoField}>
-          <Image src="/aim.svg" width={20} height={20} />
 
-          <select
-            defaultValue="no-value"
-            disabled={tempCountry === ""}
-            ref={cityRef}
+      {/* Show City and Country fields only for On-site and Hybrid */}
+      {(selectedJobType === "On-site" || selectedJobType === "Hybrid") && (
+        <div className={styles.fieldsContainer}>
+          {/* Country Field */}
+          <div
+            className={`${styles.infoField} ${
+              tempCountry ? styles.filled : ""
+            } ${tempCountry && findFlagUrlByCountryName(tempCountry) && styles.countryField}`}
           >
-            <option disabled value="no-value">
-              Select city
-            </option>
-            {getCities(tempCountry)?.map((city) => (
-              <option value={city}> {city} </option>
-            ))}
-          </select>
+            <Image
+              src={
+                tempCountry
+                  ? findFlagUrlByCountryName(tempCountry) || "/earth.svg"
+                  : "/earth.svg"
+              }
+              width={20}
+              height={20}
+            />
+            <select
+              defaultValue="no-value"
+              ref={countryRef}
+              onChange={(e) => setTempCountry(e.target.value)}
+            >
+              <option disabled value="no-value">
+                Select country
+              </option>
+              {countryList.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* City Field */}
+          <div className={styles.infoField}>
+            <Image src="/aim.svg" width={20} height={20} />
+            <select
+              defaultValue="no-value"
+              disabled={tempCountry === ""}
+              ref={cityRef}
+            >
+              <option disabled value="no-value">
+                Select city
+              </option>
+              {getCities(tempCountry)?.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
+
 export default JobInfoFields;

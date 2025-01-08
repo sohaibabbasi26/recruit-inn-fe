@@ -35,7 +35,7 @@ const RightComponent = ({
           <div className={styles.btnsDiv}>
             <button className={styles.addJobBtn} onClick={openAddJobHandler}>
               <Image src="/Add.svg" width={iconSize} height={iconSize} /> Create
-              a Job
+            a Job
             </button>
             {/* <button className={styles.notificationsBtn}>
               <Image

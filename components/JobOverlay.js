@@ -352,7 +352,7 @@ const JobOverlay = ({
                   showSuccess();
                 }}
               >
-                {selectedJob?.status === "Active" ? "Close Job" : "Open Job"}
+                {selectedJob?.status === "Active" ? "Close Job" : "Change job status to open"}
               </span>
               {isLoading ? (
                 <div className={styles.loader}></div>

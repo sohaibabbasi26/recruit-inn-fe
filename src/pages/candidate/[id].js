@@ -289,6 +289,7 @@ export default function Candidate() {
         return (
           <>
             <CandidateSuper
+              candidateId={id}
               isLoading={isLoading}
               contact={contact}
               isDisable={isDisable}
@@ -341,23 +342,24 @@ export default function Candidate() {
             />
           )}
         </FormProvider>
-        {reportOverlay && (
-          <SelfReportOverlay
-            contact={contact}
-            jobType={jobtype}
-            experience={experience}
-            candName={candName}
-            email={email}
-            jobtype={jobtype}
-            date={date}
-            showError={showError}
-            showErrorMessage={showErrorMessage}
-            showSuccessMessage={showSuccessMessage}
-            onClose={toggleReportOverlay}
-            reportOverlay={reportOverlay}
-            selectedCandidate={selectedCandidate}
-          />
-        )}
+        {/* {reportOverlay && (
+          // <SelfReportOverlay
+          //   contact={contact}
+          //   jobType={jobtype}
+          //   experience={experience}
+          //   candName={candName}
+          //   email={email}
+          //   jobtype={jobtype}
+          //   date={date}
+          //   showError={showError}
+          //   showErrorMessage={showErrorMessage}
+          //   showSuccessMessage={showSuccessMessage}
+          //   onClose={toggleReportOverlay}
+          //   reportOverlay={reportOverlay}
+          //   selectedCandidate={selectedCandidate}
+          // />
+          router?.push(`/candidate/report/${id}`)
+        )} */}
         {jobOverlay && (
           <JobOverlay
             message={message}
