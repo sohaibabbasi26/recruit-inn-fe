@@ -33,7 +33,8 @@ const ShareLink = ({
   showSuccess,
   setMessage,
   positionId,
-  positionName
+  positionName,
+  interviewCount,
 }) => {
   const imageSize = 60;
   const plusSize = 20;
@@ -185,8 +186,7 @@ const ShareLink = ({
                 <input value={link} readOnly />
 
               </div>
-             
-              <button onClick={handleCopyClick}>
+              <button onClick={handleCopyClick} disabled={interviewCount === 0} style={{ backgroundColor: interviewCount === 0 ? 'grey' : '#6137DB' }}> 
                 Copy Assessment Link
                 <Image src="/Copy.svg" width={iconSize} height={iconSize} />
               </button>

@@ -6,7 +6,6 @@ import Stages from "./Stages";
 import { useRouter } from "next/router";
 import LoginComp from "./Login";
 import LoginBtns from "./LoginBtns";
-// import Login from '@/pages/client-login';
 import ForgotPassword from "./ForgotPassword";
 import ForgotPasswordBtns from "./ForgotPassBtns";
 import ErrorIndicator from "./ErrorIndicator";
@@ -114,7 +113,7 @@ const CandidateSelfLoginOverlay = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email,
+            email: email.toLowerCase(), 
             password: password,
           }),
         }
@@ -152,7 +151,7 @@ const CandidateSelfLoginOverlay = ({
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate`,
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate-self`,
         {
           method: "POST",
           body: JSON.stringify(reqBody),

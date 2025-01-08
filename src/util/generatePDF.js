@@ -17,7 +17,7 @@ export default async function generatePDF({setIsPdfLoading, contentRef, selected
           x: 10,  // Left margin
           y: 10,  // Top margin
           html2canvas: {
-            scale: 0.21  // Adjust the scale to fit the content on one page
+            scale: 0.20  // Adjust the scale to fit the content on one page
           },
           width: contentWidth - 20,  // Set content width to fit within the page margins
           windowWidth: contentRef.current.scrollWidth  // Use the scroll width of the content for scaling

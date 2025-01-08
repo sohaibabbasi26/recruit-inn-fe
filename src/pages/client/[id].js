@@ -579,6 +579,7 @@ export default function Home({
               positionCandidates={positionCandidates}
             />
             <RightComponent
+              activeItem={activeItem}
               preprocessedCandidates={preprocessedCandidates}
               setShowOverlay={setShowOverlay}
               showOverlay={showOverlay}
@@ -746,6 +747,7 @@ export default function Home({
               showOverlay={showOverlay}
               stages={stages}
               stageHeadings={stageHeadings}
+              interviewCount={interviewCount}
             />
           )}
         </FormProvider>
@@ -774,6 +776,7 @@ export default function Home({
             onClose={toggleJobOverlay}
             jobOverlay={jobOverlay}
             selectedJob={selectedJob}
+            interviewCount={interviewCount}
           />
         )}
         {showPaymentOverlay && (

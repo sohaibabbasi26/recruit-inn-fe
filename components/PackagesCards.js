@@ -123,6 +123,25 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
     }
   };
 
+  function packagesNumbers(passedPackage){
+      if (passedPackage === "free") {
+        return 0;
+      } else if (passedPackage === "starter") {
+        {
+          return 1;
+        }
+      } else if (passedPackage === "growth") {
+        {
+          return 2;
+        }
+      } else if (passedPackage === "enterprise") {
+        {
+          return 3;
+        }
+      } 
+    
+    }
+
   return (
     <div className={styles.packagesCardWrapper}>
       {packages.availablePackages.map((pack) => (
@@ -130,9 +149,7 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
           key={pack.name}
           className={`${styles.packageCard} ${styles[pack.name] || ""}`}
         >
-          <h3 className={styles.packageHeading}>
-            {pack.name}
-          </h3>
+          <h3 className={styles.packageHeading}>{pack.name}</h3>
           <p>Everything you need to supercharge your productivity. </p>
           <p className={styles.price}>
             {!isNaN(pack.price) ? (
@@ -157,7 +174,8 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
           <button
             onClick={() => handleCheckout(pack)}
             className={`${styles.packageBtn} `}
-            disabled = {currentPackage === pack.name}
+            disabled={packagesNumbers(pack.name) <= packagesNumbers(currentPackage) }
+            style={{color: packagesNumbers(pack.name) <= packagesNumbers(currentPackage) ? "grey" : "white"}}
           >
             {currentPackage === pack.name ? "Current Package" : pack.buttonText}
           </button>
