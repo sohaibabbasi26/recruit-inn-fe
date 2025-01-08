@@ -579,6 +579,7 @@ export default function Home({
               positionCandidates={positionCandidates}
             />
             <RightComponent
+              activeItem={activeItem}
               preprocessedCandidates={preprocessedCandidates}
               setShowOverlay={setShowOverlay}
               showOverlay={showOverlay}

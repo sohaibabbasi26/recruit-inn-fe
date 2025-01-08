@@ -1,25 +1,35 @@
 import { formatDate } from "@/util/formatDate";
-import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styles from './SelfReportComponent.module.css'
+import styles from "./SelfReportComponent.module.css";
 import Image from "next/image";
 import SelfReportScores from "./SelfReportScores";
 import CourseLevelSvg from "./CourseLevelSvg";
+import InvitedCandidateProgressSvg from "./InvitedCandidateProgressSvg";
+import generatePDF from "@/util/generatePDF";
 
 const students = [
-    { image: "/recommended_course.png" },
-    { image: "/recommended_course.png" },
-    { image: "/recommended_course.png" },
-  ];
+  { image: "/recommended_course.png" },
+  { image: "/recommended_course.png" },
+  { image: "/recommended_course.png" },
+];
 
-function SelfReportComponent({ candidate_id, codingResult, results, recommendedCourse, candidateInfo, isPdfLoading,setIsPdfLoading, token}){
+function SelfReportComponent({
+  candidate_id,
+  codingResult,
+  results,
+  recommendedCourse,
+  candidateInfo,
+  isPdfLoading,
+  setIsPdfLoading,
+  token,
+}) {
   //const candidateId= params?.candidate_id;
   // const router = useRouter();
   //const candidate_id = params?.candidate_id;
   //const [isPdfLoading, setIsPdfLoading] = useState(false);
   const contentRef = useRef(null);
-  const [isReportTokenValid, setIsReportTokenValid] = useState(false);
-
+  //const [isReportTokenValid, setIsReportTokenValid] = useState(false);
+  
   const weakSkill = results?.result?.weakSkill || null;
 
   // Scores
@@ -381,44 +391,44 @@ function SelfReportComponent({ candidate_id, codingResult, results, recommendedC
 }
 
 function Item({ keyy, value }) {
-    return (
-      <div className={styles.items}>
-        <p>{keyy}</p>
-        <p>{value}</p>
+  return (
+    <div className={styles.items}>
+      <p>{keyy}</p>
+      <p style={(keyy==='email')?{textTransform:'lowercase'}:null}>{value}</p>
+    </div>
+  );
+}
+
+function ReportSection({
+  score,
+  headerClassName,
+  heading,
+  children,
+  variant = "one",
+}) {
+  return (
+    <div className={styles.overall_report}>
+      <div
+        className={`${styles.overall_report_header} ${styles[headerClassName]}`}
+      >
+        <h2>{heading}</h2>
+        {variant === "one" ? (
+          <SelfReportScores score={score ? score : 0} />
+        ) : null}
       </div>
-    );
-  }
-  
-  function ReportSection({
-    score,
-    headerClassName,
-    heading,
-    children,
-    variant = "one",
-  }) {
-    return (
-      <div className={styles.overall_report}>
-        <div
-          className={`${styles.overall_report_header} ${styles[headerClassName]}`}
-        >
-          <h2>{heading}</h2>
-          {variant === "one" ? (
-            <SelfReportScores score={score ? score : 0} />
-          ) : null}
-        </div>
-  
-        <div className={styles.report_content}>{children}</div>
-      </div>
-    );
-  }
-  
-  function EnrolledImage({ student }) {
-    const imageSrc = student?.image || "/.avatar3";
-    return (
-      <div className={styles.enrolled_image}>
-        <Image src={imageSrc} height={36.5} width={36.5} />
-      </div>
-    );
-  }
+
+      <div className={styles.report_content}>{children}</div>
+    </div>
+  );
+}
+
+function EnrolledImage({ student }) {
+  const imageSrc = student?.image || "/.avatar3";
+  return (
+    <div className={styles.enrolled_image}>
+      <Image src={imageSrc} height={36.5} width={36.5} />
+    </div>
+  );
+}
 
 export default SelfReportComponent;

@@ -8,6 +8,7 @@ function Page({ params }) {
   // const router = useRouter();
     const router = useRouter();
   const {candidate_id} = router?.query;
+  console.log(candidate_id)
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [codingResult, setCodingResult] = useState();
@@ -65,7 +66,7 @@ function Page({ params }) {
         try {
           if (candidate_id) {
             const response = await fetch(
-              `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
+              `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id-self`,
               {
                 method: "POST",
                 headers: {
@@ -78,6 +79,7 @@ function Page({ params }) {
   
             if (data?.data) {
               setResults(data?.data);
+              setCandidateInfo(data?.data?.candidateInfo)
             }
           }
         } catch (err) {
@@ -116,19 +118,24 @@ function Page({ params }) {
           setIsCodingAssessment(false);
         }
       }
-      fetchCandidatesCodingResult();
+
+      if(candidate_id){
+        fetchCandidatesCodingResult();
+      }
     }, [candidate_id]);
   
     const fetchRecommendedCourses = useCallback(async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`
-      );
-      const data = await response.json();
-  
-      if (data?.status !== 200) {
-        setRecommendedCourse(null);
+      if(weakSkill){
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/search?value=${weakSkill}&searchBy=course`
+        );
+        const data = await response.json();
+    
+        if (data?.status !== 200) {
+          setRecommendedCourse(null);
+        }
+        setRecommendedCourse(data?.data);
       }
-      setRecommendedCourse(data?.data);
     }, [recommendedCourse]);
   
     useEffect(() => {

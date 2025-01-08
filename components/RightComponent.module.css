@@ -27,6 +27,10 @@
   height: 100%;
 }
 
+.masterContainer.dashboard {
+  grid-template-rows: 75px 62px 1fr min-content !important;
+}
+
 /* Scrollbar styles */
 .masterContainer::-webkit-scrollbar {
   width: 8px;
