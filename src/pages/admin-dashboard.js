@@ -1,43 +1,52 @@
-import AdminSideNavbar from '../../components/AdminSideNavbar';
-import AdminSuperComponent from '../../components/AdminSuperComponent';
-import RightComponent from '../../components/RightComponent';
-import styles from './admin-dashboard.module.css';
-import { useActiveItem } from '../contexts/ActiveItemContext';
-import AdminSuper from '../../components/AdminSuper';
-import { reqdata, allClientsData, activeClientsData, inActiveClientsData } from '@/data/dummyClientReq';
-import { allCandidates, notEligibleCandidates, recommendedCandidates, qualifiedCandidates } from '@/data/candDummyData';
-import { useState, useEffect } from 'react';
-import ReportOverlay from '../../components/ReportOverlay';
-import { individualData } from '@/data/jobsDummyData';
-import JobOverlay from '../../components/JobOverlay';
-import AdminOverlay from '../../components/AdminOverlay';
-import AdminRightComponent from '../../components/AdminRightComponent';
-import SuccessIndicator from '../../components/SuccessIndicator';
-import ErrorIndicator from '../../components/ErrorIndicator';
-import ClientSignup from './client-signup';
+import AdminSideNavbar from "../../components/AdminSideNavbar";
+import AdminSuperComponent from "../../components/AdminSuperComponent";
+import RightComponent from "../../components/RightComponent";
+import styles from "./admin-dashboard.module.css";
+import { useActiveItem } from "../contexts/ActiveItemContext";
+import AdminSuper from "../../components/AdminSuper";
+import {
+  reqdata,
+  allClientsData,
+  activeClientsData,
+  inActiveClientsData,
+} from "@/data/dummyClientReq";
+import {
+  allCandidates,
+  notEligibleCandidates,
+  recommendedCandidates,
+  qualifiedCandidates,
+} from "@/data/candDummyData";
+import { useState, useEffect } from "react";
+import ReportOverlay from "../../components/ReportOverlay";
+import { individualData } from "@/data/jobsDummyData";
+import JobOverlay from "../../components/JobOverlay";
+import AdminOverlay from "../../components/AdminOverlay";
+import AdminRightComponent from "../../components/AdminRightComponent";
+import SuccessIndicator from "../../components/SuccessIndicator";
+import ErrorIndicator from "../../components/ErrorIndicator";
+import ClientSignup from "./client-signup";
 import { useTestState } from "@/contexts/TestRequirementContext";
 
 const Admin = ({}) => {
-
-    const [activeClientsData, setActiveClientsData] = useState(null);
-    const [inActiveClientsData, setInActiveClientsData] = useState(null);
-    const [requestedClientsData, setRequestedClientsData] = useState(null);
-    const [preprocessedCandidates, setPreprocessedCandidates] = useState(null); 
-    const [recommendedCand, setRecommendedCand] = useState([]);
-    const [qualifiedCand, setQualifiedCand] = useState([]);
-    const [notEligibleCand, setNotEligibleCand] = useState([]);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const [adminnToken, setAdminToken] = useState('');
-    const [allClients, setAllClients] = useState();
-    const [allResults, setAllResults] = useState();
-    const [positionCandidates, setPositionCandidates] = useState([]);
-     const {
-        isTestRequired,
-        setIsTestRequired,
-        isArabicChosen,
-        setIsArabicChosen,
-      } = useTestState();
+  const [activeClientsData, setActiveClientsData] = useState(null);
+  const [inActiveClientsData, setInActiveClientsData] = useState(null);
+  const [requestedClientsData, setRequestedClientsData] = useState(null);
+  const [preprocessedCandidates, setPreprocessedCandidates] = useState(null);
+  const [recommendedCand, setRecommendedCand] = useState([]);
+  const [qualifiedCand, setQualifiedCand] = useState([]);
+  const [notEligibleCand, setNotEligibleCand] = useState([]);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [adminnToken, setAdminToken] = useState("");
+  const [allClients, setAllClients] = useState();
+  const [allResults, setAllResults] = useState();
+  const [positionCandidates, setPositionCandidates] = useState([]);
+  const {
+    isTestRequired,
+    setIsTestRequired,
+    isArabicChosen,
+    setIsArabicChosen,
+  } = useTestState();
 
   const showError = (message) => {
     setMessage(message);
@@ -76,10 +85,6 @@ const Admin = ({}) => {
     }
   }, [allClients]);
 
-
- 
-  
-  
   // async function getCandidatesByPosition(position_id) {
   //   try {
   //     const reqBody = { position_id };
@@ -96,7 +101,7 @@ const Admin = ({}) => {
   //     );
   //     const data = await response.json();
   //     console.log("API response for candidates:", data);
-  
+
   //     if (data?.data) {
   //       setPositionCandidates(data.data);
   //     } else {
@@ -108,9 +113,6 @@ const Admin = ({}) => {
   //     showError("Failed to fetch candidates.");
   //   }
   // }
-  
- 
-  
 
   async function getCandidatesByPosition(position_id) {
     try {
@@ -150,7 +152,6 @@ const Admin = ({}) => {
       console.log("Error fetching candidates:", err);
     }
   }
-
 
   const preprocessCandidatesData = (candidates) => {
     try {
@@ -221,12 +222,8 @@ const Admin = ({}) => {
     }
   };
 
-  
-   
-      
- 
   console.log("checking:", allResults?.data?.candidates);
-    
+
   useEffect(() => {
     if (allResults?.data) {
       const processedData = preprocessCandidatesData(
@@ -378,7 +375,6 @@ const Admin = ({}) => {
             inActiveClientsData={inActiveClientsData}
             getCandidatesByPosition={getCandidatesByPosition}
           />
-          
         );
       case "All":
         return (
@@ -454,27 +450,26 @@ const Admin = ({}) => {
             jobOverlay={jobOverlay}
             getCandidatesByPosition={getCandidatesByPosition}
           />
-        ); case "position":
+        );
+      case "position":
         return (
           <AdminSuper
-          showError={showError}
-          selectedCandidate={selectedCandidate}
-          showSuccess={showSuccess}
-          adminToken={adminnToken}
-          setShowOverlay={setShowOverlay}
-          reportOverlay={reportOverlay}
-          setReportOverlay={setReportOverlay}
-          setSelectedCandidate={setSelectedCandidate}
-          allCandidates={preprocessedCandidates}
-          getCandidatesByPosition={getCandidatesByPosition}
-        />
-      );
-         
+            setJobOverlay={setJobOverlay}
+            selectedCandidate={selectedCandidate}
+            setSelectedCandidate={setSelectedCandidate}
+            setSelectedJob={setSelectedJob}
+            selectedJob={selectedJob}
+            setReportOverlay={setReportOverlay}
+            reportOverlay={reportOverlay}
+            positionCandidates={positionCandidates}
+            toggleOverlay={toggleOverlay}
+          />
+        );
+
       default:
         return null;
     }
   };
- 
 
   const toggleReportOverlay = () => {
     setReportOverlay(!reportOverlay);
@@ -538,49 +533,70 @@ const Admin = ({}) => {
   //     reportDataFetch();
   //   }, []);
 
+  console.log("active clients data:", activeClientsData);
+  console.log("in active clients data:", inActiveClientsData);
+  console.log("requetsed Clients data", requestedClientsData);
 
+  return (
+    <>
+      {showErrorMessage && (
+        <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />
+      )}
+      {showSuccessMessage && (
+        <SuccessIndicator
+          showSuccessMessage={showSuccessMessage}
+          msgText={message}
+        />
+      )}
+      {showOverlay && (
+        <AdminOverlay
+          adminToken={adminnToken}
+          showError={showError}
+          showErrorMessage={showErrorMessage}
+          message={message}
+          setMessage={setMessage}
+          showSuccessMessage={showSuccessMessage}
+          showSuccess={showSuccess}
+          showOverlay={showOverlay}
+          onClose={toggleOverlay}
+          stages={stages}
+          stageHeadings={stageHeadings}
+        />
+      )}
+      {/* {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />} */}
 
-  
-
-    console.log('active clients data:', activeClientsData);
-    console.log('in active clients data:', inActiveClientsData);    
-    console.log('requetsed Clients data', requestedClientsData)
-
-    return (
-        <>
-            {showErrorMessage && <ErrorIndicator showErrorMessage={showErrorMessage} msgText={message} />}
-            {showSuccessMessage && <SuccessIndicator showSuccessMessage={showSuccessMessage} msgText={message} />}
-            {showOverlay && <AdminOverlay adminToken={adminnToken} showError={showError} showErrorMessage={showErrorMessage} message={message} setMessage={setMessage} showSuccessMessage={showSuccessMessage} showSuccess={showSuccess}  showOverlay={showOverlay} onClose={toggleOverlay} stages={stages} stageHeadings={stageHeadings} />}
-            {/* {jobOverlay && <JobOverlay onClose={toggleJobOverlay} jobOverlay={jobOverlay} selectedJob={selectedJob} />} */}
-           
-           
-            {jobOverlay && (
-          <JobOverlay
-            getCandidatesByPosition={getCandidatesByPosition}
-            isTestRequired={isTestRequired}
-            setIsTestRequired={setIsTestRequired}
-            message={message}
-            showError={showError}
-            showErrorMessage={showErrorMessage}
-            showSuccessMessage={showSuccessMessage}
-            setMessage={setMessage}
-            showSuccess={showSuccess}
-            adminToken={adminnToken}
-            onClose={toggleJobOverlay}
-            jobOverlay={jobOverlay}
-            selectedJob={selectedJob}
-            positionCandidates={positionCandidates}
-          />
-        )}
-            {reportOverlay && <ReportOverlay onClose={toggleReportOverlay} reportOverlay={reportOverlay} selectedCandidate={selectedCandidate} />}
-            <div className={styles.adminPortal}>
-                <AdminSideNavbar />
-                {getActiveComponent()}
-            </div>
-        </>
-    )
-}
-
+      {jobOverlay && (
+        <JobOverlay
+          getCandidatesByPosition={getCandidatesByPosition}
+          isTestRequired={isTestRequired}
+          setIsTestRequired={setIsTestRequired}
+          message={message}
+          showError={showError}
+          showErrorMessage={showErrorMessage}
+          showSuccessMessage={showSuccessMessage}
+          setMessage={setMessage}
+          showSuccess={showSuccess}
+          adminToken={adminnToken}
+          onClose={toggleJobOverlay}
+          jobOverlay={jobOverlay}
+          selectedJob={selectedJob}
+          positionCandidates={positionCandidates}
+        />
+      )}
+      {reportOverlay && (
+        <ReportOverlay
+          onClose={toggleReportOverlay}
+          reportOverlay={reportOverlay}
+          selectedCandidate={selectedCandidate}
+        />
+      )}
+      <div className={styles.adminPortal}>
+        <AdminSideNavbar />
+        {getActiveComponent()}
+      </div>
+    </>
+  );
+};
 
 export default Admin;
 

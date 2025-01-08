@@ -45,17 +45,20 @@ const JobOverlay = ({
 
   const handleClickAllClient = () => {
     onClose();
-    // handle
     console.log("Testingggggg");
-    setActiveItem('position');
-}
+    setActiveItem("position");
+    console.log("setting Item to position");
+  };
 
-useEffect(() => {
+  useEffect(() => {
     if (selectedJob?.position_id) {
-        console.log("Fetching candidates for position ID:", selectedJob.position_id); // Debugging
-        getCandidatesByPosition(selectedJob.position_id);
+      console.log(
+        "Fetching candidates for position ID:",
+        selectedJob.position_id
+      ); // Debugging
+      getCandidatesByPosition(selectedJob.position_id);
     }
-}, [selectedJob]);
+  }, [selectedJob]);
 
   useEffect(() => {
     // selectedJob(selectedJob?.position_id);
@@ -84,7 +87,9 @@ useEffect(() => {
       const data = await response.json();
       console.log("data updated in the table:", data);
       setJobStatus(newStatus);
-      setTimeout(() => {window.location.reload()}, 1000);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       console.log("error:", err);
     }
@@ -169,8 +174,6 @@ useEffect(() => {
   //   setIsLoading(false);
   // }
 
-  
-
   async function copyLink(link) {
     try {
       await copyToClipboard(link);
@@ -206,7 +209,7 @@ useEffect(() => {
     // Ensure questionId is set correctly before creating the link
     const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`;
     console.log("Generated link:", newLink);
-    
+
     try {
       await copyToClipboard(newLink);
       console.log("Link copied!");
@@ -216,7 +219,7 @@ useEffect(() => {
       console.error("Could not copy text: ", err);
     }
   };
-  
+
   // Function to copy text to clipboard
   function copyToClipboard(text) {
     if ("clipboard" in navigator) {
@@ -235,7 +238,6 @@ useEffect(() => {
     }
   }
 
-  
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -346,9 +348,7 @@ useEffect(() => {
               <span
                 onClick={() => {
                   toggleJobStatus();
-                  setMessage(
-                    "Job Status has been changed!"
-                  );
+                  setMessage("Job Status has been changed!");
                   showSuccess();
                 }}
               >
@@ -358,7 +358,9 @@ useEffect(() => {
                 <div className={styles.loader}></div>
               ) : (
                 <button
-                  disabled={selectedJob?.status === "Closed" || interviewCount === 0}
+                  disabled={
+                    selectedJob?.status === "Closed" || interviewCount === 0
+                  }
                   onClick={async () => {
                     await handleCopyClick();
                   }}
@@ -419,7 +421,10 @@ useEffect(() => {
             </div>
             <div className={styles.bottomButtons}>
               <BackButton onClose={onClose}>Back</BackButton>
-              <button className={styles.nextButton} onClick={handleClickAllClient}>
+              <button
+                className={styles.nextButton}
+                onClick={handleClickAllClient}
+              >
                 All Candidates{" "}
                 <span>
                   <Image src="/Forward1.svg" height={35} width={35} />

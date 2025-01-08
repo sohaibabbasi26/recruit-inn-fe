@@ -4,6 +4,7 @@ import CandidatesHub from "./CandidatesHub";
 import JobsHub from "./JobsHub";
 import styles from "./Super.module.css";
 import TopNavbar from "./TopNavbar";
+import { useEffect } from "react";
 
 const Super = ({
   positionCandidates,
@@ -52,6 +53,14 @@ const Super = ({
       dataToRender = closedJobsData;
       break;
   }
+  useEffect(() => {
+    console.log("position candidates are :", positionCandidates);
+  }, [positionCandidates]);
+
+  useEffect(() => {
+    console.log("all candidates are :", allCandidates);
+  }, [allCandidates]);
+
   return (
     <div className={styles.superContainer}>
       <div className={styles.topContainer}>
@@ -159,19 +168,19 @@ const Super = ({
           setSelectedCandidate={setSelectedCandidate}
         />
       )}
-
       {positionCandidates && (
-        <CandidatesHub
-          heading="Selected Position's Candidates"
-          setJobOverlay={setJobOverlay}
-          data={positionCandidates}
-          reportOverlay={reportOverlay}
-          setReportOverlay={setReportOverlay}
-          setSelectedCandidate={setSelectedCandidate}
-        />
+        <div>
+          <p>Hey there</p>
+          <CandidatesHub
+            heading="Selected Position's Candidates"
+            setJobOverlay={setJobOverlay}
+            data={positionCandidates}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            setSelectedCandidate={setSelectedCandidate}
+          />
+        </div>
       )}
-
-      {/* positionCandidates */}
     </div>
   );
 };

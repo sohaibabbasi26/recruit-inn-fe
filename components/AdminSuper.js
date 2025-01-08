@@ -8,7 +8,7 @@ import ClientReqHub from "./ClientReqHub";
 import CandRepHub from "./CandRepHub";
 import ClientJobs from "./ClientsJobs";
 import AdminTopNavbar from "./AdminTopNavbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AdminSuper = ({
   allClients,
@@ -44,6 +44,13 @@ const AdminSuper = ({
   const openAddClientHandler = () => {
     setShowOverlay(true);
   };
+  useEffect(() => {
+    console.log("position candidates are :", positionCandidates);
+  }, [positionCandidates]);
+
+  useEffect(() => {
+    console.log("All candidadates : ", allCandidates);
+  }, [allCandidates]);
 
   return (
     <>
@@ -203,17 +210,20 @@ const AdminSuper = ({
             setJobOverlay={setJobOverlay}
             jobOverlay={jobOverlay}
           />
-        ) :positionCandidates ? (
-          <CandRepHub
-            heading="Candidates for Position"
-            data={positionCandidates}
-            reportOverlay={reportOverlay}
-            setReportOverlay={setReportOverlay}
-            selectedCandidate={selectedCandidate}
-            setSelectedCandidate={setSelectedCandidate}
-          />
-        ) :  (
+        ) : (
           ""
+        )}
+        {positionCandidates && (
+          <div>
+            <CandRepHub
+              heading="Selected Position's Candidates"
+              setJobOverlay={setJobOverlay}
+              data={positionCandidates}
+              reportOverlay={reportOverlay}
+              setReportOverlay={setReportOverlay}
+              setSelectedCandidate={setSelectedCandidate}
+            />
+          </div>
         )}
       </div>
     </>
