@@ -746,6 +746,7 @@ export default function Home({
               showOverlay={showOverlay}
               stages={stages}
               stageHeadings={stageHeadings}
+              interviewCount={interviewCount}
             />
           )}
         </FormProvider>
@@ -774,6 +775,7 @@ export default function Home({
             onClose={toggleJobOverlay}
             jobOverlay={jobOverlay}
             selectedJob={selectedJob}
+            interviewCount={interviewCount}
           />
         )}
         {showPaymentOverlay && (

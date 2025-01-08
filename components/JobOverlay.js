@@ -8,6 +8,7 @@ import { getSvg } from "@/util/helpers";
 import parse from "html-react-parser";
 import BackButton from "./BackButton";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
+import { useRouter } from "next/router";
 
 const JobOverlay = ({
   getCandidatesByPosition,
@@ -24,6 +25,7 @@ const JobOverlay = ({
   setMessage,
   showSuccess,
   isTestRequired,
+  interviewCount,
 }) => {
   console.log("selected job data:", selectedJob);
   const [techStack, setTechStack] = useState();
@@ -82,6 +84,7 @@ useEffect(() => {
       const data = await response.json();
       console.log("data updated in the table:", data);
       setJobStatus(newStatus);
+      setTimeout(() => {window.location.reload()}, 1000);
     } catch (err) {
       console.log("error:", err);
     }
@@ -344,7 +347,7 @@ useEffect(() => {
                 onClick={() => {
                   toggleJobStatus();
                   setMessage(
-                    "Job Status has been changed, refresh to see changes!"
+                    "Job Status has been changed!"
                   );
                   showSuccess();
                 }}
@@ -355,7 +358,7 @@ useEffect(() => {
                 <div className={styles.loader}></div>
               ) : (
                 <button
-                  disabled={selectedJob?.status === "Closed"}
+                  disabled={selectedJob?.status === "Closed" || interviewCount === 0}
                   onClick={async () => {
                     await handleCopyClick();
                   }}
