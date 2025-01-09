@@ -18,7 +18,7 @@ const MainCard = () => {
 
       {/* Title */}
       <h4 className="text-center text-black dark:text-white text-5xl font-bold">
-        Lorem Ipsum Welson
+       Recruitment Pyrocess
       </h4>
 
       {/* Subtitle */}

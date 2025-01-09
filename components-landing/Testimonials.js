@@ -1,32 +1,33 @@
 import Image from "next/image";
 
+
 const testimonials = [
   {
     id: 1,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "I recently had the opportunity to work with a team of developers and I must say it’s a review!",
-    author: "Jenny Wilson",
-    designation: "Relume.io – CEO",
-    image: "/testimonial.png",
+      "RecruitInn.ai saved us time and helped us find top talent faster with smart automation.",
+    author: "Muhammad Ahsan Khan",
+    designation: "Founder, SkillBuilder",
+    image: "/avt1.png",
   },
   {
     id: 2,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "I recently had the opportunity to work with a team of developers and I must say it’s a review!",
-    author: "Jenny Wilson",
-    designation: "Relume.io – CEO",
-    image: "/testimonial.png",
+      "RecruitInn.ai transformed our hiring by speeding up sourcing and enhancing match accuracy with AI.",
+    author: "Muhammad Nameer Uddin",
+    designation: "Founder, Universal Technologies",
+    image: "/avt1.png",
   },
   {
     id: 3,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "I recently had the opportunity to work with a team of developers and I must say it’s a review!",
-    author: "Jenny Wilson",
-    designation: "Relume.io – CEO",
-    image: "/testimonial.png",
+      "RecruitInn.ai sped up hiring and improved candidate quality through smart automation.",
+    author: "Arshad Iqbal",
+    designation: "Country Manager, Tixsee Labs LLC",
+    image: "/avt1.png",
   },
 ];
 
@@ -50,7 +51,7 @@ const Testimonials = () => {
               <p className="mt-4 text-2xl font-bold text-gray-900  leading-relaxed">
                 {testimonial.message}
               </p>
-              <div className="mt-6 flex items-center">
+              <div className="mt-6  flex items-center">
                 <Image
                   src={testimonial.image}
                   alt={testimonial.author}
@@ -58,7 +59,7 @@ const Testimonials = () => {
                   height={48}
                   className="rounded-full"
                 />
-                <div className="ml-4">
+                <div className="ml-4 mt-1">
                   <p className="text-lg text-purple-600 font-bold">
                     {testimonial.author}
                   </p>
