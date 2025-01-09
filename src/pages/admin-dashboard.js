@@ -319,7 +319,8 @@ const Admin = ({}) => {
               showOverlay={showOverlay}
             />
           </>
-        );
+        ); 
+      
       case "AllClients":
         return (
           <AdminSuper
@@ -434,6 +435,20 @@ const Admin = ({}) => {
             notEligibleCandidates={notEligibleCand}
           />
         );
+        case "position":
+          return (
+            <AdminSuper
+              setJobOverlay={setJobOverlay}
+              selectedCandidate={selectedCandidate}
+              setSelectedCandidate={setSelectedCandidate}
+              setSelectedJob={setSelectedJob}
+              selectedJob={selectedJob}
+              setReportOverlay={setReportOverlay}
+              reportOverlay={reportOverlay}
+              positionCandidates={positionCandidates}
+              toggleOverlay={toggleOverlay}
+            />
+          );
       case "viewJobListing":
         return (
           <AdminSuper
@@ -451,20 +466,7 @@ const Admin = ({}) => {
             getCandidatesByPosition={getCandidatesByPosition}
           />
         );
-      case "position":
-        return (
-          <AdminSuper
-            setJobOverlay={setJobOverlay}
-            selectedCandidate={selectedCandidate}
-            setSelectedCandidate={setSelectedCandidate}
-            setSelectedJob={setSelectedJob}
-            selectedJob={selectedJob}
-            setReportOverlay={setReportOverlay}
-            reportOverlay={reportOverlay}
-            positionCandidates={positionCandidates}
-            toggleOverlay={toggleOverlay}
-          />
-        );
+    
 
       default:
         return null;
