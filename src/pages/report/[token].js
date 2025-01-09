@@ -175,13 +175,13 @@ export default function Token() {
     }
   }, [recommendedCourse, weakSkill]);
 
-  if (!isReportTokenValid) {
-    return (
-      <div>
-        <h1>Invalid Token</h1>
-      </div>
-    );
-  }
+  // if (!isReportTokenValid) {
+  //   return (
+  //     <div>
+  //       <h1>Invalid Token</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={styles.reportTokenContainer} ref={contentRef}>

@@ -127,10 +127,13 @@ const LandingThird = () => {
                 GET INTO TOUCH WITH WORLD’S BEST ENGINEERS
               </h3>
               <p className="text-steel dark:text-white max-lg:mb-[1rem]">
-                Forge connections with leading engineers for cutting-edge
-                innovation and expertise. This collaboration unlocks visionary
-                solutions, propelling you to the forefront of engineering
-                excellence for unparalleled success.
+              Finding the right engineers can be tough but it doesn’t have to be. 
+              At RecruitInn.ai, we connect you with some of the best engineering talent out there. 
+              Whether you’re building a new product, scaling your team, 
+              or need help with a specific tech stack, we’ll match you with the 
+              right people who can get the job done. Stop wasting time on endless 
+              searches. Start building something great with top software engineers 
+              ready to make an impact.
               </p>
             </div>
           </div>
@@ -167,10 +170,11 @@ const LandingThird = () => {
                 IN DEMAND SKILLS FOR MODERN TECHNOLOGIES
               </h3>
               <p className="text-steel dark:text-white max-md:mb-[1rem] max-lg:mb-[1rem]">
-                Forge connections with leading engineers for cutting-edge
-                innovation and expertise. This collaboration unlocks visionary
-                solutions, propelling you to the forefront of engineering
-                excellence for unparalleled success.
+              Tech is evolving fast, and you need people with the right skills to keep up. 
+              That’s where we come in. We’ve got experts in React, TypeScript, Swift, GraphQL, 
+              Ruby on Rails, and more. Whether you’re looking for a frontend specialist or a full-stack pro, 
+              we’ll help you find someone who fits your project perfectly. With RecruitInn.ai, 
+              you’ll always have access to top talent with the skills that matter most for your business.
               </p>
             </div>
           </div>
