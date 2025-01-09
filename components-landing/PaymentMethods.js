@@ -23,7 +23,7 @@ export default function PaymentMethods() {
           Our flexible pricing options are tailored to your needs
         </p>
         <div className="text-center mt-4   ">
-          <div
+          {/* <div
             className={`inline-block relative w-[61%] py-1  bg-white dark:bg-[#141414] text-black dark:text-white max-md:mb-4 border border[#F0EDFC] dark:border-black rounded-full  ${
               selectedOption === "monthly" ? "text-white" : ""
             }`}
@@ -67,39 +67,8 @@ export default function PaymentMethods() {
             >
               Yearly Billing
             </label>
-          </div>
-          {/* <div className="inline-block relative bg-gray-900 mb-[2rem] text-white border border-black rounded-full p-1">
-                        <input
-                            type="radio"
-                            name="duration"
-                            value="monthly" 
-                            id="monthly"
-                            className="sr-only"
-                            checked={selectedOption === 'monthly'}
-                            onChange={() => setSelectedOption('monthly')}
-                        />
-                        <label htmlFor="monthly" className="inline-block w-20 h-10 leading-10 cursor-pointer text-base z-50">
-                            Monthly
-                        </label>
-
-                        <input
-                            type="radio"
-                            name="duration"
-                            value="yearly"
-                            id="yearly"
-                            className="sr-only"
-                            checked={selectedOption === 'yearly'}
-                            onChange={() => setSelectedOption('yearly')}
-                        />
-                        <label htmlFor="yearly" className="inline-block w-20 h-10 leading-10 cursor-pointer text-base z-50">
-                            Yearly
-                        </label>
-
-                        <span
-                            className={`z-0 absolute top-1 left-1 h-10 w-20 bg-gradient-to-r from-[#6137DB] to-[#220772] rounded-full transform transition-transform duration-500 ease-in-out ${selectedOption === 'yearly' ? 'translate-x-20' : ''
-                                }`}
-                        ></span>
-                    </div> */}
+          </div> */}
+          
         </div>
       </div>
       
@@ -196,6 +165,8 @@ export default function PaymentMethods() {
                 : "text-primary bg-light-purple-shade "
             }
             img={"/included.png"}
+            packageType="Free"
+            price="0"
             // priceColor={style["gradient-text"]}
             priceColor={theme === "dark" ? "text-white" : "text-black"}
             duration={selectedOption === "monthly" ? "/month" : "/year"}
@@ -214,6 +185,8 @@ export default function PaymentMethods() {
                 : "text-primary bg-light-purple-shade "
             }
             img={"/included.png"}
+            packageType="Starter"
+             price="75"
             // priceColor={style["gradient-text"]}
             priceColor={theme === "dark" ? "text-white" : "text-black"}
             duration={selectedOption === "monthly" ? "/month" : "/year"}
@@ -234,6 +207,8 @@ export default function PaymentMethods() {
                 : "text-white bg-primary"
             }
             img={"/included.png"}
+             packageType="Growth"
+             price="250"
             // priceColor={style["gradient-text"]}
             priceColor={theme === "dark" ? "text-white" : "text-black"}
             duration={selectedOption === "monthly" ? "/month" : "/year"}
@@ -256,6 +231,8 @@ export default function PaymentMethods() {
                 : style["payment-card-pro-button"]
             }
             img={"/Gold-Include.png"}
+             packageType="Enterprise"
+             price="500"
             // priceColor={style["golden-gradient-text"]}
             priceColor="text-lightPurpleText"
             duration={selectedOption === "monthly" ? "/month" : "/year"}

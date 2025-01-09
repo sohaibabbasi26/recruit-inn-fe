@@ -101,7 +101,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    What is recruitinn?
+                    How does RecruitInn.ai conduct AI-based interviews?
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -113,12 +113,11 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {secondDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Recruitinn is an advanced recruitment platform that connects
-                    businesses with top engineers and developers. Our advanced
-                    AI-driven technology streamlines the hiring process by
-                    offering comprehensive assessment tests and personalized
-                    matching, ensuring that you find the perfect candidates for
-                    your specific needs.
+                    RecruitInn.ai uses advanced AI algorithms to conduct
+                    interviews by analyzing candidates' responses, confidence,
+                    and soft skills. It evaluates the candidate's performance in
+                    real-time and provides detailed reports to recruiters or
+                    candidates.
                   </p>
                 )}
 
@@ -136,7 +135,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    What is recruitinn?
+                    Can RecruitInn.ai evaluate both technical and soft skills?
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -148,54 +147,16 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {thirdDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Recruitinn is an advanced recruitment platform that connects
-                    businesses with top engineers and developers. Our advanced
-                    AI-driven technology streamlines the hiring process by
-                    offering comprehensive assessment tests and personalized
-                    matching, ensuring that you find the perfect candidates for
-                    your specific needs.
+                    Yes, RecruitInn.ai evaluates both technical skills (like
+                    coding, problem-solving, etc.) and soft skills (like
+                    communication, critical thinking, and teamwork) during the
+                    interview process. The tool provides comprehensive insights
+                    to help recruiters make better decisions.
                   </p>
                 )}
 
                 {/* Add a fading effect when the dropdown is closed */}
                 {thirdDropDownState && (
-                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
-                )}
-              </li>
-              <li
-                onClick={toggleFourthDropDown}
-                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
-                  ${
-                    !fourthDropDownState
-                      ? "border-gray-200"
-                      : "relative border-white"
-                  }`}
-              >
-                <div className="w-full flex justify-between items-center gap-2">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    What is recruitinn?
-                  </span>
-                  <ChevronDown
-                    classes={`w-7 h-7 transition-transform duration-300 ${
-                      fourthDropDownState && "rotate-180"
-                    } ${theme == "light" ? "opacity-80" : ""}`}
-                  />
-                </div>
-
-                {/* Dropdown content */}
-                {fourthDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
-                    Recruitinn is an advanced recruitment platform that connects
-                    businesses with top engineers and developers. Our advanced
-                    AI-driven technology streamlines the hiring process by
-                    offering comprehensive assessment tests and personalized
-                    matching, ensuring that you find the perfect candidates for
-                    your specific needs.
-                  </p>
-                )}
-
-                {/* Add a fading effect when the dropdown is closed */}
-                {fourthDropDownState && (
                   <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
                 )}
               </li>
@@ -210,7 +171,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    What is recruitinn?
+                    Can Recruitinn.ai adapt to any job description?
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -222,17 +183,48 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {fifthDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Recruitinn is an advanced recruitment platform that connects
-                    businesses with top engineers and developers. Our advanced
-                    AI-driven technology streamlines the hiring process by
-                    offering comprehensive assessment tests and personalized
-                    matching, ensuring that you find the perfect candidates for
-                    your specific needs.
+                    Yes, Recruitinn.ai is built to work with any job description
+                    worldwide, ensuring precise candidate evaluation
+                    irrespective of the role.
                   </p>
                 )}
 
                 {/* Add a fading effect when the dropdown is closed */}
                 {fifthDropDownState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
+                )}
+              </li>
+              <li
+                onClick={toggleFourthDropDown}
+                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
+                  ${
+                    !fourthDropDownState
+                      ? "border-gray-200"
+                      : "relative border-white"
+                  }`}
+              >
+                <div className="w-full flex justify-between items-center gap-2">
+                  <span className="text-lg tracking-wide font-semibold font-sans">
+                    How do I get started with Recruitinn.ai ?
+                  </span>
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      fourthDropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
+                  />
+                </div>
+
+                {/* Dropdown content */}
+                {fourthDropDownState && (
+                  <p className="text-sm text-smallText mt-3">
+                    Getting started with Recruitinn.ai is simple. Choose a plan
+                    that suits your needs, sign up, and you’ll be on your way to
+                    revolutionizing your hiring process.
+                  </p>
+                )}
+
+                {/* Add a fading effect when the dropdown is closed */}
+                {fourthDropDownState && (
                   <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
                 )}
               </li>

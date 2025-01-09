@@ -94,7 +94,7 @@ function RecruitInnProcess() {
   return (
     <div
       ref={container2}
-      className="section4 relative space-y-8 mt-16 w-90p mx-auto"
+      className="section4 relative space-y-8 mt-16 w-90p mx-auto  max-md:hidden md:block"
     >
       <h2 className="heading text-3xl font-bold text-center block leading-[unset] transition-opacity duration-500">
         {" "}
