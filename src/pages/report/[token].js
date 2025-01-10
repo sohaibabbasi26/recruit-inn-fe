@@ -97,11 +97,11 @@ export default function Token() {
 
   useEffect(() => {
     async function fetchResults() {
-      const reqBody = {
-        candidate_id: candidateId,
-      };
       try {
         if (candidateId) {
+          const reqBody = {
+            candidate_id: candidateId,
+          };
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
             {
@@ -123,7 +123,7 @@ export default function Token() {
       }
     }
     //setIsLoading(true);
-    if(token){
+    if(isReportTokenValid){
       fetchResults();
     }
   }, [router?.isReady, candidateId, token]);
