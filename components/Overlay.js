@@ -17,6 +17,7 @@ import Stages from "./Stages";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
 import SuccessIndicator from "./SuccessIndicator";
+import SocialShare from "./SocialShare";
 
 const Overlay = React.memo(
   ({
@@ -784,6 +785,7 @@ const Overlay = React.memo(
                       interviewCount={interviewCount}
                     />
                     <div className={styles.wrapper}>
+                      <SocialShare url={`${process.env.NEXT_PUBLIC_URL}/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${isArabicChosen ? "Arabic" : "English"}`}/>
                       <ShareLinkBtns
                         showError={showError}
                         // validateReceivers={validateReceivers}
