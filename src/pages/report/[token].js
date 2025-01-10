@@ -113,7 +113,7 @@ export default function Token() {
             }
           );
           const data = await response.json();
-
+          
           if (data?.data) {
             setResults(data?.data);
           }
@@ -123,9 +123,11 @@ export default function Token() {
       }
     }
     //setIsLoading(true);
-    fetchResults();
-  }, [router?.isReady, candidateId]);
-
+    if(token){
+      fetchResults();
+    }
+  }, [router?.isReady, candidateId, token]);
+  
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       //setIsLoading(true);
