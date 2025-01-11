@@ -1,12 +1,12 @@
 import styles from "./QuestionBox.module.css";
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { dummyQuestions } from "@/data/dummyQuestions";
+// import { dummyQuestions } from "@/data/dummyQuestions";
 import { useRouter } from "next/router";
-import { useTest } from "@/contexts/QuestionsContent";
-import { useSpeechSynthesis } from "react-speech-kit";
+// import { useTest } from "@/contexts/QuestionsContent";
+// import { useSpeechSynthesis } from "react-speech-kit";
 import ErrorIndicator from "./ErrorIndicator";
-import Script from "next/script";
+//import Script from "next/script";
 
 const QuestionBox = ({
   hasStarted,
@@ -29,9 +29,9 @@ const QuestionBox = ({
   const { cid, qid, pid, a_id, test_req, language } = router?.query;
   const [recordingDone, setRecordingDone] = useState(false);
   // const [isLoading, setIsLoading] = useState(false);
-  const [disableRecordingButton, setDisableRecordingButton] = useState(false);
+  // const [disableRecordingButton, setDisableRecordingButton] = useState(false);
   const [questions, setQuestions] = useState();
-  const { speak, cancel, voices } = useSpeechSynthesis();
+  //const { speak, cancel, voices } = useSpeechSynthesis();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
