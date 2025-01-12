@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import questionsReducer from './slices/questionsSlice';
-import cameraSlice from '@/redux/cameraSlice';
 
 const loggerMiddleware = (store) => (next) => (action) => {
     const result = next(action);
@@ -14,7 +13,6 @@ export const makeStore = () =>
   configureStore({
     reducer: {
       questions: questionsReducer,
-      camera: cameraSlice
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
   });
