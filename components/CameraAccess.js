@@ -1,9 +1,10 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import Button from "./Button";
 import styles from "./CameraAccess.module.css";
 
 const CameraAccessInstruction = forwardRef(
   ({ isLoading, setIsLoading, onClose }, ref) => {
+    const [hasCameraTurnedOn, setHasCameraTurnedOn] = useState(false);
     const turnOnCamera = () => {
       navigator.mediaDevices
         .getUserMedia({ video: true })
@@ -15,6 +16,7 @@ const CameraAccessInstruction = forwardRef(
         .catch((error) => {
           console.error("Error accessing the camera: ", error);
         });
+        setHasCameraTurnedOn(true);
     };
 
     return (
@@ -41,12 +43,15 @@ const CameraAccessInstruction = forwardRef(
                 autoPlay
               ></video>
             </div>
-            <Button onClick={turnOnCamera} isFor="next">
-              Turn On Camera
-            </Button>
-            <Button onClick={onClose} isFor="next">
-              Next
-            </Button>
+            {!hasCameraTurnedOn ? (
+              <Button onClick={turnOnCamera} isFor="next">
+                Turn On Camera
+              </Button>
+            ) : (
+              <Button onClick={onClose} isFor="next">
+                Next
+              </Button>
+            )}
           </div>
         )}
       </div>
