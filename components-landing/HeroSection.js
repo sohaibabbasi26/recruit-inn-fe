@@ -128,7 +128,7 @@ const HeroSection = () => {
         </div>
 
         <TrustedCandidates />
-        <Link href="https://app.recruitinn.ai/client-signup">
+        <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}>
           <button
             className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
           >

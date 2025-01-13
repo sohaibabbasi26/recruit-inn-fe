@@ -226,7 +226,7 @@ const AddSkillForm = forwardRef(
               onChange={handleArabicChooseChange}
             />
             <label htmlFor="code-assignment1">
-              Do you want the questions to be in Arabic?{" "}
+              Would you like to continue the interview in Arabic?{" "}
             </label>
           </div>
         </form>

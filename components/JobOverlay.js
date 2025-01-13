@@ -9,6 +9,7 @@ import parse from "html-react-parser";
 import BackButton from "./BackButton";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
+import SocialShare from "./SocialShare";
 
 const JobOverlay = ({
   getCandidatesByPosition,
@@ -207,7 +208,7 @@ const JobOverlay = ({
 
   const handleCopyClick = async () => {
     // Ensure questionId is set correctly before creating the link
-    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`;
+    const newLink = `${process.env.NEXT_PUBLIC_URL}/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`;
     console.log("Generated link:", newLink);
 
     try {
@@ -352,7 +353,9 @@ const JobOverlay = ({
                   showSuccess();
                 }}
               >
-                {selectedJob?.status === "Active" ? "Close Job" : "Change job status to open"}
+                {selectedJob?.status === "Active"
+                  ? "Close Job"
+                  : "Change job status to open"}
               </span>
               {isLoading ? (
                 <div className={styles.loader}></div>
@@ -420,6 +423,9 @@ const JobOverlay = ({
               </div>
             </div>
             <div className={styles.bottomButtons}>
+              <SocialShare
+                url={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
+              />
               <BackButton onClose={onClose}>Back</BackButton>
               <button
                 className={styles.nextButton}

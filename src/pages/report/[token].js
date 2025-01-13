@@ -97,11 +97,11 @@ export default function Token() {
 
   useEffect(() => {
     async function fetchResults() {
-      const reqBody = {
-        candidate_id: candidateId,
-      };
       try {
         if (candidateId) {
+          const reqBody = {
+            candidate_id: candidateId,
+          };
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/result-by-cand-id`,
             {
@@ -113,7 +113,7 @@ export default function Token() {
             }
           );
           const data = await response.json();
-
+          
           if (data?.data) {
             setResults(data?.data);
           }
@@ -123,9 +123,11 @@ export default function Token() {
       }
     }
     //setIsLoading(true);
-    fetchResults();
-  }, [router?.isReady, candidateId]);
-
+    if(isReportTokenValid){
+      fetchResults();
+    }
+  }, [router?.isReady, candidateId, token]);
+  
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       //setIsLoading(true);

@@ -53,14 +53,14 @@ const LandingNavbar = ({
               <div className="w-60p items-center flex justify-end gap-6 max-xl:gap-2">
               
                 <span className="px-10 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
-                  <a href="https://app.recruitinn.ai/candidate-self">
+                  <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-self`}>
                     {" "}
                     Apply for jobs
                   </a> 
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
-                    href="https://app.recruitinn.ai/client-signup"
+                    href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}
                     className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
                     Recruit A Talent
@@ -110,12 +110,12 @@ const LandingNavbar = ({
                     Login
                     <ul className={styles.dropdown_menu}>
                       <li>
-                        <a href="https://app.recruitinn.ai/client-login">
+                        <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
                           Client
                         </a>
                       </li>
                       <li>
-                        <a href="https://app.recruitinn.ai/candidate-login">
+                        <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}>
                           Candidate
                         </a>
                       </li>
@@ -186,22 +186,22 @@ const LandingNavbar = ({
                 {/* <span className="text-sm font-semibold max-lg:py-2 max-lg:border-b max-lg:border-darkPurple">
                 Apply As An Engineer
                 </span> */}
-                <a href="https://app.recruitinn.ai/candidate-self">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-self`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
                     Apply As An Engineer
                   </button>
                 </a>
-                <a href="https://app.recruitinn.ai/client-signup">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}>
                   <button className="px-10 py-3.5 max-lg:py-2 text-sm bg-transparent max-lg:border-b max-lg:border-darkPurple font-semibold max-lg:block hidden">
                     Recruit A Talent
                   </button>
                 </a>
-                <a href="https://app.recruitinn.ai/client-login">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
                     Login as client
                   </button>
                 </a>
-                <a href="https://app.recruitinn.ai/candidate-login">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
                     Login as candidate
                   </button>
