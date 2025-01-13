@@ -29,7 +29,7 @@ const LandingNavbar = ({
                   Recruitinn.ai
                 </h2>
 
-                <ul className="flex text-steel dark:text-white mt-1 gap-10 max-xl:gap-3 max-xl:w-[70%]">
+                <ul className="flex text-steel mt-1 dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
                   <li
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
@@ -105,9 +105,9 @@ const LandingNavbar = ({
                     </ul>
                   </div> */}
                   <div
-                    className={`${styles.dropdown}  text-[#170D23] font-bold flex px-10 mt-2 text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
+                    className={`${styles.dropdown}  text-[#170D23] font-bold  flex px-10  text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
                   >
-                   <span className="mt-2" > Login</span>  
+                      <span className="mt-3" > Login</span>
                     <Image src="/Arrow.svg" height={30} width={30} />
                     
                     <ul className={styles.dropdown_menu}>
@@ -134,7 +134,7 @@ const LandingNavbar = ({
       </>
       {/* mobile de screen buthur */}
       <div className="h-[10vh] bg-white dark:bg-black">
-        <div className="h-[10vh] bg-white dark:bg-black z-50 w-full flex max-lg:items-center max-lg:justify-center hidden max-lg:flex fixed ">
+        <div className="h-[10vh] bg-white dark:bg-black z-50 w-full  max-lg:items-center max-lg:justify-center hidden max-lg:flex fixed ">
           <div className="w-100p h-[2rem] flex flex-col max-sm:justify-between max-sm:items-center  text-white ">
             <div className="flex w-[100%] justify-between items-center">
               <div className="flex items-center gap-3 max-lg:ml-[1.5rem] max-sm:ml-[1rem]">

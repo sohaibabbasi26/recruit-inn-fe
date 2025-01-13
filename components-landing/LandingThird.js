@@ -154,7 +154,7 @@ const LandingThird = () => {
                 {" "}
                 <TechstackTwo />
               </div>
-               <div className="opacity-30  max-md:hidden">
+               <div className="opacity-25  max-md:hidden">
                 {" "}
                 <TechstackThree />
               </div>
