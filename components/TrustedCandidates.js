@@ -38,3 +38,4 @@ const TrustedCandidates = () => {
 };
 
 export default TrustedCandidates;
+
