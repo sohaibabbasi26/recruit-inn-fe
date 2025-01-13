@@ -394,6 +394,11 @@ const JobOverlay = ({
                   <Image src="/copylink.svg" height={25} width={25} />
                 </button>
               )}
+              
+                {" "}
+                <SocialShare
+                  url={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
+                />
             </div>
 
             <div className={styles.description}>
@@ -445,9 +450,6 @@ const JobOverlay = ({
               </div>
             </div>
             <div className={styles.bottomButtons}>
-              <SocialShare
-                url={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
-              />
               <BackButton onClose={onClose}>Back</BackButton>
               <button
                 className={styles.nextButton}
