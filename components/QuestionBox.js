@@ -28,7 +28,7 @@ const QuestionBox = //forwardRef(
       const [timeLeft, setTimeLeft] = useState(130);
       const [newQuestions, setNewQuestions] = useState(null);
       const [isRecording, setIsRecording] = useState(false);
-      const [audioURLs, setAudioURLs] = useState({});
+      //const [audioURLs, setAudioURLs] = useState({});
       const mediaRecorderRef = useRef(null);
       const recordedChunksRef = useRef([]);
       const [answers, setAnswers] = useState([]);
@@ -453,10 +453,10 @@ const QuestionBox = //forwardRef(
               });
               recordedChunksRef.current = [];
               const audioURL = URL.createObjectURL(blob);
-              setAudioURLs((prevURLs) => ({
-                ...prevURLs,
-                [currentQuestion]: audioURL,
-              }));
+              // setAudioURLs((prevURLs) => ({
+              //   ...prevURLs,
+              //   [currentQuestion]: audioURL,
+              // }));
 
               isProcessingRef.current = true;
               await processRecording(
@@ -831,19 +831,6 @@ const QuestionBox = //forwardRef(
           console.error("Error sending audio to server:", error);
           return "Error in transcription";
         }
-      }
-
-      function blobToBase64(blob) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => {
-            const base64data = reader.result.split(",")[1];
-            console.log("Converted Base64 Length:", base64data.length);
-            resolve(base64data);
-          };
-          reader.onerror = reject;
-        });
       }
 
       useEffect(() => {
