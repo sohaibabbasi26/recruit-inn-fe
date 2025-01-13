@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 // import { useSpeechSynthesis } from "react-speech-kit";
 import ErrorIndicator from "./ErrorIndicator";
 import VideoComponent from "./VideoComponent";
+import blobToBase64 from "@/util/blobToBase64";
 //import Script from "next/script";
 
 const QuestionBox = //forwardRef(
