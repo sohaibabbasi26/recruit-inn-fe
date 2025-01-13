@@ -10,6 +10,7 @@ import BackButton from "./BackButton";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 import { useRouter } from "next/router";
 import SocialShare from "./SocialShare";
+import Head from "next/head";
 
 const JobOverlay = ({
   getCandidatesByPosition,
@@ -287,6 +288,27 @@ const JobOverlay = ({
 
   return (
     <>
+      <Head>
+        <title>Job - Recruitinn</title>
+        <meta
+          name="description"
+          content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+        />
+        <meta property="og:title" content="Job - Recruitinn" />
+        <meta
+          property="og:description"
+          content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+        />
+        <meta
+          property="og:image"
+          content="https://app.recruitinn.ai/og-image.png"
+        />
+        <meta
+          property="og:url"
+          content={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
+        />
+        <meta property="og:type" content="website" />
+      </Head>
       <div ref={overlayRef} className={styles.parent}>
         {showErrorMessage && (
           <ErrorIndicator
