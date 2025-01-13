@@ -212,46 +212,35 @@ const AdminTopNavbar = ({
             </div>
           </div>
         </div>
-        {searchResults && searchResults?.data && searchResults?.data?.data && (
-          <div className={styles.searchResults} ref={searchResultsRef}>
-            <ul>
-              {searchResults?.data?.data?.map((result) => (
-                <li
-                  key={result?.position_id}
-                  onClick={() => {
-                    console.log(
-                      "fetched result for selected candidate:",
-                      result
-                    );
-                    searchType === "Jobs"
-                      ? onJobSelect(result)
-                      : searchType === "Candidates"
-                      ? cardClickHandler(result)
-                      : "";
-                    setSearchResults(null);
-                  }}
-                >
-                  {searchType === "Jobs"
-                    ? result?.position
-                    : searchType === "Candidates"
-                    ? result?.name
-                    : ""}
-                  {searchType === "Candidates" ? (
-                    <span>
-                      {" "}
-                      Tech stack:{" "}
-                      {result?.expertise
-                        ?.map((expertise) => expertise?.skill)
-                        .join(", ")}{" "}
-                    </span>
-                  ) : (
-                    <></>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+     
+          {searchResults && searchResults?.data?.data ? (
+          searchResults.data.data.length > 0 ? (
+            <div className={styles.searchResults} ref={searchResultsRef}>
+              <ul>
+                {searchResults.data.data.map((result) => (
+                  <li
+                    key={result?.position_id || result?.candidate_id}
+                    onClick={() => {
+                      searchType === "Jobs"
+                        ? onJobSelect(result)
+                        : searchType === "Candidates"
+                        ? cardClickHandler(result)
+                        : null;
+                      setSearchResults(null);
+                    }}
+                  >
+                    {searchType === "Jobs" ? result?.position : result?.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className={styles.searchResults} ref={searchResultsRef}>
+              <p>No {searchType === "Jobs" ? "jobs" : "candidates"} found.</p>
+            </div>
+          )
+        ) : null}
+      
 
         <button onClick={handleButtonClick}>Invite A Candidate</button>
       </div>

@@ -50,15 +50,13 @@
   animation: 25s slide infinite linear;
 }
 
-.logos:hover .logos-slide {
-  animation-play-state: paused;
-}
+
 
 @keyframes slide {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }

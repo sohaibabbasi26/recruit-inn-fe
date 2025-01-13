@@ -19,13 +19,13 @@ const HeroSection = () => {
 
               {/* <div className="bg-gradient-to-br from-[#31CDBA] h-[8rem] w-[5rem] relative left-[25rem] top-[4rem] rounded-full"></div> */}
               {/* <div className="bg-gradient-to-br  from-[#FF0000] h-[3rem] w-[5rem]  left-[13rem] top-[14rem] rounded-full"></div> */}
-              <div className="bg-gradient-to-br from-[#FF0000] h-[3rem] w-[5rem] relative left-[10rem] top-[11rem] rounded-full"></div>
+              <div className="bg-gradient-to-br from-[#FF0000] h-[3rem] w-[5rem] relative left-[18rem] top-[8rem] rounded-full"></div>
 
               <div
                 className={`w-100p h-[100%] relative bg-transparent flex backdrop-blur-[40px]`}
               >
                 <div
-                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 bg-white border-[#FF0000] left-[10rem] top-[61%]  rounded-2xl self-end mb-28`}
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 bg-white border-[#FF0000] left-[25rem] top-[40%]  rounded-2xl self-end mb-28`}
                 >
                   <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
                     <Image src="/Bitmoji.svg" width={20} height={20} />

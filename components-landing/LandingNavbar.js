@@ -29,7 +29,7 @@ const LandingNavbar = ({
                   Recruitinn.ai
                 </h2>
 
-                <ul className="flex text-steel dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
+                <ul className="flex text-steel dark:text-white mt-1 gap-10 max-xl:gap-3 max-xl:w-[70%]">
                   <li
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
@@ -52,7 +52,7 @@ const LandingNavbar = ({
               </div>
               <div className="w-60p items-center flex justify-end gap-6 max-xl:gap-2">
               
-                <span className="px-10 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
+                <span className="px-12 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
                   <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-self`}>
                     {" "}
                     Apply for jobs
@@ -105,9 +105,11 @@ const LandingNavbar = ({
                     </ul>
                   </div> */}
                   <div
-                    className={`${styles.dropdown}  text-[#170D23] font-bold  px-10 py-3.5 text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
+                    className={`${styles.dropdown}  text-[#170D23] font-bold flex px-10 mt-2 text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
                   >
-                    Login
+                   <span className="mt-2" > Login</span>  
+                    <Image src="/Arrow.svg" height={30} width={30} />
+                    
                     <ul className={styles.dropdown_menu}>
                       <li>
                         <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
@@ -121,6 +123,7 @@ const LandingNavbar = ({
                       </li>
                     </ul>
                   </div>
+                     
                 </div>
               </div>
 
