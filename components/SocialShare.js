@@ -1,7 +1,7 @@
 import { LinkedinIcon, LinkedinShareButton } from "next-share";
 import React from "react";
 
-function SocialShare({ url }) {
+function SocialShare({ url,}) {
 
   
   return (

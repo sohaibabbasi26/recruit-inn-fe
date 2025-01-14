@@ -85,10 +85,19 @@ const ShareLink = ({
   };
 
   useEffect(() => {
-    setSubject(`RecruitInn AI Assessment Link for ${positionName} position.`);
-    setText(`Dear Candidate,
-To complete your next step in the hiring process! Please find your test link below, powered by RecruitInn.ai. This test will help us evaluate your skills and qualifications for the ${positionName} position.
-Your test link: ${link}`);
+    setSubject(`Complete Your Online Assessment with Recruitinn.ai`);
+    setText(`
+      Dear Candidate,
+      
+      You have been invited to complete an online assessment as part of the recruitment process. Please use the link below to access your test:
+      Test Link: ${link}
+
+      Please ensure you complete the assessment within the given time frame. If you have any questions, feel free to reach out.
+
+      Good luck!
+
+      Best regards, 
+      Team Recruitinn`);
   });
 
   return (
