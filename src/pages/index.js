@@ -79,9 +79,10 @@ const LandingPage = () => {
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>  */}
-        <div>
-          <Testimonials />
-        </div>
+          <div ref={testimonialsRef}>
+         <Testimonials />
+         </div>
+       
         <div ref={pricingRef} className="pt-4">
           <PaymentMethods  />
         </div>

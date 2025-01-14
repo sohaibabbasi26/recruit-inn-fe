@@ -1,13 +1,13 @@
 
 .img {
-    height: 80px;
+    height: 55px;
     margin: 0 20px; /* Adjust margin as needed */
     border-radius: 12px;
   }
 
 .imageWrapper {
-  height: 100px; 
-  width: 100px; 
+  height: 105px; 
+  width: 105px; 
   display: flex;
   align-items: center;
   justify-content: center;

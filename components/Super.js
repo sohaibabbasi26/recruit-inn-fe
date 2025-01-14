@@ -76,8 +76,7 @@ const Super = ({
           />
         </div>
         <div class="RightComponent_superContainer__1aFKs">
-          <div class="RightComponent_masterContainer__Ad_ng">
-            <div class="RightComponent_btnsDiv__jJavs">
+        
               <button
                 className={styles.RightComponent_addJobBtn__PGBvV}
                 onClick={toggleOverlay}
@@ -94,8 +93,7 @@ const Super = ({
                 />
               </button> */}
             </div>
-          </div>
-        </div>
+        
       </div>
 
       {finalData && (

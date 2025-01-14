@@ -214,8 +214,11 @@ const AdminSuper = ({
           ""
         )}
         {positionCandidates && (
-          <div>
+          
             <CandRepHub
+              showError={showError}
+              showSuccess={showSuccess}
+              adminToken={adminToken}c
               heading="Selected Position's Candidates"
               setJobOverlay={setJobOverlay}
               data={positionCandidates}
@@ -223,7 +226,7 @@ const AdminSuper = ({
               setReportOverlay={setReportOverlay}
               setSelectedCandidate={setSelectedCandidate}
             />
-          </div>
+          
         )}
       </div>
     </>

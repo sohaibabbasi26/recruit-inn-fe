@@ -17,6 +17,8 @@ import Stages from "./Stages";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
 import SuccessIndicator from "./SuccessIndicator";
+import SocialShare from "./SocialShare";
+import Head from "next/head";
 
 const Overlay = React.memo(
   ({
@@ -617,6 +619,31 @@ const Overlay = React.memo(
     // };
     return (
       <>
+        <Head>
+          <title>Job - Recruitinn</title>
+          <meta
+            name="description"
+            content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+          />
+          <meta property="og:title" content="Job - Recruitinn" />
+          <meta
+            property="og:description"
+            content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+          />
+          <meta
+            property="og:image"
+            content="https://app.recruitinn.ai/og-image.png"
+          />
+          <meta
+            property="og:url"
+            content={`${
+                          process.env.NEXT_PUBLIC_URL
+                        }/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${
+                          isArabicChosen ? "Arabic" : "English"
+                        }`}
+          />
+          <meta property="og:type" content="website" />
+        </Head>
         <div ref={overlayRef} className={styles.parent}>
           {showErrorMessage && (
             <ErrorIndicator
@@ -784,6 +811,13 @@ const Overlay = React.memo(
                       interviewCount={interviewCount}
                     />
                     <div className={styles.wrapper}>
+                      <SocialShare
+                        url={`${
+                          process.env.NEXT_PUBLIC_URL
+                        }/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${
+                          isArabicChosen ? "Arabic" : "English"
+                        }`}
+                      />
                       <ShareLinkBtns
                         showError={showError}
                         // validateReceivers={validateReceivers}

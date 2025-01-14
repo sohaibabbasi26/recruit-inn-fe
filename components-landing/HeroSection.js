@@ -9,9 +9,9 @@ const HeroSection = () => {
   // const { theme } = useTheme();
   return (
     <>
-      <div className="w-full h-[87svh] flex flex-col items-center">
-        <div className="w-100p h-[60%] flex justify-center mt-20">
-          <div className="w-100p h-full  max-lg:hidden">
+      <div className="w-full h-[87svh] max-xsm:h-[67svh] max-sm:h-[60svh] max-lg:h-[75svh]  flex flex-col items-center">
+        <div className="w-100p h-[60%]  max-xsm:h-[5%]  max-sm:h-[35%] max-lg:h-[45%] flex justify-center mt-20">
+          <div className="w-100p h-full   max-lg:hidden">
             <div className=" h-[100%] w-[100%] flex ">
               {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
 
@@ -49,7 +49,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
+          <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
             <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
               Agile recruitment for today’s world of work
             </h1>
@@ -128,7 +128,7 @@ const HeroSection = () => {
         </div>
 
         <TrustedCandidates />
-        <Link href="https://app.recruitinn.ai/client-signup">
+        <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}>
           <button
             className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
           >

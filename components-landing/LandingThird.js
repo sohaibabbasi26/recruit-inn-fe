@@ -13,16 +13,16 @@ const LandingThird = () => {
   const { theme } = useTheme();
   return (
     <>
-      <div className="h-[800px] max-lg:h-100p w-full flex justify-center mb-[2rem]">
+      <div className="h-[800px] max-md:h-80p  max-lg:h-100p w-full flex justify-center mb-[2rem]">
         <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] flex justify-between items-center gap-5 ">
           <div
             className={`${
               theme === "dark"
                 ? style["right-dv-gradient"]
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
-            } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
+            } w-[50%]  max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh] mt-[58px] flex justify-center items-center relative">
+            <div className="w-80p h-50p max-xl:h-[70vh]  max-sm:mt-1 mt-[58px] flex justify-center items-center relative">
               {/* Central Logo */}
               <div className="absolute">
                 <Image
@@ -119,18 +119,21 @@ const LandingThird = () => {
               </div>
             </div>
 
-            <div className="w-80p h-50p flex flex-col justify-center mt-5">
+            <div className="w-80p h-50p flex flex-col justify-center mt-5 max-sm:mt-0">
               <span className="text-lightPurpleText font-semibold text-lg">
                 TALENTS
               </span>
               <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
                 GET INTO TOUCH WITH WORLD’S BEST ENGINEERS
               </h3>
-              <p className="text-steel dark:text-white max-md:mb-[1rem]">
-                Forge connections with leading engineers for cutting-edge
-                innovation and expertise. This collaboration unlocks visionary
-                solutions, propelling you to the forefront of engineering
-                excellence for unparalleled success.
+              <p className="text-steel dark:text-white max-lg:mb-[1rem]">
+              Finding the right engineers can be tough but it doesn’t have to be. 
+              At RecruitInn.ai, we connect you with some of the best engineering talent out there. 
+              Whether you’re building a new product, scaling your team, 
+              or need help with a specific tech stack, we’ll match you with the 
+              right people who can get the job done. Stop wasting time on endless 
+              searches. Start building something great with top software engineers 
+              ready to make an impact.
               </p>
             </div>
           </div>
@@ -140,7 +143,7 @@ const LandingThird = () => {
               theme === "dark"
                 ? ""
                 : "border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40 "
-            } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%] h-[100%]  bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
+            } w-[50%] max-lg:mb-[1rem]  max-lg:w-[100%] max-lg:h-[100%]  h-[100%]  bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
             <div className="w-[100%] max-h-[320px] overflow-hidden flex flex-col justify-center items-center relative mb-[1.5rem]">
               <div className=" max-md:mt-[100px] mt-[150px]">
@@ -151,7 +154,7 @@ const LandingThird = () => {
                 {" "}
                 <TechstackTwo />
               </div>
-               <div className="opacity-30  max-md:hidden">
+               <div className="opacity-25  max-md:hidden">
                 {" "}
                 <TechstackThree />
               </div>
@@ -159,18 +162,19 @@ const LandingThird = () => {
               <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
             </div>
         
-            <div className="w-80p h-50p mt-[100px]  flex flex-col justify-center">
+            <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[40px] mt-[100px]  flex flex-col justify-center">
               <span className="text-lightPurpleText font-semibold text-lg">
                 SKILLS
               </span>
               <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
                 IN DEMAND SKILLS FOR MODERN TECHNOLOGIES
               </h3>
-              <p className="text-steel dark:text-white max-sm:mb-[1rem]">
-                Forge connections with leading engineers for cutting-edge
-                innovation and expertise. This collaboration unlocks visionary
-                solutions, propelling you to the forefront of engineering
-                excellence for unparalleled success.
+              <p className="text-steel dark:text-white max-md:mb-[1rem] max-lg:mb-[1rem]">
+              Tech is evolving fast, and you need people with the right skills to keep up. 
+              That’s where we come in. We’ve got experts in React, TypeScript, Swift, GraphQL, 
+              Ruby on Rails, and more. Whether you’re looking for a frontend specialist or a full-stack pro, 
+              we’ll help you find someone who fits your project perfectly. With RecruitInn.ai, 
+              you’ll always have access to top talent with the skills that matter most for your business.
               </p>
             </div>
           </div>

@@ -37,9 +37,9 @@ const  PaymentCard = ({
             <p className="text-steel dark:text-smallText text-sm font-semibold">
               Everything you need to supercharge your productivity
             </p>
-            <div className="flex gradient-text gap-2">
+            <div className="flex gradient-text max-lg:justify-center gap-2">
               <h2
-                className={`text-3xl font-sans font-bold gradient-text font-dmSans ${priceColor}`}
+                className={`text-3xl font-sans  font-bold gradient-text  ${priceColor}`}
               >
                 ${price}
               </h2>

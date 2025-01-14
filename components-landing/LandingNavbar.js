@@ -29,7 +29,7 @@ const LandingNavbar = ({
                   Recruitinn.ai
                 </h2>
 
-                <ul className="flex text-steel dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
+                <ul className="flex text-steel mt-1 dark:text-white gap-10 max-xl:gap-3 max-xl:w-[70%]">
                   <li
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
@@ -52,15 +52,15 @@ const LandingNavbar = ({
               </div>
               <div className="w-60p items-center flex justify-end gap-6 max-xl:gap-2">
               
-                <span className="px-10 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
-                  <a href="https://app.recruitinn.ai/candidate-self">
+                <span className="px-12 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
+                  <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-self`}>
                     {" "}
                     Apply for jobs
                   </a> 
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
-                    href="https://app.recruitinn.ai/client-signup"
+                    href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}
                     className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
                     Recruit A Talent
@@ -105,22 +105,25 @@ const LandingNavbar = ({
                     </ul>
                   </div> */}
                   <div
-                    className={`${styles.dropdown}  text-[#170D23] font-bold  px-10 py-3.5 text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
+                    className={`${styles.dropdown}  text-[#170D23] font-bold  flex px-10  text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
                   >
-                    Login
+                      <span className="mt-3" > Login</span>
+                    <Image src="/Arrow.svg" height={30} width={30} />
+                    
                     <ul className={styles.dropdown_menu}>
                       <li>
-                        <a href="https://app.recruitinn.ai/client-login">
+                        <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
                           Client
                         </a>
                       </li>
                       <li>
-                        <a href="https://app.recruitinn.ai/candidate-login">
+                        <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}>
                           Candidate
                         </a>
                       </li>
                     </ul>
                   </div>
+                     
                 </div>
               </div>
 
@@ -131,7 +134,7 @@ const LandingNavbar = ({
       </>
       {/* mobile de screen buthur */}
       <div className="h-[10vh] bg-white dark:bg-black">
-        <div className="h-[10vh] bg-white dark:bg-black z-50 w-full flex max-lg:items-center max-lg:justify-center hidden max-lg:flex fixed ">
+        <div className="h-[10vh] bg-white dark:bg-black z-50 w-full  max-lg:items-center max-lg:justify-center hidden max-lg:flex fixed ">
           <div className="w-100p h-[2rem] flex flex-col max-sm:justify-between max-sm:items-center  text-white ">
             <div className="flex w-[100%] justify-between items-center">
               <div className="flex items-center gap-3 max-lg:ml-[1.5rem] max-sm:ml-[1rem]">
@@ -186,22 +189,22 @@ const LandingNavbar = ({
                 {/* <span className="text-sm font-semibold max-lg:py-2 max-lg:border-b max-lg:border-darkPurple">
                 Apply As An Engineer
                 </span> */}
-                <a href="https://app.recruitinn.ai/candidate-self">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-self`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
                     Apply As An Engineer
                   </button>
                 </a>
-                <a href="https://app.recruitinn.ai/client-signup">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}>
                   <button className="px-10 py-3.5 max-lg:py-2 text-sm bg-transparent max-lg:border-b max-lg:border-darkPurple font-semibold max-lg:block hidden">
                     Recruit A Talent
                   </button>
                 </a>
-                <a href="https://app.recruitinn.ai/client-login">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
                     Login as client
                   </button>
                 </a>
-                <a href="https://app.recruitinn.ai/candidate-login">
+                <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
                     Login as candidate
                   </button>
