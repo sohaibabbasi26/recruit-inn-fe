@@ -6,12 +6,12 @@ const TrustedCandidates = () => {
   const { theme } = useTheme();
 
   const logos = [
-    "/company1.svg",
-    "/company2.svg",
-    "/company3.svg",
-    "/company4.svg",
-    "/company5.svg",
-    "/company6.svg",
+    "/cvt.png",
+    "/360.png",
+    "/skillbuilder.png",
+    "/ut.png",
+    "company4.svg",
+    
   ];
 
   return (
