@@ -13,7 +13,7 @@ function Button({ onClick, children, isFor }) {
     return (
       <button
         onClick={onClick}
-        className={`${poppins.className} ${styles.btn} ${
+        className={`${poppins.className} ${styles.btn} ${ 
           isFor === "next" ? styles.next : ""
         }`}
       >

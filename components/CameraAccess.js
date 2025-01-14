@@ -16,7 +16,7 @@ const CameraAccessInstruction = forwardRef(
         .catch((error) => {
           console.error("Error accessing the camera: ", error);
         });
-        setHasCameraTurnedOn(true);
+      setHasCameraTurnedOn(true);
     };
 
     return (
