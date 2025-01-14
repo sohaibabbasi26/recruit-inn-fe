@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
 
-
 .parentContainer {
     width: 98.75%;
     background-color: #F8F7FA;
@@ -88,7 +87,6 @@
     margin-bottom: 1rem;
     cursor: pointer;
 }
-
 
 .heading {
     display: flex;
