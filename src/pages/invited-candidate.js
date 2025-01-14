@@ -31,7 +31,7 @@ const invitedCandidate = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [shouldConductTest, setShouldConductTest] = useState(true);
 
-  const client_id = router.query.client_id;
+  //const client_id = router.query.client_id;
 
   async function canConductTest() {
     try {
@@ -73,13 +73,15 @@ const invitedCandidate = () => {
   };
 
   const showOverlay = true;
+  console.log(router.asPath);
+  const { position_id, client_id, q_id, test_req, language } = router.query;
+  const metaUrl = `https://app.recruitinn.ai/invited-candidate?position_id=${position_id}&client_id=${client_id}&q_id=${q_id}&test_req=${test_req}&language=${language}`;
+
   return (
     <>
-    <Head>
-        <meta
-          property="og:url"
-          content={`https://app.recruitinn.ai${router.asPath}`}
-        />
+      <Head>
+        <link rel="canonical" href={metaUrl} />
+        <meta property="og:url" content={metaUrl} />
         <meta
           property="og:title"
           content="Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions"
