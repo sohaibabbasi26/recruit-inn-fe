@@ -61,22 +61,22 @@
 
   /* Apply animations */
   .rotate_center {
-    animation: orbit-small 10s linear infinite;
+    animation: orbit-small 40s linear infinite;
   }
   .rotate_center1 {
-    animation: orbit-small-1 14s linear infinite;
+    animation: orbit-small-1 45s linear infinite;
   }
   .rotate_center2 {
-    animation: orbit-small-2 12s linear infinite;
+    animation: orbit-small-2 52s linear infinite;
   }
   .rotate_center3 {
-    animation: orbit-small-3 16s linear infinite;
+    animation: orbit-small-3 56s linear infinite;
   }
   .rotate_center4 {
-    animation: orbit-small-4 15s linear infinite;
+    animation: orbit-small-4 75s linear infinite;
   }
   .rotate_center5 {
-    animation: orbit-small-5 22s linear infinite;
+    animation: orbit-small-5 77s linear infinite;
   }
 }
 

@@ -22,7 +22,7 @@ const LandingVideo = () => {
     <>
       <div className="w-100p flex justify-center">
         <div className="w-90p h-[100%] flex justify-center mb-8">
-          <div className="w-90% relative">
+          <div className="w-100% relative border-solid border-[#F0F3FF]">
             {/* {theme === "dark" ? (
               <Image
                 src="/playbtn.svg"
@@ -42,6 +42,9 @@ const LandingVideo = () => {
                 display: "inline-block",
                 width: "100%",
                 marginTop: "2rem",
+                border:"solid 1px",
+                borderColor: "[#F0F3FF]",
+                borderRadius:"12px"
               }}
             >
               {/* Video Element */}

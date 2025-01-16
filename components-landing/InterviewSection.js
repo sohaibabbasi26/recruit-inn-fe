@@ -27,6 +27,8 @@ function InterviewSection() {
   useGSAP(
     () => {
       const tl = gsap.timeline({
+        repeat: -1,
+        repeatDelay: 3,
         duration: 1,
         ease: "power3.out",
       });
