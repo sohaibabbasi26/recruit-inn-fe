@@ -51,110 +51,78 @@ const  PaymentCard = ({
             className="box-border pt-4"
             style={{ boxSizing: "border-box", paddingTop: "1rem" }}
           >
-            <div className="max-lg:hidden">
+            <div className="">
               <span className="text-gray-500 text-sm">What’s included</span>
               <ul>
                 
-                
+              {price == 0 ? (
                 <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                   <Image src={`${img1}`} width={20} height={20} />
-                  Add up to 4 skills
+                  4 reports of candidates
                 </li>
+                ) : ""}
+              {price == 0 ? (
                 <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                   <Image src={`${img1}`} width={20} height={20} />
-                  Post up to 10 jobs
+                  Basic analytics dashboard
                 </li>
-
-                {price == 0  ? (
-                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
-                   4 Reports of  candidate
-                    </li>
-               
-               ) : (
-            
-                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
-                4 Reports of  candidate
-              </li>
-              )}
-                {price == 0  ? (
-                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
-                   Post up to 10 jobs
-                    </li>
-               
-               ) : (
-            
-                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
-                Post up to 10 jobs
-              </li>
-              )}
-                {price == 0 ? (
-                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
-                     Add up to 4 skills
-                    </li>
-               
-               ) : (
-            
-                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
-               Add up to 4 skills
-              </li>
-              )}
-                {price == 0 || price == 49 ? (
-                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
-                   Post up to 10 jobs
-                    </li>
-               
-               ) : (
-            
-                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
-                Post up to 10 jobs
-              </li>
-              )}
-                {price == 0 || price == 49 ? (
-                   <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                   <Image src={`${img2}`} width={20} height={20} alt="Feature icon" />
-                     Add up to 4 skills
-                    </li>
-               
-               ) : (
-            
-                <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                <Image src={`${img1}`} width={20} height={20} alt="Feature icon" />
-               Add up to 4 skills
-              </li>
-              )}
-                {price == 149 ? (
-                 <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                 <Image src={`${img1}`} width={20} height={20} />
-                 4 Reports of candidate
-                 </li> 
+                ) : ""}
+              {price == 75 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  25 reports of candidates  
+                </li>
+                ) : ""}
+              {price == 75 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  Advanced analytics dashboard
+                </li>
+                ) : ""}
+              {price == 75 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  Email support
+                </li>
+                ) : ""}
+              {price == 250 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  100 reports of candidates
+                </li>
+                ) : ""}
+              {price == 250 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  Advanced analytics dashboard
+                </li>
+                ) : ""}
+              {price == 250 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  Priority email support
+                </li>
+                ) : ""}
+              {price == 500 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  250 reports of candidates
+                </li>
+                ) : ""}
+              {price == 500 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  Priority phone and email support
+                </li>
+                ) : ""}
+              {price == 500 ? (
+                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                  <Image src={`${img1}`} width={20} height={20} />
+                  Dedicated account manager
+                </li>
+                ) : ""}
               
-                 ) : (
-                <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                <Image src={`${img2}`} width={20} height={20} />
-                4 Reports of candidate
-                </li>
-                )}
-                {price == 149 ? (
-                 <li className={`flex py-3 text-sm gap-2 ${smallTextColor}`}>
-                 <Image src={`${img1}`} width={20} height={20} />
-                  Post up to 10 jobs
-                 </li> 
-              
-                 ) : (
-                <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
-                <Image src={`${img2}`} width={20} height={20} />
-                Post up to 10 jobs
-                </li>
-                )}
-
+             
                 
               </ul>
             </div>

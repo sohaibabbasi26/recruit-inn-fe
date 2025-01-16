@@ -38,7 +38,7 @@ const HeroSection = () => {
 
                   <div>
                     <p className="text-xs bg-[#FFE6E6] dark:ring-red-900 p-2 px-3 rounded-full flex gap-2 font-medium">
-                      Unqualified{" "}
+                    Not Eligible{" "}
                       <Image src="/Ellipse_red.svg" width={6} height={6} />
                     </p>
                   </div>

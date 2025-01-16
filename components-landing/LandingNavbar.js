@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Logo from "../components/Logo";
 import styles from "./LandingNavbar.module.css";
+import { PopupModal, useCalendlyEventListener } from "react-calendly";
 
 const LandingNavbar = ({
   scrollToRef,
@@ -12,12 +13,37 @@ const LandingNavbar = ({
   HeroRef,
 }) => {
   const [menu, setMenu] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef(null);
+
+  const getEventDetails = async (eventUri) => {
+    try {
+      const response = await fetch(eventUri, {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_CALENDLY_TOKEN}`, // Replace with your actual API key
+        },
+      });
+      const data = await response.json();
+      console.log("Event Details:", data);
+      // Access the date and time from the response, e.g., data.start_time
+    } catch (error) {
+      console.error("Error fetching event details:", error);
+    }
+  };
+
+  useCalendlyEventListener({
+    onEventScheduled: (e) => {
+      console.log("Fetching event details from:", e.data.payload.event.uri);
+      getEventDetails(e.data.payload.event.uri);
+    },
+  });
 
   return (
     <>
       {/* leptup sacreen */}
       <>
-        <div className=" max-sm:hidden bg-white dark:bg-black">
+        <div className=" max-sm:hidden bg-white dark:bg-black" id="scheduleCallBtn">
           <div className="h-[10vh] w-full flex bg-white dark:bg-black justify-center max-lg:hidden z-50 fixed">
             <div className="w-90p h-full flex justify-between items-center text-black dark:text-white">
               <div className="flex w-50p gap-20 items-center">
@@ -51,12 +77,18 @@ const LandingNavbar = ({
                 </ul>
               </div>
               <div className="w-60p items-center flex justify-end gap-6 max-xl:gap-2">
-              
-                <span className="px-12 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
+                {/* <span className="px-12 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105">
                   <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-self`}>
                     {" "}
                     Apply for jobs
                   </a> 
+                </span> */}
+                <span
+                  ref={buttonRef}
+                  onClick={() => setIsOpen(true)}
+                  className="px-14 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105"
+                >
+                  Book a demo
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
@@ -107,9 +139,9 @@ const LandingNavbar = ({
                   <div
                     className={`${styles.dropdown}  text-[#170D23] font-bold  flex px-10  text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
                   >
-                      <span className="mt-3" > Login</span>
+                    <span className="mt-3"> Login</span>
                     <Image src="/Arrow.svg" height={30} width={30} />
-                    
+
                     <ul className={styles.dropdown_menu}>
                       <li>
                         <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
@@ -117,13 +149,14 @@ const LandingNavbar = ({
                         </a>
                       </li>
                       <li>
-                        <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}>
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}
+                        >
                           Candidate
                         </a>
                       </li>
                     </ul>
                   </div>
-                     
                 </div>
               </div>
 
@@ -233,8 +266,24 @@ const LandingNavbar = ({
               </div>
             )}
           </div>
+        
         </div>
+
       </div>
+      
+  <PopupModal
+    url="https://calendly.com/taha-recruitinn/30min"
+    rootElement={document.body}
+    text="Schedule Call"
+    textColor="#fff"
+    color="#000"
+    height="200px"
+    overflow="hidden"
+    onModalClose={() => setIsOpen(false)}
+    open={isOpen}
+  />
+
+
     </>
   );
 };

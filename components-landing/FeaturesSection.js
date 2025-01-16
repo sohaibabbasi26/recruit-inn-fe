@@ -97,6 +97,7 @@ function FeaturesSection() {
               key={i}
               num={i}
               isLast={content.length === i + 1}
+              
             />
           ))}
         </div>
@@ -107,7 +108,7 @@ function FeaturesSection() {
               className={`h-[29.5rem] block`}
               alt="Create a job placeholder image"
               placeholder="blur"
-              quality={80}
+              quality={100}
             />
             <Image
               src={generateAiAssessment}
