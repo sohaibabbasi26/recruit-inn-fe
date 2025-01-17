@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import style from "./career-counselling.module.css";
 import CareerCounsellingQuestionBox from "../../components/CareerCounsellingQuestionBox";
+import CameraAccessInstruction from "../../components/CameraAccess";
+import { useRouter } from "next/router";
+import TestInstruction from "../../components/TestInstruction";
 
 function CareerCounselling() {
   const questions = [
@@ -13,20 +16,59 @@ function CareerCounselling() {
       question: "In which professional career do you want to pursue?",
     },
   ];
-  const hasStarted = true;
+  const [instructionsPopup, setInstructionsPopup] = useState(false);
+  const [cameraAccessInstructionPopup, setCameraAccessInstructionPopup] =
+    useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  
+  const { language } = useRouter().query;
+  const videoRef = useRef(null);
+
+  const onCameraClosePopup = () => {
+    setCameraAccessInstructionPopup(false);
+    setInstructionsPopup(true);
+  };
+
+  const closePopup = () => {
+    setInstructionsPopup(false);
+  };
+
+  const instructions = [
+    "Make sure your connection is stable.",
+    "Your score will reflect on your profile.",
+    "Avoid refreshing your page during the interview.",
+    `Give your answers in ${language}`,
+    "Make sure there’s no background noise while answering the questions.",
+  ];
 
   return (
     <>
-      <div className={style.superContainer}>
-        <CareerCounsellingQuestionBox
-          questions={questions}
-          hasStarted={hasStarted}
+      {cameraAccessInstructionPopup && (
+        <CameraAccessInstruction
+          ref={videoRef}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
+          onClose={onCameraClosePopup}
         />
-      </div>
+      )}
+      {instructionsPopup && (
+        <TestInstruction
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          onClose={closePopup}
+          options={instructions}
+        />
+      )}
+      {!instructionsPopup && !cameraAccessInstructionPopup && (
+        <div className={style.superContainer}>
+          <CareerCounsellingQuestionBox
+            questions={questions}
+            hasStarted={!instructionsPopup}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            hasVideoStarted={!instructionsPopup}
+          />
+        </div>
+      )}
     </>
   );
 }

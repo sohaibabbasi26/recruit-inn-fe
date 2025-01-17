@@ -8,7 +8,6 @@ import CameraAccessInstruction from "../../components/CameraAccess";
 const test = () => {
   const [instructionsPopup, setInstructionsPopup] = useState(false);
   const [cameraAccessInstructionPopup, setCameraAccessInstructionPopup] = useState(true);
-  const [openCameraOnQuestionBox,setOpenCameraOnQuestionBox]= useState(false)
   const [isLoading, setIsLoading] = useState(false);
   const { language } = useRouter().query;
   const videoRef = useRef(null);

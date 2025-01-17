@@ -1,12 +1,25 @@
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 
-const VideoComponent = forwardRef(({hasStarted}, ref) => {
+const VideoComponent = forwardRef(({hasStarted, hasMeetingEnded}, ref) => {
+  const [stream, setStream] = useState(null);
+
+  const turnOffCamera= ()=>{
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop()); // Stop each track
+      if (ref.current) {
+        ref.current = null; // Clear video source
+      }
+      setStream(null); // Clear the stream state
+    }
+  }
+
   const turnOnCamera = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
         if (ref.current) {
           ref.current.srcObject = stream;
+          setStream(stream);
         }
       })
       .catch((error) => {
@@ -18,7 +31,10 @@ const VideoComponent = forwardRef(({hasStarted}, ref) => {
     if(hasStarted){
         turnOnCamera();
     }
-  }, [ref, hasStarted]);
+    if(hasMeetingEnded){
+      turnOffCamera();
+    }
+  }, [ref, hasStarted, hasMeetingEnded]);
 
   //if(!ref && !hasStarted) return null;
 

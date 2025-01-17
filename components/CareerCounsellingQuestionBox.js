@@ -1,12 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./CareerCounsellingQuestionBox.module.css";
 import Image from "next/image";
 import ErrorIndicator from "./ErrorIndicator";
 import blobToBase64 from "@/util/blobToBase64";
+import { useRouter } from "next/router";
+import VideoComponent from "./VideoComponent";
 
-function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
-  isLoading, }) {
+function CareerCounsellingQuestionBox({
+  questions,
+  hasStarted,
+  setIsLoading,
+  hasVideoStarted,
+  isLoading,
+}) {
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const router = useRouter();
+  const [timeLeft, setTimeLeft] = useState(130);
+  const minutes = Math.floor(timeLeft / 60);
+  const remainingSeconds = timeLeft % 60;
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [message, setMessage] = useState(null);
   const [recordingDone, setRecordingDone] = useState(false);
@@ -21,26 +32,75 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
   const recordedChunksRef = useRef([]);
   const [answers, setAnswers] = useState([]);
   //const [isLoading, setIsLoading] = useState(false);
-  const [newQuestions, setNewQuestions] = useState(questions);
+  const newQuestions = questions;
   const language = "English";
   const isLastQuestion = currentQuestion === newQuestions?.length;
   const [isGeneratingResult, setIsGeneratingResult] = useState(false);
   const [isTranscriptionComplete, setIsTranscriptionComplete] = useState();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isTestCompleted, setIsTestCompleted] = useState(false);
+  const isProcessingRef = useRef();
+  const videoRef = useRef(null);
+  const [shouldSubmitTest, setShouldSubmitTest] = useState(false);
 
+  const submitTestHandler = async () => {
+    if (isSubmitted) return;
+    await stopAndHandleRecording();
+    setIsSubmitted(true);
+    setIsGeneratingResult(true);
+    setIsLoading(true);
+    setIsTestCompleted(true);
+    setShouldSubmitTest(true);
+  };
 
+  const stopCamera = () => {
+    navigator.mediaDevices.getUserMedia();
+  };
+
+  useEffect(() => {
+    const subT = async () => {
+      if (shouldSubmitTest) {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/generate-career-counselling-report`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              question_answer: answers,
+            }),
+          }
+        );
+
+        const response = await res.json();
+
+        console.log("response: ", response);
+        if (response.code !== 200) {
+          console.log(`Error: ${response}`);
+        } else {
+          //window.location.href=`${process.env.NEXT_PUBLIC_SKILLBUILDER_FRONTEND_URL}`
+        }
+      }
+    };
+    subT();
+  }, [shouldSubmitTest]);
 
   const processRecording = async (blob, questionIndex) => {
     const base64Data = await blobToBase64(blob);
+    saveAnswer(questionIndex, base64Data);
+  };
+
+  const saveAnswer = (questionIndex, answerData) => {
     setAnswers((prev) => [
       ...prev,
-      { question: questionIndex, answer: base64Data },
+      { question: questionIndex, answer: answerData },
     ]);
   };
 
-  const submitTestHandler= ()=>{
-
-  }
+  useEffect(() => {
+    console.log("answers:", answers);
+  }, [answers]);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -60,7 +120,6 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
             type: "audio/wav",
           });
           recordedChunksRef.current = [];
-          const audioURL = URL.createObjectURL(blob);
 
           isProcessingRef.current = true;
           await processRecording(
@@ -102,10 +161,7 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
           currentQuestion
         );
         console.log(
-          console.log(
-            "state of currentQuestionIndex:",
-            currentQuestionIndex
-          )
+          console.log("state of currentQuestionIndex:", currentQuestionIndex)
         );
         setIsLoading(false);
       }
@@ -303,7 +359,7 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
       mediaRecorderRef.current.state !== "inactive"
     ) {
       mediaRecorderRef.current.stop();
-      setIsRecordingPopupVisible(false);
+      //setIsRecordingPopupVisible(false);
     }
   };
 
@@ -315,17 +371,27 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
       if (!recordingDone && recordedChunksRef.current.length === 0) {
         const silentBase64Wav =
           "UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
-          setAnswers((prev) => [
-            ...prev,
-            {
-              question: newQuestions[currentQuestion - 1]?.question,
-              answer: silentBase64Wav,
-            },
-          ]);
-        console.log("No recording made, adding silent audio blob as answer.");
+        setAnswers((prevAnswers) =>
+          prevAnswers.some(
+            (ans) =>
+              ans.question === newQuestions[currentQuestion - 1]?.question
+          )
+            ? prevAnswers
+            : [
+                ...prevAnswers,
+                {
+                  question: newQuestions[currentQuestion - 1]?.question,
+                  answer: silentBase64Wav,
+                },
+              ]
+        );
         showError("No answer was provided, moving on to next question.");
         setCurrentQuestion((prevCurrent) => prevCurrent + 1);
-        //setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        // setCompletedQuestions((prevCompleted) => [
+        //   ...prevCompleted,
+        //   currentQuestion,
+        // ]);
         setIsLoading(false);
       } else {
         await stopAndHandleRecording();
@@ -339,10 +405,7 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
   };
 
   useEffect(() => {
-    console.log(
-      "useeffect wala currentQuestionIndex: ",
-      currentQuestionIndex
-    );
+    console.log("useeffect wala currentQuestionIndex: ", currentQuestionIndex);
     if (currentQuestionIndex < newQuestions?.length && hasStarted) {
       generateAudio(newQuestions[currentQuestionIndex]);
       //speakQuestion(newQuestions[currentQuestionIndex]);
@@ -354,6 +417,75 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
     //   console.log("line 811: generateAudio called");
     // }
   }, [currentQuestionIndex, hasStarted]);
+
+  useEffect(() => {
+    let timeoutId;
+
+    if (isRecording) {
+      //setIsRecordingPopupVisible(true);
+
+      timeoutId = setTimeout(() => {
+        // if (isRecording) {
+        //   setIsRecordingPopupVisible(false);
+        // }
+      }, 5000);
+    } else {
+      //setIsRecordingPopupVisible(false);
+      clearTimeout(timeoutId);
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isRecording]);
+
+  useEffect(() => {
+    if (!hasStarted || isTestCompleted) {
+      return;
+    }
+    const intervalId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => {
+        if (prevTimeLeft > 1) {
+          return prevTimeLeft - 1;
+        } else {
+          clearInterval(intervalId);
+          if (isLastQuestion && !isSubmitted) {
+            setIsSubmitted(true);
+            submitTestHandler();
+          } else if (!isLastQuestion) {
+            toggleComponent();
+          }
+          return 0;
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [hasStarted, isLastQuestion, timeLeft, isSubmitted, isTestCompleted]);
+
+  const stopMediaStreamTracks = () => {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
+      mediaRecorderRef.current.stream
+        .getTracks()
+        .forEach((track) => track.stop());
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      stopMediaStreamTracks();
+    };
+  }, []);
+
+  useEffect(() => {
+    const testcomplete = localStorage.getItem("testcompleted");
+    if (testcomplete && assessmentId) {
+      router.push(`/test-submit-completion`);
+    }
+  }, [router]);
 
   return (
     <>
@@ -403,14 +535,14 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
                   })}
                 </ul>
               </div>
-              {/* <span>
+              <span>
                 {" "}
                 <Image src="/timer.svg" width={20} height={20} />
                 {minutes}:
                 {remainingSeconds < 10
                   ? `0${remainingSeconds}`
                   : remainingSeconds}
-              </span> */}
+              </span>
             </div>
             {/* Recording Popup */}
             {/* {isRecordingPopupVisible && ( */}
@@ -427,9 +559,7 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
               className={styles.questionContainer}
             >
               {questions && questions.length > 0 && (
-                <span>
-                  {newQuestions[currentQuestion - 1]?.question}
-                </span>
+                <span>{newQuestions[currentQuestion - 1]?.question}</span>
               )}
             </div>
             {/*Record button */}
@@ -465,6 +595,13 @@ function CareerCounsellingQuestionBox({ questions, hasStarted, setIsLoading,
           </>
         )}
       </div>
+      {videoRef !== null && (
+        <VideoComponent
+          hasStarted={hasVideoStarted}
+          hasMeetingEnded={shouldSubmitTest}
+          ref={videoRef}
+        />
+      )}
     </>
   );
 }

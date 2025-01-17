@@ -29,7 +29,6 @@ const QuestionBox = //forwardRef(
       const [timeLeft, setTimeLeft] = useState(130);
       const [newQuestions, setNewQuestions] = useState(null);
       const [isRecording, setIsRecording] = useState(false);
-      //const [audioURLs, setAudioURLs] = useState({});
       const mediaRecorderRef = useRef(null);
       const recordedChunksRef = useRef([]);
       const [answers, setAnswers] = useState([]);
@@ -453,11 +452,6 @@ const QuestionBox = //forwardRef(
                 type: "audio/wav",
               });
               recordedChunksRef.current = [];
-              const audioURL = URL.createObjectURL(blob);
-              // setAudioURLs((prevURLs) => ({
-              //   ...prevURLs,
-              //   [currentQuestion]: audioURL,
-              // }));
 
               isProcessingRef.current = true;
               await processRecording(
@@ -712,7 +706,7 @@ const QuestionBox = //forwardRef(
           setIsFirstQues(false);
           //setIsLoading(false);
         }
-      }; //,[currentQuestion, newQuestions, recordingDone]);
+      };
 
       useEffect(() => {
         //speakQuestion(currentQuestion);
@@ -982,7 +976,7 @@ const QuestionBox = //forwardRef(
           </div>
 
           {/* <h3>Live Camera Feed:</h3> */}
-          {videoRef !== null  && (
+          {videoRef !== null && (
             <VideoComponent hasStarted={!hasStarted} ref={videoRef} />
           )}
         </>
