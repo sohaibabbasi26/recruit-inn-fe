@@ -72,7 +72,7 @@ const LandingPage = () => {
         <div className="4th">
           <RecruitInnProcess />
         </div>
-        <div ref={featuresRef}>
+        <div ref={featuresRef}> np
           <FeaturesSection />
         </div>
         {/* <LandingFourth />

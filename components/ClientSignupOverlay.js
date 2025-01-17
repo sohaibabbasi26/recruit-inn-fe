@@ -657,7 +657,7 @@ const ClientSignUpOverlay = ({
         <div className={styles.superContainer}>
           <div className={styles.coverContainer}>
             <div className={styles.topContainer}>
-              <h2>Client Signup</h2>
+              <h2> Company Registration</h2>
             </div>
 
             <Stages

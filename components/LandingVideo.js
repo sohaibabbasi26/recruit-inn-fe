@@ -22,7 +22,7 @@ const LandingVideo = () => {
     <>
       <div className="w-100p flex justify-center">
         <div className="w-90p h-[100%] flex justify-center mb-8">
-          <div className="w-90% relative">
+          <div className="w-100% relative border-solid border-[#F0F3FF]">
             {/* {theme === "dark" ? (
               <Image
                 src="/playbtn.svg"
@@ -36,50 +36,58 @@ const LandingVideo = () => {
               width={1400}
               height={1400}
             /> */}
-            <div style={{ position: "relative", display: "inline-block", width: "100%", marginTop: "2rem" }}>
-  {/* Video Element */}
-  <video
-    ref={videoRef}
-    onClick={togglePlay}
-    src="/video/recruitinn_final.mp4"
-    poster="/thumbnail.jpg"
-    style={{
-      width: "100%",
-      height: "auto",
-      maxHeight: "450px",
-      objectFit: "cover",
-      borderRadius: "12px",
-      cursor: "pointer",
-      opacity: !isPlaying ? 0.5 : 1,
-    }}
-  />
-  {!isPlaying && (
-    <button
-      onClick={togglePlay}
-      style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        color: "white",
-        border: "none",
-        borderRadius: "50%",
-        width: "50px",
-        height: "50px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-        fontSize: "18px",
-      }}
-    >
-      ▶
-    </button>
-  )}
-</div>
-
-
+            <div
+              style={{
+                position: "relative",
+                display: "inline-block",
+                width: "100%",
+                marginTop: "2rem",
+                border:"solid 1px",
+                borderColor: "[#F0F3FF]",
+                borderRadius:"12px"
+              }}
+            >
+              {/* Video Element */}
+              <video
+                ref={videoRef}
+                onClick={togglePlay}
+                src="/video/recruitinn_final2.mp4"
+                poster="/thumbnail.jpg"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: "450px",
+                  objectFit: "cover",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                  opacity: !isPlaying ? 0.5 : 1,
+                }}
+              />
+              {!isPlaying && (
+                <button
+                  onClick={togglePlay}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    backgroundColor: "rgba(0, 0, 0, 0.6)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: "50px",
+                    height: "50px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    fontSize: "18px",
+                  }}
+                >
+                  ▶
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
