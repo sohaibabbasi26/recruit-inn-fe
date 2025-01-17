@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./career-counselling.module.css";
 import CareerCounsellingQuestionBox from "../../components/CareerCounsellingQuestionBox";
 import CameraAccessInstruction from "../../components/CameraAccess";
@@ -6,6 +6,30 @@ import { useRouter } from "next/router";
 import TestInstruction from "../../components/TestInstruction";
 
 function CareerCounselling() {
+  const router = useRouter();
+  const { token } = router?.query;
+  const [email, setEmail] = useState(null);
+  console.log(token);
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/verify-token`,
+        {
+          method:"POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        }
+      );
+      if (response?.ok) {
+        const data = await response?.json();
+        setEmail(data?.data?.email);
+      }
+    };
+    verifyToken();
+  }, [router?.isReady]);
+
   const questions = [
     {
       question_id: 1,
@@ -20,7 +44,7 @@ function CareerCounselling() {
   const [cameraAccessInstructionPopup, setCameraAccessInstructionPopup] =
     useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const { language } = useRouter().query;
+  //const { language } = useRouter().query;
   const videoRef = useRef(null);
 
   const onCameraClosePopup = () => {
@@ -36,9 +60,13 @@ function CareerCounselling() {
     "Make sure your connection is stable.",
     "Your score will reflect on your profile.",
     "Avoid refreshing your page during the interview.",
-    `Give your answers in ${language}`,
+    `Give your answers in English`,
     "Make sure there’s no background noise while answering the questions.",
   ];
+
+  if (!email) {
+    return <div></div>;
+  }
 
   return (
     <>
@@ -61,6 +89,7 @@ function CareerCounselling() {
       {!instructionsPopup && !cameraAccessInstructionPopup && (
         <div className={style.superContainer}>
           <CareerCounsellingQuestionBox
+            email={email}
             questions={questions}
             hasStarted={!instructionsPopup}
             isLoading={isLoading}
