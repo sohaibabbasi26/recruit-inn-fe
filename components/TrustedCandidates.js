@@ -11,7 +11,7 @@ const TrustedCandidates = () => {
     "/skillbuilder.png",
     "/ut.png",
     "company4.svg",
-    
+    "/linkify.png",
   ];
 
   return (
@@ -38,4 +38,3 @@ const TrustedCandidates = () => {
 };
 
 export default TrustedCandidates;
-

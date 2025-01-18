@@ -3,7 +3,7 @@ import "tailwindcss/tailwind.css";
 
 const MainCard = () => {
   return (
-    <div className="border-b space-y-3 py-20 border-darkPurple overflow-hidden">
+    <div className=" space-y-3 py-20 border-darkPurple overflow-hidden">
       {/* Flash Message */}
       <div className="flex justify-center">
         <div className="flex items-center rounded-2xl border border-darkPurple bg-white-purple-shade px-4 py-2">
@@ -18,15 +18,15 @@ const MainCard = () => {
 
       {/* Title */}
       <h4 className="text-center text-black dark:text-white text-5xl font-bold">
-       Recruitment Process
+        Transform the Way You Hire
       </h4>
 
       {/* Subtitle */}
       <div className="w-100p flex justify-center !mt-6">
         {" "}
         <p className=" text-center max-xsm:w-90p xsm:w-90p sm:w-70p md:w-60p lg:w-40p ">
-          Revolutionize the way you recruit by leveraging our innovative
-          solutions designed to make your hiring more efficient and effective{" "}
+          Simplify recruitment with advanced strategies that deliver top talent
+          while saving you time and resources.{" "}
         </p>
       </div>
     </div>

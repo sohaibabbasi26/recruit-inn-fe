@@ -24,7 +24,18 @@ const Footer = ({
           onClick={() => scrollToRef(HeroRef)}
           className="cursor-pointer w-1/5 max-lg:flex max-lg:flex-col max-lg:items-center"
         >
-          <p>Trustpilot widget</p>
+          <a
+            href="https://www.trustpilot.com/review/app.recruitinn.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/trustpilot.png"
+              width={250}
+              height={100}
+              alt="trustpilot"
+            />
+          </a>
         </div>
 
         {/* Central Sections: Product and Community */}

@@ -42,28 +42,29 @@ const LandingVideo = () => {
                 display: "inline-block",
                 width: "100%",
                 marginTop: "2rem",
-                border:"solid 1px",
-                borderColor: "[#F0F3FF]",
-                borderRadius:"12px"
+                border: "solid 2px",
+                borderColor: "#cbcbcb",
+                borderRadius: "12px",
               }}
             >
               {/* Video Element */}
               <video
-                ref={videoRef}
-                onClick={togglePlay}
+                // ref={videoRef}
+                // onClick={togglePlay}
                 src="/video/recruitinn_final2.mp4"
                 poster="/thumbnail.jpg"
+                controls
                 style={{
                   width: "100%",
                   height: "auto",
-                  maxHeight: "450px",
+                  maxHeight: "600px",
                   objectFit: "cover",
                   borderRadius: "12px",
                   cursor: "pointer",
-                  opacity: !isPlaying ? 0.5 : 1,
+                  // opacity: !isPlaying ? 0.5 : 1,
                 }}
               />
-              {!isPlaying && (
+              {/* {!isPlaying && (
                 <button
                   onClick={togglePlay}
                   style={{
@@ -86,7 +87,7 @@ const LandingVideo = () => {
                 >
                   ▶
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>

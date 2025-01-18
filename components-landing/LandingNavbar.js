@@ -60,7 +60,7 @@ const LandingNavbar = ({
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Features
+                    Process
                   </li>
                   <li
                     onClick={() => scrollToRef(pricingRef)}
@@ -145,7 +145,7 @@ const LandingNavbar = ({
                     <ul className={styles.dropdown_menu}>
                       <li>
                         <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
-                          Client
+                          Company
                         </a>
                       </li>
                       <li>
@@ -248,7 +248,7 @@ const LandingNavbar = ({
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-sm font-semibold    cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    Features
+                    Process
                   </li>
                   <li
                     onClick={() => scrollToRef(pricingRef)}

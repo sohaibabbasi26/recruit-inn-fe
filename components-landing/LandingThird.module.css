@@ -61,22 +61,22 @@
 
   /* Apply animations */
   .rotate_center {
-    animation: orbit-small 40s linear infinite;
+    animation: orbit-small 80s linear infinite;
   }
   .rotate_center1 {
-    animation: orbit-small-1 45s linear infinite;
+    animation: orbit-small-1 80s linear infinite;
   }
   .rotate_center2 {
-    animation: orbit-small-2 52s linear infinite;
+    animation: orbit-small-2 80s linear infinite;
   }
   .rotate_center3 {
-    animation: orbit-small-3 56s linear infinite;
+    animation: orbit-small-3 80s linear infinite;
   }
   .rotate_center4 {
-    animation: orbit-small-4 75s linear infinite;
+    animation: orbit-small-4 80s linear infinite;
   }
   .rotate_center5 {
-    animation: orbit-small-5 77s linear infinite;
+    animation: orbit-small-5 80s linear infinite;
   }
 }
 
@@ -132,21 +132,21 @@
 
   /* Apply animations */
   .rotate_center {
-    animation: orbit-large 10s linear infinite;
+    animation: orbit-large 40s linear infinite;
   }
-  .rotate_center1 {
-    animation: orbit-large-1 14s linear infinite;
-  }
+  /* .rotate_center1 {
+    animation: orbit-large-1 1000s linear infinite;
+  } */
   .rotate_center2 {
-    animation: orbit-large-2 12s linear infinite;
+    animation: orbit-large-2 30s linear infinite;
   }
   .rotate_center3 {
-    animation: orbit-large-3 16s linear infinite;
+    animation: orbit-large-3 40s linear infinite;
   }
   .rotate_center4 {
-    animation: orbit-large-4 15s linear infinite;
+    animation: orbit-large-4 50s linear infinite;
   }
   .rotate_center5 {
-    animation: orbit-large-5 22s linear infinite;
+    animation: orbit-large-5 40s linear infinite;
   }
 }

@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-
 const testimonials = [
   {
     id: 1,

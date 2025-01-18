@@ -7,15 +7,15 @@ function LandingFourth() {
 
   const sections = [
     {
-      text: "Real-time interviews, instant evaluations, seamless scheduling and all automated for you!",
+      text: "Real-Time Interviews, Instant Feedback, and Seamless Scheduling – All Automated for You!",
       image: "/Rectangle1.png",
     },
     {
-      text: "Objectively assess every candidate, gain actionable insights, decide effortlessly!",
+      text: "Effortlessly evaluate candidates, gain actionable insights, and make decisions with confidence.",
       image: "/Rectangle2.png",
     },
     {
-      text: "Spanning a spectrum of expertise to suit your every need and project demand.",
+      text: "Our solutions cater to every expertise and project demand, ensuring a perfect Talent every time.",
       image: "/Rectangle3.png",
     },
   ];

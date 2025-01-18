@@ -3,7 +3,7 @@ import { checkout } from "@/util/Checkout";
 import "tailwindcss/tailwind.css";
 import { useRouter } from "next/router";
 
-const  PaymentCard = ({
+const PaymentCard = ({
   bgColor,
   headingColor,
   smallTextColor,
@@ -15,12 +15,10 @@ const  PaymentCard = ({
   price,
   duration,
 }) => {
+  const img1 = "/checkAI.png";
+  const img2 = "/crossAI.png";
 
-   const img1="/checkAI.png"
-   const  img2="/crossAI.png"
- 
-
-   const router = useRouter();
+  const router = useRouter();
 
   return (
     <>
@@ -43,7 +41,9 @@ const  PaymentCard = ({
               >
                 ${price}
               </h2>
-              <span className={`gradient-text mt-3 ${priceColor}`}>{duration}</span>
+              <span className={`gradient-text mt-3 ${priceColor}`}>
+                {duration}
+              </span>
             </div>
           </div>
 
@@ -54,76 +54,113 @@ const  PaymentCard = ({
             <div className="">
               <span className="text-gray-500 text-sm">What’s included</span>
               <ul>
-                
-              {price == 0 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  4 reports of candidates
-                </li>
-                ) : ""}
-              {price == 0 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Basic analytics dashboard
-                </li>
-                ) : ""}
-              {price == 75 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  25 reports of candidates  
-                </li>
-                ) : ""}
-              {price == 75 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Advanced analytics dashboard
-                </li>
-                ) : ""}
-              {price == 75 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Email support
-                </li>
-                ) : ""}
-              {price == 250 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  100 reports of candidates
-                </li>
-                ) : ""}
-              {price == 250 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Advanced analytics dashboard
-                </li>
-                ) : ""}
-              {price == 250 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Priority email support
-                </li>
-                ) : ""}
-              {price == 500 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  250 reports of candidates
-                </li>
-                ) : ""}
-              {price == 500 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Priority phone and email support
-                </li>
-                ) : ""}
-              {price == 500 ? (
-                <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                  <Image src={`${img1}`} width={20} height={20} />
-                  Dedicated account manager
-                </li>
-                ) : ""}
-              
-             
-                
+                {price == 0 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />4 reports of
+                    candidates
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 0 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    Basic analytics dashboard
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 0 ? (
+                  <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                    <Image
+                      src={`${img2}`}
+                      width={20}
+                      height={20}
+                      alt="Feature icon"
+                    />
+                    Email Support
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {price == 75 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    25 reports of candidates
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 75 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    Advanced analytics dashboard
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 75 ? (
+                  <li className={`flex py-3 text-sm gap-2 text-gray-500`}>
+                    <Image
+                      src={`${img2}`}
+                      width={20}
+                      height={20}
+                      alt="Feature icon"
+                    />
+                    Email Support
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 250 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    100 reports of candidates
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 250 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    Advanced analytics dashboard
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 250 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    Priority email support
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 500 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    250 reports of candidates
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 500 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    Priority phone and email support
+                  </li>
+                ) : (
+                  ""
+                )}
+                {price == 500 ? (
+                  <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
+                    <Image src={`${img1}`} width={20} height={20} />
+                    Dedicated account manager
+                  </li>
+                ) : (
+                  ""
+                )}
               </ul>
             </div>
 
@@ -135,10 +172,10 @@ const  PaymentCard = ({
                 //     { price: "price_1QaDZmCtLGKA7fQGcVUeXm7i", quantity: 1 },
                 //   ],
                 // }
-                
+
                 // );
                 localStorage.setItem("clickedPackage", true);
-                router.push(`${process.env.NEXT_PUBLIC_URL}/client-login`)
+                router.push(`${process.env.NEXT_PUBLIC_URL}/client-login`);
               }}
             >
               Get Started
