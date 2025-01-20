@@ -99,18 +99,18 @@ function RecruitInnProcess() {
       <h2 className="heading text-3xl font-bold text-center block leading-[unset] transition-opacity duration-500">
         {" "}
         <span className="image-1-text">
-          Real-time interviews, instant evaluations, seamless scheduling and all
-          automated for you!
+          Real-Time Interviews, Instant Feedback, and Seamless Scheduling – All
+          Automated for You!
         </span>
         &nbsp;&nbsp;
         <span className="image-2-text opacity-30">
-          Objectively assess every candidate, gain actionable insights, decide
-          effortlessly!
+          Effortlessly evaluate candidates, gain actionable insights, and make
+          decisions.
         </span>
         &nbsp;&nbsp;
         <span className="image-3-text opacity-30">
-          Spanning a spectrum of expertise to suit your every need and project
-          demand.
+          Our solutions cater to every expertise and project demand, ensuring a
+          perfect Talent every time.
         </span>
       </h2>
 

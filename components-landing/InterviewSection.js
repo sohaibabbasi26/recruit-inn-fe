@@ -229,7 +229,7 @@ function InterviewSection() {
               name="Ethan Clarke"
               title=" Product Manager"
               avatar="/avt1.png"
-              className="opacity-20 border-b-[2px] border-solid border-themePurple"
+              className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
 
             <div className="flex justify-center ">
@@ -246,7 +246,7 @@ function InterviewSection() {
               name="Ava Mitchell"
               title=" Full-Stack Developer"
               avatar="/avt2.png"
-              className="opacity-20 border-b-[2px] border-solid border-themePurple"
+              className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
 
             <div className="flex justify-center">
@@ -263,7 +263,7 @@ function InterviewSection() {
               name="Mia Turner"
               title="Lead Data Scientist"
               avatar="/avt3.png"
-              className="opacity-20 border-b-[2px] border-solid border-themePurple"
+              className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
 
             <div className="flex justify-center">
@@ -281,7 +281,7 @@ function InterviewSection() {
               name="Lucas Bailey"
               title="Lead AI Researcher"
               avatar="/avt4.png"
-              className="opacity-20 border-b-[2px] border-solid border-themePurple"
+              className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
 
             <div className="flex justify-center">
@@ -338,17 +338,17 @@ function InterviewSection() {
         <div className="flex items-center justify-center relative">
           {/* Gradient shadow under the box */}
           <div className="logo-selector z-10">
-            <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[162px] w-[162px] rounded-2xl blur-md "></div>
+            <div className="logo absolute  left-1/2 -translate-x-1/2 -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-[100px] w-[100px] rounded-2xl blur-md "></div>
 
             {/* Outer div with gradient border */}
-            <div className="flex justify-center items-center bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[162px] w-[162px] rounded-2xl p-[2px] relative">
+            <div className="flex justify-center items-center bg-gradient-to-r from-primary via-purple-500 to-darkOrenge h-[100px] w-[100px] rounded-2xl p-[2px] relative">
               {/* Inner div for the white background and image */}
               <div className="flex justify-center items-center bg-white rounded-2xl h-full w-full">
                 <Image
                   src="/recruitlogo.png"
                   alt="Central Logo"
-                  width={50}
-                  height={50}
+                  width={40}
+                  height={40}
                 />
               </div>
             </div>

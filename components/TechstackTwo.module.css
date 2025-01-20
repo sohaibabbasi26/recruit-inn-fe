@@ -54,6 +54,6 @@
 
 .logos-slide {
   display: flex;
-  animation: 15s slideRight infinite linear;
+  animation: 25s slideRight infinite linear;
 }
 

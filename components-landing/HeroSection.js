@@ -4,8 +4,19 @@ import Link from "next/link";
 import TrustedCandidates from "../components/TrustedCandidates";
 // import './landingGlobal.css';
 // import './styles.css';
+import { useRef, useState } from "react";
+import { PopupModal, useCalendlyEventListener } from "react-calendly";
 
 const HeroSection = () => {
+  const buttonRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useCalendlyEventListener({
+    onEventScheduled: (e) => {
+      console.log("Fetching event details from:", e.data.payload.event.uri);
+      getEventDetails(e.data.payload.event.uri);
+    },
+  });
   // const { theme } = useTheme();
   return (
     <>
@@ -38,7 +49,7 @@ const HeroSection = () => {
 
                   <div>
                     <p className="text-xs bg-[#FFE6E6] dark:ring-red-900 p-2 px-3 rounded-full flex gap-2 font-medium">
-                    Not Eligible{" "}
+                      Not Eligible{" "}
                       <Image src="/Ellipse_red.svg" width={6} height={6} />
                     </p>
                   </div>
@@ -51,13 +62,13 @@ const HeroSection = () => {
 
           <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
             <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
-              Agile recruitment for today’s world of work
+              Hire Top Talent Effortlessly with RecruitInn
             </h1>
             <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
               {" "}
-              Revolutionize the way you recruit by leveraging our innovative
-              solutions designed to make your hiring more efficient and
-              effective
+              Find and hire top talent with ease. Leverage RecruitInn’s
+              AI-driven recruitment solutions to make your hiring process
+              faster, more efficient, and impactful.
             </p>
           </div>
 
@@ -128,14 +139,28 @@ const HeroSection = () => {
         </div>
 
         <TrustedCandidates />
-        <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}>
-          <button
-            className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
-          >
-            Get Started today
-          </button>
-        </Link>
+        {/* <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}> */}
+        <button
+          ref={buttonRef}
+          onClick={() => setIsOpen(true)}
+          className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
+        >
+          Get Started today
+        </button>
+        {/* </Link> */}
       </div>
+
+      <PopupModal
+        url="https://calendly.com/taha-recruitinn/30min"
+        rootElement={document.body}
+        text="Schedule Call"
+        textColor="#fff"
+        color="#000"
+        height="200px"
+        overflow="hidden"
+        onModalClose={() => setIsOpen(false)}
+        open={isOpen}
+      />
     </>
   );
 };

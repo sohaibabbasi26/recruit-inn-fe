@@ -37,13 +37,13 @@
   
   .logos-slide {
     display: flex;
-    animation: 25s slide infinite linear;
+    animation: 25s slideRight infinite linear;
   }
-  @keyframes slide {
+  @keyframes slideRight {
     0% {
-      transform: translateX(0);
+      transform: translateX(-30%);
     }
     100% {
-      transform: translateX(-30%);
+      transform: translateX(0%);
     }
   }
