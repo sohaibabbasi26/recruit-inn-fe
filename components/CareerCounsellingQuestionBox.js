@@ -81,7 +81,7 @@ function CareerCounsellingQuestionBox({
         if (response.code !== 200) {
           console.log(`Error: ${response}`);
         } else {
-          //window.location.href=`${process.env.NEXT_PUBLIC_SKILLBUILDER_FRONTEND_URL}`
+          window.location.href=`${process.env.NEXT_PUBLIC_SKILLBUILDER_FRONTEND_URL}/schedule-session`
         }
       }
     };
