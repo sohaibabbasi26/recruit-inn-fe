@@ -95,7 +95,7 @@ const LandingNavbar = ({
                     href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}
                     className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
-                    Recruit A Talent
+                    Hire Top Talent
                   </a>
                   {/* <a href="https://app.recruitinn.ai/client-signup">
                     <button
@@ -145,14 +145,14 @@ const LandingNavbar = ({
                     <ul className={styles.dropdown_menu}>
                       <li>
                         <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
-                          Company
+                        Hire Talent
                         </a>
                       </li>
                       <li>
                         <a
                           href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}
                         >
-                          Candidate
+                         Get Hired
                         </a>
                       </li>
                     </ul>

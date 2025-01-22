@@ -104,13 +104,13 @@ function RecruitInnProcess() {
         </span>
         &nbsp;&nbsp;
         <span className="image-2-text opacity-30">
-          Effortlessly evaluate candidates, gain actionable insights, and make
-          decisions.
+          Effortlessly evaluate candidates, Gain actionable insights and make
+          informed hiring decisions.
         </span>
         &nbsp;&nbsp;
         <span className="image-3-text opacity-30">
-          Our solutions cater to every expertise and project demand, ensuring a
-          perfect Talent every time.
+          Our solutions are designed to meet diverse expertise and project
+          needs, ensuring the right fit for your team every time.
         </span>
       </h2>
 

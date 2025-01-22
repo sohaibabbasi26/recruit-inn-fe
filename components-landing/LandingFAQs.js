@@ -74,7 +74,7 @@ const LandingFAQs = () => {
 
                 {/* Dropdown content */}
                 {dropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                     Recruitinn is an advanced recruitment platform that connects
                     businesses with top engineers and developers. Our advanced
                     AI-driven technology streamlines the hiring process by
@@ -112,7 +112,7 @@ const LandingFAQs = () => {
 
                 {/* Dropdown content */}
                 {secondDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                     RecruitInn.ai uses advanced AI algorithms to conduct
                     interviews by analyzing candidates' responses, confidence,
                     and soft skills. It evaluates the candidate's performance in
@@ -146,7 +146,7 @@ const LandingFAQs = () => {
 
                 {/* Dropdown content */}
                 {thirdDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                     Yes, RecruitInn.ai evaluates both technical skills (like
                     coding, problem-solving, etc.) and soft skills (like
                     communication, critical thinking, and teamwork) during the
@@ -182,7 +182,7 @@ const LandingFAQs = () => {
 
                 {/* Dropdown content */}
                 {fifthDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                     Yes, Recruitinn.ai is built to work with any job description
                     worldwide, ensuring precise candidate evaluation
                     irrespective of the role.
@@ -216,7 +216,7 @@ const LandingFAQs = () => {
 
                 {/* Dropdown content */}
                 {fourthDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                     Getting started with Recruitinn.ai is simple. Choose a plan
                     that suits your needs, sign up, and you’ll be on your way to
                     revolutionizing your hiring process.

@@ -61,14 +61,14 @@ const HeroSection = () => {
           </div>
 
           <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
-            <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
-              Hire Top Talent Effortlessly with RecruitInn
+            <h1 className="text-dark min-w-fit dark:text-white text-center pr-12 md:text-5xl text-3xl font-[1000] w-[100%]">
+              Welcome to the Future of Recruitment with RecruitInn
             </h1>
             <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
               {" "}
-              Find and hire top talent with ease. Leverage RecruitInn’s
-              AI-driven recruitment solutions to make your hiring process
-              faster, more efficient, and impactful.
+              Transform your hiring process with RecruitInn's AI-powered
+              solutions. Discover, assess, and onboard top talent faster,
+              smarter, and with unmatched efficiency.
             </p>
           </div>
 

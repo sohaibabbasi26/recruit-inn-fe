@@ -28,7 +28,7 @@
 //     id: 3,
 //     heading: "Hire an entire team of Developers from us.",
 //     message:
-//       "RecruitInn.ai sped up hiring and improved candidate quality through smart automation.",
+//       "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
 //     author: "Arshad Iqbal",
 //     designation: "Country Manager, Tixsee Labs LLC",
 //     image: "/avt1.png",
@@ -37,7 +37,7 @@
 //     id: 4,
 //     heading: "Hire an entire team of Developers from us.",
 //     message:
-//       "RecruitInn.ai saved us time and helped us find top talent faster with smart automation.",
+//       "Finding the right people for our team was never this simple. RecruitInn.ai made sure we had the best talent in no time.",
 //     author: "Muhammad Ahsan Khan",
 //     designation: "Founder, SkillBuilder",
 //     image: "/avt1.png",
@@ -46,7 +46,7 @@
 //     id: 5,
 //     heading: "Hire an entire team of Developers from us.",
 //     message:
-//       "RecruitInn.ai transformed our hiring by speeding up sourcing with AI.",
+//       "With the help of RecruitInn.ai we were able to transform the way we approached hiring. The entire process became faster and more efficient.",
 //     author: "Muhammad Nameer Uddin",
 //     designation: "Founder, Universal Technologies",
 //     image: "/avt1.png",
@@ -70,7 +70,7 @@
 //             slidesPerView={1} // Default to 1 slide per view
 //             navigation
 //             pagination={{ clickable: true }}
-            
+
 //             breakpoints={{
 //               640: {
 //                 slidesPerView: 1, // 1 column on small screens
@@ -138,7 +138,7 @@ const testimonials = [
     id: 1,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "RecruitInn.ai helped us hire top talent faster with smart automation.",
+      "RecruitInn.ai delivered outstanding results, simplifying our hiring process and letting us focus on top candidates effortlessly.",
     author: "syed Zubair Alam",
     designation: "Founder, Co-VenTech",
     image: "/avt1.png",
@@ -147,7 +147,7 @@ const testimonials = [
     id: 2,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "RecruitInn.ai transformed our hiring by speeding up sourcing with AI.",
+      "With the help of RecruitInn.ai we were able to transform the way we approached hiring. The entire process became faster and more efficient.",
     author: "Muhammad Nameer Uddin",
     designation: "Founder, Universal Technologies",
     image: "/avt1.png",
@@ -156,7 +156,7 @@ const testimonials = [
     id: 3,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "RecruitInn.ai sped up hiring and improved candidate quality through smart automation.",
+      "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
     author: "Arshad Iqbal",
     designation: "Country Manager, Tixsee Labs LLC",
     image: "/avt1.png",
@@ -165,7 +165,7 @@ const testimonials = [
     id: 4,
     heading: "Hire an entire team of Developers from us.",
     message:
-      "RecruitInn.ai saved us time and helped us find top talent faster with smart automation.",
+      "Finding the right people for our team was never this simple. RecruitInn.ai made sure we had the best talent in no time.",
     author: "Muhammad Ahsan Khan",
     designation: "Founder, SkillBuilder",
     image: "/avt1.png",
@@ -174,7 +174,7 @@ const testimonials = [
     id: 5,
     heading: "Hire an entire team of Developers from us.",
     message:
-     "RecruitInn.ai revolutionized our hiring process, accelerating candidate sourcing through AI.",
+      "RecruitInn.ai transformed our hiring process, dramatically speeding up candidate sourcing with advanced AI.",
     author: "Muhammad Aqib",
     designation: "Founder, Well-Tech",
     image: "/avt1.png",
@@ -216,12 +216,14 @@ const Testimonials = () => {
           >
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id} className="py-8 rounded-3xl">
-                <div className="relative flex flex-col rounded-3xl border border-gray-200 p-6 transition hover:border-purple-600 hover:shadow-2xl-purple">
-                  <h3 className="text-sm text-gray-500">{testimonial.heading}</h3>
+                <div className="relative flex flex-col h-[300px] rounded-3xl border border-gray-200 p-6  transition hover:border-purple-600 hover:shadow-2xl-purple">
+                  <h3 className="text-sm text-gray-500">
+                    {testimonial.heading}
+                  </h3>
                   <p className="mt-4 text-2xl font-bold text-gray-900 leading-relaxed">
                     {testimonial.message}
                   </p>
-                  <div className="mt-6 flex items-center">
+                  <div className="absolute bottom-5 flex items-center">
                     <Image
                       src={testimonial.image}
                       alt={testimonial.author}
@@ -257,6 +259,3 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
-
-
-

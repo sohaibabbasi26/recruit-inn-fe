@@ -14,19 +14,19 @@ gsap.registerPlugin(ScrollTrigger);
 const content = [
   {
     title: "Create a Job",
-    para: "Where you can specify your required skills & expertise",
+    para: "Share the details of the role and the skills you need.",
   },
   {
-    title: "Generate AI Assessment",
-    para: "Where you can specify your required skills & expertise",
+    title: "Generate AI Interview",
+    para: "Let our AI create the perfect interview for your candidates.",
   },
   {
-    title: "Take Assessment",
-    para: "Where you can specify your required skills & expertise",
+    title: "Conduct the Interview",
+    para: "Use AI to interview and evaluate candidates with ease.",
   },
   {
-    title: "Get The Best Talents",
-    para: "Where you can specify your required skills & expertise",
+    title: "Hire the Right Talent",
+    para: "Choose the best candidate and grow your team effortlessly.",
   },
 ];
 
@@ -75,7 +75,7 @@ function FeaturesSection() {
     <section className="my-12 mx-auto w-full features text-center ">
       <div className="w-90p mx-auto space-y-4 mb-16 heading">
         <h2 className="text-neutral-dark text-4xl font-bold">
-          Recruitinn’s Way
+        Effortless Hiring in Four Simple Steps
         </h2>
         <p className="text-center text-steel text-sm">
           Access a pool of meticulously vetted, highly skilled candidates ready
