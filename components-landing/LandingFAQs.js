@@ -6,7 +6,7 @@ import style from "./styles.module.css";
 import ChevronDown from "../components/ChevronDown";
 import { useTheme } from "next-themes";
 
-const LandingFAQs = () => {
+const LandingFAQs = ({t}) => {
   const [dropDownState, setDropDownState] = useState(false);
   const [secondDropDownState, setSecondDropDownState] = useState(false);
   const [thirdDropDownState, setThirdDropDownState] = useState(false);
@@ -46,10 +46,11 @@ const LandingFAQs = () => {
         <div className="h-100p w-100p mb-[2rem] flex justify-center text-black dark:text-white items-center flex-col ">
           <div className="h-[20%] w-[90%] flex flex-col items-center justify-center">
             <h1 className="text-center text-5xl font-bold text-gray-900">
-              FAQs
+              {t("FAQ.F_heading")}
             </h1>
             <p className="text-center text-md text-gray-500 mt-2">
-              Answers to the most frequently asked questions.
+            {t("FAQ.F_subheading")}
+
             </p>
           </div>
           <div className="w-[50%] h-[70%] mt-[1rem] max-md:w-[90%]">
@@ -63,7 +64,8 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    What is recruitinn?
+              {t("FAQ.F_Q1")}
+                    
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -75,12 +77,7 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {dropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Recruitinn is an advanced recruitment platform that connects
-                    businesses with top engineers and developers. Our advanced
-                    AI-driven technology streamlines the hiring process by
-                    offering comprehensive assessment tests and personalized
-                    matching, ensuring that you find the perfect candidates for
-                    your specific needs.
+                  {t("FAQ.F_A1")}
                   </p>
                 )}
 
@@ -101,7 +98,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    How does RecruitInn.ai conduct AI-based interviews?
+                  {t("FAQ.F_Q2")}
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -113,11 +110,7 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {secondDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    RecruitInn.ai uses advanced AI algorithms to conduct
-                    interviews by analyzing candidates' responses, confidence,
-                    and soft skills. It evaluates the candidate's performance in
-                    real-time and provides detailed reports to recruiters or
-                    candidates.
+                  {t("FAQ.F_A2")}
                   </p>
                 )}
 
@@ -135,7 +128,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    Can RecruitInn.ai evaluate both technical and soft skills?
+                   {t("FAQ.F_Q3")}
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -147,11 +140,7 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {thirdDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Yes, RecruitInn.ai evaluates both technical skills (like
-                    coding, problem-solving, etc.) and soft skills (like
-                    communication, critical thinking, and teamwork) during the
-                    interview process. The tool provides comprehensive insights
-                    to help recruiters make better decisions.
+                   {t("FAQ.F_A3")}
                   </p>
                 )}
 
@@ -171,7 +160,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    Can Recruitinn.ai adapt to any job description?
+                    {t("FAQ.F_Q4")}
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -183,9 +172,7 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {fifthDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Yes, Recruitinn.ai is built to work with any job description
-                    worldwide, ensuring precise candidate evaluation
-                    irrespective of the role.
+                   {t("FAQ.F_A4")}
                   </p>
                 )}
 
@@ -205,7 +192,7 @@ const LandingFAQs = () => {
               >
                 <div className="w-full flex justify-between items-center gap-2">
                   <span className="text-lg tracking-wide font-semibold font-sans">
-                    How do I get started with Recruitinn.ai ?
+                   {t("FAQ.F_Q5")}
                   </span>
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
@@ -217,9 +204,7 @@ const LandingFAQs = () => {
                 {/* Dropdown content */}
                 {fourthDropDownState && (
                   <p className="text-sm text-smallText mt-3">
-                    Getting started with Recruitinn.ai is simple. Choose a plan
-                    that suits your needs, sign up, and you’ll be on your way to
-                    revolutionizing your hiring process.
+                    {t("FAQ.F_A5")}
                   </p>
                 )}
 

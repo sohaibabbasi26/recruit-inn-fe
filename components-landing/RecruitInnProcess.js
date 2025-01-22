@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const images = [rectangle1, rectangle2, rectangle3];
 
-function RecruitInnProcess() {
+function RecruitInnProcess({t}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const container2 = useRef(null);
 
@@ -99,18 +99,17 @@ function RecruitInnProcess() {
       <h2 className="heading text-3xl font-bold text-center block leading-[unset] transition-opacity duration-500">
         {" "}
         <span className="image-1-text">
-          Real-Time Interviews, Instant Feedback, and Seamless Scheduling – All
-          Automated for You!
+          {t("RecruitInnProcess.RP_txt1")}
         </span>
         &nbsp;&nbsp;
         <span className="image-2-text opacity-30">
-          Effortlessly evaluate candidates, gain actionable insights, and make
-          decisions.
+        {t("RecruitInnProcess.RP_txt2")}
+
         </span>
         &nbsp;&nbsp;
         <span className="image-3-text opacity-30">
-          Our solutions cater to every expertise and project demand, ensuring a
-          perfect Talent every time.
+        {t("RecruitInnProcess.RP_txt3")}
+          
         </span>
       </h2>
 

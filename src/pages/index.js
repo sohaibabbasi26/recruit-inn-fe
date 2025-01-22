@@ -12,6 +12,7 @@ import RecruitInnProcess from "../../components-landing/RecruitInnProcess";
 import styles from "../../components-landing/styles.module.css";
 import Testimonials from "../../components-landing/Testimonials";
 import LandingVideo from "../../components/LandingVideo";
+import { useTranslation } from "react-i18next";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -23,6 +24,8 @@ const LandingPage = () => {
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
 
+
+  const { t } = useTranslation();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -57,38 +60,39 @@ const LandingPage = () => {
           LandingThirdRef={LandingThirdRef}
           testimonialsRef={testimonialsRef}
           featuresRef={featuresRef}
+          t={t}
         />
         <div ref={HeroRef}>
-          <HeroSection />
+          <HeroSection  t={t}/>
         </div>
 
         <LandingVideo />
         <div ref={LandingThirdRef}>
-          <LandingThird />
+          <LandingThird t={t}/>
         </div>
-        <InterviewSection />
+        <InterviewSection t={t} />
         {/* Try this */}
         {/* <LandingFourth /> */}
         <div className="4th">
-          <RecruitInnProcess />
+          <RecruitInnProcess t={t}/>
         </div>
         <div ref={featuresRef}> np
-          <FeaturesSection />
+          <FeaturesSection t={t} />
         </div>
         {/* <LandingFourth />
           <div ref={howItWorksRef}>
             <HowItWorks />
           </div>  */}
           <div ref={testimonialsRef}>
-         <Testimonials />
+         <Testimonials t={t}/>
          </div>
        
         <div ref={pricingRef} className="pt-4">
-          <PaymentMethods  />
+          <PaymentMethods  t={t}/>
         </div>
 
         <div ref={FAQRef}>
-          <LandingFAQs />
+          <LandingFAQs t={t}/>
         </div>
         <Footer
           scrollToRef={scrollToRef}
@@ -97,6 +101,7 @@ const LandingPage = () => {
           featuresRef={featuresRef}
           pricingRef={pricingRef}
           howItWorksRef={featuresRef}
+          t={t}
         />
       </main>
     </>

@@ -11,28 +11,30 @@ import takeAssessment from "../public/take-assessment.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const content = [
-  {
-    title: "Create a Job",
-    para: "Where you can specify your required skills & expertise",
-  },
-  {
-    title: "Generate AI Assessment",
-    para: "Where you can specify your required skills & expertise",
-  },
-  {
-    title: "Take Assessment",
-    para: "Where you can specify your required skills & expertise",
-  },
-  {
-    title: "Get The Best Talents",
-    para: "Where you can specify your required skills & expertise",
-  },
-];
+// const content = [
+//   {
+//     title: "Create a Job",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Generate AI Assessment",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Take Assessment",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Get The Best Talents",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+// ];
 
-function FeaturesSection() {
+function FeaturesSection({t}) {
   const [current, setCurrent] = useState(0);
   const container = useRef(null);
+  
+  const content = t("FeaturesSection.FS_content", { returnObjects: true,  });
 
   useGSAP(
     () => {
@@ -75,11 +77,10 @@ function FeaturesSection() {
     <section className="my-12 mx-auto w-full features text-center ">
       <div className="w-90p mx-auto space-y-4 mb-16 heading">
         <h2 className="text-neutral-dark text-4xl font-bold">
-          Recruitinn’s Way
+          {t("FeaturesSection.FS_heading")}
         </h2>
         <p className="text-center text-steel text-sm">
-          Access a pool of meticulously vetted, highly skilled candidates ready
-          <br /> to meet your needs and exceed your expectations
+          {t("FeaturesSection.FS_subheading")}
         </p>
       </div>
       <div
@@ -97,6 +98,7 @@ function FeaturesSection() {
               key={i}
               num={i}
               isLast={content.length === i + 1}
+              t={t}
               
             />
           ))}
@@ -141,7 +143,7 @@ function FeaturesSection() {
 
 export default FeaturesSection;
 
-function AccordianItem({ content, num, isLast, current, setCurrent }) {
+function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
   const isCur = num === current;
   const isActive = current > num;
   return (

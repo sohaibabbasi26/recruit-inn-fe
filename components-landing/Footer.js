@@ -14,6 +14,7 @@ const Footer = ({
   howItWorksRef,
   FAQRef,
   HeroRef,
+  t,
 }) => {
   const { theme } = useTheme();
   return (
@@ -42,25 +43,26 @@ const Footer = ({
         <div className="flex flex-grow justify-center items-start space-x-12 max-lg:mt-6">
           {/* Product Section */}
           <div className="text-center">
-            <p className="font-poppins text-lg font-bold leading-8">Product</p>
+            <p className="font-poppins text-lg font-bold leading-8">{t("Footer.F_Product")}</p>
             <div className="text-gray-500 text-sm font-light leading-5 space-y-2">
               <p
                 onClick={() => scrollToRef(pricingRef)}
                 className="cursor-pointer hover:underline pt-2"
               >
-                Packages
+                {t("Footer.F_Packages")}
               </p>
               <p
                 onClick={() => scrollToRef(howItWorksRef)}
                 className="cursor-pointer hover:underline"
               >
-                How it works
+                {t("Footer.F_HowItWorks")}
+                
               </p>
               <p
                 onClick={() => scrollToRef(FAQRef)}
                 className="cursor-pointer hover:underline"
               >
-                FAQ
+                {t("Footer.F_FAQ")}
               </p>
             </div>
           </div>
@@ -68,7 +70,7 @@ const Footer = ({
           {/* Community Section */}
           <div className="text-center">
             <p className="font-poppins text-lg font-bold leading-8">
-              Community
+             {t("Footer.F_Community")}
             </p>
             <div className="text-gray-500 text-sm font-light leading-5 space-y-2">
               <p className="hover:underline pt-2">
@@ -77,7 +79,7 @@ const Footer = ({
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  Twitter
+                  {t("Footer.F_Twitter")}
                 </a>
               </p>
               <p className="hover:underline">
@@ -86,7 +88,7 @@ const Footer = ({
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  Linkedin
+                  {t("Footer.F_Linkedin")}
                 </a>
               </p>
               <p className="hover:underline">
@@ -95,7 +97,7 @@ const Footer = ({
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  Facebook
+                  {t("Footer.F_Facebook")}
                 </a>
               </p>
             </div>
@@ -122,7 +124,7 @@ const Footer = ({
 
       <footer className="flex justify-between items-center px-4 py-2 border-t border-gray-200 bg-white pt-6 pb-6">
         <p className="text-sm text-gray-500">
-          © 2024 recruitinn. All rights reserved.
+          {t("Footer.F_rights")}
         </p>
         <div className="flex justify-center items-center max-sm:hidden">
           <div className="w-6 h-6">

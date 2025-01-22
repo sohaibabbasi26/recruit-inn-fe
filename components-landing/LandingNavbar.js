@@ -11,6 +11,7 @@ const LandingNavbar = ({
   testimonialsRef,
   LandingThirdRef,
   HeroRef,
+  t,
 }) => {
   const [menu, setMenu] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -60,19 +61,19 @@ const LandingNavbar = ({
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Process
+                    {t("Navbar.N_process")}
                   </li>
                   <li
                     onClick={() => scrollToRef(pricingRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Pricing
+                    {t("Navbar.N_pricing")}
                   </li>
                   <li
                     onClick={() => scrollToRef(testimonialsRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Testimonials
+                    {t("Navbar.N_testimonials")}
                   </li>
                 </ul>
               </div>
@@ -88,14 +89,14 @@ const LandingNavbar = ({
                   onClick={() => setIsOpen(true)}
                   className="px-14 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105"
                 >
-                  Book a demo
+                 {t("Navbar.N_btn_demo")}
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
                     href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}
                     className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
-                    Recruit A Talent
+                    {t("Navbar.N_btn_recruit")}
                   </a>
                   {/* <a href="https://app.recruitinn.ai/client-signup">
                     <button
@@ -139,20 +140,20 @@ const LandingNavbar = ({
                   <div
                     className={`${styles.dropdown}  text-[#170D23] font-bold  flex px-10  text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
                   >
-                    <span className="mt-3"> Login</span>
+                    <span className="mt-3"> {t("Navbar.N_btn_login")}</span>
                     <Image src="/Arrow.svg" height={30} width={30} />
 
                     <ul className={styles.dropdown_menu}>
                       <li>
                         <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
-                          Company
+                          {t("Navbar.N_company")}
                         </a>
                       </li>
                       <li>
                         <a
                           href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}
                         >
-                          Candidate
+                          {t("Navbar.N_candidates")}
                         </a>
                       </li>
                     </ul>
