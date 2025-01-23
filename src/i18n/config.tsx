@@ -4,6 +4,10 @@ import i18n from "i18next";
 // re-render when language changes.
 import { initReactI18next } from "react-i18next";
 
+const savedLanguage =
+  typeof window !== "undefined" && localStorage.getItem("language")
+    ? localStorage.getItem("language")
+    : "en";
 i18n
   // Add React bindings as a plugin.
   .use(initReactI18next)
@@ -15,7 +19,7 @@ i18n
     // when a user visits our site for the first time.
     // We use English here, but feel free to use
     // whichever locale you want.                   
-    lng: "ar",
+    lng: savedLanguage,
 
     // Fallback locale used when a translation is
     // missing in the active locale. Again, use your
@@ -53,6 +57,8 @@ i18n
             "N_candidates": "Candidate",
             "N_btn_recruit": "Recruit A Talent",  
             "N_btn_demo": "Book A Demo",
+            "N_btn_loginasClient": "Login as Client",
+            "N_btn_loginasCandidate": "Login as Candidate",
 
 
           },
@@ -293,6 +299,8 @@ i18n
             "N_candidates": "المرشحين",
             "N_btn_recruit": "استأجر موهبة",  
             "N_btn_demo": "احجز عرضًا توضيحيًا",
+            "N_btn_loginasClient": "تسجيل الدخول كعميل",
+            "N_btn_loginasCandidate": "تسجيل الدخول كمرشح",
 
 
           },
@@ -481,5 +489,6 @@ i18n
       },
     },
   });
+
 
 export default i18n;
