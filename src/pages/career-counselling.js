@@ -93,6 +93,8 @@ function CareerCounselling() {
         <div className={style.superContainer}>
           <CareerCounsellingQuestionBox
             email={email}
+            student_id={studentId}
+            instructor_id={instructorId}
             questions={questions}
             hasStarted={!instructionsPopup}
             isLoading={isLoading}
