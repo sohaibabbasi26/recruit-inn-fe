@@ -53,6 +53,7 @@ const LandingVideo = () => {
                 // onClick={togglePlay}
                 src="/video/recruitinn_final2.mp4"
                 poster="/thumbnail.jpg"
+                  controlsList="nodownload"
                 controls
                 style={{
                   width: "100%",

@@ -8,7 +8,7 @@ const TechstackFour = () => {
     "/TechStack5.png",
     "/TechStack2.png",
     "/TechStack3.png",
-    "/TechStack4.png",
+    "/flutter.svg",
   ];
 
   return (

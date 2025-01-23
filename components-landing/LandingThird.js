@@ -47,14 +47,14 @@ const LandingThird = ({t}) => {
               </div>
 
               {/* Avatar 2 */}
-              {/* <div className={`absolute ${styles.rotate_center1}`}>
+              <div className={`absolute ${styles.rotate_center1}`}>
                 <Image
                   src="/avatar2.png"
                   alt="Avatar 2"
                   width={30}
                   height={30}
                 />
-              </div> */}
+              </div>
 
               {/* Avatar 3 */}
               <div className={`absolute ${styles.rotate_center2}`}>
@@ -67,14 +67,14 @@ const LandingThird = ({t}) => {
               </div>
 
               {/* Avatar 4 */}
-              {/* <div className={`absolute ${styles.rotate_center3}`}>
+              <div className={`absolute ${styles.rotate_center3}`}>
                 <Image
                   src="/avatar4.png"
                   alt="Avatar 4"
                   width={30}
                   height={30}
                 />
-              </div> */}
+              </div>
 
               {/* Avatar 5 */}
               <div className={`absolute ${styles.rotate_center4}`}>
@@ -87,14 +87,14 @@ const LandingThird = ({t}) => {
               </div>
 
               {/* Avatar 6 */}
-              {/* <div className={`absolute ${styles.rotate_center5}`}>
+              <div className={`absolute ${styles.rotate_center5}`}>
                 <Image
                   src="/avatar6.png"
                   alt="Avatar 6"
                   width={30}
                   height={30}
                 />
-              </div> */}
+              </div>
             </div>
 
             <div className="w-80p h-50p flex flex-col justify-center mt-5 max-sm:mt-0">

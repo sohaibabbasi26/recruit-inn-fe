@@ -93,7 +93,7 @@ const Footer = ({
               </p>
               <p className="hover:underline">
                 <a
-                  href="https://twitter.com/recruitinn"
+                  href="https://facebook.com/recruitinn"
                   target="blank"
                   rel="noopener noreferrer"
                 >
@@ -126,7 +126,7 @@ const Footer = ({
         <p className="text-sm text-gray-500">
           {t("Footer.F_rights")}
         </p>
-        <div className="flex justify-center items-center max-sm:hidden">
+        {/* <div className="flex justify-center items-center max-sm:hidden">
           <div className="w-6 h-6">
             <Image
               src="/footerlogo.png"
@@ -135,11 +135,11 @@ const Footer = ({
               height={24}
             />
           </div>
-        </div>
+        </div> */}
         <div className="flex items-center gap-4">
           {/* Social Media Icons */}
           <a
-            href="/twitterx.png"
+            href="https://twitter.com/recruitinn"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-gray-800"
@@ -147,7 +147,7 @@ const Footer = ({
             <Image src="/twitterx.png" alt="X" width={24} height={24} />{" "}
           </a>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/recruitinn-ai/about"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-gray-800"
@@ -155,7 +155,7 @@ const Footer = ({
             <Image src="/instagram.png" alt="X" width={24} height={24} />{" "}
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/company/recruitinn-ai/about"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-gray-800"

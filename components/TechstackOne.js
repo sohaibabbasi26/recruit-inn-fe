@@ -7,7 +7,7 @@ const TechstackOne = () => {
   const { theme } = useTheme();
   const images = [
     "/graphql.svg",
-    "/c++.svg",
+    "/nextii.png",
     "/reactjs.svg",
     "/typescript.svg",
   ];
