@@ -117,6 +117,7 @@ i18n
             "IS_MiaTurnerProfession": "Lead Data Scientist",
             "IS_LucasBailey": "Lucas Bailey",
             "IS_LucasBaileyProfession": "Lead AI Researcher",
+            "IS_TopTalent": "Top Talent",
 
           }
           ,
@@ -341,7 +342,8 @@ i18n
             "IS_MiaTurner": "ميا تورنر",
             "IS_MiaTurnerProfession": "عالمة بيانات رئيسية",
             "IS_LucasBailey": "لوكاس بيلي",
-            "IS_LucasBaileyProfession": "باحث رئيسي في الذكاء الاصطناعي"
+            "IS_LucasBaileyProfession": "باحث رئيسي في الذكاء الاصطناعي",
+            "IS_TopTalent": "المواهب الأفضل",
           },
           "RecruitInnProcess": {
             "RP_txt1": "مقابلات في الوقت الفعلي، ملاحظات فورية، وجدولة سلسة – كل ذلك يتم تلقائيًا من أجلك!",

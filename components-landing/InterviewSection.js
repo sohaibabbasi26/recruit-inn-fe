@@ -389,8 +389,8 @@ function InterviewSection({t}) {
               />
               <NodeCard
                className="bottom-card-two"
-              name="Ethan Clarke"
-             title=" Product Manager"
+              name=  {t("InterviewSection.IS_EthanClarke")}
+             title=   {t("InterviewSection.IS_EthanClarkeProfession")}
              avatar="/avt1.png"
           />
               
@@ -456,7 +456,7 @@ function InterviewSection({t}) {
            
             <div>
               <h4 className="text-lg  mt-3 font-semibold text-gray-800 dark:text-white">
-                 Top Talent
+              {t("InterviewSection.IS_TopTalent")}
               </h4>
              
             </div>
