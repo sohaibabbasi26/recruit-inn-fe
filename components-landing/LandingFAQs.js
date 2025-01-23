@@ -76,7 +76,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {dropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                   {t("FAQ.F_A1")}
                   </p>
                 )}
@@ -109,7 +109,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {secondDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                   {t("FAQ.F_A2")}
                   </p>
                 )}
@@ -139,7 +139,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {thirdDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                    {t("FAQ.F_A3")}
                   </p>
                 )}
@@ -171,7 +171,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {fifthDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                    {t("FAQ.F_A4")}
                   </p>
                 )}
@@ -203,7 +203,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {fourthDropDownState && (
-                  <p className="text-sm text-smallText mt-3">
+                  <p className="text-lg text-smallText mt-3">
                     {t("FAQ.F_A5")}
                   </p>
                 )}
