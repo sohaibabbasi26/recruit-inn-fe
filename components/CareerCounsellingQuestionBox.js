@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import VideoComponent from "./VideoComponent";
 
 function CareerCounsellingQuestionBox({
+  student_id,
+  instructor_id,
   email,
   questions,
   hasStarted,
@@ -70,7 +72,9 @@ function CareerCounsellingQuestionBox({
             },
             body: JSON.stringify({
               question_answer: answers,
-              email
+              email,
+              student_id,
+              instructor_id
             }),
           }
         );

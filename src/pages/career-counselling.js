@@ -9,7 +9,8 @@ function CareerCounselling() {
   const router = useRouter();
   const { token } = router?.query;
   const [email, setEmail] = useState(null);
-  console.log(token);
+  const [studentId,setStudentId]= useState(null);
+  const [instructorId,setInstructorId]= useState(null);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -25,6 +26,8 @@ function CareerCounselling() {
       if (response?.ok) {
         const data = await response?.json();
         setEmail(data?.data?.email);
+        setStudentId(data?.data?.student_id)
+        setInstructorId(data?.data?.instructor_id)
       }
     };
     verifyToken();
@@ -90,6 +93,8 @@ function CareerCounselling() {
         <div className={style.superContainer}>
           <CareerCounsellingQuestionBox
             email={email}
+            student_id={studentId}
+            instructor_id={instructorId}
             questions={questions}
             hasStarted={!instructionsPopup}
             isLoading={isLoading}
