@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 const TechstackTwo = () => {
   const { theme } = useTheme();
-  const images = ["/rails.svg", "/swift.svg", "/nextii.png", "/ruby.svg"];
+  const images = ["/python.svg", "/django.png", "/aws.svg", "/figma.svg"];
 
   return (
     <div

@@ -150,7 +150,7 @@ const testimonials = [
       "With the help of RecruitInn.ai we were able to transform the way we approached hiring. The entire process became faster and more efficient.",
     author: "Muhammad Nameer Uddin",
     designation: "Founder, Universal Technologies",
-    image: "/avt1.png",
+    image: "/avt10.png",
   },
   {
     id: 3,
@@ -159,7 +159,7 @@ const testimonials = [
       "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
     author: "Arshad Iqbal",
     designation: "Country Manager, Tixsee Labs LLC",
-    image: "/avt1.png",
+    image: "/avt4.png",
   },
   {
     id: 4,
@@ -168,7 +168,7 @@ const testimonials = [
       "Finding the right people for our team was never this simple. RecruitInn.ai made sure we had the best talent in no time.",
     author: "Muhammad Ahsan Khan",
     designation: "Founder, SkillBuilder",
-    image: "/avt1.png",
+    image: "/avt9.png",
   },
   {
     id: 5,
@@ -177,7 +177,7 @@ const testimonials = [
       "RecruitInn.ai transformed our hiring process, dramatically speeding up candidate sourcing with advanced AI.",
     author: "Muhammad Aqib",
     designation: "Founder, Well-Tech",
-    image: "/avt1.png",
+    image: "/avt11.png",
   },
 ];
 

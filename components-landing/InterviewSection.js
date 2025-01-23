@@ -94,7 +94,17 @@ function InterviewSection() {
         "setLines"
       );
 
+      tl.addLabel("animatedcard");
+      tl.fromTo(
+       ".animate-card"
+        ,
+        { y: -5, scale: 0.9, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" },
+        "animatedcard"
+      );
+
       tl.addLabel("animateLines");
+      
       tl.fromTo(
         svgOnePath,
         {

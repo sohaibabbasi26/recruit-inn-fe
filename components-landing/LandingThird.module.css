@@ -133,20 +133,28 @@
   /* Apply animations */
   .rotate_center {
     animation: orbit-large 40s linear infinite;
+    animation-delay: 0s;
+   
   }
-  /* .rotate_center1 {
-    animation: orbit-large-1 1000s linear infinite;
-  } */
+  .rotate_center1 {
+    animation: orbit-large-1 40s linear infinite;
+    animation-delay: 10s;
+  }
   .rotate_center2 {
-    animation: orbit-large-2 30s linear infinite;
+    animation: orbit-large-2 40s linear infinite;
+    animation-delay: 0s;
+    
   }
   .rotate_center3 {
     animation: orbit-large-3 40s linear infinite;
+    animation-delay:15s;
   }
   .rotate_center4 {
     animation: orbit-large-4 50s linear infinite;
+    animation-delay: 0s;
   }
   .rotate_center5 {
-    animation: orbit-large-5 40s linear infinite;
+    animation: orbit-large-5 50s linear infinite;
+    animation-delay: 20s;
   }
 }
