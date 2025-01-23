@@ -377,6 +377,13 @@ function InterviewSection() {
                 title="Lead AI Researcher"
                 avatar="/avt4.png"
               />
+              <NodeCard
+               className="bottom-card-two"
+              name="Ethan Clarke"
+             title=" Product Manager"
+             avatar="/avt1.png"
+          />
+              
             </div>
           </div>
         </div>
@@ -384,7 +391,7 @@ function InterviewSection() {
         <PointerDownSvg className="pointer-two mx-auto" />
 
         {/* Third Level */}
-        <div className="flex justify-center items-center relative mb-8">
+        <div className="flex justify-center gap-4 items-center  ml-56 relative mb-8">
           <div className="bottom-last-cards flex gap-3 p-4 bg-white  rounded-xl w-auto ">
             <div className="">
               <Image
@@ -417,6 +424,31 @@ function InterviewSection() {
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Lead Data Scientist
               </p>
+            </div>
+          </div>
+          <div className="bottom-last-cards flex gap-3 p-4  bg-white mb-1  rounded-xl w-auto ">
+            <div className="">
+              <Image
+                src="/avt8.png"
+                alt="Central Logo"
+                width={40}
+                height={40}
+              />
+            </div>
+            <div className="mt-[18px]">
+              <Image
+                src="/avt6.png"
+                alt="Central Logo"
+                width={20}
+                height={20}
+              />
+            </div>
+           
+            <div>
+              <h4 className="text-lg  mt-3 font-semibold text-gray-800 dark:text-white">
+                 Top Talent
+              </h4>
+             
             </div>
           </div>
         </div>
