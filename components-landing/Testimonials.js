@@ -150,7 +150,7 @@ const testimonials = [
       "With the help of RecruitInn.ai we were able to transform the way we approached hiring. The entire process became faster and more efficient.",
     author: "Muhammad Nameer Uddin",
     designation: "Founder, Universal Technologies",
-    image: "/avt10.png",
+    image: "/avt11.png",
   },
   {
     id: 3,
