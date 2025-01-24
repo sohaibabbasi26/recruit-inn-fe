@@ -2,9 +2,11 @@ import { forwardRef, useState } from "react";
 import Button from "./Button";
 import styles from "./CameraAccess.module.css";
 import ErrorIndicator from "./ErrorIndicator";
+import { useCameraContext } from "@/contexts/CameraContext";
 
 const CameraAccessInstruction = forwardRef(
   ({ isLoading, setIsLoading, onClose, setHasGivenPermissionForCamera }, ref) => {
+    const { videoRef } = useCameraContext();
     const [hasCameraTurnedOn, setHasCameraTurnedOn] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [message, setMessage] = useState(null);
@@ -14,8 +16,8 @@ const CameraAccessInstruction = forwardRef(
         navigator.mediaDevices
           .getUserMedia({ video: true })
           .then((stream) => {
-            if (ref.current) {
-              ref.current.srcObject = stream;
+            if (videoRef.current) {
+              videoRef.current.srcObject = stream;
               setHasCameraTurnedOn(true);
               setHasGivenPermissionForCamera(true);
             }
@@ -28,32 +30,18 @@ const CameraAccessInstruction = forwardRef(
       }
     };
 
-    const requestCameraAccess = async () => {
-      try {
-        // Request camera access explicitly
-        await navigator.mediaDevices.getUserMedia({ video: true });
-        console.log("Camera permission granted.");
-        await startCamera(); // Turn on the camera after permission is granted
-      } catch (error) {
-        console.error("User denied camera access: ", error);
-      }
-    };
-
     const turnOnCamera = async () => {
       try {
-        // Check the current status of the camera permission
         const permissionStatus = await navigator.permissions.query({
           name: "camera",
         });
 
         if (permissionStatus.state === "granted") {
-          // If permission is already granted, turn on the camera
           await startCamera();
         } else if (permissionStatus.state === "prompt") {
-          // If permission is not yet decided, request permission
-          await requestCameraAccess();
+          await navigator.mediaDevices.getUserMedia({ video: true });
+          await startCamera();
         } else if (permissionStatus.state === "denied") {
-          // If permission is denied, show a user-friendly message
           setShowErrorMessage(true);
           setMessage(
             "Camera access has been denied. Please enable camera permissions in your browser settings to proceed."
@@ -78,15 +66,6 @@ const CameraAccessInstruction = forwardRef(
           />
         )}
         <div className={styles.backDropContainer}>
-          {/* {isLoading ? (
-          <>
-            <div className={styles.loader}></div>
-            <h2>
-              Assessment is being prepared, make sure to read all the
-              instructions before starting it!
-            </h2>
-          </>
-        ) : ( */}
           <div className={styles.instructionsBox}>
             <h3>Camera Adjustment</h3>
             <div className={styles.instructions}>
@@ -96,7 +75,7 @@ const CameraAccessInstruction = forwardRef(
                   height: "auto",
                   border: "1px solid #ccc",
                 }}
-                ref={ref}
+                ref={videoRef}
                 autoPlay
               ></video>
             </div>
@@ -110,7 +89,6 @@ const CameraAccessInstruction = forwardRef(
               </Button>
             )}
           </div>
-          {/* )} */}
         </div>
       </>
     );
