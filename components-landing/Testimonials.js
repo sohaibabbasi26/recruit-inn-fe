@@ -220,7 +220,7 @@ const Testimonials = () => {
                   <h3 className="text-sm text-gray-500">
                     {testimonial.heading}
                   </h3>
-                  <p className="mt-4 text-2xl font-bold text-gray-900 leading-relaxed">
+                  <p className="mt-4 2xl:text-2xl text-xl font-bold text-gray-900 leading-relaxed">
                     {testimonial.message}
                   </p>
                   <div className="absolute bottom-5 flex items-center">
