@@ -156,20 +156,20 @@ const QuestionBox = //forwardRef(
             setAudioUUID(null);
             setAudioURL(null);
             setHasAudioEnded(false);
-            setHasVoiceGenerated(false);
+            //setHasVoiceGenerated(false);
           } else {
             console.error(data.error);
             setAudioUUID(null);
             setAudioURL(null);
             setHasAudioEnded(false);
-            setHasVoiceGenerated(false);
+            //setHasVoiceGenerated(false);
           }
         } catch (error) {
           console.error("Error:", error);
           setAudioUUID(null);
           setAudioURL(null);
           setHasAudioEnded(false);
-          setHasVoiceGenerated(false);
+          //setHasVoiceGenerated(false);
         }
       };
 
@@ -716,6 +716,7 @@ const QuestionBox = //forwardRef(
               currentQuestion,
             ]);
             setIsLoading(false);
+            setHasVoiceGenerated(false);
           } else {
             await stopAndHandleRecording();
           }
