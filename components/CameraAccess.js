@@ -5,7 +5,7 @@ import ErrorIndicator from "./ErrorIndicator";
 import { useCameraContext } from "@/contexts/CameraContext";
 
 const CameraAccessInstruction = forwardRef(
-  ({ isLoading, setIsLoading, onClose }, ref) => {
+  ({ isLoading, setIsLoading, onClose, setHasGivenPermissionForCamera }, ref) => {
     const { videoRef } = useCameraContext();
     const [hasCameraTurnedOn, setHasCameraTurnedOn] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -18,12 +18,13 @@ const CameraAccessInstruction = forwardRef(
           .then((stream) => {
             if (videoRef.current) {
               videoRef.current.srcObject = stream;
+              setHasCameraTurnedOn(true);
+              setHasGivenPermissionForCamera(true);
             }
           })
           .catch((error) => {
             console.error("Error accessing the camera: ", error);
           });
-        setHasCameraTurnedOn(true);
       } catch (error) {
         console.error("Error accessing the camera: ", error);
       }
