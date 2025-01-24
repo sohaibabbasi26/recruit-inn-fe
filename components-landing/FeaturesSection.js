@@ -88,7 +88,7 @@ function FeaturesSection() {
       >
         <div className="line absolute -top-[3px] left-1/2 -translate-x-1/2 h-4 w-2/3 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-[50%_100%] z-[3] shadow-[0px_-30px_70px_1px_rgba(97,55,219,0.65)]"></div>
         <div className="try absolute top-0 w-90p left-1/2 -translate-x-1/2 h-[40px] bg-white z-[4] border-t-primary"></div>
-        <div className={`titles h-max`}>
+        <div className={`titles h-max  ml-6 `}>
           {content.map((c, i) => (
             <AccordianItem
               current={current}
@@ -101,7 +101,7 @@ function FeaturesSection() {
             />
           ))}
         </div>
-        <div className="images relative max-xl:hidden overflow-hidden pl-3 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
+        <div className="images relative max-xl:hidden overflow-hidden pl-4 pr-1 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
           <div className="relative w-full h-full space-y-24">
             <Image
               src={createAJob}
