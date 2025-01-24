@@ -2,7 +2,7 @@ import { useTheme } from "next-themes";
 import styles from "./TrustedCandidates.module.css";
 import Image from "next/image";
 
-const TrustedCandidates = () => {
+const TrustedCandidates = ({t}) => {
   const { theme } = useTheme();
 
   const logos = [
@@ -17,7 +17,7 @@ const TrustedCandidates = () => {
   return (
     <div className="relative flex flex-col w-[90%] max-w-[100%] overflow-hidden rounded-lg mb-[3rem] justify-center items-center">
       <span className="text-smallText dark:text-steel text-md text-center">
-      Trusted by
+          {t("hero.string_used_by")}
       </span>
       <div className={styles.logos}>
         <div className={styles["logos-slide"]}>

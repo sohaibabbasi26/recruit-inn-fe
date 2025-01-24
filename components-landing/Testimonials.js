@@ -133,63 +133,65 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const testimonials = [
-  {
-    id: 1,
-    heading: "Hire an entire team of Developers from us.",
-    message:
-      "RecruitInn.ai delivered outstanding results, simplifying our hiring process and letting us focus on top candidates effortlessly.",
-    author: "syed Zubair Alam",
-    designation: "Founder, Co-VenTech",
-    image: "/avt1.png",
-  },
-  {
-    id: 2,
-    heading: "Hire an entire team of Developers from us.",
-    message:
-      "With the help of RecruitInn.ai we were able to transform the way we approached hiring. The entire process became faster and more efficient.",
-    author: "Muhammad Nameer Uddin",
-    designation: "Founder, Universal Technologies",
-    image: "/avt11.png",
-  },
-  {
-    id: 3,
-    heading: "Hire an entire team of Developers from us.",
-    message:
-      "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
-    author: "Arshad Iqbal",
-    designation: "Country Manager, Tixsee Labs LLC",
-    image: "/avt4.png",
-  },
-  {
-    id: 4,
-    heading: "Hire an entire team of Developers from us.",
-    message:
-      "Finding the right people for our team was never this simple. RecruitInn.ai made sure we had the best talent in no time.",
-    author: "Muhammad Ahsan Khan",
-    designation: "Founder, SkillBuilder",
-    image: "/avt9.png",
-  },
-  {
-    id: 5,
-    heading: "Hire an entire team of Developers from us.",
-    message:
-      "RecruitInn.ai transformed our hiring process, dramatically speeding up candidate sourcing with advanced AI.",
-    author: "Muhammad Aqib",
-    designation: "Founder, Well-Tech",
-    image: "/avt11.png",
-  },
-];
+// const testimonials = [
+//   {
+//     id: 1,
+//     heading: "Hire an entire team of Developers from us.",
+//     message:
+//       "RecruitInn.ai helped us hire top talent faster with smart automation.",
+//     author: "syed Zubair Alam",
+//     designation: "Founder, Co-VenTech",
+//     image: "/avt1.png",
+//   },
+//   {
+//     id: 2,
+//     heading: "Hire an entire team of Developers from us.",
+//     message:
+//       "RecruitInn.ai transformed our hiring by speeding up sourcing with AI.",
+//     author: "Muhammad Nameer Uddin",
+//     designation: "Founder, Universal Technologies",
+//     image: "/avt1.png",
+//   },
+//   {
+//     id: 3,
+//     heading: "Hire an entire team of Developers from us.",
+//     message:
+//       "RecruitInn.ai sped up hiring and improved candidate quality through smart automation.",
+//     author: "Arshad Iqbal",
+//     designation: "Country Manager, Tixsee Labs LLC",
+//     image: "/avt1.png",
+//   },
+//   {
+//     id: 4,
+//     heading: "Hire an entire team of Developers from us.",
+//     message:
+//       "RecruitInn.ai saved us time and helped us find top talent faster with smart automation.",
+//     author: "Muhammad Ahsan Khan",
+//     designation: "Founder, SkillBuilder",
+//     image: "/avt1.png",
+//   },
+//   {
+//     id: 5,
+//     heading: "Hire an entire team of Developers from us.",
+//     message:
+//      "RecruitInn.ai revolutionized our hiring process, accelerating candidate sourcing through AI.",
+//     author: "Muhammad Aqib",
+//     designation: "Founder, Well-Tech",
+//     image: "/avt1.png",
+//   },
+// ];
 
-const Testimonials = () => {
+const Testimonials = ({t}) => {
+  const testimonials = t("Testimonials.T_content", { returnObjects: true,  });
+
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-center text-5xl font-bold text-gray-900">
-          Testimonials
+          {t("Testimonials.T_heading")}
         </h2>
         <p className="text-center text-md text-gray-500 mt-2">
-          Don’t take our words for it. Here’s what others have to say about us.
+          {t("Testimonials.T_subheading")}
         </p>
         <div className="mt-12 mx-auto max-w-[97%]">
           <Swiper
@@ -220,7 +222,7 @@ const Testimonials = () => {
                   <h3 className="text-sm text-gray-500">
                     {testimonial.heading}
                   </h3>
-                  <p className="mt-4 text-2xl font-bold text-gray-900 leading-relaxed">
+                  <p className="mt-4 text-xl 2xl:text-2xl font-bold text-gray-900 leading-relaxed">
                     {testimonial.message}
                   </p>
                   <div className="absolute bottom-5 flex items-center">

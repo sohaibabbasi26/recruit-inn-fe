@@ -103,7 +103,7 @@ const CandSelfSkill = ({skill1, skill2, setSkill1,setSkill2, level1,level2, setL
         </div>
 
         <div>
-          <label>Would you like to add a coding assignment too?</label>
+          <label>Would you want to include coding assessment as well?</label>
           <input
             type="checkbox"
             checked={isTestRequired}

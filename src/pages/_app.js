@@ -7,6 +7,10 @@ import { ExpertiseItemProvider } from "@/contexts/ExpertiseContext";
 import NameProvider from "@/contexts/NameProvider";
 import { ActiveFlowProvider } from "@/contexts/ActiveFlowContext";
 import { TestStateProvider } from "@/contexts/TestRequirementContext";
+
+import i18n from "./../i18n/config.tsx" ;
+
+
 // import { ThemeProvider } from "next-themes";
 function MyApp({ Component, pageProps }) {
   return (

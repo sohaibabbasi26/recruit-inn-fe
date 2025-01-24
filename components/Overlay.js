@@ -672,7 +672,7 @@ const Overlay = React.memo(
 
                   {stageHeadings[currentStage] === "Add Skills" ? (
                     <p>
-                      You can add maximum of 4 skills and minimum of 1
+                      Please select at least 1 skill and up to a maximum of 4 skills
                       <span>
                         <Image src="/warning2.svg" width={15} height={15} />
                       </span>

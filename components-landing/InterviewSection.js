@@ -19,7 +19,7 @@ import NodeCard from "./NodeCard";
 import PointerDownSvg from "../components/PointerDownSvg";
 gsap.registerPlugin(ScrollTrigger);
 
-function InterviewSection() {
+function InterviewSection({t}) {
   const { theme } = useTheme();
   const interviewSectionRef = useRef(null);
   const lineAnimationsRef = useRef(null);
@@ -231,13 +231,13 @@ function InterviewSection() {
         className="w-90p mx-auto bg-[#FBFBFC] rounded-3xl border border-darkPurple"
       >
         {/* <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] bg-light-purple-shade rounded-2xl border-2 "> */}
-        <MainCard />
+        <MainCard t={t} />
 
         <div className="flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8 overflow-hidden ">
           <div className="flex justify-center flex-col overflow-hidden relative">
             <NodeCard
-              name="Ethan Clarke"
-              title=" Product Manager"
+              name= {t("InterviewSection.IS_EthanClarke")}
+              title= {t("InterviewSection.IS_EthanClarkeProfession")}
               avatar="/avt1.png"
               className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
@@ -253,8 +253,8 @@ function InterviewSection() {
           </div>
           <div className="flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
-              name="Ava Mitchell"
-              title=" Full-Stack Developer"
+              name= {t("InterviewSection.IS_AvaMitchell")}
+              title= {t("InterviewSection.IS_AvaMitchellProfession")}
               avatar="/avt2.png"
               className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
@@ -270,8 +270,8 @@ function InterviewSection() {
           </div>
           <div className="flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
-              name="Mia Turner"
-              title="Lead Data Scientist"
+              name= {t("InterviewSection.IS_MiaTurner") }
+              title= {t("InterviewSection.IS_MiaTurnerProfession") }
               avatar="/avt3.png"
               className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
@@ -288,8 +288,8 @@ function InterviewSection() {
 
           <div className="sm:hidden max-xsm:hidden xsm:hidden md:block flex justify-center flex-col overflow-hidden relative  ">
             <NodeCard
-              name="Lucas Bailey"
-              title="Lead AI Researcher"
+              name= {t("InterviewSection.IS_LucasBailey")}
+              title= {t("InterviewSection.IS_LucasBaileyProfession")}
               avatar="/avt4.png"
               className="opacity-10 border-b-[2px] border-solid border-themePurple"
             />
@@ -310,28 +310,28 @@ function InterviewSection() {
           className="animate-cards-wrapper flex justify-center items-center max-xsm:gap-2 max-sm:gap-4 sm:gap-5 md:gap-6 lg:gap-8 relative"
         >
           <NodeCard
-            name="Ethan Clarke"
-            title=" Product Manager"
+            name= {t("InterviewSection.IS_EthanClarke")}
+            title= {t("InterviewSection.IS_EthanClarkeProfession")}
             avatar="/avt1.png"
             className="border-[2px] border-black-300 animate-card"
           />
           <NodeCard
-            name="Ava Mitchell"
-            title=" Full-Stack Developer"
+            name= {t("InterviewSection.IS_AvaMitchell")}
+            title= {t("InterviewSection.IS_AvaMitchellProfession")}
             avatar="/avt2.png"
             className="border-[2px] border-black-300 animate-card"
           />
           <NodeCard
-            name="Mia Turner"
-            title="Lead Data Scientist"
+            name= {t("InterviewSection.IS_MiaTurner")}
+            title= {t("InterviewSection.IS_MiaTurnerProfession")}
             avatar="/avt3.png"
             className="border-[2px] border-black-300 animate-card"
           />
 
           <div className=" max-xsm:hidden xsm:hidden sm:hidden md:block">
             <NodeCard
-              name="Lucas Bailey"
-              title="Lead AI Researcher"
+              name= {t("InterviewSection.IS_LucasBailey")}
+              title= {t("InterviewSection.IS_LucasBaileyProfession")} 
               avatar="/avt4.png"
               className="border-[2px] border-black-300 animate-card"
             />
@@ -377,20 +377,20 @@ function InterviewSection() {
             <div className="mx-auto relative flex gap-5 p-2.5 rounded-3xl z-[1] bg-[#FBFBFC]">
               <NodeCard
                 className="bottom-card-one"
-                name="Mia Turner"
-                title="Lead Data Scientist"
+                name= {t("InterviewSection.IS_MiaTurner") }
+                title= {t("InterviewSection.IS_MiaTurnerProfession") }
                 avatar="/avt3.png"
               />
               <NodeCard
                 className="bottom-card-two"
-                name="Lucas Bailey"
-                title="Lead AI Researcher"
+                name= {t("InterviewSection.IS_LucasBailey")}
+                title= {t("InterviewSection.IS_LucasBaileyProfession")}
                 avatar="/avt4.png"
               />
               <NodeCard
                className="bottom-card-two"
-              name="Ethan Clarke"
-             title=" Product Manager"
+              name=  {t("InterviewSection.IS_EthanClarke")}
+             title=   {t("InterviewSection.IS_EthanClarkeProfession")}
              avatar="/avt1.png"
           />
               
@@ -429,10 +429,10 @@ function InterviewSection() {
             </div>
             <div>
               <h4 className="text-sm font-semibold text-gray-800 dark:text-white">
-                Mia Turner
+               {t("InterviewSection.IS_MiaTurner")}
               </h4>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Lead Data Scientist
+              {t("InterviewSection.IS_MiaTurnerProfession")}
               </p>
             </div>
           </div>
@@ -456,7 +456,7 @@ function InterviewSection() {
            
             <div>
               <h4 className="text-lg  mt-3 font-semibold text-gray-800 dark:text-white">
-                 Top Talent
+              {t("InterviewSection.IS_TopTalent")}
               </h4>
              
             </div>

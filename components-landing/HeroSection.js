@@ -7,7 +7,8 @@ import TrustedCandidates from "../components/TrustedCandidates";
 import { useRef, useState } from "react";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 
-const HeroSection = () => {
+const HeroSection = ({t}) => {
+
   const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,8 +44,12 @@ const HeroSection = () => {
                   </div>
 
                   <div className="flex flex-col me-5">
-                    <span className="text-md text-bold">Ethan Parker</span>
-                    <span className="text-xs">IOS Developer</span>
+                    <span className="text-md text-bold">
+                    {t("hero.hero_name2")}
+                    </span>
+                    <span className="text-xs">
+                    {t("hero.hero_profession2")}
+                    </span>
                   </div>
 
                   <div>
@@ -61,14 +66,11 @@ const HeroSection = () => {
           </div>
 
           <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
-            <h1 className="text-dark min-w-fit dark:text-white text-center pr-12 md:text-5xl text-3xl font-[1000] w-[100%]">
-              Welcome to the Future of Recruitment with RecruitInn
+            <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
+            {t("hero.hero_heading")}
             </h1>
             <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
-              {" "}
-              Transform your hiring process with RecruitInn's AI-powered
-              solutions. Discover, assess, and onboard top talent faster,
-              smarter, and with unmatched efficiency.
+              {t("hero.hero_subheading")}
             </p>
           </div>
 
@@ -105,8 +107,14 @@ const HeroSection = () => {
                   </div>
 
                   <div className="flex flex-col me-5">
-                    <span className="text-md text-bold">Amina Farah</span>
-                    <span className="text-xs">Full-Stack Developer</span>
+                    <span className="text-md text-bold">
+                    {t("hero.hero_name1")}
+
+                    </span>
+                    <span className="text-xs">
+                    {t("hero.hero_profession1")}
+
+                    </span>
                   </div>
 
                   <div>
@@ -138,14 +146,14 @@ const HeroSection = () => {
           {/* </div> */}
         </div>
 
-        <TrustedCandidates />
+        <TrustedCandidates  t={t}/>
         {/* <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}> */}
         <button
           ref={buttonRef}
           onClick={() => setIsOpen(true)}
           className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
         >
-          Get Started today
+          {t("hero.get_started_btn")}
         </button>
         {/* </Link> */}
       </div>
