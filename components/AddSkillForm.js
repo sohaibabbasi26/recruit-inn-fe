@@ -213,7 +213,7 @@ const AddSkillForm = forwardRef(
               onChange={handleTestRequirementChange}
             />
             <label htmlFor="code-assignment">
-              Do you want to include coding assignment to this assessment?{" "}
+              Would you want to include coding assessment as well?{" "}
             </label>
           </div>
 
@@ -226,7 +226,7 @@ const AddSkillForm = forwardRef(
               onChange={handleArabicChooseChange}
             />
             <label htmlFor="code-assignment1">
-              Would you like to continue the interview in Arabic?{" "}
+              Would you like to conduct the interview in Arabic?{" "}
             </label>
           </div>
         </form>
