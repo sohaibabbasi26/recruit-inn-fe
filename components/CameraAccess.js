@@ -4,7 +4,7 @@ import styles from "./CameraAccess.module.css";
 import ErrorIndicator from "./ErrorIndicator";
 
 const CameraAccessInstruction = forwardRef(
-  ({ isLoading, setIsLoading, onClose }, ref) => {
+  ({ isLoading, setIsLoading, onClose, setHasGivenPermissionForCamera }, ref) => {
     const [hasCameraTurnedOn, setHasCameraTurnedOn] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [message, setMessage] = useState(null);
@@ -16,12 +16,13 @@ const CameraAccessInstruction = forwardRef(
           .then((stream) => {
             if (ref.current) {
               ref.current.srcObject = stream;
+              setHasCameraTurnedOn(true);
+              setHasGivenPermissionForCamera(true);
             }
           })
           .catch((error) => {
             console.error("Error accessing the camera: ", error);
           });
-        setHasCameraTurnedOn(true);
       } catch (error) {
         console.error("Error accessing the camera: ", error);
       }

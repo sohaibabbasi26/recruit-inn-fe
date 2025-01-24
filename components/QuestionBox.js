@@ -16,6 +16,7 @@ const QuestionBox = //forwardRef(
       hasStarted,
       setIsLoading,
       isLoading,
+      hasGivenPermissionForCamera,
       // selectedLanguage = "ar-SA",
       client_id,
     } //,
@@ -712,7 +713,6 @@ const QuestionBox = //forwardRef(
         //speakQuestion(currentQuestion);
         generateAudio(currentQuestion);
         console.log("line 688: speakQuestion called");
-
         setTimeLeft(130);
       }, [currentQuestion]);
 
@@ -976,7 +976,7 @@ const QuestionBox = //forwardRef(
           </div>
 
           {/* <h3>Live Camera Feed:</h3> */}
-          {videoRef !== null && (
+          {videoRef !== null && hasGivenPermissionForCamera && (
             <VideoComponent hasStarted={!hasStarted} ref={videoRef} />
           )}
         </>
