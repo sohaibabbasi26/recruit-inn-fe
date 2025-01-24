@@ -10,7 +10,7 @@ import TechstackThree from "../components/TechstackThree";
 import styles from "./LandingThird.module.css";
 import TechstackFour from "../components/TechstackFour";
 
-const LandingThird = () => {
+const LandingThird = ({t}) => {
   const { theme } = useTheme();
   return (
     <>
@@ -99,20 +99,13 @@ const LandingThird = () => {
 
             <div className="w-80p h-50p flex flex-col justify-center mt-5 max-sm:mt-0">
               <span className="text-lightPurpleText font-semibold text-lg">
-                TALENTS
+              {t("landingThird.talent.title")}
               </span>
               <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
-                Connect with the Best Engineers Worldwide
+              {t("landingThird.talent.heading")}
               </h3>
               <p className="text-steel dark:text-white max-lg:mb-[1rem] text-justify">
-                Are you struggling to find top engineering talent? RecruitInn.ai
-                makes it simple to connect with experienced professionals who
-                can bring your vision to life. Whether you’re building an
-                innovative product, scaling your development team, or need
-                expertise in a specific technology stack, we match you with
-                engineers who deliver results. Stop wasting time on endless
-                searches—start creating impactful solutions today with trusted,
-                highly skilled software engineers.
+              {t("landingThird.talent.subheading")}
               </p>
             </div>
           </div>
@@ -147,21 +140,14 @@ const LandingThird = () => {
 
             <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[40px] mt-4   flex flex-col justify-center">
               <span className="text-lightPurpleText font-semibold text-lg">
-                TECH STACKS
+              {t("landingThird.techStack.title2")}
               </span>
               <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
-                Hire Experts in Today’s Most In-Demand Technologies
+              {t("landingThird.techStack.heading2")}
               </h3>
               <p className="text-steel dark:text-white max-md:mb-[1rem] max-lg:mb-[1rem] text-justify">
-                Hire Experts in Today’s Most In-Demand Technologies The tech
-                industry evolves fast, and having access to the right talent is
-                essential for staying ahead. At RecruitInn.ai, we connect you
-                with specialists skilled in JavaScript, Python, Flutter,
-                Node.js, Kubernetes, and more. Whether you're looking for mobile
-                app developers, cloud engineers, or full-stack experts, we
-                ensure you find professionals who align perfectly with your
-                project needs. With RecruitInn.ai, hiring top-tier talent with
-                the latest skills has never been easier.
+              {t("landingThird.techStack.subheading2")} 
+
               </p>
             </div>
           </div>

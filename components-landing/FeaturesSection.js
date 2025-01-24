@@ -11,28 +11,30 @@ import takeAssessment from "../public/take-assessment.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const content = [
-  {
-    title: "Create a Job",
-    para: "Share the details of the role and the skills you need.",
-  },
-  {
-    title: "Generate AI Interview",
-    para: "Let our AI create the perfect interview for your candidates.",
-  },
-  {
-    title: "Conduct the Interview",
-    para: "Use AI to interview and evaluate candidates with ease.",
-  },
-  {
-    title: "Hire the Right Talent",
-    para: "Choose the best candidate and grow your team effortlessly.",
-  },
-];
+// const content = [
+//   {
+//     title: "Create a Job",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Generate AI Assessment",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Take Assessment",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Get The Best Talents",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+// ];
 
-function FeaturesSection() {
+function FeaturesSection({t}) {
   const [current, setCurrent] = useState(0);
   const container = useRef(null);
+  
+  const content = t("FeaturesSection.FS_content", { returnObjects: true,  });
 
   useGSAP(
     () => {
@@ -75,11 +77,10 @@ function FeaturesSection() {
     <section className="my-12 mx-auto w-full features text-center ">
       <div className="w-90p mx-auto space-y-4 mb-16 heading">
         <h2 className="text-neutral-dark text-4xl font-bold">
-        Effortless Hiring in Four Simple Steps
+          {t("FeaturesSection.FS_heading")}
         </h2>
         <p className="text-center text-steel text-sm">
-          Access a pool of meticulously vetted, highly skilled candidates ready
-          <br /> to meet your needs and exceed your expectations
+          {t("FeaturesSection.FS_subheading")}
         </p>
       </div>
       <div
@@ -88,7 +89,7 @@ function FeaturesSection() {
       >
         <div className="line absolute -top-[3px] left-1/2 -translate-x-1/2 h-4 w-2/3 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-[50%_100%] z-[3] shadow-[0px_-30px_70px_1px_rgba(97,55,219,0.65)]"></div>
         <div className="try absolute top-0 w-90p left-1/2 -translate-x-1/2 h-[40px] bg-white z-[4] border-t-primary"></div>
-        <div className={`titles h-max`}>
+        <div className={`titles h-max  ml-6 `}>
           {content.map((c, i) => (
             <AccordianItem
               current={current}
@@ -97,11 +98,12 @@ function FeaturesSection() {
               key={i}
               num={i}
               isLast={content.length === i + 1}
+              t={t}
               
             />
           ))}
         </div>
-        <div className="images relative max-xl:hidden overflow-hidden pl-3 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
+        <div className="images relative max-xl:hidden overflow-hidden pl-4 pr-1 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
           <div className="relative w-full h-full space-y-24">
             <Image
               src={createAJob}
@@ -141,7 +143,7 @@ function FeaturesSection() {
 
 export default FeaturesSection;
 
-function AccordianItem({ content, num, isLast, current, setCurrent }) {
+function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
   const isCur = num === current;
   const isActive = current > num;
   return (

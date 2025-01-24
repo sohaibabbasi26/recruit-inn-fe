@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 // import './landingGlobal.css';
 
 // import { checkout } from "@/Checkout";
-export default function PaymentMethods() {
+export default function PaymentMethods({t}) {
   const [selectedOption, setSelectedOption] = useState("monthly");
   const { theme } = useTheme();
  
@@ -17,10 +17,11 @@ export default function PaymentMethods() {
     <div className="w-[100%] h-[100%] flex flex-col items-center max-md:text-center">
       <div className="w-9/10 max-md:w-[90%] h-1/2 mb-4">
         <h1 className="text-center text-5xl font-bold text-gray-900">
-          Packages 
+          {t("Packages.P_heading")}
         </h1>
         <p className="text-center text-md text-gray-500 mt-2">
-          Our flexible pricing options are tailored to your needs
+        {t("Packages.P_subheading")}
+
         </p>
         <div className="text-center mt-4   ">
           {/* <div
@@ -74,6 +75,7 @@ export default function PaymentMethods() {
       
       <div className="flex h-[100%] w-[90%] mb-[3rem] max-md:hidden ">
         <PaymentCard
+        t={t}
           bgColor={theme === "dark" ? "bg-black" : "bg-white"}
           headingColor={"text-lightPurpleText"}
           // smallTextColor={"text-lightText"}
@@ -87,11 +89,12 @@ export default function PaymentMethods() {
         
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          duration={selectedOption === "monthly" ? "/month" : "/year"}
-          packageType="Free"
-          price="0"
+          duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
+          packageType= {t("Packages.P1_packageType")}
+          price= {t("Packages.P1_price")}
         />
         <PaymentCard
+        t={t}
           bgColor={theme === "dark" ? "bg-black" : "bg-white"}
           headingColor={"text-lightPurpleText"}
           // smallTextColor={"text-lightText"}
@@ -105,11 +108,13 @@ export default function PaymentMethods() {
           }
          
           // priceColor={style["gradient-text"]}
+          duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          packageType="Starter"
-          price="75"
+          packageType={t("Packages.P2_packageType")}
+          price= {t("Packages.P2_price")}
         />
         <PaymentCard
+        t={t}
           bgColor={
             theme === "dark" ? style["payment-pro-gradient"] : "bg-white"
           }
@@ -123,13 +128,15 @@ export default function PaymentMethods() {
               : "text-white bg-primary"
           }
          
+          duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
           // priceColor={style["gradient-text"]}
           priceColor={theme === "dark" ? "text-white" : "text-black"}
-          packageType="Growth"
-          price="250"
+          packageType= {t("Packages.P3_packageType")}
+          price= {t("Packages.P3_price")}
         />
        
         <PaymentCard
+        t={t}
           bgColor={
             theme === "dark" ? style["payment-enterprise-gradient"] : "bg-white"
           }
@@ -142,18 +149,19 @@ export default function PaymentMethods() {
               ? style["btn-golden"]
               : style["payment-card-pro-button"]
           }
-          duration={selectedOption === "monthly" ? "/month" : "/year"}
+          duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
          
           // priceColor={style["golden-gradient-text"]}
           priceColor="text-lightPurpleText"
-          packageType="Enterprise"
-          price="500"
+          packageType= {t("Packages.P4_packageType")}
+          price= {t("Packages.P4_price")}
         />
       </div>
       {/* mobile screnn */}
       <div className="hidden max-md:block">
         <div className="flex h-[100%] w-[100%] flex-col items-center mb-[3rem] max-md:text-center">
           <PaymentCard
+          t={t}
             bgColor={theme === "dark" ? "bg-black" : "bg-white"}
             headingColor={"text-lightPurpleText"}
             // smallTextColor={"text-lightText"}
@@ -165,15 +173,16 @@ export default function PaymentMethods() {
                 : "text-primary bg-light-purple-shade "
             }
             img={"/included.png"}
-            packageType="Free"
-            price="0"
+            packageType= {t("Packages.P1_packageType")}
+            price= {t("Packages.P1_price")}
             // priceColor={style["gradient-text"]}
             priceColor={theme === "dark" ? "text-white" : "text-black"}
-            duration={selectedOption === "monthly" ? "/month" : "/year"}
+            duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
           />
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
           <PaymentCard
+          t={t}
             bgColor={theme === "dark" ? "bg-black" : "bg-white"}
             headingColor={"text-lightPurpleText"}
             // smallTextColor={"text-lightText"}
@@ -185,15 +194,16 @@ export default function PaymentMethods() {
                 : "text-primary bg-light-purple-shade "
             }
             img={"/included.png"}
-            packageType="Starter"
-             price="75"
+            packageType= {t("Packages.P2_packageType")}
+             price= {t("Packages.P2_price")}
             // priceColor={style["gradient-text"]}
             priceColor={theme === "dark" ? "text-white" : "text-black"}
-            duration={selectedOption === "monthly" ? "/month" : "/year"}
+            duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
           />
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
           <PaymentCard
+          t={t}
             bgColor={
               theme === "dark" ? style["payment-pro-gradient"] : "bg-white"
             }
@@ -207,15 +217,16 @@ export default function PaymentMethods() {
                 : "text-white bg-primary"
             }
             img={"/included.png"}
-             packageType="Growth"
-             price="250"
+             packageType= {t("Packages.P3_packageType")}
+             price= {t("Packages.P3_price")}
             // priceColor={style["gradient-text"]}
             priceColor={theme === "dark" ? "text-white" : "text-black"}
-            duration={selectedOption === "monthly" ? "/month" : "/year"}
+            duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
           />
         </div>
         <div className="flex h-[100%] w-[100%] flex-col  mb-[3rem] items-center max-md:text-center">
           <PaymentCard
+          t={t}
             bgColor={
               theme === "dark"
                 ? style["payment-enterprise-gradient"]
@@ -231,11 +242,11 @@ export default function PaymentMethods() {
                 : style["payment-card-pro-button"]
             }
             img={"/Gold-Include.png"}
-             packageType="Enterprise"
-             price="500"
+             packageType= {t("Packages.P4_packageType")}
+             price= {t("Packages.P4_price")}
             // priceColor={style["golden-gradient-text"]}
             priceColor="text-lightPurpleText"
-            duration={selectedOption === "monthly" ? "/month" : "/year"}
+            duration={selectedOption === "monthly" ? t("Packages.P_month") : "/year"}
           />
         </div>
       </div>

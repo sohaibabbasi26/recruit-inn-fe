@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import Logo from "../components/Logo";
 import styles from "./LandingNavbar.module.css";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
-
+import i18n from "@/i18n/config";
 const LandingNavbar = ({
   scrollToRef,
   featuresRef,
@@ -11,6 +11,7 @@ const LandingNavbar = ({
   testimonialsRef,
   LandingThirdRef,
   HeroRef,
+  t,
 }) => {
   const [menu, setMenu] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -43,7 +44,10 @@ const LandingNavbar = ({
     <>
       {/* leptup sacreen */}
       <>
-        <div className=" max-sm:hidden bg-white dark:bg-black" id="scheduleCallBtn">
+        <div
+          className=" max-sm:hidden bg-white dark:bg-black"
+          id="scheduleCallBtn"
+        >
           <div className="h-[10vh] w-full flex bg-white dark:bg-black justify-center max-lg:hidden z-50 fixed">
             <div className="w-90p h-full flex justify-between items-center text-black dark:text-white">
               <div className="flex w-50p gap-20 items-center">
@@ -60,19 +64,19 @@ const LandingNavbar = ({
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Process
+                    {t("Navbar.N_process")}
                   </li>
                   <li
                     onClick={() => scrollToRef(pricingRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Pricing
+                    {t("Navbar.N_pricing")}
                   </li>
                   <li
                     onClick={() => scrollToRef(testimonialsRef)}
                     className="text-md font-semibold max-xl:text-sm cursor-pointer "
                   >
-                    Testimonials
+                    {t("Navbar.N_testimonials")}
                   </li>
                 </ul>
               </div>
@@ -88,14 +92,14 @@ const LandingNavbar = ({
                   onClick={() => setIsOpen(true)}
                   className="px-14 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105"
                 >
-                  Book a demo
+                  {t("Navbar.N_btn_demo")}
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
                     href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}
                     className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
-                    Hire Top Talent
+                    {t("Navbar.N_btn_recruit")}
                   </a>
                   {/* <a href="https://app.recruitinn.ai/client-signup">
                     <button
@@ -139,20 +143,55 @@ const LandingNavbar = ({
                   <div
                     className={`${styles.dropdown}  text-[#170D23] font-bold  flex px-10  text-mnmd max-xl:text-sm bg-transparent rounded-3xl fnt-semibold`}
                   >
-                    <span className="mt-3"> Login</span>
+                    <span className="mt-3"> {t("Navbar.N_btn_login")}</span>
                     <Image src="/Arrow.svg" height={30} width={30} />
 
                     <ul className={styles.dropdown_menu}>
                       <li>
                         <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
-                        Hire Talent
+                          {t("Navbar.N_company")}
                         </a>
                       </li>
                       <li>
                         <a
                           href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}
                         >
-                         Get Hired
+                          {t("Navbar.N_candidates")}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    className={`${styles.dropdown} flex items-center bg-[#F5F5FC] rounded-lg px-4 py-2 relative`}
+                  >
+                    {/* Display selected language */}
+                    <div className="flex items-center gap-2 pr-2 justify-center cursor-pointer">
+                      <Image src="/language.svg" height={20} width={20} />
+                    </div>
+                    <span className="text-[#170D23] font-semibold text-base">
+                      {i18n.language === "en" ? "English" : "عربى"}
+                    </span>
+
+                    {/* Dropdown Menu */}
+                    <ul
+                      className={`${styles.dropdown_menu} absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg w-full`}
+                    >
+                      <li className="px-4 py-2 hover:bg-[#F5F5FC] rounded-lg cursor-pointer"  onClick={() => changeLanguage("en")}>
+                        <a
+                         
+                          className="text-[#170D23] font-semibold text-base"
+                        >
+                          English
+                        </a>
+                      </li>
+                      <li className="px-4 py-2 hover:bg-[#F5F5FC] rounded-lg cursor-pointer"
+                          onClick={() => changeLanguage("ar")}
+                      
+                      >
+                        <a
+                          className="text-[#170D23] font-semibold text-base"
+                        >
+                     {i18n.language === "en" ? "Arabic" : "عربى"}
                         </a>
                       </li>
                     </ul>
@@ -229,17 +268,17 @@ const LandingNavbar = ({
                 </a>
                 <a href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}>
                   <button className="px-10 py-3.5 max-lg:py-2 text-sm bg-transparent max-lg:border-b max-lg:border-darkPurple font-semibold max-lg:block hidden">
-                    Recruit A Talent
+                    {t("Navbar.N_btn_recruit")}
                   </button>
                 </a>
                 <a href={`${process.env.NEXT_PUBLIC_URL}/client-login`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
-                    Login as client
+                    {t("Navbar.N_btn_loginasClient")}
                   </button>
                 </a>
                 <a href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}>
                   <button className="px-10 py-3.5 max-lg:py-2 max-lg:border-b max-lg:border-darkPurple text-sm bg-transparent font-semibold max-lg:block hidden">
-                    Login as candidate
+                    {t("Navbar.N_btn_loginasCandidate")}
                   </button>
                 </a>
 
@@ -248,44 +287,53 @@ const LandingNavbar = ({
                     onClick={() => scrollToRef(featuresRef)}
                     className="text-sm font-semibold    cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    Process
+                    {t("Navbar.N_process")}
                   </li>
                   <li
                     onClick={() => scrollToRef(pricingRef)}
                     className="text-sm font-semibold cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    Pricing
+                    {t("Navbar.N_pricing")}
                   </li>
                   <li
                     onClick={() => scrollToRef(testimonialsRef)}
                     className="text-sm font-semibold cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
                   >
-                    Testimonials
+                    {t("Navbar.N_testimonials")}
+                  </li>
+                  <li
+                  
+                                              onClick={() => i18n.language == "en" ?  changeLanguage("ar") : changeLanguage("en")}
+
+                    className="text-sm font-semibold cursor-pointer p-2 max-lg:border-b max-lg:border-darkPurple"
+                  >
+                   {i18n.language === "en" ?   "عربى" : "English"}
                   </li>
                 </ul>
               </div>
             )}
           </div>
-        
         </div>
-
       </div>
-      
-  <PopupModal
-    url="https://calendly.com/taha-recruitinn/30min"
-    rootElement={document.body}
-    text="Schedule Call"
-    textColor="#fff"
-    color="#000"
-    height="200px"
-    overflow="hidden"
-    onModalClose={() => setIsOpen(false)}
-    open={isOpen}
-  />
 
-
+      <PopupModal
+        url="https://calendly.com/taha-recruitinn/30min"
+        rootElement={document.body}
+        text="Schedule Call"
+        textColor="#fff"
+        color="#000"
+        height="200px"
+        overflow="hidden"
+        onModalClose={() => setIsOpen(false)}
+        open={isOpen}
+      />
     </>
   );
+};
+
+export const changeLanguage = (language) => {
+  i18n.changeLanguage(language);
+  localStorage.setItem("language", language);
 };
 
 export default LandingNavbar;

@@ -14,6 +14,7 @@ const PaymentCard = ({
   packageType,
   price,
   duration,
+  t,
 }) => {
   const img1 = "/checkAI.png";
   const img2 = "/crossAI.png";
@@ -33,7 +34,7 @@ const PaymentCard = ({
               {packageType}
             </span>
             <p className="text-steel dark:text-smallText text-sm font-semibold">
-              Everything you need to supercharge your productivity
+              {t("Packages.P1_heading")}
             </p>
             <div className="flex gradient-text max-lg:justify-center gap-2">
               <h2
@@ -52,12 +53,11 @@ const PaymentCard = ({
             style={{ boxSizing: "border-box", paddingTop: "1rem" }}
           >
             <div className="">
-              <span className="text-gray-500 text-sm">What’s included</span>
+              <span className="text-gray-500 text-sm">{t("Packages.WhatsIncluded")}</span>
               <ul>
                 {price == 0 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
-                    <Image src={`${img1}`} width={20} height={20} />4 reports of
-                    candidates
+                    <Image src={`${img1}`} width={20} height={20} /> {t("Packages.P1_reports")}
                   </li>
                 ) : (
                   ""
@@ -65,7 +65,7 @@ const PaymentCard = ({
                 {price == 0 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    Basic analytics dashboard
+                    {t("Packages.P1_dashboard")}
                   </li>
                 ) : (
                   ""
@@ -78,7 +78,7 @@ const PaymentCard = ({
                       height={20}
                       alt="Feature icon"
                     />
-                    Email Support
+                    {t("Packages.P1_support")}
                   </li>
                 ) : (
                   ""
@@ -87,7 +87,7 @@ const PaymentCard = ({
                 {price == 75 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    25 reports of candidates
+                    {t("Packages.P2_reports")}
                   </li>
                 ) : (
                   ""
@@ -95,7 +95,7 @@ const PaymentCard = ({
                 {price == 75 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    Advanced analytics dashboard
+                    {t("Packages.P2_dashboard")}
                   </li>
                 ) : (
                   ""
@@ -108,7 +108,7 @@ const PaymentCard = ({
                       height={20}
                       alt="Feature icon"
                     />
-                    Email Support
+                    {t("Packages.P2_support")}
                   </li>
                 ) : (
                   ""
@@ -116,7 +116,7 @@ const PaymentCard = ({
                 {price == 250 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    100 reports of candidates
+                    {t("Packages.P3_reports")}
                   </li>
                 ) : (
                   ""
@@ -124,7 +124,7 @@ const PaymentCard = ({
                 {price == 250 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    Advanced analytics dashboard
+                    {t("Packages.P3_dashboard")}
                   </li>
                 ) : (
                   ""
@@ -132,7 +132,7 @@ const PaymentCard = ({
                 {price == 250 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    Priority email support
+                    {t("Packages.P3_support")}
                   </li>
                 ) : (
                   ""
@@ -140,7 +140,7 @@ const PaymentCard = ({
                 {price == 500 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    250 reports of candidates
+                    {t("Packages.P4_reports")}
                   </li>
                 ) : (
                   ""
@@ -148,7 +148,7 @@ const PaymentCard = ({
                 {price == 500 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    Priority phone and email support
+                    {t("Packages.P4_dashboard")}
                   </li>
                 ) : (
                   ""
@@ -156,7 +156,8 @@ const PaymentCard = ({
                 {price == 500 ? (
                   <li className={`flex py-3 text-sm gap-2  ${smallTextColor}`}>
                     <Image src={`${img1}`} width={20} height={20} />
-                    Dedicated account manager
+                    {t("Packages.P4_support")}
+                  
                   </li>
                 ) : (
                   ""
@@ -178,7 +179,7 @@ const PaymentCard = ({
                 router.push(`${process.env.NEXT_PUBLIC_URL}/client-login`);
               }}
             >
-              Get Started
+              {t("Packages.P_btn")}
             </button>
           </div>
         </div>

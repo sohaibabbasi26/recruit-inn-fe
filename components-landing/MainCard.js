@@ -1,7 +1,7 @@
 import Image from "next/image";
 import "tailwindcss/tailwind.css";
 
-const MainCard = () => {
+const MainCard = ({t}) => {
   return (
     <div className=" space-y-3 py-20 border-darkPurple overflow-hidden">
       {/* Flash Message */}
@@ -11,22 +11,24 @@ const MainCard = () => {
             <Image src="/flash.png" alt="Flash Icon" width={20} height={20} />
           </div>
           <span className="text-lightPurpleText text-sm">
-            Hire 5x faster Interview and Pass Rate
+        {t("InterviewSection.IS_title")}
+            
           </span>
         </div>
       </div>
 
       {/* Title */}
       <h4 className="text-center text-black dark:text-white text-5xl font-bold">
-        Transform the Way You Hire
+        {t("InterviewSection.IS_heading")}
       </h4>
 
       {/* Subtitle */}
       <div className="w-100p flex justify-center !mt-6">
         {" "}
         <p className=" text-center max-xsm:w-90p xsm:w-90p sm:w-70p md:w-60p lg:w-40p ">
-          Simplify recruitment with advanced strategies that deliver top talent
-          while saving you time and resources.{" "}
+        {t("InterviewSection.IS_subheading")}
+          
+          {" "}
         </p>
       </div>
     </div>
