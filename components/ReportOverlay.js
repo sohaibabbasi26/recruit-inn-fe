@@ -45,10 +45,9 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     : null;
 
   useEffect(() => {
-
     console.log("SELECTED CANDIDATE ISS :", selectedCandidate);
 
-    if(selectedCandidate){
+    if (selectedCandidate) {
       async function fetchCandidatesCodingResult() {
         setIsLoading(true);
         // const requestBody = {
@@ -80,7 +79,6 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       }
       fetchCandidatesCodingResult();
     }
-    
   }, [selectedCandidate]);
 
   const calculateCumulativeMean = (val1, val2, val3) => {
@@ -358,6 +356,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -458,7 +457,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
               <div className={styles.infoDiv}>
                 <ul>
                   <li>
-                    <span className={styles.bold}  >Name: </span>
+                    <span className={styles.bold}>Name: </span>
                     <span>{selectedCandidate?.name}</span>
                   </li>
                   <li>

@@ -67,6 +67,7 @@ const CandidateSelfLoginOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -113,7 +114,7 @@ const CandidateSelfLoginOverlay = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.toLowerCase(), 
+            email: email.toLowerCase(),
             password: password,
           }),
         }

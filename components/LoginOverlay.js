@@ -67,6 +67,7 @@ const LoginOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -249,8 +250,6 @@ const LoginOverlay = ({
               <div className={styles.topContainer}>
                 <h2>{stageHeadings[currentStage]}</h2>
               </div>
-
-            
 
               {viewMode === "login" ? (
                 <>

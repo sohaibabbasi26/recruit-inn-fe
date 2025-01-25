@@ -65,6 +65,8 @@ const CandPassSetOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "unset";
+
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
