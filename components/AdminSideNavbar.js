@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styles from "../components/SideNavbar.module.css";
 import Image from "next/image";
 import { useActiveItem } from "../src/contexts/ActiveItemContext";
+import LogoutSvg from "./LogoutSvg";
 
 const AdminSideNavbar = ({ name }) => {
   const router = useRouter();
@@ -29,6 +30,8 @@ const AdminSideNavbar = ({ name }) => {
   };
 
   const logoutHandler = () => {
+    document.cookie =
+      "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.clear();
     router.push("/admin-login");
   };
@@ -210,8 +213,14 @@ const AdminSideNavbar = ({ name }) => {
           className={styles.profileImage}
         />
         <div className={styles.textContent}>
-          <span>Hello</span>
-          <h4>Bruce Wayne</h4>
+          {/* <span>Hello</span>
+          <h4>Bruce Wayne</h4> */}
+          <button
+            className={`${styles.profileBtn} ${styles.btnlog}`}
+            onClick={logoutHandler}
+          >
+            Logout <LogoutSvg />
+          </button>
         </div>
         <Image
           src="/rightArrow.svg"

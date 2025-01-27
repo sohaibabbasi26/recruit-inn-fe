@@ -39,6 +39,15 @@ const AdminLogin = () => {
     const data = await response.json();
     console.log("login info:", data?.data);
     if (data?.data?.token) {
+      // Cookie
+      const expiresIn = 10 * 60 * 60;
+      const expiresDate = new Date(Date.now() + expiresIn * 1000);
+      document.cookie = `loginToken=${
+        data?.data?.token
+      }; expires=${expiresDate.toUTCString()}; path=/; ${
+        process.env.NODE_ENV === "production" ? "Secure; " : ""
+      }SameSite=Strict`;
+
       localStorage.setItem("admin-token", data?.data?.token);
       router.push(`/admin-dashboard`);
     } else {
