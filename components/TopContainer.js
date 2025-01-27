@@ -96,9 +96,7 @@ const TopContainer = ({ setDescription, description, descriptionRef }) => {
       ["blockquote"],
     ],
   };
-  const placeholder = `About us:
-            Write about your company...
-    Job Description:
+  const placeholder = `Job Description:
             Describe your job position...
     `;
 
