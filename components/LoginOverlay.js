@@ -67,6 +67,7 @@ const LoginOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -189,8 +190,7 @@ const LoginOverlay = ({
         const demolink = `https://app.recruitinn.ai/new-password/${data?.data?.message?.company_id}`;
         const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
         const text = `Follow the link to set up your new password: \n ${demolink}`;
-
-        console.log("link:", demolink);
+        
         const requestBody = {
           to: email,
           subject: subject,
@@ -249,8 +249,6 @@ const LoginOverlay = ({
               <div className={styles.topContainer}>
                 <h2>{stageHeadings[currentStage]}</h2>
               </div>
-
-            
 
               {viewMode === "login" ? (
                 <>
