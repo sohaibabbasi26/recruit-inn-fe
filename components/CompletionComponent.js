@@ -4,11 +4,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import NameContext from "@/contexts/NameContext";
+import { useCameraContext } from "@/contexts/CameraContext";
 
 const CompletionComponent = ({ getActiveComponent }) => {
   const [candidateNameTemp, setCandidateNameTemp] = useState(undefined);
   const [jobCandidateName, setJobCandidateName] = useState(undefined);
   const [interviewCount, setInterviewCount] = useState(null);
+  const { turnOffCamera } = useCameraContext();
   // const { name } = useContext(NameContext);
   const imagsSize = 130;
   const iconSize = 20;
@@ -32,12 +34,11 @@ const CompletionComponent = ({ getActiveComponent }) => {
   // }
 
   useEffect(() => {
-    if (router.query.client_id!==undefined) {
+    if (router.query.client_id !== undefined) {
       console.log("client id1: ", router.query.client_id);
       setClientId(router.query.client_id);
     }
   }, [router.query.client_id]);
-
 
   async function decrementTest() {
     try {
@@ -53,14 +54,13 @@ const CompletionComponent = ({ getActiveComponent }) => {
       );
       const data = await response.json();
       console.log("decrement test response:", data);
-      
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   }
 
   async function fetchClientSubscription() {
-    if(clientId === undefined){
+    if (clientId === undefined) {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${clientId}`,
         {
@@ -76,35 +76,33 @@ const CompletionComponent = ({ getActiveComponent }) => {
   }
 
   async function getCompanyDetails() {
+    if (interviewCount === 0 && interviewCount !== null) {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-company`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: clientId,
+            }),
+          }
+        );
 
-    if(interviewCount === 0 && interviewCount !== null){
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-company`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: clientId,
-          }),
-        }
-      );
-
-      const data = await response.json();
-      console.log("company details response:", data?.data?.email);
-      setCompanyEmail(data?.data?.email);
-      setCompanyName(data?.data?.company_name);
-
-    } catch (error) {
-      console.error("Error submitting form:", error);
+        const data = await response.json();
+        console.log("company details response:", data?.data?.email);
+        setCompanyEmail(data?.data?.email);
+        setCompanyName(data?.data?.company_name);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
     }
   }
-  }
 
-    async function sendEmailtoClient() {
-      if(companyEmail && companyName){
+  async function sendEmailtoClient() {
+    if (companyEmail && companyName) {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`,
@@ -123,29 +121,31 @@ const CompletionComponent = ({ getActiveComponent }) => {
       } catch (error) {
         console.error("Error submitting form:", error);
       }
-      }
     }
+  }
 
-    useEffect(() => {
-      if (interviewCount === 0 && clientId) {
-        getCompanyDetails();
-      }
-    }, [interviewCount, clientId]);
-     useEffect(() => {
-       if (interviewCount === 0 && clientId) {
-         sendEmailtoClient();
-       }
-     }, [companyName, companyEmail]);
+  useEffect(() => {
+    if (interviewCount === 0 && clientId) {
+      getCompanyDetails();
+    }
+  }, [interviewCount, clientId]);
+  useEffect(() => {
+    if (interviewCount === 0 && clientId) {
+      sendEmailtoClient();
+    }
+  }, [companyName, companyEmail]);
 
   const finishTestHandler = async () => {
+    turnOffCamera();
     localStorage.removeItem("testcompleted");
     localStorage.removeItem("codingtestcompleted");
-   
+
     const route = getActiveComponent();
     if (route && clientId) {
       await decrementTest();
       await fetchClientSubscription();
-      router.push(route);
+      window.location.href = route;
+      // router.push(route);
     } else {
       console.error("Undefined route from getActiveComponent");
     }

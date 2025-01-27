@@ -7,7 +7,11 @@ import CameraAccessInstruction from "../../components/CameraAccess";
 
 const test = () => {
   const [instructionsPopup, setInstructionsPopup] = useState(false);
-  const [cameraAccessInstructionPopup, setCameraAccessInstructionPopup] = useState(true);
+  const [hasAssessmentStarted, setHasAssessmentStarted] = useState(false);
+  const [hasGivenCameraPermission, setHasGivenPermissionForCamera] =
+    useState(false);
+  const [cameraAccessInstructionPopup, setCameraAccessInstructionPopup] =
+    useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const { language } = useRouter().query;
   const videoRef = useRef(null);
@@ -19,6 +23,7 @@ const test = () => {
 
   const closePopup = () => {
     setInstructionsPopup(false);
+    setHasAssessmentStarted(true);
   };
 
   const instructions = [
@@ -35,6 +40,7 @@ const test = () => {
     <>
       {cameraAccessInstructionPopup && (
         <CameraAccessInstruction
+          setHasGivenPermissionForCamera={setHasGivenPermissionForCamera}
           ref={videoRef}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
@@ -51,10 +57,11 @@ const test = () => {
       )}
       <div className={styles.superContainer}>
         <QuestionBox
+        hasGivenPermissionForCamera={hasGivenCameraPermission}
           ref={videoRef}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
-          hasStarted={!instructionsPopup}
+          hasStarted={hasAssessmentStarted}
           client_id={router.query.client_id}
         />
       </div>

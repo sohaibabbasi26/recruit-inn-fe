@@ -16,6 +16,7 @@ const QuestionBox = //forwardRef(
       hasStarted,
       setIsLoading,
       isLoading,
+      hasGivenPermissionForCamera,
       // selectedLanguage = "ar-SA",
       client_id,
     } //,
@@ -61,6 +62,7 @@ const QuestionBox = //forwardRef(
       const [audioUUID, setAudioUUID] = useState(null);
       const [audioURL, setAudioURL] = useState(null);
       const [hasAudioEnded, setHasAudioEnded] = useState(false);
+      const [hasVoiceGenerated, setHasVoiceGenerated] = useState(false);
       const audioRef = useRef(null);
       const videoRef = useRef(null);
 
@@ -94,6 +96,7 @@ const QuestionBox = //forwardRef(
               console.log(url);
               setAudioUUID(data?.data?.uuid);
               setAudioURL(url);
+              setHasVoiceGenerated(true);
             } else {
               console.error(data.error);
             }
@@ -113,6 +116,9 @@ const QuestionBox = //forwardRef(
         const audio = new Audio(audioURL);
         audioRef.current = audio;
         audioRef.current.play();
+        audioRef.current.onpause = () => {
+          setHasAudioEnded(true);
+        };
         audioRef.current.onended = () => {
           setHasAudioEnded(true);
         };
@@ -149,11 +155,21 @@ const QuestionBox = //forwardRef(
             console.log("audio deleted successfully");
             setAudioUUID(null);
             setAudioURL(null);
+            setHasAudioEnded(false);
+            //setHasVoiceGenerated(false);
           } else {
             console.error(data.error);
+            setAudioUUID(null);
+            setAudioURL(null);
+            setHasAudioEnded(false);
+            //setHasVoiceGenerated(false);
           }
         } catch (error) {
           console.error("Error:", error);
+          setAudioUUID(null);
+          setAudioURL(null);
+          setHasAudioEnded(false);
+          //setHasVoiceGenerated(false);
         }
       };
 
@@ -470,6 +486,9 @@ const QuestionBox = //forwardRef(
         if (mediaRecorderRef.current) {
           //cancel();
           audioRef?.current?.pause();
+          audioRef.current.onpause = () => {
+            setHasAudioEnded(true);
+          };
           setHasAudioEnded(true);
           mediaRecorderRef.current.start();
           setIsRecording(true);
@@ -697,6 +716,7 @@ const QuestionBox = //forwardRef(
               currentQuestion,
             ]);
             setIsLoading(false);
+            setHasVoiceGenerated(false);
           } else {
             await stopAndHandleRecording();
           }
@@ -712,7 +732,6 @@ const QuestionBox = //forwardRef(
         //speakQuestion(currentQuestion);
         generateAudio(currentQuestion);
         console.log("line 688: speakQuestion called");
-
         setTimeLeft(130);
       }, [currentQuestion]);
 
@@ -948,7 +967,7 @@ const QuestionBox = //forwardRef(
                   }}
                   className={styles.recordBtn}
                   onClick={isRecording ? stopRecording : startRecording}
-                  disabled={isRecording}
+                  disabled={!hasVoiceGenerated}
                 >
                   <Image
                     src={recordingDone ? "/mic-disabled.svg" : "/mic.svg"}
@@ -976,7 +995,7 @@ const QuestionBox = //forwardRef(
           </div>
 
           {/* <h3>Live Camera Feed:</h3> */}
-          {videoRef !== null && (
+          {videoRef !== null && hasGivenPermissionForCamera && (
             <VideoComponent hasStarted={!hasStarted} ref={videoRef} />
           )}
         </>

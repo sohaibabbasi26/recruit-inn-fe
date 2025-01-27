@@ -168,7 +168,7 @@ const Super = ({
       )}
       {positionCandidates && (
         <div>
-          <p>Hey there</p>
+          
           <CandidatesHub
             heading="Selected Position's Candidates"
             setJobOverlay={setJobOverlay}
