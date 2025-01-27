@@ -1,6 +1,6 @@
 .cameraVideo {
-    width: 270px; /* Adjust size as needed */
-    height: 270px;
+    width: 250px; /* Adjust size as needed */
+    height: 250px;
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
