@@ -1,3 +1,4 @@
+import { current } from "@reduxjs/toolkit";
 import styles from "./PackagesCards.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -31,7 +32,7 @@ const packages = {
     },
 
     {
-      buttonText: "get started",
+      buttonText: "Get Started",
       name: "starter",
       price: "75",
       options: [
@@ -51,7 +52,7 @@ const packages = {
       },
     },
     {
-      buttonText: "get started",
+      buttonText: "Get Started",
       name: "growth",
       price: "250",
       options: [
@@ -103,6 +104,8 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
    const router = useRouter();
    const { id } = router?.query;
 
+   console.log("Current Packkage iss", currentPackage)
+
 
   const handleCheckout = async (pack) => {
     try {
@@ -125,18 +128,18 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
 
   function packagesNumbers(passedPackage){
       if (passedPackage === "free") {
-        return 0;
+        return 1;
       } else if (passedPackage === "starter") {
-        {
-          return 1;
-        }
-      } else if (passedPackage === "growth") {
         {
           return 2;
         }
-      } else if (passedPackage === "enterprise") {
+      } else if (passedPackage === "growth") {
         {
           return 3;
+        }
+      } else if (passedPackage === "enterprise") {
+        {
+          return 4;
         }
       } 
     
@@ -174,8 +177,8 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
           <button
             onClick={() => handleCheckout(pack)}
             className={`${styles.packageBtn} `}
-            disabled={packagesNumbers(pack.name) <= packagesNumbers(currentPackage) }
-            style={{color: packagesNumbers(pack.name) <= packagesNumbers(currentPackage) ? "grey" : "white"}}
+            disabled={packagesNumbers(pack.name) === 1 || packagesNumbers(pack.name) <= packagesNumbers(currentPackage) }
+            style={{backgroundColor: packagesNumbers(pack.name) <= packagesNumbers(currentPackage) ? "grey" : "" }}
           >
             {currentPackage === pack.name ? "Current Package" : pack.buttonText}
           </button>

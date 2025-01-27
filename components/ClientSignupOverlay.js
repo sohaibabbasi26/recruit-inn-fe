@@ -274,7 +274,7 @@ const ClientSignUpOverlay = ({
     const demolink = `https://app.recruitinn.ai/set-password/${companyId}`;
     const emailSubject = "RECRUITINN: SET UP YOUR PASSWORD";
     const emailText = `Follow the link to set up your new password: \n ${demolink}`;
-
+    
     const reqBody = {
       to: email,
       subject: emailSubject,
