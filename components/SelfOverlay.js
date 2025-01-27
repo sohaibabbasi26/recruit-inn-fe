@@ -15,6 +15,7 @@ import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
 import PersonalInfoSelfBtns from "./PersonalInfoSelfBtns";
 
+
 const SelfOverlay = ({
   showOverlay,
   onClose,
@@ -33,6 +34,7 @@ const SelfOverlay = ({
   const countryRef = useRef();
   const cityRef = useRef();
   //const generatedCodeRef = useRef();
+  const router = useRouter();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -65,7 +67,6 @@ const SelfOverlay = ({
     };
   }, [showOverlay, onClose]);
 
-  const router = useRouter();
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -709,6 +710,7 @@ const SelfOverlay = ({
               {currentStage === stages.PERSONAL_INFO && (
                 <>
                   <PersonalInfoSelf
+                    onLogin={()=>{router.push("/candidate-login")}}
                     expertiseRef={expertiseRef}
                     contact={contact}
                     password={password}

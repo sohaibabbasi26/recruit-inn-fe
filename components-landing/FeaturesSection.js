@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // const content = [
 //   {
-//     title: "Create a Job",
+//     title: " ",
 //     para: "Where you can specify your required skills & expertise",
 //   },
 //   {

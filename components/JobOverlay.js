@@ -401,10 +401,10 @@ const JobOverlay = ({
             </div>
 
             <div className={styles.description}>
-              <div className={styles.aboutUs}>
+              {/* <div className={styles.aboutUs}>
                 <h3>About us:</h3>
                 <p>[Write about your company] </p>
-              </div>
+              </div> */}
               <div className={styles.jobDescription}>
                 <h3>Job Description</h3>
                 <p>

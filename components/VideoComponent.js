@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useState } from "react";
+import styles from './VideoComponent.module.css'
 
 const VideoComponent = forwardRef(({hasStarted, hasMeetingEnded}, ref) => {
   const [stream, setStream] = useState(null);
@@ -40,14 +41,14 @@ const VideoComponent = forwardRef(({hasStarted, hasMeetingEnded}, ref) => {
 
   return (
     <video
-      style={{
-        width: "20%",
-        height: "auto",
-        border: "1px solid #ccc",
-      }}
+      // style={{
+      //   width: "20%",
+      //   height: "auto",
+      //   border: "1px solid #ccc",
+      // }}
       ref={ref}
       autoPlay={hasStarted}
-      //className={styles.video}
+      className={styles.cameraVideo}
     ></video>
   );
 });

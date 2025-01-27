@@ -238,6 +238,7 @@ const SetPasswordOverlay = ({
               currentStage={currentStage}
               stages={stages}
               completedStages={completedStages}
+              style={{ marginLeft: "auto" }}
             />
 
             {currentStage === stages.SET_PASSWORD && (

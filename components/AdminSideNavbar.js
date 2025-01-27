@@ -83,7 +83,7 @@ const AdminSideNavbar = ({ name }) => {
                     />
                   </li>
 
-                  <li
+                  {/* <li
                     className={`${styles.dropdownList} ${
                       activeItem === "Request" ? styles.active : ""
                     }`}
@@ -95,7 +95,7 @@ const AdminSideNavbar = ({ name }) => {
                       width={listItemSize}
                       height={listItemSize}
                     />
-                  </li>
+                  </li> */}
 
                   <li
                     className={`${styles.dropdownList} ${

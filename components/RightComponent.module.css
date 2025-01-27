@@ -75,6 +75,8 @@
   align-items: center;
   letter-spacing: 0.5px;
   font-family: "Poppins", sans-serif;
+  margin-top: 12px;
+  margin-bottom: 12px;
   gap: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
@@ -95,6 +97,8 @@
   border: none;
   color: gray;
   border: 1px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 .notificationsBtn :hover {
   /* height: 50px; */

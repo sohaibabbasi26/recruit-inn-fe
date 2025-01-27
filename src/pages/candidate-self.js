@@ -62,6 +62,7 @@ const CandidateSelf = () => {
   return (
     <div className={styles.candidateSelf}>
       <SelfOverlay
+        
         isTestRequired={isTestRequired}
         setIsTestRequired={setIsTestRequired}
         setShowErrorMessage={setShowErrorMessage}
