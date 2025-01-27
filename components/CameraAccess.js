@@ -75,7 +75,7 @@ const CameraAccessInstruction = forwardRef(
                   height: "auto",
                   border: "1px solid #ccc",
                 }}
-                className={styles.cameraVideo}
+                //className={styles.cameraVideo}
                 ref={videoRef}
                 autoPlay
               ></video>
