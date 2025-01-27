@@ -200,7 +200,7 @@ const SetPasswordOverlay = ({ showOverlay, onClose, stages, stageHeadings }) => 
                           
                         </div>
                         
-                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages} />
+                        <Stages currentStage={currentStage} stages={stages} completedStages={completedStages}   style={{ marginLeft: "auto" }} />
                     
                         {currentStage === stages.SET_PASSWORD && (
                             <>
