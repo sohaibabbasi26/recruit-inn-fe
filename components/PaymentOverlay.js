@@ -48,6 +48,7 @@ const PaymentOverlay = React.memo(
       }
 
       return () => {
+        document.body.style.overflow = "";
         gsap.to(overlayRef.current, {
           y: "100%",
           opacity: 0,
@@ -135,7 +136,10 @@ const PaymentOverlay = React.memo(
                 </div>
 
                 {/* packages */}
-                <PackagesCards companyEmail={companyEmail} currentPackage={currentPackage}/>
+                <PackagesCards
+                  companyEmail={companyEmail}
+                  currentPackage={currentPackage}
+                />
 
                 {/* <div>
                   <div className={styles.pricing_section}>

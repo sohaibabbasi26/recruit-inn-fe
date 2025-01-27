@@ -66,6 +66,7 @@ const Overlay = React.memo(
       }
 
       return () => {
+        document.body.style.overflow = "";
         gsap.to(overlayRef.current, {
           y: "100%",
           opacity: 0,
@@ -175,22 +176,27 @@ const Overlay = React.memo(
       const jobTypeValid =
         jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
       const descriptionValid = description && description.trim() !== "";
-    
+
       // Validate city and country only for On-site and Hybrid job types
       const jobType = jobTypeRef.current?.value;
-      console.warn(jobType,"////////")
+      console.warn(jobType, "////////");
       const cityValid =
-        (jobType == "On-site" || jobType == "Hybrid")
+        jobType == "On-site" || jobType == "Hybrid"
           ? cityRef.current && cityRef.current.value.trim() !== ""
           : true;
       const countryValid =
-        (jobType === "On-site" || jobType === "Hybrid")
+        jobType === "On-site" || jobType === "Hybrid"
           ? countryRef.current && countryRef.current.value.trim() !== ""
           : true;
-    
-      return positionValid && jobTypeValid && descriptionValid && cityValid && countryValid;
+
+      return (
+        positionValid &&
+        jobTypeValid &&
+        descriptionValid &&
+        cityValid &&
+        countryValid
+      );
     };
-    
 
     // const validateJobType = () => {
     //   // Check each ref and value to ensure they are not null before accessing .trim()
@@ -310,7 +316,7 @@ const Overlay = React.memo(
 
     const handleFormSubmit = async () => {
       const jobType = jobTypeRef.current.value;
-    
+
       const requestBody = {
         position: positionRef.current.value,
         company_id: id,
@@ -324,7 +330,7 @@ const Overlay = React.memo(
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
       };
-    
+
       console.log("request body:", requestBody);
 
       localStorage.setItem(
@@ -637,10 +643,10 @@ const Overlay = React.memo(
           <meta
             property="og:url"
             content={`${
-                          process.env.NEXT_PUBLIC_URL
-                        }/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${
-                          isArabicChosen ? "Arabic" : "English"
-                        }`}
+              process.env.NEXT_PUBLIC_URL
+            }/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${
+              isArabicChosen ? "Arabic" : "English"
+            }`}
           />
           <meta property="og:type" content="website" />
         </Head>
@@ -672,7 +678,8 @@ const Overlay = React.memo(
 
                   {stageHeadings[currentStage] === "Add Skills" ? (
                     <p>
-                      Please select at least 1 skill and up to a maximum of 4 skills
+                      Please select at least 1 skill and up to a maximum of 4
+                      skills
                       <span>
                         <Image src="/warning2.svg" width={15} height={15} />
                       </span>

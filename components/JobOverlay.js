@@ -261,6 +261,7 @@ const JobOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -393,12 +394,10 @@ const JobOverlay = ({
                   Copy Assessment Link{" "}
                   <Image src="/copylink.svg" height={25} width={25} />
                 </button>
-              )}
-              
-                {" "}
-                <SocialShare
-                  url={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
-                />
+              )}{" "}
+              <SocialShare
+                url={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
+              />
             </div>
 
             <div className={styles.description}>

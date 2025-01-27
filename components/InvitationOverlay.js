@@ -26,7 +26,7 @@ const InvitationOverlay = ({
     console.log("data saved successfully");
     try {
       const savedFormData =
-      JSON.parse(localStorage.getItem("invitationFormData")) || {};
+        JSON.parse(localStorage.getItem("invitationFormData")) || {};
       console.log(savedFormData.name);
       nameRef.current.value = savedFormData.name || "";
       emailRef.current.value = savedFormData.email || "";
@@ -46,7 +46,7 @@ const InvitationOverlay = ({
   const { q_id } = router.query;
   const { test_req } = router.query;
   const { a_id } = router.query;
-  const {language} = router.query;
+  const { language } = router.query;
 
   console.log("client_id:", client_id);
   console.log("position_id is :", position_id);
@@ -95,6 +95,7 @@ const InvitationOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "unset";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
