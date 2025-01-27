@@ -94,3 +94,7 @@ s .active {
     min-width: 6%;
   }
 }
+
+.marginLeftAuto {
+  margin-left: auto;
+}
