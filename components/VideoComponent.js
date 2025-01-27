@@ -41,14 +41,14 @@ const VideoComponent = forwardRef(({hasStarted, hasMeetingEnded}, ref) => {
 
   return (
     <video
-      style={{
-        width: "20%",
-        height: "auto",
-        border: "1px solid #ccc",
-      }}
+      // style={{
+      //   width: "20%",
+      //   height: "auto",
+      //   border: "1px solid #ccc",
+      // }}
       ref={ref}
       autoPlay={hasStarted}
-      //className={styles.cameraVideo}
+      className={styles.cameraVideo}
     ></video>
   );
 });
