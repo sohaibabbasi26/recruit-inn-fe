@@ -8,6 +8,7 @@ const LoginComp = ({
   setPassword,
   email,
   setEmail,
+  onSignup,
   onViewChange,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +47,14 @@ const LoginComp = ({
             />
             <ShowPassword pass={showPassword} setPass={setShowPassword} />
           </div>
+        </div>
+        <div className={styles.signupPrompt}>
+          <p>
+            Don't have an account?{" "}
+            <span onClick={onSignup} className={styles.signupLink}>
+              Sign up
+            </span>
+          </p>
         </div>
 
         <div className={styles.midContainer}>

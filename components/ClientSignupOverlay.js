@@ -347,6 +347,7 @@ const ClientSignUpOverlay = ({
                   setCountry={setCountry}
                   setCompanySize={setCompanySize}
                   setCompanyname={setCompanyname}
+                  onLogin={()=>{router.push("/client-login")}}
                 />
                 <div className={styles.wrapper}>
                   <ClientSignUpOverlayBtn

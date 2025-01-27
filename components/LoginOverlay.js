@@ -18,6 +18,7 @@ const LoginOverlay = ({
   stages,
   stageHeadings,
   showOverlay,
+  onSignup,
 }) => {
   const overlayRef = useRef(null);
   const [email, setEmail] = useState(null);
@@ -256,6 +257,7 @@ const LoginOverlay = ({
                 <>
                   <LoginComp
                     onViewChange={() => setViewMode("forgotPassword")}
+                    onSignup= {onSignup}
                     password={password}
                     setPassword={setPassword}
                     email={email}
