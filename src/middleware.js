@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose";
 import { validateAndDecodeToken } from "./util/validateAndDecodeToken";
 
 // export async function middleware(request) {
@@ -50,38 +49,87 @@ import { validateAndDecodeToken } from "./util/validateAndDecodeToken";
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {
   const loginToken = request.cookies.get("loginToken")?.value || null;
-  console.log("loginToken", loginToken);
 
   const { anyNameForData: user, error: userError } =
     await validateAndDecodeToken(loginToken);
 
-  console.log("user", user);
-  console.log("userError", userError);
-
-  console.log("logged in user", user);
-
   const url = request?.nextUrl;
   const pathname = url?.pathname;
-  const isAuthenticated = user?.id;
-  const onClientLoginPage = pathname === "/client-login";
-  const onClientSignupPage = pathname === "/client-signup";
-  const candidateLoginPage = "/candidate-login";
-  const candidateSignupPage = "/candidate-self";
 
-  // Logged in client?
-  if (isAuthenticated && (onClientLoginPage || onClientSignupPage)) {
-    const redirectPath = `/client/${user.id}`;
-    console.log("Redirecting the user to:", redirectPath);
-    return NextResponse.redirect(new URL(redirectPath, request.url));
+  const rolePaths = {
+    client: "/client",
+    candidate: "/candidate",
+    admin: "/admin-dashboard",
+  };
+
+  if (!loginToken || userError) {
+    if (pathname.startsWith(rolePaths.client)) {
+      return NextResponse.redirect(new URL("/client-login", request.url));
+    }
+    if (pathname.startsWith(rolePaths.candidate)) {
+      return NextResponse.redirect(new URL("/candidate-login", request.url));
+    }
+    if (pathname.startsWith(rolePaths.admin)) {
+      return NextResponse.redirect(new URL("/admin-login", request.url));
+    }
   }
+
+  if (user) {
+    const currentUserId = user?.id;
+    const userRole = user?.role;
+
+    const visitedId = pathname.split("/").at(2);
+
+    const isClientRoute = pathname.startsWith(rolePaths.client);
+    const isCandidateRoute = pathname.startsWith(rolePaths.candidate);
+    const isAdminRoute = pathname.startsWith(rolePaths.admin);
+
+    const isImposter = currentUserId !== visitedId;
+
+    const redirectTo = (path) =>
+      NextResponse.redirect(new URL(path, request.url));
+
+    if (isClientRoute) {
+      if (userRole !== "client") {
+        return redirectTo("/client-login");
+      }
+      if (pathname === rolePaths.client && currentUserId) {
+        return redirectTo(`/client/${currentUserId}`);
+      }
+      if (isImposter) {
+        return redirectTo(`/client/${currentUserId}`);
+      }
+    }
+
+    if (isCandidateRoute) {
+      if (userRole !== "candidate") {
+        return redirectTo("/candidate-login");
+      }
+      if (pathname === rolePaths.candidate && currentUserId) {
+        return redirectTo(`/candidate/${currentUserId}`);
+      }
+      if (isImposter) {
+        return redirectTo(`/candidate/${currentUserId}`);
+      }
+    }
+
+    if (isAdminRoute) {
+      if (userRole !== "admin") {
+        return redirectTo("/admin-login");
+      }
+    }
+  }
+
+  // Allow the request to proceed
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
     "/client/:path*",
+    // "/client-login",
+    // "/client-signup",
+    // "/candidate/:path*",
     "/admin-dashboard",
-    "/candidate/:path*",
-    "/client-login",
-    "/client-signup",
   ],
 };

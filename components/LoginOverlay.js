@@ -112,9 +112,9 @@ const LoginOverlay = ({
   //     }
   // }
 
-  // const redirectToClientPage = (clientId) => {
-  //   router.push(`/client/${clientId}`);
-  // };
+  const redirectToClientPage = (clientId) => {
+    router.push(`/client/${clientId}`);
+  };
   // useEffect(() => {
   //   // Check if user is logged in
   //   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -152,7 +152,7 @@ const LoginOverlay = ({
         process.env.NODE_ENV === "production" ? "Secure; " : ""
       }SameSite=Strict`;
 
-      localStorage.setItem("client-token", data?.data?.token);
+      localStorage.setItem("client-token", data?.data?.token);  
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("clientId", data?.data?.id); // Save client ID
       redirectToClientPage(data?.data?.id); // Reuse the navigation function
