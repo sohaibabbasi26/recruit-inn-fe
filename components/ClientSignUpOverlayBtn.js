@@ -70,8 +70,8 @@ const ClientSignUpOverlayBtn = ({
     }
     console.log("butonnnif");
 
-    // await handleFormSubmit();
-    // onClose();
+    await handleFormSubmit();
+    onClose();
   };
 
   const navigationIconSize = 30;
