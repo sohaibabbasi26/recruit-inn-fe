@@ -46,7 +46,7 @@ export default function Home({
   const [positionIdMain, setPositionIdMain] = useState();
   const [positionCandidates, setPositionCandidates] = useState();
   const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
-  const [currentPackage, setCurrentPackage] = useState(null);
+  const [currentPackage, setCurrentPackage] = useState("free");
   const [interviewCount, setInterviewCount] = useState(null);
 
   const [showOverlay1, setShowOverlay1] = useState();
@@ -155,7 +155,7 @@ export default function Home({
       );
       const data = await response.json();
 
-      setCurrentPackage(data?.data?.package_type);
+      setCurrentPackage(data?.data?.package_type || "free");
       setInterviewCount(data?.data?.test_count);
     }
 
@@ -779,7 +779,7 @@ export default function Home({
             interviewCount={interviewCount}
           />
         )}
-        {showPaymentOverlay && (
+        {showPaymentOverlay && currentPackage &&(
           <PaymentOverlay
             onClose={togglePaymentOverlay}
             showPaymentOverlay={showPaymentOverlay}
