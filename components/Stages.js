@@ -1,17 +1,18 @@
 import styles from "./Stages.module.css";
 import Image from "next/image";
 
-const Stages = ({ currentStage, stages, completedStages }) => {
+const Stages = ({ currentStage, stages, completedStages, style = {} }) => {
   const iconsize = 32;
   const activeColorCode = "#6137DB";
   const completedColorCode = "#6137DB";
   const completedTextColor = "#fff";
   const inactiveColorCode = "#ACA7BA";
   const inactiveBorder = "#F4F1FC";
-
+  
   const isStageCompleted = (stage) => completedStages.includes(stage);
   console.log(completedStages);
-
+ 
+ 
   function toTitleCase(str) {
     return str
       .toLowerCase()
@@ -24,8 +25,8 @@ const Stages = ({ currentStage, stages, completedStages }) => {
 
   return (
     <>
-      <div className={styles.stagesContainer}>
-        <ul>
+      <div className={`${styles.stagesContainer} `}  style={style}>
+        <ul >
           {Object.keys(stages).map((stage, index) => {
             return (
               <>
