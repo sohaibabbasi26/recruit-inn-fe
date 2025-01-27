@@ -17,6 +17,23 @@
   border-radius: 30px;
 }
 
+.signupPrompt {
+ 
+  margin-top: 10px;
+  margin-right: auto;
+}
+
+.signupLink {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
+
 .inputField.countryField img {
   background-color: #ebebeb;
   border-radius: 50%;

@@ -66,6 +66,7 @@ const Login = () => {
     <div className="routes-wrapper">
       <LoginOverlay
         showErrorMessage={showErrorMessage}
+        onSignup={() => router.push("/client-signup")}
         showSuccessMessage={showSuccessMessage}
         setMessage={setMessage}
         message={message}
