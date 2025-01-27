@@ -30,11 +30,11 @@ gsap.registerPlugin(ScrollTrigger);
 //   },
 // ];
 
-function FeaturesSection({t}) {
+function FeaturesSection({ t }) {
   const [current, setCurrent] = useState(0);
   const container = useRef(null);
-  
-  const content = t("FeaturesSection.FS_content", { returnObjects: true,  });
+
+  const content = t("FeaturesSection.FS_content", { returnObjects: true });
 
   useGSAP(
     () => {
@@ -99,7 +99,6 @@ function FeaturesSection({t}) {
               num={i}
               isLast={content.length === i + 1}
               t={t}
-              
             />
           ))}
         </div>
