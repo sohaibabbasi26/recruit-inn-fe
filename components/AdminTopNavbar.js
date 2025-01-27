@@ -242,7 +242,7 @@ const AdminTopNavbar = ({
         ) : null}
       
 
-        <button onClick={handleButtonClick}>Invite A Candidate</button>
+        {/* <button onClick={handleButtonClick}>Invite A Candidate</button> */}
       </div>
     </>
   );

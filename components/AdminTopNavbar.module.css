@@ -2,7 +2,7 @@
 
 .searchBar {
     background-color: #F8F7FC;
-    width: 70%;
+    width: 100%;
     margin: 1rem 0 ;
     border-radius: 40px;
     display: flex;
@@ -129,7 +129,7 @@
   position: absolute;
   background-color: #ffffff; /* or any color that suits your design */
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
-  width: 39%; /* or the width of the search bar */
+  width: 50%; /* or the width of the search bar */
   border-radius: 4px; /* optional, for rounded corners */
   z-index: 1000; /* make sure it stacks above other content */
   max-height: 300px; /* maximum height before scrolling */
@@ -137,7 +137,7 @@
   
   top: 53px; /* adjust this as needed */
   left: 40%; /* position the left edge at the middle of the parent */
-  transform: translateX(-60%); /* shift it left by half its width to center it */
+  transform: translateX(-40%); /* shift it left by half its width to center it */
   
   box-sizing: border-box;
   padding-left: 33px;

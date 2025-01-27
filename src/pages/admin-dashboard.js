@@ -335,20 +335,20 @@ const Admin = ({}) => {
             getCandidatesByPosition={getCandidatesByPosition}
           />
         );
-      case "Request":
-        return (
-          <AdminSuper
-            showError={showError}
-            showSuccess={showSuccess}
-            adminToken={adminnToken}
-            data={data}
-            setData={setData}
-            setShowOverlay={setShowOverlay}
-            onOpen={toggleJobList}
-            reqData={requestedClientsData}
-            getCandidatesByPosition={getCandidatesByPosition}
-          />
-        );
+      // case "Request":
+      //   return (
+      //     <AdminSuper
+      //       showError={showError}
+      //       showSuccess={showSuccess}
+      //       adminToken={adminnToken}
+      //       data={data}
+      //       setData={setData}
+      //       setShowOverlay={setShowOverlay}
+      //       onOpen={toggleJobList}
+      //       reqData={requestedClientsData}
+      //       getCandidatesByPosition={getCandidatesByPosition}
+      //     />
+      //   );
       case "Active":
         return (
           <AdminSuper
