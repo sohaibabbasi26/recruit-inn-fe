@@ -1,24 +1,38 @@
 import styles from './RightBottomBtns.module.css';
 import Image from 'next/image';
 
-const ShareLinkBtns = ({showError, onContinue , onBack , onClose, setCompletedStages, completedStages, handleEmailInvite, setMessage, showSuccess, interviewCount }) => {
+const ShareLinkBtns = ({showError, onContinue , onBack, receivers , onClose, setCompletedStages, completedStages, handleEmailInvite, setMessage, showSuccess, interviewCount }) => {
 
     const navigationIconSize = 20;
 
     async function handleSendInvite() {
-        // const valid = validateReceivers();
-        // if (valid) {
+      // Validate that all receivers have valid names and emails
+      const areAllFieldsValid = receivers.every(
+        (receiver) =>
+          receiver.name.trim() !== "" &&
+          /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(receiver.email.trim())
+      );
+    
+      // If validation fails, show error message
+      if (!areAllFieldsValid) {
+        setMessage("Please fill in all names and valid email addresses.");
+        showError();
+        return;
+      }
+    
+      // If validation passes, proceed with sending invites
+      try {
         await handleEmailInvite();
-        // } 
-        // else {
-        //   // Already handled in validateReceivers, just exit
-        //   setMessage("Validation failed");
-        //   showError()
-        // }
         setTimeout(() => {
-            window.location.reload();
+          window.location.reload(); // Reload the page if needed
         }, 1000);
+      } catch (error) {
+        console.error("Error sending invites:", error);
+        setMessage("An error occurred while sending invites. Please try again.");
+        showError();
+      }
     }
+    
 
     return (
       <>
