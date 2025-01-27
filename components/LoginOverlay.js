@@ -189,8 +189,7 @@ const LoginOverlay = ({
         const demolink = `https://app.recruitinn.ai/new-password/${data?.data?.message?.company_id}`;
         const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
         const text = `Follow the link to set up your new password: \n ${demolink}`;
-
-        console.log("link:", demolink);
+        
         const requestBody = {
           to: email,
           subject: subject,
