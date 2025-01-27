@@ -28,6 +28,17 @@
 .backDropContainer::-webkit-scrollbar {
   scrollbar-width: none;
 }
+.cameraVideo {
+  width: 150px; /* Adjust size as needed */
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: 20px; /* Adjust positioning */
+  left: 20px;
+  border: 2px solid #ccc; /* Optional: Add a border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+}
 
 .backDropContainer * {
   box-sizing: border-box;

@@ -166,11 +166,6 @@ const LoginOverlay = ({
       email: email,
     };
 
-    const requestBody = {
-      to: emailReceiver,
-      subject: subject,
-      text: text,
-    };
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`,
@@ -180,31 +175,38 @@ const LoginOverlay = ({
           headers: { "Content-Type": "application/json" },
         }
       );
-      const data = await response.json();
-      console.log("response about client checking:", data);
-      setCompanyId(data?.data?.message?.company_id);
+      const clientData = await response.json(); // Renamed this variable to clientData
+      if(clientData){
+        console.log("response about client checking:", clientData);
+        setCompanyId(clientData?.data?.message?.company_id);
 
-      if (data?.data?.message?.company_id) {
-        setCompanyId(data?.data?.message?.company_id);
+        if (clientData?.data?.message?.company_id) {
+          setCompanyId(clientData?.data?.message?.company_id);
+          const body = {
+            client_id: clientData?.data?.message?.company_id
+          };
+          const res = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/send-reset-password-email`, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: { "Content-Type": "application/json" },
+          });
 
-        const demolink = `https://app.recruitinn.ai/new-password/${data?.data?.message?.company_id}`;
-        const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
-        const text = `Follow the link to set up your new password: \n ${demolink}`;
-        
-        const requestBody = {
-          to: email,
-          subject: subject,
-          text: text,
-        };
+          const emailData = await res.json(); // Renamed this to emailData
+          console.log("email data: ",emailData);
 
-        await sendResetPasswordEmail(requestBody);
-      } else {
-        showError("Some error occurred, failed to send an Email");
+          if (emailData?.code === 200) {
+            showSuccess("Link to set a new password has been sent to this email!");
+          }
+        } else {
+          showError("Such a client doesn't exist");
+        }
       }
     } catch (err) {
-      showError("Such a client doesn't exist");
+      console.log(err);
+      showError("Some error occurred, failed to send an Email");
     }
-  };
+};
+
 
   const sendResetPasswordEmail = async (emailDetails) => {
     try {
