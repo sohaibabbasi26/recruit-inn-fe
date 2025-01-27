@@ -827,7 +827,7 @@ const Overlay = React.memo(
                       />
                       <ShareLinkBtns
                         showError={showError}
-                        // validateReceivers={validateReceivers}
+                        receivers={receivers}
                         showSuccess={showSuccess}
                         setMessage={setMessage}
                         handleEmailInvite={handleEmailInvite}

@@ -53,7 +53,8 @@ const LoginBtns = ({
 
 
   const clickBackHandler = () => {
-    router.push('/');
+    // router.push('/');
+    router.back();
 }
 
   return (
