@@ -37,7 +37,6 @@ const AdminLogin = () => {
     );
 
     const data = await response.json();
-    console.log("login info:", data?.data);
     if (data?.data?.token) {
       // Cookie
       const expiresIn = 10 * 60 * 60;
@@ -54,6 +53,7 @@ const AdminLogin = () => {
       alert("Login failed. Please check your credentials.");
     }
   };
+  console.log("NODE ENV", process.env.NODE_ENV);
 
   const showError = (message) => {
     setShowErrorMessage(true);

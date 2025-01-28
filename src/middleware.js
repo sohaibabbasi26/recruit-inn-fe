@@ -118,6 +118,10 @@ export async function middleware(request) {
         return redirectTo("/admin-login");
       }
     }
+
+    if (user?.id && user.role === "admin" && pathname === "/admin-login") {
+      return redirectTo("/admin-dashboard");
+    }
   }
 
   // Allow the request to proceed
