@@ -67,7 +67,15 @@ const Admin = ({}) => {
   };
 
   useEffect(() => {
-    const adminToken = localStorage.getItem("admin-token");
+    // const adminToken = localStorage.getItem("admin-token");
+    // const adminToken = document.cookie.get("loginToken")?.value || null;
+    // const adminToken = document.cookies.get("loginToken")?.value || null;
+    const adminToken =
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("loginToken="))
+        ?.split("=")[1] || null;
+    console.log("ADMIN TOKEN", adminToken);
     setAdminToken(adminToken);
   });
 
@@ -319,8 +327,8 @@ const Admin = ({}) => {
               showOverlay={showOverlay}
             />
           </>
-        ); 
-      
+        );
+
       case "AllClients":
         return (
           <AdminSuper
@@ -435,20 +443,20 @@ const Admin = ({}) => {
             notEligibleCandidates={notEligibleCand}
           />
         );
-        case "position":
-          return (
-            <AdminSuper
-              setJobOverlay={setJobOverlay}
-              selectedCandidate={selectedCandidate}
-              setSelectedCandidate={setSelectedCandidate}
-              setSelectedJob={setSelectedJob}
-              selectedJob={selectedJob}
-              setReportOverlay={setReportOverlay}
-              reportOverlay={reportOverlay}
-              positionCandidates={positionCandidates}
-              toggleOverlay={toggleOverlay}
-            />
-          );
+      case "position":
+        return (
+          <AdminSuper
+            setJobOverlay={setJobOverlay}
+            selectedCandidate={selectedCandidate}
+            setSelectedCandidate={setSelectedCandidate}
+            setSelectedJob={setSelectedJob}
+            selectedJob={selectedJob}
+            setReportOverlay={setReportOverlay}
+            reportOverlay={reportOverlay}
+            positionCandidates={positionCandidates}
+            toggleOverlay={toggleOverlay}
+          />
+        );
       case "viewJobListing":
         return (
           <AdminSuper
@@ -466,7 +474,6 @@ const Admin = ({}) => {
             getCandidatesByPosition={getCandidatesByPosition}
           />
         );
-    
 
       default:
         return null;
@@ -602,11 +609,18 @@ const Admin = ({}) => {
 
 export default Admin;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({ req }) => {
   try {
-    const adminToken = localStorage.getItem("admin-token");
+    const cookies = req.headers.cookie;
+    const adminToken =
+      cookies
+        ?.split("; ")
+        .find((cookie) => cookie.startsWith("loginToken="))
+        ?.split("=")[1] || null;
+    // const adminToken = localStorage.getItem("admin-token");
+
     console.log("************** ADMIND TOKEN *****************");
-    console.log(adminToken);
+    console.log("LOGGGGG12", adminToken);
 
     const response = await fetch("http://localhost:3002/v1/get-companies", {
       method: "GET",
@@ -623,7 +637,7 @@ export const getServerSideProps = async () => {
     console.log("jsonified response: ", data);
 
     const responseTwo = await fetch(
-      "http://localhost:3002/v1/get-all-results",
+      `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-results`,
       {
         method: "GET",
         headers: {
