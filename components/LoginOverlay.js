@@ -141,7 +141,6 @@ const LoginOverlay = ({
       }
     );
     const data = await response.json();
-    console.log("login info:", data?.data);
     if (data?.data?.token) {
       // Cookie
       const expiresIn = 10 * 60 * 60;
@@ -152,10 +151,11 @@ const LoginOverlay = ({
         process.env.NODE_ENV === "production" ? "Secure; " : ""
       }SameSite=Strict`;
 
-      localStorage.setItem("client-token", data?.data?.token);  
+      localStorage.setItem("client-token", data?.data?.token);
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("clientId", data?.data?.id); // Save client ID
-      redirectToClientPage(data?.data?.id); // Reuse the navigation function
+      console.log("this is hte id", data?.data?.id); // Reuse the navigation function
+      redirectToClientPage(data?.data?.id);
     } else {
       console.log("Testing thiss .....");
       showError("Login failed. Please check your credentials.");

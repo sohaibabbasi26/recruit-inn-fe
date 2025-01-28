@@ -118,6 +118,15 @@ export async function middleware(request) {
         return redirectTo("/admin-login");
       }
     }
+
+    if (user?.id && user.role === "admin" && pathname === "/admin-login") {
+      return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+    }
+    if (user?.id && user.role === "client" && pathname === "/client-login") {
+      return NextResponse.redirect(
+        new URL(`/client/${currentUserId}`, request.url)
+      );
+    }
   }
 
   // Allow the request to proceed
@@ -128,9 +137,10 @@ export async function middleware(request) {
 export const config = {
   matcher: [
     "/client/:path*",
-    // "/client-login",
+    "/client-login",
     // "/client-signup",
     // "/candidate/:path*",
-    "/admin-dashboard",
+    "/admin-dashboard/:path*",
+    "/admin-login",
   ],
 };
