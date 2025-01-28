@@ -130,6 +130,7 @@ export const config = {
     // "/client-login",
     // "/client-signup",
     // "/candidate/:path*",
-    "/admin-dashboard",
+    "/admin-dashboard/:path*",
+    "/admin-login",
   ],
 };
