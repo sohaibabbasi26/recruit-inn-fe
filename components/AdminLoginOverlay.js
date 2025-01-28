@@ -74,7 +74,9 @@ const AdminLoginOverlay = ({ showError, email, password , setPassword, setEmail,
 
                             {viewMode === 'login' ? (
                                 <>
-                                    <LoginComp onViewChange={() => setViewMode('forgotPassword')} email={email} setPassword={setPassword} setEmail={setEmail} />
+                                    <LoginComp onViewChange={() => setViewMode('forgotPassword')} email={email} setPassword={setPassword} setEmail={setEmail}
+                                    showSignuplink={false}
+                                    />
                                     <div className={styles.wrapper}>
                                         <LoginBtns showError={showError} password={password} email={email} loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>

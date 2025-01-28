@@ -262,6 +262,7 @@ const LoginOverlay = ({
                     setPassword={setPassword}
                     email={email}
                     setEmail={setEmail}
+                    showSignuplink={true}
                   />
                   <div className={styles.wrapper}>
                     <LoginBtns
