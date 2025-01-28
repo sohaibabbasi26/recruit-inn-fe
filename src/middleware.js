@@ -120,7 +120,12 @@ export async function middleware(request) {
     }
 
     if (user?.id && user.role === "admin" && pathname === "/admin-login") {
-      return redirectTo("/admin-dashboard");
+      return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+    }
+    if (user?.id && user.role === "client" && pathname === "/client-login") {
+      return NextResponse.redirect(
+        new URL(`/client/${currentUserId}`, request.url)
+      );
     }
   }
 
@@ -131,7 +136,7 @@ export async function middleware(request) {
 export const config = {
   matcher: [
     "/client/:path*",
-    // "/client-login",
+    "/client-login",
     // "/client-signup",
     // "/candidate/:path*",
     "/admin-dashboard/:path*",
