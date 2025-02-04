@@ -253,8 +253,7 @@ const SetPasswordOverlay = ({
                   setPassword={setPassword}
                   handlePasswordChange={handlePasswordChange}
                   handleConfirmPasswordChange={handleConfirmPasswordChange}
-                />
-                <div className={styles.wrapper}>
+                />                <div className={styles.wrapper}>
                   <PasswordBtns handleFormSubmit={handleFormSubmit} />
                 </div>
               </>
