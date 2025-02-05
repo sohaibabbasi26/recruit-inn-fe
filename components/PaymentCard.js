@@ -29,16 +29,16 @@ const PaymentCard = ({
         >
           <div className={`border-b-[1px] py-3 ${borderColor}`}>
             <span
-              className={`${smallTextColor} text-lg font-semibold ${headingColor}`}
+              className={`${smallTextColor}  text-lg font-semibold ${headingColor}`}
             >
               {packageType}
             </span>
-            <p className="text-steel dark:text-smallText text-sm font-semibold">
+            {/* <p className="text-steel dark:text-smallText text-sm font-semibold">
               {t("Packages.P1_heading")}
-            </p>
+            </p> */}
             <div className="flex gradient-text max-lg:justify-center gap-2">
               <h2
-                className={`text-3xl font-sans  font-bold gradient-text  ${priceColor}`}
+                className={`text-4xl font-sans mt-3  font-bold gradient-text  ${priceColor}`}
               >
                 ${price}
               </h2>
