@@ -184,7 +184,7 @@ i18n
                   "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
                 author: "Arshad Iqbal",
                 designation: "Country Manager, Tixsee Labs LLC",
-                image: "/avt12.png",
+                image: "/avt14.png",
               },
               {
                 id: 4,
@@ -393,7 +393,7 @@ i18n
                 "message": "بفضل RecruitInn.ai، تمكّنا من تغيير طريقة تعاملنا مع التوظيف. أصبح الأمر أسرع وأكثر كفاءة.",
                 "author": "محمد نمير الدين",
                 "designation": "المؤسس، Universal Technologies",
-                "image": "/avt1.png"
+                "image": "/avt15.png"
               },
               {
                 "id": 3,
@@ -401,7 +401,7 @@ i18n
                 "message": "حققنا نتائج مذهلة مع عملية التوظيف السلسة لـ RecruitInn.ai. سمح لنا ذلك بالتركيز على تقييم أفضل المرشحين دون عناء.",
                 "author": "أرشاد إقبال",
                 "designation": "مدير الدولة، Tixsee Labs LLC",
-                "image": "/avt1.png"
+                "image": "/avt14.png"
               },
               {
                 "id": 4,
@@ -409,7 +409,7 @@ i18n
                 "message": "لم يكن العثور على الأشخاص المناسبين لفريقنا بهذه البساطة من قبل. جعلت RecruitInn.ai من السهل ضمان وجود أفضل المواهب في وقت قصير.",
                 "author": "محمد أحسن خان",
                 "designation": "المؤسس، SkillBuilder",
-                "image": "/avt1.png"
+                "image": "/avt13.png"
               },
               {
                 "id": 5,
@@ -417,7 +417,7 @@ i18n
                 "message": "حولت RecruitInn.ai عملية التوظيف لدينا، حيث سرعت بشكل كبير من العثور على المرشحين باستخدام الذكاء الاصطناعي المتقدم.",
                 "author": "محمد عاقب",
                 "designation": "المؤسس، Well-Tech",
-                "image": "/avt1.png"
+                "image": "/avt14.png"
               }
             ]
           }
