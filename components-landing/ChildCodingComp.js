@@ -281,7 +281,6 @@
 // // to ensure that clicks are detected on the parent.
 // // Commented out the 'autoFocus' feature because the instructions popup would remove focus anyway. This way, when the user tries to type in the code without selecting a language, it will automatically get focused
 
-
 import CodingLeftComponent from "./CodingLeftComponent";
 import Image from "next/image";
 import "tailwindcss/tailwind.css";
@@ -455,6 +454,10 @@ const CodingChild = ({
               }`}
             >
               <textarea
+                onPaste={(e) => {
+                  e.preventDefault();
+                  return false;
+                }}
                 disabled={!isAllowed}
                 onChange={(e) => setCode(e.target.value)}
                 onKeyDown={handleKeyDown}

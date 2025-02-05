@@ -7,6 +7,8 @@ export default function Document() {
         {/* <title>
           Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
         </title> */}
+          <link rel="canonical" href="https://app.recruitinn.ai/invited-candidate?position_id=<%= position_id %>&client_id=<%= client_id %>" />
+
 
         <meta
           name="description"

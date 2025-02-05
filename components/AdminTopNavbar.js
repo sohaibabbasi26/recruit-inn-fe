@@ -221,7 +221,7 @@ const AdminTopNavbar = ({
                   <li
                     key={result?.position_id || result?.candidate_id}
                     onClick={() => {
-                      searchType === "Jobs"
+                      searchType === "client"
                         ? onJobSelect(result)
                         : searchType === "Candidates"
                         ? cardClickHandler(result)
@@ -229,20 +229,20 @@ const AdminTopNavbar = ({
                       setSearchResults(null);
                     }}
                   >
-                    {searchType === "Jobs" ? result?.position : result?.name}
+                    {searchType === "client" ? result?.position : result?.name}
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
             <div className={styles.searchResults} ref={searchResultsRef}>
-              <p>No {searchType === "Jobs" ? "jobs" : "candidates"} found.</p>
+              <p>No {searchType === "client" ? "client" : "candidates"} found.</p>
             </div>
           )
         ) : null}
       
-
-        {/* <button onClick={handleButtonClick}>Invite A Candidate</button> */}
+{/* 
+        <button onClick={handleButtonClick}>Invite A Candidate</button> */}
       </div>
     </>
   );

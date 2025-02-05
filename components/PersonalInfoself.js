@@ -5,6 +5,7 @@ import { countryList } from "@/util/cities";
 import { getCities } from "@/util/helpers";
 import Image from "next/image";
 import ShowPassword from "./ShowPassword";
+
 import styles from "./PersonalInfoself.module.css";
 
 const PersonalInfoSelf = forwardRef(
@@ -36,6 +37,7 @@ const PersonalInfoSelf = forwardRef(
     password,
     confirmPassword,
     setIsTestRequired,
+    onLogin,
   }) => {
     const handleInputChange = (e, ref) => {
       ref.current.value = e.target.value;
@@ -230,12 +232,26 @@ const PersonalInfoSelf = forwardRef(
                 ))}
               </select>
 
+
+
               {validationErrors?.city && (
                 <div className={styles.errorMessage}>
                   {validationErrors?.city}
                 </div>
+
+
               )}
+
+              
             </div>
+            <div className={styles.loginPrompt}>
+          <p>
+           Already have an account?{" "}
+            <span className={styles.loginLink} onClick={onLogin}>
+              Login
+            </span>
+          </p>
+        </div>
           </div>
         </div>
       </>

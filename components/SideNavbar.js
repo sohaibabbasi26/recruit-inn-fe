@@ -87,6 +87,9 @@ const SideNavbar = ({
   }, [setActiveItem]);
 
   const logoutHandler = () => {
+    // Remove cookie
+    document.cookie =
+      "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem("client-token");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("clientId");

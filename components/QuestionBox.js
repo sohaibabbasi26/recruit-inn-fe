@@ -966,7 +966,7 @@ const QuestionBox = //forwardRef(
                     color: recordingDone ? "#808080" : "",
                   }}
                   className={styles.recordBtn}
-                  onClick={isRecording ? stopRecording : startRecording}
+                  onClick={!hasVoiceGenerated ? stopRecording : startRecording}
                   disabled={!hasVoiceGenerated}
                 >
                   <Image

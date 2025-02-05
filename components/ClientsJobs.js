@@ -40,7 +40,7 @@ const ClientJobs = ({showError, showSuccess, data,jobOverlay, setJobOverlay,setS
                     <div className={styles.headingContainer}>
                         <div className={styles.heading}>
                             <h3>All Jobs</h3>
-                            <span>1000</span>
+                            <span>{data?.data?.length}</span>
                         </div>
 
                         <select>

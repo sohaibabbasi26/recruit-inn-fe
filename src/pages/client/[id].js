@@ -51,12 +51,12 @@ export default function Home({
 
   const [showOverlay1, setShowOverlay1] = useState();
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-      router.push("/client-login");
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn");
+  //   if (!isLoggedIn) {
+  //     router.push("/client-login");
+  //   }
+  // }, [router]);
 
   useEffect(() => {
     const token = localStorage.getItem("client-token");
@@ -107,8 +107,20 @@ export default function Home({
     let isMounted = true;
     console.log("client_id:", id);
     localStorage.setItem("clientId", id);
-    const token = localStorage.getItem("client-token");
+    // const token = localStorage.getItem("client-token");
+
+    const token =
+      document.cookie
+        .split("; ")
+        .find((cookie) => cookie.startsWith("loginToken="))
+        ?.split("=")[1] || null; // Extract the token value
+
+    if (!token) {
+      console.error("Token not found");
+      return;
+    }
     setToken(token);
+
     async function fetchAllCandidateReports() {
       const requestBody = { company_id: id };
       setIsLoading(true);
@@ -779,7 +791,7 @@ export default function Home({
             interviewCount={interviewCount}
           />
         )}
-        {showPaymentOverlay && currentPackage &&(
+        {showPaymentOverlay && currentPackage && (
           <PaymentOverlay
             onClose={togglePaymentOverlay}
             showPaymentOverlay={showPaymentOverlay}

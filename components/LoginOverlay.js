@@ -18,6 +18,7 @@ const LoginOverlay = ({
   stages,
   stageHeadings,
   showOverlay,
+  onSignup,
 }) => {
   const overlayRef = useRef(null);
   const [email, setEmail] = useState(null);
@@ -114,16 +115,16 @@ const LoginOverlay = ({
   const redirectToClientPage = (clientId) => {
     router.push(`/client/${clientId}`);
   };
-  useEffect(() => {
-    // Check if user is logged in
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn) {
-      const clientId = localStorage.getItem("clientId");
-      if (clientId) {
-        redirectToClientPage(clientId);
-      }
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   // Check if user is logged in
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn");
+  //   if (isLoggedIn) {
+  //     const clientId = localStorage.getItem("clientId");
+  //     if (clientId) {
+  //       redirectToClientPage(clientId);
+  //     }
+  //   }
+  // }, [router]);
 
   const loginApiCall = async () => {
     const response = await fetch(
@@ -140,12 +141,21 @@ const LoginOverlay = ({
       }
     );
     const data = await response.json();
-    console.log("login info:", data?.data);
     if (data?.data?.token) {
+      // Cookie
+      const expiresIn = 10 * 60 * 60;
+      const expiresDate = new Date(Date.now() + expiresIn * 1000);
+      document.cookie = `loginToken=${
+        data?.data?.token
+      }; expires=${expiresDate.toUTCString()}; path=/; ${
+        process.env.NODE_ENV === "production" ? "Secure; " : ""
+      }SameSite=Strict`;
+
       localStorage.setItem("client-token", data?.data?.token);
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("clientId", data?.data?.id); // Save client ID
-      redirectToClientPage(data?.data?.id); // Reuse the navigation function
+      console.log("this is hte id", data?.data?.id); // Reuse the navigation function
+      redirectToClientPage(data?.data?.id);
     } else {
       console.log("Testing thiss .....");
       showError("Login failed. Please check your credentials.");
@@ -176,26 +186,31 @@ const LoginOverlay = ({
         }
       );
       const clientData = await response.json(); // Renamed this variable to clientData
-      if(clientData){
+      if (clientData) {
         console.log("response about client checking:", clientData);
         setCompanyId(clientData?.data?.message?.company_id);
 
         if (clientData?.data?.message?.company_id) {
           setCompanyId(clientData?.data?.message?.company_id);
           const body = {
-            client_id: clientData?.data?.message?.company_id
+            client_id: clientData?.data?.message?.company_id,
           };
-          const res = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/send-reset-password-email`, {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: { "Content-Type": "application/json" },
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/send-reset-password-email`,
+            {
+              method: "POST",
+              body: JSON.stringify(body),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
 
           const emailData = await res.json(); // Renamed this to emailData
-          console.log("email data: ",emailData);
+          console.log("email data: ", emailData);
 
           if (emailData?.code === 200) {
-            showSuccess("Link to set a new password has been sent to this email!");
+            showSuccess(
+              "Link to set a new password has been sent to this email!"
+            );
           }
         } else {
           showError("Such a client doesn't exist");
@@ -205,8 +220,7 @@ const LoginOverlay = ({
       console.log(err);
       showError("Some error occurred, failed to send an Email");
     }
-};
-
+  };
 
   const sendResetPasswordEmail = async (emailDetails) => {
     try {
@@ -256,10 +270,12 @@ const LoginOverlay = ({
                 <>
                   <LoginComp
                     onViewChange={() => setViewMode("forgotPassword")}
+                    onSignup={onSignup}
                     password={password}
                     setPassword={setPassword}
                     email={email}
                     setEmail={setEmail}
+                    showSignuplink={true}
                   />
                   <div className={styles.wrapper}>
                     <LoginBtns

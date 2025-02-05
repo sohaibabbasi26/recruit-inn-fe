@@ -26,8 +26,6 @@ export function calculateCenterDistance(elementA, elementB) {
   const centerA = rectA.left + cenA;
   const centerB = rectB.left + cenB;
 
-  console.log("centerB", centerB);
-
   const distance = Math.abs(centerA - centerB);
 
   return distance;

@@ -28,6 +28,7 @@
     "html-to-text": "^9.0.5",
     "html2canvas": "^1.4.1",
     "i18next": "^24.2.1",
+    "jose": "^5.9.6",
     "jspdf": "^2.5.1",
     "libphonenumber-js": "^1.10.61",
     "lodash.debounce": "^4.0.8",

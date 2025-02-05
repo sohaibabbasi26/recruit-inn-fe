@@ -240,10 +240,12 @@ const CandidateSelfLoginOverlay = ({
                 <>
                   <LoginComp
                     onViewChange={() => setViewMode("forgotPassword")}
+                    onSignup={router ? () => router.push("/candidate-self") : null}
                     password={password}
                     setPassword={setPassword}
                     email={email}
                     setEmail={setEmail}
+                    showSignuplink={true}
                   />
                   <div className={styles.wrapper}>
                     <LoginBtns
