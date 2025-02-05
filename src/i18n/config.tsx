@@ -81,7 +81,7 @@ i18n
           },
 
           "hero": {
-            "hero_heading": "Welcome to the Future of Recruitment with RecruitInn",
+            "hero_heading": "Welcome to the Future of Recruitment",
             "hero_subheading": "Transform your hiring process with RecruitInn's AI-powered solutions. Discover, assess, and onboard top talent faster, smarter, and with unmatched efficiency.",
             "hero_name1": "Amina Farah",
             "hero_name2": "Ethan Parker",
@@ -94,13 +94,13 @@ i18n
           "landingThird": {
             "talent": {
               "heading": "Connect with the Best Engineers Worldwide",
-              "subheading": "Are you struggling to find top engineering talent? RecruitInn.ai makes it simple to connect with experienced professionals who can bring your vision to life. Whether you’re building an innovative product, scaling your development team, or need expertise in a specific technology stack, we match you with engineers who deliver results. Stop wasting time on endless searches—start creating impactful solutions today with trusted, highly skilled software engineers.",
+              "subheading": "Struggling to hire skilled engineers? RecruitInn.ai connects you with top professionals who can bring your vision to reality, whether you need help scaling your team, building a product, or finding expertise in a specific tech stack. Skip the endless search and get matched with engineers who deliver real results.",
               "title": "TALENTS",
             },
             "techStack": {
               "title2": "Tech Stacks",
               "heading2": "Hire Experts in Today’s Most In-Demand Technologies",
-              "subheading2": "Hire Experts in Today’s Most In-Demand Technologies The tech industry evolves fast, and having access to the right talent is essential for staying ahead. At RecruitInn.ai, we connect you with specialists skilled in JavaScript, Python, Flutter, Node.js, Kubernetes, and more. Whether you're looking for mobile app developers, cloud engineers, or full-stack experts, we ensure you find professionals who align perfectly with your project needs. With RecruitInn.ai, hiring top-tier talent with the latest skills has never been easier.",
+              "subheading2": "Tech evolves fast, and the right talent makes all the difference. RecruitInn.ai helps you find specialists in JavaScript, Python, Flutter, Node.js, Kubernetes, and more. Whether you need mobile app developers, cloud engineers, or full-stack experts. Hiring top-tier talent has never been easier.",
 
             },
 
@@ -123,9 +123,9 @@ i18n
           ,
 
           "RecruitInnProcess": {
-            "RP_txt1": "Real-Time Interviews, Instant Feedback, and Seamless Scheduling – All Automated for You!",
-            "RP_txt2": "Effortlessly evaluate candidates, Gain actionable insights and make informed hiring decisions.",
-            "RP_txt3": "Our solutions are designed to meet diverse expertise and project needs, ensuring the right fit for your team every time.",
+            "RP_txt1": "AI-Driven Candidate Reports offer instant insights into technical and soft skills, with AI-powered recommendations for the best fit.",
+            "RP_txt2": " Custom Job Creation lets clients define roles, add skills, and create AI-driven interviews. ",
+            "RP_txt3": "Real-Time Coding Assessments evaluate technical skills through interactive tests.",
 
 
           },
@@ -175,7 +175,7 @@ i18n
                 ,
                 author: "Muhammad Nameer Uddin",
                 designation: "Founder, Universal Technologies",
-                image: "/avt1.png",
+                image: "/avt15.png",
               },
               {
                 id: 3,
@@ -184,7 +184,7 @@ i18n
                   "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
                 author: "Arshad Iqbal",
                 designation: "Country Manager, Tixsee Labs LLC",
-                image: "/avt1.png",
+                image: "/avt14.png",
               },
               {
                 id: 4,
@@ -193,7 +193,7 @@ i18n
                   "Finding the right people for our team was never this simple. RecruitInn.ai made sure we had the best talent in no time.",
                 author: "Muhammad Ahsan Khan",
                 designation: "Founder, SkillBuilder",
-                image: "/avt1.png",
+                image: "/avt13.png",
               },
               {
                 id: 5,
@@ -202,7 +202,7 @@ i18n
                   "RecruitInn.ai transformed our hiring process, dramatically speeding up candidate sourcing with advanced AI.",
                 author: "Muhammad Aqib",
                 designation: "Founder, Well-Tech",
-                image: "/avt1.png",
+                image: "/avt14.png",
               },
             ]
 
@@ -306,7 +306,7 @@ i18n
 
 
           "hero": {
-            "hero_heading": "مرحبًا بكم في مستقبل التوظيف مع RecruitInn",
+            "hero_heading": "مرحبًا بك في مستقبل التوظيف",
             "hero_subheading": "حوّل عملية التوظيف الخاصة بك باستخدام حلول RecruitInn المدعومة بالذكاء الاصطناعي. اكتشف، قيّم، وقم بتوظيف أفضل المواهب بسرعة وذكاء وكفاءة لا مثيل لها.",
             "hero_name1": "أمينة فراح",
             "hero_name2": "إيثان باركر",
@@ -318,13 +318,13 @@ i18n
           "landingThird": {
             "talent": {
               "heading": "اتصل بأفضل المهندسين حول العالم",
-              "subheading": "هل تواجه صعوبة في العثور على أفضل المهندسين؟ تسهّل RecruitInn.ai التواصل مع محترفين ذوي خبرة يمكنهم تحقيق رؤيتك. سواء كنت تبني منتجًا مبتكرًا، أو توسع فريق التطوير الخاص بك، أو تحتاج إلى خبرة في تقنية معينة، فإننا نوفر لك مهندسين يحققون النتائج. توقف عن إضاعة الوقت في البحث غير المجدي—ابدأ اليوم في إنشاء حلول مؤثرة مع مهندسين برمجيات موثوقين ومهرة.",
+              "subheading":" تواجه صعوبة في توظيف مهندسين مهرة؟ يربطك **RecruitInn.ai** بأفضل المحترفين لتحقيق رؤيتك، سواء كنت بحاجة لتوسيع فريقك، بناء منتج، أو العثور على خبراء في تقنية معينة. تجاوز البحث المطول واحصل على مهندسين يحققون نتائج حقيقية.",
               "title": "المواهب"
             },
             "techStack": {
               "title2": "تقنيات التكنولوجيا",
               "heading2": "وظّف خبراء في أكثر التقنيات المطلوبة اليوم",
-              "subheading2": "تتطور صناعة التكنولوجيا بسرعة، والحصول على المواهب المناسبة أمر ضروري للبقاء في المقدمة. في RecruitInn.ai، نوفر لك متخصصين ماهرين في JavaScript، Python، Flutter، Node.js، Kubernetes والمزيد. سواء كنت تبحث عن مطوري تطبيقات موبايل، أو مهندسي سحابة، أو خبراء متكاملين، نضمن لك العثور على محترفين يتماشون تمامًا مع احتياجات مشروعك. مع RecruitInn.ai، لم يكن توظيف المواهب المتميزة ذات المهارات الحديثة أسهل من أي وقت مضى."
+              "subheading2": "التقنية تتطور بسرعة، والمواهب المناسبة تصنع الفرق. RecruitInn.ai يساعدك في العثور على متخصصين في JavaScript, Python, Flutter, Node.js, Kubernetes والمزيد. سواء كنت بحاجة إلى مطوري تطبيقات، مهندسي سحابة، أو خبراء Full-Stack، أصبح توظيف الكفاءات أسهل من أي وقت مضى."
             }
           }
 
@@ -346,9 +346,9 @@ i18n
             "IS_TopTalent": "المواهب الأفضل",
           },
           "RecruitInnProcess": {
-            "RP_txt1": "مقابلات في الوقت الفعلي، ملاحظات فورية، وجدولة سلسة – كل ذلك يتم تلقائيًا من أجلك!",
-            "RP_txt2": "قيّم المرشحين بسهولة، احصل على رؤى قابلة للتنفيذ واتخذ قرارات توظيف مستنيرة.",
-            "RP_txt3": "تم تصميم حلولنا لتلبية احتياجات الخبرات والمشاريع المتنوعة، مما يضمن توافقًا مثاليًا لفريقك في كل مرة."
+            "RP_txt1": "تقارير المرشحين المدعومة بالذكاء الاصطناعي توفر رؤى فورية حول المهارات التقنية والشخصية، مع توصيات ذكية لأفضل تطابق.",
+            "RP_txt2": "إنشاء الوظائف المخصص يمكّن العملاء من تحديد الأدوار، وإضافة المهارات، وإنشاء مقابلات مدعومة بالذكاء الاصطناعي.",
+            "RP_txt3": "تقييمات البرمجة الفورية تقيس المهارات التقنية عبر اختبارات تفاعلية."
           },
 
           "FeaturesSection": {
@@ -393,7 +393,7 @@ i18n
                 "message": "بفضل RecruitInn.ai، تمكّنا من تغيير طريقة تعاملنا مع التوظيف. أصبح الأمر أسرع وأكثر كفاءة.",
                 "author": "محمد نمير الدين",
                 "designation": "المؤسس، Universal Technologies",
-                "image": "/avt1.png"
+                "image": "/avt15.png"
               },
               {
                 "id": 3,
@@ -401,7 +401,7 @@ i18n
                 "message": "حققنا نتائج مذهلة مع عملية التوظيف السلسة لـ RecruitInn.ai. سمح لنا ذلك بالتركيز على تقييم أفضل المرشحين دون عناء.",
                 "author": "أرشاد إقبال",
                 "designation": "مدير الدولة، Tixsee Labs LLC",
-                "image": "/avt1.png"
+                "image": "/avt14.png"
               },
               {
                 "id": 4,
@@ -409,7 +409,7 @@ i18n
                 "message": "لم يكن العثور على الأشخاص المناسبين لفريقنا بهذه البساطة من قبل. جعلت RecruitInn.ai من السهل ضمان وجود أفضل المواهب في وقت قصير.",
                 "author": "محمد أحسن خان",
                 "designation": "المؤسس، SkillBuilder",
-                "image": "/avt1.png"
+                "image": "/avt13.png"
               },
               {
                 "id": 5,
@@ -417,7 +417,7 @@ i18n
                 "message": "حولت RecruitInn.ai عملية التوظيف لدينا، حيث سرعت بشكل كبير من العثور على المرشحين باستخدام الذكاء الاصطناعي المتقدم.",
                 "author": "محمد عاقب",
                 "designation": "المؤسس، Well-Tech",
-                "image": "/avt1.png"
+                "image": "/avt14.png"
               }
             ]
           }

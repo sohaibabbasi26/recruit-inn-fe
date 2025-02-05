@@ -5,6 +5,8 @@ import { useState } from "react";
 import style from "./styles.module.css";
 import ChevronDown from "../components/ChevronDown";
 import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
+
 
 const LandingFAQs = ({t}) => {
   const [dropDownState, setDropDownState] = useState(false);
@@ -15,6 +17,8 @@ const LandingFAQs = ({t}) => {
   const [sixthDropDownState, setSixthDropDownState] = useState(false);
   const [seventhDropDownState, setSevethDropDownState] = useState(false);
   const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
 
   const toggleDropDown = () => {
     setDropDownState(!dropDownState);
@@ -62,7 +66,7 @@ const LandingFAQs = ({t}) => {
                     !dropDownState ? "border-gray-200" : "relative border-white"
                   }`}
               >
-                <div className="w-full flex justify-between items-center gap-2">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
               {t("FAQ.F_Q1")}
                     
@@ -96,7 +100,7 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className="w-full flex justify-between items-center gap-2">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                   {t("FAQ.F_Q2")}
                   </span>
@@ -126,7 +130,7 @@ const LandingFAQs = ({t}) => {
                     !dropDownState ? "border-gray-200" : "relative border-white"
                   }`}
               >
-                <div className="w-full flex justify-between items-center gap-2">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                    {t("FAQ.F_Q3")}
                   </span>
@@ -158,7 +162,7 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className="w-full flex justify-between items-center gap-2">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     {t("FAQ.F_Q4")}
                   </span>
@@ -190,7 +194,7 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className="w-full flex justify-between items-center gap-2">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                    {t("FAQ.F_Q5")}
                   </span>

@@ -75,7 +75,7 @@ const HeroSection = ({t}) => {
           </div>
 
           {/* <div className=" w-100p h-full"> */}
-          <div className="w-100p h-full  max-lg:hidden">
+          <div className="w-100p h-full pl-8  max-lg:hidden">
             <div className="  h-[80%] flex flex-row-reverse ">
               {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
 
