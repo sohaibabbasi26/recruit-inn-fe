@@ -152,13 +152,13 @@ const LandingNavbar = ({
                           {t("Navbar.N_company")}
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a
                           href={`${process.env.NEXT_PUBLIC_URL}/candidate-login`}
                         >
                           {t("Navbar.N_candidates")}
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                   <div

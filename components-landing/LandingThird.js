@@ -23,7 +23,7 @@ const LandingThird = ({t}) => {
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
             } w-[50%]  max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh]  max-sm:mt-1 mt-[58px] flex justify-center items-center relative">
+            <div className="w-80p h-50p max-xl:h-[70vh]  max-sm:mt-1 mt-[100px] flex justify-center items-center relative">
               <div className="absolute">
                 <Image
                   src="/recruitlogo.png"
@@ -97,7 +97,7 @@ const LandingThird = ({t}) => {
               </div>
             </div>
 
-            <div className="w-80p h-50p flex flex-col justify-center mt-5 max-sm:mt-0">
+            <div className="w-80p h-50p flex flex-col justify-center mt-28 max-sm:mt-0">
               <span className="text-lightPurpleText font-semibold text-lg">
               {t("landingThird.talent.title")}
               </span>
