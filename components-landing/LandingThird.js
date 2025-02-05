@@ -23,7 +23,7 @@ const LandingThird = ({t}) => {
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
             } w-[50%]  max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh]  max-sm:mt-1 mt-[100px] flex justify-center items-center relative">
+            <div className="w-80p h-50p max-xl:h-[70vh]  max-sm:mt-1 mt-[80px] flex justify-center items-center relative">
               <div className="absolute">
                 <Image
                   src="/recruitlogo.png"
@@ -117,12 +117,24 @@ const LandingThird = ({t}) => {
                 : "border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40 "
             } w-[50%]   max-lg:w-[100%] max-lg:h-[100%]  h-[100%]  bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
-            <div className=" w-[100%] max-h-[520px] overflow-hidden flex flex-col justify-center items-center relative">
-              <div className=" max-md:mt-[90px] mt-[120px]">
+ <div className=" w-[100%] max-h-[720px] mt-[100px] mb-[100px] overflow-hidden flex flex-col justify-center items-center relative">
+<video
+  className="w-[100%] h-[100%] object-contain"
+  autoPlay
+  loop
+  muted
+  playsInline = "false"
+>
+  <source src="/video/test3 (WebM).webm" type="video/webm" />
+  Your browser does not support the video tag.
+</video>
+</div>
+            {/* <div className=" w-[100%] max-h-[520px] overflow-hidden flex flex-col justify-center items-center relative"> */}
+              {/* <div className=" max-md:mt-[90px] mt-[120px]">
                 {" "}
                 <TechstackOne />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 {" "}
                 <TechstackTwo />
               </div>
@@ -136,7 +148,7 @@ const LandingThird = ({t}) => {
               </div>
               <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
               <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
-            </div>
+            </div> */}
 
             <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[40px] mt-4   flex flex-col justify-center">
               <span className="text-lightPurpleText font-semibold text-lg">
