@@ -175,7 +175,7 @@ i18n
                 ,
                 author: "Muhammad Nameer Uddin",
                 designation: "Founder, Universal Technologies",
-                image: "/avt1.png",
+                image: "/avt15.png",
               },
               {
                 id: 3,
@@ -184,7 +184,7 @@ i18n
                   "We saw incredible results with RecruitInn.ai’s seamless hiring process. It allowed us to focus on evaluating top candidates without the usual hassle.",
                 author: "Arshad Iqbal",
                 designation: "Country Manager, Tixsee Labs LLC",
-                image: "/avt1.png",
+                image: "/avt12.png",
               },
               {
                 id: 4,
@@ -193,7 +193,7 @@ i18n
                   "Finding the right people for our team was never this simple. RecruitInn.ai made sure we had the best talent in no time.",
                 author: "Muhammad Ahsan Khan",
                 designation: "Founder, SkillBuilder",
-                image: "/avt1.png",
+                image: "/avt13.png",
               },
               {
                 id: 5,
@@ -202,7 +202,7 @@ i18n
                   "RecruitInn.ai transformed our hiring process, dramatically speeding up candidate sourcing with advanced AI.",
                 author: "Muhammad Aqib",
                 designation: "Founder, Well-Tech",
-                image: "/avt1.png",
+                image: "/avt14.png",
               },
             ]
 
