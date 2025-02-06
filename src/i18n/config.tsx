@@ -160,8 +160,8 @@ i18n
                 "heading": "Hire an entire team of Developers from us.",
                 "message":
                   "RecruitInn.ai delivered outstanding results, simplifying our hiring process and letting us focus on top candidates effortlessly.",
-                "author": "syed Zubair Alam",
-                "designation": "Founder, Co-VenTech",
+                "author": "Saad Salman",
+                "designation": "Sales Representative",
                 "image": "/avt1.png",
               },
               {
@@ -383,8 +383,8 @@ i18n
                 "id": 1,
                 "heading": "وظّف فريقًا كاملاً من المطورين من خلالنا.",
                 "message": "قدمت RecruitInn.ai نتائج رائعة، حيث بسّطت عملية التوظيف لدينا وجعلتنا نركز على أفضل المرشحين بسهولة.",
-                "author": "سيد زبير عالم",
-                "designation": "المؤسس، Co-VenTech",
+                "author": "سعد سلمان",
+                "designation": "ممثل مبيعات",
                 "image": "/avt1.png"
               },
               {

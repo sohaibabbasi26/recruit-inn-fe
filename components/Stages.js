@@ -14,6 +14,9 @@ const Stages = ({ currentStage, stages, completedStages, style = {} }) => {
  
  
   function toTitleCase(str) {
+   if(str === 'AI_ASSESSMENT'){
+    str = 'AI_INTERVIEW';
+   }
     return str
       .toLowerCase()
       .split(" ")
@@ -48,7 +51,7 @@ const Stages = ({ currentStage, stages, completedStages, style = {} }) => {
                         }
                   }
                 >
-                  <span>{toTitleCase(stage.replace("_", " "))}</span>
+                  <span>{toTitleCase(stage).replace("_", " ")}</span>
                   <Image
                     src={
                       currentStage === stages[stage]

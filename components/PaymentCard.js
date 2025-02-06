@@ -77,8 +77,14 @@ const PaymentCard = ({
                       width={20}
                       height={20}
                       alt="Feature icon"
+                      style={{opacity: 0}}
                     />
-                    {t("Packages.P1_support")}
+
+                    {/* {t("Packages.P1_support")} */}
+
+                      
+
+
                   </li>
                 ) : (
                   ""
@@ -107,8 +113,9 @@ const PaymentCard = ({
                       width={20}
                       height={20}
                       alt="Feature icon"
+                      style={{opacity: 0}}
                     />
-                    {t("Packages.P2_support")}
+                    {/* {t("Packages.P2_support")} */}
                   </li>
                 ) : (
                   ""

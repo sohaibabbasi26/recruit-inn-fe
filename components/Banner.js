@@ -9,7 +9,7 @@ const Banner = () => {
     <div className={styles.nBanner}>
       <Image height={50} width={50} src="/successIndicator.svg" />
       <h1>
-        Click on <span>Generate Test</span> to create <br /> AI Assessment for
+        Click on <span>Generate Test</span> to create <br /> AI Interview for
         candidate
       </h1>
     </div>
