@@ -611,6 +611,7 @@ const QuestionBox = //forwardRef(
             question_answer: answers,
             position_id: pid,
             language,
+            expertise
           };
         }
 
