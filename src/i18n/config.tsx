@@ -161,7 +161,7 @@ i18n
                 "message":
                   "RecruitInn.ai delivered outstanding results, simplifying our hiring process and letting us focus on top candidates effortlessly.",
                 "author": "Saad Salman",
-                "designation": "Sales Representative",
+                "designation": "Sales Representative, Linkify",
                 "image": "/avt1.png",
               },
               {
@@ -384,7 +384,7 @@ i18n
                 "heading": "وظّف فريقًا كاملاً من المطورين من خلالنا.",
                 "message": "قدمت RecruitInn.ai نتائج رائعة، حيث بسّطت عملية التوظيف لدينا وجعلتنا نركز على أفضل المرشحين بسهولة.",
                 "author": "سعد سلمان",
-                "designation": "ممثل مبيعات",
+                "designation": "ممثل مبيعات، Linkify",
                 "image": "/avt1.png"
               },
               {
