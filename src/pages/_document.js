@@ -24,7 +24,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://app.recruitinn.ai/og-image.png"
+          content="https://app.recruitinn.ai/og-image.jpg"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
