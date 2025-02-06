@@ -776,6 +776,7 @@ const Overlay = React.memo(
                         setMessage={setMessage}
                         onContinue={toggleComponent}
                         onBack={backToggleComponent}
+                        showBackBtn = {false}
                       />
                     </div>
                   </>
