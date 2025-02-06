@@ -4,9 +4,9 @@ export default function Document() {
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
-        {/* <title>
-          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
-        </title> */}
+        <title>
+        AI recruitinment | Recruitinn
+        </title>
           <link rel="canonical" href="https://app.recruitinn.ai/invited-candidate?position_id=<%= position_id %>&client_id=<%= client_id %>" />
 
 
