@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en" suppressHydrationWarning>
       <Head>
         <title>
-        AI recruitinment | Recruitinn
+        AI Recruitment | Recruitinn
         </title>
           <link rel="canonical" href="https://app.recruitinn.ai/invited-candidate?position_id=<%= position_id %>&client_id=<%= client_id %>" />
 
