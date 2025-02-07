@@ -156,15 +156,16 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
-        <SelfReportComponent
-          candidate_id={candidate_id}
-          candidateInfo={candidateInfo}
-          recommendedCourse={recommendedCourse}
-          codingResult={codingResult}
-          results={results}
-          isPdfLoading={isPdfLoading}
-          setIsPdfLoading={setIsPdfLoading}
-        />
+          <SelfReportComponent
+            flow="client"
+            candidate_id={candidate_id}
+            candidateInfo={candidateInfo}
+            recommendedCourse={recommendedCourse}
+            codingResult={codingResult}
+            results={results}
+            isPdfLoading={isPdfLoading}
+            setIsPdfLoading={setIsPdfLoading}
+          />
         </div>
       </div>
     </>
