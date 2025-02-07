@@ -442,12 +442,18 @@ export default function Token() {
             heading="Skill-Specific Courses"
           >
             <div className={`${styles.career_counseling} ${styles.course}`}>
-              <div className={styles.course_recommendation_card}>
+              <div
+                onClick={()=>window.open(
+                  `https://app.skillbuilder.online/courses/${recommendedCourse?.id}`,
+                  "_blank"
+                )}
+                className={styles.course_recommendation_card}
+              >
                 <div className={styles.course_recommendation_card_image}>
                   <Image
                     height={261.06}
                     width={421.85}
-                    src={`/${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
+                    src={`${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
                     alt="Recommended Course Image"
                   />
                 </div>
@@ -472,7 +478,7 @@ export default function Token() {
                     className={styles.course_recommendation_card_content_level}
                   >
                     <CourseLevelSvg />
-                    Level: <span>beginner</span>
+                    Level: <span>{recommendedCourse?.level}</span>
                   </p>
                   <p
                     className={styles.course_recommendation_card_content_price}

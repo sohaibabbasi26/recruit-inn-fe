@@ -375,6 +375,7 @@
   border-radius: 1.125rem;
   position: relative;
   border: 1px solid #dedede;
+  cursor: pointer;
 }
 
 .course_recommendation_card_image {

@@ -329,7 +329,15 @@ function SelfReportComponent({
                 heading="Skill-Specific Courses"
               >
                 <div className={`${styles.career_counseling} ${styles.course}`}>
-                  <div className={styles.course_recommendation_card}>
+                  <div
+                    onClick={() =>
+                      window.open(
+                        `https://app.skillbuilder.online/courses/${recommendedCourse?.id}`,
+                        "_blank"
+                      )
+                    }
+                    className={styles.course_recommendation_card}
+                  >
                     <div className={styles.course_recommendation_card_image}>
                       <Image
                         height={261.06}
