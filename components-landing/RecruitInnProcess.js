@@ -6,12 +6,20 @@ import { useRef, useState } from "react";
 import rectangle1 from "../public/Rectangle1.png";
 import rectangle2 from "../public/Rectangle2.png";
 import rectangle3 from "../public/Rectangle3.png";
+import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const images = [rectangle1, rectangle2, rectangle3];
 
 function RecruitInnProcess({t}) {
+  
+  const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
+
   const [activeIndex, setActiveIndex] = useState(0);
   const container2 = useRef(null);
 
@@ -98,16 +106,16 @@ function RecruitInnProcess({t}) {
     >
       <h2 className="heading text-3xl font-bold text-center block leading-[unset] transition-opacity duration-500">
         {" "}
-        <span className="image-1-text">
+        <span dir={isRTL ? "rtl" : "ltr"} className="image-1-text">
           {t("RecruitInnProcess.RP_txt1")}
         </span>
         &nbsp;&nbsp;
-        <span className="image-2-text opacity-30">
+        <span dir={isRTL ? "rtl" : "ltr"} className="image-2-text opacity-30">
         {t("RecruitInnProcess.RP_txt2")}
 
         </span>
         &nbsp;&nbsp;
-        <span className="image-3-text opacity-30">
+        <span  dir={isRTL ? "rtl" : "ltr"} className="image-3-text opacity-30">
         {t("RecruitInnProcess.RP_txt3")}
           
         </span>

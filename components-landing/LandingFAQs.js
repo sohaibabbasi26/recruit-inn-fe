@@ -7,7 +7,7 @@ import ChevronDown from "../components/ChevronDown";
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 
-
+ 
 const LandingFAQs = ({t}) => {
   const [dropDownState, setDropDownState] = useState(false);
   const [secondDropDownState, setSecondDropDownState] = useState(false);
@@ -47,7 +47,7 @@ const LandingFAQs = ({t}) => {
   return (
     <>
       <div className="h-auto w-[100%]  max-md:items-center flex justify-center text-white items-center flex-col">
-        <div className="h-100p w-100p mb-[2rem] flex justify-center text-black dark:text-white items-center flex-col ">
+        <div   className=" h-100p w-100p mb-[2rem] flex justify-center text-black dark:text-white items-center flex-col ">
           <div className="h-[20%] w-[90%] flex flex-col items-center justify-center">
             <h1 className="text-center text-5xl font-bold text-gray-900">
               {t("FAQ.F_heading")}
@@ -66,8 +66,8 @@ const LandingFAQs = ({t}) => {
                     !dropDownState ? "border-gray-200" : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
-                  <span className="text-lg tracking-wide font-semibold font-sans">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"}  className="text-lg tracking-wide font-semibold font-sans ">
               {t("FAQ.F_Q1")}
                     
                   </span>
@@ -80,7 +80,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {dropDownState && (
-                  <p className="text-lg text-smallText mt-3">
+                  <p  dir={isRTL ? "rtl" : "ltr"}  className="text-lg text-smallText mt-3 ">
                   {t("FAQ.F_A1")}
                   </p>
                 )}
@@ -100,8 +100,8 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right " : "flex-row"}`}>
-                  <span className="text-lg tracking-wide font-semibold font-sans">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
                   {t("FAQ.F_Q2")}
                   </span>
                   <ChevronDown
@@ -113,7 +113,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {secondDropDownState && (
-                  <p className="text-lg text-smallText mt-3">
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
                   {t("FAQ.F_A2")}
                   </p>
                 )}
@@ -130,8 +130,8 @@ const LandingFAQs = ({t}) => {
                     !dropDownState ? "border-gray-200" : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
-                  <span className="text-lg tracking-wide font-semibold font-sans">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
                    {t("FAQ.F_Q3")}
                   </span>
                   <ChevronDown
@@ -143,7 +143,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {thirdDropDownState && (
-                  <p className="text-lg text-smallText mt-3">
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
                    {t("FAQ.F_A3")}
                   </p>
                 )}
@@ -162,8 +162,8 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
-                  <span className="text-lg tracking-wide font-semibold font-sans">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
                     {t("FAQ.F_Q4")}
                   </span>
                   <ChevronDown
@@ -175,7 +175,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {fifthDropDownState && (
-                  <p className="text-lg text-smallText mt-3">
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
                    {t("FAQ.F_A4")}
                   </p>
                 )}
@@ -194,8 +194,8 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
-                  <span className="text-lg tracking-wide font-semibold font-sans">
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
                    {t("FAQ.F_Q5")}
                   </span>
                   <ChevronDown
@@ -207,7 +207,7 @@ const LandingFAQs = ({t}) => {
 
                 {/* Dropdown content */}
                 {fourthDropDownState && (
-                  <p className="text-lg text-smallText mt-3">
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
                     {t("FAQ.F_A5")}
                   </p>
                 )}
