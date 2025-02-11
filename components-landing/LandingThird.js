@@ -152,7 +152,7 @@ const LandingThird = ({t}) => {
               <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
             </div> */}
 
-            <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[40px] mt-4   flex flex-col justify-center">
+            <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[50px] mt-4   flex flex-col justify-center">
               <span dir={isRTL ? "rtl" : "ltr"} className="text-lightPurpleText font-semibold text-lg">
               {t("landingThird.techStack.title2")}
               </span>

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { checkout } from "@/util/Checkout";
 import "tailwindcss/tailwind.css";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 
 const PaymentCard = ({
   bgColor,
@@ -21,10 +23,16 @@ const PaymentCard = ({
 
   const router = useRouter();
 
+  const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
+
+
   return (
     <>
       <div className="w-[90%] max-md:w-[100%] h-[100%] flex justify-center items-center mb-5 ">
         <div
+          dir={isRTL ? "rtl" : "ltr"}
           className={`w-[90%] py-4 px-4 max-md:w-[100%] h-[100%] text-white border-[1px]  ${borderColor} ${shadowColor} rounded-3xl ${bgColor}`}
         >
           <div className={`border-b-[1px] py-3 ${borderColor}`}>
