@@ -91,6 +91,7 @@ function FeaturesSection({ t }) {
         </p>
       </div>
       <div
+      dir={isRTL ? "rtl" : "ltr"}
         ref={container}
         className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
       >
