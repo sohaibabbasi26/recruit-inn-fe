@@ -181,7 +181,7 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
       <div className="text" onClick={() => setCurrent(num)}>
         <h3
           dir={isRTL ? "rtl" : "ltr"}
-          className={`transition-all duration-300 ${
+          className={`transition-all duration-300  ${isRTL ? "text-right" : ""} ${
             isCur
               ? "!text-neutral-dark"
               : isActive
@@ -193,7 +193,7 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
         </h3>
         <p
           dir={isRTL ? "rtl" : "ltr"}
-          className={`transition-all duration-300 ${
+          className={`transition-all duration-300   ${isRTL ? "text-right" : ""} ${
             isCur ? "text-steel" : "text-[#ACA7BA]"
           } font-xm`}
         >
