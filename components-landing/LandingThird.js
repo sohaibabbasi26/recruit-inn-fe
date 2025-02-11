@@ -2,16 +2,18 @@ import CardDiv from "../components/CardDiv";
 import TechstackOne from "../components/TechstackOne";
 import TechstackTwo from "../components/TechstackTwo";
 import { useTheme } from "next-themes";
-
 import style from "./styles.module.css";
 import "tailwindcss/tailwind.css";
 import Image from "next/image";
 import TechstackThree from "../components/TechstackThree";
 import styles from "./LandingThird.module.css";
 import TechstackFour from "../components/TechstackFour";
+import { useTranslation } from "react-i18next";
 
 const LandingThird = ({t}) => {
   const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
   return (
     <>
       <div className="h-[800px] max-md:h-80p  max-lg:h-100p w-full flex justify-center mb-[2rem]">
@@ -98,13 +100,13 @@ const LandingThird = ({t}) => {
             </div>
 
             <div className="w-80p h-50p flex flex-col justify-center mt-28 max-sm:mt-0">
-              <span className="text-lightPurpleText font-semibold text-lg">
+              <span dir={isRTL ? "rtl" : "ltr"}className="text-lightPurpleText font-semibold text-lg">
               {t("landingThird.talent.title")}
               </span>
-              <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
+              <h3 dir={isRTL ? "rtl" : "ltr"} className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
               {t("landingThird.talent.heading")}
               </h3>
-              <p className="text-steel dark:text-white max-lg:mb-[1rem] text-justify">
+              <p  dir={isRTL ? "rtl" : "ltr"}className="text-steel dark:text-white max-lg:mb-[1rem] text-justify">
               {t("landingThird.talent.subheading")}
               </p>
             </div>
@@ -151,13 +153,13 @@ const LandingThird = ({t}) => {
             </div> */}
 
             <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[40px] mt-4   flex flex-col justify-center">
-              <span className="text-lightPurpleText font-semibold text-lg">
+              <span dir={isRTL ? "rtl" : "ltr"} className="text-lightPurpleText font-semibold text-lg">
               {t("landingThird.techStack.title2")}
               </span>
-              <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
+              <h3 dir={isRTL ? "rtl" : "ltr"} className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
               {t("landingThird.techStack.heading2")}
               </h3>
-              <p className="text-steel dark:text-white max-md:mb-[1rem] max-lg:mb-[1rem] text-justify">
+              <p dir={isRTL ? "rtl" : "ltr"} className="text-steel dark:text-white max-md:mb-[1rem] max-lg:mb-[1rem] text-justify">
               {t("landingThird.techStack.subheading2")} 
 
               </p>

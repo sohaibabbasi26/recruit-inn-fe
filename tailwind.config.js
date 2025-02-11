@@ -113,5 +113,5 @@ module.exports = {
       "min-md-max-lg": { min: "768px", max: "1023px" },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-rtl")],
 };
