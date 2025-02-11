@@ -91,7 +91,6 @@ function FeaturesSection({ t }) {
         </p>
       </div>
       <div
-        dir={isRTL ? "rtl" : "ltr"}
         ref={container}
         className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
       >
@@ -157,9 +156,10 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
   const { i18n } = useTranslation(); // Get i18n instance
   const isRTL = i18n.dir() === "rtl";
   return (
-    <div className="text-left gap-6 title flex items-start justify-start">
+    <div  className="text-left gap-6 title flex items-start justify-start">
       <div className="progress">
         <div
+         
           className={`${isCur ? "border-primary !text-primary" : " "} 
             ${isActive ? "bg-primary border-primary !text-white" : ""} 
           icon size-14 rounded-full border border-[#EBEBEB] text-transparent flex items-center justify-center transition duration-500 ease-in-out`}
@@ -168,6 +168,7 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
         </div>
         {!isLast ? (
           <div
+         
             className={` ${
               isActive
                 ? "!bg-primary bg-gradient-to-b from-primary to-primary"
@@ -178,7 +179,7 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
           ></div>
         ) : null}
       </div>
-      <div className="text" onClick={() => setCurrent(num)}>
+      <div  dir={isRTL ? "rtl" : "ltr"} className="text" onClick={() => setCurrent(num)}>
         <h3
           dir={isRTL ? "rtl" : "ltr"}
           className={`transition-all duration-300 ${
