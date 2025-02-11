@@ -66,7 +66,7 @@ const LandingFAQs = ({t}) => {
                     !dropDownState ? "border-gray-200" : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
               {t("FAQ.F_Q1")}
                     
@@ -100,7 +100,7 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right " : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                   {t("FAQ.F_Q2")}
                   </span>
@@ -130,7 +130,7 @@ const LandingFAQs = ({t}) => {
                     !dropDownState ? "border-gray-200" : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                    {t("FAQ.F_Q3")}
                   </span>
@@ -162,7 +162,7 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                     {t("FAQ.F_Q4")}
                   </span>
@@ -194,7 +194,7 @@ const LandingFAQs = ({t}) => {
                       : "relative border-white"
                   }`}
               >
-                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse text-right" : "flex-row"}`}>
                   <span className="text-lg tracking-wide font-semibold font-sans">
                    {t("FAQ.F_Q5")}
                   </span>
