@@ -106,16 +106,16 @@ function RecruitInnProcess({t}) {
     >
       <h2 className="heading text-3xl font-bold text-center block leading-[unset] transition-opacity duration-500">
         {" "}
-        <span dir={isRTL ? "rtl" : "ltr"} className="image-1-text">
+        <span  className="image-1-text">
           {t("RecruitInnProcess.RP_txt1")}
         </span>
         &nbsp;&nbsp;
-        <span dir={isRTL ? "rtl" : "ltr"} className="image-2-text opacity-30">
+        <span  className="image-2-text opacity-30">
         {t("RecruitInnProcess.RP_txt2")}
 
         </span>
         &nbsp;&nbsp;
-        <span  dir={isRTL ? "rtl" : "ltr"} className="image-3-text opacity-30">
+        <span  className="image-3-text opacity-30">
         {t("RecruitInnProcess.RP_txt3")}
           
         </span>
