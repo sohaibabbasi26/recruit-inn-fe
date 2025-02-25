@@ -25,6 +25,8 @@ const AddSkillForm = forwardRef(
     setLevel3,
     level4,
     setLevel4,
+    level,
+    setLevel,
     setCodingExpertise,
     setTechStack,
     isTestRequired,
@@ -204,23 +206,42 @@ const AddSkillForm = forwardRef(
             </select>
           </div>
 
-          <div>
-            <input
-              type="checkbox"
-              className={styles.codeAssignment}
-              id="code-assignment"
-              checked={isTestRequired}
-              onChange={handleTestRequirementChange}
-            />
-            <label htmlFor="code-assignment">
-              Would you want to include coding assessment as well?{" "}
-            </label>
-          </div>
+          <div className={styles.wrapper2}>
+            <div> 
+              <input
+               type="checkbox"
+               className={styles.codeAssignment}
+               id="code-assignment"
+               checked={isTestRequired}
+               onChange={handleTestRequirementChange}
+               />
+                <label htmlFor="code-assignment">
+                     Would you want to include a coding assessment as well?
+                   </label>
+               </div>
+  
+  {isTestRequired && (
+       <div  className={styles.box} >     
+           <select
+            value={level}
+            onChange={(e) => setLevel(e.target.value)}
+            >
+      <option value="" disabled>
+        Choose level of difficulty
+      </option>
+         <option value="beginner">Beginner</option>
+         <option value="intermediate">Intermediate</option>
+         <option value="expert">Expert</option>
+       </select>   
+       </div>
+     )}
+</div>
+
 
           <div>
             <input
               type="checkbox"
-              className={styles.codeAssignment}
+              className={styles.codeAssignment2}
               id="code-assignment1"
               checked={isArabicChosen}
               onChange={handleArabicChooseChange}

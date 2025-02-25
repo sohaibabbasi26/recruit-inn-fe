@@ -75,6 +75,43 @@
   gap: 5px;
   position: relative;
 }
+.wrapper2 {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 2rem;
+  padding-right: 5px;
+  
+  
+}
+.box{
+  background-color: transparent;
+  color: #4a525d;
+  border: 1px solid #ebebeb;
+  border-radius: 40px;
+  position: relative;
+  bottom: 10px;
+  width: 200px;
+  background-color: transparent;
+  padding-left:10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+}
+
+.box:has(input:focus),
+.box:has(select:focus) {
+  border: solid 1px #6137db;
+}
+.box select{
+  border: none;
+  border-radius: 40px;
+  color: inherit;
+  background-color: transparent;
+ 
+}
+.box select:focus  {
+  outline: none;
+}
 
 .inputField select {
   border: none;
@@ -109,16 +146,30 @@
 }
 
 .codeAssignment {
-  margin-top:3px ;
+ margin-top: 10px;
   margin-right: 0.625rem;
-}
+  margin-bottom: 20px;
+}      
 
 .codeAssignment + label {
   cursor: pointer;
   margin-top:-3px
-}
 
+}
+.codeAssignment2 {
+ position: relative;
+  margin-right: 0.625rem;
+  bottom: 25px;
+  
+}      
+
+.codeAssignment2 + label {
+  cursor: pointer;
+  position: relative;
+  bottom: 25px;
+}
 /* 1680px */
+
 @media screen and (max-width: 105em) {
   .addSkillFormContainer {
     gap: 0.5rem;
