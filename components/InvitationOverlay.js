@@ -124,6 +124,7 @@ const InvitationOverlay = ({
   const [positionData, setPositionData] = useState(null);
   const [positionStatus, setPositionStatus] = useState(null);
   const [questionId, setQuestionId] = useState();
+  const [cv,setCv]= useState(null);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const cityRef = useRef(null);
@@ -135,6 +136,7 @@ const InvitationOverlay = ({
   const [validationErrors, setValidationErrors] = useState({});
   const [allFieldsCheck, setAllFieldsCheck] = useState();
   const [reqBody, setReqBody] = useState(null);
+  const cvRef = useRef(null);
 
   useEffect(() => {
     console.log("hey its me! req body", reqBody);
@@ -260,7 +262,7 @@ const InvitationOverlay = ({
       "expertise: ",
       expertise,
       "contact:",
-      contact
+      contact,
     );
 
     setReqBody({
@@ -274,6 +276,7 @@ const InvitationOverlay = ({
       applied_through: clientData?.client_name,
       company_id: newId,
       expertise: newExpert,
+      uploaded_cv: cv
     });
 
     let isValid = true; // Assume the form is valid initially
@@ -361,42 +364,7 @@ const InvitationOverlay = ({
       console.log("Form submitted successfully!");
       toggleComponent();
     }
-    // } else if (name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
-    //     setMessage("Please make sure to fill all the fields correctly.");
-    // }
   };
-
-  // const toggleComponent = () => {
-
-  //     const newCompletedStages = [...completedStages, currentStage];
-  //     setCompletedStages(newCompletedStages);
-
-  //     if (currentStage === stages.SHARE_LINK) {
-  //         router.push('/');
-  //     } else {
-  //         switch (currentStage) {
-  //             case stages.JOB_DETAIL:
-
-  //                 setCurrentStage(stages.PERSONAL_INFO);
-  //                 break;
-  //             case stages.PERSONAL_INFO:
-
-  //                 const allFields = validateAllFields();
-  //                 console.log('all fields bool var before flip:', allFields);
-  //                 if (!allFields) {
-  //                     console.log('all fields bool var after flip:', allFields);
-  //                     setMessage('Please make sure to fill all the fields correctly.')
-  //                     showSuccess();
-  //                 } else {
-  //                     setCurrentStage(stages.REQUIRED_SKILLS);
-  //                     break;
-  //                 }
-
-  //             default:
-  //                 setCurrentStage(stages.JOB_DETAIL);
-  //         }
-  //     }
-  // }
 
   const toggleComponent = () => {
     const newCompletedStages = [...completedStages, currentStage];
@@ -422,42 +390,6 @@ const InvitationOverlay = ({
         setCurrentStage(stages.JOB_DETAIL);
     }
   };
-
-  // const toggleComponent = () => {
-  //     // First, check if we are in the PERSONAL_INFO stage and validate fields
-  //     // if (currentStage === stages.PERSONAL_INFO) {
-  //     //     const isValid = validateAllFields(); // Ensure this function accurately checks all fields
-  //     //     if (!isValid) {
-  //     //         // If not valid, possibly show an error message to the user
-  //     //         console.log("value of invalid" , isValid)
-  //     //         setMessage('Please make sure to fill all the fields correctly.');
-  //     //         showSuccess(); // Assuming this function shows the message
-  //     //         return; // Do not proceed to the next stage
-  //     //     }
-  //     // }
-
-  //     // Proceed with setting the next stage as before
-  //     const newCompletedStages = [...completedStages, currentStage];
-  //     setCompletedStages(newCompletedStages);
-  //     let isvalid1 = false;
-  //     switch (currentStage) {
-  //         case stages.JOB_DETAIL:
-  //             setCurrentStage(stages.PERSONAL_INFO);
-  //             break;
-  //         case stages.PERSONAL_INFO:
-  //             isvalid1 = validateAllFields();
-  //             console.log("valid 1: ",isvalid1);
-  //             if (isvalid1) {
-  //                 setMessage("Please fill in at least one skill.");
-  //                 showError();
-  //                 return;
-  //             }
-  //             setCurrentStage(stages.REQUIRED_SKILLS); // Now we know all fields are validated
-  //             break;
-  //         default:
-  //             setCurrentStage(stages.JOB_DETAIL); // Fallback to default stage
-  //     }
-  // };
 
   useEffect(() => {
     console.log("newExpert:", newExpert);
@@ -675,6 +607,7 @@ const InvitationOverlay = ({
               {currentStage === stages.PERSONAL_INFO && (
                 <>
                   <PersonalInfo
+                    cvRef={cvRef}
                     validationErrors={validationErrors}
                     name={name}
                     email={email}
@@ -698,6 +631,7 @@ const InvitationOverlay = ({
                     setEmail={setEmail}
                     setExpertise={setExpertise}
                     setName={setName}
+                    setCv={setCv}
                   />
                   <div className={styles.wrapper}>
                     <PersonalInfoBtns
