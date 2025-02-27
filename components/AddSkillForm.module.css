@@ -90,7 +90,7 @@
   border-radius: 40px;
   position: relative;
   bottom: 10px;
-  width: 200px;
+  width: 190px;
   background-color: transparent;
   padding-left:10px;
   padding-top: 10px;
@@ -98,21 +98,23 @@
   
 }
 
-.box:has(input:focus),
-.box:has(select:focus) {
-  border: solid 1px #6137db;
-}
+
 .box select{
   border: none;
   border-radius: 40px;
   color: inherit;
   background-color: transparent;
- 
+  
+  
 }
 .box select:focus  {
   outline: none;
 }
 
+.box:has(input:focus),
+.box:has(select:focus) {
+  border: solid 1px #6137db;
+}
 .inputField select {
   border: none;
   border-radius: 40px;
