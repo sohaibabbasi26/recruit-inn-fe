@@ -58,12 +58,6 @@ const InvitationOverlay = ({
 
       if (newExpertise) {
         const parsedExpertise = JSON.parse(newExpertise);
-        console.log("parsedExpertise:", parsedExpertise);
-        // setNewExpert(parsedExpertise);
-        console.log("expertisE:", newExpert);
-        console.log("newExpertise:", newExpertise);
-        setCandidateExpertise(parsedExpertise);
-        console.log("New expertise:", parsedExpertise);
       } else {
         console.log("No expertise data found in local storage.");
       }
@@ -105,7 +99,6 @@ const InvitationOverlay = ({
     };
   }, [showOverlay, onClose]);
 
-  const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.JOB_DETAIL);
   const [completedStages, setCompletedStages] = useState([]);
   const [name, setName] = useState();
@@ -118,13 +111,13 @@ const InvitationOverlay = ({
   const [newToken, setNewToken] = useState(null);
   const [newId, setNewId] = useState(null);
   const [newExpert, setNewExpert] = useState(null);
-  const [clientName, setClientName] = useState(null);
   const [clientData, setClientData] = useState(null);
   const [positionId, setPositionId] = useState(null);
   const [positionData, setPositionData] = useState(null);
   const [positionStatus, setPositionStatus] = useState(null);
   const [questionId, setQuestionId] = useState();
   const [cv,setCv]= useState(null);
+  const [linkedinUrl,setLinkedinUrl]= useState(null)
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const cityRef = useRef(null);
@@ -276,7 +269,8 @@ const InvitationOverlay = ({
       applied_through: clientData?.client_name,
       company_id: newId,
       expertise: newExpert,
-      uploaded_cv: cv
+      uploaded_cv: cv,
+      linkedin_url: linkedinUrl
     });
 
     let isValid = true; // Assume the form is valid initially
@@ -350,6 +344,21 @@ const InvitationOverlay = ({
     if (!country?.trim()) {
       errors.country = "Please enter your country";
       isValid = false;
+    }
+
+    if(!cv?.trim()){
+      errors.cv = "CV is required";
+      isValid = false;
+    }
+
+    if(!linkedinUrl?.trim()){
+      errors.linkedinUrl = "Please enter your linkedin url";
+      isValid = false;
+    }
+
+    if (!linkedinUrl?.match(/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/)) {
+      errors.linkedinUrl="Please enter a valid linkedin url";
+      isValid= false;
     }
 
     setValidationErrors(errors);
@@ -610,6 +619,7 @@ const InvitationOverlay = ({
                     cvRef={cvRef}
                     validationErrors={validationErrors}
                     name={name}
+                    setLinkedinUrl={setLinkedinUrl}
                     email={email}
                     contact={contact}
                     expertise={expertise}

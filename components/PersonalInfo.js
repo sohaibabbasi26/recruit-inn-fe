@@ -12,6 +12,7 @@ const PersonalInfo = forwardRef(
   (
     {
       setCity,
+      setLinkedinUrl,
       cvRef,
       setCountry,
       setContact,
@@ -199,9 +200,27 @@ const PersonalInfo = forwardRef(
                 }`}
               >
                 <FileInputField ref={cvRef} setCv={setCv}/>
-                {validationErrors?.city && (
+                {validationErrors?.cv && (
                   <div className={styles.errorMessage}>
-                    {validationErrors.city}
+                    {validationErrors.cv}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <div
+                className={`${styles.infoField} ${name ? styles.filled : ""}`}
+              >
+                <Image src="/smiley.svg" alt="Name" width={20} height={20} />
+                <input
+                  placeholder="Enter your Linkedin Url"
+                  type="text"
+                  //value={name}
+                  onChange={handleInputChange(setLinkedinUrl)}
+                />
+                {validationErrors?.name && (
+                  <div className={styles.errorMessage}>
+                    {validationErrors.linkedinUrl}
                   </div>
                 )}
               </div>
