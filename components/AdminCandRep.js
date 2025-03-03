@@ -15,6 +15,7 @@ const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates })
        setActiveItem(itemName);
        setClickedItem(itemName);
        localStorage.setItem("activeItem", itemName);
+        
        setTimeout(() => setClickedItem(""), 200);
      };
 
@@ -23,6 +24,7 @@ const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates })
     const cardClickHandler = (candidate) => {
         setSelectedCandidate(candidate);
         setReportOverlay(true);
+        
     }
 
     const getBackgroundColor = (score) => {
@@ -60,7 +62,9 @@ const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates })
                         newArray?.map((item) => {
                             return (
                                 <>
-                                    <div onClick={() => { cardClickHandler(item) }} className={styles.reportsCard} >
+                                    <div onClick={() => { 
+                                        // console.log("clicked" , item);
+                                        cardClickHandler(item) }} className={styles.reportsCard} >
                                         {/*top container */}
                                         <div className={styles.topContainer}>
                                             <div className={styles.leftTop}>
