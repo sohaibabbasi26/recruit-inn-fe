@@ -226,13 +226,11 @@
 }
 
 .view_cv_button.button {
-  background-color: black;
+  background-color: theme(colors.primary);
   color: white;
   padding: 7px;
   /* margin-top: 1rem; */
   margin-left: auto;
-  
-
   font-size: 1rem;
   font-weight: 900;
 }

@@ -30,6 +30,15 @@
   width: 1px;
 }
 
+.btn2 {
+  background-color: #6137db;
+  justify-self: flex-end;
+  color: #fff;
+  padding: 1rem 0.8rem;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+}
+
 .btn button {
   height: 100%;
   width: 90%;
