@@ -18,6 +18,7 @@ const students = [
 function SelfReportComponent({
   candidate_id,
   flow = "candidate",
+  isAdmin = true,
   codingResult,
   results,
   recommendedCourse,
@@ -87,10 +88,12 @@ function SelfReportComponent({
           <div className={styles.report_header_title}>
             <div style={{display:"flex", alignItems:"center" }}>
             <h2> {results?.candidate_info?.name || "John"}  </h2>
-            <div style={{marginLeft:"10px" , marginTop: "5px"}} onClick={() => window.open(results?.candidate_info?.linkedin_url || "www.google.com", "_blank")} className={styles.report_header_social}>
-            <LinkedinIcon size={32} round />
+         {
+         isAdmin === true &&
+         <div style={{marginLeft:"10px" , marginTop: "5px"}} onClick={() => window.open(results?.candidate_info?.linkedin_url || "www.google.com", "_blank")} className={styles.report_header_social}>
+          <LinkedinIcon size={32} round />
 
-            </div>
+          </div>}
             </div>
            
             <p> {results?.candidate_info?.position || "Dev"} </p>
@@ -147,7 +150,7 @@ function SelfReportComponent({
         </button>
 
         {
-          results?.candidate_info?.resume_url !== null && <button
+          results?.candidate_info?.resume_url !== null && isAdmin && <button
 
         
            onClick={() =>
