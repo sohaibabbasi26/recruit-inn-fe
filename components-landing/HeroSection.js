@@ -7,8 +7,7 @@ import TrustedCandidates from "../components/TrustedCandidates";
 import { useRef, useState } from "react";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 
-const HeroSection = ({t}) => {
-
+const HeroSection = ({ t }) => {
   const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +21,7 @@ const HeroSection = ({t}) => {
   return (
     <>
       <div className="w-full h-[87svh] max-xsm:h-[67svh] max-sm:h-[60svh] max-lg:h-[75svh]  flex flex-col items-center">
-        <div className="w-100p h-[60%]  max-xsm:h-[5%]  max-sm:h-[35%] max-lg:h-[45%] flex justify-center mt-20">
+        <div className="w-100p h-[60%]  max-xsm:h-[5%]  max-sm:h-[35%] max-lg:h-[45%] flex justify-center ">
           <div className="w-100p h-full   max-lg:hidden">
             <div className=" h-[100%] w-[100%] flex ">
               {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
@@ -45,10 +44,10 @@ const HeroSection = ({t}) => {
 
                   <div className="flex flex-col me-5">
                     <span className="text-md text-bold">
-                    {t("hero.hero_name2")}
+                      {t("hero.hero_name2")}
                     </span>
                     <span className="text-xs">
-                    {t("hero.hero_profession2")}
+                      {t("hero.hero_profession2")}
                     </span>
                   </div>
 
@@ -67,7 +66,7 @@ const HeroSection = ({t}) => {
 
           <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
             <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
-            {t("hero.hero_heading")}
+              {t("hero.hero_heading")}
             </h1>
             <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
               {t("hero.hero_subheading")}
@@ -108,12 +107,10 @@ const HeroSection = ({t}) => {
 
                   <div className="flex flex-col me-5">
                     <span className="text-md text-bold">
-                    {t("hero.hero_name1")}
-
+                      {t("hero.hero_name1")}
                     </span>
                     <span className="text-xs">
-                    {t("hero.hero_profession1")}
-
+                      {t("hero.hero_profession1")}
                     </span>
                   </div>
 
@@ -146,7 +143,7 @@ const HeroSection = ({t}) => {
           {/* </div> */}
         </div>
 
-        <TrustedCandidates  t={t}/>
+        <TrustedCandidates t={t} />
         {/* <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}> */}
         <button
           ref={buttonRef}
