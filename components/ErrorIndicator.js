@@ -4,8 +4,8 @@ import gsap from "gsap";
 import { useEffect, useState } from "react";
 
 const ErrorIndicator = ({ showErrorMessage, showSuccessMessage, msgText }) => {
-  console.log("SuccessIndicator rendering: ", showSuccessMessage);
-  console.log("msgText:", msgText);
+  //("SuccessIndicator rendering: ", showSuccessMessage);
+  //("msgText:", msgText);
 
   return (
     <>

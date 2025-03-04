@@ -7,7 +7,7 @@ const SetPassword = () => {
 
     const router = useRouter();
     const {id} = router?.query;
-    console.log("router id:", id);
+    //("router id:", id);
     const [email,setEmail] = useState('');
 
     const stages = {

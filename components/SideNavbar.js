@@ -44,7 +44,7 @@ const SideNavbar = ({
           setActiveItem(savedActiveItem);
         }
       } catch (err) {
-        console.log("ERROR:", err);
+        //("ERROR:", err);
       } finally {
         setIsLoading(false); // Turn off the loader after 2 seconds or when the process is done, whichever is later
       }
@@ -60,7 +60,7 @@ const SideNavbar = ({
 
   const openAddJobHandler = () => {
     setShowOverlay(true);
-    console.log("clicking button");
+    //("clicking button");
   };
 
   const handleItemClick = (itemName) => {

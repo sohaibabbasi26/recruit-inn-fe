@@ -4,9 +4,9 @@ import Image from 'next/image';
 
 const ClientJobs = ({showError, showSuccess, data,jobOverlay, setJobOverlay,setSelectedJob , dataToBeSet}) => {
 
-    console.log('data to be set in clients job:',data)
+    //('data to be set in clients job:',data)
 
-    // console.log('data in clientsjob component:',data);
+    // //('data in clientsjob component:',data);
 
     const iconSize = 25;
     const goToAllIconSize = 15;

@@ -29,7 +29,7 @@ const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, show
     //             body: JSON.stringify(requestBody),
     //         });
     //         const data = await response.json();
-    //         console.log('resp:',data);
+    //         //('resp:',data);
     //     } catch (error) {   
     //         console.error('Error submitting form:', error);
     //     }
@@ -45,18 +45,18 @@ const ForgotPasswordBtns = ({setViewMode, checkIfEmailIsInDbHandler, email, show
         let isValid = true;
         // Validate email
         if (!email?.trim()) {
-            console.log("email checking   ...");
+            //("email checking   ...");
             showError('Email is required');
             isValid = false;
         } else if (!/\S+@\S+\.\S+/.test(email)) {
-            console.log("is condition me chala jaa bhai");
+            //("is condition me chala jaa bhai");
             showError('Invalid email format');
             isValid = false;
         }
         return isValid;
     };
     const Handleforgotpassword = (e) =>{
-        console.log("Handle forgot password for:", email);
+        //("Handle forgot password for:", email);
         e.preventDefault();
         if (validateForm()) {
             // Proceed with form submission

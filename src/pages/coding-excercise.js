@@ -43,11 +43,11 @@ const CodingExcersice = () => {
       script: Code,
     };
     if (!language) {
-      console.log("Please select a programming language.");
+      //("Please select a programming language.");
       showError("Please select a programming language.");
       return;
     }
-    console.log("req body:", reqBody);
+    //("req body:", reqBody);
     setIsLoading(true);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/execute-code`,
@@ -58,7 +58,7 @@ const CodingExcersice = () => {
       }
     );
     const data = await response.json();
-    console.log("response: ", data);
+    //("response: ", data);
     setOutput(data?.data?.data?.output);
     setIsLoading(false);
   }
@@ -92,7 +92,7 @@ const CodingExcersice = () => {
 
     const data = await response.json();
     router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
-    console.log("response: ", data);
+    //("response: ", data);
     setIsLoading(false);
   }
 

@@ -34,7 +34,7 @@ const AddSkillForm = forwardRef(
     const [codingLevel, setCodingLevel] = useState("beginner");
     const [queryIcons, setQueryIcons] = useState([]);
 
-    console.log("Icons state", queryIcons);
+    //("Icons state", queryIcons);
 
     useEffect(() => {
       const FormSubmissionHandler = (e) => {
@@ -60,12 +60,12 @@ const AddSkillForm = forwardRef(
     }, [codingSkill, codingLevel]);
 
     const handleTestRequirementChange = (event) => {
-      console.log("clicked", event.target.checked);
+      //("clicked", event.target.checked);
       setIsTestRequired(event.target.checked);
     };
 
     const handleArabicChooseChange = (event) => {
-      console.log("clicked", event.target.checked);
+      //("clicked", event.target.checked);
       setIsArabicChosen(event.target.checked);
     };
 

@@ -18,7 +18,7 @@ const AdminCandRep = ({ setSelectedCandidate, setReportOverlay, allCandidates })
        setTimeout(() => setClickedItem(""), 200);
      };
 
-    console.log("admin cand rep :", allCandidates);
+    //("admin cand rep :", allCandidates);
 
     const cardClickHandler = (candidate) => {
         setSelectedCandidate(candidate);

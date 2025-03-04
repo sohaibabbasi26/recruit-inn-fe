@@ -32,7 +32,7 @@ const AdminClientInfo = ({
     // Check if the phone number is valid
     setIsValid(isValidPhoneNumber(value, country));
   };
-  console.log(getCities(country));
+  //(getCities(country));
 
   const [cities, setCities] = useState([]); // Maintain local state for cities
 

@@ -89,7 +89,7 @@ export default function Token() {
           setIsReportTokenValid(true);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     checkToken();
@@ -119,7 +119,7 @@ export default function Token() {
           }
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     //setIsLoading(true);
@@ -146,7 +146,7 @@ export default function Token() {
       );
 
       const data = await response.json();
-      console.log("data response:", data);
+      //("data response:", data);
       setCodingResult(data?.data);
       //
       //setIsLoading(false);

@@ -18,7 +18,7 @@ const HeroSection = ({t}) => {
 
   useCalendlyEventListener({
     onEventScheduled: (e) => {
-      console.log("Fetching event details from:", e.data.payload.event.uri);
+      //("Fetching event details from:", e.data.payload.event.uri);
       getEventDetails(e.data.payload.event.uri);
     },
   });

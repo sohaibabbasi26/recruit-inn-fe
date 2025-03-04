@@ -32,8 +32,8 @@ const TopContainer = ({ setDescription, description, descriptionRef }) => {
   //     if (value) {
   //       setDescription(value);
   //     }
-  //     console.log("value:", value);
-  //     console.log("description:", description);
+  //     //("value:", value);
+  //     //("description:", description);
   //   }, [value]);
 
   // useEffect(() => {
@@ -73,8 +73,8 @@ const TopContainer = ({ setDescription, description, descriptionRef }) => {
   //     if (value !== undefined) {
   //         const plainText = convertHtmlToPlainText(value);
   //         setDescription(plainText);
-  //         console.log('value:', value);
-  //         console.log('description:', description);
+  //         //('value:', value);
+  //         //('description:', description);
   //     }
   // }, [value]);
   //   useEffect(() => {
@@ -108,7 +108,7 @@ const TopContainer = ({ setDescription, description, descriptionRef }) => {
       return;
     }
     setDescription(editor.getHTML());
-    console.log("value state:", value);
+    //("value state:", value);
     // or use content for HTML output
   };
   return (

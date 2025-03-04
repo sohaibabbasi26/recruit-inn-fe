@@ -35,7 +35,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
 
   useEffect(() => {
     if (router.query.client_id !== undefined) {
-      console.log("client id1: ", router.query.client_id);
+      //("client id1: ", router.query.client_id);
       setClientId(router.query.client_id);
     }
   }, [router.query.client_id]);
@@ -53,7 +53,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
         }
       );
       const data = await response.json();
-      console.log("decrement test response:", data);
+      //("decrement test response:", data);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -92,7 +92,7 @@ const CompletionComponent = ({ getActiveComponent }) => {
         );
 
         const data = await response.json();
-        console.log("company details response:", data?.data?.email);
+        //("company details response:", data?.data?.email);
         setCompanyEmail(data?.data?.email);
         setCompanyName(data?.data?.company_name);
       } catch (error) {
@@ -151,8 +151,8 @@ const CompletionComponent = ({ getActiveComponent }) => {
     }
   };
 
-  console.log(candidateNameTemp);
-  console.log(jobCandidateName);
+  //(candidateNameTemp);
+  //(jobCandidateName);
 
   return (
     <>

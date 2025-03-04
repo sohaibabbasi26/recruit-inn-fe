@@ -77,7 +77,7 @@ export default function Candidate() {
             }
           );
           const data = await response.json();
-          console.log("one candidate details: ", data);
+          //("one candidate details: ", data);
           setExpertise(data?.data?.expertise);
           setCandName(data?.data?.name);
           setExperience(data?.data?.over_all_exp);
@@ -89,10 +89,10 @@ export default function Candidate() {
           setEmail(data?.data?.email);
           setJobType(data?.data?.job_type);
           setAppliedThrough(data?.data?.applied_through);
-          console.log("Expertise in fetch company details:", expertise);
+          //("Expertise in fetch company details:", expertise);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     fetchCompanyDetails();
@@ -118,12 +118,12 @@ export default function Candidate() {
           const data = await response.json();
           if (data?.data) {
             setResults([data?.data]);
-            console.log("one candidate result details: ", results);
+            //("one candidate result details: ", results);
           }
-          console.log("Expertise in fetch company details:", expertise);
+          //("Expertise in fetch company details:", expertise);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       } finally {
         setIsLoading(false);
       }
@@ -134,7 +134,7 @@ export default function Candidate() {
 
   useEffect(() => {
     setActiveFlow("candidate-self");
-    console.log("current flow:", activeFlow);
+    //("current flow:", activeFlow);
   }, []);
 
   const generateTestAndRedirect = async () => {
@@ -142,10 +142,10 @@ export default function Candidate() {
       expertise: expertise,
     };
 
-    console.log("generate test and redirect:", reqBody);
+    //("generate test and redirect:", reqBody);
 
     try {
-      console.log("running test");
+      //("running test");
       setIsLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
@@ -157,13 +157,13 @@ export default function Candidate() {
           body: JSON.stringify(reqBody),
         }
       );
-      console.log("after test");
+      //("after test");
       const data = await response.json();
       localStorage.setItem("testData", JSON.stringify(data));
       setQuestionId(data?.data?.message?.question_id);
-      console.log("question id", data?.data?.message?.question_id);
-      console.log("question id:", questionId);
-      console.log("data in test preparation:", data);
+      //("question id", data?.data?.message?.question_id);
+      //("question id:", questionId);
+      //("data in test preparation:", data);
       setIsLoading(false);
 
       if (testReq === true) {
@@ -184,23 +184,23 @@ export default function Candidate() {
             }
           );
           const dataTwo = await response.json();
-          console.log("code data:", dataTwo);
+          //("code data:", dataTwo);
           if (dataTwo?.data) {
             setCodeQues(dataTwo);
             setAssessmentId(dataTwo?.data?.assessment_id);
           }
-          console.log("Data is here:", codeQues);
-          console.log("assessment id:", assessmentId);
+          //("Data is here:", codeQues);
+          //("assessment id:", assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
 
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
+          //("assessment id:", assessmentId);
+          //("code question data:", data);
 
           if (dataTwo?.data?.assessment_id) {
-            console.log("inside redirect logic");
-            console.log(
+            //("inside redirect logic");
+            //(
               `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
             );
             router.push(
@@ -215,7 +215,7 @@ export default function Candidate() {
       }
     } catch (err) {
       setIsLoading(false);
-      console.log("error:", err);
+      //("error:", err);
     } finally {
       setTimeout(() => {
         setIsLoading(false);

@@ -25,8 +25,8 @@ const Super = ({
   toggleOverlay,
   setSelectedJob,
 }) => {
-  console.log("final data from Super.js ", finalData);
-  console.log("active data from Super.js ", activeJobsData);
+  //("final data from Super.js ", finalData);
+  //("active data from Super.js ", activeJobsData);
   const showJobOverlay = (job) => {
     setSelectedJob(job);
     setJobOverlay(true);
@@ -47,18 +47,18 @@ const Super = ({
       break;
     case "Active":
       dataToRender = activeJobsData;
-      console.log("Rendering Active Jobs Data:", activeJobsData);
+      //("Rendering Active Jobs Data:", activeJobsData);
       break;
     case "Closed":
       dataToRender = closedJobsData;
       break;
   }
   useEffect(() => {
-    console.log("position candidates are :", positionCandidates);
+    //("position candidates are :", positionCandidates);
   }, [positionCandidates]);
 
   useEffect(() => {
-    console.log("all candidates are :", allCandidates);
+    //("all candidates are :", allCandidates);
   }, [allCandidates]);
 
   return (

@@ -23,11 +23,11 @@ const InvitationOverlay = ({
   stageHeadings,
 }) => {
   useEffect(() => {
-    console.log("data saved successfully");
+    //("data saved successfully");
     try {
       const savedFormData =
         JSON.parse(localStorage.getItem("invitationFormData")) || {};
-      console.log(savedFormData.name);
+      //(savedFormData.name);
       nameRef.current.value = savedFormData.name || "";
       emailRef.current.value = savedFormData.email || "";
       contactRef.current.value = savedFormData.contact || "";
@@ -39,7 +39,7 @@ const InvitationOverlay = ({
     }
   }, []);
 
-  // console.log("expertise Item in invitationOverlay :", expertiseItem);
+  // //("expertise Item in invitationOverlay :", expertiseItem);
   const router = useRouter();
   const { client_id } = router.query;
   const { position_id } = router.query;
@@ -48,24 +48,24 @@ const InvitationOverlay = ({
   const { a_id } = router.query;
   const { language } = router.query;
 
-  console.log("client_id:", client_id);
-  console.log("position_id is :", position_id);
+  //("client_id:", client_id);
+  //("position_id is :", position_id);
 
   useEffect(() => {
-    console.log("position_id ", position_id);
+    //("position_id ", position_id);
     try {
       const newExpertise = localStorage.getItem("expertiseData");
 
       if (newExpertise) {
         const parsedExpertise = JSON.parse(newExpertise);
-        console.log("parsedExpertise:", parsedExpertise);
+        //("parsedExpertise:", parsedExpertise);
         // setNewExpert(parsedExpertise);
-        console.log("expertisE:", newExpert);
-        console.log("newExpertise:", newExpertise);
+        //("expertisE:", newExpert);
+        //("newExpertise:", newExpertise);
         setCandidateExpertise(parsedExpertise);
-        console.log("New expertise:", parsedExpertise);
+        //("New expertise:", parsedExpertise);
       } else {
-        console.log("No expertise data found in local storage.");
+        //("No expertise data found in local storage.");
       }
     } catch (error) {
       console.error("Error parsing expertise data:", error);
@@ -137,12 +137,12 @@ const InvitationOverlay = ({
   const [reqBody, setReqBody] = useState(null);
 
   useEffect(() => {
-    console.log("hey its me! req body", reqBody);
+    //("hey its me! req body", reqBody);
   }, [name, city, country, expertise, contact, email]);
 
   useEffect(() => {
     const allFields = validateAllFields();
-    console.log("all fields:", allFields);
+    //("all fields:", allFields);
     setAllFieldsCheck(allFields);
 
     if (!validateAllFields) {
@@ -168,7 +168,7 @@ const InvitationOverlay = ({
     const nameRegex = /^[a-zA-Z]+(?:[.\s][a-zA-Z]+)*$/;
     if (name && !nameRegex.test(name)) {
       setValidationErrors((errors) => ({ ...errors, name: "Invalid name" }));
-      console.log("Name regex condition");
+      //("Name regex condition");
     } else {
       const { name, ...rest } = validationErrors;
       setValidationErrors(rest);
@@ -245,10 +245,10 @@ const InvitationOverlay = ({
     const errors = {};
     let isFormIncomplete = false;
     let specificMsg = false;
-    console.log("validate all fields ", validateAllFields());
-    console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
+    //("validate all fields ", validateAllFields());
+    //("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
-    console.log(
+    //(
       "Debug: Name:",
       name,
       "Email:",
@@ -279,14 +279,14 @@ const InvitationOverlay = ({
     let isValid = true; // Assume the form is valid initially
 
     // if (!allFieldsCheck) {
-    //     console.log('isnide if condition:', !allFieldsCheck)
+    //     //('isnide if condition:', !allFieldsCheck)
     //     setMessage('Please make sure to fill all the fields correctly.')
     //     showSuccess();
     //     errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
     //     isValid = false;
     // }
 
-    console.log(
+    //(
       "All fields value :",
       name,
       email,
@@ -353,12 +353,12 @@ const InvitationOverlay = ({
 
     const hasErrors = Object.keys(validationErrors).length > 0;
     const error = Object.keys(validationErrors);
-    console.log("hasErrors:", error);
-    console.log("hasError: ", hasErrors);
+    //("hasErrors:", error);
+    //("hasError: ", hasErrors);
 
     if (!hasErrors) {
       setShowSuccessMessage(false);
-      console.log("Form submitted successfully!");
+      //("Form submitted successfully!");
       toggleComponent();
     }
     // } else if (name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
@@ -382,9 +382,9 @@ const InvitationOverlay = ({
   //             case stages.PERSONAL_INFO:
 
   //                 const allFields = validateAllFields();
-  //                 console.log('all fields bool var before flip:', allFields);
+  //                 //('all fields bool var before flip:', allFields);
   //                 if (!allFields) {
-  //                     console.log('all fields bool var after flip:', allFields);
+  //                     //('all fields bool var after flip:', allFields);
   //                     setMessage('Please make sure to fill all the fields correctly.')
   //                     showSuccess();
   //                 } else {
@@ -409,7 +409,7 @@ const InvitationOverlay = ({
         break;
       case stages.PERSONAL_INFO:
         isValid = validateAllFields();
-        console.log("validation :", validateAllFields());
+        //("validation :", validateAllFields());
 
         if (!isValid || isValid == undefined) {
           setMessage("Please make sure to fill all the fields correctly.");
@@ -429,7 +429,7 @@ const InvitationOverlay = ({
   //     //     const isValid = validateAllFields(); // Ensure this function accurately checks all fields
   //     //     if (!isValid) {
   //     //         // If not valid, possibly show an error message to the user
-  //     //         console.log("value of invalid" , isValid)
+  //     //         //("value of invalid" , isValid)
   //     //         setMessage('Please make sure to fill all the fields correctly.');
   //     //         showSuccess(); // Assuming this function shows the message
   //     //         return; // Do not proceed to the next stage
@@ -446,7 +446,7 @@ const InvitationOverlay = ({
   //             break;
   //         case stages.PERSONAL_INFO:
   //             isvalid1 = validateAllFields();
-  //             console.log("valid 1: ",isvalid1);
+  //             //("valid 1: ",isvalid1);
   //             if (isvalid1) {
   //                 setMessage("Please fill in at least one skill.");
   //                 showError();
@@ -460,12 +460,12 @@ const InvitationOverlay = ({
   // };
 
   useEffect(() => {
-    console.log("newExpert:", newExpert);
+    //("newExpert:", newExpert);
   }, [newExpert]);
 
   useEffect(() => {
     setQuestionId(q_id);
-    console.log("quesiton id:", questionId);
+    //("quesiton id:", questionId);
   }, [q_id]);
 
   const backToggleComponent = () => {
@@ -488,8 +488,8 @@ const InvitationOverlay = ({
     const { client_id } = router.query;
     const { position_id } = router.query;
 
-    console.log("client id:", client_id);
-    console.log("position id:", position_id);
+    //("client id:", client_id);
+    //("position id:", position_id);
     setPositionId(position_id);
     setNewId(client_id);
   }, [router.isReady, router.query]);
@@ -514,7 +514,7 @@ const InvitationOverlay = ({
       );
       const data = await response.json();
       setClientData(data?.data);
-      console.log("one company data:", data?.data);
+      //("one company data:", data?.data);
     }
     if (client_id) {
       fetchOneCompany();
@@ -544,8 +544,8 @@ const InvitationOverlay = ({
       setPosition(data?.data?.position);
       setPositionStatus(data?.data?.status);
       setJobType(data?.data?.job_type);
-      console.log("one position data:", data?.data);
-      console.log("position Status", data?.data?.status);
+      //("one position data:", data?.data);
+      //("position Status", data?.data?.status);
     }
     if (position_id) {
       fetchOnePosition();
@@ -569,9 +569,9 @@ const InvitationOverlay = ({
   };
 
   const createCandidate = async () => {
-    console.log("request body: ", reqBody);
-    console.log("new token:", newToken, "and new id:", newId);
-    console.log("request body: ", reqBody);
+    //("request body: ", reqBody);
+    //("new token:", newToken, "and new id:", newId);
+    //("request body: ", reqBody);
 
     try {
       const response = await fetch(
@@ -586,7 +586,7 @@ const InvitationOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("candidate data :", data?.data?.data?.candidate_id);
+      //("candidate data :", data?.data?.data?.candidate_id);
       return data?.data?.data?.candidate_id;
     } catch (error) {
       console.error("Error creating candidate:", error);
@@ -595,10 +595,10 @@ const InvitationOverlay = ({
 
   const redirectToTestPage = async () => {
     const candidateId = await createCandidate();
-    console.log("candidate id:", candidateId);
+    //("candidate id:", candidateId);
     if (candidateId) {
-      console.log("REDIRECTING TO:");
-      console.log(
+      //("REDIRECTING TO:");
+      //(
         `/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
       );
       router.push(
@@ -612,7 +612,7 @@ const InvitationOverlay = ({
     description: positionData?.description,
   };
   useEffect(() => {
-    console.log("job details:", jobDetails);
+    //("job details:", jobDetails);
   }, []);
 
   return (
