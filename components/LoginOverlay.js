@@ -79,10 +79,10 @@ const LoginOverlay = ({
   }, [showOverlay, onClose]);
 
   const router = useRouter();
-  console.log("router object:", router);
+  //("router object:", router);
   const { id } = router?.query;
 
-  console.log("id:", id);
+  //("id:", id);
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -103,7 +103,7 @@ const LoginOverlay = ({
   //     });
 
   //     const data = await response.json();
-  //     console.log('login info:', data?.data);
+  //     //('login info:', data?.data);
   //     if (data?.data?.token) {
   //         localStorage.setItem('client-token', data?.data?.token);
   //         router.push(`/client/${data?.data?.id}`)
@@ -155,10 +155,10 @@ const LoginOverlay = ({
       localStorage.setItem("client-token", data?.data?.token);
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("clientId", data?.data?.id); // Save client ID
-      console.log("this is hte id", data?.data?.id); // Reuse the navigation function
+      //("this is hte id", data?.data?.id); // Reuse the navigation function
       redirectToClientPage(data?.data?.id);
     } else {
-      console.log("Testing thiss .....");
+      //("Testing thiss .....");
       showError("Login failed. Please check your credentials.");
     }
   };
@@ -188,7 +188,7 @@ const LoginOverlay = ({
       );
       const clientData = await response.json(); // Renamed this variable to clientData
       if (clientData) {
-        console.log("response about client checking:", clientData);
+        //("response about client checking:", clientData);
         setCompanyId(clientData?.data?.message?.company_id);
 
         if (clientData?.data?.message?.company_id) {
@@ -206,7 +206,7 @@ const LoginOverlay = ({
           );
 
           const emailData = await res.json(); // Renamed this to emailData
-          console.log("email data: ", emailData);
+          //("email data: ", emailData);
 
           if (emailData?.code === 200) {
             showSuccess(
@@ -218,7 +218,7 @@ const LoginOverlay = ({
         }
       }
     } catch (err) {
-      console.log(err);
+      //(err);
       showError("Some error occurred, failed to send an Email");
     }
   };
@@ -235,7 +235,7 @@ const LoginOverlay = ({
       );
 
       const responseData = await response.text();
-      console.log("Email sent successfully:", responseData);
+      //("Email sent successfully:", responseData);
       showSuccess("Link to set a new password has been sent to this email!");
     } catch (error) {
       console.error("Failed to send email:", error);

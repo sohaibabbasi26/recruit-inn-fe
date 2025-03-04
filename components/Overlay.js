@@ -76,10 +76,10 @@ const Overlay = React.memo(
       };
     }, [showOverlay]);
 
-    // console.log("router object:", router)
+    // //("router object:", router)
     const { id } = router?.query;
 
-    console.log("id:", id);
+    //("id:", id);
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.ADD_SKILL);
     const [completedStages, setCompletedStages] = useState([]);
@@ -167,7 +167,7 @@ const Overlay = React.memo(
     };
 
     useEffect(() => {
-      console.log("description:", description);
+      //("description:", description);
     }, [description]);
 
     const validateJobType = () => {
@@ -331,7 +331,7 @@ const Overlay = React.memo(
         language: isArabicChosen ? "Arabic" : "English",
       };
 
-      console.log("request body:", requestBody);
+      //("request body:", requestBody);
 
       localStorage.setItem(
         "expertiseData",
@@ -347,10 +347,10 @@ const Overlay = React.memo(
 
       try {
         setIsLoading(true);
-        console.log(
-          "Payload size in bytes:",
-          new Blob([JSON.stringify(requestBody)]).size
-        );
+        // //(
+        //   "Payload size in bytes:",
+        //   new Blob([JSON.stringify(requestBody)]).size
+        // );
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`,
@@ -364,24 +364,24 @@ const Overlay = React.memo(
           }
         );
         const data = await response.json();
-        console.log("data of just created position:", data);
-        console.log("data of created position:", data?.data?.data?.position_id);
+        //("data of just created position:", data);
+        //("data of created position:", data?.data?.data?.position_id);
         setPositionId(data?.data?.data?.position_id);
         setPositionName(data?.data?.data?.position);
         setIsLoading(false);
-        console.log(data);
+        //(data);
       } catch (error) {
         console.error("Error submitting form:", error);
       }
     };
 
     useEffect(() => {
-      console.log("positionId", positionId);
-      console.log("questionId", questionId);
+      //("positionId", positionId);
+      //("questionId", questionId);
     }, [positionId, questionId, router?.isReady]);
 
     useEffect(() => {
-      console.log("expertise for coding:", codingExpertise);
+      //("expertise for coding:", codingExpertise);
     }, [codingExpertise]);
 
     const handleFormSubmitForTest = async () => {
@@ -390,7 +390,7 @@ const Overlay = React.memo(
         position_id: positionId,
         isArabic: isArabicChosen,
       };
-      console.log("req body : ", requestBody);
+      //("req body : ", requestBody);
       try {
         setIsLoading(true);
         const response = await fetch(
@@ -405,17 +405,17 @@ const Overlay = React.memo(
           }
         );
         const data = await response.json();
-        console.log("response data of a test creation:", data);
+        //("response data of a test creation:", data);
         setQuestionId(data?.data?.message?.question_id);
-        console.log("question id:");
+        //("question id:");
         setIsLoading(false);
         setMessage("Successfully created a test for your job!");
         showSuccess();
-        console.log(data);
+        //(data);
       } catch (error) {
         console.error("Error submitting form:", error);
       }
-      console.log("required:", isTestRequired);
+      //("required:", isTestRequired);
       if (isTestRequired === true) {
         try {
           setIsLoading(true);
@@ -438,8 +438,8 @@ const Overlay = React.memo(
           const data = await response.json();
           setCodeQues(data);
           setAssessmentId(data?.data?.assessment_id);
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
+          //("assessment id:", assessmentId);
+          //("code question data:", data);
           setIsLoading(false);
           try {
             const body = {
@@ -447,7 +447,7 @@ const Overlay = React.memo(
               is_test_req: isTestRequired,
             };
 
-            console.log("body data sent in setPositionTestReq:", body);
+            //("body data sent in setPositionTestReq:", body);
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`,
               {
@@ -462,7 +462,7 @@ const Overlay = React.memo(
             const data = await response.json();
             setCodeQues(data);
           } catch (err) {
-            console.log("ERROR:", err);
+            //("ERROR:", err);
           }
         } catch (err) {
           console.error("ERROR:", err);
@@ -471,7 +471,7 @@ const Overlay = React.memo(
     };
 
     useEffect(() => {
-      console.log("codeQues:", codeQues);
+      //("codeQues:", codeQues);
     }, [codeQues]);
 
     const addEmailReceiver = () => {
@@ -481,10 +481,10 @@ const Overlay = React.memo(
     };
 
     const addNameReceiver = () => {
-      console.log("Adding a new name receiver");
+      //("Adding a new name receiver");
       setNameReceivers((currentReceivers) => {
         const newReceivers = [...currentReceivers, { name: "" }];
-        console.log("new recievers:");
+        //("new recievers:");
         return newReceivers;
       });
     };
@@ -547,7 +547,7 @@ const Overlay = React.memo(
       });
 
       const sendInvitesPromises = validEmailReceivers.map((receiver) => {
-        console.log("Checking Email Functionality", receiver.email);
+        //("Checking Email Functionality", receiver.email);
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
           method: "POST",
           headers: {
@@ -564,7 +564,7 @@ const Overlay = React.memo(
 
       try {
         await Promise.all(sendInvitesPromises);
-        console.log("Emails sent successfully");
+        //("Emails sent successfully");
         setMessage("Invitations have been sent to all candidates via email");
         showSuccess();
         onClose();
@@ -597,7 +597,7 @@ const Overlay = React.memo(
     //   }
 
     //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
-    //     console.log("Checking Email Functionality", receiver.email);
+    //     //("Checking Email Functionality", receiver.email);
     //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
     //       method: 'POST',
     //       headers: {
@@ -614,7 +614,7 @@ const Overlay = React.memo(
 
     //   try {
     //     await Promise.all(sendInvitesPromises);
-    //     console.log("Emails sent successfully");
+    //     //("Emails sent successfully");
     //     setMessage('Invitations have been sent to all candidates via email');
     //     showSuccess();
 

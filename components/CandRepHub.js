@@ -12,7 +12,7 @@ const CandRepHub = ({
 }) => {
   const cardClickHandler = (candidate) => {
     setSelectedCandidate(candidate);
-    console.log("this is the specific candidate :", selectedCandidate);
+    //("this is the specific candidate :", selectedCandidate);
     setReportOverlay(true);
   };
 

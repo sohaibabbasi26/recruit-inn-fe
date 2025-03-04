@@ -25,14 +25,14 @@ const ClientList = ({
   const goToAllIconSize = 15;
   const newArray = allClients?.slice(0, 2);
   if (newArray && newArray.length > 0) {
-    console.log("This is newArray:", newArray);
-    console.log("First element of newArray:", newArray[0]);
+    //("This is newArray:", newArray);
+    //("First element of newArray:", newArray[0]);
   } else {
     console.warn("newArray is undefined or empty");
   }
 
   const handleFetchCompanyJobListing = async (item) => {
-    console.log("I am calling the function handleFetchCompanyJobListing");
+    //("I am calling the function handleFetchCompanyJobListing");
 
     if (!newArray || newArray.length === 0) {
       console.warn("newArray is undefined or empty");
@@ -42,7 +42,7 @@ const ClientList = ({
     try {
       const requestBody ={company_id: item?.company_id} 
     
-      console.log("RequestBody", requestBody);
+      //("RequestBody", requestBody);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-positions`,
@@ -57,7 +57,7 @@ const ClientList = ({
       );
 
       const data = await response.json();
-      console.log("The fetched data is:", data);
+      //("The fetched data is:", data);
 
       if (data) {
         setData(data);
@@ -123,7 +123,7 @@ const ClientList = ({
               <div
                 className={styles.clientReq}
                 onClick={() => {
-                  //   console.log("I am calling the api");
+                  //   //("I am calling the api");
                   handleFetchCompanyJobListing(item);
                   handleItemClick("viewJobListing");
                 }}

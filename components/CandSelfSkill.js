@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const CandSelfSkill = ({skill1, skill2, setSkill1,setSkill2, level1,level2, setLevel1, setLevel2, setTechStack, isTestRequired, setIsTestRequired }) => {
   const iconSize = 25;
 
-  console.log("Is test Required:", isTestRequired);
+  //("Is test Required:", isTestRequired);
 
 
 
@@ -22,13 +22,13 @@ const CandSelfSkill = ({skill1, skill2, setSkill1,setSkill2, level1,level2, setL
   }, [skill1, skill2, level1, level2]);
 
   const handleTestRequirementChange = (event) => {
-    console.log("clicked", event.target.checked);
+    //("clicked", event.target.checked);
     setIsTestRequired(event.target.checked);
-    console.log("Is test Required:", isTestRequired);
+    //("Is test Required:", isTestRequired);
   };
 
   // useEffect(() => {
-  //   console.log("is test req from use effect:",isTestRequired);
+  //   //("is test req from use effect:",isTestRequired);
   // },[isTestRequired])
 
   return (
