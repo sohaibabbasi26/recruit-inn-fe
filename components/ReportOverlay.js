@@ -5,7 +5,7 @@ import styles from "./ReportOverlay.module.css";
 import ErrorIndicator from "./ErrorIndicator";
 import Image from "next/image";
 
-const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
+const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate, isAdmin }) => {
   //const candidateId= params?.candidate_id;
   // const router = useRouter();
 
@@ -156,8 +156,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
+          
           <SelfReportComponent
             flow="client"
+            isAdmin = {isAdmin}
             candidate_id={candidate_id}
             candidateInfo={candidateInfo}
             recommendedCourse={recommendedCourse}

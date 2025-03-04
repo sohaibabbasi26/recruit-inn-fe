@@ -765,6 +765,7 @@ export default function Home({
         </FormProvider>
         {reportOverlay && (
           <ReportOverlay
+            isAdmin={false}
             showError={showError}
             showErrorMessage={showErrorMessage}
             showSuccessMessage={showSuccessMessage}

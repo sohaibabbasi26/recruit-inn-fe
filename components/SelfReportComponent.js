@@ -6,6 +6,8 @@ import SelfReportScores from "./SelfReportScores";
 import CourseLevelSvg from "./CourseLevelSvg";
 import InvitedCandidateProgressSvg from "./InvitedCandidateProgressSvg";
 import generatePDF from "@/util/generatePDF";
+import { LinkedinIcon } from "next-share";
+
 
 const students = [
   { image: "/recommended_course.png" },
@@ -16,6 +18,7 @@ const students = [
 function SelfReportComponent({
   candidate_id,
   flow = "candidate",
+  isAdmin = true,
   codingResult,
   results,
   recommendedCourse,
@@ -83,7 +86,16 @@ function SelfReportComponent({
             </div>
           </div>
           <div className={styles.report_header_title}>
-            <h2> {results?.candidate_info?.name || "John"} </h2>
+            <div style={{display:"flex", alignItems:"center" }}>
+            <h2> {results?.candidate_info?.name || "John"}  </h2>
+         {
+         isAdmin === true &&
+         <div style={{marginLeft:"10px" , marginTop: "5px"}} onClick={() => window.open(results?.candidate_info?.linkedin_url || "www.google.com", "_blank")} className={styles.report_header_social}>
+          <LinkedinIcon size={32} round />
+
+          </div>}
+            </div>
+           
             <p> {results?.candidate_info?.position || "Dev"} </p>
             <div
               className={`${styles.report_header_score} ${styles[candidateStatusClass]}`}
@@ -108,6 +120,9 @@ function SelfReportComponent({
           {details.map((it, i) => (
             <Item key={i} keyy={it.key} value={it.value} />
           ))}{" "}
+          
+            
+        
         </div>
         <button
           onClick={async () => {
@@ -131,8 +146,27 @@ function SelfReportComponent({
               fill="white"
             />
           </svg>
-          download report
+          Download Report
         </button>
+
+        {
+          results?.candidate_info?.resume_url !== null && isAdmin && <button
+
+        
+           onClick={() =>
+            window.open(
+             `${process.env.NEXT_PUBLIC_REMOTE_URL}/uploads/resumes/${results?.candidate_info?.resume_url}` || "www.google.com",
+              "_blank"
+            )
+          }
+          className={`${styles.view_cv_button} ${styles.button}`}
+        >
+          
+         
+          View CV
+        </button>
+}
+        
       </div>
 
       <div className={styles.overall_report_wrapper}>
