@@ -305,7 +305,7 @@ const QuestionBox = //forwardRef(
       }, [candidateExpertise]);
 
       useEffect(() => {
-        async function getTestQuestions() {
+        async function getTestQuestionsForInvitedCandidate() {
           try {
             setIsLoading(true);
             const reqBody = {
