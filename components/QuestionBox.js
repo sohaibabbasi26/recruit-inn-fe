@@ -342,6 +342,7 @@ const QuestionBox = //forwardRef(
                   `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
                   {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                       "Content-Type": "application/json",
                     },
