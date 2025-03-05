@@ -490,7 +490,8 @@ const QuestionBox = //forwardRef(
             setHasAudioEnded(true);
           };
           setHasAudioEnded(true);
-          mediaRecorderRef.current.start();
+         mediaRecorderRef.current.state !== 'recording' && mediaRecorderRef.current.start();
+          // console.log(mediaRecorderRef.current.state);
           setIsRecording(true);
           setRecordingDone(true);
           currentRecordingQuestionIndexRef.current = currentQuestion;
