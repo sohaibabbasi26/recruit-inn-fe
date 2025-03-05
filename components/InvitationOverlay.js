@@ -214,6 +214,30 @@ const InvitationOverlay = ({
   }, [city]);
 
   useEffect(() => {
+    if (linkedinUrl?.match(/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/)) {
+      setValidationErrors((errors) => ({
+        ...errors,
+        linkedin_url: "Valid linkedin url is required.",
+      }));
+    } else {
+      const { linkedin_url, ...rest } = validationErrors;
+      setValidationErrors(rest);
+    }
+  }, [linkedinUrl]);
+
+  useEffect(() => {
+    if (cv?.trim()==="") {
+      setValidationErrors((errors) => ({
+        ...errors,
+        uploaded_cv: "CV is required",
+      }));
+    } else {
+      const { uploaded_cv, ...rest } = validationErrors;
+      setValidationErrors(rest);
+    }
+  }, [cv]);
+
+  useEffect(() => {
     if (expertise?.trim() === "") {
       setValidationErrors((errors) => ({
         ...errors,
@@ -244,25 +268,6 @@ const InvitationOverlay = ({
 
   const handleContinue = () => {
     const errors = {};
-    let isFormIncomplete = false;
-    let specificMsg = false;
-    //("validate all fields ", validateAllFields());
-    //("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
-
-    //(
-    //   "Debug: Name:",
-    //   name,
-    //   "Email:",
-    //   email,
-    //   "city:",
-    //   city,
-    //   "Country",
-    //   country,
-    //   "expertise: ",
-    //   expertise,
-    //   "contact:",
-    //   contact
-    // );
 
     setReqBody({
       job_type: jobType,
@@ -280,24 +285,6 @@ const InvitationOverlay = ({
     });
 
     let isValid = true; // Assume the form is valid initially
-
-    // if (!allFieldsCheck) {
-    //     //('isnide if condition:', !allFieldsCheck)
-    //     setMessage('Please make sure to fill all the fields correctly.')
-    //     showSuccess();
-    //     errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
-    //     isValid = false;
-    // }
-
-    //(
-    //   "All fields value :",
-    //   name,
-    //   email,
-    //   contact,
-    //   expertise,
-    //   country,
-    //   city
-    // );
 
     // Simple validation checks
     if (!name?.trim()) {
@@ -357,13 +344,13 @@ const InvitationOverlay = ({
       isValid = false;
     }
 
-    if(!linkedinUrl?.trim()){
-      errors.linkedinUrl = "Please enter your linkedin url";
-      isValid = false;
-    }
+    // if(!linkedinUrl?.trim()){
+    //   errors.linkedinUrl = "Please enter your linkedin url";
+    //   isValid = false;
+    // }
 
-    if (!linkedinUrl?.match(/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/)) {
-      errors.linkedinUrl="Please enter a valid linkedin url";
+    if (!linkedinUrl?.match(/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/)) {
+      errors.linkedin_url="Please enter a valid linkedin url";
       isValid= false;
     }
 
