@@ -163,12 +163,12 @@ function CareerCounsellingQuestionBox({
       if (currentQuestionIndex < newQuestions.length - 1) {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         //(
-          "currentQuestion State inside if condition:",
-          currentQuestion
-        );
+        //   "currentQuestion State inside if condition:",
+        //   currentQuestion
+        // );
         //(
           //("state of currentQuestionIndex:", currentQuestionIndex)
-        );
+        //);
         setIsLoading(false);
       }
       setAnswers((prev) => [
@@ -203,10 +203,10 @@ function CareerCounsellingQuestionBox({
         recordedChunksRef.current = [];
         const base64Data = await blobToBase64(blob);
         //(
-          "base64Data",
-          base64Data,
-          "=============== END OF DATA ================="
-        );
+        //   "base64Data",
+        //   base64Data,
+        //   "=============== END OF DATA ================="
+        // );
         const questionBeingAnswered = currentQuestion;
         const finalData = await sendAudioToServer(base64Data);
 

@@ -638,7 +638,7 @@ const QuestionBox = //forwardRef(
 
           if (test_req === "true" && a_id) {
             if (assessmentId) {
-              // //(
+              //(
               //   "Routing to coding exercise with assessment ID:",
               //   assessmentId
               // );
@@ -706,7 +706,7 @@ const QuestionBox = //forwardRef(
                     },
                   ]
             );
-            // //(
+            //(
             //   "No recording made, adding silent audio blob as answer."
             // );
             showError("No answer was provided, moving on to next question.");
@@ -823,14 +823,14 @@ const QuestionBox = //forwardRef(
           if (currentQuestionIndex < newQuestions.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             //(
-            // "currentQuestion State inside if condition:",
-            // currentQuestion
+            //   "currentQuestion State inside if condition:",
+            //   currentQuestion
             // );
-            // //(
-            //   //(
-            //     "state of currentQuestionIndex:",
-            //     currentQuestionIndex
-            //   )
+            //(
+            //(
+            //   "state of currentQuestionIndex:",
+            //   currentQuestionIndex
+            // )
             // );
             setIsLoading(false);
           }
