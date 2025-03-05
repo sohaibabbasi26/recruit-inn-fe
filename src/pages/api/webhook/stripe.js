@@ -38,13 +38,13 @@ export default async function handler(req, res) {
       event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
 
       // Log the received event type
-      console.log(`Received event: ${event.type}`);
+      //(`Received event: ${event.type}`);
 
       // Handle the event
       switch (event.type) {
         case "checkout.session.completed":
           const session = event.data.object;
-          console.log("Session ID: ", session);
+          //("Session ID: ", session);
 
           // Fulfill the purchase...
 
@@ -83,7 +83,7 @@ export default async function handler(req, res) {
                 await response.text()
               );
             } else {
-              console.log("Payment subscription processed successfully.");
+              //("Payment subscription processed successfully.");
             }
           } catch (apiError) {
             console.error("Error making API call:", apiError.message);
@@ -94,13 +94,13 @@ export default async function handler(req, res) {
         case "customer.subscription.updated":
 
           const subscription_updated = event.data.object;
-          console.log("Subscription Updated Ran: ", subscription_updated);
+          //("Subscription Updated Ran: ", subscription_updated);
           break;
 
 
         //   let paidPackageType;
         //   const invoice = event.data.object;
-        //   console.log("Invoice ID: ", invoice);
+        //   //("Invoice ID: ", invoice);
 
         //   if (invoice?.amount_paid === 7500) {
         //     paidPackageType = "starter";
@@ -129,7 +129,7 @@ export default async function handler(req, res) {
         //         await response.text()
         //       );
         //     } else {
-        //       console.log("Payment subscription processed successfully.");
+        //       //("Payment subscription processed successfully.");
         //     }
         //   } catch (apiError) {
         //     console.error("Error making API call:", apiError.message);
@@ -138,7 +138,7 @@ export default async function handler(req, res) {
 
         case "customer.subscription.deleted":
           const subscription = event.data.object;
-          console.log("Subscription ID: ", subscription);
+          //("Subscription ID: ", subscription);
 
           try {
             const response = await fetch(
@@ -159,7 +159,7 @@ export default async function handler(req, res) {
                 await response.text()
               );
             } else {
-              console.log("Payment subscription processed successfully.");
+              //("Payment subscription processed successfully.");
             }
           } catch (apiError) {
             console.error("Error making API call:", apiError.message);
@@ -168,7 +168,7 @@ export default async function handler(req, res) {
 
 
         default:
-          console.log(`Unhandled event type: ${event.type}`);
+          //(`Unhandled event type: ${event.type}`);
       }
 
 

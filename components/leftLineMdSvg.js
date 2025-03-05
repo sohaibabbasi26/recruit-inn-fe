@@ -27,7 +27,7 @@ function LeftLineMdSvg({ className, id }) {
             } 25 ${distance + 16} 32.1634 ${distance + 16} 41V62`,
           },
           // onUpdate: () => {
-          //   console.log("update");
+          //   //("update");
           // },
         });
       };

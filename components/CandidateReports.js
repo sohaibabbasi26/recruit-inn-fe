@@ -13,10 +13,10 @@ const CandidateReports = ({
   const iconSize = 25;
   const goToAllIconSize = 15;
   const { setActiveItem } = useActiveItem();
-  console.log("candidate reports:", candidateReps);
+  //("candidate reports:", candidateReps);
 
   const newArray = candidateReps.slice(0, 2);
-  console.log(`Teeest here ${newArray.at(0)}`);
+  //(`Teeest here ${newArray.at(0)}`);
 
   const hasData = newArray && newArray.length > 0;
 

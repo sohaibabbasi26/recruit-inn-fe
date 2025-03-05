@@ -9,7 +9,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate, isAdmin }) =
   //const candidateId= params?.candidate_id;
   // const router = useRouter();
 
-  console.log(selectedCandidate?.candidate_id);
+  //(selectedCandidate?.candidate_id);
   const { candidate_id } = selectedCandidate;
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
@@ -77,7 +77,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate, isAdmin }) =
           }
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     //setIsLoading(true);
@@ -102,7 +102,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate, isAdmin }) =
       );
 
       const data = await response.json();
-      console.log("data response:", data);
+      //("data response:", data);
       setCodingResult(data?.data);
       //
       //setIsLoading(false);

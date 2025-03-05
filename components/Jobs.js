@@ -12,7 +12,7 @@ const Jobs = ({
   setSelectedJob,
   isFor,
 }) => {
-  console.log(`"datta in ${isFor} component:", ${data}`);
+  //(`"datta in ${isFor} component:", ${data}`);
   const { setActiveItem } = useActiveItem();
   const iconSize = 25;
   const goToAllIconSize = 15;

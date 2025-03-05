@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const SuccessIndicator = ({showSuccessMessage,msgText}) => {
 
-    console.log("SuccessIndicator rendering: ", showSuccessMessage);
+    //("SuccessIndicator rendering: ", showSuccessMessage);
 
     
 

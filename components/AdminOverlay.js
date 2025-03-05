@@ -21,7 +21,7 @@ import AdminClientInfo from './AdminClientInfo';
     const AdminOverlay = ({adminToken, message, showError, showErrorMessage, showSuccess, setMessage, showOverlay, onClose, stages, stageHeadings }) => {
 
 
-        console.log('stage headings:'.stageHeadings);
+        //('stage headings:'.stageHeadings);
 
         const overlayRef = useRef(null);
 
@@ -110,7 +110,7 @@ import AdminClientInfo from './AdminClientInfo';
                     text: emailText,
                 };
         
-                console.log("details:", details);
+                //("details:", details);
 
                setEmail(email);
                setSubject(emailSubject);
@@ -121,12 +121,12 @@ import AdminClientInfo from './AdminClientInfo';
 
         const getActiveComponent = () => {
             const activeFlow = localStorage.getItem('activeFlow');
-            console.log("Current active flow:", activeFlow);
+            //("Current active flow:", activeFlow);
             switch (activeFlow) {
                 case 'Client':
                     router.push(`/set-password/${companyId}`);
                 case 'Admin':
-                    console.log('its an admin flow!!!!')
+                    //('its an admin flow!!!!')
                 default:
                     return null;
             }
@@ -154,7 +154,7 @@ import AdminClientInfo from './AdminClientInfo';
                     body: JSON.stringify(requestBody),
                 });
                 const data = await response.json();
-                console.log("login response:", data?.data?.data?.company_id);
+                //("login response:", data?.data?.data?.company_id);
                 setCompanyId(data?.data?.data?.company_id);
                 sendMail(data?.data?.data?.company_id)
                 getActiveComponent();
@@ -177,7 +177,7 @@ import AdminClientInfo from './AdminClientInfo';
                 text: emailText,
             };
 
-            console.log("body data to be sent:",reqBody)
+            //("body data to be sent:",reqBody)
         
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
@@ -193,7 +193,7 @@ import AdminClientInfo from './AdminClientInfo';
                 }
         
                 const data = await response.text();
-                console.log('Email sent successfully:', data);
+                //('Email sent successfully:', data);
                 setisLoading(false);
             } catch (error) {
                 console.error('Error sending email:', error);

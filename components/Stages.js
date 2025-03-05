@@ -10,7 +10,7 @@ const Stages = ({ currentStage, stages, completedStages, style = {} }) => {
   const inactiveBorder = "#F4F1FC";
   
   const isStageCompleted = (stage) => completedStages.includes(stage);
-  console.log(completedStages);
+  //(completedStages);
  
  
   function toTitleCase(str) {

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
 
 const InActiveClientCard = ({ onOpen, item, setData }) => {
-  console.log("one item data:", item);
+  //("one item data:", item);
 
   const { setActiveItem } = useActiveItem();
 
@@ -47,7 +47,7 @@ const InActiveClientCard = ({ onOpen, item, setData }) => {
     }
 
     const id = item?.company_id;
-    console.log("ididid32", id);
+    //("ididid32", id);
     const requestBody = {
       company_id: id,
     };
@@ -64,7 +64,7 @@ const InActiveClientCard = ({ onOpen, item, setData }) => {
     );
 
     const data = await response.json();
-    console.log("the fetched data is:", data);
+    //("the fetched data is:", data);
     setData(data);
   };
 

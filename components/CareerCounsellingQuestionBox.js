@@ -81,9 +81,9 @@ function CareerCounsellingQuestionBox({
 
         const response = await res.json();
 
-        console.log("response: ", response);
+        //("response: ", response);
         if (response.code !== 200) {
-          console.log(`Error: ${response}`);
+          //(`Error: ${response}`);
         } else {
           window.location.href=`${process.env.NEXT_PUBLIC_SKILLBUILDER_FRONTEND_URL}/schedule-session`
         }
@@ -105,7 +105,7 @@ function CareerCounsellingQuestionBox({
   };
 
   useEffect(() => {
-    console.log("answers:", answers);
+    //("answers:", answers);
   }, [answers]);
 
   useEffect(() => {
@@ -117,7 +117,7 @@ function CareerCounsellingQuestionBox({
         mediaRecorderRef.current.ondataavailable = (event) => {
           if (event.data.size > 0) {
             recordedChunksRef.current.push(event.data);
-            console.log("Chunk recorded:", event.data.size);
+            //("Chunk recorded:", event.data.size);
           }
         };
 
@@ -142,7 +142,7 @@ function CareerCounsellingQuestionBox({
     try {
       setIsLoading(true);
       setIsTranscriptionComplete(true);
-      console.log("send audio to server:", base64Data);
+      //("send audio to server:", base64Data);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`,
         {
@@ -154,20 +154,20 @@ function CareerCounsellingQuestionBox({
         }
       );
       const data = await response.json();
-      console.log("audio response:", data.data.transcriptionResult);
+      //("audio response:", data.data.transcriptionResult);
       setIsTranscriptionComplete(false);
       setCurrentQuestion((prevCurrent) => prevCurrent + 1);
-      console.log("currentQuestion State:", currentQuestion);
+      //("currentQuestion State:", currentQuestion);
       setIsRecording(false);
       setRecordingDone(false);
       if (currentQuestionIndex < newQuestions.length - 1) {
         setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-        console.log(
+        //(
           "currentQuestion State inside if condition:",
           currentQuestion
         );
-        console.log(
-          console.log("state of currentQuestionIndex:", currentQuestionIndex)
+        //(
+          //("state of currentQuestionIndex:", currentQuestionIndex)
         );
         setIsLoading(false);
       }
@@ -199,10 +199,10 @@ function CareerCounsellingQuestionBox({
       if (recordedChunksRef.current.length > 0) {
         blob = new Blob(recordedChunksRef.current, { type: "audio/wav" });
         const newAudioURL = URL.createObjectURL(blob);
-        console.log("new audio url:", newAudioURL);
+        //("new audio url:", newAudioURL);
         recordedChunksRef.current = [];
         const base64Data = await blobToBase64(blob);
-        console.log(
+        //(
           "base64Data",
           base64Data,
           "=============== END OF DATA ================="
@@ -252,7 +252,7 @@ function CareerCounsellingQuestionBox({
       setIsRecording(true);
       setRecordingDone(true);
       currentRecordingQuestionIndexRef.current = currentQuestion;
-      console.log("Recording started");
+      //("Recording started");
     }
   };
 
@@ -269,7 +269,7 @@ function CareerCounsellingQuestionBox({
     const question = ques?.question;
     if (question) {
       try {
-        //console.log(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
+        ////(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`,
           {
@@ -281,11 +281,11 @@ function CareerCounsellingQuestionBox({
           }
         );
         const data = await response.json();
-        console.log(data);
+        //(data);
 
         if (response.ok) {
           const url = `${process.env.NEXT_PUBLIC_REMOTE_URL}/audio?uuid=${data?.data?.uuid}`;
-          console.log(url);
+          //(url);
           setAudioUUID(data?.data?.uuid);
           setAudioURL(url);
         } else {
@@ -340,7 +340,7 @@ function CareerCounsellingQuestionBox({
       );
       const data = await response.json();
       if (response.ok) {
-        console.log("audio deleted successfully");
+        //("audio deleted successfully");
         setAudioUUID(null);
         setAudioURL(null);
       } else {
@@ -353,7 +353,7 @@ function CareerCounsellingQuestionBox({
 
   useEffect(() => {
     if (newQuestions && hasStarted) {
-      console.log("value of has started", hasStarted);
+      //("value of has started", hasStarted);
       //setIsFirstQues(true);
       generateAudio(currentQuestion);
     }
@@ -411,16 +411,16 @@ function CareerCounsellingQuestionBox({
   };
 
   useEffect(() => {
-    console.log("useeffect wala currentQuestionIndex: ", currentQuestionIndex);
+    //("useeffect wala currentQuestionIndex: ", currentQuestionIndex);
     if (currentQuestionIndex < newQuestions?.length && hasStarted) {
       generateAudio(newQuestions[currentQuestionIndex]);
       //speakQuestion(newQuestions[currentQuestionIndex]);
-      console.log("line 806: generateAudio called");
+      //("line 806: generateAudio called");
     }
     // if(currentQuestionIndex <= newQuestions?.length+1 && hasStarted && currentQuestionIndex > 0){
     //   generateAudio(newQuestions[currentQuestionIndex-1]);
     //   //speakQuestion(newQuestions[currentQuestionIndex]);
-    //   console.log("line 811: generateAudio called");
+    //   //("line 811: generateAudio called");
     // }
   }, [currentQuestionIndex, hasStarted]);
 

@@ -11,7 +11,7 @@ const ActiveClientCard = ({ showError, showSuccess, adminToken, setData, dataToB
     }
 
     const [error, setError] = useState(false);
-    console.log("set data method:", setData);
+    // //("set data method:", setData);
 
    
 
@@ -30,7 +30,7 @@ const ActiveClientCard = ({ showError, showSuccess, adminToken, setData, dataToB
             });
     
             const data = await response.json();
-            console.log('the fetched data is:', data);
+            // //('the fetched data is:', data);
     
             if (data) {     
                 setData(data); 

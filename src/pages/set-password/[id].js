@@ -6,7 +6,7 @@ const SetPassword = () => {
 
     const router = useRouter();
     const {id} = router?.query;
-    console.log("router id:", id)
+    //("router id:", id)
     const stages = {
         SET_PASSWORD: 'SET_PASSWORD',   
     }

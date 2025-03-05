@@ -27,9 +27,9 @@ export default function Home({
   const router = useRouter();
   const { id } = router?.query;
 
-  console.log("all jobs data :", allJobsData);
-  console.log("all active jobs data :", allActiveJobsData);
-  console.log("all closed jobs data :", allClosedJobsData);
+  //("all jobs data :", allJobsData);
+  //("all active jobs data :", allActiveJobsData);
+  //("all closed jobs data :", allClosedJobsData);
   const [finalData, setFinalData] = useState([]);
   const [allCandidatesReports, setAllCandidateReports] = useState();
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
@@ -74,11 +74,11 @@ export default function Home({
           body: JSON.stringify(requestBody),
         }
       );
-      console.log("response:", response);
+      //("response:", response);
       const allData = await response.json();
       setFinalData(allData.data);
       setIsLoading(false);
-      console.log("jsonified response: ", allData.data);
+      //("jsonified response: ", allData.data);
     }
     if (token) {
       fetchAllPositions();
@@ -87,25 +87,25 @@ export default function Home({
 
   useEffect(() => {
     if (Array.isArray(finalData)) {
-      console.log("Final fata from active filter ", finalData);
+      //("Final fata from active filter ", finalData);
       const filterActive = (job) => job?.status === "Active";
       const filterClosed = (job) => job?.status === "Closed";
       const filterall = (job) =>
         job?.status === "Active" || job?.status === "Closed";
       setAllJobData(finalData.filter(filterall));
-      console.log("all jobs data is ... ", finalData.filter(filterall));
+      //("all jobs data is ... ", finalData.filter(filterall));
       setActiveJobsData(finalData.filter(filterActive));
-      console.log("Active jobs data ... ", finalData.filter(filterActive));
+      //("Active jobs data ... ", finalData.filter(filterActive));
       setClosedJobsData(finalData.filter(filterClosed));
-      console.log("active jobs", finalData.filter(filterActive));
+      //("active jobs", finalData.filter(filterActive));
     } else {
-      console.log("finalData is not an array:", finalData);
+      //("finalData is not an array:", finalData);
     }
   }, [finalData]);
 
   useEffect(() => {
     let isMounted = true;
-    console.log("client_id:", id);
+    //("client_id:", id);
     localStorage.setItem("clientId", id);
     // const token = localStorage.getItem("client-token");
 
@@ -137,16 +137,16 @@ export default function Home({
         }
       );
 
-      console.log("response: ", response);
+      //("response: ", response);
       if (!response.ok) {
-        console.log(`Error: ${response.status}`);
+        //(`Error: ${response.status}`);
       }
       const allData = await response.json();
       if (isMounted) {
         setAllCandidateReports(allData);
         setIsLoading(false);
       }
-      console.log("jsonified candidates response: ", allData);
+      //("jsonified candidates response: ", allData);
     }
     fetchAllCandidateReports();
     return () => {
@@ -269,13 +269,13 @@ export default function Home({
           allCandidatesReports?.data
         );
         setPreprocessedPositionCands(candidates);
-        console.log(
-          "preprocessed candidates of a particular position:",
-          candidates
-        );
+        //(
+        //  "preprocessed candidates of a particular position:",
+          //candidates
+        //);
       }
     } catch (err) {
-      console.log("error in preprocessing:", err);
+      //("error in preprocessing:", err);
     }
   }, [positionCandidates]);
 
@@ -405,7 +405,7 @@ export default function Home({
       const reqBody = {
         id,
       };
-      console.log("req body:", reqBody);
+      //("req body:", reqBody);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-company`,
@@ -419,9 +419,9 @@ export default function Home({
         setCompanyName(data?.data?.company_name);
         setCompanyEmail(data?.data?.email);
         localStorage.setItem("clientName", companyName);
-        console.log("company self data:", data);
+        //("company self data:", data);
       } catch (err) {
-        console.log("ERROR:", err);
+        //("ERROR:", err);
       }
     }
     if (id) {
@@ -429,9 +429,9 @@ export default function Home({
     }
   }, [id]);
 
-  console.log("Company Data:", allCandidatesReports);
-  console.log("Candidates Data:", allCandidatesReports?.data?.candidates);
-  console.log("testing:", allCandidatesReports?.data?.candidates);
+  //("Company Data:", allCandidatesReports);
+  //("Candidates Data:", allCandidatesReports?.data?.candidates);
+  //("testing:", allCandidatesReports?.data?.candidates);
 
   useEffect(() => {
     if (allCandidatesReports?.data?.candidates && allCandidatesReports?.data) {
@@ -454,18 +454,18 @@ export default function Home({
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
 
-      console.log(
-        "Recommended Candidates:",
-        completedCandidates.filter(filterRecommended)
-      );
-      console.log(
-        "Qualified Candidates:",
-        completedCandidates.filter(filterQualified)
-      );
-      console.log(
-        "Not Eligible Candidates:",
-        completedCandidates.filter(filterNotEligible)
-      );
+      //(
+      //   "Recommended Candidates:",
+      //   completedCandidates.filter(filterRecommended)
+      // );
+      //(
+      //   "Qualified Candidates:",
+      //   completedCandidates.filter(filterQualified)
+      // );
+      //(
+      //   "Not Eligible Candidates:",
+      //   completedCandidates.filter(filterNotEligible)
+      // );
     }
   }, [allCandidatesReports]);
 
@@ -483,9 +483,9 @@ export default function Home({
         }
       );
       const data = await response.json();
-      console.log("API response for candidates:", data);
+      //("API response for candidates:", data);
       if (!data || !data.data) {
-        console.log("Unexpected response format:", data);
+        //("Unexpected response format:", data);
         return;
       }
       const completedCandidates = preprocessCandidatesData(
@@ -501,9 +501,9 @@ export default function Home({
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-      console.log("Filtered candidates:", completedCandidates);
+      //("Filtered candidates:", completedCandidates);
     } catch (err) {
-      console.log("Error fetching candidates:", err);
+      //("Error fetching candidates:", err);
     }
   }
 

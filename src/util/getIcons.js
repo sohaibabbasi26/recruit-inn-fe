@@ -25,7 +25,7 @@ export default async function getIcons(query) {
 
     return { data };
   } catch (err) {
-    console.log("error", err);
+    //("error", err);
     if (err.name !== "AbortError") {
       console.error("Error fetching data:", err);
       return { err: "Error fetching data" };

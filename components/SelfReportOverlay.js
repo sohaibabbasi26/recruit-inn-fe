@@ -18,12 +18,12 @@ const SelfReportOverlay = ({
   contact,
   jobtype,
 }) => {
-  // console.log("selected candidate is:", selectedCandidate);
+  // //("selected candidate is:", selectedCandidate);
 
   const overlayRef = useRef();
   const contentRef = useRef();
   const infoSymbolSize = 10;
-  console.log("selected candidate is:", selectedCandidate);
+  //("selected candidate is:", selectedCandidate);
   const [codingResult, setCodingResult] = useState();
   const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [isCodingAssessment, setIsCodingAssessment] = useState();
@@ -43,7 +43,7 @@ const SelfReportOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("data response:", data);
+      //("data response:", data);
       setCodingResult(data);
       if (data && data?.data && data?.data?.result) {
         setIsCodingAssessment(true);
@@ -52,7 +52,7 @@ const SelfReportOverlay = ({
       }
     }
 
-    console.log("is coding assessmeent:", isCodingAssessment);
+    //("is coding assessmeent:", isCodingAssessment);
     fetchCandidatesCodingResult();
   }, [selectedCandidate]);
   const headingOne = "Technical";
@@ -103,7 +103,7 @@ const SelfReportOverlay = ({
   };
 
   const handleDownloadPdf = async () => {
-    console.log("Calling pdf download");
+    //("Calling pdf download");
     if (contentRef.current) {
       const content = contentRef.current.innerHTML;
 
@@ -184,7 +184,7 @@ const SelfReportOverlay = ({
   //                 document.body.appendChild(link);
   //                 link.click();
   //             });
-  //         console.log("puppeteer response:", response);
+  //         //("puppeteer response:", response);
   //     }
   //     callingPuppeteer();
   // }, [])

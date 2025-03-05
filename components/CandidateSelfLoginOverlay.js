@@ -78,10 +78,10 @@ const CandidateSelfLoginOverlay = ({
   }, [showOverlay, onClose]);
 
   const router = useRouter();
-  console.log("router object:", router);
+  //("router object:", router);
   const { id } = router?.query;
 
-  console.log("id:", id);
+  //("id:", id);
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -121,7 +121,7 @@ const CandidateSelfLoginOverlay = ({
       );
 
       const data = await response.json();
-      console.log("login info:", data?.data);
+      //("login info:", data?.data);
       setCandidateId(data?.data?.id);
       if (data?.data?.token) {
         localStorage.setItem("candidate-token", data?.data?.token);
@@ -160,7 +160,7 @@ const CandidateSelfLoginOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("response about client checking:", data);
+      //("response about client checking:", data);
       setCandidateId(data?.data?.message?.candidate_id);
 
       if (data?.data?.message?.candidate_id) {
@@ -170,7 +170,7 @@ const CandidateSelfLoginOverlay = ({
         const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
         const text = `Follow the link to set up your new passw  ord: \n ${demolink}`;
 
-        console.log("link:", demolink);
+        //("link:", demolink);
         const requestBody = {
           to: email,
           subject: subject,
@@ -198,7 +198,7 @@ const CandidateSelfLoginOverlay = ({
       );
 
       const responseData = await response.text();
-      console.log("Email sent successfully:", responseData);
+      //("Email sent successfully:", responseData);
       showSuccess("Link to set a new password has been sent to this email!");
     } catch (error) {
       console.error("Failed to send email:", error);
