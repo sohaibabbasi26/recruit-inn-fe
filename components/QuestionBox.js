@@ -236,94 +236,75 @@ const QuestionBox = //forwardRef(
         fetchCandidateExpertise();
       }, [router?.isReady]);
 
-      useEffect(() => {
-        async function getTestForCandidate() {
-          if (candidateExpertise) {
-            //("heyy from the if condition");
-            const requestBody = {
-              expertise: candidateExpertise,
-              position_id: pid,
-              isArabic: language === "Arabic" ? true : false,
-            };
-            //("req body: ", requestBody);
-            try {
-              const response = await fetch(
-                `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(requestBody),
-                }
-              );
-              const dataOne = await response.json();
-              //("response data of a test creation:", dataOne);
-              // setNewQuestions(dataOne?.data?.message?.question);
-              // const processedQuestions = dataOne?.data?.message?.question.map(
-              //   (q) => ({
-              //     ...q,
-              //     question: removeNumericPrefix(q.question),
-              //   })
-              // );
+      // useEffect(() => {
+      //   async function getTestForCandidate() {
+      //     if (candidateExpertise) {
+      //       //("heyy from the if condition");
+      //       const requestBody = {
+      //         expertise: candidateExpertise,
+      //         position_id: pid,
+      //         isArabic: language === "Arabic" ? true : false,
+      //       };
+      //       //("req body: ", requestBody);
+      //       try {
+      //         const response = await fetch(
+      //           `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
+      //           {
+      //             method: "POST",
+      //             headers: {
+      //               "Content-Type": "application/json",
+      //             },
+      //             body: JSON.stringify(requestBody),
+      //           }
+      //         );
+      //         const dataOne = await response.json();
+      //         setNewQuestions(dataOne?.data?.message?.question);
 
-              // if(processedQuestions){
-              setNewQuestions(dataOne?.data?.message?.question);
-              // }
+      //         setIsLoading(false);
+      //         if (test_req === "true") {
+      //           //("hey i am in test req");
+      //           try {
+      //             setIsLoading(true);
+      //             const req = {
+      //               codingExpertise: dataOne?.data?.expertise,
+      //               position_id: pid,
+      //             };
 
-              //("processed questions:", newQuestions);
-              setIsLoading(false);
-              setIsLoading(false);
-
-              //(dataOne);
-              setIsLoading(false);
-
-              //("required:", isTestRequired);
-              //("test is required:", test_req === "true");
-              if (test_req === "true") {
-                //("hey i am in test req");
-                try {
-                  setIsLoading(true);
-                  const req = {
-                    codingExpertise: dataOne?.data?.expertise,
-                    position_id: pid,
-                  };
-
-                  //("hey i am in test req try block");
-                  const response = await fetch(
-                    `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-                    {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(req),
-                    }
-                  );
-                  //("data fetched");
-                  const data = await response.json();
-                  setCodeQues(data);
-                  //("data for coding assessment:", data);
-                  setAssessmentId(data?.data?.assessment_id);
-                  //("assessment id:", assessmentId);
-                  //("code question data:", data);
-                  setIsLoading(false);
-                } catch (err) {
-                  console.error("ERROR:", err);
-                }
-              }
-            } catch (error) {
-              console.error("Error submitting form:", error);
-            } finally {
-              setIsLoading(false);
-            }
-          }
-        }
-        getTestForCandidate();
-      }, [candidateExpertise]);
+      //             //("hey i am in test req try block");
+      //             const response = await fetch(
+      //               `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
+      //               {
+      //                 method: "POST",
+      //                 headers: {
+      //                   "Content-Type": "application/json",
+      //                 },
+      //                 body: JSON.stringify(req),
+      //               }
+      //             );
+      //             //("data fetched");
+      //             const data = await response.json();
+      //             setCodeQues(data);
+      //             //("data for coding assessment:", data);
+      //             setAssessmentId(data?.data?.assessment_id);
+      //             //("assessment id:", assessmentId);
+      //             //("code question data:", data);
+      //             setIsLoading(false);
+      //           } catch (err) {
+      //             console.error("ERROR:", err);
+      //           }
+      //         }
+      //       } catch (error) {
+      //         console.error("Error submitting form:", error);
+      //       } finally {
+      //         setIsLoading(false);
+      //       }
+      //     }
+      //   }
+      //   getTestForCandidate();
+      // }, [candidateExpertise]);
 
       useEffect(() => {
-        async function getTestQuestions() {
+        async function getTestQuestionsForInvitedCandidate() {
           // if (pid) {
           try {
             setIsLoading(true);
@@ -433,20 +414,13 @@ const QuestionBox = //forwardRef(
           }
         }
         // }
-        getTestQuestions();
+        getTestQuestionsForInvitedCandidate();
       }, [pid]);
 
       useEffect(() => {
         if (newQuestions && hasStarted) {
-          //("value of has started", hasStarted);
           setIsFirstQues(true);
-          // //(hasStarted);
-          // setQuestions(data?.data[0]?.question);
-          // //("there?", data?.data[0]?.question[0].question);
           generateAudio(currentQuestion);
-          //speakQuestion(currentQuestion);
-          //("line 360: speakQuestion called");
-          //("questions:", questions);
         }
       }, [hasStarted]);
 
