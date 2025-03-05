@@ -341,10 +341,10 @@ const QuestionBox = //forwardRef(
               }
             );
             const data = await response.json();
-            //(
-              "data fetched for a position:",
-              data?.data?.is_test_req
-            );
+            // //(
+            //   "data fetched for a position:",
+            //   data?.data?.is_test_req
+            // );
 
             //("candidate expertise:", candidateExpertise);
             setExpertise(data?.data?.expertise || candidateExpertise);
@@ -589,10 +589,10 @@ const QuestionBox = //forwardRef(
         setIsLoading(true);
         setIsTestCompleted(true);
 
-        //(
-          "candidate_id in question box in take test method is : ",
-          cid
-        );
+        // //(
+        //   "candidate_id in question box in take test method is : ",
+        //   cid
+        // );
 
         let requestBody;
         const userFlow = localStorage.getItem("activeFlow");
@@ -611,7 +611,7 @@ const QuestionBox = //forwardRef(
             question_answer: answers,
             position_id: pid,
             language,
-            expertise
+            expertise,
           };
         }
 
@@ -638,10 +638,10 @@ const QuestionBox = //forwardRef(
 
           if (test_req === "true" && a_id) {
             if (assessmentId) {
-              //(
-                "Routing to coding exercise with assessment ID:",
-                assessmentId
-              );
+              // //(
+              //   "Routing to coding exercise with assessment ID:",
+              //   assessmentId
+              // );
               router.push(
                 `/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}&client_id=${client_id}`
               );
@@ -706,9 +706,9 @@ const QuestionBox = //forwardRef(
                     },
                   ]
             );
-            //(
-              "No recording made, adding silent audio blob as answer."
-            );
+            // //(
+            //   "No recording made, adding silent audio blob as answer."
+            // );
             showError("No answer was provided, moving on to next question.");
             setCurrentQuestion((prevCurrent) => prevCurrent + 1);
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -754,10 +754,10 @@ const QuestionBox = //forwardRef(
             recordedChunksRef.current = [];
             const base64Data = await blobToBase64(blob);
             //(
-              "base64Data",
-              base64Data,
-              "=============== END OF DATA ================="
-            );
+            //   "base64Data",
+            //   base64Data,
+            //   "=============== END OF DATA ================="
+            // );
             const questionBeingAnswered = currentQuestion;
             const finalData = await sendAudioToServer(base64Data);
 
@@ -823,15 +823,15 @@ const QuestionBox = //forwardRef(
           if (currentQuestionIndex < newQuestions.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             //(
-              "currentQuestion State inside if condition:",
-              currentQuestion
-            );
-            //(
-              //(
-                "state of currentQuestionIndex:",
-                currentQuestionIndex
-              )
-            );
+            // "currentQuestion State inside if condition:",
+            // currentQuestion
+            // );
+            // //(
+            //   //(
+            //     "state of currentQuestionIndex:",
+            //     currentQuestionIndex
+            //   )
+            // );
             setIsLoading(false);
           }
           setAnswers((prev) => [
@@ -850,9 +850,9 @@ const QuestionBox = //forwardRef(
 
       useEffect(() => {
         //(
-          "useeffect wala currentQuestionIndex: ",
-          currentQuestionIndex
-        );
+        //   "useeffect wala currentQuestionIndex: ",
+        //   currentQuestionIndex
+        // );
         if (currentQuestionIndex < newQuestions?.length && hasStarted) {
           generateAudio(newQuestions[currentQuestionIndex]);
           //speakQuestion(newQuestions[currentQuestionIndex]);

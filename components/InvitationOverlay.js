@@ -250,18 +250,18 @@ const InvitationOverlay = ({
     //("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
 
     //(
-    // "Debug: Name:",
-    // name,
-    // "Email:",
-    // email,
-    // "city:",
-    // city,
-    // "Country",
-    // country,
-    // "expertise: ",
-    // expertise,
-    // "contact:",
-    // contact,
+    //   "Debug: Name:",
+    //   name,
+    //   "Email:",
+    //   email,
+    //   "city:",
+    //   city,
+    //   "Country",
+    //   country,
+    //   "expertise: ",
+    //   expertise,
+    //   "contact:",
+    //   contact
     // );
 
     setReqBody({
@@ -614,7 +614,7 @@ const InvitationOverlay = ({
     if (candidateId) {
       //("REDIRECTING TO:");
       //(
-      //   `/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
+      //`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
       // );
       router.push(
         `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}&language=${language}&client_id=${client_id}`
