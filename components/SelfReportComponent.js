@@ -89,7 +89,7 @@ function SelfReportComponent({
             <div style={{display:"flex", alignItems:"center" }}>
             <h2> {results?.candidate_info?.name || "John"}  </h2>
          {
-         isAdmin === true &&
+         isAdmin === true && results?.candidate_info?.linkedin_url &&
          <div style={{marginLeft:"10px" , marginTop: "5px"}} onClick={() => window.open(results?.candidate_info?.linkedin_url || "www.google.com", "_blank")} className={styles.report_header_social}>
           <LinkedinIcon size={32} round />
 
