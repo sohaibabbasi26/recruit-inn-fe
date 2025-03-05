@@ -341,7 +341,7 @@ const QuestionBox = //forwardRef(
               }
             );
             const data = await response.json();
-            //(
+            // //(
             //   "data fetched for a position:",
             //   data?.data?.is_test_req
             // );
@@ -589,7 +589,7 @@ const QuestionBox = //forwardRef(
         setIsLoading(true);
         setIsTestCompleted(true);
 
-        //(
+        // //(
         //   "candidate_id in question box in take test method is : ",
         //   cid
         // );
@@ -828,10 +828,10 @@ const QuestionBox = //forwardRef(
             // );
             //(
               //(
-            //     "state of currentQuestionIndex:",
-            //     currentQuestionIndex
-            //   )
-            // );
+              //   "state of currentQuestionIndex:",
+              //   currentQuestionIndex
+              // )
+           // );
             setIsLoading(false);
           }
           setAnswers((prev) => [

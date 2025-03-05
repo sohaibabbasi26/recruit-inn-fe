@@ -201,8 +201,8 @@ export default function Candidate() {
           if (dataTwo?.data?.assessment_id) {
             //("inside redirect logic");
             //(
-              `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
-            );
+            //   `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
+            // );
             router.push(
               `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
             );
