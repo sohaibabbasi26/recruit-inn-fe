@@ -122,8 +122,8 @@ const InvitationOverlay = ({
   const [positionData, setPositionData] = useState(null);
   const [positionStatus, setPositionStatus] = useState(null);
   const [questionId, setQuestionId] = useState();
-  const [cv,setCv]= useState(null);
-  const [linkedinUrl,setLinkedinUrl]= useState(null)
+  const [cv, setCv] = useState(null);
+  const [linkedinUrl, setLinkedinUrl] = useState(null);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const cityRef = useRef(null);
@@ -214,7 +214,11 @@ const InvitationOverlay = ({
   }, [city]);
 
   useEffect(() => {
-    if (linkedinUrl?.match(/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/)) {
+    if (
+      linkedinUrl?.match(
+        /^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/
+      )
+    ) {
       setValidationErrors((errors) => ({
         ...errors,
         linkedin_url: "Valid linkedin url is required.",
@@ -226,7 +230,7 @@ const InvitationOverlay = ({
   }, [linkedinUrl]);
 
   useEffect(() => {
-    if (cv?.trim()==="") {
+    if (cv?.trim() === "") {
       setValidationErrors((errors) => ({
         ...errors,
         uploaded_cv: "CV is required",
@@ -281,7 +285,7 @@ const InvitationOverlay = ({
       company_id: newId,
       expertise: newExpert,
       uploaded_cv: cv,
-      linkedin_url: linkedinUrl
+      linkedin_url: linkedinUrl,
     });
 
     let isValid = true; // Assume the form is valid initially
@@ -339,7 +343,7 @@ const InvitationOverlay = ({
       isValid = false;
     }
 
-    if(!cv?.trim()){
+    if (!cv?.trim()) {
       errors.cv = "CV is required";
       isValid = false;
     }
@@ -349,9 +353,13 @@ const InvitationOverlay = ({
     //   isValid = false;
     // }
 
-    if (!linkedinUrl?.match(/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/)) {
-      errors.linkedin_url="Please enter a valid linkedin url";
-      isValid= false;
+    if (
+      !linkedinUrl?.match(
+        /^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/
+      )
+    ) {
+      errors.linkedin_url = "Please enter a valid linkedin url";
+      isValid = false;
     }
 
     setValidationErrors(errors);
@@ -583,6 +591,7 @@ const InvitationOverlay = ({
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${newToken}`,
@@ -604,8 +613,8 @@ const InvitationOverlay = ({
     if (candidateId) {
       //("REDIRECTING TO:");
       //(
-        //`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
-     // );
+      //`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
+      // );
       router.push(
         `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}&language=${language}&client_id=${client_id}`
       );

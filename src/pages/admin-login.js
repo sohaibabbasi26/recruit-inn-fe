@@ -26,6 +26,7 @@ const AdminLogin = () => {
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

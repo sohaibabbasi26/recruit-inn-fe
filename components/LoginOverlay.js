@@ -131,6 +131,7 @@ const LoginOverlay = ({
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

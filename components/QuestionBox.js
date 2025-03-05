@@ -319,6 +319,7 @@ const QuestionBox = //forwardRef(
                   `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
                   {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                       "Content-Type": "application/json",
                     },
@@ -544,7 +545,7 @@ const QuestionBox = //forwardRef(
             question_answer: answers,
             position_id: pid,
             language,
-            expertise
+            expertise,
           };
         }
 
@@ -764,11 +765,11 @@ const QuestionBox = //forwardRef(
             //   currentQuestion
             // );
             //(
-              //(
-              //   "state of currentQuestionIndex:",
-              //   currentQuestionIndex
-              // )
-           // );
+            //(
+            //   "state of currentQuestionIndex:",
+            //   currentQuestionIndex
+            // )
+            // );
             setIsLoading(false);
           }
           setAnswers((prev) => [
