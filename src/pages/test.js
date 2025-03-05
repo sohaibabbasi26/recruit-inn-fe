@@ -1,7 +1,7 @@
 import QuestionBox from "../../components/QuestionBox";
 import TestInstruction from "../../components/TestInstruction";
 import styles from "./test.module.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import CameraAccessInstruction from "../../components/CameraAccess";
 
@@ -15,6 +15,38 @@ const test = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { language } = useRouter().query;
   const videoRef = useRef(null);
+  //const [invisibilityCounter, setInvisibilityCounter] = useState(0);
+
+  useEffect(() => {
+    const forceFullscreen = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement
+          .requestFullscreen()
+          ?.then(() => {
+            console.log("donneee");
+          })
+          .catch((err) => {
+            console.log("err");
+          });
+      }
+    };
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        //setInvisibilityCounter(counter=>counter+1);
+        //if(invisibilityCounter>1){
+        window.location.href = "/blocked";
+        //}
+      }
+    });
+
+    document.addEventListener("fullscreenchange", forceFullscreen);
+    forceFullscreen();
+
+    return () => {
+      document.removeEventListener("fullscreenchange", forceFullscreen);
+    };
+  }, []);
 
   const onCameraClosePopup = () => {
     setCameraAccessInstructionPopup(false);
@@ -31,6 +63,7 @@ const test = () => {
     "Your score will reflect on your profile.",
     "Avoid refreshing your page during the interview.",
     `Give your answers in ${language}`,
+    "Leaving the interview screen, switching tabs, or opening any software will result in immediate disqualification.",
     "Make sure there’s no background noise while answering the questions.",
   ];
 
@@ -57,7 +90,7 @@ const test = () => {
       )}
       <div className={styles.superContainer}>
         <QuestionBox
-        hasGivenPermissionForCamera={hasGivenCameraPermission}
+          hasGivenPermissionForCamera={hasGivenCameraPermission}
           ref={videoRef}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
