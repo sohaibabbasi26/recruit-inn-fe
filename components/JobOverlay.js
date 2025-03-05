@@ -31,7 +31,6 @@ const JobOverlay = ({
 }) => {
   //("selected job data:", selectedJob);
   const [techStack, setTechStack] = useState();
-  const [test, setTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const overlayRef = useRef(null);
   const [link, setLink] = useState();
@@ -39,8 +38,6 @@ const JobOverlay = ({
   const iconSize = 20;
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
-  const [assessmentId, setAssessmentId] = useState();
-  const [codeQues, setCodeQues] = useState();
   const { activeItem, setActiveItem } = useActiveItem();
   // const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
@@ -62,10 +59,10 @@ const JobOverlay = ({
     }
   }, [selectedJob] );
 
-  useEffect(() => {
-    // selectedJob(selectedJob?.position_id);
-    setTechStack(selectedJob?.expertise);
-  }, [selectedJob?.expertise]);
+  // useEffect(() => {
+  //   // selectedJob(selectedJob?.position_id);
+  //   setTechStack(selectedJob?.expertise);
+  // }, [selectedJob?.expertise]);
 
   async function toggleJobStatus() {
     const newStatus = selectedJob?.status === "Active" ? "Closed" : "Active";
@@ -94,95 +91,6 @@ const JobOverlay = ({
       }, 1000);
     } catch (err) {
       //("error:", err);
-    }
-  }
-
-  // async function fetchAndCopyAssessmentLink() {
-  //   setIsLoading(true);
-  //   try {
-  //     if (techStack) {
-  //       const reqBody = {
-  //         expertise: techStack,
-  //         position_id: selectedJob?.position_id,
-  //       };
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify(reqBody),
-  //         }
-  //       );
-  //       const dataTwo = await response.json();
-
-  //       if (dataTwo?.data?.message?.question_id) {
-  //         setTest(dataTwo);
-  //         //("Test data:", dataTwo);
-  //       }
-
-  //       const questionId = dataTwo?.data?.message?.question_id;
-
-  //       if (selectedJob?.is_test_req === true) {
-  //         try {
-  //           const req = {
-
-  //             // codingExpertise: selectedJob?.expertise,
-  //             position_id: selectedJob?.position_id,
-  //           };
-
-  //           //("request:", req);
-
-  //           const response = await fetch(
-  //             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-  //             {
-  //               method: "POST",
-  //               headers: {
-  //                 "Content-Type": "application/json",
-  //               },
-  //               body: JSON.stringify(req),
-  //             }
-  //           );
-  //           const data = await response.json();
-  //           //(
-  //             "data in job overlay about code question:",
-  //             data?.data?.assessment_id
-  //           );
-
-  //           if (data?.data?.assessment_id) {
-  //             setCodeQues(data);
-  //             setAssessmentId(data?.data?.assessment_id);
-  //             //("assessment id:", data?.data?.assessment_id);
-  //             //("code question data:", data);
-
-  //             const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-  //             copyLink(newLink);
-  //           } else {
-  //             console.error("Assessment ID not found in the response.");
-  //           }
-  //         } catch (err) {
-  //           console.error("ERROR:", err);
-  //         }
-  //       } else {
-  //         // If no candidate or test is not required, still generate the link
-  //         const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
-  //         copyLink(newLink);
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.error("error:", err);
-  //   }
-  //   setIsLoading(false);
-  // }
-
-  async function copyLink(link) {
-    try {
-      await copyToClipboard(link);
-      setMessage("Your link has been copied");
-      showSuccess();
-    } catch (err) {
-      console.error("Could not copy text: ", err);
     }
   }
 

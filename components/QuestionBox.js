@@ -238,7 +238,7 @@ const QuestionBox = //forwardRef(
       }, [router?.isReady]);
 
       useEffect(() => {
-        async function getTestForCandidate() {
+        async function getTestForCandidateSelf() {
           if (candidateExpertise) {
             //("heyy from the if condition");
             const requestBody = {
@@ -259,28 +259,9 @@ const QuestionBox = //forwardRef(
                 }
               );
               const dataOne = await response.json();
-              //("response data of a test creation:", dataOne);
-              // setNewQuestions(dataOne?.data?.message?.question);
-              // const processedQuestions = dataOne?.data?.message?.question.map(
-              //   (q) => ({
-              //     ...q,
-              //     question: removeNumericPrefix(q.question),
-              //   })
-              // );
-
-              // if(processedQuestions){
               setNewQuestions(dataOne?.data?.message?.question);
-              // }
 
-              //("processed questions:", newQuestions);
               setIsLoading(false);
-              setIsLoading(false);
-
-              //(dataOne);
-              setIsLoading(false);
-
-              //("required:", isTestRequired);
-              //("test is required:", test_req === "true");
               if (test_req === "true") {
                 //("hey i am in test req");
                 try {
@@ -320,7 +301,7 @@ const QuestionBox = //forwardRef(
             }
           }
         }
-        getTestForCandidate();
+        getTestForCandidateSelf();
       }, [candidateExpertise]);
 
       useEffect(() => {
@@ -405,8 +386,8 @@ const QuestionBox = //forwardRef(
             console.error("ERROR:", err);
           }
         }
-
-        getTestQuestions();
+        // }
+        getTestQuestionsForInvitedCandidate();
       }, [pid]);
 
 
@@ -458,7 +439,8 @@ const QuestionBox = //forwardRef(
             setHasAudioEnded(true);
           };
           setHasAudioEnded(true);
-          mediaRecorderRef.current.start();
+         mediaRecorderRef.current.state !== 'recording' && mediaRecorderRef.current.start();
+          // console.log(mediaRecorderRef.current.state);
           setIsRecording(true);
           setRecordingDone(true);
           currentRecordingQuestionIndexRef.current = currentQuestion;

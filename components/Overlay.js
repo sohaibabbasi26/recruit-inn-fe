@@ -76,11 +76,8 @@ const Overlay = React.memo(
       };
     }, [showOverlay]);
 
-    // //("router object:", router)
     const { id } = router?.query;
 
-    //("id:", id);
-    const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.ADD_SKILL);
     const [completedStages, setCompletedStages] = useState([]);
     const [techStack, setTechStack] = useState(null);
@@ -108,7 +105,8 @@ const Overlay = React.memo(
     const [skill2, setSkill2] = useState("");
     const [skill3, setSkill3] = useState("");
     const [skill4, setSkill4] = useState("");
-    const [codingSkill, setCodingSkill] = useState("");
+    // const [codingSkill, setCodingSkill] = useState("");
+    const [level, setLevel] = useState(null); 
     const [level1, setLevel1] = useState("");
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
@@ -197,26 +195,6 @@ const Overlay = React.memo(
         countryValid
       );
     };
-
-    // const validateJobType = () => {
-    //   // Check each ref and value to ensure they are not null before accessing .trim()
-    //   const positionValid =
-    //     positionRef.current && positionRef.current.value.trim() !== "";
-    //   const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
-    //   const countryValid =
-    //     countryRef.current && countryRef.current.value.trim() !== "";
-    //   const jobTypeValid =
-    //     jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
-    //   const descriptionValid = description && description.trim() !== "";
-
-    //   return (
-    //     positionValid &&
-    //     cityValid &&
-    //     countryValid &&
-    //     jobTypeValid &&
-    //     descriptionValid
-    //   );
-    // };
 
     const toggleComponent = async () => {
       const skillsWithLevels = [
@@ -329,6 +307,7 @@ const Overlay = React.memo(
             : "",
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
+        coding_level:level
       };
 
       //("request body:", requestBody);
@@ -342,6 +321,7 @@ const Overlay = React.memo(
           position: position,
           isTestRequired: isTestRequired,
           language: isArabicChosen ? "Arabic" : "English",
+          coding_level:level
         })
       );
 
@@ -574,55 +554,6 @@ const Overlay = React.memo(
       }
     };
 
-    // const handleEmailInvite = async () => {
-    //   const validEmailReceivers = receivers.filter(receiver => {
-    //     const trimmedEmail = receiver.email.trim();
-    //     return trimmedEmail !== '' && validateEmail(trimmedEmail);
-    //   });
-    //   const validNameReceivers = receivers.filter(receiver => {
-    //     const trimmedName = receiver.name.trim();
-    //     return trimmedName !== '';
-    //   });
-    //   if(validNameReceivers.length === 0){
-    //     setMessage("Please Fill both the field");
-    //     showError();
-    //     return;
-    //   }
-
-    //   if (validEmailReceivers.length === 0) {
-    //     console.error('No valid email addresses found.');
-    //     setMessage('No valid email addresses found.');
-    //     showError();
-    //     return;
-    //   }
-
-    //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
-    //     //("Checking Email Functionality", receiver.email);
-    //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${token}`, // Ensure token is defined
-    //       },
-    //       body: JSON.stringify({
-    //         to: receiver.email,
-    //         subject: subject,
-    //         text: text,
-    //       }),
-    //     });
-    //   });
-
-    //   try {
-    //     await Promise.all(sendInvitesPromises);
-    //     //("Emails sent successfully");
-    //     setMessage('Invitations have been sent to all candidates via email');
-    //     showSuccess();
-
-    //   } catch (error) {
-    //     console.error('Error sending invites:', error);
-    //     setMessage('Error sending invites. Please try again later.');
-    //   }
-    // };
     return (
       <>
         <Head>
@@ -706,6 +637,8 @@ const Overlay = React.memo(
                       setSkill3={setSkill3}
                       skill4={skill4}
                       setSkill4={setSkill4}
+                      level={level}
+                      setLevel={setLevel}
                       level1={level1}
                       setLevel1={setLevel1}
                       level2={level2}
