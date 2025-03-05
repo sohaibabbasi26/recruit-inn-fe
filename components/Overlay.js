@@ -108,7 +108,8 @@ const Overlay = React.memo(
     const [skill2, setSkill2] = useState("");
     const [skill3, setSkill3] = useState("");
     const [skill4, setSkill4] = useState("");
-    const [codingSkill, setCodingSkill] = useState("");
+    // const [codingSkill, setCodingSkill] = useState("");
+    const [level, setLevel] = useState(null); 
     const [level1, setLevel1] = useState("");
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
@@ -329,6 +330,7 @@ const Overlay = React.memo(
             : "",
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
+        coding_level:level
       };
 
       //("request body:", requestBody);
@@ -342,6 +344,7 @@ const Overlay = React.memo(
           position: position,
           isTestRequired: isTestRequired,
           language: isArabicChosen ? "Arabic" : "English",
+          coding_level:level
         })
       );
 
@@ -706,6 +709,8 @@ const Overlay = React.memo(
                       setSkill3={setSkill3}
                       skill4={skill4}
                       setSkill4={setSkill4}
+                      level={level}
+                      setLevel={setLevel}
                       level1={level1}
                       setLevel1={setLevel1}
                       level2={level2}
