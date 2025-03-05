@@ -105,7 +105,6 @@ const InvitationOverlay = ({
     };
   }, [showOverlay, onClose]);
 
-  const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.JOB_DETAIL);
   const [completedStages, setCompletedStages] = useState([]);
   const [name, setName] = useState();
@@ -118,12 +117,13 @@ const InvitationOverlay = ({
   const [newToken, setNewToken] = useState(null);
   const [newId, setNewId] = useState(null);
   const [newExpert, setNewExpert] = useState(null);
-  const [clientName, setClientName] = useState(null);
   const [clientData, setClientData] = useState(null);
   const [positionId, setPositionId] = useState(null);
   const [positionData, setPositionData] = useState(null);
   const [positionStatus, setPositionStatus] = useState(null);
   const [questionId, setQuestionId] = useState();
+  const [cv,setCv]= useState(null);
+  const [linkedinUrl,setLinkedinUrl]= useState(null)
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const cityRef = useRef(null);
@@ -135,6 +135,7 @@ const InvitationOverlay = ({
   const [validationErrors, setValidationErrors] = useState({});
   const [allFieldsCheck, setAllFieldsCheck] = useState();
   const [reqBody, setReqBody] = useState(null);
+  const cvRef = useRef(null);
 
   useEffect(() => {
     //("hey its me! req body", reqBody);
@@ -274,6 +275,8 @@ const InvitationOverlay = ({
       applied_through: clientData?.client_name,
       company_id: newId,
       expertise: newExpert,
+      uploaded_cv: cv,
+      linkedin_url: linkedinUrl
     });
 
     let isValid = true; // Assume the form is valid initially
@@ -347,6 +350,21 @@ const InvitationOverlay = ({
     if (!country?.trim()) {
       errors.country = "Please enter your country";
       isValid = false;
+    }
+
+    if(!cv?.trim()){
+      errors.cv = "CV is required";
+      isValid = false;
+    }
+
+    if(!linkedinUrl?.trim()){
+      errors.linkedinUrl = "Please enter your linkedin url";
+      isValid = false;
+    }
+
+    if (!linkedinUrl?.match(/^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$/)) {
+      errors.linkedinUrl="Please enter a valid linkedin url";
+      isValid= false;
     }
 
     setValidationErrors(errors);
@@ -675,8 +693,10 @@ const InvitationOverlay = ({
               {currentStage === stages.PERSONAL_INFO && (
                 <>
                   <PersonalInfo
+                    cvRef={cvRef}
                     validationErrors={validationErrors}
                     name={name}
+                    setLinkedinUrl={setLinkedinUrl}
                     email={email}
                     contact={contact}
                     expertise={expertise}
@@ -698,6 +718,7 @@ const InvitationOverlay = ({
                     setEmail={setEmail}
                     setExpertise={setExpertise}
                     setName={setName}
+                    setCv={setCv}
                   />
                   <div className={styles.wrapper}>
                     <PersonalInfoBtns

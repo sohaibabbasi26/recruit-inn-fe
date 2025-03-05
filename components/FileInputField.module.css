@@ -1,0 +1,21 @@
+.fileInputLabel {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    color: #999;
+    font-size: 15px;
+    align-items: center;
+}
+
+.hiddenFileInput {
+    display: none;
+}
+
+.infoField input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+  height: 80%;
+}

@@ -225,6 +225,18 @@
   font-weight: 900;
 }
 
+.view_cv_button.button {
+  background-color: black;
+  color: white;
+  padding: 7px;
+  /* margin-top: 1rem; */
+  margin-left: auto;
+  
+
+  font-size: 1rem;
+  font-weight: 900;
+}
+
 /* Overview */
 .overall_report_wrapper > *:not(:last-child) {
   margin-bottom: 1.875rem;
