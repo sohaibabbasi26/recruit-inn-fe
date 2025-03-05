@@ -237,7 +237,7 @@ const QuestionBox = //forwardRef(
       }, [router?.isReady]);
 
       useEffect(() => {
-        async function getTestForCandidate() {
+        async function getTestForCandidateSelf() {
           if (candidateExpertise) {
             //("heyy from the if condition");
             const requestBody = {
@@ -258,28 +258,9 @@ const QuestionBox = //forwardRef(
                 }
               );
               const dataOne = await response.json();
-              //("response data of a test creation:", dataOne);
-              // setNewQuestions(dataOne?.data?.message?.question);
-              // const processedQuestions = dataOne?.data?.message?.question.map(
-              //   (q) => ({
-              //     ...q,
-              //     question: removeNumericPrefix(q.question),
-              //   })
-              // );
-
-              // if(processedQuestions){
               setNewQuestions(dataOne?.data?.message?.question);
-              // }
 
-              //("processed questions:", newQuestions);
               setIsLoading(false);
-              setIsLoading(false);
-
-              //(dataOne);
-              setIsLoading(false);
-
-              //("required:", isTestRequired);
-              //("test is required:", test_req === "true");
               if (test_req === "true") {
                 //("hey i am in test req");
                 try {
@@ -319,11 +300,11 @@ const QuestionBox = //forwardRef(
             }
           }
         }
-        getTestForCandidate();
+        getTestForCandidateSelf();
       }, [candidateExpertise]);
 
       useEffect(() => {
-        async function getTestQuestions() {
+        async function getTestQuestionsForInvitedCandidate() {
           // if (pid) {
           try {
             setIsLoading(true);
@@ -433,20 +414,13 @@ const QuestionBox = //forwardRef(
           }
         }
         // }
-        getTestQuestions();
+        getTestQuestionsForInvitedCandidate();
       }, [pid]);
 
       useEffect(() => {
         if (newQuestions && hasStarted) {
-          //("value of has started", hasStarted);
           setIsFirstQues(true);
-          // //(hasStarted);
-          // setQuestions(data?.data[0]?.question);
-          // //("there?", data?.data[0]?.question[0].question);
           generateAudio(currentQuestion);
-          //speakQuestion(currentQuestion);
-          //("line 360: speakQuestion called");
-          //("questions:", questions);
         }
       }, [hasStarted]);
 

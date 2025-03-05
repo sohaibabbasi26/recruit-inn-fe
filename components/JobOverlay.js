@@ -31,7 +31,6 @@ const JobOverlay = ({
 }) => {
   //("selected job data:", selectedJob);
   const [techStack, setTechStack] = useState();
-  const [test, setTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const overlayRef = useRef(null);
   const [link, setLink] = useState();
@@ -39,8 +38,6 @@ const JobOverlay = ({
   const iconSize = 20;
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
-  const [assessmentId, setAssessmentId] = useState();
-  const [codeQues, setCodeQues] = useState();
   const { activeItem, setActiveItem } = useActiveItem();
   // const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
@@ -62,10 +59,10 @@ const JobOverlay = ({
     }
   }, [selectedJob] );
 
-  useEffect(() => {
-    // selectedJob(selectedJob?.position_id);
-    setTechStack(selectedJob?.expertise);
-  }, [selectedJob?.expertise]);
+  // useEffect(() => {
+  //   // selectedJob(selectedJob?.position_id);
+  //   setTechStack(selectedJob?.expertise);
+  // }, [selectedJob?.expertise]);
 
   async function toggleJobStatus() {
     const newStatus = selectedJob?.status === "Active" ? "Closed" : "Active";
