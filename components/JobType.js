@@ -1,3 +1,4 @@
+import CustomQuestions from "./CustomQuestions";
 import EditingContainer from "./EditingContainer";
 import JobInfoFields from "./JobInfoFields";
 import styles from "./JobType.module.css";
@@ -16,7 +17,10 @@ const JobType = ({
   setCountry,
   setJobtype,
   setDescription,
+  customQuestions,
+  setCustomQuestions
 }) => {
+  
   return (
     <>
       <div className={styles.jobTypeContainer}>
@@ -36,6 +40,10 @@ const JobType = ({
           descriptionRef={descriptionRef}
           setDescription={setDescription}
         />
+        <div className="flex w-full self-end">
+          Add Custom Questions +
+        </div>
+        <CustomQuestions/>
       </div>
     </>
   );

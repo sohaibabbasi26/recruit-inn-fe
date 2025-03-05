@@ -173,23 +173,6 @@ const QuestionBox = //forwardRef(
         }
       };
 
-      // const speakQuestion = async(questionobj) => {
-      //   const question = questionobj.question;
-      //   // //(question);
-      //   // //(voices);
-      //   // cancel();
-      //   // speak({ text: question, voices: "ar-SA", lang: "ar-SA" });
-
-      //   await generateAudio(question);
-      //   if(audioUUID){
-      //     playAudio();
-      //   }
-      // };
-
-      useEffect(() => {
-        //("answers:", answers);
-      }, [answers]);
-
       useEffect(() => {
         localStorage.setItem("candidate-id", cid);
       }, [cid]);

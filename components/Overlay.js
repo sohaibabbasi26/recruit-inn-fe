@@ -101,17 +101,17 @@ const Overlay = React.memo(
     const [emailReceivers, setEmailReceivers] = useState([{ email: "" }]);
     const [nameReceivers, setNameReceivers] = useState([{ name: "" }]);
     const [assessmentId, setAssessmentId] = useState();
+    const [customQuestions, setCustomQuestions] = useState([]);
     const [skill1, setSkill1] = useState("");
     const [skill2, setSkill2] = useState("");
     const [skill3, setSkill3] = useState("");
     const [skill4, setSkill4] = useState("");
     // const [codingSkill, setCodingSkill] = useState("");
-    const [level, setLevel] = useState(null); 
+    const [level, setLevel] = useState(null);
     const [level1, setLevel1] = useState("");
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
     const [level4, setLevel4] = useState("");
-    const [isLevelEntered, setIsLevelEntered] = useState("");
     const [name, setName] = useState();
     const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
 
@@ -215,10 +215,6 @@ const Overlay = React.memo(
         }
       );
 
-      if (areAllLevelsSelected) {
-        setIsLevelEntered(true);
-      }
-
       let newCompletedStages = [...completedStages, currentStage];
       setCompletedStages(newCompletedStages);
 
@@ -307,7 +303,7 @@ const Overlay = React.memo(
             : "",
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
-        coding_level:level
+        coding_level: level,
       };
 
       //("request body:", requestBody);
@@ -321,7 +317,7 @@ const Overlay = React.memo(
           position: position,
           isTestRequired: isTestRequired,
           language: isArabicChosen ? "Arabic" : "English",
-          coding_level:level
+          coding_level: level,
         })
       );
 
@@ -671,6 +667,8 @@ const Overlay = React.memo(
                 {currentStage === stages.JOB_TYPE && (
                   <>
                     <JobType
+                      customQuestions={customQuestions}
+                      setCustomQuestions={setCustomQuestions}
                       position={position}
                       jobtype={jobtype}
                       description={description}
@@ -709,7 +707,7 @@ const Overlay = React.memo(
                         setMessage={setMessage}
                         onContinue={toggleComponent}
                         onBack={backToggleComponent}
-                        showBackBtn = {false}
+                        showBackBtn={false}
                       />
                     </div>
                   </>
