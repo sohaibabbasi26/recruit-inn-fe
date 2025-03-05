@@ -32,7 +32,7 @@ const CandidateSideNavbar = ({
 
   const openAddJobHandler = () => {
     setShowOverlay(true);
-    console.log("clicking button");
+    //("clicking button");
   };
 
   const handleItemClick = (itemName) => {
@@ -62,7 +62,7 @@ const CandidateSideNavbar = ({
 
   // const openAddJobHandler = () => {
   //     setShowOverlay(true);
-  //     console.log("clicking button");
+  //     //("clicking button");
   // };
 
   return (

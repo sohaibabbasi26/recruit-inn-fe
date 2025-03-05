@@ -218,9 +218,9 @@ const PersonalInfo = forwardRef(
                   //value={name}
                   onChange={handleInputChange(setLinkedinUrl)}
                 />
-                {validationErrors?.name && (
+                {validationErrors?.linkedin_url && (
                   <div className={styles.errorMessage}>
-                    {validationErrors.linkedinUrl}
+                    {validationErrors.linkedin_url}
                   </div>
                 )}
               </div>

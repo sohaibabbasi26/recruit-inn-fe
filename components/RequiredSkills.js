@@ -14,7 +14,7 @@ const toPascalCase = (str) => {
 };
 
 const RequiredSkills = ({ expertise }) => {
-  console.log("expertise in required skills:", expertise);
+  //("expertise in required skills:", expertise);
 
   return (
     <>

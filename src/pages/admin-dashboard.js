@@ -75,7 +75,7 @@ const Admin = ({}) => {
         .split("; ")
         .find((row) => row.startsWith("loginToken="))
         ?.split("=")[1] || null;
-    console.log("ADMIN TOKEN", adminToken);
+    //("ADMIN TOKEN", adminToken);
     setAdminToken(adminToken);
   });
 
@@ -89,7 +89,7 @@ const Admin = ({}) => {
       setInActiveClientsData(allClients?.data?.filter(filterInActiveData));
       setRequestedClientsData(allClients?.data?.filter(filterRequestsData));
     } else {
-      console.log("allClients is not an array:", allClients);
+      //("allClients is not an array:", allClients);
     }
   }, [allClients]);
 
@@ -108,7 +108,7 @@ const Admin = ({}) => {
   //       }
   //     );
   //     const data = await response.json();
-  //     console.log("API response for candidates:", data);
+  //     //("API response for candidates:", data);
 
   //     if (data?.data) {
   //       setPositionCandidates(data.data);
@@ -117,7 +117,7 @@ const Admin = ({}) => {
   //       showError("No candidates found for this position.");
   //     }
   //   } catch (err) {
-  //     console.log("Error fetching candidates:", err);
+  //     //("Error fetching candidates:", err);
   //     showError("Failed to fetch candidates.");
   //   }
   // }
@@ -137,9 +137,9 @@ const Admin = ({}) => {
         }
       );
       const data = await response.json();
-      console.log("API response for candidates:", data);
+      //("API response for candidates:", data);
       if (!data || !data.data) {
-        console.log("Unexpected response format:", data);
+        //("Unexpected response format:", data);
         return;
       }
       const completedCandidates = preprocessCandidatesData(
@@ -155,9 +155,9 @@ const Admin = ({}) => {
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-      console.log("Filtered candidates:", completedCandidates);
+      //("Filtered candidates:", completedCandidates);
     } catch (err) {
-      console.log("Error fetching candidates:", err);
+      //("Error fetching candidates:", err);
     }
   }
 
@@ -168,7 +168,7 @@ const Admin = ({}) => {
         // handle the error or return a default value
         return [];
       }
-      console.log("in pre processing method:", candidates);
+      //("in pre processing method:", candidates);
       return candidates?.map((candidate) => {
         let latestResult = {
           softskillRating: 0,
@@ -226,11 +226,11 @@ const Admin = ({}) => {
         };
       });
     } catch (err) {
-      console.log("ERROR:", err);
+      //("ERROR:", err);
     }
   };
 
-  console.log("checking:", allResults?.data?.candidates);
+  //("checking:", allResults?.data?.candidates);
 
   useEffect(() => {
     if (allResults?.data) {
@@ -239,7 +239,7 @@ const Admin = ({}) => {
         allResults?.data
       );
       setPreprocessedCandidates(processedData);
-      console.log("pre processed data:", processedData);
+      //("pre processed data:", processedData);
 
       const filterRecommended = (candidate) =>
         Math.ceil(candidate?.results?.technicalRating) >= 7 &&
@@ -257,17 +257,17 @@ const Admin = ({}) => {
   }, [allResults]);
 
   useEffect(() => {
-    console.log("Recommended Candidate:", recommendedCand);
-    console.log("Qualified Candidate:", qualifiedCand);
-    console.log("Not Eligible Candidate:", notEligibleCand);
+    //("Recommended Candidate:", recommendedCand);
+    //("Qualified Candidate:", qualifiedCand);
+    //("Not Eligible Candidate:", notEligibleCand);
   }, [recommendedCand, qualifiedCand, notEligibleCand]);
 
   useEffect(() => {
-    console.log("pre processed data:", preprocessedCandidates);
+    //("pre processed data:", preprocessedCandidates);
   }, [preprocessedCandidates]);
 
-  console.log("all clients :", allClients);
-  console.log("all results :", allResults);
+  //("all clients :", allClients);
+  //("all results :", allResults);
 
   const [reportOverlay, setReportOverlay] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -296,7 +296,7 @@ const Admin = ({}) => {
   };
 
   useEffect(() => {
-    console.log("show success msg state:", showSuccessMessage);
+    //("show success msg state:", showSuccessMessage);
   }, [showSuccessMessage]);
 
   const getActiveComponent = () => {
@@ -503,7 +503,7 @@ const Admin = ({}) => {
       );
 
       const data = await response.json();
-      console.log("companies fetched:", data);
+      //("companies fetched:", data);
       setAllClients(data);
     }
 
@@ -524,27 +524,27 @@ const Admin = ({}) => {
         }
       );
       const data = await response.json();
-      console.log("companies fetched:", data);
+      //("companies fetched:", data);
       setAllResults(data);
     }
     reportDataFetch();
   }, []);
 
   //     useEffect(() => {
-  //         console.log("show success msg state:", showSuccessMessage)
+  //         //("show success msg state:", showSuccessMessage)
   //     }, [showSuccessMessage])
 
   //       const data = await response.json();
-  //       console.log("companies fetched:", data);
+  //       //("companies fetched:", data);
   //       setAllResults(data);
   //     }
 
   //     reportDataFetch();
   //   }, []);
 
-  console.log("active clients data:", activeClientsData);
-  console.log("in active clients data:", inActiveClientsData);
-  console.log("requetsed Clients data", requestedClientsData);
+  //("active clients data:", activeClientsData);
+  //("in active clients data:", inActiveClientsData);
+  //("requetsed Clients data", requestedClientsData);
 
   return (
     <>
@@ -619,8 +619,8 @@ export const getServerSideProps = async ({ req }) => {
         ?.split("=")[1] || null;
     // const adminToken = localStorage.getItem("admin-token");
 
-    console.log("************** ADMIND TOKEN *****************");
-    console.log("LOGGGGG12", adminToken);
+    //("************** ADMIND TOKEN *****************");
+    //("LOGGGGG12", adminToken);
 
     const response = await fetch("http://localhost:3002/v1/get-companies", {
       method: "GET",
@@ -628,13 +628,13 @@ export const getServerSideProps = async ({ req }) => {
         Authorization: `Bearer ${adminToken}`,
       },
     });
-    console.log("response: ", response);
+    //("response: ", response);
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log("jsonified response: ", data);
+    //("jsonified response: ", data);
 
     const responseTwo = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-all-results`,
@@ -645,12 +645,12 @@ export const getServerSideProps = async ({ req }) => {
         },
       }
     );
-    console.log("response: ", response);
+    //("response: ", response);
     if (!responseTwo.ok) {
       throw new Error(`Error: ${response.status}`);
     }
     const dataTwo = await responseTwo.json();
-    console.log("jsonified response: ", dataTwo);
+    //("jsonified response: ", dataTwo);
     return {
       props: {
         allClients: data,

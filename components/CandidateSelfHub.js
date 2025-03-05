@@ -23,7 +23,7 @@ const CandidatesSelfHub = ({
   appliedThrough,
   experience,
 }) => {
-  console.log("data in candidates Hub:", results);
+  //("data in candidates Hub:", results);
 
   const [recommended, setRecommended] = useState("Recommended");
   const navigationRouter = useRouter();
@@ -33,7 +33,7 @@ const CandidatesSelfHub = ({
   const statusSize = 10;
 
   const hasData = results && results?.length > 0;
-  console.log("hasData:", hasData);
+  //("hasData:", hasData);
 
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {

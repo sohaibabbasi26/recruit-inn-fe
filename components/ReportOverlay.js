@@ -5,11 +5,11 @@ import styles from "./ReportOverlay.module.css";
 import ErrorIndicator from "./ErrorIndicator";
 import Image from "next/image";
 
-const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
+const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate, isAdmin }) => {
   //const candidateId= params?.candidate_id;
   // const router = useRouter();
 
-  console.log(selectedCandidate?.candidate_id);
+  //(selectedCandidate?.candidate_id);
   const { candidate_id } = selectedCandidate;
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
@@ -77,7 +77,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           }
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     //setIsLoading(true);
@@ -102,7 +102,7 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
       );
 
       const data = await response.json();
-      console.log("data response:", data);
+      //("data response:", data);
       setCodingResult(data?.data);
       //
       //setIsLoading(false);
@@ -156,8 +156,10 @@ const ReportOverlay = ({ onClose, reportOverlay, selectedCandidate }) => {
           className={`${styles.superContainer} content-to-print`}
           id="content-to-print"
         >
+          
           <SelfReportComponent
             flow="client"
+            isAdmin = {isAdmin}
             candidate_id={candidate_id}
             candidateInfo={candidateInfo}
             recommendedCourse={recommendedCourse}

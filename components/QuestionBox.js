@@ -65,9 +65,10 @@ const QuestionBox = //forwardRef(
       const [hasVoiceGenerated, setHasVoiceGenerated] = useState(false);
       const audioRef = useRef(null);
       const videoRef = useRef(null);
+      const [isTestGenerated, setIsTestGenerated] = useState(false);
 
-      // console.log("audio UUID: ",audioUUID);
-      // console.log("audio URL: ",audioURL);
+      // //("audio UUID: ",audioUUID);
+      // //("audio URL: ",audioURL);
 
       // const [isFirstQues, setIsFirstQues] = useState(0);
 
@@ -75,9 +76,9 @@ const QuestionBox = //forwardRef(
 
       const generateAudio = async (ques) => {
         const question = ques?.question;
-        if (question) {
+        if (question && isTestGenerated) {
           try {
-            //console.log(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
+            ////(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`,
               {
@@ -89,11 +90,11 @@ const QuestionBox = //forwardRef(
               }
             );
             const data = await response.json();
-            console.log(data);
+            //(data);
 
             if (response.ok) {
               const url = `${process.env.NEXT_PUBLIC_REMOTE_URL}/audio?uuid=${data?.data?.uuid}`;
-              console.log(url);
+              //(url);
               setAudioUUID(data?.data?.uuid);
               setAudioURL(url);
               setHasVoiceGenerated(true);
@@ -152,7 +153,7 @@ const QuestionBox = //forwardRef(
           );
           const data = await response.json();
           if (response.ok) {
-            console.log("audio deleted successfully");
+            //("audio deleted successfully");
             setAudioUUID(null);
             setAudioURL(null);
             setHasAudioEnded(false);
@@ -175,8 +176,8 @@ const QuestionBox = //forwardRef(
 
       // const speakQuestion = async(questionobj) => {
       //   const question = questionobj.question;
-      //   // console.log(question);
-      //   // console.log(voices);
+      //   // //(question);
+      //   // //(voices);
       //   // cancel();
       //   // speak({ text: question, voices: "ar-SA", lang: "ar-SA" });
 
@@ -187,7 +188,7 @@ const QuestionBox = //forwardRef(
       // };
 
       useEffect(() => {
-        console.log("answers:", answers);
+        //("answers:", answers);
       }, [answers]);
 
       useEffect(() => {
@@ -210,7 +211,7 @@ const QuestionBox = //forwardRef(
         const reqBody = {
           candidate_id: cid,
         };
-        console.log("candidate_id in question box is : ", cid);
+        //("candidate_id in question box is : ", cid);
 
         const fetchCandidateExpertise = async () => {
           if (cid) {
@@ -226,10 +227,10 @@ const QuestionBox = //forwardRef(
                 }
               );
               const data = await response.json();
-              console.log("data from fetching a candidate:", data);
+              //("data from fetching a candidate:", data);
               setCandidateExpertise(data?.data?.expertise);
             } catch (err) {
-              console.log("ERROR WHILE FETCHING:", err);
+              //("ERROR WHILE FETCHING:", err);
             }
           }
         };
@@ -237,15 +238,15 @@ const QuestionBox = //forwardRef(
       }, [router?.isReady]);
 
       useEffect(() => {
-        async function getTestForCandidate() {
+        async function getTestForCandidateSelf() {
           if (candidateExpertise) {
-            console.log("heyy from the if condition");
+            //("heyy from the if condition");
             const requestBody = {
               expertise: candidateExpertise,
               position_id: pid,
               isArabic: language === "Arabic" ? true : false,
             };
-            console.log("req body: ", requestBody);
+            //("req body: ", requestBody);
             try {
               const response = await fetch(
                 `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
@@ -258,30 +259,11 @@ const QuestionBox = //forwardRef(
                 }
               );
               const dataOne = await response.json();
-              console.log("response data of a test creation:", dataOne);
-              // setNewQuestions(dataOne?.data?.message?.question);
-              // const processedQuestions = dataOne?.data?.message?.question.map(
-              //   (q) => ({
-              //     ...q,
-              //     question: removeNumericPrefix(q.question),
-              //   })
-              // );
-
-              // if(processedQuestions){
               setNewQuestions(dataOne?.data?.message?.question);
-              // }
 
-              console.log("processed questions:", newQuestions);
               setIsLoading(false);
-              setIsLoading(false);
-
-              console.log(dataOne);
-              setIsLoading(false);
-
-              console.log("required:", isTestRequired);
-              console.log("test is required:", test_req === "true");
               if (test_req === "true") {
-                console.log("hey i am in test req");
+                //("hey i am in test req");
                 try {
                   setIsLoading(true);
                   const req = {
@@ -289,7 +271,7 @@ const QuestionBox = //forwardRef(
                     position_id: pid,
                   };
 
-                  console.log("hey i am in test req try block");
+                  //("hey i am in test req try block");
                   const response = await fetch(
                     `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
                     {
@@ -300,13 +282,13 @@ const QuestionBox = //forwardRef(
                       body: JSON.stringify(req),
                     }
                   );
-                  console.log("data fetched");
+                  //("data fetched");
                   const data = await response.json();
                   setCodeQues(data);
-                  console.log("data for coding assessment:", data);
+                  //("data for coding assessment:", data);
                   setAssessmentId(data?.data?.assessment_id);
-                  console.log("assessment id:", assessmentId);
-                  console.log("code question data:", data);
+                  //("assessment id:", assessmentId);
+                  //("code question data:", data);
                   setIsLoading(false);
                 } catch (err) {
                   console.error("ERROR:", err);
@@ -319,12 +301,11 @@ const QuestionBox = //forwardRef(
             }
           }
         }
-        getTestForCandidate();
+        getTestForCandidateSelf();
       }, [candidateExpertise]);
 
       useEffect(() => {
-        async function getTestQuestions() {
-          // if (pid) {
+        async function getTestQuestionsForInvitedCandidate() {
           try {
             setIsLoading(true);
             const reqBody = {
@@ -341,21 +322,15 @@ const QuestionBox = //forwardRef(
               }
             );
             const data = await response.json();
-            console.log(
-              "data fetched for a position:",
-              data?.data?.is_test_req
-            );
-
-            console.log("candidate expertise:", candidateExpertise);
             setExpertise(data?.data?.expertise || candidateExpertise);
+
             if (data?.data?.expertise || candidateExpertise) {
-              console.log("heyy from the if condition");
               const requestBody = {
                 expertise: data?.data?.expertise || candidateExpertise,
                 position_id: pid,
-                isArabic: language === "Arabic" ? true : false,
+                isArabic: language === "Arabic",
               };
-              console.log("req body: ", requestBody);
+
               try {
                 const response = await fetch(
                   `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
@@ -368,38 +343,21 @@ const QuestionBox = //forwardRef(
                   }
                 );
                 const dataOne = await response.json();
-                console.log("response data of a test creation:", dataOne);
-                // setNewQuestions(dataOne?.data?.message?.question);
-                // const processedQuestions = dataOne?.data?.message?.question.map(
-                //   (q) => ({
-                //     ...q,
-                //     question: removeNumericPrefix(q.question),
-                //   })
-                // );
 
-                // if(processedQuestions){
+                // Ensure newQuestions are set before marking test as generated
                 setNewQuestions(dataOne?.data?.message?.question);
-                // }
 
-                console.log("processed questions:", newQuestions);
-                setIsLoading(false);
-                setIsLoading(false);
+                if (dataOne?.data?.message?.question?.length > 0) {
+                  setIsTestGenerated(true); // Move this inside after setting questions
+                }
 
-                console.log(dataOne);
-                setIsLoading(false);
-
-                console.log("required:", isTestRequired);
-                console.log("test is required:", test_req === "true");
                 if (test_req === "true") {
-                  console.log("hey i am in test req");
                   try {
                     setIsLoading(true);
                     const req = {
                       codingExpertise: dataOne?.data?.expertise,
                       position_id: pid,
                     };
-
-                    console.log("hey i am in test req try block");
                     const response = await fetch(
                       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
                       {
@@ -410,13 +368,9 @@ const QuestionBox = //forwardRef(
                         body: JSON.stringify(req),
                       }
                     );
-                    console.log("data fetched");
                     const data = await response.json();
                     setCodeQues(data);
-                    console.log("data for coding assessment:", data);
                     setAssessmentId(data?.data?.assessment_id);
-                    console.log("assessment id:", assessmentId);
-                    console.log("code question data:", data);
                     setIsLoading(false);
                   } catch (err) {
                     console.error("ERROR:", err);
@@ -429,26 +383,21 @@ const QuestionBox = //forwardRef(
               }
             }
           } catch (err) {
-            console.log("ERROR:", err);
+            console.error("ERROR:", err);
           }
         }
         // }
-        getTestQuestions();
+        getTestQuestionsForInvitedCandidate();
       }, [pid]);
 
+
       useEffect(() => {
-        if (newQuestions && hasStarted) {
-          console.log("value of has started", hasStarted);
+        if (newQuestions && hasStarted && isTestGenerated) {
           setIsFirstQues(true);
-          // console.log(hasStarted);
-          // setQuestions(data?.data[0]?.question);
-          // console.log("there?", data?.data[0]?.question[0].question);
           generateAudio(currentQuestion);
-          //speakQuestion(currentQuestion);
-          console.log("line 360: speakQuestion called");
-          console.log("questions:", questions);
         }
-      }, [hasStarted]);
+      }, [hasStarted, isTestGenerated, newQuestions]);
+
 
       useEffect(() => {
         navigator.mediaDevices
@@ -459,7 +408,7 @@ const QuestionBox = //forwardRef(
             mediaRecorderRef.current.ondataavailable = (event) => {
               if (event.data.size > 0) {
                 recordedChunksRef.current.push(event.data);
-                console.log("Chunk recorded:", event.data.size);
+                //("Chunk recorded:", event.data.size);
               }
             };
 
@@ -490,12 +439,13 @@ const QuestionBox = //forwardRef(
             setHasAudioEnded(true);
           };
           setHasAudioEnded(true);
-          mediaRecorderRef.current.start();
+         mediaRecorderRef.current.state !== 'recording' && mediaRecorderRef.current.start();
+          // console.log(mediaRecorderRef.current.state);
           setIsRecording(true);
           setRecordingDone(true);
           currentRecordingQuestionIndexRef.current = currentQuestion;
           setIsRecordingPopupVisible(true);
-          console.log("Recording started");
+          //("Recording started");
         }
       };
 
@@ -577,11 +527,11 @@ const QuestionBox = //forwardRef(
       }, [router]);
 
       useEffect(() => {
-        console.log("Assessment ID:", assessmentId);
+        //("Assessment ID:", assessmentId);
       }, [assessmentId]);
 
       const submitTestHandler = async () => {
-        console.log("Submit test handler called. Assessment ID:", assessmentId);
+        //("Submit test handler called. Assessment ID:", assessmentId);
         localStorage.setItem("testcompleted", "true");
         if (isSubmitted) return;
         setIsSubmitted(true);
@@ -589,10 +539,10 @@ const QuestionBox = //forwardRef(
         setIsLoading(true);
         setIsTestCompleted(true);
 
-        console.log(
-          "candidate_id in question box in take test method is : ",
-          cid
-        );
+        // //(
+        //   "candidate_id in question box in take test method is : ",
+        //   cid
+        // );
 
         let requestBody;
         const userFlow = localStorage.getItem("activeFlow");
@@ -627,10 +577,10 @@ const QuestionBox = //forwardRef(
             }
           );
           const data = await response.json();
-          console.log("take-test api response:", data);
-          console.log("value in test_req state:", test_req);
-          console.log("test_req state = ", test_req === "true");
-          console.log("a_ID:", a_id);
+          //("take-test api response:", data);
+          //("value in test_req state:", test_req);
+          //("test_req state = ", test_req === "true");
+          //("a_ID:", a_id);
 
           const rBody = {
             position_id: pid,
@@ -638,10 +588,10 @@ const QuestionBox = //forwardRef(
 
           if (test_req === "true" && a_id) {
             if (assessmentId) {
-              console.log(
-                "Routing to coding exercise with assessment ID:",
-                assessmentId
-              );
+              //(
+              //   "Routing to coding exercise with assessment ID:",
+              //   assessmentId
+              // );
               router.push(
                 `/coding-excercise?a_id=${assessmentId}&pid=${pid}&cid=${cid}&client_id=${client_id}`
               );
@@ -665,10 +615,10 @@ const QuestionBox = //forwardRef(
               //     }
               //   );
               //   const data = await response.json();
-              //   console.log("data fetched after setting the candidate count:", data);
+              //   //("data fetched after setting the candidate count:", data);
               // }
             } catch (err) {
-              console.log("err:", err);
+              //("err:", err);
             }
             router.push(
               `/test-submit-completion/${cid}?client_id=${client_id}`
@@ -706,9 +656,9 @@ const QuestionBox = //forwardRef(
                     },
                   ]
             );
-            console.log(
-              "No recording made, adding silent audio blob as answer."
-            );
+            //(
+            //   "No recording made, adding silent audio blob as answer."
+            // );
             showError("No answer was provided, moving on to next question.");
             setCurrentQuestion((prevCurrent) => prevCurrent + 1);
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -730,11 +680,15 @@ const QuestionBox = //forwardRef(
       };
 
       useEffect(() => {
-        //speakQuestion(currentQuestion);
-        generateAudio(currentQuestion);
-        console.log("line 688: speakQuestion called");
-        setTimeLeft(130);
-      }, [currentQuestion]);
+
+        if(isTestGenerated){
+          //speakQuestion(currentQuestion);
+          generateAudio(currentQuestion);
+          //("line 688: speakQuestion called");
+          setTimeLeft(130);
+        }
+       
+      }, [currentQuestion, isTestGenerated]);
 
       const stopAndHandleRecording = async () => {
         if (
@@ -750,14 +704,14 @@ const QuestionBox = //forwardRef(
           if (recordedChunksRef.current.length > 0) {
             blob = new Blob(recordedChunksRef.current, { type: "audio/wav" });
             const newAudioURL = URL.createObjectURL(blob);
-            console.log("new audio url:", newAudioURL);
+            //("new audio url:", newAudioURL);
             recordedChunksRef.current = [];
             const base64Data = await blobToBase64(blob);
-            console.log(
-              "base64Data",
-              base64Data,
-              "=============== END OF DATA ================="
-            );
+            //(
+            //   "base64Data",
+            //   base64Data,
+            //   "=============== END OF DATA ================="
+            // );
             const questionBeingAnswered = currentQuestion;
             const finalData = await sendAudioToServer(base64Data);
 
@@ -798,7 +752,7 @@ const QuestionBox = //forwardRef(
         try {
           setIsLoading(true);
           setIsTranscriptionComplete(true);
-          console.log("send audio to server:", base64Data);
+          //("send audio to server:", base64Data);
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/speech-to-text`,
             {
@@ -810,10 +764,10 @@ const QuestionBox = //forwardRef(
             }
           );
           const data = await response.json();
-          console.log("audio response:", data.data.transcriptionResult);
+          //("audio response:", data.data.transcriptionResult);
           setIsTranscriptionComplete(false);
           setCurrentQuestion((prevCurrent) => prevCurrent + 1);
-          console.log("currentQuestion State:", currentQuestion);
+          //("currentQuestion State:", currentQuestion);
           setIsRecording(false);
           setRecordingDone(false);
           setCompletedQuestions((prevCompleted) => [
@@ -822,16 +776,16 @@ const QuestionBox = //forwardRef(
           ]);
           if (currentQuestionIndex < newQuestions.length - 1) {
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            console.log(
-              "currentQuestion State inside if condition:",
-              currentQuestion
-            );
-            console.log(
-              console.log(
-                "state of currentQuestionIndex:",
-                currentQuestionIndex
-              )
-            );
+            //(
+            //   "currentQuestion State inside if condition:",
+            //   currentQuestion
+            // );
+            //(
+              //(
+              //   "state of currentQuestionIndex:",
+              //   currentQuestionIndex
+              // )
+           // );
             setIsLoading(false);
           }
           setAnswers((prev) => [
@@ -849,21 +803,21 @@ const QuestionBox = //forwardRef(
       }
 
       useEffect(() => {
-        console.log(
-          "useeffect wala currentQuestionIndex: ",
-          currentQuestionIndex
-        );
-        if (currentQuestionIndex < newQuestions?.length && hasStarted) {
+        //(
+        //   "useeffect wala currentQuestionIndex: ",
+        //   currentQuestionIndex
+        // );
+        if (currentQuestionIndex < newQuestions?.length && hasStarted && isTestGenerated) {
           generateAudio(newQuestions[currentQuestionIndex]);
           //speakQuestion(newQuestions[currentQuestionIndex]);
-          console.log("line 806: generateAudio called");
+          //("line 806: generateAudio called");
         }
         // if(currentQuestionIndex <= newQuestions?.length+1 && hasStarted && currentQuestionIndex > 0){
         //   generateAudio(newQuestions[currentQuestionIndex-1]);
         //   //speakQuestion(newQuestions[currentQuestionIndex]);
-        //   console.log("line 811: generateAudio called");
+        //   //("line 811: generateAudio called");
         // }
-      }, [currentQuestionIndex, hasStarted]);
+      }, [currentQuestionIndex, hasStarted, isTestGenerated]);
 
       const showError = (message) => {
         setMessage(message);

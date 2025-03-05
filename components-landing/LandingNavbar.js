@@ -26,7 +26,7 @@ const LandingNavbar = ({
         },
       });
       const data = await response.json();
-      console.log("Event Details:", data);
+      //("Event Details:", data);
       // Access the date and time from the response, e.g., data.start_time
     } catch (error) {
       console.error("Error fetching event details:", error);
@@ -35,7 +35,7 @@ const LandingNavbar = ({
 
   useCalendlyEventListener({
     onEventScheduled: (e) => {
-      console.log("Fetching event details from:", e.data.payload.event.uri);
+      //("Fetching event details from:", e.data.payload.event.uri);
       getEventDetails(e.data.payload.event.uri);
     },
   });

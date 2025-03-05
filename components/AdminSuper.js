@@ -45,11 +45,11 @@ const AdminSuper = ({
     setShowOverlay(true);
   };
   useEffect(() => {
-    console.log("position candidates are :", positionCandidates);
+    //("position candidates are :", positionCandidates);
   }, [positionCandidates]);
 
   useEffect(() => {
-    console.log("All candidadates : ", allCandidates);
+    //("All candidadates : ", allCandidates);
   }, [allCandidates]);
 
   return (

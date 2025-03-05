@@ -23,7 +23,7 @@ const LoginBtns = ({
     let isValid = true;
     // Validate email
     if (!email?.trim()) {
-      console.log("email checking   ...");
+      //("email checking   ...");
       showError("Email is required");
       isValid = false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {

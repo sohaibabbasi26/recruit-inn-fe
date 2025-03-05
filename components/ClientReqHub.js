@@ -7,7 +7,7 @@ import RequestedClientCard from './RequestedClientCard';
 
 const ClientReqHub = ({showError, showSuccess, adminToken, data, onOpen, dataToBeSet, setData, heading }) => {
 
-    console.log('data: ', data)
+    //('data: ', data)
     const hasData = data && data.length > 0;
 
     return (

@@ -101,7 +101,7 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
    const router = useRouter();
    const { id } = router?.query;
 
-   console.log("Current Packkage iss", currentPackage)
+   //("Current Packkage iss", currentPackage)
 
 
   const handleCheckout = async (pack) => {

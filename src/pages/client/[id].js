@@ -27,9 +27,9 @@ export default function Home({
   const router = useRouter();
   const { id } = router?.query;
 
-  console.log("all jobs data :", allJobsData);
-  console.log("all active jobs data :", allActiveJobsData);
-  console.log("all closed jobs data :", allClosedJobsData);
+  //("all jobs data :", allJobsData);
+  //("all active jobs data :", allActiveJobsData);
+  //("all closed jobs data :", allClosedJobsData);
   const [finalData, setFinalData] = useState([]);
   const [allCandidatesReports, setAllCandidateReports] = useState();
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
@@ -74,11 +74,11 @@ export default function Home({
           body: JSON.stringify(requestBody),
         }
       );
-      console.log("response:", response);
+      //("response:", response);
       const allData = await response.json();
       setFinalData(allData.data);
       setIsLoading(false);
-      console.log("jsonified response: ", allData.data);
+      //("jsonified response: ", allData.data);
     }
     if (token) {
       fetchAllPositions();
@@ -87,25 +87,25 @@ export default function Home({
 
   useEffect(() => {
     if (Array.isArray(finalData)) {
-      console.log("Final fata from active filter ", finalData);
+      //("Final fata from active filter ", finalData);
       const filterActive = (job) => job?.status === "Active";
       const filterClosed = (job) => job?.status === "Closed";
       const filterall = (job) =>
         job?.status === "Active" || job?.status === "Closed";
       setAllJobData(finalData.filter(filterall));
-      console.log("all jobs data is ... ", finalData.filter(filterall));
+      //("all jobs data is ... ", finalData.filter(filterall));
       setActiveJobsData(finalData.filter(filterActive));
-      console.log("Active jobs data ... ", finalData.filter(filterActive));
+      //("Active jobs data ... ", finalData.filter(filterActive));
       setClosedJobsData(finalData.filter(filterClosed));
-      console.log("active jobs", finalData.filter(filterActive));
+      //("active jobs", finalData.filter(filterActive));
     } else {
-      console.log("finalData is not an array:", finalData);
+      //("finalData is not an array:", finalData);
     }
   }, [finalData]);
 
   useEffect(() => {
     let isMounted = true;
-    console.log("client_id:", id);
+    //("client_id:", id);
     localStorage.setItem("clientId", id);
     // const token = localStorage.getItem("client-token");
 
@@ -137,16 +137,16 @@ export default function Home({
         }
       );
 
-      console.log("response: ", response);
+      //("response: ", response);
       if (!response.ok) {
-        console.log(`Error: ${response.status}`);
+        //(`Error: ${response.status}`);
       }
       const allData = await response.json();
       if (isMounted) {
         setAllCandidateReports(allData);
         setIsLoading(false);
       }
-      console.log("jsonified candidates response: ", allData);
+      //("jsonified candidates response: ", allData);
     }
     fetchAllCandidateReports();
     return () => {
@@ -180,87 +180,6 @@ export default function Home({
     }
   }, [id]);
 
-  // const preprocessCandidatesData = (candidates, company) => {
-  //   return candidates.map((candidate) => {
-  //     let latestResult = {
-  //       softskillRating: 0,
-  //       technicalRating: 0,
-  //       softskillAssessment: "",
-  //       technicalAssessment: "",
-  //       createdAt: null,
-  //     };
-
-  //     if (candidate.results && candidate.results.length > 0) {
-  //       const sortedResults = candidate.results.sort(
-  //         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  //       );
-  //       latestResult = sortedResults[0].result || latestResult;
-  //       latestResult.createdAt = sortedResults[0].createdAt;
-  //     }
-
-  //     const score =
-  //       (latestResult.softskillRating + latestResult.technicalRating) / 2;
-  //     const formattedDate = latestResult?.createdAt
-  //       ? new Date(latestResult?.createdAt).toLocaleDateString()
-  //       : "N/A";
-
-  //     const expertiseList = candidate?.expertise?.map((exp) => ({
-  //       skill: exp.skill,
-  //       level: exp.level,
-  //     }));
-
-  //     const inferredPosition =
-  //       candidate?.expertise?.length > 0
-  //         ? candidate?.expertise[0]?.skill
-  //         : "N/A"; // Inferred position from the first skill
-
-  //     return {
-  //       candidate_id: candidate.candidate_id,
-  //       position: candidate.position,
-  //       jobType: candidate.job_type,
-  //       name: candidate.name,
-  //       email: candidate.email,
-  //       score: score.toFixed(1),
-  //       contactNo: candidate.contact_no,
-  //       date: candidate?.createdAt,
-  //       expertise: expertiseList,
-  //       position: inferredPosition,
-  //       overAllExperience: candidate.over_all_exp || "N/A",
-  //       results: {
-  //         softskillRating: latestResult.softskillRating,
-  //         technicalRating: latestResult.technicalRating,
-  //         softskillAssessment: latestResult.softskillAssessment,
-  //         technicalAssessment: latestResult.technicalAssessment,
-  //       },
-  //       company: {
-  //         name: company.company_name,
-  //         location: company.company_location,
-  //         email: company.email,
-  //         contactNo: company.contact_no,
-  //         status: company.status,
-  //       },
-  //     };
-  //   });
-  // };
-  const calculateCumulativeMean = (val1, val2) => {
-    let total = 0;
-    let count = 0;
-
-    if (val1) {
-      total += Math.round(val1);
-      count += 1;
-    }
-
-    if (val2) {
-      total += Math.round(val2);
-      count += 1;
-    }
-
-    if (count === 0) return 0;
-
-    return (total / count).toFixed(1);
-  };
-
   useEffect(() => {
     try {
       if (positionCandidates && positionCandidates?.data) {
@@ -269,77 +188,17 @@ export default function Home({
           allCandidatesReports?.data
         );
         setPreprocessedPositionCands(candidates);
-        console.log(
-          "preprocessed candidates of a particular position:",
-          candidates
-        );
+        //(
+        //  "preprocessed candidates of a particular position:",
+          //candidates
+        //);
       }
     } catch (err) {
-      console.log("error in preprocessing:", err);
+      //("error in preprocessing:", err);
     }
   }, [positionCandidates]);
 
-  // <<<<<<< HEAD
-
-  // const preprocessCandidatesData = (candidates, company) => {
-  //   return candidates
-  //     .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
-  //     .map((candidate) => {
-  //       let latestResult = {
-  //         softskillRating: 0,
-  //         technicalRating: 0,
-  //         softskillAssessment: "",
-  //         technicalAssessment: "",
-  //         createdAt: null,
-  //       };
-  //       const sortedResults = candidate.results.sort(
-  //         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  //       );
-  //       latestResult = sortedResults[0].result || latestResult;
-  //       latestResult.createdAt = sortedResults[0].createdAt;
-  //       const score = (
-  //         (latestResult.softskillRating + latestResult.technicalRating) / 2
-  //       ).toFixed(1);
-  //       const formattedDate = latestResult.createdAt
-  //         ? new Date(latestResult.createdAt).toLocaleDateString()
-  //         : "N/A";
-  //       const expertiseList = candidate?.expertise?.map((exp) => ({
-  //         skill: exp.skill,
-  //         level: exp.level,
-  //       }));
-  //       const inferredPosition =
-  //         candidate?.expertise?.length > 0
-  //           ? candidate?.expertise[0]?.skill
-  //           : "N/A"; // Inferred position from the first skill
-  //       return {
-  //         candidate_id: candidate.candidate_id,
-  //         position: candidate.position,
-  //         jobType: candidate.job_type,
-  //         name: candidate.name,
-  //         email: candidate.email,
-  //         score: parseFloat(score),
-  //         contactNo: candidate.contact_no,
-  //         date: candidate?.createdAt,
-  //         expertise: expertiseList,
-  //         position: inferredPosition,
-  //         overAllExperience: candidate.over_all_exp || "N/A",
-  //         results: {
-  //           softskillRating: latestResult.softskillRating,
-  //           technicalRating: latestResult.technicalRating,
-  //           softskillAssessment: latestResult.softskillAssessment,
-  //           technicalAssessment: latestResult.technicalAssessment,
-  //         },
-  //         company: {
-  //           name: company.company_name,
-  //           location: company.company_location,
-  //           email: company.email,
-  //           contactNo: company.contact_no,
-  //           status: company.status,
-  //         },
-  //       };
-  //     });
-  // };
-  // =======
+  
   const preprocessCandidatesData = (candidates, company) => {
     return candidates
       .filter((candidate) => candidate.results && candidate.results.length > 0) // Filter out candidates without test results
@@ -405,7 +264,7 @@ export default function Home({
       const reqBody = {
         id,
       };
-      console.log("req body:", reqBody);
+      //("req body:", reqBody);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-one-company`,
@@ -419,9 +278,9 @@ export default function Home({
         setCompanyName(data?.data?.company_name);
         setCompanyEmail(data?.data?.email);
         localStorage.setItem("clientName", companyName);
-        console.log("company self data:", data);
+        //("company self data:", data);
       } catch (err) {
-        console.log("ERROR:", err);
+        //("ERROR:", err);
       }
     }
     if (id) {
@@ -429,9 +288,9 @@ export default function Home({
     }
   }, [id]);
 
-  console.log("Company Data:", allCandidatesReports);
-  console.log("Candidates Data:", allCandidatesReports?.data?.candidates);
-  console.log("testing:", allCandidatesReports?.data?.candidates);
+  //("Company Data:", allCandidatesReports);
+  //("Candidates Data:", allCandidatesReports?.data?.candidates);
+  //("testing:", allCandidatesReports?.data?.candidates);
 
   useEffect(() => {
     if (allCandidatesReports?.data?.candidates && allCandidatesReports?.data) {
@@ -454,18 +313,18 @@ export default function Home({
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
 
-      console.log(
-        "Recommended Candidates:",
-        completedCandidates.filter(filterRecommended)
-      );
-      console.log(
-        "Qualified Candidates:",
-        completedCandidates.filter(filterQualified)
-      );
-      console.log(
-        "Not Eligible Candidates:",
-        completedCandidates.filter(filterNotEligible)
-      );
+      //(
+      //   "Recommended Candidates:",
+      //   completedCandidates.filter(filterRecommended)
+      // );
+      //(
+      //   "Qualified Candidates:",
+      //   completedCandidates.filter(filterQualified)
+      // );
+      //(
+      //   "Not Eligible Candidates:",
+      //   completedCandidates.filter(filterNotEligible)
+      // );
     }
   }, [allCandidatesReports]);
 
@@ -483,9 +342,9 @@ export default function Home({
         }
       );
       const data = await response.json();
-      console.log("API response for candidates:", data);
+      //("API response for candidates:", data);
       if (!data || !data.data) {
-        console.log("Unexpected response format:", data);
+        //("Unexpected response format:", data);
         return;
       }
       const completedCandidates = preprocessCandidatesData(
@@ -501,9 +360,9 @@ export default function Home({
       setRecommendedCand(completedCandidates.filter(filterRecommended));
       setQualifiedCand(completedCandidates.filter(filterQualified));
       setNotEligibleCand(completedCandidates.filter(filterNotEligible));
-      console.log("Filtered candidates:", completedCandidates);
+      //("Filtered candidates:", completedCandidates);
     } catch (err) {
-      console.log("Error fetching candidates:", err);
+      //("Error fetching candidates:", err);
     }
   }
 
@@ -765,6 +624,7 @@ export default function Home({
         </FormProvider>
         {reportOverlay && (
           <ReportOverlay
+            isAdmin={false}
             showError={showError}
             showErrorMessage={showErrorMessage}
             showSuccessMessage={showSuccessMessage}

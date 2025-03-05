@@ -76,11 +76,8 @@ const Overlay = React.memo(
       };
     }, [showOverlay]);
 
-    // console.log("router object:", router)
     const { id } = router?.query;
 
-    console.log("id:", id);
-    const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.ADD_SKILL);
     const [completedStages, setCompletedStages] = useState([]);
     const [techStack, setTechStack] = useState(null);
@@ -108,7 +105,8 @@ const Overlay = React.memo(
     const [skill2, setSkill2] = useState("");
     const [skill3, setSkill3] = useState("");
     const [skill4, setSkill4] = useState("");
-    const [codingSkill, setCodingSkill] = useState("");
+    // const [codingSkill, setCodingSkill] = useState("");
+    const [level, setLevel] = useState(null); 
     const [level1, setLevel1] = useState("");
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
@@ -167,7 +165,7 @@ const Overlay = React.memo(
     };
 
     useEffect(() => {
-      console.log("description:", description);
+      //("description:", description);
     }, [description]);
 
     const validateJobType = () => {
@@ -197,26 +195,6 @@ const Overlay = React.memo(
         countryValid
       );
     };
-
-    // const validateJobType = () => {
-    //   // Check each ref and value to ensure they are not null before accessing .trim()
-    //   const positionValid =
-    //     positionRef.current && positionRef.current.value.trim() !== "";
-    //   const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
-    //   const countryValid =
-    //     countryRef.current && countryRef.current.value.trim() !== "";
-    //   const jobTypeValid =
-    //     jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
-    //   const descriptionValid = description && description.trim() !== "";
-
-    //   return (
-    //     positionValid &&
-    //     cityValid &&
-    //     countryValid &&
-    //     jobTypeValid &&
-    //     descriptionValid
-    //   );
-    // };
 
     const toggleComponent = async () => {
       const skillsWithLevels = [
@@ -329,9 +307,10 @@ const Overlay = React.memo(
             : "",
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
+        coding_level:level
       };
 
-      console.log("request body:", requestBody);
+      //("request body:", requestBody);
 
       localStorage.setItem(
         "expertiseData",
@@ -342,15 +321,16 @@ const Overlay = React.memo(
           position: position,
           isTestRequired: isTestRequired,
           language: isArabicChosen ? "Arabic" : "English",
+          coding_level:level
         })
       );
 
       try {
         setIsLoading(true);
-        console.log(
-          "Payload size in bytes:",
-          new Blob([JSON.stringify(requestBody)]).size
-        );
+        // //(
+        //   "Payload size in bytes:",
+        //   new Blob([JSON.stringify(requestBody)]).size
+        // );
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`,
@@ -364,24 +344,24 @@ const Overlay = React.memo(
           }
         );
         const data = await response.json();
-        console.log("data of just created position:", data);
-        console.log("data of created position:", data?.data?.data?.position_id);
+        //("data of just created position:", data);
+        //("data of created position:", data?.data?.data?.position_id);
         setPositionId(data?.data?.data?.position_id);
         setPositionName(data?.data?.data?.position);
         setIsLoading(false);
-        console.log(data);
+        //(data);
       } catch (error) {
         console.error("Error submitting form:", error);
       }
     };
 
     useEffect(() => {
-      console.log("positionId", positionId);
-      console.log("questionId", questionId);
+      //("positionId", positionId);
+      //("questionId", questionId);
     }, [positionId, questionId, router?.isReady]);
 
     useEffect(() => {
-      console.log("expertise for coding:", codingExpertise);
+      //("expertise for coding:", codingExpertise);
     }, [codingExpertise]);
 
     const handleFormSubmitForTest = async () => {
@@ -390,7 +370,7 @@ const Overlay = React.memo(
         position_id: positionId,
         isArabic: isArabicChosen,
       };
-      console.log("req body : ", requestBody);
+      //("req body : ", requestBody);
       try {
         setIsLoading(true);
         const response = await fetch(
@@ -405,17 +385,17 @@ const Overlay = React.memo(
           }
         );
         const data = await response.json();
-        console.log("response data of a test creation:", data);
+        //("response data of a test creation:", data);
         setQuestionId(data?.data?.message?.question_id);
-        console.log("question id:");
+        //("question id:");
         setIsLoading(false);
         setMessage("Successfully created a test for your job!");
         showSuccess();
-        console.log(data);
+        //(data);
       } catch (error) {
         console.error("Error submitting form:", error);
       }
-      console.log("required:", isTestRequired);
+      //("required:", isTestRequired);
       if (isTestRequired === true) {
         try {
           setIsLoading(true);
@@ -438,8 +418,8 @@ const Overlay = React.memo(
           const data = await response.json();
           setCodeQues(data);
           setAssessmentId(data?.data?.assessment_id);
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
+          //("assessment id:", assessmentId);
+          //("code question data:", data);
           setIsLoading(false);
           try {
             const body = {
@@ -447,7 +427,7 @@ const Overlay = React.memo(
               is_test_req: isTestRequired,
             };
 
-            console.log("body data sent in setPositionTestReq:", body);
+            //("body data sent in setPositionTestReq:", body);
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`,
               {
@@ -462,7 +442,7 @@ const Overlay = React.memo(
             const data = await response.json();
             setCodeQues(data);
           } catch (err) {
-            console.log("ERROR:", err);
+            //("ERROR:", err);
           }
         } catch (err) {
           console.error("ERROR:", err);
@@ -471,7 +451,7 @@ const Overlay = React.memo(
     };
 
     useEffect(() => {
-      console.log("codeQues:", codeQues);
+      //("codeQues:", codeQues);
     }, [codeQues]);
 
     const addEmailReceiver = () => {
@@ -481,10 +461,10 @@ const Overlay = React.memo(
     };
 
     const addNameReceiver = () => {
-      console.log("Adding a new name receiver");
+      //("Adding a new name receiver");
       setNameReceivers((currentReceivers) => {
         const newReceivers = [...currentReceivers, { name: "" }];
-        console.log("new recievers:");
+        //("new recievers:");
         return newReceivers;
       });
     };
@@ -547,7 +527,7 @@ const Overlay = React.memo(
       });
 
       const sendInvitesPromises = validEmailReceivers.map((receiver) => {
-        console.log("Checking Email Functionality", receiver.email);
+        //("Checking Email Functionality", receiver.email);
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
           method: "POST",
           headers: {
@@ -564,7 +544,7 @@ const Overlay = React.memo(
 
       try {
         await Promise.all(sendInvitesPromises);
-        console.log("Emails sent successfully");
+        //("Emails sent successfully");
         setMessage("Invitations have been sent to all candidates via email");
         showSuccess();
         onClose();
@@ -574,55 +554,6 @@ const Overlay = React.memo(
       }
     };
 
-    // const handleEmailInvite = async () => {
-    //   const validEmailReceivers = receivers.filter(receiver => {
-    //     const trimmedEmail = receiver.email.trim();
-    //     return trimmedEmail !== '' && validateEmail(trimmedEmail);
-    //   });
-    //   const validNameReceivers = receivers.filter(receiver => {
-    //     const trimmedName = receiver.name.trim();
-    //     return trimmedName !== '';
-    //   });
-    //   if(validNameReceivers.length === 0){
-    //     setMessage("Please Fill both the field");
-    //     showError();
-    //     return;
-    //   }
-
-    //   if (validEmailReceivers.length === 0) {
-    //     console.error('No valid email addresses found.');
-    //     setMessage('No valid email addresses found.');
-    //     showError();
-    //     return;
-    //   }
-
-    //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
-    //     console.log("Checking Email Functionality", receiver.email);
-    //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${token}`, // Ensure token is defined
-    //       },
-    //       body: JSON.stringify({
-    //         to: receiver.email,
-    //         subject: subject,
-    //         text: text,
-    //       }),
-    //     });
-    //   });
-
-    //   try {
-    //     await Promise.all(sendInvitesPromises);
-    //     console.log("Emails sent successfully");
-    //     setMessage('Invitations have been sent to all candidates via email');
-    //     showSuccess();
-
-    //   } catch (error) {
-    //     console.error('Error sending invites:', error);
-    //     setMessage('Error sending invites. Please try again later.');
-    //   }
-    // };
     return (
       <>
         <Head>
@@ -706,6 +637,8 @@ const Overlay = React.memo(
                       setSkill3={setSkill3}
                       skill4={skill4}
                       setSkill4={setSkill4}
+                      level={level}
+                      setLevel={setLevel}
                       level1={level1}
                       setLevel1={setLevel1}
                       level2={level2}

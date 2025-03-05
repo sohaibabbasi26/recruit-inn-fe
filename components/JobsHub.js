@@ -16,7 +16,7 @@ const JobsHub = ({
   const [newData, setNewData] = useState();
   const hasData = data && data.length > 0;
 
-  console.log("Jobs hub data:", data);
+  //("Jobs hub data:", data);
 
   const getBackgroundColor = (status) => {
     if (status === "Active") {
@@ -32,8 +32,8 @@ const JobsHub = ({
       return "/noteligible.svg";
     }
   };
-  console.log("Data length:", data.length);
-  console.log("Has data:", hasData);
+  //("Data length:", data.length);
+  //("Has data:", hasData);
   const cardClickHandler = (job) => {
     setSelectedJob(job);
     setJobOverlay(true);
