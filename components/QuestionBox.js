@@ -65,6 +65,7 @@ const QuestionBox = //forwardRef(
       const [hasVoiceGenerated, setHasVoiceGenerated] = useState(false);
       const audioRef = useRef(null);
       const videoRef = useRef(null);
+      const [isTestGenerated, setIsTestGenerated] = useState(false);
 
       // //("audio UUID: ",audioUUID);
       // //("audio URL: ",audioURL);
@@ -75,7 +76,7 @@ const QuestionBox = //forwardRef(
 
       const generateAudio = async (ques) => {
         const question = ques?.question;
-        if (question) {
+        if (question && isTestGenerated) {
           try {
             ////(`${process.env.NEXT_PUBLIC_REMOTE_URL}/save-tts`)
             const response = await fetch(
@@ -324,7 +325,6 @@ const QuestionBox = //forwardRef(
 
       useEffect(() => {
         async function getTestQuestions() {
-          // if (pid) {
           try {
             setIsLoading(true);
             const reqBody = {
@@ -341,21 +341,15 @@ const QuestionBox = //forwardRef(
               }
             );
             const data = await response.json();
-            // //(
-            //   "data fetched for a position:",
-            //   data?.data?.is_test_req
-            // );
-
-            //("candidate expertise:", candidateExpertise);
             setExpertise(data?.data?.expertise || candidateExpertise);
+
             if (data?.data?.expertise || candidateExpertise) {
-              //("heyy from the if condition");
               const requestBody = {
                 expertise: data?.data?.expertise || candidateExpertise,
                 position_id: pid,
-                isArabic: language === "Arabic" ? true : false,
+                isArabic: language === "Arabic",
               };
-              //("req body: ", requestBody);
+
               try {
                 const response = await fetch(
                   `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
@@ -368,38 +362,21 @@ const QuestionBox = //forwardRef(
                   }
                 );
                 const dataOne = await response.json();
-                //("response data of a test creation:", dataOne);
-                // setNewQuestions(dataOne?.data?.message?.question);
-                // const processedQuestions = dataOne?.data?.message?.question.map(
-                //   (q) => ({
-                //     ...q,
-                //     question: removeNumericPrefix(q.question),
-                //   })
-                // );
 
-                // if(processedQuestions){
+                // Ensure newQuestions are set before marking test as generated
                 setNewQuestions(dataOne?.data?.message?.question);
-                // }
 
-                //("processed questions:", newQuestions);
-                setIsLoading(false);
-                setIsLoading(false);
+                if (dataOne?.data?.message?.question?.length > 0) {
+                  setIsTestGenerated(true); // Move this inside after setting questions
+                }
 
-                //(dataOne);
-                setIsLoading(false);
-
-                //("required:", isTestRequired);
-                //("test is required:", test_req === "true");
                 if (test_req === "true") {
-                  //("hey i am in test req");
                   try {
                     setIsLoading(true);
                     const req = {
                       codingExpertise: dataOne?.data?.expertise,
                       position_id: pid,
                     };
-
-                    //("hey i am in test req try block");
                     const response = await fetch(
                       `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
                       {
@@ -410,13 +387,9 @@ const QuestionBox = //forwardRef(
                         body: JSON.stringify(req),
                       }
                     );
-                    //("data fetched");
                     const data = await response.json();
                     setCodeQues(data);
-                    //("data for coding assessment:", data);
                     setAssessmentId(data?.data?.assessment_id);
-                    //("assessment id:", assessmentId);
-                    //("code question data:", data);
                     setIsLoading(false);
                   } catch (err) {
                     console.error("ERROR:", err);
@@ -429,26 +402,21 @@ const QuestionBox = //forwardRef(
               }
             }
           } catch (err) {
-            //("ERROR:", err);
+            console.error("ERROR:", err);
           }
         }
-        // }
+
         getTestQuestions();
       }, [pid]);
 
+
       useEffect(() => {
-        if (newQuestions && hasStarted) {
-          //("value of has started", hasStarted);
+        if (newQuestions && hasStarted && isTestGenerated) {
           setIsFirstQues(true);
-          // //(hasStarted);
-          // setQuestions(data?.data[0]?.question);
-          // //("there?", data?.data[0]?.question[0].question);
           generateAudio(currentQuestion);
-          //speakQuestion(currentQuestion);
-          //("line 360: speakQuestion called");
-          //("questions:", questions);
         }
-      }, [hasStarted]);
+      }, [hasStarted, isTestGenerated, newQuestions]);
+
 
       useEffect(() => {
         navigator.mediaDevices
@@ -730,11 +698,15 @@ const QuestionBox = //forwardRef(
       };
 
       useEffect(() => {
-        //speakQuestion(currentQuestion);
-        generateAudio(currentQuestion);
-        //("line 688: speakQuestion called");
-        setTimeLeft(130);
-      }, [currentQuestion]);
+
+        if(isTestGenerated){
+          //speakQuestion(currentQuestion);
+          generateAudio(currentQuestion);
+          //("line 688: speakQuestion called");
+          setTimeLeft(130);
+        }
+       
+      }, [currentQuestion, isTestGenerated]);
 
       const stopAndHandleRecording = async () => {
         if (
@@ -853,7 +825,7 @@ const QuestionBox = //forwardRef(
         //   "useeffect wala currentQuestionIndex: ",
         //   currentQuestionIndex
         // );
-        if (currentQuestionIndex < newQuestions?.length && hasStarted) {
+        if (currentQuestionIndex < newQuestions?.length && hasStarted && isTestGenerated) {
           generateAudio(newQuestions[currentQuestionIndex]);
           //speakQuestion(newQuestions[currentQuestionIndex]);
           //("line 806: generateAudio called");
@@ -863,7 +835,7 @@ const QuestionBox = //forwardRef(
         //   //speakQuestion(newQuestions[currentQuestionIndex]);
         //   //("line 811: generateAudio called");
         // }
-      }, [currentQuestionIndex, hasStarted]);
+      }, [currentQuestionIndex, hasStarted, isTestGenerated]);
 
       const showError = (message) => {
         setMessage(message);
