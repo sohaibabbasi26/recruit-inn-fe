@@ -21,6 +21,9 @@ const AdminLogin = () => {
   };
 
   const loginApiCall = async () => {
+    // Clear local storage
+    localStorage.clear();
+
     //("URL:", `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`,

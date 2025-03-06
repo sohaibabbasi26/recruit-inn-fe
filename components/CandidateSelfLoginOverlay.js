@@ -1,14 +1,13 @@
-import styles from "./Overlay.module.css";
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
-import Stages from "./Stages";
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import ErrorIndicator from "./ErrorIndicator";
+import ForgotPasswordBtns from "./ForgotPassBtns";
+import ForgotPassword from "./ForgotPassword";
 import LoginComp from "./Login";
 import LoginBtns from "./LoginBtns";
-import ForgotPassword from "./ForgotPassword";
-import ForgotPasswordBtns from "./ForgotPassBtns";
-import ErrorIndicator from "./ErrorIndicator";
+import styles from "./Overlay.module.css";
+import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
 
 const CandidateSelfLoginOverlay = ({
@@ -24,7 +23,6 @@ const CandidateSelfLoginOverlay = ({
   const [password, setPassword] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [emailReceiver, setEmailReceiver] = useState();
-  // const [candidateId, setCandidateId] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -78,10 +76,8 @@ const CandidateSelfLoginOverlay = ({
   }, [showOverlay, onClose]);
 
   const router = useRouter();
-  //("router object:", router);
   const { id } = router?.query;
 
-  //("id:", id);
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -105,6 +101,9 @@ const CandidateSelfLoginOverlay = ({
   }, [router]);
 
   const loginApiCall = async () => {
+    // Clear local storage
+    localStorage.clear();
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in-self`,
@@ -121,7 +120,6 @@ const CandidateSelfLoginOverlay = ({
       );
 
       const data = await response.json();
-      //("login info:", data?.data);
       setCandidateId(data?.data?.id);
       if (data?.data?.token) {
         localStorage.setItem("candidate-token", data?.data?.token);
@@ -135,15 +133,6 @@ const CandidateSelfLoginOverlay = ({
       showError("Login failed. Please check your credentials.");
     }
   };
-
-  // useEffect(() => {
-  //     const demolink = `http://localhost:3000/cand-new-pass/${candidateId}`;
-  //     setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
-  //     setText(`
-  //     follow the link to set up your new password: \n
-  //         ${demolink}
-  //     `)
-  // }, [candidateId, emailReceiver]);
 
   const checkIfEmailIsInDbHandler = async () => {
     const reqBody = {
@@ -160,7 +149,6 @@ const CandidateSelfLoginOverlay = ({
         }
       );
       const data = await response.json();
-      //("response about client checking:", data);
       setCandidateId(data?.data?.message?.candidate_id);
 
       if (data?.data?.message?.candidate_id) {
@@ -168,7 +156,7 @@ const CandidateSelfLoginOverlay = ({
         // ${candidateId}
         const demolink = `https://app.recruitinn.ai/cand-new-pass/${data?.data?.message?.candidate_id}`;
         const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
-        const text = `Follow the link to set up your new passw  ord: \n ${demolink}`;
+        const text = `Follow the link to set up your new password: \n ${demolink}`;
 
         //("link:", demolink);
         const requestBody = {
@@ -240,7 +228,9 @@ const CandidateSelfLoginOverlay = ({
                 <>
                   <LoginComp
                     onViewChange={() => setViewMode("forgotPassword")}
-                    onSignup={router ? () => router.push("/candidate-self") : null}
+                    onSignup={
+                      router ? () => router.push("/candidate-self") : null
+                    }
                     password={password}
                     setPassword={setPassword}
                     email={email}

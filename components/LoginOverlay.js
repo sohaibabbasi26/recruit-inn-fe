@@ -127,6 +127,9 @@ const LoginOverlay = ({
   }, [router]);
 
   const loginApiCall = async () => {
+    // clear local storage
+    localStorage.clear();
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`,
       {
