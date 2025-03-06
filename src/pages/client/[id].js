@@ -1,7 +1,6 @@
 import { FormProvider } from "@/contexts/FormContext";
 import { useTestState } from "@/contexts/TestRequirementContext";
 import styles from "@/styles/Home.module.css";
-import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ErrorIndicator from "../../../components/ErrorIndicator";
@@ -15,21 +14,10 @@ import SuccessIndicator from "../../../components/SuccessIndicator";
 import Super from "../../../components/Super";
 import SuperComponent from "../../../components/SuperComponent";
 import { useActiveItem } from "../../contexts/ActiveItemContext";
-import CandPassSetOverlay from "../../../components/CandPassSetOverlay";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home({
-  allJobsData,
-  allActiveJobsData,
-  allClosedJobsData,
-}) {
+export default function Home() {
   const router = useRouter();
   const { id } = router?.query;
-
-  //("all jobs data :", allJobsData);
-  //("all active jobs data :", allActiveJobsData);
-  //("all closed jobs data :", allClosedJobsData);
   const [finalData, setFinalData] = useState([]);
   const [allCandidatesReports, setAllCandidateReports] = useState();
   const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
@@ -43,20 +31,9 @@ export default function Home({
   const [isLoading, setIsLoading] = useState(false);
   const [companyName, setCompanyName] = useState(null);
   const [companyEmail, setCompanyEmail] = useState(null);
-  const [positionIdMain, setPositionIdMain] = useState();
   const [positionCandidates, setPositionCandidates] = useState();
-  const [preprocessedPositionCands, setPreprocessedPositionCands] = useState();
   const [currentPackage, setCurrentPackage] = useState("free");
   const [interviewCount, setInterviewCount] = useState(null);
-
-  const [showOverlay1, setShowOverlay1] = useState();
-
-  // useEffect(() => {
-  //   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  //   if (!isLoggedIn) {
-  //     router.push("/client-login");
-  //   }
-  // }, [router]);
 
   useEffect(() => {
     const token = localStorage.getItem("client-token");
@@ -180,23 +157,18 @@ export default function Home({
     }
   }, [id]);
 
-  useEffect(() => {
-    try {
-      if (positionCandidates && positionCandidates?.data) {
-        const candidates = preprocessCandidatesData(
-          positionCandidates?.data,
-          allCandidatesReports?.data
-        );
-        setPreprocessedPositionCands(candidates);
-        //(
-        //  "preprocessed candidates of a particular position:",
-          //candidates
-        //);
-      }
-    } catch (err) {
-      //("error in preprocessing:", err);
-    }
-  }, [positionCandidates]);
+  // useEffect(() => {
+  //   try {
+  //     if (positionCandidates && positionCandidates?.data) {
+  //       const candidates = preprocessCandidatesData(
+  //         positionCandidates?.data,
+  //         allCandidatesReports?.data
+  //       );
+  //     }
+  //   } catch (err) {
+  //     //("error in preprocessing:", err);
+  //   }
+  // }, [positionCandidates]);
 
   
   const preprocessCandidatesData = (candidates, company) => {

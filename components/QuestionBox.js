@@ -108,7 +108,7 @@ const QuestionBox = //forwardRef(
       };
 
       useEffect(() => {
-        if (hasAudioEnded) {
+        if (hasAudioEnded && process.env.NEXT_PUBLIC_NODE_ENV==="production") {
           deleteAudio();
         }
       }, [hasAudioEnded]);

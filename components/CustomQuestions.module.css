@@ -1,0 +1,44 @@
+.infoField {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #f8f7fa;
+    border-radius: 30px;
+    border: 1px solid #ebebeb;
+    /* max-height: 50%; */
+    font-size: 2rem;
+    padding-left: 10px;
+    display: flex;
+}
+
+.infoField.countryField img {
+    background-color: #ebebeb;
+    border-radius: 50%;
+}
+
+.infoField input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 1rem;
+    font-family: "Poppins", sans-serif;
+    height: 80%;
+}
+
+.infoField input:focus {
+    outline: slateblue;
+}
+
+.infoField select {
+    width: 95%;
+    border: none;
+    background-color: transparent;
+    padding: 1rem;
+    font-family: "Poppins", sans-serif;
+    /* height: 100%; */
+}
+
+.infoField select:focus {
+    outline: none;
+}

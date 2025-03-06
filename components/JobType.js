@@ -1,3 +1,4 @@
+import { useState } from "react";
 import CustomQuestions from "./CustomQuestions";
 import EditingContainer from "./EditingContainer";
 import JobInfoFields from "./JobInfoFields";
@@ -20,6 +21,8 @@ const JobType = ({
   customQuestions,
   setCustomQuestions
 }) => {
+
+  const [shouldOpenCustomQuestions,setShouldOpenCustomQuestions]= useState(false)
   
   return (
     <>
@@ -40,7 +43,7 @@ const JobType = ({
           descriptionRef={descriptionRef}
           setDescription={setDescription}
         />
-        <div className="flex w-full self-end">
+        <div className={styles.customQuestionsContainer}>
           Add Custom Questions +
         </div>
         <CustomQuestions/>
