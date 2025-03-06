@@ -115,16 +115,16 @@ const LoginOverlay = ({
   const redirectToClientPage = (clientId) => {
     router.push(`/client/${clientId}`);
   };
-  // useEffect(() => {
-  //   // Check if user is logged in
-  //   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  //   if (isLoggedIn) {
-  //     const clientId = localStorage.getItem("clientId");
-  //     if (clientId) {
-  //       redirectToClientPage(clientId);
-  //     }
-  //   }
-  // }, [router]);
+  useEffect(() => {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn) {
+      const clientId = localStorage.getItem("clientId");
+      if (clientId) {
+        redirectToClientPage(clientId);
+      }
+    }
+  }, [router]);
 
   const loginApiCall = async () => {
     const response = await fetch(
