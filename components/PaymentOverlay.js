@@ -8,6 +8,7 @@ import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
 import { checkout } from "@/util/Checkout";
 import PackagesCards from "./PackagesCards";
+import { useRouter } from "next/router";
 
 const PaymentOverlay = React.memo(
   ({
@@ -26,6 +27,37 @@ const PaymentOverlay = React.memo(
     const overlayRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isActive, setIsActive] = useState("monthly");
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const [customerId, setCustomerId] = useState(null);
+
+
+    const { id } = router.query
+
+     const handleBillingPortal = async () => {
+       setLoading(true);
+
+       try {
+        // const customerId = "cus_Rn5qXNL4ZS7M4Z";
+         const response = await fetch("/api/stripe_customer_portal", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify({ customerId }),
+         });
+
+         const data = await response.json();
+         if (data.url) {
+           window.location.href = data.url; // Redirect to Stripe Billing Portal
+         } else {
+           console.error("Error:", data.error);
+         }
+       } catch (error) {
+         console.error("API Error:", error);
+       } finally {
+         setLoading(false);
+       }
+     };
+
 
     useEffect(() => {
       document.body.style.overflow = "hidden";
@@ -57,6 +89,28 @@ const PaymentOverlay = React.memo(
         });
       };
     }, [showPaymentOverlay]);
+
+    async function getCompanyPayment(){
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-client-subscription?company_id=${id}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const data = await response.json();
+        setCustomerId(data?.data?.stripe_customer_id);
+
+    }
+
+
+    useEffect(() => {
+      if(id){
+
+        getCompanyPayment();
+      }
+    }, [id]);
 
     return (
       <>
@@ -114,6 +168,24 @@ const PaymentOverlay = React.memo(
                         <span className={styles.switch}></span>
                       </p>
                     </div> */}
+                    {currentPackage != "free" && (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "end",
+                          alignItems: "end",
+                        }}
+                      >
+                        <button
+                          className={`${styles.btn2} `}
+                          onClick={handleBillingPortal}
+                          disabled={loading}
+                        >
+                          {loading ? "Redirecting..." : "Manage Billing"}
+                        </button>
+                      </div>
+                    )}
+
                     <div className={styles.pricingButtons}>
                       <button
                         className={`${
@@ -140,6 +212,8 @@ const PaymentOverlay = React.memo(
                   companyEmail={companyEmail}
                   currentPackage={currentPackage}
                 />
+
+             
 
                 {/* <div>
                   <div className={styles.pricing_section}>
