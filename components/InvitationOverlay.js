@@ -27,6 +27,7 @@ const InvitationOverlay = ({
     try {
       const savedFormData =
         JSON.parse(localStorage.getItem("invitationFormData")) || {};
+        setFileName(savedData.fileName);
       //(savedFormData.name);
       nameRef.current.value = savedFormData.name || "";
       emailRef.current.value = savedFormData.email || "";
@@ -34,10 +35,14 @@ const InvitationOverlay = ({
       expertiseRef.current.value = savedFormData.expertise || "";
       countryRef.current.value = savedFormData.country || "";
       cityRef.current.value = savedFormData.city || "";
+      setCv(savedFormData.cv || null);
+      linkedinUrlRef.current.value = savedFormData.linkedinUrl || "";
     } catch (error) {
       console.error("Error loading form data from local storage:", error);
     }
   }, []);
+
+
 
   // //("expertise Item in invitationOverlay :", expertiseItem);
   const router = useRouter();
@@ -124,6 +129,7 @@ const InvitationOverlay = ({
   const [questionId, setQuestionId] = useState();
   const [cv, setCv] = useState(null);
   const [linkedinUrl, setLinkedinUrl] = useState(null);
+  const [linkedinUrlRef, setLinkedinUrlRef] = useState(null);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const cityRef = useRef(null);
@@ -136,10 +142,11 @@ const InvitationOverlay = ({
   const [allFieldsCheck, setAllFieldsCheck] = useState();
   const [reqBody, setReqBody] = useState(null);
   const cvRef = useRef(null);
+  const [fileName, setFileName] = useState(null);
 
   useEffect(() => {
     //("hey its me! req body", reqBody);
-  }, [name, city, country, expertise, contact, email]);
+  }, [name, city, country, expertise, contact, email, cv, linkedinUrl]);
 
   useEffect(() => {
     const allFields = validateAllFields();
@@ -215,13 +222,14 @@ const InvitationOverlay = ({
 
   useEffect(() => {
     if (
-      linkedinUrl?.match(
+      linkedinUrl && 
+      !linkedinUrl.match(
         /^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/
       )
     ) {
       setValidationErrors((errors) => ({
         ...errors,
-        linkedin_url: "Valid linkedin url is required.",
+        linkedin_url: "Valid LinkedIn URL is required.",
       }));
     } else {
       const { linkedin_url, ...rest } = validationErrors;
@@ -266,7 +274,10 @@ const InvitationOverlay = ({
       country &&
       country.trim() !== "" &&
       city &&
-      city.trim() !== ""
+      city.trim() !== "" &&
+      cv && 
+      linkedinUrl && 
+      linkedinUrl.match(/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/)
     );
   };
 
@@ -574,6 +585,9 @@ const InvitationOverlay = ({
         expertise: expertiseRef.current.value,
         country: countryRef.current.value,
         city: cityRef.current.value,
+        cv: cv,
+        linkedinUrl: linkedinUrlRef.current.value,
+        fileName: fileName,
       };
       localStorage.setItem("invitationFormData", JSON.stringify(formData));
     } catch (error) {
@@ -692,7 +706,6 @@ const InvitationOverlay = ({
                     cvRef={cvRef}
                     validationErrors={validationErrors}
                     name={name}
-                    setLinkedinUrl={setLinkedinUrl}
                     email={email}
                     contact={contact}
                     expertise={expertise}
@@ -715,6 +728,11 @@ const InvitationOverlay = ({
                     setExpertise={setExpertise}
                     setName={setName}
                     setCv={setCv}
+                    linkedinUrl = {linkedinUrl}
+                    setLinkedinUrl = {setLinkedinUrl}
+                    linkedinUrlRef = {linkedinUrlRef}
+                    fileName = {fileName}
+                    setFileName = {setFileName}
                   />
                   <div className={styles.wrapper}>
                     <PersonalInfoBtns

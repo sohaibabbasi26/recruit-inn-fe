@@ -1,16 +1,24 @@
 import blobToBase64 from "@/util/blobToBase64";
-import React, { forwardRef, useState } from "react";
-import styles from "./FileInputField.module.css"; // Ensure correct import of CSS
+import React, { forwardRef, useState, useEffect } from "react";
+import styles from "./FileInputField.module.css";
 
-const FileInputField = forwardRef(({ setCv }, ref) => {
-  const [fileName,setFileName]= useState(null);
+const FileInputField = forwardRef(({ setCv, cv, fileName, setFileName }, ref) => {
+  // Load filename when component mounts
+  useEffect(() => {
+    if (cv) {
+      // If you need to extract filename from base64 string (not recommended)
+      // const match = cv.match(/filename=([^;]+)/);
+      // if (match) setFileName(match[1]);
+      
+      // Better to use the stored filename from parent
+      setFileName(fileName);
+    }
+  }, [cv]);
 
   const onChangeFile = async (e) => {
     const file = e.target.files[0];
-    if (!file) {
-      console.log("no file upload");
-      return;
-    }
+    if (!file) return;
+    
     setFileName(file.name);
     const blob = new Blob([file], { type: file.type });
     const base64ConvertedUrl = await blobToBase64(blob);
@@ -19,15 +27,11 @@ const FileInputField = forwardRef(({ setCv }, ref) => {
 
   return (
     <div className={`${styles.infoField}`}>
-      {/* <Image src="/upload.svg" alt="Upload" width={20} height={20} /> */}
       <label className={styles.fileInputLabel}>
-        {
-          fileName??"Upload CV" 
-        }
+        {fileName || "Upload CV"}
         <input
           ref={ref}
           type="file"
-          title={fileName??"Upload CV"}
           accept="application/pdf"
           onChange={onChangeFile}
           className={styles.hiddenFileInput}
