@@ -26,7 +26,11 @@ const PersonalInfo = forwardRef(
       expertise,
       country,
       city,
-      setCv
+      setCv,
+      cv,
+      linkedinUrl,
+      fileName,
+      setFileName
     },
     ref
   ) => {
@@ -199,7 +203,13 @@ const PersonalInfo = forwardRef(
                   cvRef ? styles.filled : "a"
                 }`}
               >
-                <FileInputField ref={cvRef} setCv={setCv}/>
+              <FileInputField 
+  ref={cvRef}
+  setCv={setCv}
+  cv={cv}
+  fileName={fileName}
+  setFileName={setFileName}
+/>
                 {validationErrors?.cv && (
                   <div className={styles.errorMessage}>
                     {validationErrors.cv}
@@ -215,7 +225,7 @@ const PersonalInfo = forwardRef(
                 <input
                   placeholder="Enter your Linkedin Url"
                   type="text"
-                  //value={name}
+                  value={linkedinUrl}
                   onChange={handleInputChange(setLinkedinUrl)}
                 />
                 {validationErrors?.linkedin_url && (

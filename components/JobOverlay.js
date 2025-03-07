@@ -210,7 +210,7 @@ const JobOverlay = ({
         />
         <meta
           property="og:image"
-          content="https://app.recruitinn.ai/og-image.png"
+          content="https://app.recruitinn.ai/og-image.jpg"
         />
         <meta
           property="og:url"
