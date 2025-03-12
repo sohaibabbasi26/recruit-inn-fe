@@ -2,10 +2,13 @@
     width: 100%;
     padding: 10px;
     cursor: pointer;
-    color: #999;
+    color: #fff;
     font-size: 15px;
-    align-items: center;
+    align-items: start;
     display: flex;
+    background-color: #6137DB;
+    border-radius: 9999px;
+    margin-left: auto;
 }
 
 .hiddenFileInput {
@@ -13,10 +16,10 @@
 }
 
 .infoField input {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  padding: 1rem;
-  font-family: "Poppins", sans-serif;
+  /* width: 100%; */
+  /* border: none; */
+  /* background-color: transparent; */
+  /* padding: 1rem; */
   height: 80%;
+  /* font-family: "Pop/pins", sans-serif; */
 }
