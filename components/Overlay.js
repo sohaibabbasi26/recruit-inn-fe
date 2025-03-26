@@ -114,6 +114,7 @@ const Overlay = React.memo(
     const [isLevelEntered, setIsLevelEntered] = useState("");
     const [name, setName] = useState();
     const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
+     const [customQuestions, setCustomQuestions] = useState([""]);
 
     const handleReceiverChange = (index, field, value) => {
       const newReceivers = [...receivers];
@@ -295,6 +296,12 @@ const Overlay = React.memo(
     const handleFormSubmit = async () => {
       const jobType = jobTypeRef.current.value;
 
+      // Format custom questions
+      const formattedCustomQuestions = customQuestions.map((question) => ({
+        question,
+        type: "text", // You can modify this to allow different input types
+      }));
+
       const requestBody = {
         position: positionRef.current.value,
         company_id: id,
@@ -308,6 +315,7 @@ const Overlay = React.memo(
         is_test_required: isTestRequired,
         language: isArabicChosen ? "Arabic" : "English",
         coding_level: level,
+        custom_questions: formattedCustomQuestions,
       };
 
       //("request body:", requestBody);
@@ -686,6 +694,8 @@ const Overlay = React.memo(
                       setDescription={setDescription}
                       setCity={setCity}
                       setCountry={setCountry}
+                      setCustomQuestions={setCustomQuestions}
+                      customQuestions={customQuestions}
                     />
                     <div className={styles.wrapper}>
                       <JobTypeBtns
