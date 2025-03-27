@@ -18,7 +18,7 @@ const AdminOverlayBtns = ({password ,conformpassword, email, fillValidity, valid
         }
 
         if (password !== conformpassword) {
-            console.log("")
+            //("")
             showError('Password not match');
             return;
         }

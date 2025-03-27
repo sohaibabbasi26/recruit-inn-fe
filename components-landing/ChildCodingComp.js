@@ -33,17 +33,17 @@
 //   const isAllowed = language !== null;
 
 //   const { cid, a_id, pid } = router?.query;
-//   console.log("cid:", cid, "a_id:", a_id, "pid:", pid);
+//   //("cid:", cid, "a_id:", a_id, "pid:", pid);
 
 //   useEffect(() => {
-//     console.log("a_id", a_id);
-//     console.log("router:", router?.query);
+//     //("a_id", a_id);
+//     //("router:", router?.query);
 //   }, [a_id]);
 
 //   const getActiveComponent = () => {
 //     const activeFlow = localStorage.getItem("activeFlow");
 //     setActvflow(activeFlow);
-//     console.log("Current active flow:", activeFlow);
+//     //("Current active flow:", activeFlow);
 //     switch (activeFlow) {
 //       case "Candidate_self":
 //         return `/get-coding-assessment-self`;
@@ -93,11 +93,11 @@
 //         candidate_id: cid,
 //       };
 
-//       console.log(
+//       //(
 //         "API WE ARE GONNA SMASHHHHH:HHH",
 //         `${process.env.NEXT_PUBLIC_REMOTE_URL}${getActiveComponent()}`
 //       );
-//       console.log("req body:", requestBody);
+//       //("req body:", requestBody);
 //       const response = await fetch(
 //         `${process.env.NEXT_PUBLIC_REMOTE_URL}${getActiveComponent()}`,
 //         {
@@ -116,7 +116,7 @@
 //       const data = await response.json();
 //       setQuestion(data?.data?.assesment);
 //       setConstraints(data?.data?.assesment?.constraints);
-//       console.log("response of coding Question  : ", data);
+//       //("response of coding Question  : ", data);
 //     }
 //     fetchCodingQues();
 //   }, [router?.isReady]);
@@ -335,7 +335,7 @@ const CodingChild = ({
   const getActiveComponent = () => {
     const activeFlow = localStorage.getItem("activeFlow");
     setActvflow(activeFlow);
-    console.log("Current active flow:", activeFlow);
+    //("Current active flow:", activeFlow);
     switch (activeFlow) {
       case "Candidate_self":
         return `/get-coding-assessment-self`;
@@ -396,7 +396,7 @@ const CodingChild = ({
         const data = await response.json();
         setQuestion(data?.data?.assesment);
         setConstraints(data?.data?.assesment?.constraints);
-        console.log("response of coding Question  : ", data);
+        //("response of coding Question  : ", data);
       } catch (error) {
         console.error("Failed to fetch coding question:", error);
       }

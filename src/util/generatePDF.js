@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 
 export default async function generatePDF({setIsPdfLoading, contentRef, selectedCandidate}) {
-    console.log("generating pdf");
+    //("generating pdf");
     if (contentRef.current) {
       try {
         setIsPdfLoading(true);
@@ -27,7 +27,7 @@ export default async function generatePDF({setIsPdfLoading, contentRef, selected
       } catch (error) {
         console.error("Error generating PDF:", error);
         showError();
-        console.log(error);
+        //(error);
         // Handle error
       } finally {
         setIsPdfLoading(false);

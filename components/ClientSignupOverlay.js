@@ -30,7 +30,7 @@ const ClientSignUpOverlay = ({
   stages,
   stageHeadings,
 }) => {
-  console.log("stage headings:".stageHeadings);
+  //("stage headings:".stageHeadings);
   const overlayRef = useRef(null);
 
   useEffect(() => {
@@ -146,13 +146,13 @@ const ClientSignUpOverlay = ({
 
   const getActiveComponent = () => {
     const activeFlow = localStorage.getItem("activeFlow");
-    console.log("Current active flow:", activeFlow);
+    //("Current active flow:", activeFlow);
     switch (activeFlow) {
       case "Client":
         router.push(`/client-login`);
         return null;
       case "Admin":
-        console.log("its an admin flow!!!!");
+        //("its an admin flow!!!!");
         return null;
       default:
         return null;
@@ -176,10 +176,10 @@ const ClientSignUpOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("checking if client exists:", data);
+      //("checking if client exists:", data);
       return data;
     } catch (e) {
-      console.log(e);
+      //(e);
       setMessage("some expected error occurs");
       showError();
       return null;
@@ -247,7 +247,7 @@ const ClientSignUpOverlay = ({
             }
           );
           const data = await response.json();
-          console.log("login response:", data?.data?.data?.company_id);
+          //("login response:", data?.data?.data?.company_id);
           setCompanyId(data?.data?.data?.company_id);
           // await sendMail(data?.data?.data?.company_id);
           setMessage("A client account for you has been created!");
@@ -263,7 +263,7 @@ const ClientSignUpOverlay = ({
         }
       }
     } catch (err) {
-      console.log("ERR:", err);
+      //("ERR:", err);
       setMessage("An unexpected error occurred.");
       showError();
       setIsLoading(false);
@@ -281,7 +281,7 @@ const ClientSignUpOverlay = ({
       text: emailText,
     };
 
-    console.log("body data to be sent:", reqBody);
+    //("body data to be sent:", reqBody);
 
     try {
       const response = await fetch(
@@ -300,9 +300,9 @@ const ClientSignUpOverlay = ({
       }
 
       const data = await response.text();
-      console.log("Email sent successfully:", data);
+      //("Email sent successfully:", data);
     } catch (error) {
-      console.log("Error sending email:", error);
+      //("Error sending email:", error);
       setIsLoading(false);
     }
   };

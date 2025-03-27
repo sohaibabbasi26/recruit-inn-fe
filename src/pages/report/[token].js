@@ -25,8 +25,8 @@ export default function Token() {
   const [codingResult, setCodingResult] = useState();
   const [candidateInfo, setCandidateInfo] = useState(null);
   const [isCodingAssessment, setIsCodingAssessment] = useState(false);
-  const [candidateDetails,setDetails]= useState([]);
-  const [isPdfLoading,setIsPdfLoading]= useState(false);
+  const [candidateDetails, setDetails] = useState([]);
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
   const contentRef = useRef(null);
   const [isReportTokenValid, setIsReportTokenValid] = useState(false);
 
@@ -89,7 +89,7 @@ export default function Token() {
           setIsReportTokenValid(true);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     checkToken();
@@ -113,21 +113,21 @@ export default function Token() {
             }
           );
           const data = await response.json();
-          
+
           if (data?.data) {
             setResults(data?.data);
           }
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     //setIsLoading(true);
-    if(isReportTokenValid){
+    if (isReportTokenValid) {
       fetchResults();
     }
   }, [router?.isReady, candidateId, token]);
-  
+
   useEffect(() => {
     async function fetchCandidatesCodingResult() {
       //setIsLoading(true);
@@ -146,7 +146,7 @@ export default function Token() {
       );
 
       const data = await response.json();
-      console.log("data response:", data);
+      //("data response:", data);
       setCodingResult(data?.data);
       //
       //setIsLoading(false);
@@ -224,15 +224,16 @@ export default function Token() {
             <Item key={i} keyy={it.key} value={it.value} />
           ))}{" "}
         </div>
-        <button 
-        onClick={async()=>{
-          await generatePDF({
-            setIsPdfLoading,
-            contentRef,
-            selectedCandidate: candidateInfo
-          })
-        }}
-        className={`${styles.download_report_button} ${styles.button}`}>
+        <button
+          onClick={async () => {
+            await generatePDF({
+              setIsPdfLoading,
+              contentRef,
+              selectedCandidate: candidateInfo,
+            });
+          }}
+          className={`${styles.download_report_button} ${styles.button}`}
+        >
           <svg
             width="35"
             height="36"
@@ -386,6 +387,12 @@ export default function Token() {
               </div>
 
               <button
+                onClick={() =>
+                  window.open(
+                    `https://app.skillbuilder.online/career-counseling`,
+                    "_blank"
+                  )
+                }
                 className={`${styles.career_counseling_cta} ${styles.button}`}
               >
                 Book a Career Counseling Session with SkillBuilder.
@@ -435,12 +442,18 @@ export default function Token() {
             heading="Skill-Specific Courses"
           >
             <div className={`${styles.career_counseling} ${styles.course}`}>
-              <div className={styles.course_recommendation_card}>
+              <div
+                onClick={()=>window.open(
+                  `https://app.skillbuilder.online/courses/${recommendedCourse?.id}`,
+                  "_blank"
+                )}
+                className={styles.course_recommendation_card}
+              >
                 <div className={styles.course_recommendation_card_image}>
                   <Image
                     height={261.06}
                     width={421.85}
-                    src={`/${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
+                    src={`${process.env.NEXT_PUBLIC_SKILLBUILDER_URL}/media/course/${recommendedCourse?.image}`}
                     alt="Recommended Course Image"
                   />
                 </div>
@@ -465,7 +478,7 @@ export default function Token() {
                     className={styles.course_recommendation_card_content_level}
                   >
                     <CourseLevelSvg />
-                    Level: <span>beginner</span>
+                    Level: <span>{recommendedCourse?.level}</span>
                   </p>
                   <p
                     className={styles.course_recommendation_card_content_price}

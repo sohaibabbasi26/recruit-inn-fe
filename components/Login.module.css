@@ -47,12 +47,12 @@
 
 .signupPrompt {
  
-  margin-top: 10px;
+  margin-top: 2rem;
   margin-left: auto;
 }
 
 .signupLink {
-  color: #007bff;
+  color:  #6137db;
   cursor: pointer;
   font-weight: bold;
 }

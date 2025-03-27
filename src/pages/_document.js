@@ -4,9 +4,9 @@ export default function Document() {
   return (
     <Html lang="en" suppressHydrationWarning>
       <Head>
-        {/* <title>
-          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
-        </title> */}
+        <title>
+        AI Recruitment | Recruitinn
+        </title>
           <link rel="canonical" href="https://app.recruitinn.ai/invited-candidate?position_id=<%= position_id %>&client_id=<%= client_id %>" />
 
 
@@ -24,15 +24,12 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://app.recruitinn.ai/og-image.png"
+          content="https://app.recruitinn.ai/og-image.jpg"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
-        <meta
-          property="og:image"
-          content="https://app.recruitinn.ai/og-image.png"
-        />
+        
 
         <meta
           property="og:image:alt"

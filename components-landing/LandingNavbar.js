@@ -26,7 +26,7 @@ const LandingNavbar = ({
         },
       });
       const data = await response.json();
-      console.log("Event Details:", data);
+      //("Event Details:", data);
       // Access the date and time from the response, e.g., data.start_time
     } catch (error) {
       console.error("Error fetching event details:", error);
@@ -35,7 +35,7 @@ const LandingNavbar = ({
 
   useCalendlyEventListener({
     onEventScheduled: (e) => {
-      console.log("Fetching event details from:", e.data.payload.event.uri);
+      //("Fetching event details from:", e.data.payload.event.uri);
       getEventDetails(e.data.payload.event.uri);
     },
   });
@@ -90,14 +90,14 @@ const LandingNavbar = ({
                 <span
                   ref={buttonRef}
                   onClick={() => setIsOpen(true)}
-                  className="px-14 py-3.5 bg-[#F0F3FF] text-[#170D23]  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105"
+                  className="px-14 py-3.5 bg-[#F0F3FF]  text-[#170D23] min-w-fit  dark:text-white text-md max-xl:text-sm btn-gradient cursor-pointer rounded-3xl font-semibold hover:transition hover:duration-300 hover:delay-300 hover:ease-in-out hover:text-white hover:bg-[#6137DB] hover:scale-105"
                 >
                   {t("Navbar.N_btn_demo")}
                 </span>
                 <div className="flex gap-2 max-xl:gap-2">
                   <a
                     href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}
-                    className="px-10 py-3.5 bg-gradient-to-r from-[#220772] to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
+                    className="px-10 py-3.5 bg-gradient-to-r from-[#220772] min-w-fit to-[#6137DB] text-white  dark:text-white text-md max-xl:text-sm btn-gradient rounded-3xl font-semibold hover:transition hover:delay-500 duration-300 hover:ease-in-out  hover:bg-gradient-to-r hover:from-[#D8DEFF] hover:to-[#6137DB] hover:scale-105"
                   >
                     {t("Navbar.N_btn_recruit")}
                   </a>

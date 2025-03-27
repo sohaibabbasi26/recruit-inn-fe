@@ -47,7 +47,7 @@ const invitedCandidate = () => {
         }
       );
       const data = await response.json();
-      console.log("conduct test response:", data?.data?.shouldConductTest);
+      //("conduct test response:", data?.data?.shouldConductTest);
       setShouldConductTest(data?.data?.shouldConductTest);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -75,7 +75,7 @@ const invitedCandidate = () => {
   };
 
   const showOverlay = true;
-  //console.log(router.asPath);
+  ////(router.asPath);
   //const { position_id, client_id, q_id, test_req, language } = router.query;
   //const metaUrl = `https://app.recruitinn.ai/invited-candidate?position_id=${position_id}&client_id=${client_id}&q_id=${q_id}&test_req=${test_req}&language=${language}`;
 
@@ -96,7 +96,7 @@ const invitedCandidate = () => {
         />
         <meta
           property="og:image"
-          content="https://app.recruitinn.ai/og-image.png"
+          content="https://app.recruitinn.ai/og-image.jpg"
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>

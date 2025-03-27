@@ -160,8 +160,8 @@ i18n
                 "heading": "Hire an entire team of Developers from us.",
                 "message":
                   "RecruitInn.ai delivered outstanding results, simplifying our hiring process and letting us focus on top candidates effortlessly.",
-                "author": "syed Zubair Alam",
-                "designation": "Founder, Co-VenTech",
+                "author": "Saad Salman",
+                "designation": "Sales Representative, Linkify",
                 "image": "/avt1.png",
               },
               {
@@ -346,9 +346,9 @@ i18n
             "IS_TopTalent": "المواهب الأفضل",
           },
           "RecruitInnProcess": {
-            "RP_txt1": "تقارير المرشحين المدعومة بالذكاء الاصطناعي توفر رؤى فورية حول المهارات التقنية والشخصية، مع توصيات ذكية لأفضل تطابق.",
-            "RP_txt2": "إنشاء الوظائف المخصص يمكّن العملاء من تحديد الأدوار، وإضافة المهارات، وإنشاء مقابلات مدعومة بالذكاء الاصطناعي.",
-            "RP_txt3": "تقييمات البرمجة الفورية تقيس المهارات التقنية عبر اختبارات تفاعلية."
+            "RP_txt1": "تقارير المرشحين المدعومة بالذكاء الاصطناعي توفر رؤى فورية حول المهارات التقنية والشخصية، مع توصيات ذكية لأفضل تطابق",
+            "RP_txt2": "-إنشاءالوظائف المخصص يمكّن العملاء من تحديد الأدوار، وإضافة المهارات، وإنشاء مقابلات مدعومة بالذكاء الاصطناعي",
+            "RP_txt3": "-تقييمات البرمجة الفورية تقيس المهارات التقنية عبر اختبارات تفاعلية"
           },
 
           "FeaturesSection": {
@@ -383,8 +383,8 @@ i18n
                 "id": 1,
                 "heading": "وظّف فريقًا كاملاً من المطورين من خلالنا.",
                 "message": "قدمت RecruitInn.ai نتائج رائعة، حيث بسّطت عملية التوظيف لدينا وجعلتنا نركز على أفضل المرشحين بسهولة.",
-                "author": "سيد زبير عالم",
-                "designation": "المؤسس، Co-VenTech",
+                "author": "سعد سلمان",
+                "designation": "ممثل مبيعات، Linkify",
                 "image": "/avt1.png"
               },
               {

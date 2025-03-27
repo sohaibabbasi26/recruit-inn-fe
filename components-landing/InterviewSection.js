@@ -212,7 +212,7 @@
 //         trigger: interviewSectionRef.current,
 //         start: "-100px center",
 //         onEnter: () => {
-//           console.log("Restart the timeline");
+//           //("Restart the timeline");
 //           tl.restart();
 //         },
 //         once: true,

@@ -10,10 +10,10 @@
 //   setReportOverlay,
 //   setSelectedCandidate,
 // }) => {
-//   console.log("data in candidates Hub:", data);
+//   //("data in candidates Hub:", data);
 
-//   console.log(data[0]?.results);
-//   console.log(data[0]?.score);
+//   //(data[0]?.results);
+//   //(data[0]?.score);
 
 //   const sortData = data;
 //   // const sortedData = sortData.sort(
@@ -178,9 +178,9 @@ const CandidatesHub = ({
   setReportOverlay,
   setSelectedCandidate,
 }) => {
-  console.log("data in candidates Hub:", data);
-  console.log(data[0]?.results);
-  console.log(data[0]?.score);
+  //("data in candidates Hub:", data);
+  //(data[0]?.results);
+  //(data[0]?.score);
   const sortData = [...data];
   // const sortedData = sortData.sort(
   //   (a, b) => parseFloat(b.score) - parseFloat(a.score)

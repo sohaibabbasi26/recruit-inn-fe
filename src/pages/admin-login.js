@@ -21,11 +21,15 @@ const AdminLogin = () => {
   };
 
   const loginApiCall = async () => {
-    console.log("URL:", `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`);
+    // Clear local storage
+    localStorage.clear();
+
+    //("URL:", `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -53,7 +57,7 @@ const AdminLogin = () => {
       alert("Login failed. Please check your credentials.");
     }
   };
-  console.log("NODE ENV", process.env.NODE_ENV);
+  //("NODE ENV", process.env.NODE_ENV);
 
   const showError = (message) => {
     setShowErrorMessage(true);

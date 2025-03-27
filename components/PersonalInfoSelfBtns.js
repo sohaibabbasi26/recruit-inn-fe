@@ -12,11 +12,11 @@ const PersonalInfoSelfBtns = ({ showSuccess, validatePasswordReciever , validate
         // if (!fillValidity()) {
         //     setMessage("Fill all the fields")
         //     showError()
-        //     console.log("in fill validatity!")
+        //     //("in fill validatity!")
         //     return
         // }
         // if(password.length < 8) {
-        //     console.log("in password length check!")
+        //     //("in password length check!")
         //     setMessage("Password must be at least 8 characters long ");            
         //     showError();
         //     return
@@ -30,7 +30,7 @@ const PersonalInfoSelfBtns = ({ showSuccess, validatePasswordReciever , validate
         if (!validateEmailReceiver()) {
             setMessage("Please enter a valid email address")
             showError();
-            console.log("in email validatity!")
+            //("in email validatity!")
             return;
         }
 
@@ -48,7 +48,7 @@ const PersonalInfoSelfBtns = ({ showSuccess, validatePasswordReciever , validate
 
 
         // if (password !== confirmPassword) {
-        //     console.log("in password validity!")
+        //     //("in password validity!")
         //     setMessage("Passwords doesn't match");
         //     showError();
         //     return;

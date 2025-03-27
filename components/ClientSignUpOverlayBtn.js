@@ -27,7 +27,7 @@ const ClientSignUpOverlayBtn = ({
     if (!fillValidity()) {
       setMessage("Fill all the fields");
       showError();
-      console.log("in fill validatity!");
+      //("in fill validatity!");
       return;
     }
     if (
@@ -35,7 +35,7 @@ const ClientSignUpOverlayBtn = ({
         password
       )
     ) {
-      console.log("in password length check!");
+      //("in password length check!");
       setMessage(
         "Password must contain at least one capital letter, one number, and one special character."
       );
@@ -51,7 +51,7 @@ const ClientSignUpOverlayBtn = ({
     if (!validateEmailReceiver()) {
       setMessage("Please enter a valid email address");
       showError();
-      console.log("in email validatity!");
+      //("in email validatity!");
 
       return;
     }
@@ -63,12 +63,12 @@ const ClientSignUpOverlayBtn = ({
     }
 
     if (password !== confirmPassword) {
-      console.log("in password validity!");
+      //("in password validity!");
       setMessage("Passwords doesn't match");
       showError();
       return;
     }
-    console.log("butonnnif");
+    //("butonnnif");
 
     await handleFormSubmit();
     onClose();

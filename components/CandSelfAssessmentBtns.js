@@ -6,18 +6,18 @@ const CandSelfAssessmentBtns = ({testReq, assessmentId, isTestRequired, setIsLoa
 
     const navigationIconSize = 30;
     const router = useRouter();
-    console.log('assessmentID in candSelfAss:',assessmentId);
-    console.log("Is test Required:", isTestRequired);
+    //('assessmentID in candSelfAss:',assessmentId);
+    //("Is test Required:", isTestRequired);
 
     
     const startAssessmentHandler = () => {
-        console.log('assessmentID:',assessmentId);
+        //('assessmentID:',assessmentId);
         if(assessmentId){
-            console.log('assessmentID:',assessmentId);
-            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
+            //('assessmentID:',assessmentId);
+            //(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
             router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
         }else{
-            console.log(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
+            //(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
             router.push(`/test?cid=${candidateId}&qid=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`);
         }
     }

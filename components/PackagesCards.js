@@ -24,10 +24,7 @@ const packages = {
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? `${process.env.NEXT_PUBLIC_URL}`
             : "",
-        priceId:
-          process.env.NEXT_PUBLIC_NODE_ENV === "development"
-            ? ""
-            : "",
+        priceId: process.env.NEXT_PUBLIC_NODE_ENV === "development" ? "" : "",
       },
     },
 
@@ -44,11 +41,11 @@ const packages = {
         link:
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? "https://buy.stripe.com/test_14k8wZbYtaYdare000"
-            : "",
+            : "https://buy.stripe.com/3csdTc4SXcJtaHu3ce",
         priceId:
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? "price_1QbfpTIbmKDX9zs5CJCWmiQ2"
-            : "",
+            : "price_1QrdF5IbmKDX9zs52cPWgvje",
       },
     },
     {
@@ -66,11 +63,11 @@ const packages = {
         link:
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? "https://buy.stripe.com/test_eVa3cF7Ideap9nabIJ"
-            : "",
+            : "https://buy.stripe.com/6oE5mG7157p93f2289",
         priceId:
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? "price_1QbfrMIbmKDX9zs5Q5sr45a3"
-            : "",
+            : "price_1QrdF3IbmKDX9zs5QcypqKeK",
       },
     },
     {
@@ -89,11 +86,11 @@ const packages = {
         link:
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? "https://buy.stripe.com/test_3cs00t5A55DT42QbIK"
-            : "",
+            : "https://buy.stripe.com/00g7uOfxB7p9cPC000",
         priceId:
           process.env.NEXT_PUBLIC_NODE_ENV === "development"
             ? "price_1QbfsIIbmKDX9zs54maF5Vpa"
-            : "",
+            : "price_1QrdEzIbmKDX9zs5O6Rx409r",
       },
     },
   ],
@@ -104,7 +101,7 @@ export default function PackagesCards({ companyEmail, currentPackage}) {
    const router = useRouter();
    const { id } = router?.query;
 
-   console.log("Current Packkage iss", currentPackage)
+   //("Current Packkage iss", currentPackage)
 
 
   const handleCheckout = async (pack) => {

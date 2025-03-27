@@ -158,7 +158,7 @@ export default function PaymentMethods({t}) {
         />
       </div>
       {/* mobile screnn */}
-      <div className="hidden max-md:block">
+      <div className="hidden w-[90%]  max-md:block">
         <div className="flex h-[100%] w-[100%] flex-col items-center mb-[3rem] max-md:text-center">
           <PaymentCard
           t={t}

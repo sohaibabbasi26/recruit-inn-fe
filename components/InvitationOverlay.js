@@ -23,23 +23,28 @@ const InvitationOverlay = ({
   stageHeadings,
 }) => {
   useEffect(() => {
-    console.log("data saved successfully");
+    //("data saved successfully");
     try {
       const savedFormData =
         JSON.parse(localStorage.getItem("invitationFormData")) || {};
-      console.log(savedFormData.name);
+        setFileName(savedData.fileName);
+      //(savedFormData.name);
       nameRef.current.value = savedFormData.name || "";
       emailRef.current.value = savedFormData.email || "";
       contactRef.current.value = savedFormData.contact || "";
       expertiseRef.current.value = savedFormData.expertise || "";
       countryRef.current.value = savedFormData.country || "";
       cityRef.current.value = savedFormData.city || "";
+      setCv(savedFormData.cv || null);
+      linkedinUrlRef.current.value = savedFormData.linkedinUrl || "";
     } catch (error) {
       console.error("Error loading form data from local storage:", error);
     }
   }, []);
 
-  // console.log("expertise Item in invitationOverlay :", expertiseItem);
+
+
+  // //("expertise Item in invitationOverlay :", expertiseItem);
   const router = useRouter();
   const { client_id } = router.query;
   const { position_id } = router.query;
@@ -48,24 +53,24 @@ const InvitationOverlay = ({
   const { a_id } = router.query;
   const { language } = router.query;
 
-  console.log("client_id:", client_id);
-  console.log("position_id is :", position_id);
+  //("client_id:", client_id);
+  //("position_id is :", position_id);
 
   useEffect(() => {
-    console.log("position_id ", position_id);
+    //("position_id ", position_id);
     try {
       const newExpertise = localStorage.getItem("expertiseData");
 
       if (newExpertise) {
         const parsedExpertise = JSON.parse(newExpertise);
-        console.log("parsedExpertise:", parsedExpertise);
+        //("parsedExpertise:", parsedExpertise);
         // setNewExpert(parsedExpertise);
-        console.log("expertisE:", newExpert);
-        console.log("newExpertise:", newExpertise);
+        //("expertisE:", newExpert);
+        //("newExpertise:", newExpertise);
         setCandidateExpertise(parsedExpertise);
-        console.log("New expertise:", parsedExpertise);
+        //("New expertise:", parsedExpertise);
       } else {
-        console.log("No expertise data found in local storage.");
+        //("No expertise data found in local storage.");
       }
     } catch (error) {
       console.error("Error parsing expertise data:", error);
@@ -105,7 +110,6 @@ const InvitationOverlay = ({
     };
   }, [showOverlay, onClose]);
 
-  const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.JOB_DETAIL);
   const [completedStages, setCompletedStages] = useState([]);
   const [name, setName] = useState();
@@ -118,12 +122,14 @@ const InvitationOverlay = ({
   const [newToken, setNewToken] = useState(null);
   const [newId, setNewId] = useState(null);
   const [newExpert, setNewExpert] = useState(null);
-  const [clientName, setClientName] = useState(null);
   const [clientData, setClientData] = useState(null);
   const [positionId, setPositionId] = useState(null);
   const [positionData, setPositionData] = useState(null);
   const [positionStatus, setPositionStatus] = useState(null);
   const [questionId, setQuestionId] = useState();
+  const [cv, setCv] = useState(null);
+  const [linkedinUrl, setLinkedinUrl] = useState(null);
+  const [linkedinUrlRef, setLinkedinUrlRef] = useState(null);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const cityRef = useRef(null);
@@ -135,14 +141,16 @@ const InvitationOverlay = ({
   const [validationErrors, setValidationErrors] = useState({});
   const [allFieldsCheck, setAllFieldsCheck] = useState();
   const [reqBody, setReqBody] = useState(null);
+  const cvRef = useRef(null);
+  const [fileName, setFileName] = useState(null);
 
   useEffect(() => {
-    console.log("hey its me! req body", reqBody);
-  }, [name, city, country, expertise, contact, email]);
+    //("hey its me! req body", reqBody);
+  }, [name, city, country, expertise, contact, email, cv, linkedinUrl]);
 
   useEffect(() => {
     const allFields = validateAllFields();
-    console.log("all fields:", allFields);
+    //("all fields:", allFields);
     setAllFieldsCheck(allFields);
 
     if (!validateAllFields) {
@@ -168,7 +176,7 @@ const InvitationOverlay = ({
     const nameRegex = /^[a-zA-Z]+(?:[.\s][a-zA-Z]+)*$/;
     if (name && !nameRegex.test(name)) {
       setValidationErrors((errors) => ({ ...errors, name: "Invalid name" }));
-      console.log("Name regex condition");
+      //("Name regex condition");
     } else {
       const { name, ...rest } = validationErrors;
       setValidationErrors(rest);
@@ -213,6 +221,35 @@ const InvitationOverlay = ({
   }, [city]);
 
   useEffect(() => {
+    if (
+      linkedinUrl && 
+      !linkedinUrl.match(
+        /^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/
+      )
+    ) {
+      setValidationErrors((errors) => ({
+        ...errors,
+        linkedin_url: "Valid LinkedIn URL is required.",
+      }));
+    } else {
+      const { linkedin_url, ...rest } = validationErrors;
+      setValidationErrors(rest);
+    }
+  }, [linkedinUrl]);
+
+  useEffect(() => {
+    if (cv?.trim() === "") {
+      setValidationErrors((errors) => ({
+        ...errors,
+        uploaded_cv: "CV is required",
+      }));
+    } else {
+      const { uploaded_cv, ...rest } = validationErrors;
+      setValidationErrors(rest);
+    }
+  }, [cv]);
+
+  useEffect(() => {
     if (expertise?.trim() === "") {
       setValidationErrors((errors) => ({
         ...errors,
@@ -237,31 +274,15 @@ const InvitationOverlay = ({
       country &&
       country.trim() !== "" &&
       city &&
-      city.trim() !== ""
+      city.trim() !== "" &&
+      cv && 
+      linkedinUrl && 
+      linkedinUrl.match(/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/)
     );
   };
 
   const handleContinue = () => {
     const errors = {};
-    let isFormIncomplete = false;
-    let specificMsg = false;
-    console.log("validate all fields ", validateAllFields());
-    console.log("Form Incomplete: ", isFormIncomplete, "Errors: ", errors);
-
-    console.log(
-      "Debug: Name:",
-      name,
-      "Email:",
-      email,
-      "city:",
-      city,
-      "Country",
-      country,
-      "expertise: ",
-      expertise,
-      "contact:",
-      contact
-    );
 
     setReqBody({
       job_type: jobType,
@@ -274,27 +295,11 @@ const InvitationOverlay = ({
       applied_through: clientData?.client_name,
       company_id: newId,
       expertise: newExpert,
+      uploaded_cv: cv,
+      linkedin_url: linkedinUrl,
     });
 
     let isValid = true; // Assume the form is valid initially
-
-    // if (!allFieldsCheck) {
-    //     console.log('isnide if condition:', !allFieldsCheck)
-    //     setMessage('Please make sure to fill all the fields correctly.')
-    //     showSuccess();
-    //     errors.fieldsAreEmpty = 'Please make sure to fill all the fields correctly.';
-    //     isValid = false;
-    // }
-
-    console.log(
-      "All fields value :",
-      name,
-      email,
-      contact,
-      expertise,
-      country,
-      city
-    );
 
     // Simple validation checks
     if (!name?.trim()) {
@@ -349,16 +354,35 @@ const InvitationOverlay = ({
       isValid = false;
     }
 
+    if (!cv?.trim()) {
+      errors.cv = "CV is required";
+      isValid = false;
+    }
+
+    // if(!linkedinUrl?.trim()){
+    //   errors.linkedinUrl = "Please enter your linkedin url";
+    //   isValid = false;
+    // }
+
+    if (
+      !linkedinUrl?.match(
+        /^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/
+      )
+    ) {
+      errors.linkedin_url = "Please enter a valid linkedin url";
+      isValid = false;
+    }
+
     setValidationErrors(errors);
 
     const hasErrors = Object.keys(validationErrors).length > 0;
     const error = Object.keys(validationErrors);
-    console.log("hasErrors:", error);
-    console.log("hasError: ", hasErrors);
+    //("hasErrors:", error);
+    //("hasError: ", hasErrors);
 
     if (!hasErrors) {
       setShowSuccessMessage(false);
-      console.log("Form submitted successfully!");
+      //("Form submitted successfully!");
       toggleComponent();
     }
     // } else if (name?.trim() === '' && email?.trim() === '' && contact?.trim() === '' && expertise?.trim() === '' && country?.trim() === '' && city?.trim() === '') {
@@ -382,9 +406,9 @@ const InvitationOverlay = ({
   //             case stages.PERSONAL_INFO:
 
   //                 const allFields = validateAllFields();
-  //                 console.log('all fields bool var before flip:', allFields);
+  //                 //('all fields bool var before flip:', allFields);
   //                 if (!allFields) {
-  //                     console.log('all fields bool var after flip:', allFields);
+  //                     //('all fields bool var after flip:', allFields);
   //                     setMessage('Please make sure to fill all the fields correctly.')
   //                     showSuccess();
   //                 } else {
@@ -409,7 +433,7 @@ const InvitationOverlay = ({
         break;
       case stages.PERSONAL_INFO:
         isValid = validateAllFields();
-        console.log("validation :", validateAllFields());
+        //("validation :", validateAllFields());
 
         if (!isValid || isValid == undefined) {
           setMessage("Please make sure to fill all the fields correctly.");
@@ -429,7 +453,7 @@ const InvitationOverlay = ({
   //     //     const isValid = validateAllFields(); // Ensure this function accurately checks all fields
   //     //     if (!isValid) {
   //     //         // If not valid, possibly show an error message to the user
-  //     //         console.log("value of invalid" , isValid)
+  //     //         //("value of invalid" , isValid)
   //     //         setMessage('Please make sure to fill all the fields correctly.');
   //     //         showSuccess(); // Assuming this function shows the message
   //     //         return; // Do not proceed to the next stage
@@ -446,7 +470,7 @@ const InvitationOverlay = ({
   //             break;
   //         case stages.PERSONAL_INFO:
   //             isvalid1 = validateAllFields();
-  //             console.log("valid 1: ",isvalid1);
+  //             //("valid 1: ",isvalid1);
   //             if (isvalid1) {
   //                 setMessage("Please fill in at least one skill.");
   //                 showError();
@@ -460,12 +484,12 @@ const InvitationOverlay = ({
   // };
 
   useEffect(() => {
-    console.log("newExpert:", newExpert);
+    //("newExpert:", newExpert);
   }, [newExpert]);
 
   useEffect(() => {
     setQuestionId(q_id);
-    console.log("quesiton id:", questionId);
+    //("quesiton id:", questionId);
   }, [q_id]);
 
   const backToggleComponent = () => {
@@ -488,8 +512,8 @@ const InvitationOverlay = ({
     const { client_id } = router.query;
     const { position_id } = router.query;
 
-    console.log("client id:", client_id);
-    console.log("position id:", position_id);
+    //("client id:", client_id);
+    //("position id:", position_id);
     setPositionId(position_id);
     setNewId(client_id);
   }, [router.isReady, router.query]);
@@ -514,7 +538,7 @@ const InvitationOverlay = ({
       );
       const data = await response.json();
       setClientData(data?.data);
-      console.log("one company data:", data?.data);
+      //("one company data:", data?.data);
     }
     if (client_id) {
       fetchOneCompany();
@@ -544,8 +568,8 @@ const InvitationOverlay = ({
       setPosition(data?.data?.position);
       setPositionStatus(data?.data?.status);
       setJobType(data?.data?.job_type);
-      console.log("one position data:", data?.data);
-      console.log("position Status", data?.data?.status);
+      //("one position data:", data?.data);
+      //("position Status", data?.data?.status);
     }
     if (position_id) {
       fetchOnePosition();
@@ -561,6 +585,9 @@ const InvitationOverlay = ({
         expertise: expertiseRef.current.value,
         country: countryRef.current.value,
         city: cityRef.current.value,
+        cv: cv,
+        linkedinUrl: linkedinUrlRef.current.value,
+        fileName: fileName,
       };
       localStorage.setItem("invitationFormData", JSON.stringify(formData));
     } catch (error) {
@@ -569,15 +596,16 @@ const InvitationOverlay = ({
   };
 
   const createCandidate = async () => {
-    console.log("request body: ", reqBody);
-    console.log("new token:", newToken, "and new id:", newId);
-    console.log("request body: ", reqBody);
+    //("request body: ", reqBody);
+    //("new token:", newToken, "and new id:", newId);
+    //("request body: ", reqBody);
 
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-info`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${newToken}`,
@@ -586,7 +614,7 @@ const InvitationOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("candidate data :", data?.data?.data?.candidate_id);
+      //("candidate data :", data?.data?.data?.candidate_id);
       return data?.data?.data?.candidate_id;
     } catch (error) {
       console.error("Error creating candidate:", error);
@@ -595,12 +623,12 @@ const InvitationOverlay = ({
 
   const redirectToTestPage = async () => {
     const candidateId = await createCandidate();
-    console.log("candidate id:", candidateId);
+    //("candidate id:", candidateId);
     if (candidateId) {
-      console.log("REDIRECTING TO:");
-      console.log(
-        `/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
-      );
+      //("REDIRECTING TO:");
+      //(
+      //`/test?cid=${candidateId}&pid=${positionId}&test_req=${test_req}}&a_id=${a_id}&language=${language}`
+      // );
       router.push(
         `/test?cid=${candidateId}&qid=${questionId}&pid=${positionId}&test_req=${test_req}&a_id=${a_id}&language=${language}&client_id=${client_id}`
       );
@@ -612,7 +640,7 @@ const InvitationOverlay = ({
     description: positionData?.description,
   };
   useEffect(() => {
-    console.log("job details:", jobDetails);
+    //("job details:", jobDetails);
   }, []);
 
   return (
@@ -675,6 +703,7 @@ const InvitationOverlay = ({
               {currentStage === stages.PERSONAL_INFO && (
                 <>
                   <PersonalInfo
+                    cvRef={cvRef}
                     validationErrors={validationErrors}
                     name={name}
                     email={email}
@@ -698,6 +727,12 @@ const InvitationOverlay = ({
                     setEmail={setEmail}
                     setExpertise={setExpertise}
                     setName={setName}
+                    setCv={setCv}
+                    linkedinUrl = {linkedinUrl}
+                    setLinkedinUrl = {setLinkedinUrl}
+                    linkedinUrlRef = {linkedinUrlRef}
+                    fileName = {fileName}
+                    setFileName = {setFileName}
                   />
                   <div className={styles.wrapper}>
                     <PersonalInfoBtns

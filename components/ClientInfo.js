@@ -40,7 +40,7 @@ const ClientInfo = ({
 
   const handleInputChange = (setter) => (event) => {
     setter(event.target.value);
-    // console.log(getCities(country));
+    // //(getCities(country));
   };
 
   return (

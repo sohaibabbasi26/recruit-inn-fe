@@ -225,6 +225,16 @@
   font-weight: 900;
 }
 
+.view_cv_button.button {
+  background-color: theme(colors.primary);
+  color: white;
+  padding: 7px;
+  /* margin-top: 1rem; */
+  margin-left: auto;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
 /* Overview */
 .overall_report_wrapper > *:not(:last-child) {
   margin-bottom: 1.875rem;
@@ -375,6 +385,7 @@
   border-radius: 1.125rem;
   position: relative;
   border: 1px solid #dedede;
+  cursor: pointer;
 }
 
 .course_recommendation_card_image {

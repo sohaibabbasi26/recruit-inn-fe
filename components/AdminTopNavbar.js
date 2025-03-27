@@ -42,12 +42,12 @@ const AdminTopNavbar = ({
     if (!query) return;
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=e03fef44-34b7-4833-93a4-1ef439866712`
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}`
       );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      console.log("search API:", data);
+      // ("search API:", data);
       setSearchResults(data);
     } catch (error) {
       console.error("Failed to fetch search results:", error);
@@ -67,7 +67,7 @@ const AdminTopNavbar = ({
 
   useEffect(() => {
     if (query.trim()) {
-      console.log("is clicked:", isClicked);
+      //("is clicked:", isClicked);
       searchApiCall(query, searchType);
       if (isClicked) {
         setSearchResults(query, searchType);
@@ -77,7 +77,7 @@ const AdminTopNavbar = ({
   }, [isClicked]);
 
   const focusSearchInput = () => {
-    console.log("Search field clicked!");
+    //("Search field clicked!");
     setIsClicked(true);
     if (searchInputRef.current) searchInputRef.current.focus();
 
@@ -122,23 +122,26 @@ const AdminTopNavbar = ({
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+
+
+        
         body: JSON.stringify(requestBody),
       }
     );
     const fullCandidateData = await response.json();
-    console.log("///////////////////////////", fullCandidateData);
+    //("///////////////////////////", fullCandidateData);
 
     // Set the fetched candidate data as the selected candidate
     setSelectedCandidate({
       ...candidate,
       results: fullCandidateData?.data?.result,
     });
-    console.log("HIIII FROM SEARCH");
+    //("HIIII FROM SEARCH");
     setReportOverlay(!reportOverlay);
   };
   useEffect(() => {
     // let isMounted = true;
-    // console.log('client_id:', id)
+    // //('client_id:', id)
     // localStorage.setItem('clientId', id);
     // const token = localStorage.getItem('client-token');
     // setToken(token)
@@ -160,9 +163,9 @@ const AdminTopNavbar = ({
         }
       );
 
-      console.log("response: ", response);
+      //("response: ", response);
       if (!response.ok) {
-        console.log(`Error: ${response.status}`);
+        //(`Error: ${response.status}`);
       }
       const allData = await response.json();
       //   if (isMounted) {
@@ -170,7 +173,7 @@ const AdminTopNavbar = ({
       setResults(allData);
       // setIsLoading(false);
       //   }
-      console.log("jsonified candidates response: ", allData);
+      //("jsonified candidates response: ", allData);
     }
     fetchAllCandidateReports();
     // return () => {

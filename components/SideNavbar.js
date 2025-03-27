@@ -44,7 +44,7 @@ const SideNavbar = ({
           setActiveItem(savedActiveItem);
         }
       } catch (err) {
-        console.log("ERROR:", err);
+        //("ERROR:", err);
       } finally {
         setIsLoading(false); // Turn off the loader after 2 seconds or when the process is done, whichever is later
       }
@@ -60,7 +60,7 @@ const SideNavbar = ({
 
   const openAddJobHandler = () => {
     setShowOverlay(true);
-    console.log("clicking button");
+    //("clicking button");
   };
 
   const handleItemClick = (itemName) => {
@@ -86,15 +86,33 @@ const SideNavbar = ({
     }
   }, [setActiveItem]);
 
-  const logoutHandler = () => {
-    // Remove cookie
-    document.cookie =
-      "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    localStorage.removeItem("client-token");
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("clientId");
-    localStorage.clear(); // Optionally clear all local storage
-    router.push("/client-login"); // Adjust this to your login path
+  const logoutHandler = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+      if (!response.ok) {
+        alert(data.message || "Logout failed");
+        return;
+      }
+
+      // If API call is successful, proceed with existing logout logic
+      document.cookie =
+        "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      localStorage.removeItem("client-token");
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("clientId");
+      localStorage.clear();
+      router.push("/client-login");
+    } catch (err) {
+      alert("Logout failed. Please try again.");
+    }
   };
 
   const listItemSize = 28;

@@ -6,14 +6,19 @@ import TrustedCandidates from "../components/TrustedCandidates";
 // import './styles.css';
 import { useRef, useState } from "react";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import { useTranslation } from "react-i18next";
 
-const HeroSection = ({ t }) => {
+const HeroSection = ({t}) => {
+
+
   const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { i18n } = useTranslation(); 
+  const isRTL = i18n.dir() === "rtl";
 
   useCalendlyEventListener({
     onEventScheduled: (e) => {
-      console.log("Fetching event details from:", e.data.payload.event.uri);
+      //("Fetching event details from:", e.data.payload.event.uri);
       getEventDetails(e.data.payload.event.uri);
     },
   });
@@ -43,11 +48,11 @@ const HeroSection = ({ t }) => {
                   </div>
 
                   <div className="flex flex-col me-5">
-                    <span className="text-md text-bold">
-                      {t("hero.hero_name2")}
+                    <span dir={isRTL ? "rtl" : "ltr"} className="text-md text-bold">
+                    {t("hero.hero_name2")}
                     </span>
-                    <span className="text-xs">
-                      {t("hero.hero_profession2")}
+                    <span dir={isRTL ? "rtl" : "ltr"}  className="text-xs">
+                    {t("hero.hero_profession2")}
                     </span>
                   </div>
 
@@ -65,10 +70,10 @@ const HeroSection = ({ t }) => {
           </div>
 
           <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
-            <h1 className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
-              {t("hero.hero_heading")}
+            <h1  dir={isRTL ? "rtl" : "ltr"} className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
+            {t("hero.hero_heading")}
             </h1>
-            <p className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
+            <p dir={isRTL ? "rtl" : "ltr"}  className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
               {t("hero.hero_subheading")}
             </p>
           </div>
@@ -106,11 +111,13 @@ const HeroSection = ({ t }) => {
                   </div>
 
                   <div className="flex flex-col me-5">
-                    <span className="text-md text-bold">
-                      {t("hero.hero_name1")}
+                    <span dir={isRTL ? "rtl" : "ltr"} className="text-md text-bold">
+                    {t("hero.hero_name1")}
+
                     </span>
-                    <span className="text-xs">
-                      {t("hero.hero_profession1")}
+                    <span dir={isRTL ? "rtl" : "ltr"}  className="text-xs">
+                    {t("hero.hero_profession1")}
+
                     </span>
                   </div>
 
@@ -145,7 +152,8 @@ const HeroSection = ({ t }) => {
 
         <TrustedCandidates t={t} />
         {/* <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}> */}
-        <button
+        <button   
+          dir={isRTL ? "rtl" : "ltr"} 
           ref={buttonRef}
           onClick={() => setIsOpen(true)}
           className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}

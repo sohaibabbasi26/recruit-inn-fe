@@ -147,7 +147,7 @@ const Footer = ({
             <Image src="/twitterx.png" alt="X" width={24} height={24} />{" "}
           </a>
           <a
-            href="https://www.instagram.com/recruitinn-ai/about"
+            href="https://www.instagram.com/recruitinn.ai/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-gray-800"

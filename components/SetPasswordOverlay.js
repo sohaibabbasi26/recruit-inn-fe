@@ -100,11 +100,11 @@ const SetPasswordOverlay = ({
             }
           );
           const data = await response.json();
-          console.log("one company details: ", data);
+          //("one company details: ", data);
           setEmail(data?.data?.email);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     fetchCompanyDetails();
@@ -129,12 +129,12 @@ const SetPasswordOverlay = ({
           }
         );
         const data = await response.json();
-        console.log("condition returned:", data);
+        //("condition returned:", data);
         setCondition(data?.data);
         return data?.data;
       }
     } catch (err) {
-      console.log("err:", err);
+      //("err:", err);
     }
   };
   const [confirmPassword, setConfirmPassword] = useState(null);
@@ -155,7 +155,7 @@ const SetPasswordOverlay = ({
     }
 
     if (pass !== confirmPassword) {
-      console.log("");
+      //("");
       showError("Password not match");
       return;
     }
@@ -164,7 +164,7 @@ const SetPasswordOverlay = ({
         pass
       )
     ) {
-      console.log("in password length check!");
+      //("in password length check!");
       //   setMessage(
       //     "Password must contain at least one capital letter, one number, and one special character."
       //   );
@@ -179,7 +179,7 @@ const SetPasswordOverlay = ({
     };
 
     const checkIfNotNewPassword = await checkAndComparePassword();
-    console.log("checkinggggg:", checkIfNotNewPassword);
+    //("checkinggggg:", checkIfNotNewPassword);
 
     if (checkIfNotNewPassword === true) {
       showError("Please enter a new password");
@@ -197,10 +197,10 @@ const SetPasswordOverlay = ({
           }
         );
         const data = await response.text();
-        console.log(data);
+        //(data);
         router.push("/client-login");
       } catch (err) {
-        console.log("Error: ", err);
+        //("Error: ", err);
       }
     }
   };

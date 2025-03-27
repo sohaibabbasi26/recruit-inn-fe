@@ -44,3 +44,6 @@ dummy-candidate.module.css
 
 public/audio
 
+# Ignore check-auth.js file
+src/pages/check-auth.js
+

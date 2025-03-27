@@ -8,7 +8,7 @@ function Page({ params }) {
   // const router = useRouter();
     const router = useRouter();
   const {candidate_id} = router?.query;
-  console.log(candidate_id)
+  //(candidate_id)
   const [results, setResults] = useState([]);
   const [recommendedCourse, setRecommendedCourse] = useState(null);
   const [codingResult, setCodingResult] = useState();
@@ -83,7 +83,7 @@ function Page({ params }) {
             }
           }
         } catch (err) {
-          console.log("err:", err);
+          //("err:", err);
         }
       }
       //setIsLoading(true);
@@ -108,7 +108,7 @@ function Page({ params }) {
         );
   
         const data = await response.json();
-        console.log("data response:", data);
+        //("data response:", data);
         setCodingResult(data?.data);
         //
         //setIsLoading(false);

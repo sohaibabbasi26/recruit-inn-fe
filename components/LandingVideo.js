@@ -1,5 +1,7 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import i18n from "@/i18n/config";
+
 import { useRef, useState } from "react";
 
 const LandingVideo = () => {
@@ -51,7 +53,7 @@ const LandingVideo = () => {
               <video
                 // ref={videoRef}
                 // onClick={togglePlay}
-                src="/video/recruitinn_final2.mp4"
+                src=  { i18n.language === "en" ?  "/video/recruitinn_final2.mp4" : "/video/rec-arabic.mp4" }
                 poster="/thumbnail.jpg"
                   controlsList="nodownload"
                 controls
@@ -59,7 +61,7 @@ const LandingVideo = () => {
                   width: "100%",
                   height: "auto",
                   maxHeight: "600px",
-                  objectFit: "cover",
+                  objectFit: "contain",
                   borderRadius: "12px",
                   cursor: "pointer",
                   // opacity: !isPlaying ? 0.5 : 1,

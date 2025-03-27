@@ -8,6 +8,8 @@ import bestTalents from "../public/best-talents.png";
 import createAJob from "../public/create-a-job.png";
 import generateAiAssessment from "../public/generate-ai-assessment.png";
 import takeAssessment from "../public/take-assessment.png";
+import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +33,11 @@ gsap.registerPlugin(ScrollTrigger);
 // ];
 
 function FeaturesSection({ t }) {
+
+  const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
+
   const [current, setCurrent] = useState(0);
   const container = useRef(null);
 
@@ -76,14 +83,15 @@ function FeaturesSection({ t }) {
   return (
     <section className="my-12 mx-auto w-full features text-center ">
       <div className="w-90p mx-auto space-y-4 mb-16 heading">
-        <h2 className="text-neutral-dark text-4xl font-bold">
+        <h2  dir={isRTL ? "rtl" : "ltr"} className="text-neutral-dark text-4xl font-bold">
           {t("FeaturesSection.FS_heading")}
         </h2>
-        <p className="text-center text-steel text-sm">
+        <p dir={isRTL ? "rtl" : "ltr"} className="text-center text-steel text-sm">
           {t("FeaturesSection.FS_subheading")}
         </p>
       </div>
       <div
+      dir={isRTL ? "rtl" : "ltr"}
         ref={container}
         className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
       >
@@ -145,10 +153,14 @@ export default FeaturesSection;
 function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
   const isCur = num === current;
   const isActive = current > num;
+  const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
   return (
-    <div className="text-left gap-6 title flex items-start justify-start">
+    <div  className="text-left gap-6 title flex items-start justify-start">
       <div className="progress">
         <div
+         
           className={`${isCur ? "border-primary !text-primary" : " "} 
             ${isActive ? "bg-primary border-primary !text-white" : ""} 
           icon size-14 rounded-full border border-[#EBEBEB] text-transparent flex items-center justify-center transition duration-500 ease-in-out`}
@@ -157,6 +169,7 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
         </div>
         {!isLast ? (
           <div
+         
             className={` ${
               isActive
                 ? "!bg-primary bg-gradient-to-b from-primary to-primary"
@@ -167,9 +180,10 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
           ></div>
         ) : null}
       </div>
-      <div className="text" onClick={() => setCurrent(num)}>
+      <div  dir={isRTL ? "rtl" : "ltr"} className="text" onClick={() => setCurrent(num)}>
         <h3
-          className={`transition-all duration-300 ${
+          dir={isRTL ? "rtl" : "ltr"}
+          className={`transition-all duration-300  ${isRTL ? "text-right" : ""} ${
             isCur
               ? "!text-neutral-dark"
               : isActive
@@ -180,7 +194,8 @@ function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
           {content.title}
         </h3>
         <p
-          className={`transition-all duration-300 ${
+          dir={isRTL ? "rtl" : "ltr"}
+          className={`transition-all duration-300   ${isRTL ? "text-right" : ""} ${
             isCur ? "text-steel" : "text-[#ACA7BA]"
           } font-xm`}
         >
