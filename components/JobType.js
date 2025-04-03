@@ -22,6 +22,7 @@ const JobType = ({
   const addQuestion = () => {
     setCustomQuestions([...customQuestions, ""]);
   };
+  console.log("customQuestions", customQuestions);
 
   const removeQuestion = (index) => {
     const updatedQuestions = customQuestions.filter((_, i) => i !== index);
