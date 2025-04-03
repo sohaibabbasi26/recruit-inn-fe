@@ -2,15 +2,12 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import TrustedCandidates from "../components/TrustedCandidates";
-// import './landingGlobal.css';
-// import './styles.css';
+
 import { useRef, useState } from "react";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 import { useTranslation } from "react-i18next";
 
 const HeroSection = ({t}) => {
-
-
   const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation(); 
@@ -22,7 +19,7 @@ const HeroSection = ({t}) => {
       getEventDetails(e.data.payload.event.uri);
     },
   });
-  // const { theme } = useTheme();
+  
   return (
     <>
       <div className="w-full h-[87svh] max-xsm:h-[67svh] max-sm:h-[60svh] max-lg:h-[75svh]  flex flex-col items-center">

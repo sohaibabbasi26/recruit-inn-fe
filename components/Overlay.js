@@ -114,7 +114,7 @@ const Overlay = React.memo(
     const [isLevelEntered, setIsLevelEntered] = useState("");
     const [name, setName] = useState();
     const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
-     const [customQuestions, setCustomQuestions] = useState([""]);
+    const [customQuestions, setCustomQuestions] = useState([""]);
 
     const handleReceiverChange = (index, field, value) => {
       const newReceivers = [...receivers];
