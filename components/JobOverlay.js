@@ -279,7 +279,6 @@ const JobOverlay = ({
                 </h5>
               </div>
             </div>
-            {/* body */}
             <div className={styles.copyDiv}>
               <span
                 onClick={() => {
