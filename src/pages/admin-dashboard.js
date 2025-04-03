@@ -456,7 +456,7 @@ const Admin = ({}) => {
             selectedCandidate={selectedCandidate}
             showSuccess={showSuccess}
             adminToken={adminnToken}
-            data={data}
+            data={data} 
             setData={setData}
             setShowOverlay={setShowOverlay}
             onOpen={toggleJobList}
