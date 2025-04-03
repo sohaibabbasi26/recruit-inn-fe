@@ -101,6 +101,7 @@ const Overlay = React.memo(
     const [emailReceivers, setEmailReceivers] = useState([{ email: "" }]);
     const [nameReceivers, setNameReceivers] = useState([{ name: "" }]);
     const [assessmentId, setAssessmentId] = useState();
+    // const [customQuestions, setCustomQuestions] = useState([]);
     const [skill1, setSkill1] = useState("");
     const [skill2, setSkill2] = useState("");
     const [skill3, setSkill3] = useState("");
@@ -111,7 +112,6 @@ const Overlay = React.memo(
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
     const [level4, setLevel4] = useState("");
-    const [isLevelEntered, setIsLevelEntered] = useState("");
     const [name, setName] = useState();
     const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
     const [customQuestions, setCustomQuestions] = useState([""]);
@@ -215,10 +215,6 @@ const Overlay = React.memo(
           return skill.trim() ? level : true;
         }
       );
-
-      if (areAllLevelsSelected) {
-        setIsLevelEntered(true);
-      }
 
       let newCompletedStages = [...completedStages, currentStage];
       setCompletedStages(newCompletedStages);
@@ -679,6 +675,8 @@ const Overlay = React.memo(
                 {currentStage === stages.JOB_TYPE && (
                   <>
                     <JobType
+                      customQuestions={customQuestions}
+                      setCustomQuestions={setCustomQuestions}
                       position={position}
                       jobtype={jobtype}
                       description={description}
@@ -694,8 +692,8 @@ const Overlay = React.memo(
                       setDescription={setDescription}
                       setCity={setCity}
                       setCountry={setCountry}
-                      setCustomQuestions={setCustomQuestions}
-                      customQuestions={customQuestions}
+                      // setCustomQuestions={setCustomQuestions}
+                      // customQuestions={customQuestions}
                     />
                     <div className={styles.wrapper}>
                       <JobTypeBtns

@@ -8,3 +8,11 @@
         width: 80%;
     }
 }
+
+.customQuestionsContainer{
+    color: blueviolet;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    cursor: pointer;
+}

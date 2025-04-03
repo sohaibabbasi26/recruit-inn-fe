@@ -108,7 +108,7 @@ const QuestionBox = //forwardRef(
       };
 
       useEffect(() => {
-        if (hasAudioEnded) {
+        if (hasAudioEnded && process.env.NEXT_PUBLIC_NODE_ENV==="production") {
           deleteAudio();
         }
       }, [hasAudioEnded]);
@@ -173,23 +173,6 @@ const QuestionBox = //forwardRef(
           //setHasVoiceGenerated(false);
         }
       };
-
-      // const speakQuestion = async(questionobj) => {
-      //   const question = questionobj.question;
-      //   // //(question);
-      //   // //(voices);
-      //   // cancel();
-      //   // speak({ text: question, voices: "ar-SA", lang: "ar-SA" });
-
-      //   await generateAudio(question);
-      //   if(audioUUID){
-      //     playAudio();
-      //   }
-      // };
-
-      useEffect(() => {
-        //("answers:", answers);
-      }, [answers]);
 
       useEffect(() => {
         localStorage.setItem("candidate-id", cid);
