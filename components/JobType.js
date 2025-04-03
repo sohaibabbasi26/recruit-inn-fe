@@ -40,6 +40,7 @@ const JobType = ({
         style={{
           display: "flex",
           flexDirection: "column",
+          width: "80%",
         }}
       >
         <JobInfoFields
