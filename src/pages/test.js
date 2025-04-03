@@ -31,21 +31,26 @@ const test = () => {
       }
     };
 
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        //setInvisibilityCounter(counter=>counter+1);
-        //if(invisibilityCounter>1){
-        window.location.href = "/blocked";
-        //}
-      }
-    });
+    if(process.env.NEXT_PUBLIC_NODE_ENV==="production"){
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          //setInvisibilityCounter(counter=>counter+1);
+          //if(invisibilityCounter>1){
+          window.location.href = "/blocked";
+          //}
+        }
+      });
+  
+      document.addEventListener("fullscreenchange", forceFullscreen);
+      forceFullscreen();
+  
+      return () => {
+        document.removeEventListener("fullscreenchange", forceFullscreen);
+      };
+    }
 
-    document.addEventListener("fullscreenchange", forceFullscreen);
-    forceFullscreen();
+    return;
 
-    return () => {
-      document.removeEventListener("fullscreenchange", forceFullscreen);
-    };
   }, []);
 
   const onCameraClosePopup = () => {

@@ -17,10 +17,8 @@ const JobType = ({
   setJobtype,
   setDescription,
   customQuestions,
-  setCustomQuestions
+  setCustomQuestions,
 }) => {
- 
-
   const addQuestion = () => {
     setCustomQuestions([...customQuestions, ""]);
   };
@@ -42,6 +40,7 @@ const JobType = ({
         style={{
           display: "flex",
           flexDirection: "column",
+          width: "80%",
         }}
       >
         <JobInfoFields
