@@ -124,6 +124,10 @@ const JobsHub = ({
                     </div>
                     <div className={styles.lowerContainer}>
                       <h4 className={styles.location}>{item?.location}</h4>
+                      <h5 className={styles.location}>
+                        Job Created:{" "}
+                        {new Date(item?.createdAt).toISOString().split("T")[0]}
+                      </h5>
                       <h4
                         className={styles.status}
                         style={{

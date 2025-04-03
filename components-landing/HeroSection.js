@@ -2,15 +2,12 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import TrustedCandidates from "../components/TrustedCandidates";
-// import './landingGlobal.css';
-// import './styles.css';
+
 import { useRef, useState } from "react";
 import { PopupModal, useCalendlyEventListener } from "react-calendly";
 import { useTranslation } from "react-i18next";
 
 const HeroSection = ({t}) => {
-
-
   const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation(); 
@@ -22,11 +19,11 @@ const HeroSection = ({t}) => {
       getEventDetails(e.data.payload.event.uri);
     },
   });
-  // const { theme } = useTheme();
+  
   return (
     <>
       <div className="w-full h-[87svh] max-xsm:h-[67svh] max-sm:h-[60svh] max-lg:h-[75svh]  flex flex-col items-center">
-        <div className="w-100p h-[60%]  max-xsm:h-[5%]  max-sm:h-[35%] max-lg:h-[45%] flex justify-center mt-20">
+        <div className="w-100p h-[60%]  max-xsm:h-[5%]  max-sm:h-[35%] max-lg:h-[45%] flex justify-center ">
           <div className="w-100p h-full   max-lg:hidden">
             <div className=" h-[100%] w-[100%] flex ">
               {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
@@ -150,7 +147,7 @@ const HeroSection = ({t}) => {
           {/* </div> */}
         </div>
 
-        <TrustedCandidates  t={t}/>
+        <TrustedCandidates t={t} />
         {/* <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}> */}
         <button   
           dir={isRTL ? "rtl" : "ltr"} 

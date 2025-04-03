@@ -52,12 +52,12 @@ const JobOverlay = ({
   useEffect(() => {
     if (selectedJob?.position_id) {
       //(
-        //"Fetching candidates for position ID:",
-       // selectedJob.position_id
+      //"Fetching candidates for position ID:",
+      // selectedJob.position_id
       //); // Debugging
       getCandidatesByPosition(selectedJob.position_id);
     }
-  }, [selectedJob] );
+  }, [selectedJob]);
 
   // useEffect(() => {
   //   // selectedJob(selectedJob?.position_id);
@@ -273,6 +273,10 @@ const JobOverlay = ({
                     />
                   </span>
                 </div>
+                <h5>
+                  Job Created :{" "}
+                  {new Date(selectedJob?.createdAt).toISOString().split("T")[0]}
+                </h5>
               </div>
             </div>
             {/* body */}
