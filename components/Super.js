@@ -4,6 +4,7 @@ import CandidatesHub from "./CandidatesHub";
 import JobsHub from "./JobsHub";
 import styles from "./Super.module.css";
 import TopNavbar from "./TopNavbar";
+import { useEffect } from "react";
 
 const Super = ({
   positionCandidates,
@@ -24,8 +25,8 @@ const Super = ({
   toggleOverlay,
   setSelectedJob,
 }) => {
-  console.log("final data from Super.js ", finalData);
-  console.log("active data from Super.js ", activeJobsData);
+  //("final data from Super.js ", finalData);
+  //("active data from Super.js ", activeJobsData);
   const showJobOverlay = (job) => {
     setSelectedJob(job);
     setJobOverlay(true);
@@ -46,12 +47,20 @@ const Super = ({
       break;
     case "Active":
       dataToRender = activeJobsData;
-      console.log("Rendering Active Jobs Data:", activeJobsData);
+      //("Rendering Active Jobs Data:", activeJobsData);
       break;
     case "Closed":
       dataToRender = closedJobsData;
       break;
   }
+  useEffect(() => {
+    //("position candidates are :", positionCandidates);
+  }, [positionCandidates]);
+
+  useEffect(() => {
+    //("all candidates are :", allCandidates);
+  }, [allCandidates]);
+
   return (
     <div className={styles.superContainer}>
       <div className={styles.topContainer}>
@@ -67,8 +76,7 @@ const Super = ({
           />
         </div>
         <div class="RightComponent_superContainer__1aFKs">
-          <div class="RightComponent_masterContainer__Ad_ng">
-            <div class="RightComponent_btnsDiv__jJavs">
+        
               <button
                 className={styles.RightComponent_addJobBtn__PGBvV}
                 onClick={toggleOverlay}
@@ -85,8 +93,7 @@ const Super = ({
                 />
               </button> */}
             </div>
-          </div>
-        </div>
+        
       </div>
 
       {finalData && (
@@ -159,19 +166,19 @@ const Super = ({
           setSelectedCandidate={setSelectedCandidate}
         />
       )}
-
       {positionCandidates && (
-        <CandidatesHub
-          heading="Selected Position's Candidates"
-          setJobOverlay={setJobOverlay}
-          data={positionCandidates}
-          reportOverlay={reportOverlay}
-          setReportOverlay={setReportOverlay}
-          setSelectedCandidate={setSelectedCandidate}
-        />
+        <div>
+          
+          <CandidatesHub
+            heading="Selected Position's Candidates"
+            setJobOverlay={setJobOverlay}
+            data={positionCandidates}
+            reportOverlay={reportOverlay}
+            setReportOverlay={setReportOverlay}
+            setSelectedCandidate={setSelectedCandidate}
+          />
+        </div>
       )}
-
-      {/* positionCandidates */}
     </div>
   );
 };

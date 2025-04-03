@@ -1,24 +1,8 @@
-// const candidate = () =>{
-//     return(
-//         <div>
-//             <h1>Candidate dashboard</h1>
-//         </div>
-//     )
-// };
-// export default candidate;
-
-import Head from "next/head";
-import Image from "next/image";
 import { Finlandica, Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import SideNavbar from "../../../components/SideNavbar";
-import SuperComponent from "../../../components/SuperComponent";
-import RightComponent from "../../../components/RightComponent";
 import { useState, useEffect } from "react";
 import Overlay from "../../../components/Overlay";
 import { useActiveItem } from "../../contexts/ActiveItemContext";
-import Super from "../../../components/Super";
-import ReportOverlay from "../../../components/ReportOverlay";
 import JobOverlay from "../../../components/JobOverlay";
 import { useRouter } from "next/router";
 import SuccessIndicator from "../../../components/SuccessIndicator";
@@ -30,17 +14,9 @@ import CandidateSuper from "../../../components/CandidateSuper";
 import { useActiveFlow } from "@/contexts/ActiveFlowContext";
 import SelfReportOverlay from "../../../components/SelfReportOverlay";
 
-const inter = Inter({ subsets: ["latin"] });
-export default function Candidate({
-  allJobsData,
-  allActiveJobsData,
-  allClosedJobsData,
-}) {
+export default function Candidate() {
   const router = useRouter();
   const { id } = router?.query;
-
-  const [finalData, setFinalData] = useState(null);
-  const [preprocessedCandidates, setPreprocessedCandidates] = useState([]);
   const [token, setToken] = useState(null);
   const [expertise, setExpertise] = useState();
   const [questionId, setQuestionId] = useState();
@@ -51,6 +27,25 @@ export default function Candidate({
   const [assessmentId, setAssessmentId] = useState();
   // const [contact, setContact] = useState()
   const [isLoading, setIsLoading] = useState(false);
+  const { activeItem } = useActiveItem();
+  const { setActiveFlow, activeFlow } = useActiveFlow();
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
+  const [reportOverlay, setReportOverlay] = useState(false);
+  const [jobOverlay, setJobOverlay] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [candName, setCandName] = useState();
+  const [experience, setExperience] = useState();
+  const [appliedThrough, setAppliedThrough] = useState();
+  const [contact, setContact] = useState();
+  const [date, setDate] = useState();
+  const [jobtype, setJobType] = useState();
+  const [email, setEmail] = useState();
+  const [isDisable, setIsDisable] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("activeFlow", "Candidate_self");
@@ -82,7 +77,7 @@ export default function Candidate({
             }
           );
           const data = await response.json();
-          console.log("one candidate details: ", data);
+          //("one candidate details: ", data);
           setExpertise(data?.data?.expertise);
           setCandName(data?.data?.name);
           setExperience(data?.data?.over_all_exp);
@@ -94,10 +89,10 @@ export default function Candidate({
           setEmail(data?.data?.email);
           setJobType(data?.data?.job_type);
           setAppliedThrough(data?.data?.applied_through);
-          console.log("Expertise in fetch company details:", expertise);
+          //("Expertise in fetch company details:", expertise);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     fetchCompanyDetails();
@@ -123,12 +118,12 @@ export default function Candidate({
           const data = await response.json();
           if (data?.data) {
             setResults([data?.data]);
-            console.log("one candidate result details: ", results);
+            //("one candidate result details: ", results);
           }
-          console.log("Expertise in fetch company details:", expertise);
+          //("Expertise in fetch company details:", expertise);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       } finally {
         setIsLoading(false);
       }
@@ -139,7 +134,7 @@ export default function Candidate({
 
   useEffect(() => {
     setActiveFlow("candidate-self");
-    console.log("current flow:", activeFlow);
+    //("current flow:", activeFlow);
   }, []);
 
   const generateTestAndRedirect = async () => {
@@ -147,25 +142,29 @@ export default function Candidate({
       expertise: expertise,
     };
 
-    console.log("generate test and redirect:", reqBody);
+    //("generate test and redirect:", reqBody);
 
     try {
+      //("running test");
       setIsLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(reqBody),
         }
       );
+      //("after test");
       const data = await response.json();
       localStorage.setItem("testData", JSON.stringify(data));
       setQuestionId(data?.data?.message?.question_id);
-      console.log("question id:", questionId);
-      console.log("data in test preparation:", data);
+      //("question id", data?.data?.message?.question_id);
+      //("question id:", questionId);
+      //("data in test preparation:", data);
       setIsLoading(false);
 
       if (testReq === true) {
@@ -186,24 +185,25 @@ export default function Candidate({
             }
           );
           const dataTwo = await response.json();
-          console.log("code data:", dataTwo);
+          //("code data:", dataTwo);
           if (dataTwo?.data) {
             setCodeQues(dataTwo);
             setAssessmentId(dataTwo?.data?.assessment_id);
           }
-          console.log("Data is here:", codeQues);
-          console.log("assessment id:", assessmentId);
+          //("Data is here:", codeQues);
+          //("assessment id:", assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
 
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
+          //("assessment id:", assessmentId);
+          //("code question data:", data);
 
           if (dataTwo?.data?.assessment_id) {
-            console.log(
-              `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
-            );
+            //("inside redirect logic");
+            //(
+            //   `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
+            // );
             router.push(
               `/test?cid=${id}&qid=${data?.data?.message?.question_id}&a_id=${dataTwo?.data?.assessment_id}&test_req=${testReq}`
             );
@@ -216,33 +216,13 @@ export default function Candidate({
       }
     } catch (err) {
       setIsLoading(false);
-      console.log("error:", err);
+      //("error:", err);
     } finally {
       setTimeout(() => {
         setIsLoading(false);
       }, 7000);
     }
   };
-
-  const { activeItem } = useActiveItem();
-  const { setActiveFlow, activeFlow } = useActiveFlow();
-  const [showOverlay, setShowOverlay] = useState(false);
-  const [showPaymentOverlay, setShowPaymentOverlay] = useState(false);
-  const [reportOverlay, setReportOverlay] = useState(false);
-  const [jobOverlay, setJobOverlay] = useState(false);
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [candName, setCandName] = useState();
-  const [experience, setExperience] = useState();
-  const [appliedThrough, setAppliedThrough] = useState();
-  const [contact, setContact] = useState();
-  const [date, setDate] = useState();
-  const [jobtype, setJobType] = useState();
-  const [email, setEmail] = useState();
-  const [isDisable, setIsDisable] = useState(false);
 
   // trying this weird way to get candidate name [not recommended]
   useEffect(
@@ -310,6 +290,7 @@ export default function Candidate({
         return (
           <>
             <CandidateSuper
+              candidateId={id}
               isLoading={isLoading}
               contact={contact}
               isDisable={isDisable}
@@ -362,23 +343,24 @@ export default function Candidate({
             />
           )}
         </FormProvider>
-        {reportOverlay && (
-          <SelfReportOverlay
-            contact={contact}
-            jobType={jobtype}
-            experience={experience}
-            candName={candName}
-            email={email}
-            jobtype={jobtype}
-            date={date}
-            showError={showError}
-            showErrorMessage={showErrorMessage}
-            showSuccessMessage={showSuccessMessage}
-            onClose={toggleReportOverlay}
-            reportOverlay={reportOverlay}
-            selectedCandidate={selectedCandidate}
-          />
-        )}
+        {/* {reportOverlay && (
+          // <SelfReportOverlay
+          //   contact={contact}
+          //   jobType={jobtype}
+          //   experience={experience}
+          //   candName={candName}
+          //   email={email}
+          //   jobtype={jobtype}
+          //   date={date}
+          //   showError={showError}
+          //   showErrorMessage={showErrorMessage}
+          //   showSuccessMessage={showSuccessMessage}
+          //   onClose={toggleReportOverlay}
+          //   reportOverlay={reportOverlay}
+          //   selectedCandidate={selectedCandidate}
+          // />
+          router?.push(`/candidate/report/${id}`)
+        )} */}
         {jobOverlay && (
           <JobOverlay
             message={message}

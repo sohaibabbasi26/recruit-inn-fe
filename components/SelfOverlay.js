@@ -15,6 +15,7 @@ import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
 import PersonalInfoSelfBtns from "./PersonalInfoSelfBtns";
 
+
 const SelfOverlay = ({
   showOverlay,
   onClose,
@@ -33,6 +34,7 @@ const SelfOverlay = ({
   const countryRef = useRef();
   const cityRef = useRef();
   //const generatedCodeRef = useRef();
+  const router = useRouter();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -55,6 +57,7 @@ const SelfOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -64,7 +67,6 @@ const SelfOverlay = ({
     };
   }, [showOverlay, onClose]);
 
-  const router = useRouter();
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -100,7 +102,8 @@ const SelfOverlay = ({
   const [level1, setLevel1] = useState("");
   const [level2, setLevel2] = useState("");
   const [isLevelEntered, setIsLevelEntered] = useState();
-  const [otpId,setOtpId]= useState("")
+  const [otpId, setOtpId] = useState("");
+  //const [isArabicLanguage, setIsArabicLanguage] = useState(false);
   // const [testRequirement, setIsTestRequirement] = useState(false);
 
   const [testRequirement, setTestRequirement] = useState(false);
@@ -119,6 +122,7 @@ const SelfOverlay = ({
 
     const reqtwo = {
       expertise: techStack,
+      isArabic: false,
     };
 
     setReq(reqtwo);
@@ -228,7 +232,7 @@ const SelfOverlay = ({
             password: password,
           };
 
-          console.log("Request body:", requestBody);
+          //("Request body:", requestBody);
           if (!checkIfEmailPresent) {
             setCurrentStage(stages.VERIFICATION);
             return;
@@ -270,7 +274,7 @@ const SelfOverlay = ({
     const randomCode = Math.floor(Math.random() * 1000000)
       .toString()
       .padStart(6, "0");
-    console.log("Generated OTP:", randomCode);
+    //("Generated OTP:", randomCode);
     return randomCode;
   }
 
@@ -372,7 +376,7 @@ const SelfOverlay = ({
         email: email,
       };
 
-      console.log("request body:", reqBody);
+      //("request body:", reqBody);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate-self`,
         {
@@ -384,7 +388,7 @@ const SelfOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("data:", data);
+      //("data:", data);
       if (data?.data?.candidate_id) {
         setCheckIfEmailPresent(true);
         setCurrentStage(stages.PERSONAL_INFO);
@@ -397,7 +401,7 @@ const SelfOverlay = ({
       }
       return checkIfEmailPresent;
     } catch (err) {
-      console.log("ERR:", err);
+      //("ERR:", err);
     } finally {
       setIsLoading(false);
     }
@@ -416,10 +420,10 @@ const SelfOverlay = ({
         applied_through: "Self",
         password: password,
         otpId,
-        otp
+        otp,
       };
 
-      console.log("Request body:", requestBody);
+      //("Request body:", requestBody);
       setPersonalInfo(requestBody);
 
       const response = await fetch(
@@ -434,7 +438,7 @@ const SelfOverlay = ({
       );
 
       const data = await response.json();
-      console.log("candidate:", data);
+      //("candidate:", data);
 
       if (data?.data?.data) {
         setCandidateId(data.data.data.candidate_self_id);
@@ -452,29 +456,29 @@ const SelfOverlay = ({
         return false;
       }
     } catch (err) {
-      console.log("ERRROR:", err);
+      //("ERRROR:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    console.log("candidate id is : ", candidateId);
+    //("candidate id is : ", candidateId);
   }, [candidateId]);
 
   useEffect(() => {
-    console.log("current check if email present:,", checkIfEmailPresent);
+    //("current check if email present:,", checkIfEmailPresent);
   }, [checkIfEmailPresent]);
 
   useEffect(() => {
-    console.log("recent generated otp:,", generatedCode);
-    console.log(text);
+    //("recent generated otp:,", generatedCode);
+    //(text);
   }, [generatedCode]);
 
   async function sendEmail(email) {
     // const otpCode = generateRandomCode();
     // setGeneratedCode(otpCode);
-    // console.log("otp:", otpCode);
+    // //("otp:", otpCode);
     try {
       const requestBody = {
         to: email,
@@ -483,7 +487,7 @@ const SelfOverlay = ({
         //   Your verification code is : ${otpCode}
         // `,
       };
-      console.log("request body: ", requestBody);
+      //("request body: ", requestBody);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/send-otp`,
@@ -497,21 +501,21 @@ const SelfOverlay = ({
       );
 
       const data = await response.json();
-      console.log("data in Self overlay:", data);
+      //("data in Self overlay:", data);
       setOtpId(data?.data?.otp_id);
     } catch (err) {
-      console.log("ERRROR:", err);
+      //("ERRROR:", err);
     }
   }
 
   const verifyCode = async () => {
     const otpCode = otp;
 
-    const requestBody={
+    const requestBody = {
       otp_id: otpId,
-      otp_code: otpCode
-    }
-    console.log(requestBody)
+      otp_code: otpCode,
+    };
+    //(requestBody);
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/verify-otp`,
@@ -525,13 +529,13 @@ const SelfOverlay = ({
     );
     const data = await response.json();
 
-    if (data?.data?.status===200) {
-      console.log("here in verify code if block");
+    if (data?.data?.status === 200) {
+      //("here in verify code if block");
       setCurrentStage(stages.SKILLS);
       setMessage("Success!");
       showSuccess();
       const result = await handlePersonalInfo();
-      console.log("result ====", result);
+      //("result ====", result);
     } else {
       setMessage("Invalid code entered, please try again");
       showError();
@@ -539,16 +543,16 @@ const SelfOverlay = ({
       console.error("its invalid");
     }
 
-    // console.log("generated code:", generatedCode);
-    // console.log("entered otp code:", otpCode);
+    // //("generated code:", generatedCode);
+    // //("entered otp code:", otpCode);
 
     // if (generatedCode === otpCode) {
-    //   console.log("here in verify code if block");
+    //   //("here in verify code if block");
     //   setCurrentStage(stages.SKILLS);
     //   setMessage("Success!");
     //   showSuccess();
     //   const result = await handlePersonalInfo();
-    //   console.log("result ====", result);
+    //   //("result ====", result);
     // } else {
     //   setMessage("Invalid code entered, please try again");
     //   showError();
@@ -576,21 +580,21 @@ const SelfOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("data in set expertise:", data);
+      //("data in set expertise:", data);
     } catch (err) {
-      console.log("error:", err);
+      //("error:", err);
     }
   };
 
   useEffect(() => {
-    console.log("Loading status", isLoading);
+    //("Loading status", isLoading);
   }, [isLoading]);
 
   const handleTestPreparation = async () => {
-    console.log("request.boy in handle test prep method:", req);
-    console.log("handle test prep here!");
+    //("request.boy in handle test prep method:", req);
+    //("handle test prep here!");
     try {
-      console.log("Loading status", isLoading);
+      //("Loading status", isLoading);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
         {
@@ -604,10 +608,10 @@ const SelfOverlay = ({
       const data = await response.json();
       localStorage.setItem("testData", JSON.stringify(data));
       setQuestionId(data?.data?.message?.question_id);
-      console.log("question id:", questionId);
-      console.log("data in test preparation:", data);
+      //("question id:", questionId);
+      //("data in test preparation:", data);
       setIsLoading(false);
-      console.log("Loading status", isLoading);
+      //("Loading status", isLoading);
 
       if (isTestRequired === true) {
         try {
@@ -627,19 +631,19 @@ const SelfOverlay = ({
             }
           );
           const data = await response.json();
-          console.log("code data:", data);
+          //("code data:", data);
           if (data?.data?.assessment_id) {
             setCodeQues(data);
             setAssessmentId(data?.data?.assessment_id);
           }
-          console.log("Data is here:", codeQues);
-          console.log("assessment id:", assessmentId);
+          //("Data is here:", codeQues);
+          //("assessment id:", assessmentId);
           if (data?.data?.assessment_id) {
             setTestReq(true);
           }
 
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
+          //("assessment id:", assessmentId);
+          //("code question data:", data);
           setIsLoading(false);
         } catch (err) {
           console.error("ERROR:", err);
@@ -650,7 +654,7 @@ const SelfOverlay = ({
             is_test_req: isTestRequired,
             candidate_id: candidateId,
           };
-          console.log("test required ? : ", isTestRequired);
+          //("test required ? : ", isTestRequired);
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-cand-test-req`,
             {
@@ -662,18 +666,18 @@ const SelfOverlay = ({
             }
           );
           const data = await response.json();
-          console.log("data is updated perfectly:", data);
+          //("data is updated perfectly:", data);
         } catch (err) {
-          console.log("ERROR:", err);
+          //("ERROR:", err);
         }
       }
     } catch (err) {
-      console.log("error:", err);
+      //("error:", err);
     }
   };
 
   useEffect(() => {
-    console.log("code assessment id:", assessmentId);
+    //("code assessment id:", assessmentId);
   }, [assessmentId]);
 
   return (
@@ -706,6 +710,7 @@ const SelfOverlay = ({
               {currentStage === stages.PERSONAL_INFO && (
                 <>
                   <PersonalInfoSelf
+                    onLogin={()=>{router.push("/candidate-login")}}
                     expertiseRef={expertiseRef}
                     contact={contact}
                     password={password}
@@ -782,8 +787,8 @@ const SelfOverlay = ({
                     setIsTestRequired={setIsTestRequired}
                     handleTestPreparation={handleTestPreparation}
                     setTechStack={setTechStack}
-                    setTestRequirement={setTestRequirement}
-                    testRequirement={testRequirement}
+                    // setTestRequirement={setTestRequirement}
+                    // testRequirement={testRequirement}
                   />
                   <div className={styles.wrapper}>
                     <CandSelfSkillBtns

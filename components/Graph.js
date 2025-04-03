@@ -48,7 +48,7 @@ export const options = {
         };
     
 
-    console.log('preprocessed data in graphs:', preprocessedCandidates);
+    //('preprocessed data in graphs:', preprocessedCandidates);
 
     // function getDayOfWeek(dateStr) {
     //     const date = new Date(dateStr);
@@ -80,7 +80,7 @@ export const options = {
     // });
 
     
-    // console.log("candidates no acc to week day:",monday);
+    // //("candidates no acc to week day:",monday);
     
     const data = {
         labels: Object.keys(dayOfWeekCount),

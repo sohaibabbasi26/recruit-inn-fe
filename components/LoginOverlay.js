@@ -2,7 +2,6 @@ import styles from "./Overlay.module.css";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import Stages from "./Stages";
 import { useRouter } from "next/router";
 import LoginComp from "./Login";
 import LoginBtns from "./LoginBtns";
@@ -19,6 +18,7 @@ const LoginOverlay = ({
   stages,
   stageHeadings,
   showOverlay,
+  onSignup,
 }) => {
   const overlayRef = useRef(null);
   const [email, setEmail] = useState(null);
@@ -68,6 +68,7 @@ const LoginOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -78,10 +79,10 @@ const LoginOverlay = ({
   }, [showOverlay, onClose]);
 
   const router = useRouter();
-  console.log("router object:", router);
+  //("router object:", router);
   const { id } = router?.query;
 
-  console.log("id:", id);
+  //("id:", id);
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -102,7 +103,7 @@ const LoginOverlay = ({
   //     });
 
   //     const data = await response.json();
-  //     console.log('login info:', data?.data);
+  //     //('login info:', data?.data);
   //     if (data?.data?.token) {
   //         localStorage.setItem('client-token', data?.data?.token);
   //         router.push(`/client/${data?.data?.id}`)
@@ -126,28 +127,41 @@ const LoginOverlay = ({
   }, [router]);
 
   const loginApiCall = async () => {
+    // clear local storage
+    localStorage.clear();
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-log-in`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          email: email.toLowerCase(),
           password: password,
         }),
       }
     );
     const data = await response.json();
-    console.log("login info:", data?.data);
     if (data?.data?.token) {
+      // Cookie
+      const expiresIn = 10 * 60 * 60;
+      const expiresDate = new Date(Date.now() + expiresIn * 1000);
+      document.cookie = `loginToken=${
+        data?.data?.token
+      }; expires=${expiresDate.toUTCString()}; path=/; ${
+        process.env.NODE_ENV === "production" ? "Secure; " : ""
+      }SameSite=Strict`;
+
       localStorage.setItem("client-token", data?.data?.token);
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("clientId", data?.data?.id); // Save client ID
-      redirectToClientPage(data?.data?.id); // Reuse the navigation function
+      //("this is hte id", data?.data?.id); // Reuse the navigation function
+      redirectToClientPage(data?.data?.id);
     } else {
-      console.log("Testing thiss .....");
+      //("Testing thiss .....");
       showError("Login failed. Please check your credentials.");
     }
   };
@@ -166,11 +180,6 @@ const LoginOverlay = ({
       email: email,
     };
 
-    const requestBody = {
-      to: emailReceiver,
-      subject: subject,
-      text: text,
-    };
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-client`,
@@ -180,30 +189,40 @@ const LoginOverlay = ({
           headers: { "Content-Type": "application/json" },
         }
       );
-      const data = await response.json();
-      console.log("response about client checking:", data);
-      setCompanyId(data?.data?.message?.company_id);
+      const clientData = await response.json(); // Renamed this variable to clientData
+      if (clientData) {
+        //("response about client checking:", clientData);
+        setCompanyId(clientData?.data?.message?.company_id);
 
-      if (data?.data?.message?.company_id) {
-        setCompanyId(data?.data?.message?.company_id);
+        if (clientData?.data?.message?.company_id) {
+          setCompanyId(clientData?.data?.message?.company_id);
+          const body = {
+            client_id: clientData?.data?.message?.company_id,
+          };
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_REMOTE_URL}/send-reset-password-email`,
+            {
+              method: "POST",
+              body: JSON.stringify(body),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
 
-        const demolink = `https://app.recruitinn.ai/new-password/${data?.data?.message?.company_id}`;
-        const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
-        const text = `Follow the link to set up your new password: \n ${demolink}`;
+          const emailData = await res.json(); // Renamed this to emailData
+          //("email data: ", emailData);
 
-        console.log("link:", demolink);
-        const requestBody = {
-          to: email,
-          subject: subject,
-          text: text,
-        };
-
-        await sendResetPasswordEmail(requestBody);
-      } else {
-        showError("Some error occurred, failed to send an Email");
+          if (emailData?.code === 200) {
+            showSuccess(
+              "Link to set a new password has been sent to this email!"
+            );
+          }
+        } else {
+          showError("Such a client doesn't exist");
+        }
       }
     } catch (err) {
-      showError("Such a client doesn't exist");
+      //(err);
+      showError("Some error occurred, failed to send an Email");
     }
   };
 
@@ -219,7 +238,7 @@ const LoginOverlay = ({
       );
 
       const responseData = await response.text();
-      console.log("Email sent successfully:", responseData);
+      //("Email sent successfully:", responseData);
       showSuccess("Link to set a new password has been sent to this email!");
     } catch (error) {
       console.error("Failed to send email:", error);
@@ -251,20 +270,16 @@ const LoginOverlay = ({
                 <h2>{stageHeadings[currentStage]}</h2>
               </div>
 
-              <Stages
-                currentStage={currentStage}
-                stages={stages}
-                completedStages={completedStages}
-              />
-
               {viewMode === "login" ? (
                 <>
                   <LoginComp
                     onViewChange={() => setViewMode("forgotPassword")}
+                    onSignup={onSignup}
                     password={password}
                     setPassword={setPassword}
                     email={email}
                     setEmail={setEmail}
+                    showSignuplink={true}
                   />
                   <div className={styles.wrapper}>
                     <LoginBtns

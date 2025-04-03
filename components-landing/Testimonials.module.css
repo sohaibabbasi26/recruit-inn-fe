@@ -1,0 +1,66 @@
+.testimonialsSection {
+    padding: 4rem 0;
+    background-color: #f9f9f9;
+  }
+  
+  .carousel {
+    position: relative;
+    overflow: hidden; /* Ensures only 3 cards are visible */
+    width: 100%; /* Full width of the container */
+  }
+  
+  .testimonialSlide {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * 5); /* Adjust based on total testimonials */
+    overflow: visible; /* Allows proper flexbox sizing */
+  }
+  
+  
+  .card {
+    flex: 0 0 33.33%; /* 3 cards per view */
+    padding: 1rem;
+    margin: 0 0.5rem; /* Small margin for spacing */
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .card h3 {
+    font-size: 1rem;
+    color: #6b7280;
+  }
+  
+  .card p {
+    font-size: 1.25rem;
+    color: #1f2937;
+  }
+  
+  .prevButton,
+  .nextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e5e7eb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+  }
+  
+  .prevButton:hover,
+  .nextButton:hover {
+    background: #d1d5db;
+  } 
+  
+  .prevButton {
+    left: 1rem;
+  }
+  
+  .nextButton {
+    right: 1rem;
+  }
+  

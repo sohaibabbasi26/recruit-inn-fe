@@ -10,162 +10,160 @@ import { useTheme } from "next-themes";
 
 const Footer = ({
   scrollToRef,
-  PaymentMethodsRef,
+  pricingRef,
   howItWorksRef,
   FAQRef,
   HeroRef,
+  t,
 }) => {
   const { theme } = useTheme();
   return (
-    <footer className=" text-black dark:text-white e p-4 ">
-      <div className="px-20 mx-auto max-lg:flex-col flex justify-between items-center ">
+    <footer className=" text-black dark:text-white e p-4">
+      <div className="px-20 mx-auto max-lg:flex-col flex justify-between items-center mb-8">
+        {/* Logo Section */}
         <div
           onClick={() => scrollToRef(HeroRef)}
           className="cursor-pointer w-1/5 max-lg:flex max-lg:flex-col max-lg:items-center"
         >
-          {/* Left Section */}
-          <Image className="" src="/footerlogo.png" width={80} height={80} />
+          <a
+            href="https://www.trustpilot.com/review/app.recruitinn.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/trustpilot.png"
+              width={250}
+              height={100}
+              alt="trustpilot"
+            />
+          </a>
         </div>
 
-        <div className="  w-[100%] mr-[15%] max-lg:mr-0 max-lg:w-[100%] flex max-lg:flex-col max-lg:items-center justify-center max-lg:space-x-0 space-x-4">
-          {/* Middle Sections  */}
-          <div className="px-4 max-lg:mt-[1rem] max-lg:w-[100%] max-lg:flex max-lg:flex-col items-center">
-            <p className="font-poppins max-lg:text-xl  font-sans text-base font-semibold leading-8">
-              Product
-            </p>
-            <div className=" max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center text-gray-500 text-sm font-light leading-5 py-4">
+        {/* Central Sections: Product and Community */}
+        <div className="flex flex-grow justify-center items-start space-x-12 max-lg:mt-6">
+          {/* Product Section */}
+          <div className="text-center">
+            <p className="font-poppins text-lg font-bold leading-8">{t("Footer.F_Product")}</p>
+            <div className="text-gray-500 text-sm font-light leading-5 space-y-2">
               <p
-                onClick={() => scrollToRef(PaymentMethodsRef)}
-                className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
+                onClick={() => scrollToRef(pricingRef)}
+                className="cursor-pointer hover:underline pt-2"
               >
-                Packages
+                {t("Footer.F_Packages")}
               </p>
-              {/* <p
-                onClick={() => scrollToRef(howItWorksRef)}
-                className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
-              >
-                Team
-              </p> */}
               <p
                 onClick={() => scrollToRef(howItWorksRef)}
-                className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
+                className="cursor-pointer hover:underline"
               >
-                How it works
+                {t("Footer.F_HowItWorks")}
+                
               </p>
               <p
                 onClick={() => scrollToRef(FAQRef)}
-                className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
+                className="cursor-pointer hover:underline"
               >
-                FAQ
+                {t("Footer.F_FAQ")}
               </p>
             </div>
           </div>
-          {/* <div className="px-4 max-lg:mt-[1rem] max-lg:w-[100%] max-lg:flex max-lg:flex-col items-center">
-            <p className="font-poppins max-lg:text-xl font-sans text-base font-semibold leading-8">
-              Company
+
+          {/* Community Section */}
+          <div className="text-center">
+            <p className="font-poppins text-lg font-bold leading-8">
+             {t("Footer.F_Community")}
             </p>
-            <div className="max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center text-gray-500 text-sm font-light leading-5 py-4">
-              <p
-                onClick={() => scrollToRef(HeroRef)}
-                className="cursor-pointer py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
-              >
-                Careers
-              </p> */}
-          {/* <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
-                Contact
-              </p>
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
-                Privacy Policy
-              </p> */}
-          {/* <p
-                onClick={() => scrollToRef(howItWorksRef)}
-                className="py-1 cursor-pointer max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo"
-              >
-                Terms of Services
-              </p>
-            </div>
-          </div> */}
-          <div className="px-4 max-lg:mt-[1rem] max-lg:w-[100%] max-lg:flex max-lg:flex-col items-center">
-            <p className="font-poppins max-lg:text-xl font-sans text-base font-semibold leading-8">
-              Community
-            </p>
-            <div className="max-lg:w-[100%] font-dm-sans max-lg:flex max-lg:flex-col max-lg:items-center  text-gray-500 text-sm font-light leading-5 py-4">
-              {/* <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
-                Community Stories
-              </p> */}
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+            <div className="text-gray-500 text-sm font-light leading-5 space-y-2">
+              <p className="hover:underline pt-2">
                 <a
                   href="https://twitter.com/recruitinn"
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  Twitter
+                  {t("Footer.F_Twitter")}
                 </a>
               </p>
-              <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
+              <p className="hover:underline">
                 <a
                   href="https://www.linkedin.com/company/recruitinn-ai/about"
                   target="blank"
                   rel="noopener noreferrer"
                 >
-                  Linkedin
+                  {t("Footer.F_Linkedin")}
                 </a>
               </p>
-              {/* <p className="py-1 max-lg:py-2 max-lg:border-b-[1px] max-lg:border-elementGradTwo">
-                YouTube
-              </p> */}
+              <p className="hover:underline">
+                <a
+                  href="https://facebook.com/recruitinn"
+                  target="blank"
+                  rel="noopener noreferrer"
+                >
+                  {t("Footer.F_Facebook")}
+                </a>
+              </p>
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-[100%] flex justify-end max-lg:mb-[1rem]">
-        <div className="text-center max-lg:w-[100%] w-[60%] flex max-lg:flex-col max-lg:items-center justify-between">
-          <p className="font-dm-sans text-black dark:text-white  text-sm font-light leading-5 py-4">
-            Copyright © 2024 recruitinn. All rights reserved.
-          </p>
-          <div className="flex items-center mr-[2rem] gap-5 max-lg:w-[100%] max-lg:mr-0 max-lg:justify-center">
-            <a
-              href="https://www.linkedin.com/company/recruitinn-ai/about"
-              target="blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src={
-                  theme === "light"
-                    ? "linkedin-light.svg"
-                    : "/LinkedInWhite.svg"
-                }
-                width={40}
-                height={40}
-              />
-            </a>
-            <a
-              // href="https://twitter.com/recruitinn"
-              className="rounded-lg bg-white"
-              href="https://www.facebook.com/"
-              target="blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/facebook.svg"
-                width={theme === "light" ? 45 : 40}
-                height={theme === "light" ? 45 : 40}
-              />
-            </a>
-            <a
-              href="https://www.instagram.com/"
-              target="blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src={theme === "light" ? "/instagram-light.svg" : "/insta.svg"}
-                width={40}
-                height={40}
-              />
-            </a>
-          </div>
+
+        {/* Product Hunt Widget Section */}
+        <div className="flex-shrink-0 max-sm:mt-8">
+          <a
+            href="https://www.producthunt.com/products/recruitinn-ai/reviews?utm_source=badge-product_review&utm_medium=badge&utm_souce=badge-recruitinn&#0045;ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://api.producthunt.com/widgets/embed-image/v1/product_review.svg?product_id=598081&theme=dark"
+              alt="Recruitinn.ai - Revolutionize Your Hiring with us | Product Hunt"
+              style={{ width: "250px", height: "54px" }}
+              width="250"
+              height="54"
+            />
+          </a>
         </div>
       </div>
+
+      <footer className="flex justify-between items-center px-4 py-2 border-t border-gray-200 bg-white pt-6 pb-6">
+        <p className="text-sm text-gray-500">
+          {t("Footer.F_rights")}
+        </p>
+        {/* <div className="flex justify-center items-center max-sm:hidden">
+          <div className="w-6 h-6">
+            <Image
+              src="/footerlogo.png"
+              alt="recruitinn"
+              width={24}
+              height={24}
+            />
+          </div>
+        </div> */}
+        <div className="flex items-center gap-4">
+          {/* Social Media Icons */}
+          <a
+            href="https://twitter.com/recruitinn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-800"
+          >
+            <Image src="/twitterx.png" alt="X" width={24} height={24} />{" "}
+          </a>
+          <a
+            href="https://www.instagram.com/recruitinn.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-800"
+          >
+            <Image src="/instagram.png" alt="X" width={24} height={24} />{" "}
+          </a>
+          <a
+            href="https://www.linkedin.com/company/recruitinn-ai/about"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-800"
+          >
+            <Image src="/in.png" alt="X" width={24} height={24} />{" "}
+          </a>
+        </div>
+      </footer>
     </footer>
   );
 };

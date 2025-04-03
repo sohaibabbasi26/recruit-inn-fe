@@ -20,6 +20,8 @@ const CodingExcersice = () => {
   const [message, setMessage] = useState(false);
   const [instructionsPopup, setInstructionsPopup] = useState(true);
   const { cid } = router?.query;
+  const { client_id } = router?.query;
+
 
   const closePopup = () => {
     setInstructionsPopup(false);
@@ -41,11 +43,11 @@ const CodingExcersice = () => {
       script: Code,
     };
     if (!language) {
-      console.log("Please select a programming language.");
+      //("Please select a programming language.");
       showError("Please select a programming language.");
       return;
     }
-    console.log("req body:", reqBody);
+    //("req body:", reqBody);
     setIsLoading(true);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/execute-code`,
@@ -56,7 +58,7 @@ const CodingExcersice = () => {
       }
     );
     const data = await response.json();
-    console.log("response: ", data);
+    //("response: ", data);
     setOutput(data?.data?.data?.output);
     setIsLoading(false);
   }
@@ -64,7 +66,7 @@ const CodingExcersice = () => {
     // Check if user is logged in
     const testcomplete = localStorage.getItem("codingtestcompleted");
     if (testcomplete) {
-      router.push(`/test-submit-completion/${cid}`);
+      router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
     }
   }, [router]);
 
@@ -89,8 +91,8 @@ const CodingExcersice = () => {
     );
 
     const data = await response.json();
-    router.push(`/test-submit-completion/${cid}`);
-    console.log("response: ", data);
+    router.push(`/test-submit-completion/${cid}?client_id=${client_id}`);
+    //("response: ", data);
     setIsLoading(false);
   }
 

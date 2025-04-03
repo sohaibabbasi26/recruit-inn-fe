@@ -13,8 +13,8 @@ const OnlineCompiler = () => {
     const editorRef = useRef();
 
     useEffect(() => {
-        console.log("code:", code);
-        console.log("language", language);
+        //("code:", code);
+        //("language", language);
     }, [code, language])
 
     const codeExecutionHandler = async () => {
@@ -32,10 +32,10 @@ const OnlineCompiler = () => {
                 })
 
             const data = await response.json();
-            console.log("data:", data);
+            //("data:", data);
             setOutput(data?.data?.data?.output);
         } catch (err) {
-            console.log("error:", err);
+            //("error:", err);
         }
     }
 

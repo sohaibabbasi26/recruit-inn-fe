@@ -45,6 +45,23 @@
   gap: 1rem;
 }
 
+.signupPrompt {
+ 
+  margin-top: 2rem;
+  margin-left: auto;
+}
+
+.signupLink {
+  color:  #6137db;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
+
 .inputFieldsContainer {
   width: 100%;
   height: 40%;

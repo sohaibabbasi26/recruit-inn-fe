@@ -65,6 +65,8 @@ const CandPassSetOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "unset";
+
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -105,12 +107,12 @@ const CandPassSetOverlay = ({
             }
           );
           const data = await response.json();
-          console.log("one company details: ", data);
+          //("one company details: ", data);
           setEmail(data?.data?.email);
           setCandName(data?.data?.name);
         }
       } catch (err) {
-        console.log("err:", err);
+        //("err:", err);
       }
     }
     fetchCompanyDetails();
@@ -135,12 +137,12 @@ const CandPassSetOverlay = ({
           }
         );
         const data = await response.json();
-        console.log("condition returned:", data);
+        //("condition returned:", data);
         setCondition(data?.data);
         return data?.data;
       }
     } catch (err) {
-      console.log("err:", err);
+      //("err:", err);
     }
   };
 
@@ -159,7 +161,7 @@ const CandPassSetOverlay = ({
     };
 
     const checkIfNotNewPassword = await checkAndComparePassword();
-    console.log("checkinggggg:", checkIfNotNewPassword);
+    //("checkinggggg:", checkIfNotNewPassword);
 
     if (checkIfNotNewPassword === true) {
       showError("Please enter a new password");
@@ -177,10 +179,10 @@ const CandPassSetOverlay = ({
           }
         );
         const data = await response.text();
-        console.log(data);
+        //(data);
         router.push("/candidate-login");
       } catch (err) {
-        console.log("Error: ", err);
+        //("Error: ", err);
       }
     }
   };

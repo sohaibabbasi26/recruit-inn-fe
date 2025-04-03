@@ -12,7 +12,7 @@ const SuperComponent = ({ positionCandidates, selectedCandidate, companyId, setI
 
         const showJobOverlay = (job) => {
             setSelectedJob(job);
-            setJobOverlay(true)
+            setJobOverlay(true);
         };
 
         const showCandidateOverlay = (cand) => {

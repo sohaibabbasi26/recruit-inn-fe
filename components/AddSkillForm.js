@@ -7,6 +7,8 @@ import { getSvg } from "@/util/helpers";
 // useFormContext
 const AddSkillForm = forwardRef(
   ({
+    isArabicChosen,
+    setIsArabicChosen,
     skill1,
     setSkill1,
     skill2,
@@ -23,6 +25,8 @@ const AddSkillForm = forwardRef(
     setLevel3,
     level4,
     setLevel4,
+    level,
+    setLevel,
     setCodingExpertise,
     setTechStack,
     isTestRequired,
@@ -32,7 +36,7 @@ const AddSkillForm = forwardRef(
     const [codingLevel, setCodingLevel] = useState("beginner");
     const [queryIcons, setQueryIcons] = useState([]);
 
-    console.log("Icons state", queryIcons);
+    //("Icons state", queryIcons);
 
     useEffect(() => {
       const FormSubmissionHandler = (e) => {
@@ -58,8 +62,13 @@ const AddSkillForm = forwardRef(
     }, [codingSkill, codingLevel]);
 
     const handleTestRequirementChange = (event) => {
-      console.log("clicked", event.target.checked);
+      //("clicked", event.target.checked);
       setIsTestRequired(event.target.checked);
+    };
+
+    const handleArabicChooseChange = (event) => {
+      //("clicked", event.target.checked);
+      setIsArabicChosen(event.target.checked);
     };
 
     const iconSize = 25;
@@ -197,16 +206,48 @@ const AddSkillForm = forwardRef(
             </select>
           </div>
 
+          <div className={styles.wrapper2}>
+            <div> 
+              <input
+               type="checkbox"
+               className={styles.codeAssignment}
+               id="code-assignment"
+               checked={isTestRequired}
+               onChange={handleTestRequirementChange}
+               />
+                <label htmlFor="code-assignment">
+                     Would you want to include a coding assessment as well?
+                   </label>
+               </div>
+  
+  {isTestRequired && (
+       <div  className={styles.box} >     
+           <select
+            value={level}
+            onChange={(e) => setLevel(e.target.value)}
+            >
+      <option value="" disabled>
+        Choose level of difficulty
+      </option>
+         <option value="beginner">Beginner</option>
+         <option value="intermediate">Intermediate</option>
+         <option value="expert">Expert</option>
+       </select>   
+       </div>
+     )}
+</div>
+
+
           <div>
             <input
               type="checkbox"
-              className={styles.codeAssignment}
-              id="code-assignment"
-              checked={isTestRequired}
-              onChange={handleTestRequirementChange}
+              className={styles.codeAssignment2}
+              id="code-assignment1"
+              checked={isArabicChosen}
+              onChange={handleArabicChooseChange}
             />
-            <label htmlFor="code-assignment">
-              Do you want to include coding assignment to this assessment?{" "}
+            <label htmlFor="code-assignment1">
+              Would you like to conduct the interview in Arabic?{" "}
             </label>
           </div>
         </form>

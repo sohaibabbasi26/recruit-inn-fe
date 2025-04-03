@@ -21,30 +21,43 @@ const AdminLogin = () => {
   };
 
   const loginApiCall = async () => {
-    console.log("URL:", `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`);
+    // Clear local storage
+    localStorage.clear();
+
+    //("URL:", `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REMOTE_URL}/admin-log-in`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          email: email.toLowerCase(),
           password: password,
         }),
       }
     );
 
     const data = await response.json();
-    console.log("login info:", data?.data);
     if (data?.data?.token) {
+      // Cookie
+      const expiresIn = 10 * 60 * 60;
+      const expiresDate = new Date(Date.now() + expiresIn * 1000);
+      document.cookie = `loginToken=${
+        data?.data?.token
+      }; expires=${expiresDate.toUTCString()}; path=/; ${
+        process.env.NODE_ENV === "production" ? "Secure; " : ""
+      }SameSite=Strict`;
+
       localStorage.setItem("admin-token", data?.data?.token);
       router.push(`/admin-dashboard`);
     } else {
       alert("Login failed. Please check your credentials.");
     }
   };
+  //("NODE ENV", process.env.NODE_ENV);
 
   const showError = (message) => {
     setShowErrorMessage(true);

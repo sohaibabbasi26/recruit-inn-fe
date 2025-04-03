@@ -1,15 +1,13 @@
-import styles from "./Overlay.module.css";
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
-import Stages from "./Stages";
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import ErrorIndicator from "./ErrorIndicator";
+import ForgotPasswordBtns from "./ForgotPassBtns";
+import ForgotPassword from "./ForgotPassword";
 import LoginComp from "./Login";
 import LoginBtns from "./LoginBtns";
-// import Login from '@/pages/client-login';
-import ForgotPassword from "./ForgotPassword";
-import ForgotPasswordBtns from "./ForgotPassBtns";
-import ErrorIndicator from "./ErrorIndicator";
+import styles from "./Overlay.module.css";
+import Stages from "./Stages";
 import SuccessIndicator from "./SuccessIndicator";
 
 const CandidateSelfLoginOverlay = ({
@@ -25,7 +23,6 @@ const CandidateSelfLoginOverlay = ({
   const [password, setPassword] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [emailReceiver, setEmailReceiver] = useState();
-  // const [candidateId, setCandidateId] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
@@ -68,6 +65,7 @@ const CandidateSelfLoginOverlay = ({
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -78,10 +76,8 @@ const CandidateSelfLoginOverlay = ({
   }, [showOverlay, onClose]);
 
   const router = useRouter();
-  console.log("router object:", router);
   const { id } = router?.query;
 
-  console.log("id:", id);
   const infoSymbolSize = 20;
   const [currentStage, setCurrentStage] = useState(stages.PERSONAL_INFO);
   const [completedStages, setCompletedStages] = useState([]);
@@ -105,6 +101,9 @@ const CandidateSelfLoginOverlay = ({
   }, [router]);
 
   const loginApiCall = async () => {
+    // Clear local storage
+    localStorage.clear();
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_REMOTE_URL}/candidate-log-in-self`,
@@ -114,14 +113,13 @@ const CandidateSelfLoginOverlay = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email,
+            email: email.toLowerCase(),
             password: password,
           }),
         }
       );
 
       const data = await response.json();
-      console.log("login info:", data?.data);
       setCandidateId(data?.data?.id);
       if (data?.data?.token) {
         localStorage.setItem("candidate-token", data?.data?.token);
@@ -136,15 +134,6 @@ const CandidateSelfLoginOverlay = ({
     }
   };
 
-  // useEffect(() => {
-  //     const demolink = `http://localhost:3000/cand-new-pass/${candidateId}`;
-  //     setSubject('RECRUITINN: SET UP YOUR NEW PASSWORD');
-  //     setText(`
-  //     follow the link to set up your new password: \n
-  //         ${demolink}
-  //     `)
-  // }, [candidateId, emailReceiver]);
-
   const checkIfEmailIsInDbHandler = async () => {
     const reqBody = {
       email: email,
@@ -152,7 +141,7 @@ const CandidateSelfLoginOverlay = ({
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate`,
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/check-candidate-self`,
         {
           method: "POST",
           body: JSON.stringify(reqBody),
@@ -160,7 +149,6 @@ const CandidateSelfLoginOverlay = ({
         }
       );
       const data = await response.json();
-      console.log("response about client checking:", data);
       setCandidateId(data?.data?.message?.candidate_id);
 
       if (data?.data?.message?.candidate_id) {
@@ -168,9 +156,9 @@ const CandidateSelfLoginOverlay = ({
         // ${candidateId}
         const demolink = `https://app.recruitinn.ai/cand-new-pass/${data?.data?.message?.candidate_id}`;
         const subject = "RECRUITINN: SET UP YOUR NEW PASSWORD";
-        const text = `Follow the link to set up your new passw  ord: \n ${demolink}`;
+        const text = `Follow the link to set up your new password: \n ${demolink}`;
 
-        console.log("link:", demolink);
+        //("link:", demolink);
         const requestBody = {
           to: email,
           subject: subject,
@@ -198,7 +186,7 @@ const CandidateSelfLoginOverlay = ({
       );
 
       const responseData = await response.text();
-      console.log("Email sent successfully:", responseData);
+      //("Email sent successfully:", responseData);
       showSuccess("Link to set a new password has been sent to this email!");
     } catch (error) {
       console.error("Failed to send email:", error);
@@ -240,10 +228,14 @@ const CandidateSelfLoginOverlay = ({
                 <>
                   <LoginComp
                     onViewChange={() => setViewMode("forgotPassword")}
+                    onSignup={
+                      router ? () => router.push("/candidate-self") : null
+                    }
                     password={password}
                     setPassword={setPassword}
                     email={email}
                     setEmail={setEmail}
+                    showSignuplink={true}
                   />
                   <div className={styles.wrapper}>
                     <LoginBtns

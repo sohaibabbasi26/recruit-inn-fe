@@ -27,6 +27,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
+/.env
 .env*.local
 
 # vercel
@@ -39,3 +41,9 @@ next-env.d.ts
 #dummy
 dummy-candidate.js
 dummy-candidate.module.css
+
+public/audio
+
+# Ignore check-auth.js file
+src/pages/check-auth.js
+

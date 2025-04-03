@@ -1,44 +1,92 @@
-import TrustedCandidates from "../components/TrustedCandidates";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-// import './landingGlobal.css';
-// import './styles.css';
-import style from "./styles.module.css";
+import TrustedCandidates from "../components/TrustedCandidates";
 
-const HeroSection = () => {
-  const { theme } = useTheme();
+import { useRef, useState } from "react";
+import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import { useTranslation } from "react-i18next";
+
+const HeroSection = ({t}) => {
+  const buttonRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const { i18n } = useTranslation(); 
+  const isRTL = i18n.dir() === "rtl";
+
+  useCalendlyEventListener({
+    onEventScheduled: (e) => {
+      //("Fetching event details from:", e.data.payload.event.uri);
+      getEventDetails(e.data.payload.event.uri);
+    },
+  });
+  
   return (
     <>
-      <div className="w-full h-[80vh] flex flex-col items-center">
-        <div className="w-90p h-full flex justify-center">
-          <div className="w-50p h-full flex flex-col justify-center gap-8 max-lg:w-[100%] max-lg:text-center max-lg:items-center">
-            <h1 className="text-dark dark:text-white  text-5xl font-bold w-[80%]">
-              Recruit the best In-Field talent now for your projects
-            </h1>
+      <div className="w-full h-[87svh] max-xsm:h-[67svh] max-sm:h-[60svh] max-lg:h-[75svh]  flex flex-col items-center">
+        <div className="w-100p h-[60%]  max-xsm:h-[5%]  max-sm:h-[35%] max-lg:h-[45%] flex justify-center ">
+          <div className="w-100p h-full   max-lg:hidden">
+            <div className=" h-[100%] w-[100%] flex ">
+              {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
 
-            <Link href="https://app.recruitinn.ai/client-signup">
-              <button
-                className={`max-md:mx-auto px-10 py-3.5 text-sm ${style["btn-gradient"]} rounded-3xl font-semibold w-[15rem] text-white`}
+              {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative top-[24rem] left-[13rem] rounded-full"></div> */}
+
+              {/* <div className="bg-gradient-to-br from-[#31CDBA] h-[8rem] w-[5rem] relative left-[25rem] top-[4rem] rounded-full"></div> */}
+              {/* <div className="bg-gradient-to-br  from-[#FF0000] h-[3rem] w-[5rem]  left-[13rem] top-[14rem] rounded-full"></div> */}
+              <div className="bg-gradient-to-br from-[#FF0000] h-[3rem] w-[5rem] relative left-[10rem] top-[11rem] rounded-full"></div>
+
+              <div
+                className={`w-100p h-[100%] relative bg-transparent flex backdrop-blur-[40px]`}
               >
-                Recruit Now
-              </button>
-            </Link>
+                <div
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[20rem] h-[4rem] border-2 bg-white border-[#FF0000] left-[10rem] top-[61%]  rounded-2xl self-end mb-28`}
+                >
+                  <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
+                    <Image src="/Bitmoji.svg" width={20} height={20} />
+                  </div>
+
+                  <div className="flex flex-col me-5">
+                    <span dir={isRTL ? "rtl" : "ltr"} className="text-md text-bold">
+                    {t("hero.hero_name2")}
+                    </span>
+                    <span dir={isRTL ? "rtl" : "ltr"}  className="text-xs">
+                    {t("hero.hero_profession2")}
+                    </span>
+                  </div>
+
+                  <div>
+                    <p className="text-xs bg-[#FFE6E6] dark:ring-red-900 p-2 px-3 rounded-full flex gap-2 font-medium">
+                      Not Eligible{" "}
+                      <Image src="/Ellipse_red.svg" width={6} height={6} />
+                    </p>
+                  </div>
+                </div>
+
+                {/* <div className="bg-gradient-to-r from-white to-transparent via-20% via-transparent w-80p justify-center flex flex-col space-y-8 mb-[6rem] "> */}
+              </div>
+            </div>
           </div>
 
-          <div className=" w-50p h-full max-lg:hidden">
-            <div className="w-50p h-full ">
-              <div className=" absolute h-[80%] w-[50%] flex">
-                <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div>
+          <div className=" h-full min-w-[40%] w-full z-[2] flex flex-col justify-center  gap-5 sm:w-[80%] md:w-[60%] lg:w-[100%]  max-lg:text-center max-lg:items-center">
+            <h1  dir={isRTL ? "rtl" : "ltr"} className="text-dark min-w-fit dark:text-white text-center  md:text-5xl text-3xl font-[1000] w-[100%]">
+            {t("hero.hero_heading")}
+            </h1>
+            <p dir={isRTL ? "rtl" : "ltr"}  className="text-center min-w-fit w-[80%] self-center text-steel dark:text-white  text-md sm:text-sm">
+              {t("hero.hero_subheading")}
+            </p>
+          </div>
 
-                <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative top-[24rem] left-[13rem] rounded-full"></div>
+          {/* <div className=" w-100p h-full"> */}
+          <div className="w-100p h-full pl-8  max-lg:hidden">
+            <div className="  h-[80%] flex flex-row-reverse ">
+              {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15.5rem] top-[15rem] rounded-full "></div> */}
 
-                <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative left-[15rem] top-[6rem] rounded-full"></div>
+              {/* <div className="bg-gradient-to-br from-primary h-[5rem] w-[5rem] relative top-[24rem] left-[13rem] rounded-full"></div> */}
 
-                <div
-                  className={`w-100p h-full ${style["blurred-overlay"]} flex relative`}
-                >
-                  <div
+              <div className="bg-gradient-to-br from-[#31CDBA] h-[5rem] w-[5rem] relative left-[-18rem] top-[5rem] rounded-full"></div>
+              <div
+                className={`w-100p h-[100%] relative bg-transparent flex backdrop-blur-[40px]`}
+              >
+                {/* <div
                     className={`flex gap-3 items-center z-[1] text-neutral-dark dark:text-white w-[13rem] h-[3rem] border-2 ${
                       theme === "dark"
                         ? style["background-gradient"]
@@ -50,23 +98,35 @@ const HeroSection = () => {
                     </div>
 
                     <span className="text-sm">Dwayne Johnson</span>
+                  </div> */}
+
+                <div
+                  className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[23rem] h-[4rem] bg-white border-2 border-[#31CDBA] rounded-2xl mt-20`}
+                >
+                  <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-[#E7FFE0] dark:bg-darkPurple overflow-hidden rounded-md">
+                    <Image src="/bitmoji-female.svg" width={20} height={20} />
                   </div>
 
-                  <div
-                    className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[13rem] h-[3rem] border-2 ${
-                      theme === "dark"
-                        ? style["background-gradient"]
-                        : "bg-white"
-                    } border-primary absolute left-[15rem] top-[17%] rounded-md`}
-                  >
-                    <div className="ml-2 px-[0.4rem] py-[0.25rem] bg-white-purple-shade dark:bg-darkPurple overflow-hidden rounded-md">
-                      <Image src="/Bitmoji.svg" width={20} height={20} />
-                    </div>
+                  <div className="flex flex-col me-5">
+                    <span dir={isRTL ? "rtl" : "ltr"} className="text-md text-bold">
+                    {t("hero.hero_name1")}
 
-                    <span className="text-sm">Dwayne Johnson</span>
+                    </span>
+                    <span dir={isRTL ? "rtl" : "ltr"}  className="text-xs">
+                    {t("hero.hero_profession1")}
+
+                    </span>
                   </div>
 
-                  <div
+                  <div>
+                    <p className="text-xs bg-[#E7FFE0] dark:bg-green-900 p-2 rounded-full flex gap-2 font-medium">
+                      Recommended{" "}
+                      <Image src="/Ellipse_green.svg" width={6} height={6} />
+                    </p>
+                  </div>
+                </div>
+
+                {/* <div
                     className={`flex gap-3 items-center z-[1] text-neutralDark dark:text-white w-[13rem] h-[3rem] border-2 ${
                       theme === "dark"
                         ? style["background-gradient"]
@@ -78,28 +138,39 @@ const HeroSection = () => {
                     </div>
 
                     <span className="text-sm">Dwayne Johnson</span>
-                  </div>
+                  </div> */}
 
-                  {/* <div className="bg-gradient-to-r from-white to-transparent via-20% via-transparent w-80p justify-center flex flex-col space-y-8 mb-[6rem] "> */}
-                  <div className="w-80p justify-center flex flex-col space-y-8 mb-[6rem] ">
-                    <div className={style["fade-border-b"]}></div>
-                    <div className={style["fade-border-b"]}></div>
-                    <div className={style["fade-border-b"]}></div>
-                    <div className={style["fade-border-b"]}></div>
-                    <div className={style["fade-border-b"]}></div>
-                    <div className={style["fade-border-b"]}></div>
-                    <div className={style["fade-border-b"]}></div>
-                  </div>
-                </div>
+                {/* <div className="bg-gradient-to-r from-white to-transparent via-20% via-transparent w-80p justify-center flex flex-col space-y-8 mb-[6rem] "> */}
               </div>
             </div>
           </div>
+          {/* </div> */}
         </div>
 
-        <div className="w-[90%]">
-          <TrustedCandidates />
-        </div>
+        <TrustedCandidates t={t} />
+        {/* <Link href={`${process.env.NEXT_PUBLIC_URL}/client-signup`}> */}
+        <button   
+          dir={isRTL ? "rtl" : "ltr"} 
+          ref={buttonRef}
+          onClick={() => setIsOpen(true)}
+          className={`max-md:mx-auto px-3 py-2.5 text-md bg-gradient-to-tr from-btnPurple to-lightPurple rounded-3xl font-semibold w-[15rem] text-white`}
+        >
+          {t("hero.get_started_btn")}
+        </button>
+        {/* </Link> */}
       </div>
+
+      <PopupModal
+        url="https://calendly.com/taha-recruitinn/30min"
+        rootElement={document.body}
+        text="Schedule Call"
+        textColor="#fff"
+        color="#000"
+        height="200px"
+        overflow="hidden"
+        onModalClose={() => setIsOpen(false)}
+        open={isOpen}
+      />
     </>
   );
 };

@@ -1,63 +1,107 @@
 import Image from "next/image";
-// import './landingGlobal.css';
-// import './styles.css';
-import style from "./styles.module.css";
-import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 
-const LandingFourth = () => {
-  const { theme } = useTheme();
+function LandingFourth() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRefs = useRef([]);
+
+  const sections = [
+    {
+      text: "Real-Time Interviews, Instant Feedback, and Seamless Scheduling – All Automated for You!",
+      image: "/Rectangle1.png",
+    },
+    {
+      text: "Effortlessly evaluate candidates, gain actionable insights, and make decisions with confidence.",
+      image: "/Rectangle2.png",
+    },
+    {
+      text: "Our solutions cater to every expertise and project demand, ensuring a perfect Talent every time.",
+      image: "/Rectangle3.png",
+    },
+  ];
+
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         const index = sectionRefs.current.indexOf(entry.target);
+  //         if (entry.isIntersecting && index !== -1) {
+  //           setActiveIndex(index);
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.25 } // Adjust threshold to control sensitivity
+  //   );
+
+  //   sectionRefs.current.forEach((ref) => ref && observer.observe(ref));
+  //   return () => observer.disconnect();
+  // }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offsets = sectionRefs.current.map(
+        (ref) => ref?.getBoundingClientRect().top
+      );
+      const windowHeight = window.innerHeight;
+
+      const newIndex = offsets.findIndex(
+        (offset) => offset >= -windowHeight / 4 && offset <= windowHeight / 2
+      );
+
+      if (newIndex !== -1 && newIndex !== activeIndex) {
+        setActiveIndex(newIndex);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeIndex]);
+
   return (
-    <>
-      <div className="h-[100%] w-[100%] flex items-center justify-center mb-12">
-        <div
-          className={`
-          w-[90%] h-80p rounded-2xl py-4 flex items-center p-12 border-2 border-solid
-          ${
-            theme === "dark"
-              ? `${style["fourth-sec-gradient"]} border-transparent`
-              : " border-[#F0EDFC]"
-          } `}
-        >
-          <div className="w-50p h-80p fade-right-border flex items-center justify-center max-md:w-[100%]  max-md:text-center">
-            <div className="w-80p flex flex-col gap-5 text-black dark:text-white">
-              <h3 className="text-2xl tracking-wide">
-                Discover more with Recruitinn's streamlined process
-              </h3>
-              <p className="text-[0.75rem] text-smallText">
-                Revolutionize your recruitment process with Reccruitinn's AI
-                Assessment saving you valuable hours while ensuring top-notch
-                candidate evaluations.
-              </p>
-              <div className="flex gap-3 w-[100%] max-xsm:gap-1">
-                <div className="px-7 py-2 rounded-3xl bg-[#F0EDFC] dark:bg-spanBg max-lg:px-3 max-lg:py-1">
-                  <span className="gradient-text text-2xl font-bold max-lg:text-base max-xsm:text-sm">
-                    24h
-                  </span>
-                </div>
-                <div className="px-7 py-2 rounded-3xl bg-[#F0EDFC] dark:bg-spanBg max-lg:px-4 max-lg:py-1">
-                  <span className="gradient-text text-2xl font-bold max-lg:text-base max-xsm:text-sm">
-                    48h
-                  </span>
-                </div>
-                <div className="px-7 py-2 rounded-3xl bg-[#F0EDFC] dark:bg-spanBg max-lg:px-4 max-lg:py-1">
-                  <span className="gradient-text text-2xl font-bold max-lg:text-base max-xsm:text-sm">
-                    72h
-                  </span>
-                </div>
-              </div>
+    <div className="relative mt-16 w-90p mx-auto">
+      {/* <div className="sticky top-1/4 left-10 transform -translate-y-1/2 flex flex-col items-center justify-center h-screen"> */}
+      <div className="flex flex-col mb-8 items-center justify-center ">
+        {sections.map((section, index) => (
+          <p
+            key={index}
+            className={`text-3xl font-bold text-center transition-opacity duration-500 ${
+              index === activeIndex ? "opacity-100" : "opacity-30"
+            }`}
+          >
+            {section.text}
+          </p>
+        ))}
+      </div>
 
-              <h2 className="text-4xl w-50p font-bold leading-[3rem] gradient-text max-lg:w-100p">
-                20+ Potential Candidates
-              </h2>
-            </div>
-          </div>
-          <div className="w-50p h-80p flex items-start justify-center max-md:hidden">
-            <Image src="/clock.png" width={400} height={400} />
-          </div>
+      {/* <div className="sticky top-[70%] transform -translate-y-1/2 h-screen flex items-center justify-center"> */}
+      <div className="sticky top-0 h-[64rem] flex items-center justify-center">
+        {/* <img
+          src={sections[activeIndex]?.image}
+          alt={`Section ${activeIndex + 1}`}
+          className="w-3/4 transition-opacity duration-1000 object-cover h-auto"
+        /> */}
+        <div className="relative size-full">
+          <Image
+            src={sections[activeIndex]?.image}
+            fill
+            className="w-3/4 transition-opacity duration-1000 object-cover size-full"
+            alt={`Section ${activeIndex + 1}`}
+            quality={80}
+          />
         </div>
       </div>
-    </>
+
+      <div className="relative h-[300vh]">
+        {sections.map((_, index) => (
+          <div
+            key={index}
+            ref={(el) => (sectionRefs.current[index] = el)}
+            className="h-screen"
+          ></div>
+        ))}
+      </div>
+    </div>
   );
-};
+}
 
 export default LandingFourth;

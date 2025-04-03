@@ -1,0 +1,11 @@
+.cameraVideo {
+    width: 250px; /* Adjust size as needed */
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    bottom: 20px; /* Adjust positioning */
+    left: 50px;
+    border: 2px solid #ccc; /* Optional: Add a border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+  }

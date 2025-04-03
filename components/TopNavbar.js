@@ -32,7 +32,7 @@ const TopNavbar = ({
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      console.log("search API:", data);
+      //("search API:", data);
       setSearchResults(data);
     } catch (error) {
       console.error("Failed to fetch search results:", error);
@@ -52,7 +52,7 @@ const TopNavbar = ({
 
   useEffect(() => {
     if (query.trim()) {
-      console.log("is clicked:", isClicked);
+      //("is clicked:", isClicked);
       searchApiCall(query, searchType);
       if (isClicked) {
         setSearchResults(query, searchType);
@@ -82,7 +82,7 @@ const TopNavbar = ({
   }, []);
 
   const focusSearchInput = () => {
-    console.log("Search field clicked!");
+    //("Search field clicked!");
     setIsClicked(true);
     if (searchInputRef.current) searchInputRef.current.focus();
 
@@ -105,14 +105,14 @@ const TopNavbar = ({
       }
     );
     const fullCandidateData = await response.json();
-    console.log("///////////////////////////", fullCandidateData);
+    //("///////////////////////////", fullCandidateData);
 
     // Set the fetched candidate data as the selected candidate
     setSelectedCandidate({
       ...candidate,
       results: fullCandidateData?.data?.result,
     });
-    console.log("HIIII FROM SEARCH");
+    //("HIIII FROM SEARCH");
     setReportOverlay(!reportOverlay);
   };
 
@@ -120,7 +120,7 @@ const TopNavbar = ({
 
   useEffect(() => {
     // let isMounted = true;
-    // console.log('client_id:', id)
+    // //('client_id:', id)
     // localStorage.setItem('clientId', id);
     // const token = localStorage.getItem('client-token');
     // setToken(token)
@@ -142,9 +142,9 @@ const TopNavbar = ({
         }
       );
 
-      console.log("response: ", response);
+      //("response: ", response);
       if (!response.ok) {
-        console.log(`Error: ${response.status}`);
+        //(`Error: ${response.status}`);
       }
       const allData = await response.json();
       //   if (isMounted) {
@@ -152,7 +152,7 @@ const TopNavbar = ({
       setResults(allData);
       // setIsLoading(false);
       //   }
-      console.log("jsonified candidates response: ", allData);
+      //("jsonified candidates response: ", allData);
     }
     fetchAllCandidateReports();
     // return () => {
@@ -210,46 +210,34 @@ const TopNavbar = ({
             </div>
           </div>
         </div>
-        {searchResults && searchResults?.data && searchResults?.data?.data && (
-          <div className={styles.searchResults} ref={searchResultsRef}>
-            <ul>
-              {searchResults?.data?.data?.map((result) => (
-                <li
-                  key={result?.position_id}
-                  onClick={() => {
-                    console.log(
-                      "fetched result for selected candidate:",
-                      result
-                    );
-                    searchType === "Jobs"
-                      ? onJobSelect(result)
-                      : searchType === "Candidates"
-                      ? cardClickHandler(result)
-                      : "";
-                    setSearchResults(null);
-                  }}
-                >
-                  {searchType === "Jobs"
-                    ? result?.position
-                    : searchType === "Candidates"
-                    ? result?.name
-                    : ""}
-                  {searchType === "Candidates" ? (
-                    <span>
-                      {" "}
-                      Tech stack:{" "}
-                      {result?.expertise
-                        ?.map((expertise) => expertise?.skill)
-                        .join(", ")}{" "}
-                    </span>
-                  ) : (
-                    <></>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+
+        {searchResults && searchResults?.data?.data ? (
+          searchResults.data.data.length > 0 ? (
+            <div className={styles.searchResults} ref={searchResultsRef}>
+              <ul>
+                {searchResults.data.data.map((result) => (
+                  <li
+                    key={result?.position_id || result?.candidate_id}
+                    onClick={() => {
+                      searchType === "Jobs"
+                        ? onJobSelect(result)
+                        : searchType === "Candidates"
+                        ? cardClickHandler(result)
+                        : null;
+                      setSearchResults(null);
+                    }}
+                  >
+                    {searchType === "Jobs" ? result?.position : result?.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className={styles.searchResults} ref={searchResultsRef}>
+              <p>No {searchType === "Jobs" ? "jobs" : "candidates"} found.</p>
+            </div>
+          )
+        ) : null}
       </div>
     </>
   );

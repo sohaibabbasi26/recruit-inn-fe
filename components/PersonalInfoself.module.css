@@ -9,6 +9,23 @@
   justify-content: flex-start;
 }
 
+.Loginprompt {
+ 
+  margin-top: 10px;
+  margin-left: auto;
+}
+
+.loginLink {
+  color: #6137db;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+
 .masterContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;

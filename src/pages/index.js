@@ -1,28 +1,31 @@
 // import Head from "next/head";
-import { ThemeProvider } from "next-themes";
 import { useEffect, useRef, useState } from "react";
+import FeaturesSection from "../../components-landing/FeaturesSection";
 import Footer from "../../components-landing/Footer";
 import HeroSection from "../../components-landing/HeroSection";
-import HowItWorks from "../../components-landing/HowItWorks";
+import InterviewSection from "../../components-landing/InterviewSection";
 import LandingFAQs from "../../components-landing/LandingFAQs";
-import LandingFourth from "../../components-landing/LandingFourth";
 import LandingNavbar from "../../components-landing/LandingNavbar";
 import LandingThird from "../../components-landing/LandingThird";
-import LandingVideo from "../../components/LandingVideo";
 import PaymentMethods from "../../components-landing/PaymentMethods";
-import RecruitinnsWay from "../../components/RecruitinnsWay";
+import RecruitInnProcess from "../../components-landing/RecruitInnProcess";
 import styles from "../../components-landing/styles.module.css";
-import LandingFifth from "../../components-landing/LandingFifth";
+import Testimonials from "../../components-landing/Testimonials";
+import LandingVideo from "../../components/LandingVideo";
+import { useTranslation } from "react-i18next";
 
 const LandingPage = () => {
   const [mounted, setMounted] = useState(false);
   const LandingThirdRef = useRef(null);
-  const howItWorksRef = useRef(null);
-  const PaymentMethodsRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const featuresRef = useRef(null);
+  const pricingRef = useRef(null);
 
   const FAQRef = useRef(null);
   const HeroRef = useRef(null);
 
+
+  const { t } = useTranslation();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -46,47 +49,61 @@ const LandingPage = () => {
         />
       </Head> */}
 
-      <ThemeProvider attribute="class" defaultTheme="light">
-        <main
-          className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}
-        >
-          <h1 className="hidden">
-            Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
-          </h1>
-          <LandingNavbar
-            scrollToRef={scrollToRef}
-            HeroRef={HeroRef}
-            LandingThirdRef={LandingThirdRef}
-            howItWorksRef={howItWorksRef}
-          />
-          <div ref={HeroRef}>
-            <HeroSection />
-          </div>
+      <main className={`${styles.main} bg-white dark:bg-black h-[100%] w-full`}>
+        <h1 className="hidden">
+          Recruitinn - AI-Powered Recruitment for Smarter Hiring Decisions
+        </h1>
+        <LandingNavbar
+          scrollToRef={scrollToRef}
+          HeroRef={HeroRef}
+          pricingRef={pricingRef}
+          LandingThirdRef={LandingThirdRef}
+          testimonialsRef={testimonialsRef}
+          featuresRef={featuresRef}
+          t={t}
+        />
+        <div ref={HeroRef}>
+          <HeroSection  t={t}/>
+        </div>
 
-          <LandingVideo />
-          <div ref={LandingThirdRef}>
-            <LandingThird />
-          </div>
-          <LandingFourth />
+        <LandingVideo />
+        <div ref={LandingThirdRef}>
+          <LandingThird t={t}/>
+        </div>
+        <InterviewSection t={t} />
+        {/* Try this */}
+        {/* <LandingFourth /> */}
+        <div className="4th">
+          <RecruitInnProcess t={t}/>
+        </div>
+        <div ref={featuresRef}> 
+          <FeaturesSection t={t} />
+        </div>
+        {/* <LandingFourth />
           <div ref={howItWorksRef}>
             <HowItWorks />
-          </div>
-          <div ref={PaymentMethodsRef} className="pt-4">
-            <PaymentMethods />
-          </div>
+          </div>  */}
+          <div ref={testimonialsRef}>
+         <Testimonials t={t}/>
+         </div>
+       
+        <div ref={pricingRef} className="pt-4">
+          <PaymentMethods  t={t}/>
+        </div>
 
-          <div ref={FAQRef}>
-            <LandingFAQs />
-          </div>
-          <Footer
-            scrollToRef={scrollToRef}
-            HeroRef={HeroRef}
-            FAQRef={FAQRef}
-            howItWorksRef={howItWorksRef}
-            PaymentMethodsRef={PaymentMethodsRef}
-          />
-        </main>
-      </ThemeProvider>
+        <div ref={FAQRef}>
+          <LandingFAQs t={t}/>
+        </div>
+        <Footer
+          scrollToRef={scrollToRef}
+          HeroRef={HeroRef}
+          FAQRef={FAQRef}
+          featuresRef={featuresRef}
+          pricingRef={pricingRef}
+          howItWorksRef={featuresRef}
+          t={t}
+        />
+      </main>
     </>
   );
 };

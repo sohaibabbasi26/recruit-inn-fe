@@ -4,7 +4,7 @@ import questionsReducer from './slices/questionsSlice';
 const loggerMiddleware = (store) => (next) => (action) => {
     const result = next(action);
     if (action.type.startsWith('questions/')) {
-      console.log('Questions state updated:', store.getState().questions);
+      //('Questions state updated:', store.getState().questions);
     }
     return result;
   };

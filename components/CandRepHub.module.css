@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,600&family=Poppins:wght@500&display=swap');
 
-
 .parentContainer {
     width: 98.75%;
     background-color: #F8F7FA;
@@ -12,6 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .superContainer {
@@ -88,7 +88,6 @@
     margin-bottom: 1rem;
     cursor: pointer;
 }
-
 
 .heading {
     display: flex;
@@ -205,7 +204,6 @@
     width: 95%;
     font-size: 0.8rem;
     color: #4A525D;
-    
 }
 
 .lowerContainer span{

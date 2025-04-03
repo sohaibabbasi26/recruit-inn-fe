@@ -16,6 +16,7 @@ const ShareLink = ({
   setName,
   assessmentId,
   isTestRequired,
+  language,
   emailReceivers,
   setEmailReceivers,
   handleEmailChange,
@@ -32,13 +33,15 @@ const ShareLink = ({
   showSuccess,
   setMessage,
   positionId,
-  positionName
+  positionName,
+  interviewCount,
 }) => {
   const imageSize = 60;
   const plusSize = 20;
   const iconSize = 20;
   const clipSize = 30;
   const [link, setLink] = useState();
+  const [showSuccessMessage, setShowSuccessMessage] = useState("");
 
   // const [emailReceivers, setEmailReceivers] = useState([{ email: '' }]);
 
@@ -50,7 +53,7 @@ const ShareLink = ({
       assessmentId ||
       isTestRequired
     ) {
-      const demolink = `https://app.recruitinn.ai/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}`;
+      const demolink = `${process.env.NEXT_PUBLIC_URL}/invited-candidate?position_id=${positionId}&client_id=${companyId}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${language}`;
       setLink(demolink);
     }
   }, [questionId, isTestRequired, assessmentId]);
@@ -82,8 +85,19 @@ const ShareLink = ({
   };
 
   useEffect(() => {
-    setSubject(`RECRUITINN: Test link for ${positionName} position.`);
-    setText(`Click on the following link to start a test:${link}`);
+    setSubject(`Complete Your Online Assessment with Recruitinn.ai`);
+    setText(`
+      Dear Candidate,
+      
+      You have been invited to complete an online assessment as part of the recruitment process. Please use the link below to access your test:
+      Test Link: ${link}
+
+      Please ensure you complete the assessment within the given time frame. If you have any questions, feel free to reach out.
+
+      Good luck!
+
+      Best regards, 
+      Team Recruitinn`);
   });
 
   return (
@@ -111,61 +125,86 @@ const ShareLink = ({
             </div>
 
             <div>
-      <div className={styles.form}>
-        <div className={styles.topBar}>
-          <button
-            style={{
-              color: receivers.length >= 3 ? "grey" : "#6137DB",
-            }}
-            onClick={addEmailReceiver}
-            disabled={receivers.length >= 3}
-          >
-            Add another candidate
-          </button>
-          <Image src="/Plus.svg" width={plusSize} height={plusSize} />
-        </div>
-      </div>
+              <div className={styles.form}>
+                <div className={styles.topBar}>
+                  <button
+                    style={{
+                      color: receivers.length >= 3 ? "grey" : "#6137DB",
+                    }}
+                    onClick={() => {
+                      if (receivers.length >= 3) {
+                        setShowSuccessMessage(
+                          "You can copy the link assessment and share with other candidates"
+                        );
+                      } else {
+                        addEmailReceiver();
+                        setShowSuccessMessage("");
+                      }
+                    }}
+                  >
+                    Add another candidate
+                  </button>
+                  <Image src="/Plus.svg" width={plusSize} height={plusSize} />
+                </div>
+              </div>
 
-      <div className={styles.allFields}>
-        {receivers.map((receiver, index) => (
-          <div className={styles.field} key={index}>
-            <div className={styles.left}>
-              <Image src="/sticker.svg" width={28} height={28} />
-              <input 
-                type="text" 
-                value={receiver.name}
-                onChange={(e) => handleReceiverChange(index, 'name', e.target.value)} 
-                placeholder="Enter your name" 
-              />
+              <div className={styles.allFields}>
+                {receivers.map((receiver, index) => (
+                  <div className={styles.field} key={index}>
+                    <div className={styles.left}>
+                      <Image src="/sticker.svg" width={28} height={28} />
+                      <input
+                        type="text"
+                        value={receiver.name}
+                        onChange={(e) =>
+                          handleReceiverChange(index, "name", e.target.value)
+                        }
+                        placeholder="Enter your name"
+                      />
+                    </div>
+                    <div className={styles.right}>
+                      <Image
+                        src="/Bag.svg"
+                        width={iconSize}
+                        height={iconSize}
+                      />
+                      <input
+                        type="text"
+                        value={receiver.email}
+                        onChange={(e) =>
+                          handleReceiverChange(index, "email", e.target.value)
+                        }
+                        placeholder="Enter email"
+                      />
+                      {receivers.length > 1 && (
+                        <Image
+                          onClick={() => {
+                            removeReceiver(index);
+                            setShowSuccessMessage("");
+                          }}
+                          src="/trash-bin.svg"
+                          width={30}
+                          height={30}
+                        />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className={styles.right}>
-              <Image src="/Bag.svg" width={iconSize} height={iconSize} />
-              <input 
-                type="text" 
-                value={receiver.email}
-                onChange={(e) => handleReceiverChange(index, 'email', e.target.value)} 
-                placeholder="Enter email" 
-              />
-              {receivers.length > 1 && (
-                <Image
-                  onClick={() => removeReceiver(index)}
-                  src="/trash-bin.svg"
-                  width={30}
-                  height={30}
-                />
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
+            <p className={styles.message}>{showSuccessMessage}</p>
             <div className={styles.linkContainer}>
               <div className={styles.wrapper}>
                 <Image src="/Chain.svg" height={clipSize} width={clipSize} />
                 <input value={link} readOnly />
               </div>
-              <button onClick={handleCopyClick}>
+              <button
+                onClick={handleCopyClick}
+                disabled={interviewCount === 0}
+                style={{
+                  backgroundColor: interviewCount === 0 ? "grey" : "#6137DB",
+                }}
+              >
                 Copy Assessment Link
                 <Image src="/Copy.svg" width={iconSize} height={iconSize} />
               </button>

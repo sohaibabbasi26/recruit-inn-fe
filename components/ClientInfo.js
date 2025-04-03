@@ -1,4 +1,5 @@
 import styles from "./ClientInfo.module.css";
+
 import Image from "next/image";
 import { useState } from "react";
 import { countryList } from "@/util/cities";
@@ -29,6 +30,7 @@ const ClientInfo = ({
   setCompanySize,
   setCountry,
   setCompanyname,
+  onLogin,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -38,7 +40,7 @@ const ClientInfo = ({
 
   const handleInputChange = (setter) => (event) => {
     setter(event.target.value);
-    // console.log(getCities(country));
+    // //(getCities(country));
   };
 
   return (
@@ -233,9 +235,18 @@ const ClientInfo = ({
               ))}
           </select>
         </div>
+
+        <div className={styles.signupPrompt}>
+          <p>
+            Already have an account?{" "}
+            <span onClick={onLogin} className={styles.signupLink}>
+              Log in
+            </span>
+          </p>
+          </div>
       </div>
     </>
   );
 };
-
+// 
 export default ClientInfo;

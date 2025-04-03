@@ -5,8 +5,10 @@ import { useState } from "react";
 import style from "./styles.module.css";
 import ChevronDown from "../components/ChevronDown";
 import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 
-const LandingFAQs = () => {
+ 
+const LandingFAQs = ({t}) => {
   const [dropDownState, setDropDownState] = useState(false);
   const [secondDropDownState, setSecondDropDownState] = useState(false);
   const [thirdDropDownState, setThirdDropDownState] = useState(false);
@@ -15,6 +17,8 @@ const LandingFAQs = () => {
   const [sixthDropDownState, setSixthDropDownState] = useState(false);
   const [seventhDropDownState, setSevethDropDownState] = useState(false);
   const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
 
   const toggleDropDown = () => {
     setDropDownState(!dropDownState);
@@ -43,163 +47,174 @@ const LandingFAQs = () => {
   return (
     <>
       <div className="h-auto w-[100%]  max-md:items-center flex justify-center text-white items-center flex-col">
-        <div className="h-100p w-100p mb-[2rem] flex justify-center text-black dark:text-white items-center flex-col ">
+        <div   className=" h-100p w-100p mb-[2rem] flex justify-center text-black dark:text-white items-center flex-col ">
           <div className="h-[20%] w-[90%] flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-sans font-semibold">FAQs</h1>
-            <p className="text-sm mt-3 text-smallText">
-              Answers to the most frequently asked questions.
+            <h1 className="text-center text-5xl font-bold text-gray-900">
+              {t("FAQ.F_heading")}
+            </h1>
+            <p className="text-center text-md text-gray-500 mt-2">
+            {t("FAQ.F_subheading")}
+
             </p>
           </div>
           <div className="w-[50%] h-[70%] mt-[1rem] max-md:w-[90%]">
             <ul className="w-[100%] ">
               <li
                 onClick={toggleDropDown}
-                className="cursor-pointer py-4  w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
+                  ${
+                    !dropDownState ? "border-gray-200" : "relative border-white"
+                  }`}
               >
-                <div className=" w-[100%] flex justify-between items-center gap-2">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    What is recruitinn?
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"}  className="text-lg tracking-wide font-semibold font-sans ">
+              {t("FAQ.F_Q1")}
+                    
                   </span>
-                  {/* <Image
-                    onClick={toggleDropDown}
-                    src="/dropdown-white.svg"
-                    width={15}
-                    height={15}
-                  /> */}
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
                       dropDownState && "rotate-180"
                     } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
+
+                {/* Dropdown content */}
                 {dropDownState && (
-                  <p className="text-sm  text-smallText mt-3">
-                    Recruitinn is a advance recruitment platform that connects
-                    businesses with top engineers and developers. Our advanced
-                    AI-driven technology streamlines the hiring process by
-                    offering comprehensive assessment tests and personalized
-                    matching, ensuring that you find the perfect candidates for
-                    your specific needs.
+                  <p  dir={isRTL ? "rtl" : "ltr"}  className="text-lg text-smallText mt-3 ">
+                  {t("FAQ.F_A1")}
                   </p>
                 )}
+
+                {/* Add a fading effect when the dropdown is closed */}
+                {dropDownState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
+                )}
               </li>
+
               <li
                 onClick={toggleSecondDropDown}
-                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
+                  ${
+                    !secondDropDownState
+                      ? "border-gray-200"
+                      : "relative border-white"
+                  }`}
               >
-                <div className=" w-[100%] flex justify-between">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    How does the Free trial work?
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
+                  {t("FAQ.F_Q2")}
                   </span>
-                  {/* <Image
-                    onClick={toggleSecondDropDown}
-                    src="/dropdown-white.svg"
-                    width={15}
-                    height={15}
-                  /> */}
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
                       secondDropDownState && "rotate-180"
                     } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
+
+                {/* Dropdown content */}
                 {secondDropDownState && (
-                  <p className="text-sm  text-smallText mt-3">
-                    Our free trial allows you to experience Recruitinn's
-                    features and services without any commitment. Sign up,
-                    define your requirements, and start connecting with top
-                    talent. You'll have access to a limited number of candidate
-                    matches and assessment tools to evaluate our platform's
-                    effectiveness.
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
+                  {t("FAQ.F_A2")}
                   </p>
+                )}
+
+                {/* Add a fading effect when the dropdown is closed */}
+                {secondDropDownState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
                 )}
               </li>
               <li
                 onClick={toggleThirdDropDown}
-                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
+                  ${
+                    !dropDownState ? "border-gray-200" : "relative border-white"
+                  }`}
               >
-                <div className=" w-[100%] flex justify-between">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    How does billing work?
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
+                   {t("FAQ.F_Q3")}
                   </span>
-                  {/* <Image src="/dropdown-white.svg" width={15} height={15} /> */}
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
                       thirdDropDownState && "rotate-180"
                     } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
+
+                {/* Dropdown content */}
                 {thirdDropDownState && (
-                  <p className="text-sm  text-smallText mt-3">
-                    Billing is straightforward and transparent. After selecting
-                    a pricing plan that fits your needs, you'll be billed on a
-                    monthly or annual basis, depending on your preference. Our
-                    flexible payment options ensure that you only pay for the
-                    services you use, with no hidden fees or unexpected charges.
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
+                   {t("FAQ.F_A3")}
                   </p>
                 )}
-              </li>
-              <li
-                onClick={toggleFourthDropDown}
-                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
-              >
-                <div className=" w-[100%] flex justify-between">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    How are you different?
-                  </span>
-                  {/* <Image
-                    onClick={toggleFourthDropDown}
-                    src="/dropdown-white.svg"
-                    width={15}
-                    height={15}
-                  /> */}
-                  <ChevronDown
-                    classes={`w-7 h-7 transition-transform duration-300 ${
-                      fourthDropDownState && "rotate-180"
-                    } ${theme == "light" ? "opacity-80" : ""}`}
-                  />
-                </div>
-                {fourthDropDownState && (
-                  <p className="text-sm  text-smallText mt-3">
-                    Recruitinn stands out by combining advanced AI technology
-                    with a personalized touch. Our platform not only matches you
-                    with top candidates based on your specific requirements but
-                    also offers comprehensive assessment tools and seamless
-                    integration processes. This ensures that you find the right
-                    talent quickly and efficiently, saving you time and
-                    resources.
-                  </p>
+
+                {/* Add a fading effect when the dropdown is closed */}
+                {thirdDropDownState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
                 )}
               </li>
               <li
                 onClick={toggleFifthDropDown}
-                className="cursor-pointer py-4 w-[100%] flex flex-col border-b-[1px] border-darkPurple"
+                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
+                  ${
+                    !fifthDropDownState
+                      ? "border-gray-200"
+                      : "relative border-white"
+                  }`}
               >
-                <div className=" w-[100%] flex justify-between">
-                  <span className="text-lg tracking-wide font-semibold font-sans">
-                    How does Recruitinn help you find the best candidate?
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
+                    {t("FAQ.F_Q4")}
                   </span>
-                  {/* <Image
-                    onClick={toggleFifthDropDown}
-                    src="/dropdown-white.svg"
-                    width={15}
-                    height={15}
-                  /> */}
                   <ChevronDown
                     classes={`w-7 h-7 transition-transform duration-300 ${
                       fifthDropDownState && "rotate-180"
                     } ${theme == "light" ? "opacity-80" : ""}`}
                   />
                 </div>
+
+                {/* Dropdown content */}
                 {fifthDropDownState && (
-                  <p className="text-sm  text-smallText mt-3">
-                    Recruitinn uses advanced AI to match your specific
-                    requirements with top talent. You define your needs, and our
-                    platform curates a list of qualified candidates. With
-                    detailed assessments and live interviews, you receive
-                    real-time evaluations to identify top performers, ensuring
-                    you find the perfect fit quickly and efficiently.
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
+                   {t("FAQ.F_A4")}
                   </p>
+                )}
+
+                {/* Add a fading effect when the dropdown is closed */}
+                {fifthDropDownState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
+                )}
+              </li>
+              <li
+                onClick={toggleFourthDropDown}
+                className={`cursor-pointer py-4 w-full flex flex-col border-b-2 
+                  ${
+                    !fourthDropDownState
+                      ? "border-gray-200"
+                      : "relative border-white"
+                  }`}
+              >
+                <div className={`w-full flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
+                  <span  dir={isRTL ? "rtl" : "ltr"} className="text-lg tracking-wide font-semibold font-sans">
+                   {t("FAQ.F_Q5")}
+                  </span>
+                  <ChevronDown
+                    classes={`w-7 h-7 transition-transform duration-300 ${
+                      fourthDropDownState && "rotate-180"
+                    } ${theme == "light" ? "opacity-80" : ""}`}
+                  />
+                </div>
+
+                {/* Dropdown content */}
+                {fourthDropDownState && (
+                  <p  dir={isRTL ? "rtl" : "ltr"} className="text-lg text-smallText mt-3">
+                    {t("FAQ.F_A5")}
+                  </p>
+                )}
+
+                {/* Add a fading effect when the dropdown is closed */}
+                {fourthDropDownState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-lightPurpleText to-transparent" />
                 )}
               </li>
             </ul>

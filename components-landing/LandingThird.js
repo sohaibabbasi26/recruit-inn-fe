@@ -2,106 +2,112 @@ import CardDiv from "../components/CardDiv";
 import TechstackOne from "../components/TechstackOne";
 import TechstackTwo from "../components/TechstackTwo";
 import { useTheme } from "next-themes";
-// import './landingGlobal.css';
-// import './styles.css';
 import style from "./styles.module.css";
 import "tailwindcss/tailwind.css";
 import Image from "next/image";
+import TechstackThree from "../components/TechstackThree";
+import styles from "./LandingThird.module.css";
+import TechstackFour from "../components/TechstackFour";
+import { useTranslation } from "react-i18next";
 
-const LandingThird = () => {
+const LandingThird = ({t}) => {
   const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
   return (
     <>
-      <div className="h-[100vh] max-lg:h-100p w-full flex justify-center mb-[2rem]">
+      <div className="h-[800px] max-md:h-80p  max-lg:h-100p w-full flex justify-center mb-[2rem]">
         <div className="w-90p max-lg:items-center max-lg:flex-col max-lg:h-[100%] flex justify-between items-center gap-5 ">
           <div
             className={`${
               theme === "dark"
                 ? style["right-dv-gradient"]
                 : "bg-white border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40"
-            } w-[50%] max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
+            } w-[50%]  max-lg:w-[100%] max-lg:h-[100%] h-100p rounded-3xl flex flex-col items-center overflow-hidden relative`}
           >
-            <div className="w-80p h-50p max-xl:h-[70vh] flex justify-center items-center relative">
-              <div className="relative flex items-center justify-center h-screen w-screen">
-                {/* Central Logo */}
-                <div className="absolute">
-                  <Image
-                    src="/recruitlogo.png"
-                    alt="Central Logo"
-                    width={50}
-                    height={50}
-                  />
-                </div>
+            <div className="w-80p h-50p max-xl:h-[70vh]  max-sm:mt-1 mt-[80px] flex justify-center items-center relative">
+              <div className="absolute">
+                <Image
+                  src="/recruitlogo.png"
+                  alt="Central Logo"
+                  width={50}
+                  height={50}
+                />
+              </div>
 
-                {/* Dotted Circles */}
-                <div className="absolute w-[150px] h-[150px] border-dashed border-2 border-gray-300 rounded-full"></div>
-                <div className="absolute w-[250px] h-[250px] border-dashed border-2 border-gray-300 rounded-full"></div>
-                <div className="absolute w-[350px] h-[350px] border-dashed border-2 border-gray-300 rounded-full"></div>
+              <div className="absolute w-[267px] h-[267px] max-sm:h-[200px] max-sm:w-[200px] border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[327px] h-[327px] max-sm:h-[250px] max-sm:w-[250px]  border-dashed border-2 border-gray-300 rounded-full z-0"></div>
+              <div className="absolute w-[380px] h-[385px] max-sm:h-[300px] max-sm:w-[300px]  border-dashed border-2 border-gray-300 rounded-full z-0"></div>
 
-                {/* Avatars */}
-                <div className="absolute top-[33%] left-[50%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar1.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[40%] left-[75%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar2.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute bottom-[50%] left-[35%] transform -translate-x-1/2 translate-y-1/2">
-                  <Image
-                    src="/avatar3.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[55%] left-[65%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar4.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[62%] right-[70%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar5.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
-                <div className="absolute top-[68%] right-[42%] transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src="/avatar6.png"
-                    alt="Avatar"
-                    width={40}
-                    height={40}
-                  />
-                </div>
+              <div className={`absolute ${styles.rotate_center} `}>
+                <Image
+                  src="/avatar1.png"
+                  alt="Avatar 1"
+                  width={30}
+                  height={30}
+                />
+              </div>
+
+              {/* Avatar 2 */}
+              <div className={`absolute ${styles.rotate_center1}`}>
+                <Image
+                  src="/avatar2.png"
+                  alt="Avatar 2"
+                  width={30}
+                  height={30}
+                />
+              </div>
+
+              {/* Avatar 3 */}
+              <div className={`absolute ${styles.rotate_center2}`}>
+                <Image
+                  src="/avatar3.png"
+                  alt="Avatar 3"
+                  width={30}
+                  height={30}
+                />
+              </div>
+
+              {/* Avatar 4 */}
+              <div className={`absolute ${styles.rotate_center3}`}>
+                <Image
+                  src="/avatar4.png"
+                  alt="Avatar 4"
+                  width={30}
+                  height={30}
+                />
+              </div>
+
+              {/* Avatar 5 */}
+              <div className={`absolute ${styles.rotate_center4}`}>
+                <Image
+                  src="/avatar5.png"
+                  alt="Avatar 5"
+                  width={30}
+                  height={30}
+                />
+              </div>
+
+              {/* Avatar 6 */}
+              <div className={`absolute ${styles.rotate_center5}`}>
+                <Image
+                  src="/avatar6.png"
+                  alt="Avatar 6"
+                  width={30}
+                  height={30}
+                />
               </div>
             </div>
 
-            <div className="w-80p h-50p flex flex-col justify-center">
-              <span className="text-lightPurpleText font-semibold text-lg">
-                TALENTS
+            <div className="w-80p h-50p flex flex-col justify-center mt-28 max-sm:mt-0">
+              <span dir={isRTL ? "rtl" : "ltr"}className="text-lightPurpleText font-semibold text-lg">
+              {t("landingThird.talent.title")}
               </span>
-              <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
-                GET INTO TOUCH WITH WORLD’S BEST ENGINEERS
+              <h3 dir={isRTL ? "rtl" : "ltr"} className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
+              {t("landingThird.talent.heading")}
               </h3>
-              <p className="text-steel dark:text-white max-md:mb-[1rem]">
-                Forge connections with leading engineers for cutting-edge
-                innovation and expertise. This collaboration unlocks visionary
-                solutions, propelling you to the forefront of engineering
-                excellence for unparalleled success.
+              <p  dir={isRTL ? "rtl" : "ltr"}className="text-steel dark:text-white max-lg:mb-[1rem] text-justify">
+              {t("landingThird.talent.subheading")}
               </p>
             </div>
           </div>
@@ -111,25 +117,51 @@ const LandingThird = () => {
               theme === "dark"
                 ? ""
                 : "border-2 border-solid border-[#F0EDFC] transition-all hover:border-lightPurpleText hover:shadow-lg hover:shadow-indigo-500/40 "
-            } w-[50%] max-lg:mb-[1rem] max-lg:w-[100%] max-lg:h-[100%] h-100p bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
+            } w-[50%]   max-lg:w-[100%] max-lg:h-[100%]  h-[100%]  bg-white dark:bg-elementGradOne  rounded-3xl flex flex-col items-center`}
           >
-            <div className="w-[100%] h-50p flex flex-col justify-center items-center relative mb-[1.5rem]">
-              <TechstackOne />
-              <TechstackTwo />
-            </div>
+ <div className=" w-[100%] max-h-[720px] mt-[100px] mb-[100px] overflow-hidden flex flex-col justify-center items-center relative">
+<video
+  className="w-[100%] h-[100%] object-contain"
+  autoPlay
+  loop
+  muted
+  playsInline = "false"
+>
+  <source src="/video/test3 (WebM).webm" type="video/webm" />
+  Your browser does not support the video tag.
+</video>
+</div>
+            {/* <div className=" w-[100%] max-h-[520px] overflow-hidden flex flex-col justify-center items-center relative"> */}
+              {/* <div className=" max-md:mt-[90px] mt-[120px]">
+                {" "}
+                <TechstackOne />
+              </div> */}
+              {/* <div>
+                {" "}
+                <TechstackTwo />
+              </div>
+              <div>
+                {" "}
+                <TechstackFour />
+              </div>
+              <div className="opacity-25 mt-6 max-md:hidden">
+                {" "}
+                <TechstackThree />
+              </div>
+              <div className="absolute h-full left-0 w-32 bg-gradient-to-r from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
+              <div className="absolute h-full right-0 w-32  bg-gradient-to-l from-white  from-40%  to-transparent to-90% rounded-t-3xl "></div>
+            </div> */}
 
-            <div className="w-80p h-50p flex flex-col justify-center">
-              <span className="text-lightPurpleText font-semibold text-lg">
-                SKILLS
+            <div className="w-80p h-50p max-md:mt-[20px]  max-lg:mt-[50px] mt-4   flex flex-col justify-center">
+              <span dir={isRTL ? "rtl" : "ltr"} className="text-lightPurpleText font-semibold text-lg">
+              {t("landingThird.techStack.title2")}
               </span>
-              <h3 className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
-                IN DEMAND SKILLS FOR MODERN TECHNOLOGIES
+              <h3 dir={isRTL ? "rtl" : "ltr"} className="text-black dark:text-white text-4xl font-semibold mb-[2rem] gradient-text">
+              {t("landingThird.techStack.heading2")}
               </h3>
-              <p className="text-steel dark:text-white max-sm:mb-[1rem]">
-                Forge connections with leading engineers for cutting-edge
-                innovation and expertise. This collaboration unlocks visionary
-                solutions, propelling you to the forefront of engineering
-                excellence for unparalleled success.
+              <p dir={isRTL ? "rtl" : "ltr"} className="text-steel dark:text-white max-md:mb-[1rem] max-lg:mb-[1rem] text-justify">
+              {t("landingThird.techStack.subheading2")} 
+
               </p>
             </div>
           </div>

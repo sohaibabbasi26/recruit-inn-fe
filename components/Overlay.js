@@ -17,10 +17,14 @@ import Stages from "./Stages";
 import React from "react";
 import ErrorIndicator from "./ErrorIndicator";
 import SuccessIndicator from "./SuccessIndicator";
+import SocialShare from "./SocialShare";
+import Head from "next/head";
 
 const Overlay = React.memo(
   ({
     setIsTestRequired,
+    isArabicChosen,
+    setIsArabicChosen,
     isTestRequired,
     showError,
     showErrorMessage,
@@ -33,6 +37,7 @@ const Overlay = React.memo(
     message,
     setMessage,
     showSuccess,
+    interviewCount,
   }) => {
     const overlayRef = useRef(null);
     // const { test, setTest } = useTest();
@@ -61,6 +66,7 @@ const Overlay = React.memo(
       }
 
       return () => {
+        document.body.style.overflow = "";
         gsap.to(overlayRef.current, {
           y: "100%",
           opacity: 0,
@@ -70,11 +76,8 @@ const Overlay = React.memo(
       };
     }, [showOverlay]);
 
-    // console.log("router object:", router)
     const { id } = router?.query;
 
-    console.log("id:", id);
-    const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.ADD_SKILL);
     const [completedStages, setCompletedStages] = useState([]);
     const [techStack, setTechStack] = useState(null);
@@ -102,7 +105,8 @@ const Overlay = React.memo(
     const [skill2, setSkill2] = useState("");
     const [skill3, setSkill3] = useState("");
     const [skill4, setSkill4] = useState("");
-    const [codingSkill, setCodingSkill] = useState("");
+    // const [codingSkill, setCodingSkill] = useState("");
+    const [level, setLevel] = useState(null);
     const [level1, setLevel1] = useState("");
     const [level2, setLevel2] = useState("");
     const [level3, setLevel3] = useState("");
@@ -110,6 +114,7 @@ const Overlay = React.memo(
     const [isLevelEntered, setIsLevelEntered] = useState("");
     const [name, setName] = useState();
     const [receivers, setReceivers] = useState([{ name: "", email: "" }]);
+    const [customQuestions, setCustomQuestions] = useState([""]);
 
     const handleReceiverChange = (index, field, value) => {
       const newReceivers = [...receivers];
@@ -161,26 +166,34 @@ const Overlay = React.memo(
     };
 
     useEffect(() => {
-      console.log("description:", description);
+      //("description:", description);
     }, [description]);
 
     const validateJobType = () => {
-      // Check each ref and value to ensure they are not null before accessing .trim()
       const positionValid =
         positionRef.current && positionRef.current.value.trim() !== "";
-      const cityValid = cityRef.current && cityRef.current.value.trim() !== "";
-      const countryValid =
-        countryRef.current && countryRef.current.value.trim() !== "";
       const jobTypeValid =
         jobTypeRef.current && jobTypeRef.current.value.trim() !== "";
       const descriptionValid = description && description.trim() !== "";
 
+      // Validate city and country only for On-site and Hybrid job types
+      const jobType = jobTypeRef.current?.value;
+      console.warn(jobType, "////////");
+      const cityValid =
+        jobType == "On-site" || jobType == "Hybrid"
+          ? cityRef.current && cityRef.current.value.trim() !== ""
+          : true;
+      const countryValid =
+        jobType === "On-site" || jobType === "Hybrid"
+          ? countryRef.current && countryRef.current.value.trim() !== ""
+          : true;
+
       return (
         positionValid &&
-        cityValid &&
-        countryValid &&
         jobTypeValid &&
-        descriptionValid
+        descriptionValid &&
+        cityValid &&
+        countryValid
       );
     };
 
@@ -281,18 +294,31 @@ const Overlay = React.memo(
     };
 
     const handleFormSubmit = async () => {
+      const jobType = jobTypeRef.current.value;
+
+      // Format custom questions
+      const formattedCustomQuestions = customQuestions.map((question) => ({
+        question,
+        type: "text", // You can modify this to allow different input types
+      }));
+
       const requestBody = {
         position: positionRef.current.value,
         company_id: id,
         expertise: techStack,
-        job_type: jobTypeRef.current.value,
+        job_type: jobType,
         description: description,
-        location: cityRef.current.value + ", " + countryRef.current.value,
-        // country: ,
+        location:
+          jobType === "On-site" || jobType === "Hybrid"
+            ? `${cityRef.current.value}, ${countryRef.current.value}`
+            : "",
         is_test_required: isTestRequired,
+        language: isArabicChosen ? "Arabic" : "English",
+        coding_level: level,
+        custom_questions: formattedCustomQuestions,
       };
 
-      console.log("request body:", requestBody);
+      //("request body:", requestBody);
 
       localStorage.setItem(
         "expertiseData",
@@ -302,15 +328,17 @@ const Overlay = React.memo(
           jobtype: jobtype,
           position: position,
           isTestRequired: isTestRequired,
+          language: isArabicChosen ? "Arabic" : "English",
+          coding_level: level,
         })
       );
 
       try {
         setIsLoading(true);
-        console.log(
-          "Payload size in bytes:",
-          new Blob([JSON.stringify(requestBody)]).size
-        );
+        // //(
+        //   "Payload size in bytes:",
+        //   new Blob([JSON.stringify(requestBody)]).size
+        // );
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_REMOTE_URL}/create-position`,
@@ -324,32 +352,33 @@ const Overlay = React.memo(
           }
         );
         const data = await response.json();
-        console.log("data of just created position:", data);
-        console.log("data of created position:", data?.data?.data?.position_id);
+        //("data of just created position:", data);
+        //("data of created position:", data?.data?.data?.position_id);
         setPositionId(data?.data?.data?.position_id);
         setPositionName(data?.data?.data?.position);
         setIsLoading(false);
-        console.log(data);
+        //(data);
       } catch (error) {
         console.error("Error submitting form:", error);
       }
     };
 
     useEffect(() => {
-      console.log("positionId", positionId);
-      console.log("questionId", questionId);
+      //("positionId", positionId);
+      //("questionId", questionId);
     }, [positionId, questionId, router?.isReady]);
 
     useEffect(() => {
-      console.log("expertise for coding:", codingExpertise);
+      //("expertise for coding:", codingExpertise);
     }, [codingExpertise]);
 
     const handleFormSubmitForTest = async () => {
       const requestBody = {
         expertise: techStack,
         position_id: positionId,
+        isArabic: isArabicChosen,
       };
-      console.log("req body : ", requestBody);
+      //("req body : ", requestBody);
       try {
         setIsLoading(true);
         const response = await fetch(
@@ -364,17 +393,17 @@ const Overlay = React.memo(
           }
         );
         const data = await response.json();
-        console.log("response data of a test creation:", data);
+        //("response data of a test creation:", data);
         setQuestionId(data?.data?.message?.question_id);
-        console.log("question id:");
+        //("question id:");
         setIsLoading(false);
         setMessage("Successfully created a test for your job!");
         showSuccess();
-        console.log(data);
+        //(data);
       } catch (error) {
         console.error("Error submitting form:", error);
       }
-      console.log("required:", isTestRequired);
+      //("required:", isTestRequired);
       if (isTestRequired === true) {
         try {
           setIsLoading(true);
@@ -397,8 +426,8 @@ const Overlay = React.memo(
           const data = await response.json();
           setCodeQues(data);
           setAssessmentId(data?.data?.assessment_id);
-          console.log("assessment id:", assessmentId);
-          console.log("code question data:", data);
+          //("assessment id:", assessmentId);
+          //("code question data:", data);
           setIsLoading(false);
           try {
             const body = {
@@ -406,7 +435,7 @@ const Overlay = React.memo(
               is_test_req: isTestRequired,
             };
 
-            console.log("body data sent in setPositionTestReq:", body);
+            //("body data sent in setPositionTestReq:", body);
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_REMOTE_URL}/set-position-test-req`,
               {
@@ -421,7 +450,7 @@ const Overlay = React.memo(
             const data = await response.json();
             setCodeQues(data);
           } catch (err) {
-            console.log("ERROR:", err);
+            //("ERROR:", err);
           }
         } catch (err) {
           console.error("ERROR:", err);
@@ -430,7 +459,7 @@ const Overlay = React.memo(
     };
 
     useEffect(() => {
-      console.log("codeQues:", codeQues);
+      //("codeQues:", codeQues);
     }, [codeQues]);
 
     const addEmailReceiver = () => {
@@ -440,10 +469,10 @@ const Overlay = React.memo(
     };
 
     const addNameReceiver = () => {
-      console.log("Adding a new name receiver");
+      //("Adding a new name receiver");
       setNameReceivers((currentReceivers) => {
         const newReceivers = [...currentReceivers, { name: "" }];
-        console.log("new recievers:");
+        //("new recievers:");
         return newReceivers;
       });
     };
@@ -506,7 +535,7 @@ const Overlay = React.memo(
       });
 
       const sendInvitesPromises = validEmailReceivers.map((receiver) => {
-        console.log("Checking Email Functionality", receiver.email);
+        //("Checking Email Functionality", receiver.email);
         return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
           method: "POST",
           headers: {
@@ -523,7 +552,7 @@ const Overlay = React.memo(
 
       try {
         await Promise.all(sendInvitesPromises);
-        console.log("Emails sent successfully");
+        //("Emails sent successfully");
         setMessage("Invitations have been sent to all candidates via email");
         showSuccess();
         onClose();
@@ -533,57 +562,33 @@ const Overlay = React.memo(
       }
     };
 
-    // const handleEmailInvite = async () => {
-    //   const validEmailReceivers = receivers.filter(receiver => {
-    //     const trimmedEmail = receiver.email.trim();
-    //     return trimmedEmail !== '' && validateEmail(trimmedEmail);
-    //   });
-    //   const validNameReceivers = receivers.filter(receiver => {
-    //     const trimmedName = receiver.name.trim();
-    //     return trimmedName !== '';
-    //   });
-    //   if(validNameReceivers.length === 0){
-    //     setMessage("Please Fill both the field");
-    //     showError();
-    //     return;
-    //   }
-
-    //   if (validEmailReceivers.length === 0) {
-    //     console.error('No valid email addresses found.');
-    //     setMessage('No valid email addresses found.');
-    //     showError();
-    //     return;
-    //   }
-
-    //   const sendInvitesPromises = validEmailReceivers.map(receiver => {
-    //     console.log("Checking Email Functionality", receiver.email);
-    //     return fetch(`${process.env.NEXT_PUBLIC_REMOTE_URL}/sendMail`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${token}`, // Ensure token is defined
-    //       },
-    //       body: JSON.stringify({
-    //         to: receiver.email,
-    //         subject: subject,
-    //         text: text,
-    //       }),
-    //     });
-    //   });
-
-    //   try {
-    //     await Promise.all(sendInvitesPromises);
-    //     console.log("Emails sent successfully");
-    //     setMessage('Invitations have been sent to all candidates via email');
-    //     showSuccess();
-
-    //   } catch (error) {
-    //     console.error('Error sending invites:', error);
-    //     setMessage('Error sending invites. Please try again later.');
-    //   }
-    // };
     return (
       <>
+        <Head>
+          <title>Job - Recruitinn</title>
+          <meta
+            name="description"
+            content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+          />
+          <meta property="og:title" content="Job - Recruitinn" />
+          <meta
+            property="og:description"
+            content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+          />
+          <meta
+            property="og:image"
+            content="https://app.recruitinn.ai/og-image.jpg"
+          />
+          <meta
+            property="og:url"
+            content={`${
+              process.env.NEXT_PUBLIC_URL
+            }/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${
+              isArabicChosen ? "Arabic" : "English"
+            }`}
+          />
+          <meta property="og:type" content="website" />
+        </Head>
         <div ref={overlayRef} className={styles.parent}>
           {showErrorMessage && (
             <ErrorIndicator
@@ -612,7 +617,8 @@ const Overlay = React.memo(
 
                   {stageHeadings[currentStage] === "Add Skills" ? (
                     <p>
-                      You can add maximum of 4 skills and minimum of 1
+                      Please select at least 1 skill and up to a maximum of 4
+                      skills
                       <span>
                         <Image src="/warning2.svg" width={15} height={15} />
                       </span>
@@ -629,6 +635,8 @@ const Overlay = React.memo(
                 {currentStage === stages.ADD_SKILL && (
                   <>
                     <AddSkillForm
+                      isArabicChosen={isArabicChosen}
+                      setIsArabicChosen={setIsArabicChosen}
                       skill1={skill1}
                       setSkill1={setSkill1}
                       skill2={skill2}
@@ -637,6 +645,8 @@ const Overlay = React.memo(
                       setSkill3={setSkill3}
                       skill4={skill4}
                       setSkill4={setSkill4}
+                      level={level}
+                      setLevel={setLevel}
                       level1={level1}
                       setLevel1={setLevel1}
                       level2={level2}
@@ -684,6 +694,8 @@ const Overlay = React.memo(
                       setDescription={setDescription}
                       setCity={setCity}
                       setCountry={setCountry}
+                      setCustomQuestions={setCustomQuestions}
+                      customQuestions={customQuestions}
                     />
                     <div className={styles.wrapper}>
                       <JobTypeBtns
@@ -707,6 +719,7 @@ const Overlay = React.memo(
                         setMessage={setMessage}
                         onContinue={toggleComponent}
                         onBack={backToggleComponent}
+                        showBackBtn={false}
                       />
                     </div>
                   </>
@@ -715,6 +728,7 @@ const Overlay = React.memo(
                 {currentStage === stages.SHARE_LINK && (
                   <>
                     <ShareLink
+                      language={isArabicChosen ? "Arabic" : "English"}
                       receivers={receivers}
                       removeReceiver={removeReceiver}
                       setReceivers={setReceivers}
@@ -745,17 +759,26 @@ const Overlay = React.memo(
                       setMessage={setMessage}
                       removeEmailReceiver={removeEmailReceiver}
                       positionName={positionName}
+                      interviewCount={interviewCount}
                     />
                     <div className={styles.wrapper}>
+                      <SocialShare
+                        url={`${
+                          process.env.NEXT_PUBLIC_URL
+                        }/invited-candidate?position_id=${positionId}&client_id=${id}&q_id=${questionId}&a_id=${assessmentId}&test_req=${isTestRequired}&language=${
+                          isArabicChosen ? "Arabic" : "English"
+                        }`}
+                      />
                       <ShareLinkBtns
                         showError={showError}
-                        // validateReceivers={validateReceivers}
+                        receivers={receivers}
                         showSuccess={showSuccess}
                         setMessage={setMessage}
                         handleEmailInvite={handleEmailInvite}
                         onContinue={toggleComponent}
                         onBack={backToggleComponent}
                         onClose={onClose}
+                        interviewCount={interviewCount}
                       />
                     </div>
                   </>

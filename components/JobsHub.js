@@ -16,7 +16,7 @@ const JobsHub = ({
   const [newData, setNewData] = useState();
   const hasData = data && data.length > 0;
 
-  console.log("Jobs hub data:", data);
+  //("Jobs hub data:", data);
 
   const getBackgroundColor = (status) => {
     if (status === "Active") {
@@ -32,8 +32,8 @@ const JobsHub = ({
       return "/noteligible.svg";
     }
   };
-  console.log("Data length:", data.length);
-  console.log("Has data:", hasData);
+  //("Data length:", data.length);
+  //("Has data:", hasData);
   const cardClickHandler = (job) => {
     setSelectedJob(job);
     setJobOverlay(true);
@@ -81,7 +81,7 @@ const JobsHub = ({
                       <div className={styles.rightTopBtns}>
                         <span>
                           {item?.applied_candidates_count === 0
-                            ? "No Candidates Yet"
+                            ? "No Candidates"
                             : item?.applied_candidates_count === 1
                             ? item?.applied_candidates_count + " Candidate"
                             : item?.applied_candidates_count + " Candidates"}
@@ -124,6 +124,10 @@ const JobsHub = ({
                     </div>
                     <div className={styles.lowerContainer}>
                       <h4 className={styles.location}>{item?.location}</h4>
+                      <h5 className={styles.location}>
+                        Job Created:{" "}
+                        {new Date(item?.createdAt).toISOString().split("T")[0]}
+                      </h5>
                       <h4
                         className={styles.status}
                         style={{

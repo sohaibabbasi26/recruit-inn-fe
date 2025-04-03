@@ -47,10 +47,10 @@ const AdminLoginOverlay = ({ showError, email, password , setPassword, setEmail,
     }, [showOverlay, onClose])
 
     const router = useRouter();
-    console.log("router object:", router)
+    //("router object:", router)
     const { id } = router?.query;
 
-    console.log('id:', id);
+    //('id:', id);
     const infoSymbolSize = 20;
     const [currentStage, setCurrentStage] = useState(stages.LOG_IN);
     const [completedStages, setCompletedStages] = useState([]);
@@ -74,7 +74,9 @@ const AdminLoginOverlay = ({ showError, email, password , setPassword, setEmail,
 
                             {viewMode === 'login' ? (
                                 <>
-                                    <LoginComp onViewChange={() => setViewMode('forgotPassword')} email={email} setPassword={setPassword} setEmail={setEmail} />
+                                    <LoginComp onViewChange={() => setViewMode('forgotPassword')} email={email} setPassword={setPassword} setEmail={setEmail}
+                                    showSignuplink={false}
+                                    />
                                     <div className={styles.wrapper}>
                                         <LoginBtns showError={showError} password={password} email={email} loginApiCall={loginApiCall} setCompletedStages={setCompletedStages} completedStages={completedStages} />
                                     </div>

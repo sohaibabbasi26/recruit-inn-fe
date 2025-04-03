@@ -1,0 +1,207 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import CheckIconSvg from "../components/CheckIconSvg";
+import bestTalents from "../public/best-talents.png";
+import createAJob from "../public/create-a-job.png";
+import generateAiAssessment from "../public/generate-ai-assessment.png";
+import takeAssessment from "../public/take-assessment.png";
+import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// const content = [
+//   {
+//     title: " ",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Generate AI Assessment",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Take Assessment",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+//   {
+//     title: "Get The Best Talents",
+//     para: "Where you can specify your required skills & expertise",
+//   },
+// ];
+
+function FeaturesSection({ t }) {
+
+  const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
+
+  const [current, setCurrent] = useState(0);
+  const container = useRef(null);
+
+  const content = t("FeaturesSection.FS_content", { returnObjects: true });
+
+  useGSAP(
+    () => {
+      const images = gsap.utils.toArray(".images img");
+      const titles = gsap.utils.toArray(".titles .title");
+
+      images.forEach((img, i) => {
+        ScrollTrigger.create({
+          trigger: img,
+          start: "top 55%",
+          end: "bottom 55%",
+          // Set to false on production
+          //   markers: true,
+          onEnter: () => setCurrent(i),
+          onEnterBack: ({ progress, direction, isActive }) => {
+            setCurrent(i);
+          },
+          // For ref
+          onLeave: ({ progress, direction, isActive }) => {},
+          onLeaveBack: () => setCurrent(i),
+        });
+      });
+
+      ScrollTrigger.create({
+        trigger: ".titles",
+        start: "center center",
+        endTrigger: "#end",
+        end: "center center",
+        pin: true,
+        scrub: true,
+        // set to false on production
+        // markers: true,
+        // animation: tl,
+      });
+    },
+    { dependencies: current, scope: container }
+  );
+
+  return (
+    <section className="my-12 mx-auto w-full features text-center ">
+      <div className="w-90p mx-auto space-y-4 mb-16 heading">
+        <h2  dir={isRTL ? "rtl" : "ltr"} className="text-neutral-dark text-4xl font-bold">
+          {t("FeaturesSection.FS_heading")}
+        </h2>
+        <p dir={isRTL ? "rtl" : "ltr"} className="text-center text-steel text-sm">
+          {t("FeaturesSection.FS_subheading")}
+        </p>
+      </div>
+      <div
+      dir={isRTL ? "rtl" : "ltr"}
+        ref={container}
+        className="w-90p relative max-xl:flex max-xl:items-center max-xl:justify-center grid grid-cols-[max-content_1fr] gap-8 pt-12 pl-12 max-xl:pl-0 mx-auto rounded-3xl carousel bg-white border border-[#F0EDFC]"
+      >
+        <div className="line absolute -top-[3px] left-1/2 -translate-x-1/2 h-4 w-2/3 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-[50%_100%] z-[3] shadow-[0px_-30px_70px_1px_rgba(97,55,219,0.65)]"></div>
+        <div className="try absolute top-0 w-90p left-1/2 -translate-x-1/2 h-[40px] bg-white z-[4] border-t-primary"></div>
+        <div className={`titles h-max  ml-6 `}>
+          {content.map((c, i) => (
+            <AccordianItem
+              current={current}
+              setCurrent={setCurrent}
+              content={c}
+              key={i}
+              num={i}
+              isLast={content.length === i + 1}
+              t={t}
+            />
+          ))}
+        </div>
+        <div className="images relative max-xl:hidden overflow-hidden pl-4 pr-1 pt-3 rounded-tl-[3rem] w-full border-l border-t border-[#F0EDFC]">
+          <div className="relative w-full h-full space-y-24">
+            <Image
+              src={createAJob}
+              className={`h-[29.5rem] block`}
+              alt="Create a job placeholder image"
+              placeholder="blur"
+              quality={100}
+            />
+            <Image
+              src={generateAiAssessment}
+              className={`h-[29.5rem] block`}
+              alt="Create a job placeholder image"
+              placeholder="blur"
+              quality={80}
+            />
+            <Image
+              src={takeAssessment}
+              className={`h-[29.5rem] block`}
+              alt="Create a job placeholder image"
+              placeholder="blur"
+              quality={80}
+            />
+            <Image
+              id="end"
+              src={bestTalents}
+              className={`h-[29.5rem] block`}
+              alt="Create a job placeholder image"
+              placeholder="blur"
+              quality={80}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default FeaturesSection;
+
+function AccordianItem({ content, num, isLast, current, setCurrent, t }) {
+  const isCur = num === current;
+  const isActive = current > num;
+  const { theme } = useTheme();
+  const { i18n } = useTranslation(); // Get i18n instance
+  const isRTL = i18n.dir() === "rtl";
+  return (
+    <div  className="text-left gap-6 title flex items-start justify-start">
+      <div className="progress">
+        <div
+         
+          className={`${isCur ? "border-primary !text-primary" : " "} 
+            ${isActive ? "bg-primary border-primary !text-white" : ""} 
+          icon size-14 rounded-full border border-[#EBEBEB] text-transparent flex items-center justify-center transition duration-500 ease-in-out`}
+        >
+          <CheckIconSvg />
+        </div>
+        {!isLast ? (
+          <div
+         
+            className={` ${
+              isActive
+                ? "!bg-primary bg-gradient-to-b from-primary to-primary"
+                : ""
+            } 
+                ${isCur ? "bg-gradient-to-b from-primary to-[#EBEBEB]" : ""} 
+            line h-16 w-[1.5px] bg-[#EBEBEB] mx-auto`}
+          ></div>
+        ) : null}
+      </div>
+      <div  dir={isRTL ? "rtl" : "ltr"} className="text" onClick={() => setCurrent(num)}>
+        <h3
+          dir={isRTL ? "rtl" : "ltr"}
+          className={`transition-all duration-300  ${isRTL ? "text-right" : ""} ${
+            isCur
+              ? "!text-neutral-dark"
+              : isActive
+              ? "!text-primary"
+              : "text-steel"
+          } font-bold text-3xl`}
+        >
+          {content.title}
+        </h3>
+        <p
+          dir={isRTL ? "rtl" : "ltr"}
+          className={`transition-all duration-300   ${isRTL ? "text-right" : ""} ${
+            isCur ? "text-steel" : "text-[#ACA7BA]"
+          } font-xm`}
+        >
+          {content.para}
+        </p>
+      </div>
+    </div>
+  );
+}

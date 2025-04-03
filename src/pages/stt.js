@@ -22,7 +22,7 @@ const STT = () => {
         let nextIndex = currentQuestionIndex + 1;
         if (nextIndex < questionsList.length) {
             setCurrentQuestionIndex(nextIndex);
-            console.log(questionsList[nextIndex]);
+            //(questionsList[nextIndex]);
             speakQuestion(questionsList[nextIndex]);
             return;
         }

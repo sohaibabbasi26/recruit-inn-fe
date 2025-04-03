@@ -4,9 +4,12 @@ import { useState } from "react";
 
 import { getSvg } from "@/util/helpers";
 import Average from "./Average";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter as nextRouter } from "next/router";
 
 const CandidatesSelfHub = ({
   contact,
+  candidateId,
   isDisable,
   name,
   expertise,
@@ -20,16 +23,17 @@ const CandidatesSelfHub = ({
   appliedThrough,
   experience,
 }) => {
-  console.log("data in candidates Hub:", results);
+  //("data in candidates Hub:", results);
 
   const [recommended, setRecommended] = useState("Recommended");
+  const navigationRouter = useRouter();
   const [data, setData] = useState([]);
   const iconSize = 25;
   const goToAllIconSize = 18;
   const statusSize = 10;
 
   const hasData = results && results?.length > 0;
-  console.log("hasData:", hasData);
+  //("hasData:", hasData);
 
   const getBackgroundColor = (score) => {
     if (score >= 7 && score <= 10) {
@@ -62,7 +66,7 @@ const CandidatesSelfHub = ({
 
   const cardClickHandler = (candidate) => {
     setSelectedCandidate(candidate);
-    setReportOverlay(true);
+    navigationRouter?.push(`report/${candidateId}`);
   };
 
   async function getRedirected() {
@@ -229,7 +233,7 @@ const CandidatesSelfHub = ({
                       />
                       <h2>Welcome, {name} </h2>
                       <p>
-                        Are you ready to take the AI Assessment to stand out
+                        Are you ready to take the AI Interview to stand out
                         amongst other candidates?
                       </p>
                       {!isDisable && (

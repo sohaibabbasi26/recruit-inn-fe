@@ -21,9 +21,35 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 75px 1fr min-content;
+  grid-template-rows: 75px 62px 1fr min-content;
   width: 100%;
+  overflow-y: auto;
   height: 100%;
+}
+
+.masterContainer.dashboard {
+  grid-template-rows: 75px 62px 1fr min-content !important;
+}
+
+/* Scrollbar styles */
+.masterContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.masterContainer::-webkit-scrollbar-thumb {
+  border-radius: 32px;
+  background-color: var(--color-light-grey);
+}
+
+.countContainer {
+  background-color: #f8f7fa;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: bold;
 }
 
 .btnsDiv {
@@ -49,6 +75,8 @@
   align-items: center;
   letter-spacing: 0.5px;
   font-family: "Poppins", sans-serif;
+  margin-top: 12px;
+  margin-bottom: 12px;
   gap: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
@@ -69,6 +97,8 @@
   border: none;
   color: gray;
   border: 1px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 .notificationsBtn :hover {
   /* height: 50px; */

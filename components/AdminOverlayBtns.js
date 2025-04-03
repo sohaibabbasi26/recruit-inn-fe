@@ -18,7 +18,7 @@ const AdminOverlayBtns = ({password ,conformpassword, email, fillValidity, valid
         }
 
         if (password !== conformpassword) {
-            console.log("")
+            //("")
             showError('Password not match');
             return;
         }
@@ -26,7 +26,7 @@ const AdminOverlayBtns = ({password ,conformpassword, email, fillValidity, valid
         await handleFormSubmit();
         onClose();
         setMessage("Client has been created")
-        showSuccess();
+        showSuccess("Client has been created. Invitation has sent to client.........");
     }
 
     const navigationIconSize = 30;

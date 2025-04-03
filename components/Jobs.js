@@ -12,7 +12,7 @@ const Jobs = ({
   setSelectedJob,
   isFor,
 }) => {
-  console.log(`"datta in ${isFor} component:", ${data}`);
+  //(`"datta in ${isFor} component:", ${data}`);
   const { setActiveItem } = useActiveItem();
   const iconSize = 25;
   const goToAllIconSize = 15;
@@ -70,32 +70,40 @@ const Jobs = ({
         </div>
 
         {hasData ? (
-          <div className={styles.jobsContainer}>
-            {newArray.map((item) =>
-              isFor === "jobs" ? (
-                <JobCard
-                  positionCandidates={positionCandidates}
-                  key={item?.position_id}
-                  data={item}
-                  onClick={() => cardClickHandler(item)}
-                  isFor={isFor}
-                />
-              ) : (
-                <CandidateCard
-                  key={item?.position_id}
-                  data={item}
-                  onClick={() => cardClickHandler(item)}
-                  isFor={isFor}
-                />
-              )
-            )}
-          </div>
-        ) : (
-          <div className={styles.tempContainer}>
-            <Image src="/SearchEmpty.gif" width={200} height={200} />
-            <h3>You haven’t posted any jobs yet...</h3>
-          </div>
-        )}
+  <div className={styles.jobsContainer}>
+    {newArray.map((item) =>
+      isFor === "jobs" ? (
+        <JobCard
+          key={item?.position_id}
+          data={item}
+          onClick={() => cardClickHandler(item)}
+          isFor={isFor}
+          positionCandidates={positionCandidates}
+        />
+      ) : (
+        <CandidateCard
+          key={item?.position_id}
+          data={item}
+          onClick={() => cardClickHandler(item)}
+          isFor={isFor}
+        />
+      )
+    )}
+  </div>
+) : (
+  <div className={styles.tempContainer}>
+    <Image src="/SearchEmpty.gif" width={200} height={200} alt="No Data" />
+    <h3>
+      {isFor === "jobs"
+        ? "You haven’t posted any jobs yet..."
+        : "Waiting for the first applicant..."}
+    </h3>
+  </div>
+)}
+
+
+
+
       </div>
     </>
   );

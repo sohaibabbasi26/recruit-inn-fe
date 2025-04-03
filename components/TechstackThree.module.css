@@ -1,0 +1,49 @@
+
+.img {
+    height: 80px;
+    margin: 0 20px;
+    border-radius: 12px;
+   
+  }
+  .imageWrapper {
+    height: 100px; /* Adjust as needed */
+    width: 100px; /* Adjust as needed */
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+
+  }
+  .logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    /* padding: 40px 0; */
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  .logos:before,
+  .logos:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    /* width: 250px; Adjust based on your design */
+    
+    z-index: 2;
+  }
+  
+  .logos-slide {
+    display: flex;
+    animation: 25s slideRight infinite linear;
+  }
+  @keyframes slideRight {
+    0% {
+      transform: translateX(-30%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }

@@ -8,6 +8,9 @@ import { getSvg } from "@/util/helpers";
 import parse from "html-react-parser";
 import BackButton from "./BackButton";
 import { useActiveItem } from "@/contexts/ActiveItemContext";
+import { useRouter } from "next/router";
+import SocialShare from "./SocialShare";
+import Head from "next/head";
 
 const JobOverlay = ({
   getCandidatesByPosition,
@@ -24,10 +27,10 @@ const JobOverlay = ({
   setMessage,
   showSuccess,
   isTestRequired,
+  interviewCount,
 }) => {
-  console.log("selected job data:", selectedJob);
+  //("selected job data:", selectedJob);
   const [techStack, setTechStack] = useState();
-  const [test, setTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const overlayRef = useRef(null);
   const [link, setLink] = useState();
@@ -35,30 +38,31 @@ const JobOverlay = ({
   const iconSize = 20;
   const infoSymbolSize = 10;
   const [jobStatus, setJobStatus] = useState();
-  const [assessmentId, setAssessmentId] = useState();
-  const [codeQues, setCodeQues] = useState();
   const { activeItem, setActiveItem } = useActiveItem();
   // const { activeItem, setActiveItem } = useActiveItem();
   const [clickedItem, setClickedItem] = useState("");
 
   const handleClickAllClient = () => {
     onClose();
-    // handle
-    console.log("Testingggggg");
-    setActiveItem('position');
-}
-
-useEffect(() => {
-    if (selectedJob?.position_id) {
-        console.log("Fetching candidates for position ID:", selectedJob.position_id); // Debugging
-        getCandidatesByPosition(selectedJob.position_id);
-    }
-}, [selectedJob]);
+    //("Testingggggg");
+    setActiveItem("position");
+    //("setting Item to position");
+  };
 
   useEffect(() => {
-    // selectedJob(selectedJob?.position_id);
-    setTechStack(selectedJob?.expertise);
-  }, [selectedJob?.expertise]);
+    if (selectedJob?.position_id) {
+      //(
+      //"Fetching candidates for position ID:",
+      // selectedJob.position_id
+      //); // Debugging
+      getCandidatesByPosition(selectedJob.position_id);
+    }
+  }, [selectedJob]);
+
+  // useEffect(() => {
+  //   // selectedJob(selectedJob?.position_id);
+  //   setTechStack(selectedJob?.expertise);
+  // }, [selectedJob?.expertise]);
 
   async function toggleJobStatus() {
     const newStatus = selectedJob?.status === "Active" ? "Closed" : "Active";
@@ -80,101 +84,13 @@ useEffect(() => {
       );
 
       const data = await response.json();
-      console.log("data updated in the table:", data);
+      //("data updated in the table:", data);
       setJobStatus(newStatus);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
-      console.log("error:", err);
-    }
-  }
-
-  // async function fetchAndCopyAssessmentLink() {
-  //   setIsLoading(true);
-  //   try {
-  //     if (techStack) {
-  //       const reqBody = {
-  //         expertise: techStack,
-  //         position_id: selectedJob?.position_id,
-  //       };
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_REMOTE_URL}/prepare-test`,
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify(reqBody),
-  //         }
-  //       );
-  //       const dataTwo = await response.json();
-
-  //       if (dataTwo?.data?.message?.question_id) {
-  //         setTest(dataTwo);
-  //         console.log("Test data:", dataTwo);
-  //       }
-
-  //       const questionId = dataTwo?.data?.message?.question_id;
-
-  //       if (selectedJob?.is_test_req === true) {
-  //         try {
-  //           const req = {
-
-  //             // codingExpertise: selectedJob?.expertise,
-  //             position_id: selectedJob?.position_id,
-  //           };
-
-  //           console.log("request:", req);
-
-  //           const response = await fetch(
-  //             `${process.env.NEXT_PUBLIC_REMOTE_URL}/get-coding-question`,
-  //             {
-  //               method: "POST",
-  //               headers: {
-  //                 "Content-Type": "application/json",
-  //               },
-  //               body: JSON.stringify(req),
-  //             }
-  //           );
-  //           const data = await response.json();
-  //           console.log(
-  //             "data in job overlay about code question:",
-  //             data?.data?.assessment_id
-  //           );
-
-  //           if (data?.data?.assessment_id) {
-  //             setCodeQues(data);
-  //             setAssessmentId(data?.data?.assessment_id);
-  //             console.log("assessment id:", data?.data?.assessment_id);
-  //             console.log("code question data:", data);
-
-  //             const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&a_id=${data?.data?.assessment_id}&test_req=${selectedJob?.is_test_req}`;
-  //             copyLink(newLink);
-  //           } else {
-  //             console.error("Assessment ID not found in the response.");
-  //           }
-  //         } catch (err) {
-  //           console.error("ERROR:", err);
-  //         }
-  //       } else {
-  //         // If no candidate or test is not required, still generate the link
-  //         const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
-  //         copyLink(newLink);
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.error("error:", err);
-  //   }
-  //   setIsLoading(false);
-  // }
-
-  
-
-  async function copyLink(link) {
-    try {
-      await copyToClipboard(link);
-      setMessage("Your link has been copied");
-      showSuccess();
-    } catch (err) {
-      console.error("Could not copy text: ", err);
+      //("error:", err);
     }
   }
 
@@ -196,24 +112,24 @@ useEffect(() => {
   }
 
   useEffect(() => {
-    console.log("link in useEffect:", link);
+    //("link in useEffect:", link);
   }, [link]);
 
   const handleCopyClick = async () => {
     // Ensure questionId is set correctly before creating the link
-    const newLink = `https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}`;
-    console.log("Generated link:", newLink);
-    
+    const newLink = `${process.env.NEXT_PUBLIC_URL}/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`;
+    //("Generated link:", newLink);
+
     try {
       await copyToClipboard(newLink);
-      console.log("Link copied!");
+      //("Link copied!");
       setMessage("Your link has been copied");
       showSuccess();
     } catch (err) {
       console.error("Could not copy text: ", err);
     }
   };
-  
+
   // Function to copy text to clipboard
   function copyToClipboard(text) {
     if ("clipboard" in navigator) {
@@ -232,7 +148,6 @@ useEffect(() => {
     }
   }
 
-  
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -254,6 +169,7 @@ useEffect(() => {
     }
 
     return () => {
+      document.body.style.overflow = "";
       gsap.to(overlayRef.current, {
         y: "100%",
         opacity: 0,
@@ -281,6 +197,27 @@ useEffect(() => {
 
   return (
     <>
+      <Head>
+        <title>Job - Recruitinn</title>
+        <meta
+          name="description"
+          content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+        />
+        <meta property="og:title" content="Job - Recruitinn" />
+        <meta
+          property="og:description"
+          content="Revolutionize your hiring process with Recruitinn's AI-powered recruitment platform. Discover top talent faster, streamline hiring, and make data-driven decisions with ease. Experience the future of recruitment today!"
+        />
+        <meta
+          property="og:image"
+          content="https://app.recruitinn.ai/og-image.jpg"
+        />
+        <meta
+          property="og:url"
+          content={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
+        />
+        <meta property="og:type" content="website" />
+      </Head>
       <div ref={overlayRef} className={styles.parent}>
         {showErrorMessage && (
           <ErrorIndicator
@@ -336,6 +273,10 @@ useEffect(() => {
                     />
                   </span>
                 </div>
+                <h5>
+                  Job Created :{" "}
+                  {new Date(selectedJob?.createdAt).toISOString().split("T")[0]}
+                </h5>
               </div>
             </div>
             {/* body */}
@@ -343,19 +284,21 @@ useEffect(() => {
               <span
                 onClick={() => {
                   toggleJobStatus();
-                  setMessage(
-                    "Job Status has been changed, refresh to see changes!"
-                  );
+                  setMessage("Job Status has been changed!");
                   showSuccess();
                 }}
               >
-                {selectedJob?.status === "Active" ? "Close Job" : "Open Job"}
+                {selectedJob?.status === "Active"
+                  ? "Close Job"
+                  : "Change job status to open"}
               </span>
               {isLoading ? (
                 <div className={styles.loader}></div>
               ) : (
                 <button
-                  disabled={selectedJob?.status === "Closed"}
+                  disabled={
+                    selectedJob?.status === "Closed" || interviewCount === 0
+                  }
                   onClick={async () => {
                     await handleCopyClick();
                   }}
@@ -363,14 +306,17 @@ useEffect(() => {
                   Copy Assessment Link{" "}
                   <Image src="/copylink.svg" height={25} width={25} />
                 </button>
-              )}
+              )}{" "}
+              <SocialShare
+                url={`https://app.recruitinn.ai/invited-candidate?position_id=${selectedJob?.position_id}&client_id=${selectedJob?.company_id}&q_id=${questionId}&test_req=${selectedJob?.is_test_req}&language=${selectedJob?.language}`}
+              />
             </div>
 
             <div className={styles.description}>
-              <div className={styles.aboutUs}>
+              {/* <div className={styles.aboutUs}>
                 <h3>About us:</h3>
                 <p>[Write about your company] </p>
-              </div>
+              </div> */}
               <div className={styles.jobDescription}>
                 <h3>Job Description</h3>
                 <p>
@@ -416,7 +362,10 @@ useEffect(() => {
             </div>
             <div className={styles.bottomButtons}>
               <BackButton onClose={onClose}>Back</BackButton>
-              <button className={styles.nextButton} onClick={handleClickAllClient}>
+              <button
+                className={styles.nextButton}
+                onClick={handleClickAllClient}
+              >
                 All Candidates{" "}
                 <span>
                   <Image src="/Forward1.svg" height={35} width={35} />

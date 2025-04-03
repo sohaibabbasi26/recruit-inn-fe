@@ -11,7 +11,8 @@ const testSumitCompletion = () => {
   const [candidateName, setCandidateName] = useState();
   const router = useRouter();
   const id = router?.id;
-  console.log("candidate:");
+  const client_id = router?.query?.client_id
+  //("candidate:");
 
   useEffect(() => {
     async function fetchCandidateInfo() {
@@ -27,9 +28,9 @@ const testSumitCompletion = () => {
           }
         );
         const data = await response.json();
-        console.log("candidate data:", data);
+        //("candidate data:", data);
       } catch (err) {
-        console.log("ERR:", err);
+        //("ERR:", err);
       }
     }
 
@@ -44,18 +45,19 @@ const testSumitCompletion = () => {
 
     if (storedTestData) {
       setCandidateId(storedTestData);
-      console.log("candidate id:", candidateId);
+      //("candidate id:", candidateId);
     }
 
-    console.log(candidateNameForTimeBeing);
+    //(candidateNameForTimeBeing);
   }, [candidateId]);
 
   const getActiveComponent = () => {
     const activeFlow = localStorage.getItem("activeFlow");
-    console.log("Current active flow:", activeFlow);
+    //("client_id iss:", client_id);
+    //("Current active flow:", activeFlow);
     switch (activeFlow) {
       case "Candidate_self":
-        console.log(`/candidate/${candidateId}`);
+        //(`/candidate/${candidateId}`);
         return `/candidate/${candidateId}`;
       case "Client":
         return `/`;
