@@ -42,12 +42,12 @@ const AdminTopNavbar = ({
     if (!query) return;
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}&companyId=e03fef44-34b7-4833-93a4-1ef439866712`
+        `${process.env.NEXT_PUBLIC_REMOTE_URL}/client-search?query=${query}&type=${type}`
       );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
-      //("search API:", data);
+      // ("search API:", data);
       setSearchResults(data);
     } catch (error) {
       console.error("Failed to fetch search results:", error);
@@ -122,6 +122,9 @@ const AdminTopNavbar = ({
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+
+
+        
         body: JSON.stringify(requestBody),
       }
     );
