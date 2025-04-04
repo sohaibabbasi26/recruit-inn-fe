@@ -17,6 +17,6 @@ export const makeStore = () =>
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loggerMiddleware),
   });
 
-export const wrapper = createWrapper(makeStore, {debug: false});
+export const wrapper = createWrapper(makeStore, {debug: false}); 
 
 
